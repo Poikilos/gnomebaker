@@ -5,6 +5,7 @@ Version 0.3.1
 * Fix Bugs #1146157 and #1119702, Problems with fix sized, static dialogs.
 * Fix Bug # 1150048	Dropping directories on DVD creation.
 * Fix data cd size typo from 600MB to 650MB.
+* Add 800MB and 90min cd sizes.
 
 Version 0.3
 
