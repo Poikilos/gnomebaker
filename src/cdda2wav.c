@@ -29,43 +29,8 @@
 #include "devices.h"
 
 
-void cdda2wav_pre_proc(void *ex, void *buffer);
-void cdda2wav_read_proc(void *ex, void *buffer);
-
 gint totaltracks = -1;
 gint totaltracksread = 0;
-
-/*
- * Populates the information required to extract audio tracks from an existing
- * audio cd
- */
-void
-cdda2wav_add_copy_args(ExecCmd * e)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(e != NULL);
-	
-	exec_cmd_add_arg(e, "%s", "cdda2wav");
-	exec_cmd_add_arg(e, "%s", "-x");
-	exec_cmd_add_arg(e, "%s", "cddb=1");
-	exec_cmd_add_arg(e, "%s", "-B");
-	exec_cmd_add_arg(e, "%s", "-g");
-	exec_cmd_add_arg(e, "%s", "-Q");
-	exec_cmd_add_arg(e, "%s", "-paranoia");
-	
-	gchar* reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
-	exec_cmd_add_arg(e, "-D%s", reader);
-	g_free(reader);
-	
-	exec_cmd_add_arg(e, "%s", "-Owav");
-	
-	gchar* tmp = preferences_get_string(GB_TEMP_DIR);
-	exec_cmd_add_arg(e, "%s/gbtrack", tmp);
-	g_free(tmp);
-
-	e->preProc = cdda2wav_pre_proc;
-	e->readProc = cdda2wav_read_proc;
-}
 
 
 void
@@ -187,4 +152,37 @@ cdda2wav_read_proc(void *ex, void *buffer)
 	}
 		
 	progressdlg_append_output(text);
+}
+
+
+/*
+ * Populates the information required to extract audio tracks from an existing
+ * audio cd
+ */
+void
+cdda2wav_add_copy_args(ExecCmd * e)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(e != NULL);
+	
+	exec_cmd_add_arg(e, "%s", "cdda2wav");
+	exec_cmd_add_arg(e, "%s", "-x");
+	exec_cmd_add_arg(e, "%s", "cddb=1");
+	exec_cmd_add_arg(e, "%s", "-B");
+	exec_cmd_add_arg(e, "%s", "-g");
+	exec_cmd_add_arg(e, "%s", "-Q");
+	exec_cmd_add_arg(e, "%s", "-paranoia");
+	
+	gchar* reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(e, "-D%s", reader);
+	g_free(reader);
+	
+	exec_cmd_add_arg(e, "%s", "-Owav");
+	
+	gchar* tmp = preferences_get_string(GB_TEMP_DIR);
+	exec_cmd_add_arg(e, "%s/gbtrack", tmp);
+	g_free(tmp);
+
+	e->preProc = cdda2wav_pre_proc;
+	e->readProc = cdda2wav_read_proc;
 }

@@ -40,70 +40,6 @@ shell> echo $NEXT_TRACK
 shell> mkisofs -R -o cd_image2 -C $NEXT_TRACK -M /dev/scd5 private_collection/
 */
 
-void mkisofs_pre_proc(void *ex, void *buffer);
-void mkisofs_read_proc (void *ex, void *buffer);
-gboolean mkisofs_foreach_func(GtkTreeModel *model, GtkTreePath  *path,
-                			GtkTreeIter  *iter, gpointer user_data);
-
-
-gboolean
-mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
-{
-	GB_LOG_FUNC
-	g_return_val_if_fail(e != NULL, FALSE);
-	g_return_val_if_fail(datamodel != NULL, FALSE);
-	g_return_val_if_fail(iso != NULL, FALSE);
-	
-	GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);
-	
-	GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
-	gtk_entry_set_text(created, g_get_real_name());
-	
-	GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
-	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));
-	if(ret == GTK_RESPONSE_OK)
-	{
-		exec_cmd_add_arg(e, "%s", "mkisofs");		
-		exec_cmd_add_arg(e, "-V \"%s\"", gtk_entry_get_text(
-			GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
-		
-		exec_cmd_add_arg(e, "-p \"%s\"", gtk_entry_get_text(created));	
-	/* 	exec_cmd_add_arg(e, "-A \"%s\"", "GnomeBaker");  */
-				
-		exec_cmd_add_arg(e, "%s", "-r");
-		exec_cmd_add_arg(e, "%s", "-f");
-		exec_cmd_add_arg(e, "%s", "-J");
-		/*exec_cmd_add_arg(e, "%s", "-hfs");*/
-		exec_cmd_add_arg(e, "%s", "-gui");
-		exec_cmd_add_arg(e, "%s", "-joliet-long");
-		
-		gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
-		if(msinfo != NULL)
-		{
-			exec_cmd_add_arg(e, "-C %s", msinfo);
-			
-			gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
-			exec_cmd_add_arg(e, "-M %s", writer);
-			g_free(writer);			
-			g_free(msinfo);
-		}		
-		
-		exec_cmd_add_arg(e, "-o%s", iso);
-		/*exec_cmd_add_arg(e, "-o%s", "test.iso");*/
-			
-		exec_cmd_add_arg(e, "%s", "-graft-points");
-		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
-				
-		e->preProc = mkisofs_pre_proc;
-		e->readProc = mkisofs_read_proc;
-	}
-	
-	gtk_widget_hide(dlg);
-	gtk_widget_destroy(dlg);
-	
-	return (ret == GTK_RESPONSE_OK);
-}
-
 
 void
 mkisofs_pre_proc(void *ex, void *buffer)
@@ -193,4 +129,63 @@ mkisofs_foreach_func(GtkTreeModel *model,
 	g_free(filepath);
 	
 	return FALSE; /* do not stop walking the store, call us with next row */
+}
+
+
+gboolean
+mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(e != NULL, FALSE);
+	g_return_val_if_fail(datamodel != NULL, FALSE);
+	g_return_val_if_fail(iso != NULL, FALSE);
+	
+	GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);
+	
+	GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
+	gtk_entry_set_text(created, g_get_real_name());
+	
+	GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
+	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));
+	if(ret == GTK_RESPONSE_OK)
+	{
+		exec_cmd_add_arg(e, "%s", "mkisofs");		
+		exec_cmd_add_arg(e, "-V \"%s\"", gtk_entry_get_text(
+			GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
+		
+		exec_cmd_add_arg(e, "-p \"%s\"", gtk_entry_get_text(created));	
+	/* 	exec_cmd_add_arg(e, "-A \"%s\"", "GnomeBaker");  */
+				
+		exec_cmd_add_arg(e, "%s", "-r");
+		exec_cmd_add_arg(e, "%s", "-f");
+		exec_cmd_add_arg(e, "%s", "-J");
+		/*exec_cmd_add_arg(e, "%s", "-hfs");*/
+		exec_cmd_add_arg(e, "%s", "-gui");
+		exec_cmd_add_arg(e, "%s", "-joliet-long");
+		
+		gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
+		if(msinfo != NULL)
+		{
+			exec_cmd_add_arg(e, "-C %s", msinfo);
+			
+			gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+			exec_cmd_add_arg(e, "-M %s", writer);
+			g_free(writer);			
+			g_free(msinfo);
+		}		
+		
+		exec_cmd_add_arg(e, "-o%s", iso);
+		/*exec_cmd_add_arg(e, "-o%s", "test.iso");*/
+			
+		exec_cmd_add_arg(e, "%s", "-graft-points");
+		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
+				
+		e->preProc = mkisofs_pre_proc;
+		e->readProc = mkisofs_read_proc;
+	}
+	
+	gtk_widget_hide(dlg);
+	gtk_widget_destroy(dlg);
+	
+	return (ret == GTK_RESPONSE_OK);
 }

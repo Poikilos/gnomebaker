@@ -24,14 +24,6 @@
 #include "gbcommon.h"
 #include "preferences.h"
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
-
-
-
-gboolean
-filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
-void 
-filebrowser_on_show_hidden_changed(GConfClient *client, guint cnxn_id,
-                                   GConfEntry *entry, gpointer user_data);
 								   
 
 /* callback id, so we can block it! */
@@ -71,6 +63,59 @@ static const gchar *ROOT_LABEL = "Filesystem";
 static const gchar *HOME_LABEL = "Home";
 static const gchar *EMPTY_LABEL = "(empty)";
 
+
+gboolean
+filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(widget != NULL, FALSE);
+
+	/* look for a right click */	
+	if(event->button == 3)
+	{
+		GtkWidget* menu = gtk_menu_new();		
+		GtkTreeView* view = GTK_TREE_VIEW(widget);
+				
+		if(GTK_IS_TREE_STORE(gtk_tree_view_get_model(view)))
+		{
+			GtkWidget* menuitem = gtk_menu_item_new_with_label("Add directory");	
+			g_signal_connect(menuitem, "activate",
+				(GCallback)gnomebaker_on_add_dir, widget);	
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		}
+		else
+		{
+			GtkWidget* menuitem = gtk_menu_item_new_with_label("Add file(s)");	
+			g_signal_connect(menuitem, "activate",
+				(GCallback)gnomebaker_on_add_files, widget);	
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		}
+			
+		gtk_widget_show_all(menu);
+	
+		/* Note: event can be NULL here when called. However,
+		 *  gdk_event_get_time() accepts a NULL argument */
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+					   (event != NULL) ? event->button : 0,
+					   gdk_event_get_time((GdkEvent*)event));
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+
+void 
+filebrowser_on_show_hidden_changed(GConfClient *client,
+                                   guint cnxn_id,
+                                   GConfEntry *entry,
+                                   gpointer user_data)
+{
+	GB_LOG_FUNC
+	filebrowser_refresh();
+}
 
 
 GString* 
@@ -626,58 +671,4 @@ filebrowser_setup_tree_and_list(
 	filebrowser_setup_list(filelist);
     filebrowser_setup_tree(dirtree, filelist);
     gtk_widget_show_all(GTK_WIDGET(dirtree));
-}
-
-
-gboolean
-filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
-{
-	GB_LOG_FUNC
-	g_return_val_if_fail(widget != NULL, FALSE);
-
-	/* look for a right click */	
-	if(event->button == 3)
-	{
-		GtkWidget* menu = gtk_menu_new();		
-		GtkTreeView* view = GTK_TREE_VIEW(widget);
-				
-		if(GTK_IS_TREE_STORE(gtk_tree_view_get_model(view)))
-		{
-			GtkWidget* menuitem = gtk_menu_item_new_with_label("Add directory");	
-			g_signal_connect(menuitem, "activate",
-				(GCallback)gnomebaker_on_add_dir, widget);	
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-		}
-		else
-		{
-			GtkWidget* menuitem = gtk_menu_item_new_with_label("Add file(s)");	
-			g_signal_connect(menuitem, "activate",
-				(GCallback)gnomebaker_on_add_files, widget);	
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-		}
-			
-		gtk_widget_show_all(menu);
-	
-		/* Note: event can be NULL here when called. However,
-		 *  gdk_event_get_time() accepts a NULL argument */
-		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-					   (event != NULL) ? event->button : 0,
-					   gdk_event_get_time((GdkEvent*)event));
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
-}
-
-
-void 
-filebrowser_on_show_hidden_changed(GConfClient *client,
-                                   guint cnxn_id,
-                                   GConfEntry *entry,
-                                   gpointer user_data)
-{
-	GB_LOG_FUNC
-	filebrowser_refresh();
 }

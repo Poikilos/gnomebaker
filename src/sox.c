@@ -25,9 +25,27 @@
 #include "progressdlg.h"
 
 
-void sox_pre_proc(void *ex, void *buffer);
-void sox_read_proc(void *ex, void *buffer);
+void
+sox_pre_proc(void *ex, void *buffer)
+{	
+	GB_LOG_FUNC
+	
+	g_return_if_fail(ex != NULL);
+	progressdlg_set_status("<b>Converting wav to cd audio...</b>");
+	progressdlg_increment_exec_number();
+}
 
+
+void
+sox_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	
+	g_return_if_fail(ex != NULL);
+	g_return_if_fail(buffer != NULL);
+	
+	progressdlg_append_output(buffer);
+}
 
 
 void 
@@ -61,27 +79,4 @@ sox_add_wav_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 	
 	cmd->preProc = sox_pre_proc;
 	cmd->readProc = sox_read_proc;
-}
-
-
-void
-sox_pre_proc(void *ex, void *buffer)
-{	
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	progressdlg_set_status("<b>Converting wav to cd audio...</b>");
-	progressdlg_increment_exec_number();
-}
-
-
-void
-sox_read_proc(void *ex, void *buffer)
-{
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	g_return_if_fail(buffer != NULL);
-	
-	progressdlg_append_output(buffer);
 }

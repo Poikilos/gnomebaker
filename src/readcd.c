@@ -28,37 +28,8 @@
 #include "gbcommon.h"
 #include "devices.h"
 
-void readcd_pre_proc(void *ex, void *buffer);
-void readcd_read_proc(void *ex, void *buffer);
-void readcd_post_proc(void *ex, void *buffer);
 
 gint totalguchars = -1;
-
-/*
- *  Populates the information required to make an iso from an existing data cd
- */
-void
-readcd_add_copy_args(ExecCmd * e, const gchar* iso)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(e != NULL);
-	g_return_if_fail(iso != NULL);	
-
-	exec_cmd_add_arg(e, "%s", "readcd");
-	
-	gchar* reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
-	exec_cmd_add_arg(e, "dev=%s", reader);	
-	g_free(reader);
-	
-	exec_cmd_add_arg(e, "f=%s", iso);	
-	exec_cmd_add_arg(e, "%s", "-notrunc");
-	exec_cmd_add_arg(e, "%s", "-clone");
-	/*exec_cmd_add_arg(e, "%s", "-silent");*/
-
-	e->preProc = readcd_pre_proc;	
-	e->readProc = readcd_read_proc;
-	e->postProc = readcd_post_proc;
-}
 
 
 void
@@ -157,4 +128,31 @@ readcd_post_proc(void *ex, void *buffer)
 		progressdlg_set_fraction(1.0);
 		progressdlg_set_text("100%");
 	}
+}
+
+
+/*
+ *  Populates the information required to make an iso from an existing data cd
+ */
+void
+readcd_add_copy_args(ExecCmd * e, const gchar* iso)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(e != NULL);
+	g_return_if_fail(iso != NULL);	
+
+	exec_cmd_add_arg(e, "%s", "readcd");
+	
+	gchar* reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(e, "dev=%s", reader);	
+	g_free(reader);
+	
+	exec_cmd_add_arg(e, "f=%s", iso);	
+	exec_cmd_add_arg(e, "%s", "-notrunc");
+	exec_cmd_add_arg(e, "%s", "-clone");
+	/*exec_cmd_add_arg(e, "%s", "-silent");*/
+
+	e->preProc = readcd_pre_proc;	
+	e->readProc = readcd_read_proc;
+	e->postProc = readcd_post_proc;
 }

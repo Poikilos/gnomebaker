@@ -31,57 +31,6 @@
 #include "gbcommon.h"
 
 
-void exec_cmd_init(ExecCmd * e);
-void exec_cmd_end(ExecCmd * e);
-gboolean exec_init(Exec* self, const gint cmds);
-void exec_end(Exec* self);
-
-
-Exec*
-exec_new(const gint cmds)
-{
-	GB_LOG_FUNC
-	
-	Exec* self = g_new(Exec, 1);
-	g_return_val_if_fail(self != NULL, NULL);
-
-	if(!exec_init(self, cmds))
-	{
-		g_free(self->cmds);
-		g_free(self);
-		self = NULL;
-	}
-	
-	return self;
-}
-
-
-void
-exec_delete(Exec * self)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(NULL != self);
-	exec_end(self);
-	g_free(self);
-}
-
-
-void
-exec_end(Exec * self)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(self != NULL);
-	
-	gint j = 0;
-	for(; j < self->cmdCount; j++)
-		exec_cmd_end(&self->cmds[j]);
-
-	g_free(self->cmds);
-	if(self->err != NULL)
-		g_error_free(self->err);
-}
-
-
 gboolean
 exec_init(Exec * self, const gint cmds)
 {
@@ -95,19 +44,6 @@ exec_init(Exec * self, const gint cmds)
 		exec_add_cmd(self);
 
 	return TRUE;
-}
-
-
-ExecCmd* 
-exec_add_cmd(Exec* self)
-{
-	GB_LOG_FUNC	
-	g_return_val_if_fail(self != NULL, NULL);
-	
-	self->cmds = g_realloc(self->cmds, (++self->cmdCount) * sizeof(ExecCmd));
-	ExecCmd* execcmd = &(self->cmds[self->cmdCount - 1]);
-	exec_cmd_init(execcmd);
-	return execcmd;
 }
 
 
@@ -126,6 +62,19 @@ exec_cmd_init(ExecCmd * e)
 	e->preProc = NULL;
 	e->readProc = NULL;
 	e->postProc = NULL;
+}
+
+
+ExecCmd* 
+exec_add_cmd(Exec* self)
+{
+	GB_LOG_FUNC	
+	g_return_val_if_fail(self != NULL, NULL);
+	
+	self->cmds = g_realloc(self->cmds, (++self->cmdCount) * sizeof(ExecCmd));
+	ExecCmd* execcmd = &(self->cmds[self->cmdCount - 1]);
+	exec_cmd_init(execcmd);
+	return execcmd;
 }
 
 
@@ -337,4 +286,49 @@ exec_run_cmd(const gchar* cmd)
 	}
 	
 	return ret;
+}
+
+
+void
+exec_end(Exec * self)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(self != NULL);
+	
+	gint j = 0;
+	for(; j < self->cmdCount; j++)
+		exec_cmd_end(&self->cmds[j]);
+
+	g_free(self->cmds);
+	if(self->err != NULL)
+		g_error_free(self->err);
+}
+
+
+void
+exec_delete(Exec * self)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(NULL != self);
+	exec_end(self);
+	g_free(self);
+}
+
+
+Exec*
+exec_new(const gint cmds)
+{
+	GB_LOG_FUNC
+	
+	Exec* self = g_new(Exec, 1);
+	g_return_val_if_fail(self != NULL, NULL);
+
+	if(!exec_init(self, cmds))
+	{
+		g_free(self->cmds);
+		g_free(self);
+		self = NULL;
+	}
+	
+	return self;
 }
