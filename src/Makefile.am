@@ -43,8 +43,6 @@ gnomebaker_SOURCES = \
 	gbcommon.c\
 	audioinfo.c\
 	audioinfo.h\
-	startdlgdvd.c\
-	startdlgdvd.h\
 	selectdevicedlg.c\
 	selectdevicedlg.h\
 	execfunctions.c\

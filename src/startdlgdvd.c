@@ -55,9 +55,6 @@ startdlgdvd_new(const BurnType burntype)
 	GtkWidget* checkDummyDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_dummy);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkDummyDvd), preferences_get_bool(GB_DUMMY));
 
-	GtkWidget* checkMultisession = glade_xml_get_widget(startdlgdvd_xml,  widget_startdlgdvd_multisession);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkMultisession), preferences_get_bool(GB_MULTI_SESSION));
-
 	GtkWidget* checkEject = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_eject);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkEject), preferences_get_bool(GB_EJECT));
 	
@@ -93,7 +90,6 @@ startdlgdvd_new(const BurnType burntype)
 		case format_dvdrw:
 			/* Luke: should we hide or gray out controls ? */
 			gtk_widget_hide(checkDummyDvd);
-			gtk_widget_hide(checkMultisession);
 			gtk_widget_hide(checkOverburn);
 			gtk_widget_hide(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_reader));
 			gtk_widget_hide(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_readlabel));
@@ -111,7 +107,6 @@ startdlgdvd_new(const BurnType burntype)
 			gtk_widget_hide(checkISOOnly); /*for now, will be added later */
 			gtk_widget_hide(checkDummyDvd); /* growisofs does not support it */
 			gtk_widget_hide(checkBurnFree); /* does growisofs support this ? */
-			gtk_widget_hide(checkMultisession);
 			gtk_widget_hide(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_reader));
 			gtk_widget_set_sensitive(optmenWriteModeDvd,FALSE);
 			gtk_widget_hide(checkForce);
@@ -156,12 +151,6 @@ startdlgdvd_on_ok_clicked(GtkButton * button, gpointer user_data)
 	
 	preferences_set_bool(GB_EJECT, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_eject))));
-	
-	preferences_set_bool(GB_MULTI_SESSION, gtk_toggle_button_get_active(
-		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_multisession))));
-	
-	preferences_set_bool(GB_FAST_BLANK, gtk_toggle_button_get_active(
-		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_fasterase))));
 	
 	preferences_set_bool(GB_BURNFREE, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_burnfree))));

@@ -80,14 +80,7 @@ static const gchar* const widget_startdlg = "startDlg";
 static const gchar* const widget_startdlg_reader = "optmenReader";
 static const gchar* const widget_startdlg_writer = "optmenWriter";
 static const gchar* const widget_startdlg_speed = "spinSpeed";
-static const gchar* const widget_startdlg_dummy = "checkDummy";
-static const gchar* const widget_startdlg_multisession = "checkMultisession";
-static const gchar* const widget_startdlg_eject = "checkEject";
-static const gchar* const widget_startdlg_fasterase = "checkFastErase";
-static const gchar* const widget_startdlg_overburn = "checkOverburn";
 static const gchar* const widget_startdlg_readlabel = "labelReader";
-static const gchar* const widget_startdlg_burnfree = "checkBurnFree";
-static const gchar* const widget_startdlg_isoonly = "checkISOOnly";
 static const gchar* const widget_startdlg_writemode = "optionmenu7";
 static const gchar* const widget_startdlg_modelabel = "label265";
 
@@ -117,23 +110,6 @@ static const gchar* const widget_prefsdlg_devicelist = "treeview12";
 static const gchar* const widget_splashdlg = "splashWnd";
 static const gchar* const widget_splashdlg_label = "splashLabel";
 
-/* Start dialog DVD glade widget names */
-static const gchar* const widget_startdlgdvd = "startDlgDvd";
-static const gchar* const widget_startdlgdvd_reader = "optmenReaderDvd";
-static const gchar* const widget_startdlgdvd_writer = "optmenWriterDvd";
-static const gchar* const widget_startdlgdvd_speed = "spinSpeedDvd";
-static const gchar* const widget_startdlgdvd_dummy = "checkDummyDvd";
-static const gchar* const widget_startdlgdvd_multisession = "checkMultisessionDvd";
-static const gchar* const widget_startdlgdvd_eject = "checkEjectDvd";
-static const gchar* const widget_startdlgdvd_fasterase = "checkFastEraseDvd";
-static const gchar* const widget_startdlgdvd_overburn = "checkOverburnDvd";
-static const gchar* const widget_startdlgdvd_readlabel = "label282";
-static const gchar* const widget_startdlgdvd_burnfree = "checkBurnFreeDvd";
-static const gchar* const widget_startdlgdvd_isoonly = "checkISOOnlyDvd";
-static const gchar* const widget_startdlgdvd_writemode = "optmenWriteModeDvd";
-static const gchar* const widget_startdlgdvd_modelabel = "label288";
-static const gchar* const widget_startdlgdvd_force = "checkForceDvd";
-static const gchar* const widget_startdlgdvd_finalize = "checkFinalizeDvd";
 
 /* Select device dialog widget names */
 static const gchar* const widget_select_writer = "optmenWriter";
