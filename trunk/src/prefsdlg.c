@@ -293,7 +293,7 @@ prefsdlg_populate_device_list()
 	GtkListStore* devicemodel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist)));
 	g_return_if_fail(devicemodel != NULL);
 
-	GSList* devices = preferences_get_key_subkeys(GB_BASE_KEY);
+	GSList* devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
 	GSList* item = devices;	
 	while(item)
 	{
