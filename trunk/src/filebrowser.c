@@ -587,10 +587,8 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 				
 		if(GTK_IS_TREE_STORE(gtk_tree_view_get_model(view)))
 		{
-			GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Add directory"));	
-			g_signal_connect(menuitem, "activate",
-				(GCallback)gnomebaker_on_add_dir, widget);	
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+			gbcommon_append_menu_item_stock(menu, _("_Add directory"), GTK_STOCK_ADD, 
+				(GCallback)gnomebaker_on_add_dir, widget);
 		}
 		else
 		{		

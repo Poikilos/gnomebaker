@@ -291,6 +291,42 @@ audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer use
 }
 
 
+gboolean
+audiocd_add_file(const gchar* filename, GtkTreeModel* model)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(filename != NULL, FALSE);
+	g_return_val_if_fail(model != NULL, FALSE);
+	
+	/* ret is set to true as we want to ignore non audio files. We get a NULL
+	   AudioInfo if the file is not audio */
+	gboolean ret = TRUE;
+	AudioInfo* info = audioinfo_new(filename);
+	if(info != NULL)
+	{
+		ret = audiocd_update_progress_bar(TRUE, (gdouble)info->duration);
+		if(ret)
+		{
+			GdkPixbuf* icon = gbcommon_get_icon_for_mime(info->mimetype, 16);		
+			GB_DECLARE_STRUCT(GtkTreeIter, iter);		
+			gtk_list_store_append(GTK_LIST_STORE(model), &iter);
+			gtk_list_store_set(
+				GTK_LIST_STORE(model), &iter, 
+				AUDIOCD_COL_ICON, icon, 
+				AUDIOCD_COL_FILE, (gchar*)filename, 
+				AUDIOCD_COL_DURATION, info->formattedduration->str,
+				/*AUDIOCD_COL_SIZE, info->filesize,*/
+				AUDIOCD_COL_ARTIST, info->artist->str, 
+				AUDIOCD_COL_ALBUM, info->album->str,
+				AUDIOCD_COL_TITLE, info->title->str, -1);			
+			g_object_unref(icon);
+		}		
+		audioinfo_delete(info);
+	}
+	return ret;
+}
+
+
 void 
 audiocd_add_selection(GtkSelectionData* selection)
 {
@@ -305,40 +341,36 @@ audiocd_add_selection(GtkSelectionData* selection)
 	
 	gnomebaker_show_busy_cursor(TRUE);
 
+	gboolean cont = TRUE;
 	const gchar* file = strtok((gchar*)selection->data, "\n");
-	while(file != NULL)
+	while((file != NULL) && cont)
 	{
 		/* Get the file name that's been dropped and if there's a 
 	   	   file url at the start then strip it off */	
 		gchar* filename = gbcommon_get_local_path(file);		
-		AudioInfo* info = audioinfo_new(filename);
-		if(info != NULL)
+		
+		/* if the file is really a directory then we open it
+		and attempt to add any audio files in the directory */
+		if(g_file_test(filename, G_FILE_TEST_IS_DIR))
 		{
-			if(audiocd_update_progress_bar(TRUE, (gdouble)info->duration))
+			GDir *dir = g_dir_open(filename, 0, NULL);
+			if(dir != NULL)
 			{
-				GdkPixbuf* icon = gbcommon_get_icon_for_mime(info->mimetype, 16);
-				
-				GB_DECLARE_STRUCT(GtkTreeIter, iter);		
-				gtk_list_store_append(GTK_LIST_STORE(model), &iter);
-				gtk_list_store_set(
-					GTK_LIST_STORE(model), &iter, 
-					AUDIOCD_COL_ICON, icon, 
-					AUDIOCD_COL_FILE, (gchar*)filename, 
-					AUDIOCD_COL_DURATION, info->formattedduration->str,
-					/*AUDIOCD_COL_SIZE, info->filesize,*/
-					AUDIOCD_COL_ARTIST, info->artist->str, 
-					AUDIOCD_COL_ALBUM, info->album->str,
-					AUDIOCD_COL_TITLE, info->title->str, -1);
-				
-				g_object_unref(icon);
+				const gchar *name = g_dir_read_name(dir);
+				while((name != NULL) && cont)
+				{
+					gchar* fullname = g_build_filename(filename, name, NULL);
+					if(!g_file_test(fullname, G_FILE_TEST_IS_DIR))
+						cont = audiocd_add_file(fullname, model);
+					g_free(fullname);
+					name = g_dir_read_name(dir);					
+				}
+				g_dir_close(dir);
 			}
-			else
-			{
-				audioinfo_delete(info);
-				break;
-			}
-			
-			audioinfo_delete(info);
+		}
+		else
+		{
+			cont = audiocd_add_file(filename, model);
 		}
 		
 		g_free(filename);		
