@@ -298,18 +298,22 @@ audiocd_add_selection(GtkSelectionData* selection)
 		if(info != NULL)
 		{
 			if(audiocd_update_progress_bar(TRUE, (gdouble)info->duration))
-			{			
+			{
+				GdkPixbuf* icon = gbcommon_get_icon_for_mime(info->mimetype, 16);
+				
 				GB_DECLARE_STRUCT(GtkTreeIter, iter);		
 				gtk_list_store_append(GTK_LIST_STORE(model), &iter);
 				gtk_list_store_set(
 					GTK_LIST_STORE(model), &iter, 
-					AUDIOCD_COL_ICON, GNOME_STOCK_MIDI, 
+					AUDIOCD_COL_ICON, icon, 
 					AUDIOCD_COL_FILE, (gchar*)filename, 
 					AUDIOCD_COL_DURATION, info->formattedduration->str,
 					/*AUDIOCD_COL_SIZE, info->filesize,*/
 					AUDIOCD_COL_ARTIST, info->artist->str, 
 					AUDIOCD_COL_ALBUM, info->album->str,
 					AUDIOCD_COL_TITLE, info->title->str, -1);
+				
+				g_object_unref(icon);
 			}
 			else
 			{
@@ -356,17 +360,17 @@ audiocd_new()
 	
 	/* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(AUDIOCD_NUM_COLS, 
-		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, /*G_TYPE_ULONG,*/
+		GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, /*G_TYPE_ULONG,*/
 		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
-    /*g_object_unref(store);*/
+    g_object_unref(store);
 
 	/* One column which has an icon renderer and text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
     gtk_tree_view_column_set_title(col, _("Track"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(col, renderer, "stock-id", AUDIOCD_COL_ICON, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", AUDIOCD_COL_ICON, NULL);
 	
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);

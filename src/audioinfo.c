@@ -96,7 +96,7 @@ audioinfo_new(const gchar* audiofile)
 {
 	GB_LOG_FUNC
 	
-	AudioInfo* self = g_new(AudioInfo, 1);
+	AudioInfo* self = g_new0(AudioInfo, 1);
 	if(NULL != self)
 	{
 		if(!audioinfo_init(self))
@@ -115,16 +115,16 @@ audioinfo_new(const gchar* audiofile)
 			else
 				g_string_insert(vfsfile, 0, fileurl);
 			
-			gchar* mime = gnome_vfs_get_mime_type(vfsfile->str);
-			g_message( _("mime type is %s for %s %s"), mime, audiofile, vfsfile->str);
-			if(mime != NULL)
+			self->mimetype = gnome_vfs_get_mime_type(vfsfile->str);
+			g_message( _("mime type is %s for %s %s"), self->mimetype, audiofile, vfsfile->str);
+			if(self->mimetype != NULL)
 			{
 				/* Check that the file extension is one we support */			
-				if(g_ascii_strcasecmp(mime, "audio/x-wav") == 0)
+				if(g_ascii_strcasecmp(self->mimetype, "audio/x-wav") == 0)
 					audioinfo_get_wav_info(self, audiofile);				
-				else if(g_ascii_strcasecmp(mime, "audio/x-mp3") == 0)
+				else if(g_ascii_strcasecmp(self->mimetype, "audio/x-mp3") == 0)
 					audioinfo_get_mp3_info(self, audiofile);
-				else if(g_ascii_strcasecmp(mime, "application/ogg") == 0)
+				else if(g_ascii_strcasecmp(self->mimetype, "application/ogg") == 0)
 					audioinfo_get_ogg_info(self, audiofile);
 				/*else if(g_ascii_strcasecmp(mime, "audio/x-flac") == 0);	*/
 				else
@@ -140,8 +140,6 @@ audioinfo_new(const gchar* audiofile)
 					self->duration += 2;
 					audioinfo_set_formatted_length(self);
 				}
-				
-				g_free(mime);
 			}
 			
 			g_string_free(vfsfile, TRUE);
@@ -168,6 +166,7 @@ audioinfo_init(AudioInfo* self)
 	GB_LOG_FUNC
 	g_return_val_if_fail(NULL != self, FALSE);
 
+	self->mimetype = NULL;
 	self->artist = g_string_new("");
 	self->album = g_string_new("");
 	self->title = g_string_new("");
@@ -186,6 +185,7 @@ audioinfo_end(AudioInfo* self)
 	GB_LOG_FUNC
 	g_return_if_fail(NULL != self);
 	
+	g_free(self->mimetype);
 	g_string_free(self->artist, TRUE);
 	g_string_free(self->album, TRUE);
 	g_string_free(self->title, TRUE);

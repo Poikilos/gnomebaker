@@ -121,6 +121,7 @@ filebrowser_on_show_hidden_changed(GConfClient *client,
 	filebrowser_refresh();
 }
 
+
 void
 filebrowser_on_show_humansize_changed(GConfClient *client,
                                    guint cnxn_id,
@@ -145,6 +146,7 @@ filebrowser_on_show_humansize_changed(GConfClient *client,
 	gtk_tree_view_column_set_visible(size_column, !showhumansize);
 	gtk_tree_view_column_set_visible(humansize_column, showhumansize);
 }
+
 
 GString* 
 filebrowser_expand_path(GtkTreeModel* model, GtkTreeIter* iter)
@@ -248,7 +250,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 	/* Now get the full path for the selection */
 	GString* fullpath = filebrowser_expand_path(treemodel, iter);
 	
-	/* Get the directory tree and unref it's model so it sorts faster 		
+	/* Get the directory tree and unref it's model so it sorts faster 
 	GtkTreeView* dirtree = gtk_tree_selection_get_tree_view(selection);
 	g_object_ref(treemodel);
 	gtk_tree_view_set_model(dirtree, NULL);*/
@@ -315,78 +317,47 @@ filebrowser_populate(GtkTreeModel* treemodel,
 						gtk_tree_store_insert_after
 							(GTK_TREE_STORE(treemodel), &sibling, iter, NULL);
 
+						GdkPixbuf* icon = gbcommon_get_icon_for_name("gnome-fs-directory", 16);
 						gtk_tree_store_set(GTK_TREE_STORE(treemodel), &sibling,
-							DT_COL_ICON, GTK_STOCK_OPEN, DT_COL_NAME, name, -1);
+							DT_COL_ICON, icon, DT_COL_NAME, name, -1);
+						g_object_unref(icon);
 
 						GB_DECLARE_STRUCT(GtkTreeIter, siblingchild);
 						gtk_tree_store_insert_after
 							(GTK_TREE_STORE(treemodel), &siblingchild, &sibling, NULL);
 
 						gtk_tree_store_set(GTK_TREE_STORE(treemodel), &siblingchild,
-							DT_COL_ICON, "", DT_COL_NAME, EMPTY_LABEL, -1);
+							DT_COL_ICON, NULL, DT_COL_NAME, EMPTY_LABEL, -1);
 					}
 					/* need this when I improve the list to include dirs */
 					if(filemodel != NULL)
 					{
 						GB_DECLARE_STRUCT(GtkTreeIter, iterRight);
 						gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);
+						GdkPixbuf* icon = gbcommon_get_icon_for_name("gnome-fs-directory", 16);
 						gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
-							FL_COL_ICON, GTK_STOCK_OPEN, FL_COL_NAME, name,
+							FL_COL_ICON, icon, FL_COL_NAME, name,
 							FL_COL_TYPE, DIRECTORY, FL_COL_SIZE, (guint64)4, FL_COL_HUMANSIZE, "4 B", -1);
+						g_object_unref(icon);
 					}
 				}
 				/* It's a file */
 				else if((s.st_mode & S_IFREG) && (filemodel != NULL))
-				{
-#ifdef __linux__					
+				{			
 					/* We stored the right hand file list as user data when 
 					   when we set up the directory tree selection changed func */					
 					GB_DECLARE_STRUCT(GtkTreeIter, iterRight);					
 					gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);
 					gchar* mime = gnome_vfs_get_mime_type(fullname);
 					gchar* humansize = gbcommon_humanreadable_filesize(s.st_size);
+					GdkPixbuf* icon = gbcommon_get_icon_for_mime(mime, 16);
 					gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
-						FL_COL_ICON, GTK_STOCK_DND, FL_COL_NAME, name,
-						FL_COL_TYPE, mime, FL_COL_SIZE, (guint64)s.st_size, FL_COL_HUMANSIZE, humansize, -1);					
+						FL_COL_ICON, icon, FL_COL_NAME, name,
+						FL_COL_TYPE, mime, FL_COL_SIZE, (guint64)s.st_size, 
+						FL_COL_HUMANSIZE, humansize, -1);
+					g_object_unref(icon);
 					g_free(mime);
 					g_free(humansize);
-#else
-					/* BSD users have reported crashes here so they get a special
-					version with extra debugging info so maybe I'll be able to fix it */
-					GB_DECLARE_STRUCT(GtkTreeIter, iterRight);					
-					gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);
-					
-					g_print(_("*** iter is [%s]\n"), gtk_list_store_iter_is_valid(
-						GTK_LIST_STORE(filemodel), &iterRight) ? _("valid") : _("invalid"));
-					
-					GValue val = {0};
-					g_value_init(&val, G_TYPE_STRING);
-					g_value_set_string(&val, GTK_STOCK_DND);
-					
-					g_print(_("*** model [%p]\n"), filemodel);
-					
-					gtk_list_store_set_value(GTK_LIST_STORE(filemodel), &iterRight, FL_COL_ICON, &val);					
-					g_value_set_string(&val, name);
-					gtk_list_store_set_value(GTK_LIST_STORE(filemodel), &iterRight, FL_COL_NAME, &val);
-					
-					g_print(_("*** name [%s]\n"), name);
-					
-					gchar* mime = gnome_vfs_get_mime_type(fullname);
-					g_value_set_string(&val, mime);
-					
-					gtk_list_store_set_value(GTK_LIST_STORE(filemodel), &iterRight, FL_COL_TYPE, &val);					
-					
-					g_print(_("*** mime [%s]\n"), mime);					
-					g_free(mime);
-					
-					g_value_unset(&val);
-					g_value_init(&val, G_TYPE_ULONG);
-					g_value_set_ulong(&val, s.st_size);
-					gtk_list_store_set_value(GTK_LIST_STORE(filemodel), &iterRight, FL_COL_SIZE, &val);
-					g_value_unset(&val);
-					
-					g_print(_("*** size [%ld]\n"), s.st_size);
-#endif					
 				}
 			}
 			else
@@ -601,9 +572,7 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 		
 	filebrowser_foreach_fileselection(model, path, &iter, selection);
 	g_strstrip(selection->str);
-	const gchar* name = g_basename(selection->str);
-	g_message(_("%s was double clicked"), selection->str);
-	
+	const gchar* name = g_basename(selection->str);	
 	if(g_file_test(selection->str, G_FILE_TEST_IS_DIR))
 	{
 		GtkTreeView* dirtree = 
@@ -636,8 +605,7 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 				g_free(val);
 			}
 			while(gtk_tree_model_iter_next(treemodel, &childiter));
-		}
-		
+		}		
 	}
 	else
 	{
@@ -671,7 +639,7 @@ filebrowser_setup_tree(
 	g_return_if_fail(filelist != NULL);
 	
 	/* Create the tree store for the dir tree */
-    GtkTreeStore *store = gtk_tree_store_new(DT_NUM_COLS, G_TYPE_STRING, G_TYPE_STRING);
+    GtkTreeStore *store = gtk_tree_store_new(DT_NUM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING);
     gtk_tree_view_set_model(dirtree, GTK_TREE_MODEL(store));
 	gtk_tree_sortable_set_sort_column_id(
 		GTK_TREE_SORTABLE(store), DT_COL_NAME, GTK_SORT_ASCENDING);
@@ -684,7 +652,7 @@ filebrowser_setup_tree(
 	gtk_tree_view_column_set_sort_order(col, GTK_SORT_ASCENDING);*/
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(col, renderer, "stock-id", DT_COL_ICON, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", DT_COL_ICON, NULL);
 
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -699,17 +667,21 @@ filebrowser_setup_tree(
 		G_CALLBACK(filebrowser_on_drag_data_get), store);
 
 	/* Add in a root file system label as the base of our tree */
+	GdkPixbuf* icon = gbcommon_get_icon_for_name("gnome-dev-harddisk", 16);
 	GB_DECLARE_STRUCT(GtkTreeIter, rootiter);
     gtk_tree_store_append(store, &rootiter, NULL);
-    gtk_tree_store_set(store, &rootiter, DT_COL_ICON, GTK_STOCK_HARDDISK, DT_COL_NAME, ROOT_LABEL, -1);		
-	
+    gtk_tree_store_set(store, &rootiter, DT_COL_ICON, icon, DT_COL_NAME, ROOT_LABEL, -1);		
+	g_object_unref(icon);
+
 	/* Add in a home label as the base of our tree */
 	GB_DECLARE_STRUCT(GtkTreeIter, homeiter);
+	icon = gbcommon_get_icon_for_name("gnome-fs-home", 16);
     gtk_tree_store_append(store, &homeiter, NULL);
 	const gchar* username = g_get_user_name();
 	HOME_LABEL = g_strdup_printf(_("%s's home"), username);
-    gtk_tree_store_set(store, &homeiter, DT_COL_ICON, GTK_STOCK_HOME, DT_COL_NAME, HOME_LABEL, -1);	
-		
+    gtk_tree_store_set(store, &homeiter, DT_COL_ICON, icon, DT_COL_NAME, HOME_LABEL, -1);	
+	g_object_unref(icon);
+
 	/* now give the right hand file list a reference to the left hand dir tree.
        We do this so when we drag a file from the right hand list we can fully
 	   expand the path */
@@ -756,7 +728,7 @@ filebrowser_setup_list(
 	
 	/* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(
-		FL_NUM_COLS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING);
+		FL_NUM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
 	
 	gtk_tree_sortable_set_default_sort_func(
@@ -772,7 +744,7 @@ filebrowser_setup_list(
     gtk_tree_view_column_set_title(col, _("File"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(col, renderer, "stock-id", FL_COL_ICON, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", FL_COL_ICON, NULL);
 
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);

@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "selectdevicedlg.h"
+#include <libgnomevfs/gnome-vfs-mime-utils.h>
 
 gint datadisksize = 0;
 
@@ -188,13 +189,23 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 			GB_DECLARE_STRUCT(GtkTreeIter, iter);
 			gtk_list_store_append(liststore, &iter);						
 			gchar* basename = g_path_get_basename(filename);
-						
-			gtk_list_store_set(liststore, &iter, DATACD_COL_ICON, 
-				existingsession ? DATACD_EXISTING_SESSION_ICON : 
-					((s.st_mode & S_IFDIR) ? GTK_STOCK_OPEN : GTK_STOCK_DND), 
-				DATACD_COL_FILE, basename, DATACD_COL_SIZE, size, DATACD_COL_HUMANSIZE, gbcommon_humanreadable_filesize(size),
-				DATACD_COL_PATH, filename, -1);
 			
+			GdkPixbuf* icon = NULL;
+			if(existingsession) 
+			{
+				icon = gbcommon_get_icon_for_name("gnome-dev-cdrom", 16);
+			} 
+			else 
+			{
+				gchar* mime = gnome_vfs_get_mime_type(filename);
+				icon = gbcommon_get_icon_for_mime(mime, 16);
+				g_free(mime);
+			}
+			gtk_list_store_set(liststore, &iter, DATACD_COL_ICON, icon,	DATACD_COL_FILE, basename, 
+				DATACD_COL_SIZE, size, DATACD_COL_HUMANSIZE, gbcommon_humanreadable_filesize(size),
+				DATACD_COL_PATH, filename, DATACD_COL_SESSION, existingsession, -1);
+			
+			g_object_unref(icon);
 			g_free(basename);
 		}
 		else
@@ -302,10 +313,9 @@ datacd_remove()
 				GB_DECLARE_STRUCT(GtkTreeIter, iter);
 				if (gtk_tree_model_get_iter(filemodel, &iter, path))
 				{					
-					GValue iconvalue = { 0 };
-					gtk_tree_model_get_value(filemodel, &iter, DATACD_COL_ICON, &iconvalue);
-					const gchar* icon = g_value_get_string(&iconvalue);
-					if(g_ascii_strcasecmp(icon, DATACD_EXISTING_SESSION_ICON) != 0)
+					GValue sessionvalue = { 0 };
+					gtk_tree_model_get_value(filemodel, &iter, DATACD_COL_SESSION, &sessionvalue);
+					if(g_value_get_boolean(&sessionvalue))
 					{										
 						GValue value = { 0 };
 						gtk_tree_model_get_value(filemodel, &iter, DATACD_COL_SIZE, &value);
@@ -315,7 +325,7 @@ datacd_remove()
 						g_value_unset(&value);	
 						gtk_list_store_remove(GTK_LIST_STORE(filemodel), &iter);
 					}
-					g_value_unset(&iconvalue);	
+					g_value_unset(&sessionvalue);
 				}			
 				/* FIXME/CHECK: Do we need to free the path here? */
 			}
@@ -439,8 +449,8 @@ datacd_new()
 	g_return_if_fail(filelist != NULL);
 	
 	/* Create the list store for the file list */
-    GtkListStore *store = gtk_list_store_new(DATACD_NUM_COLS, G_TYPE_STRING, 
-			G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING);
+    GtkListStore *store = gtk_list_store_new(DATACD_NUM_COLS, GDK_TYPE_PIXBUF, 
+			G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
     g_object_unref(store);
 
@@ -449,7 +459,7 @@ datacd_new()
     gtk_tree_view_column_set_title(col, _("Contents"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(col, renderer, "stock-id", DATACD_COL_ICON, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", DATACD_COL_ICON, NULL);
 	
 	GValue value = { 0 };
 	g_value_init(&value, G_TYPE_BOOLEAN);
@@ -493,6 +503,16 @@ datacd_new()
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_PATH, NULL);
 	gtk_tree_view_append_column(filelist, col);
 	
+	/* Fifth column for the session bool */
+	col = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_title(col, _("Session"));
+	renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_SESSION, NULL);
+	gtk_tree_view_column_set_visible(col, FALSE);
+	gtk_tree_view_append_column(filelist, col);
+
+
 	/* Set the selection mode of the file list */
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist),
 		GTK_SELECTION_MULTIPLE /*GTK_SELECTION_BROWSE*/);

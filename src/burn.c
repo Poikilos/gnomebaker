@@ -193,13 +193,14 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 		gchar* file = NULL;
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
-			GtkWidget *filesel = gtk_file_selection_new(_("Please select an iso file to save to..."));	
-			gtk_file_selection_set_select_multiple(GTK_FILE_SELECTION(filesel), FALSE);
-			gtk_file_selection_set_filename(GTK_FILE_SELECTION(filesel), "gnomebaker.iso");
+			GtkWidget *filesel = gtk_file_chooser_dialog_new(
+				_("Please select an iso file to save to..."), NULL, GTK_FILE_CHOOSER_ACTION_SAVE, 
+				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);			
+			gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
 		
 			if((ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)))
 			{
-				file = g_strdup(gtk_file_selection_get_filename(GTK_FILE_SELECTION(filesel)));		
+				file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));		
 				burnargs = exec_new(1);			
 			}
 			

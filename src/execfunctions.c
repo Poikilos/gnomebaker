@@ -585,22 +585,20 @@ mkisofs_foreach_func(GtkTreeModel *model,
                 gpointer      user_data)
 {
 	GB_LOG_FUNC
-	gchar *icon, *file, *filepath;
-	glong size;
+	gchar *file = NULL, *filepath = NULL;
+	gboolean existingsession = FALSE;
 		
-	gtk_tree_model_get (model, iter, DATACD_COL_ICON, &icon, DATACD_COL_FILE, &file,
-		DATACD_COL_SIZE, &size, DATACD_COL_PATH, &filepath, -1);
+	gtk_tree_model_get (model, iter, DATACD_COL_FILE, &file,
+		DATACD_COL_PATH, &filepath, DATACD_COL_SESSION, &existingsession, -1);
 	
 	/* Only add files that are not part of an existing session */
-	if(g_ascii_strcasecmp(icon, DATACD_EXISTING_SESSION_ICON) != 0)
+	if(!existingsession)
 	{
-		g_message( "%s %ld %s", file, size, filepath);
-		
 		gchar* buffer = g_strdup_printf("%s=%s", file, filepath);		
 		exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);	
 		g_free(buffer);
 	}
-	g_free(icon);	
+
 	g_free(file);	
 	g_free(filepath);
 	
@@ -896,23 +894,20 @@ growisofs_foreach_func(GtkTreeModel *model,
                 gpointer      user_data)
 {
 	GB_LOG_FUNC
-	gchar *icon, *file, *filepath;
-	glong size;
+	gchar *file = NULL, *filepath = NULL;
+	gboolean existingsession = FALSE;
 		
-	gtk_tree_model_get (model, iter, DATACD_COL_ICON, &icon, DATACD_COL_FILE, &file,
-		DATACD_COL_SIZE, &size, DATACD_COL_PATH, &filepath, -1);
+	gtk_tree_model_get (model, iter, DATACD_COL_FILE, &file,
+		DATACD_COL_PATH, &filepath, DATACD_COL_SESSION, &existingsession, -1);
 	
 	/* Only add files that are not part of an existing session */
-	if(g_ascii_strcasecmp(icon, DATACD_EXISTING_SESSION_ICON) != 0)
-	{	
-		g_message( "%s %ld %s", file, size, filepath);
-		
+	if(!existingsession)
+	{
 		gchar* buffer = g_strdup_printf("%s", filepath);		
 		exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);
 		g_free(buffer);
 	}	
 	
-	g_free(icon);	
 	g_free(file);	
 	g_free(filepath);
 	

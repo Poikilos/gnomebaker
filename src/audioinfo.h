@@ -21,9 +21,10 @@
 
 typedef struct 
 {
+	gchar* mimetype;
 	GString* artist;
 	GString* album;
-	GString* title;
+	GString* title;	
 	gulong duration;
 	size_t filesize;
 	gulong bitrate;

@@ -231,13 +231,12 @@ gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection
 }
 
 gchar*
-gbcommon_humanreadable_filesize(gulong size)
+gbcommon_humanreadable_filesize(guint64 size)
 {
 	GB_LOG_FUNC
 	gchar* ret = NULL;
 	const gchar* unit_list[5] = {"B ", "KB", "MB", "GB", "TB"};
 	gint unit = 0;
-
 	gdouble human_size = (gdouble) size;
 	
 	while(human_size > 1024) 
@@ -249,7 +248,34 @@ gbcommon_humanreadable_filesize(gulong size)
 	if((human_size - (gulong)human_size) > 0.1)
 		ret = g_strdup_printf("%.2f %s", human_size, unit_list[unit]);
 	else
-		ret = g_strdup_printf("%.0f %s", human_size, unit_list[unit]);
-	
+		ret = g_strdup_printf("%.0f %s", human_size, unit_list[unit]);	
 	return ret;
+}
+
+
+GdkPixbuf*
+gbcommon_get_icon_for_mime(const gchar* mime, gint size)
+{
+	GB_LOG_FUNC	
+	GtkIconTheme* theme = gtk_icon_theme_get_default();
+	g_return_val_if_fail(theme != NULL, NULL);
+
+	gchar* icon_name = gnome_icon_lookup(
+		theme ,NULL, NULL, NULL, NULL, mime, GNOME_ICON_LOOKUP_FLAGS_NONE, NULL);
+	GdkPixbuf* ret = gtk_icon_theme_load_icon(theme, icon_name, size, 0, NULL);
+	g_free(icon_name);
+
+	if (ret == NULL) 
+		ret = gbcommon_get_icon_for_name("gnome-fs-regular", size);
+	return ret;
+}
+
+
+GdkPixbuf*
+gbcommon_get_icon_for_name(const gchar* icon, gint size)
+{
+	GB_LOG_FUNC
+	GtkIconTheme* theme = gtk_icon_theme_get_default();
+	g_return_val_if_fail(theme != NULL, NULL);
+	return gtk_icon_theme_load_icon(theme, icon, 16, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
 }
