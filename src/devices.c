@@ -154,10 +154,13 @@ devices_get_device_config(const gchar* devicekey, const gchar* deviceitem)
 
 
 void
-devices_populate_optionmenu(GtkWidget* option_menu, const gchar* defaultselect)
+devices_populate_optionmenu(GtkWidget* option_menu, const gchar* devicekey)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(option_menu != NULL);
+	g_return_if_fail(devicekey != NULL);
+	
+	gchar* defaultselect = preferences_get_string(devicekey);
 																																		   
 	GtkWidget* menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(option_menu));
 	if(menu != NULL)
@@ -179,10 +182,12 @@ devices_populate_optionmenu(GtkWidget* option_menu, const gchar* defaultselect)
 			gtk_widget_show(menuitem);
 			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 			
-			gchar* devkeyid = g_strrstr(devicekey, defaultselect);
-			if(devkeyid != NULL)
-				history = index;
-			
+			if(defaultselect != NULL)
+			{
+				gchar* devkeyid = g_strrstr(devicekey, defaultselect);
+				if(devkeyid != NULL)
+					history = index;
+			}
 			g_free(devicename);
 		}
 		
@@ -197,6 +202,22 @@ devices_populate_optionmenu(GtkWidget* option_menu, const gchar* defaultselect)
 	
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(option_menu), menu);	
 	gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), history);
+	
+	g_free(defaultselect);
+}
+
+
+void 
+devices_save_optionmenu(GtkOptionMenu* optmen, const gchar* devicekey)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(optmen != NULL);
+	g_return_if_fail(devicekey != NULL);
+	
+	gint index = gtk_option_menu_get_history(optmen);
+	gchar* device = g_strdup_printf(GB_DEVICE_FORMAT, index + 1);
+	preferences_set_string(devicekey, device);
+	g_free(device);
 }
 
 
@@ -598,7 +619,6 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 	
 	return ok;
 }
-
 
 
 	/* Get the kernel version so that we can figure out what to scan 

@@ -11,11 +11,6 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-AM_CPPFLAGS = $(DEPS_CFLAGS) \
-	      -DLOCALE_DIR=\""$(datadir)/locale"\" \
-	      -DPIXMAPS_DIR=\""$(datadir)/pixmaps"\"
-
-
 bin_PROGRAMS = gnomebaker
 
 gnomebaker_SOURCES = \
@@ -65,7 +60,9 @@ gnomebaker_SOURCES = \
 	dvdfunctions.c\
 	dvdfunctions.h\
 	startdlgdvd.c\
-	startdlgdvd.h
+	startdlgdvd.h\
+	selectdevicedlg.c\
+	selectdevicedlg.h
 
 gnomebaker_LDFLAGS = 
 

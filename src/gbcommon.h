@@ -42,6 +42,8 @@ gulong gbcommon_calc_dir_size(const gchar* dirname);
 gchar* gbcommon_tidy_nautilus_dnd_file(const gchar* file);
 void gbcommon_mkdir(const gchar* dir);
 gchar** gbcommon_get_file_as_list(const gchar* file);
+gchar* gbcommon_get_option_menu_selection(GtkOptionMenu* optmen);
+void gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection);
 
 /* defined in main.c */
 extern const gchar* glade_file;
@@ -132,6 +134,11 @@ static const gchar* const widget_startdlgdvd_writemode = "optmenWriteModeDvd";
 static const gchar* const widget_startdlgdvd_modelabel = "label288";
 static const gchar* const widget_startdlgdvd_force = "checkForceDvd";
 static const gchar* const widget_startdlgdvd_finalize = "checkFinalizeDvd";
+
+/* Select device dialog widget names */
+static const gchar* const widget_select_writer = "optmenWriter";
+static const gchar* const widget_select_device_dlg = "selectDeviceDlg";
+
 
 
 #define GB_LOG_FUNC											\

@@ -45,6 +45,6 @@ void devices_write_device_to_gconf(const gint devicenumber, const gchar* devicen
 	const gchar* deviceid, const gchar* devicenode, const gchar* mountpoint,
 	const gint capabilities);
 gboolean devices_mount_device(const gchar* devicekey, gchar** mountpoint);
-
+void devices_save_optionmenu(GtkOptionMenu* optmen, const gchar* devicekey);
 
 #endif	/*_DEVICES_H_*/
