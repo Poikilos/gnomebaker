@@ -42,6 +42,20 @@ static const guint ypad = 0;
 #define TABLE_ATTACH_OPTIONS 			\
 	GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, xpad, ypad	\
 
+
+
+void 
+startdlg_create_iso_toggled(GtkToggleButton* togglebutton, gpointer user_data)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(togglebutton != NULL);
+	gboolean state = gtk_toggle_button_get_active(togglebutton);
+	gtk_widget_set_sensitive(checkDummy, !state);
+	gtk_widget_set_sensitive(checkEject, !state);
+	gtk_widget_set_sensitive(checkBurnFree, !state);
+}
+
+
 void 
 startdlg_populate_device_combos()
 {
@@ -88,6 +102,7 @@ startdlg_new(const BurnType burntype)
 	checkFastErase = startdlg_create_check_button(_("Fast blank"), GB_FAST_BLANK);		
 	checkBurnFree = startdlg_create_check_button(_("BurnFree"), GB_BURNFREE);	
 	checkISOOnly = startdlg_create_check_button(_("Create ISO only"), GB_CREATEISOONLY);	
+	g_signal_connect(G_OBJECT(checkISOOnly), "toggled", (GCallback)startdlg_create_iso_toggled, NULL);
 	checkForce = startdlg_create_check_button(_("Force"), GB_FORCE);		
 	checkFinalize = startdlg_create_check_button(_("Finalize"), GB_FINALIZE);	
 	
@@ -133,6 +148,7 @@ startdlg_new(const BurnType burntype)
 			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);		
 			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
 			gtk_table_attach(table, checkISOOnly, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);		
+			g_signal_emit_by_name(checkISOOnly, "toggled", checkISOOnly, NULL);
 			break;
 		case copy_audio_cd:
 			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
@@ -144,6 +160,7 @@ startdlg_new(const BurnType burntype)
 			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);		
 			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
 			gtk_table_attach(table, checkISOOnly, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);		
+			g_signal_emit_by_name(checkISOOnly, "toggled", checkISOOnly, NULL);
 			break;
 		case format_dvdrw:
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));
