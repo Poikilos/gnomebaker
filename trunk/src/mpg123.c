@@ -10,9 +10,52 @@
 #include "progressdlg.h"
 
 
-void mpg123_pre_proc(void *ex, void *buffer);
-void mpg123_read_proc(void *ex, void *buffer);
+void
+mpg123_pre_proc(void *ex, void *buffer)
+{	
+	GB_LOG_FUNC
+	
+	g_return_if_fail(ex != NULL);
+	progressdlg_set_status("<b>Converting mp3 to cd audio...</b>");
+	progressdlg_increment_exec_number();
+}
 
+
+void
+mpg123_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	
+	g_return_if_fail(ex != NULL);
+	g_return_if_fail(buffer != NULL);
+/*	
+	const gchar* frame = strstr(buffer, "Frame#");
+	if(frame != NULL)
+	{
+		guint current, total;
+		if(sscanf(frame, "%*s\t%d/%d", &current, &total) > 0)
+		{
+			g_message("track [%d] [%d]", current, total);		
+			progressdlg_set_fraction((gfloat)current/(gfloat)total);
+		}
+	}
+	else
+	{
+		progressdlg_append_output(buffer);
+	}
+*/
+	const gchar* frame = strstr(buffer, "Frame#");
+	if(frame != NULL)
+	{
+		guint current, remaining;		
+		if(sscanf(frame, "%*s\t%d [%d]", &current, &remaining) > 0)
+			progressdlg_set_fraction((gfloat)current/(gfloat)(current + remaining));
+	}
+	else
+	{
+		progressdlg_append_output(buffer);
+	}	
+}
 
 
 void 
@@ -60,52 +103,4 @@ mpg123_add_mp3_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 	
 	cmd->preProc = mpg123_pre_proc;
 	cmd->readProc = mpg123_read_proc;
-}
-
-
-void
-mpg123_pre_proc(void *ex, void *buffer)
-{	
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	progressdlg_set_status("<b>Converting mp3 to cd audio...</b>");
-	progressdlg_increment_exec_number();
-}
-
-
-void
-mpg123_read_proc(void *ex, void *buffer)
-{
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	g_return_if_fail(buffer != NULL);
-/*	
-	const gchar* frame = strstr(buffer, "Frame#");
-	if(frame != NULL)
-	{
-		guint current, total;
-		if(sscanf(frame, "%*s\t%d/%d", &current, &total) > 0)
-		{
-			g_message("track [%d] [%d]", current, total);		
-			progressdlg_set_fraction((gfloat)current/(gfloat)total);
-		}
-	}
-	else
-	{
-		progressdlg_append_output(buffer);
-	}
-*/
-	const gchar* frame = strstr(buffer, "Frame#");
-	if(frame != NULL)
-	{
-		guint current, remaining;		
-		if(sscanf(frame, "%*s\t%d [%d]", &current, &remaining) > 0)
-			progressdlg_set_fraction((gfloat)current/(gfloat)(current + remaining));
-	}
-	else
-	{
-		progressdlg_append_output(buffer);
-	}	
 }

@@ -25,13 +25,6 @@
 #include <glib/gprintf.h>
 
 
-void progressdlg_on_stop(GtkButton* button, gpointer user_data);
-void progressdlg_on_close(GtkButton* button, gpointer user_data);
-void progressdlg_on_output(GtkButton* button, gpointer user_data);
-gboolean progressdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data);
-gboolean progressdlg_pulse_ontimer(gpointer userdata);
-
-
 GladeXML* progdlg_xml = NULL;
 GtkProgressBar* progbar = NULL;
 GtkTextView* textview = NULL;
@@ -230,6 +223,21 @@ progressdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data)
 }
 
 
+gboolean 
+progressdlg_pulse_ontimer(gpointer userdata)
+{
+	/*GB_LOG_FUNC*/
+	g_return_val_if_fail(progbar != NULL, TRUE);
+	
+	gdk_threads_enter();
+	gtk_progress_bar_pulse(progbar);	
+	gdk_flush();
+	gdk_threads_leave();	
+	
+	return TRUE;
+}
+
+
 void 
 progressdlg_pulse_start()
 {
@@ -247,21 +255,6 @@ progressdlg_pulse_stop()
 	GB_LOG_FUNC
 	gtk_timeout_remove(timertag);
 	timertag = 0;
-}
-
-
-gboolean 
-progressdlg_pulse_ontimer(gpointer userdata)
-{
-	/*GB_LOG_FUNC*/
-	g_return_val_if_fail(progbar != NULL, TRUE);
-	
-	gdk_threads_enter();
-	gtk_progress_bar_pulse(progbar);	
-	gdk_flush();
-	gdk_threads_leave();	
-	
-	return TRUE;
 }
 
 

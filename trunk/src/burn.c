@@ -43,14 +43,6 @@
 Exec *burnargs = NULL;
 
 
-gboolean burn_start_process();
-const gint burn_show_start_dlg(const BurnType burntype);
-void burn_end_proc(void *ex, void *data);
-gboolean 
-burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
-                			GtkTreeIter  *iter, gpointer user_data);
-
-
 /*
  * Initialises the burn functions and controls.
  */
@@ -60,6 +52,117 @@ burn_init()
 	GB_LOG_FUNC
 	return TRUE;
 }
+
+
+/*
+ *
+ */
+const gint
+burn_show_start_dlg(const BurnType burntype)
+{
+	GB_LOG_FUNC
+	if(burnargs != NULL)
+		exec_delete(burnargs);
+	burnargs = NULL;	
+
+	GtkWidget *dlg = startdlg_new(burntype);	
+	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));	
+	startdlg_delete(dlg);
+		
+	return ret;
+}
+
+
+gboolean
+burn_end_process()
+{
+	GB_LOG_FUNC
+	gboolean ok = TRUE;
+
+	exec_cancel(burnargs);
+
+	return ok;
+}
+
+
+void
+burn_end_proc(void *ex, void *data)
+{
+	GB_LOG_FUNC	
+	g_return_if_fail(ex != NULL);
+	Exec* e = (Exec*)ex;	
+	
+	progressdlg_reset_fraction(1.0);
+	
+	ExecState outcome = COMPLETE;
+
+	gint i = 0;
+	for(; i < e->cmdCount; i++)
+	{
+		if(e->cmds[i].state == CANCELLED)
+		{			
+			/*progressdlg_set_text("Cancelled");*/
+			outcome = CANCELLED;
+			progressdlg_dismiss();
+			break;
+		}
+		else if(e->cmds[i].state == COMPLETE)
+		{
+			progressdlg_set_text("Completed");
+		}
+		else if(e->cmds[i].state == FAILED)
+		{
+			progressdlg_set_text("Failed");
+			outcome = FAILED;
+			break;
+		}
+	}
+	
+	if(outcome != CANCELLED)
+		progressdlg_enable_close(TRUE);
+}
+
+
+
+/*
+ * This function kicks off the whole writing process on a separate thread.
+ */
+gboolean
+burn_start_process()
+{
+	GB_LOG_FUNC
+	gboolean ok = TRUE;
+	
+	/* Wire up the function that gets called at the end of the burning process. 
+	   This finalises the text in the progress dialog.*/
+	burnargs->endProc = burn_end_proc;
+
+	/*
+	 * Create the dlg before we start the thread as callbacks from the
+	 * thread may need to use the controls 
+	 */
+	GtkWidget *dlg = progressdlg_new(burnargs->cmdCount);
+	
+	if(exec_go(burnargs) == 0)
+	{
+		gtk_dialog_run(GTK_DIALOG(dlg));		
+	}
+	else
+	{
+		g_critical("Failed to start child process");
+		ok = FALSE;
+	}
+	
+	if(burnargs != NULL)
+		exec_delete(burnargs);
+	burnargs = NULL;
+
+	progressdlg_delete(dlg);
+	
+	return ok;
+}
+
+
 
 /*
  *
@@ -131,40 +234,6 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 
 
 gboolean 
-burn_create_audio_cd(GtkTreeModel* audiomodel)
-{
-	GB_LOG_FUNC
-	g_return_val_if_fail(audiomodel != NULL, FALSE);
-	gboolean ok = FALSE;
-
-	if(burn_show_start_dlg(create_audio_cd) == GTK_RESPONSE_OK)
-	{
-		burnargs = exec_new(0);
-		
-		GList *audiofiles = g_list_alloc();
-		
-		gtk_tree_model_foreach(audiomodel, burn_foreachaudiotrack_func, &audiofiles);
-		
-		ExecCmd* cmd = exec_add_cmd(burnargs);		
-		cdrecord_add_create_audio_cd_args(cmd, audiofiles);
-		
-		ok = burn_start_process();
-		
-		const GList *audiofile = audiofiles;
-		while(audiofile != NULL)
-		{
-			g_free(audiofile->data);
-			audiofile = audiofile->next;
-		}		
-		
-		g_list_free(audiofiles);
-	}
-
-	return ok;
-}
-
-
-gboolean 
 burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
                 			GtkTreeIter  *iter, gpointer user_data)
 {
@@ -204,6 +273,40 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 	file = NULL;
 
 	return FALSE;
+}
+
+
+gboolean 
+burn_create_audio_cd(GtkTreeModel* audiomodel)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(audiomodel != NULL, FALSE);
+	gboolean ok = FALSE;
+
+	if(burn_show_start_dlg(create_audio_cd) == GTK_RESPONSE_OK)
+	{
+		burnargs = exec_new(0);
+		
+		GList *audiofiles = g_list_alloc();
+		
+		gtk_tree_model_foreach(audiomodel, burn_foreachaudiotrack_func, &audiofiles);
+		
+		ExecCmd* cmd = exec_add_cmd(burnargs);		
+		cdrecord_add_create_audio_cd_args(cmd, audiofiles);
+		
+		ok = burn_start_process();
+		
+		const GList *audiofile = audiofiles;
+		while(audiofile != NULL)
+		{
+			g_free(audiofile->data);
+			audiofile = audiofile->next;
+		}		
+		
+		g_list_free(audiofiles);
+	}
+
+	return ok;
 }
 
 
@@ -292,111 +395,4 @@ burn_blank_cdrw()
 	}
 
 	return ok;
-}
-
-
-/*
- *
- */
-const gint
-burn_show_start_dlg(const BurnType burntype)
-{
-	GB_LOG_FUNC
-	if(burnargs != NULL)
-		exec_delete(burnargs);
-	burnargs = NULL;	
-
-	GtkWidget *dlg = startdlg_new(burntype);	
-	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));	
-	startdlg_delete(dlg);
-		
-	return ret;
-}
-
-/*
- * This function kicks off the whole writing process on a separate thread.
- */
-gboolean
-burn_start_process()
-{
-	GB_LOG_FUNC
-	gboolean ok = TRUE;
-	
-	/* Wire up the function that gets called at the end of the burning process. 
-	   This finalises the text in the progress dialog.*/
-	burnargs->endProc = burn_end_proc;
-
-	/*
-	 * Create the dlg before we start the thread as callbacks from the
-	 * thread may need to use the controls 
-	 */
-	GtkWidget *dlg = progressdlg_new(burnargs->cmdCount);
-	
-	if(exec_go(burnargs) == 0)
-	{
-		gtk_dialog_run(GTK_DIALOG(dlg));		
-	}
-	else
-	{
-		g_critical("Failed to start child process");
-		ok = FALSE;
-	}
-	
-	if(burnargs != NULL)
-		exec_delete(burnargs);
-	burnargs = NULL;
-
-	progressdlg_delete(dlg);
-	
-	return ok;
-}
-
-
-gboolean
-burn_end_process()
-{
-	GB_LOG_FUNC
-	gboolean ok = TRUE;
-
-	exec_cancel(burnargs);
-
-	return ok;
-}
-
-
-void
-burn_end_proc(void *ex, void *data)
-{
-	GB_LOG_FUNC	
-	g_return_if_fail(ex != NULL);
-	Exec* e = (Exec*)ex;	
-	
-	progressdlg_reset_fraction(1.0);
-	
-	ExecState outcome = COMPLETE;
-
-	gint i = 0;
-	for(; i < e->cmdCount; i++)
-	{
-		if(e->cmds[i].state == CANCELLED)
-		{			
-			/*progressdlg_set_text("Cancelled");*/
-			outcome = CANCELLED;
-			progressdlg_dismiss();
-			break;
-		}
-		else if(e->cmds[i].state == COMPLETE)
-		{
-			progressdlg_set_text("Completed");
-		}
-		else if(e->cmds[i].state == FAILED)
-		{
-			progressdlg_set_text("Failed");
-			outcome = FAILED;
-			break;
-		}
-	}
-	
-	if(outcome != CANCELLED)
-		progressdlg_enable_close(TRUE);
 }

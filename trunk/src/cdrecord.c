@@ -27,120 +27,9 @@
 #include "gbcommon.h"
 #include "devices.h"
 
-void cdrecord_pre_proc(void *ex, void *buffer);
-void cdrecord_blank_pre_proc(void *ex, void *buffer);
-void cdrecord_blank_post_proc(void *ex, void *buffer);
-void cdrecord_add_common_args(ExecCmd * const cdBurn);
-void cdrecord_read_proc (void *ex, void *buffer);
 
 gint totaltrackstowrite = 1;
 gint firsttrack = -1;
-
-/*
- *  ISO
- */
-void
-cdrecord_add_iso_args(ExecCmd * const cdBurn, const gchar * const iso)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(cdBurn != NULL);
-	g_return_if_fail(iso != NULL);	
-	
-	cdrecord_add_common_args(cdBurn);
-	
-	/*if(!prefs->multisession)*/
-		exec_cmd_add_arg(cdBurn, "%s", "-multi");
-
-	exec_cmd_add_arg(cdBurn, "%s", iso);
-	cdBurn->readProc = cdrecord_read_proc;
-	cdBurn->preProc = cdrecord_pre_proc;
-}
-
-
-void 
-cdrecord_add_audio_args(ExecCmd * const cdBurn)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(cdBurn != NULL);
-	cdrecord_add_common_args(cdBurn);
-	exec_cmd_add_arg(cdBurn, "%s", "-useinfo");
-	exec_cmd_add_arg(cdBurn, "%s", "-audio");
-	exec_cmd_add_arg(cdBurn, "%s", "-pad");
-	
-	GError *err = NULL;
-	
-	gchar* tmp = preferences_get_string(GB_TEMP_DIR);
-	GDir *dir = g_dir_open(tmp, 0, &err);
-
-	if(dir != NULL)
-	{
-		totaltrackstowrite = 0;
-		/* loop around reading the files in the directory */
-		const gchar *name = g_dir_read_name(dir);	
-		while(name != NULL)
-		{
-			if(g_str_has_suffix(name, ".wav"))
-			{
-				g_message( "adding [%s]", name);
-				gchar* fullpath = g_build_filename(tmp, name, NULL);
-				exec_cmd_add_arg(cdBurn, "%s", fullpath);
-				totaltrackstowrite++;
-				g_free(fullpath);
-			}
-			
-			name = g_dir_read_name(dir);
-		}
-		g_dir_close(dir);
-	}
-	
-	cdBurn->readProc = cdrecord_read_proc;
-	cdBurn->preProc = cdrecord_pre_proc;
-	
-	g_free(tmp);
-}
-
-
-/*
- *  Populates the common information required to burn a cd
- */
-void
-cdrecord_add_common_args(ExecCmd * const cdBurn)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(cdBurn != NULL);	
-
-	exec_cmd_add_arg(cdBurn, "%s", "cdrecord");
-	
-	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
-	exec_cmd_add_arg(cdBurn, "dev=%s", writer);
-	g_free(writer);
-	
-	exec_cmd_add_arg(cdBurn, "%s", "gracetime=2");
-	
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
-	exec_cmd_add_arg(cdBurn, "speed=%s", speed);
-	g_free(speed);
-	
-	exec_cmd_add_arg(cdBurn, "%s", "-v");	
-
-	if(preferences_get_bool(GB_EJECT))
-		exec_cmd_add_arg(cdBurn, "%s", "-eject");
-
-	if(preferences_get_bool(GB_DUMMY))
-		exec_cmd_add_arg(cdBurn, "%s", "-dummy");
-	
-	if(preferences_get_bool(GB_BURNFREE))
-		exec_cmd_add_arg(cdBurn, "%s", "driveropts=burnfree");
-	
-	gchar* mode = preferences_get_string(GB_WRITE_MODE);
-	if(g_ascii_strcasecmp(mode, "default") != 0)
-		exec_cmd_add_arg(cdBurn, "-%s", mode);
-
-	g_free(mode);
-	
-	totaltrackstowrite = 1;
-	firsttrack = -1;
-}
 
 
 /*
@@ -169,41 +58,6 @@ cdrecord_pre_proc(void *ex, void *buffer)
 		ExecCmd* e = (ExecCmd*)ex;
 		e->state = CANCELLED;
 	}
-}
-
-
-void 
-cdrecord_add_blank_args(ExecCmd * const cdBurn)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(cdBurn != NULL);	
-	
-	cdBurn->readProc = cdrecord_read_proc;
-	cdBurn->preProc = cdrecord_blank_pre_proc;
-	cdBurn->postProc = cdrecord_blank_post_proc;
-
-	/*exec_add_arg(cdBurn, "%s",
-	 * "/home/luke/projects/cddummy/src/cddummy"); */
-	exec_cmd_add_arg(cdBurn, "%s", "cdrecord");
-	
-	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
-	exec_cmd_add_arg(cdBurn, "dev=%s", writer);
-	g_free(writer);
-
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
-	exec_cmd_add_arg(cdBurn, "speed=%s", speed);
-	g_free(speed);
-	
-	exec_cmd_add_arg(cdBurn, "%s", "-v");
-	/*exec_cmd_add_arg(cdBurn, "%s", "-format");*/
-
-	if(preferences_get_bool(GB_EJECT))
-		exec_cmd_add_arg(cdBurn, "%s", "-eject");
-	
-	exec_cmd_add_arg(cdBurn, "%s", "gracetime=2");
-	
-	exec_cmd_add_arg(cdBurn, "%s", preferences_get_bool(GB_FAST_BLANK) 
-		? "blank=fast" : "blank=all");
 }
 
 
@@ -301,6 +155,49 @@ cdrecord_read_proc(void *ex, void *buffer)
 }
 
 
+/*
+ *  Populates the common information required to burn a cd
+ */
+void
+cdrecord_add_common_args(ExecCmd * const cdBurn)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cdBurn != NULL);	
+
+	exec_cmd_add_arg(cdBurn, "%s", "cdrecord");
+	
+	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(cdBurn, "dev=%s", writer);
+	g_free(writer);
+	
+	exec_cmd_add_arg(cdBurn, "%s", "gracetime=2");
+	
+	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
+	exec_cmd_add_arg(cdBurn, "speed=%s", speed);
+	g_free(speed);
+	
+	exec_cmd_add_arg(cdBurn, "%s", "-v");	
+
+	if(preferences_get_bool(GB_EJECT))
+		exec_cmd_add_arg(cdBurn, "%s", "-eject");
+
+	if(preferences_get_bool(GB_DUMMY))
+		exec_cmd_add_arg(cdBurn, "%s", "-dummy");
+	
+	if(preferences_get_bool(GB_BURNFREE))
+		exec_cmd_add_arg(cdBurn, "%s", "driveropts=burnfree");
+	
+	gchar* mode = preferences_get_string(GB_WRITE_MODE);
+	if(g_ascii_strcasecmp(mode, "default") != 0)
+		exec_cmd_add_arg(cdBurn, "-%s", mode);
+
+	g_free(mode);
+	
+	totaltrackstowrite = 1;
+	firsttrack = -1;
+}
+
+
 void
 cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
 {
@@ -327,4 +224,103 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
 	
 	e->readProc = cdrecord_read_proc;
 	e->preProc = cdrecord_pre_proc;
+}
+
+
+/*
+ *  ISO
+ */
+void
+cdrecord_add_iso_args(ExecCmd * const cdBurn, const gchar * const iso)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cdBurn != NULL);
+	g_return_if_fail(iso != NULL);	
+	
+	cdrecord_add_common_args(cdBurn);
+	
+	/*if(!prefs->multisession)*/
+		exec_cmd_add_arg(cdBurn, "%s", "-multi");
+
+	exec_cmd_add_arg(cdBurn, "%s", iso);
+	cdBurn->readProc = cdrecord_read_proc;
+	cdBurn->preProc = cdrecord_pre_proc;
+}
+
+
+void 
+cdrecord_add_audio_args(ExecCmd * const cdBurn)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cdBurn != NULL);
+	cdrecord_add_common_args(cdBurn);
+	exec_cmd_add_arg(cdBurn, "%s", "-useinfo");
+	exec_cmd_add_arg(cdBurn, "%s", "-audio");
+	exec_cmd_add_arg(cdBurn, "%s", "-pad");
+	
+	GError *err = NULL;
+	
+	gchar* tmp = preferences_get_string(GB_TEMP_DIR);
+	GDir *dir = g_dir_open(tmp, 0, &err);
+
+	if(dir != NULL)
+	{
+		totaltrackstowrite = 0;
+		/* loop around reading the files in the directory */
+		const gchar *name = g_dir_read_name(dir);	
+		while(name != NULL)
+		{
+			if(g_str_has_suffix(name, ".wav"))
+			{
+				g_message( "adding [%s]", name);
+				gchar* fullpath = g_build_filename(tmp, name, NULL);
+				exec_cmd_add_arg(cdBurn, "%s", fullpath);
+				totaltrackstowrite++;
+				g_free(fullpath);
+			}
+			
+			name = g_dir_read_name(dir);
+		}
+		g_dir_close(dir);
+	}
+	
+	cdBurn->readProc = cdrecord_read_proc;
+	cdBurn->preProc = cdrecord_pre_proc;
+	
+	g_free(tmp);
+}
+
+
+void 
+cdrecord_add_blank_args(ExecCmd * const cdBurn)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cdBurn != NULL);	
+	
+	cdBurn->readProc = cdrecord_read_proc;
+	cdBurn->preProc = cdrecord_blank_pre_proc;
+	cdBurn->postProc = cdrecord_blank_post_proc;
+
+	/*exec_add_arg(cdBurn, "%s",
+	 * "/home/luke/projects/cddummy/src/cddummy"); */
+	exec_cmd_add_arg(cdBurn, "%s", "cdrecord");
+	
+	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(cdBurn, "dev=%s", writer);
+	g_free(writer);
+
+	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
+	exec_cmd_add_arg(cdBurn, "speed=%s", speed);
+	g_free(speed);
+	
+	exec_cmd_add_arg(cdBurn, "%s", "-v");
+	/*exec_cmd_add_arg(cdBurn, "%s", "-format");*/
+
+	if(preferences_get_bool(GB_EJECT))
+		exec_cmd_add_arg(cdBurn, "%s", "-eject");
+	
+	exec_cmd_add_arg(cdBurn, "%s", "gracetime=2");
+	
+	exec_cmd_add_arg(cdBurn, "%s", preferences_get_bool(GB_FAST_BLANK) 
+		? "blank=fast" : "blank=all");
 }

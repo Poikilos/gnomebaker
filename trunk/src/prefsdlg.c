@@ -25,16 +25,6 @@
 #include "filebrowser.h"
 #include "devices.h"
 
-void prefsdlg_on_ok(GtkButton* button, gpointer user_data);
-void prefsdlg_create_device_list();
-void prefsdlg_clear_device_list();
-void prefsdlg_populate_device_list();
-void prefsdlg_on_scan(GtkButton * button, gpointer user_data);
-void prefsdlg_device_cell_edited(GtkCellRendererText *cell,
-	gchar* path_string, gchar* new_text, gpointer user_data);
-gboolean prefsdlg_foreach_device(GtkTreeModel *devicemodel,
-	GtkTreePath *path, GtkTreeIter *iter, gpointer userdata);
-gboolean prefsdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data);
 
 static const gint DEVICELIST_COL_ICON = 0;
 static const gint DEVICELIST_COL_NAME = 1;
@@ -47,45 +37,38 @@ static const gint DEVICELIST_NUM_COLS = 5;
 GladeXML* prefsdlg_xml = NULL;
 
 
-GtkWidget* 
-prefsdlg_new(void)
-{	
-	GB_LOG_FUNC	
-	prefsdlg_xml = glade_xml_new(glade_file, widget_prefsdlg, NULL);
-	glade_xml_signal_autoconnect(prefsdlg_xml);		
-	
-	gchar* tempdir = preferences_get_string(GB_TEMP_DIR);
-	GtkWidget* entry = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_tempdir);
-	gtk_entry_set_text(GTK_ENTRY(entry), tempdir);
-	g_free(tempdir);
-	
-	GtkWidget* checkCleanTmp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cleantempdir);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkCleanTmp), 
-		preferences_get_bool(GB_CLEANTEMPDIR));
-	
-	GtkWidget* checkShowHidden = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhidden);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkShowHidden), 
-		preferences_get_bool(GB_SHOWHIDDEN));
-	
-	GtkWidget* checkAlwaysScan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_alwaysscan);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkAlwaysScan), 
-		preferences_get_bool(GB_ALWAYS_SCAN));
-	
-	prefsdlg_create_device_list();
-	prefsdlg_populate_device_list();
-	
-	return glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg);
-}
-
-
-void 
-prefsdlg_delete(GtkWidget* self)
+void
+prefsdlg_device_cell_edited(GtkCellRendererText *cell,
+							gchar* path_string,
+							gchar* new_text,
+							gpointer user_data)
 {
 	GB_LOG_FUNC
-	gtk_widget_hide(self);
-	gtk_widget_destroy(self);
-	g_free(prefsdlg_xml);
-	prefsdlg_xml = NULL;
+	
+	g_return_if_fail(cell != NULL);
+	g_return_if_fail(path_string != NULL);
+	g_return_if_fail(new_text != NULL);
+	g_return_if_fail(user_data != NULL);
+	
+	gint* columnnum = (gint*)user_data;
+	
+	g_return_if_fail(prefsdlg_xml != NULL);
+	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
+	g_return_if_fail(devicelist != NULL);
+	GtkListStore* devicemodel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist)));
+	g_return_if_fail(devicemodel != NULL);	
+	
+	GB_DECLARE_STRUCT(GtkTreeIter, iter);
+	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(devicemodel), &iter, path_string))
+	{
+		GValue val = {0};
+		g_value_init(&val, G_TYPE_STRING);
+		g_value_set_string(&val, new_text);
+
+		gtk_list_store_set_value(devicemodel, &iter, *columnnum, &val);
+		
+		g_value_unset(&val);
+	}
 }
 
 
@@ -155,6 +138,39 @@ prefsdlg_create_device_list()
 }
 
 
+gboolean
+prefsdlg_foreach_device(GtkTreeModel *devicemodel,
+					  GtkTreePath *path,
+					  GtkTreeIter *iter,
+					  gpointer userdata)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(devicemodel != NULL, TRUE);
+	g_return_val_if_fail(iter != NULL, TRUE);
+	
+	gint* devicecount = (gint*)userdata; 
+	++(*devicecount);
+	
+	gchar *icon, *name, *id, *node, *mount;
+	gtk_tree_model_get(devicemodel, iter, DEVICELIST_COL_ICON, &icon, 
+		DEVICELIST_COL_NAME, &name, DEVICELIST_COL_ID, &id, 
+		DEVICELIST_COL_NODE, &node, DEVICELIST_COL_MOUNT, &mount,-1);
+	
+	if((name == NULL) || (id == NULL) || (node == NULL))
+		g_critical("Invalid row in device list");	
+	else
+		devices_write_device_to_gconf(*devicecount, name, id, node, mount);
+	
+	g_free(icon);
+	g_free(name);	
+	g_free(id);	
+	g_free(node);
+	g_free(mount);
+	
+	return FALSE; /* do not stop walking the store, call us with next row */
+}
+
+	
 void 
 prefsdlg_on_ok(GtkButton* button, gpointer user_data)
 {
@@ -265,79 +281,52 @@ prefsdlg_on_scan(GtkButton * button, gpointer user_data)
 }
 
 
-void
-prefsdlg_device_cell_edited(GtkCellRendererText *cell,
-							gchar* path_string,
-							gchar* new_text,
-							gpointer user_data)
-{
-	GB_LOG_FUNC
-	
-	g_return_if_fail(cell != NULL);
-	g_return_if_fail(path_string != NULL);
-	g_return_if_fail(new_text != NULL);
-	g_return_if_fail(user_data != NULL);
-	
-	gint* columnnum = (gint*)user_data;
-	
-	g_return_if_fail(prefsdlg_xml != NULL);
-	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
-	g_return_if_fail(devicelist != NULL);
-	GtkListStore* devicemodel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist)));
-	g_return_if_fail(devicemodel != NULL);	
-	
-	GB_DECLARE_STRUCT(GtkTreeIter, iter);
-	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(devicemodel), &iter, path_string))
-	{
-		GValue val = {0};
-		g_value_init(&val, G_TYPE_STRING);
-		g_value_set_string(&val, new_text);
-
-		gtk_list_store_set_value(devicemodel, &iter, *columnnum, &val);
-		
-		g_value_unset(&val);
-	}
-}
-
-
-
-gboolean
-prefsdlg_foreach_device(GtkTreeModel *devicemodel,
-					  GtkTreePath *path,
-					  GtkTreeIter *iter,
-					  gpointer userdata)
-{
-	GB_LOG_FUNC
-	g_return_val_if_fail(devicemodel != NULL, TRUE);
-	g_return_val_if_fail(iter != NULL, TRUE);
-	
-	gint* devicecount = (gint*)userdata; 
-	++(*devicecount);
-	
-	gchar *icon, *name, *id, *node, *mount;
-	gtk_tree_model_get(devicemodel, iter, DEVICELIST_COL_ICON, &icon, 
-		DEVICELIST_COL_NAME, &name, DEVICELIST_COL_ID, &id, 
-		DEVICELIST_COL_NODE, &node, DEVICELIST_COL_MOUNT, &mount,-1);
-	
-	if((name == NULL) || (id == NULL) || (node == NULL))
-		g_critical("Invalid row in device list");	
-	else
-		devices_write_device_to_gconf(*devicecount, name, id, node, mount);
-	
-	g_free(icon);
-	g_free(name);	
-	g_free(id);	
-	g_free(node);
-	g_free(mount);
-	
-	return FALSE; /* do not stop walking the store, call us with next row */
-}
-
-
 gboolean
 prefsdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data)
 {
 	GB_LOG_FUNC
 	prefsdlg_on_ok(NULL, NULL);	
 	return TRUE;
+}
+
+
+GtkWidget* 
+prefsdlg_new(void)
+{	
+	GB_LOG_FUNC	
+	prefsdlg_xml = glade_xml_new(glade_file, widget_prefsdlg, NULL);
+	glade_xml_signal_autoconnect(prefsdlg_xml);		
+	
+	gchar* tempdir = preferences_get_string(GB_TEMP_DIR);
+	GtkWidget* entry = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_tempdir);
+	gtk_entry_set_text(GTK_ENTRY(entry), tempdir);
+	g_free(tempdir);
+	
+	GtkWidget* checkCleanTmp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cleantempdir);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkCleanTmp), 
+		preferences_get_bool(GB_CLEANTEMPDIR));
+	
+	GtkWidget* checkShowHidden = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhidden);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkShowHidden), 
+		preferences_get_bool(GB_SHOWHIDDEN));
+	
+	GtkWidget* checkAlwaysScan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_alwaysscan);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkAlwaysScan), 
+		preferences_get_bool(GB_ALWAYS_SCAN));
+	
+	prefsdlg_create_device_list();
+	prefsdlg_populate_device_list();
+	
+	return glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg);
+}
+
+
+void 
+prefsdlg_delete(GtkWidget* self)
+{
+	GB_LOG_FUNC
+	gtk_widget_hide(self);
+	gtk_widget_destroy(self);
+	g_free(prefsdlg_xml);
+	prefsdlg_xml = NULL;
 }

@@ -9,12 +9,55 @@
 #include "progressdlg.h"
 #include "preferences.h"
 
- /*oggdec linusq-a.ogg -dwav -flinus.wav */
- 
-void oggdec_pre_proc(void *ex, void *buffer);
-void oggdec_read_proc(void *ex, void *buffer);
 
- 
+void
+oggdec_pre_proc(void *ex, void *buffer)
+{	
+	GB_LOG_FUNC
+	
+	g_return_if_fail(ex != NULL);
+	progressdlg_set_status("<b>Converting ogg to cd audio...</b>");
+	progressdlg_increment_exec_number();
+}
+
+
+void
+oggdec_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	
+	g_return_if_fail(ex != NULL);
+	g_return_if_fail(buffer != NULL);
+	
+/*	
+	const gchar* frame = strstr(buffer, "Time:");
+	if(frame != NULL)
+	{
+		guint currentsecs, currentmins, totalmins, totalsecs;
+		if(sscanf(frame, "Time: %d:%d.%*d [%*d:%*d.%*d] of %d:%d.%*d", 
+				&currentmins, &currentsecs, &totalmins, &totalsecs) > 0)
+		{
+			g_message("track [%d] [%d] [%d] [%d]", currentmins, currentsecs, totalmins, totalsecs);		
+			progressdlg_set_fraction(
+				(gfloat)((currentmins * 60) + currentsecs) / 
+				(gfloat)((totalmins * 60) + totalsecs));
+		}
+	}
+*/
+	const gchar* frame = strstr(buffer, "[");
+	if(frame != NULL)
+	{
+		gfloat percentage;
+		if(sscanf(frame, "[%f%%]", &percentage) > 0)
+			progressdlg_set_fraction(percentage/100.0);
+	}
+	else
+	{
+		progressdlg_append_output(buffer);
+	}
+}
+
+
 void 
 oggdec_add_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 {
@@ -69,52 +112,4 @@ oggdec_add_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 	g_free(trackdir);		
 	cmd->preProc = oggdec_pre_proc;
 	cmd->readProc = oggdec_read_proc;	
-}
-
-
-void
-oggdec_pre_proc(void *ex, void *buffer)
-{	
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	progressdlg_set_status("<b>Converting ogg to cd audio...</b>");
-	progressdlg_increment_exec_number();
-}
-
-
-void
-oggdec_read_proc(void *ex, void *buffer)
-{
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	g_return_if_fail(buffer != NULL);
-	
-/*	
-	const gchar* frame = strstr(buffer, "Time:");
-	if(frame != NULL)
-	{
-		guint currentsecs, currentmins, totalmins, totalsecs;
-		if(sscanf(frame, "Time: %d:%d.%*d [%*d:%*d.%*d] of %d:%d.%*d", 
-				&currentmins, &currentsecs, &totalmins, &totalsecs) > 0)
-		{
-			g_message("track [%d] [%d] [%d] [%d]", currentmins, currentsecs, totalmins, totalsecs);		
-			progressdlg_set_fraction(
-				(gfloat)((currentmins * 60) + currentsecs) / 
-				(gfloat)((totalmins * 60) + totalsecs));
-		}
-	}
-*/
-	const gchar* frame = strstr(buffer, "[");
-	if(frame != NULL)
-	{
-		gfloat percentage;
-		if(sscanf(frame, "[%f%%]", &percentage) > 0)
-			progressdlg_set_fraction(percentage/100.0);
-	}
-	else
-	{
-		progressdlg_append_output(buffer);
-	}
 }
