@@ -30,6 +30,7 @@ and double click to launch files according to their mime type.
 * Use the gnome icon theme in the filebrowser and cd contents.
 * We can now toggle between human readable file sizes and bytes.
 * Remember the window position.
+* App now has option to hide the filebrowser.
 
 Version 0.2
 
