@@ -15,7 +15,7 @@
  */
  /*
  * File: datacd.h
- * Created by: Luke Biddell <Email>
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Sun May  9 15:16:08 2004
  */
 

@@ -51,6 +51,4 @@ gnomebaker_SOURCES = \
 gnomebaker_LDFLAGS = 
 
 gnomebaker_LDADD =  \
-	$(GNOME_LIBS)\
-	 -lvorbisfile
-
+	$(GNOME_LIBS)

@@ -15,7 +15,7 @@
  */
  /*
  * File: startdlg.c
- * Created by: luke_biddell@yahoo.com
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Wed Apr  7 23:08:35 2004
  */
 

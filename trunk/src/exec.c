@@ -15,7 +15,7 @@
  */
 /*
  * File: exec.h
- * Created by: luke <luke@dhcp-45-369>
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Wed Feb 26 00:33:10 2003
  */
 

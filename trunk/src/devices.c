@@ -15,7 +15,7 @@
  */
 /*
  * File: devices.h
- * Created by: luke <luke@dhcp-45-369>
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Mon Feb 24 21:51:18 2003
  */
 

@@ -15,7 +15,7 @@
  */
 /*
  * File: selectdevicedlg.h
- * Created by: luke biddell
+ * Copyright: luke biddell
  * Created on: Sun Jan 16 00:42:55 2005
  */
 

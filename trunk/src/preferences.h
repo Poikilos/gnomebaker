@@ -13,14 +13,11 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-
-/***************************************************************************
- *            preferences.h
- *
- *  Wed Jan 22 23:45:46 2003
- *  Copyright  2003  luke_biddell@yahoo.com
- *  luke@dhcp-45-369
- ****************************************************************************/
+/*
+ * File: preferences.h
+ * Copyright: luke_biddell@yahoo.com
+ * Created on: Wed Jan 22 23:45:46 2003
+ */
 
 #ifndef _PREFS_H
 #define _PREFS_H
