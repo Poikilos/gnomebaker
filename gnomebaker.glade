@@ -1204,26 +1204,10 @@
 				<widget class="GtkOptionMenu" id="optionmenu6">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
-				  <property name="history">0</property>
+				  <property name="history">-1</property>
 
 				  <child>
 				    <widget class="GtkMenu" id="menu4">
-
-				      <child>
-					<widget class="GtkMenuItem" id="menuitem7">
-					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">74 min. CD</property>
-					  <property name="use_underline">True</property>
-					</widget>
-				      </child>
-
-				      <child>
-					<widget class="GtkMenuItem" id="menuitem8">
-					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">80 min. CD</property>
-					  <property name="use_underline">True</property>
-					</widget>
-				      </child>
 				    </widget>
 				  </child>
 				</widget>
@@ -1279,7 +1263,7 @@
 					  <child>
 					    <widget class="GtkLabel" id="label260">
 					      <property name="visible">True</property>
-					      <property name="label" translatable="yes">Create Video CD</property>
+					      <property name="label" translatable="yes">Create Video Disk</property>
 					      <property name="use_underline">True</property>
 					      <property name="use_markup">False</property>
 					      <property name="justify">GTK_JUSTIFY_LEFT</property>

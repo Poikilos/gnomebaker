@@ -615,6 +615,8 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 					gbcommon_append_menu_item_file(menu, _("_Burn CD Image"), 
 						"baker-burn-cd.png", (GCallback)filebrowser_burn_image, view);	
 				}				
+				g_free(name);
+				g_free(mime);
 			}
 				
 			gbcommon_append_menu_item_stock(menu, _("_Add file(s)"), GTK_STOCK_ADD, 
