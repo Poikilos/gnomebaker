@@ -38,7 +38,7 @@ void gbcommon_start_busy_cursor(GtkWidget* window);
 void gbcommon_start_busy_cursor1(GladeXML* xml, const gchar* windowname);
 void gbcommon_end_busy_cursor(GtkWidget* window);
 void gbcommon_end_busy_cursor1(GladeXML* xml, const gchar* windowname);
-gulong gbcommon_calc_dir_size(const gchar* dirname);
+guint64 gbcommon_calc_dir_size(const gchar* dirname);
 gchar* gbcommon_tidy_nautilus_dnd_file(const gchar* file);
 void gbcommon_mkdir(const gchar* dir);
 gchar** gbcommon_get_file_as_list(const gchar* file);

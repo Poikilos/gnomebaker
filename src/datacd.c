@@ -106,7 +106,7 @@ datacd_get_datadisk_size()
 
 
 gboolean 
-datacd_update_progress_bar(gboolean add, gdouble filesize)
+datacd_update_progress_bar(gboolean add, guint64 filesize)
 {
 	GB_LOG_FUNC
 	gboolean ok = TRUE;
@@ -121,16 +121,14 @@ datacd_update_progress_bar(gboolean add, gdouble filesize)
 	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
 	gint cdsize = datacd_get_datadisk_size();
 	gdouble disksize = (gdouble)(cdsize) * (gdouble)1024 * (gdouble)1024;	
-	gdouble currentguchars = fraction * disksize;
+	gdouble currentsize = fraction * disksize;
 	
 	if(add)
-		currentguchars += filesize;
+		currentsize += (gdouble)filesize;
 	else
-		currentguchars -= filesize;
+		currentsize -= (gdouble)filesize;
 	
-	fraction = currentguchars / disksize;
-	
-	g_message( _("File size %f disksize %f Fraction is %f"), filesize, disksize, fraction);
+	fraction = currentsize / disksize;
 	
 	if(fraction < 0.0 || fraction == -0.0)
 	{
@@ -181,11 +179,11 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 	gint statret = stat(filename, &s);
 	if(statret == 0)
 	{
-		gulong size = s.st_size;				
+		guint64 size = (guint64)s.st_size;				
 		if(s.st_mode & S_IFDIR)
 			size = gbcommon_calc_dir_size(filename);
 		
-		if(datacd_update_progress_bar(TRUE, (gdouble)size))
+		if(datacd_update_progress_bar(TRUE, size))
 		{					
 			GB_DECLARE_STRUCT(GtkTreeIter, iter);
 			gtk_list_store_append(liststore, &iter);						
@@ -312,7 +310,7 @@ datacd_remove()
 						GValue value = { 0 };
 						gtk_tree_model_get_value(filemodel, &iter, DATACD_COL_SIZE, &value);
 						
-						datacd_update_progress_bar(FALSE, (gdouble)g_value_get_ulong(&value));
+						datacd_update_progress_bar(FALSE, g_value_get_uint64(&value));
 						
 						g_value_unset(&value);	
 						gtk_list_store_remove(GTK_LIST_STORE(filemodel), &iter);
@@ -442,7 +440,7 @@ datacd_new()
 	
 	/* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(DATACD_NUM_COLS, G_TYPE_STRING, 
-			G_TYPE_STRING, G_TYPE_ULONG, G_TYPE_STRING, G_TYPE_STRING);
+			G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
     g_object_unref(store);
 

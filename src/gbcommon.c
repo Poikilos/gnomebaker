@@ -59,14 +59,13 @@ gbcommon_end_busy_cursor1(GladeXML* xml, const gchar* windowname)
 }
 
 
-gulong 
+guint64
 gbcommon_calc_dir_size(const gchar* dirname)
 {
 	/*GB_LOG_FUNC*/
-	gulong size = 0;
-	GError *err = NULL;
+	guint64 size = 0;
 	
-	GDir *dir = g_dir_open(dirname, 0, &err);		
+	GDir *dir = g_dir_open(dirname, 0, NULL);
 	if(dir != NULL)
 	{
 		const gchar *name = g_dir_read_name(dir);	
@@ -79,10 +78,10 @@ gbcommon_calc_dir_size(const gchar* dirname)
 			if(stat(fullname, &s) == 0)
 			{
 				/* see if the name is actually a directory or a regular file */
-				if((s.st_mode & S_IFDIR) && (name[0] != '.'))
+				if(s.st_mode & S_IFDIR)
 					size += gbcommon_calc_dir_size(fullname);
-				else if((s.st_mode & S_IFREG) && (name[0] != '.'))
-					size += s.st_size;
+				else if(s.st_mode & S_IFREG)
+					size += (guint64)s.st_size;
 			}
 			
 			g_free(fullname);			
@@ -254,4 +253,3 @@ gbcommon_humanreadable_filesize(gulong size)
 	
 	return ret;
 }
-
