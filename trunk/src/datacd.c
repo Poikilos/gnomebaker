@@ -545,10 +545,7 @@ datacd_import_session()
 			GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
 			GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));		
 			g_object_set_data(G_OBJECT(model), DATACD_EXISTING_SESSION, g_strdup(msinfo));
-			
-			/* Make sure we turn multisession on in preferences */
-			preferences_set_bool(GB_MULTI_SESSION, TRUE);
-			
+						
 			const gchar *name = g_dir_read_name(dir);					
 			while(name != NULL)
 			{

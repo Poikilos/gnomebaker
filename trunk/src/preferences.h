@@ -32,7 +32,6 @@
 #define GB_READER 					GB_BASE_KEY "/ReadDevice"
 #define GB_WRITER 					GB_BASE_KEY "/WriteDevice"
 #define GB_WRITE_SPEED 				GB_BASE_KEY "/WriteSpeed"
-#define GB_MULTI_SESSION			GB_BASE_KEY "/MultiSession"
 #define GB_DUMMY 					GB_BASE_KEY "/Dummy"
 #define GB_EJECT 					GB_BASE_KEY "/Eject"
 #define GB_TEMP_DIR 				GB_BASE_KEY "/TempDir"

@@ -58,7 +58,6 @@ preferences_init()
 			preferences_set_string(GB_READER, "Device01");
 			preferences_set_string(GB_WRITER, "Device01");			
 			preferences_set_int(GB_WRITE_SPEED, 4);
-			preferences_set_bool(GB_MULTI_SESSION, TRUE);
 			preferences_set_bool(GB_DUMMY, FALSE);
 			preferences_set_bool(GB_EJECT, TRUE);
 			preferences_set_string(GB_TEMP_DIR, tempdir);

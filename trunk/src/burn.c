@@ -30,7 +30,6 @@
 #include "execfunctions.h"
 #include "gnomebaker.h"
 #include "startdlg.h"
-#include "startdlgdvd.h"
 #include "progressdlg.h"
 #include "gbcommon.h"
 #include "audiocd.h"
@@ -173,9 +172,7 @@ burn_iso(const gchar * const file)
 	{
 		burnargs = exec_new(1);
 		ExecCmd *e = &burnargs->cmds[0];
-
 		cdrecord_add_iso_args(e, file);
-
 		ok = burn_start_process();
 	}
 
@@ -364,10 +361,8 @@ burn_copy_audio_cd()
 	if(burn_show_start_dlg(copy_audio_cd) == GTK_RESPONSE_OK)
 	{
 		burnargs = exec_new(2);
-
 		cdda2wav_add_copy_args(&burnargs->cmds[0]);
 		cdrecord_add_audio_args(&burnargs->cmds[1]);
-
 		ok = burn_start_process();
 	}
 
@@ -385,26 +380,10 @@ burn_blank_cdrw()
 	{		
 		burnargs = exec_new(1);
 		cdrecord_add_blank_args(&burnargs->cmds[0]);
-
 		ok = burn_start_process();
 	}
 
 	return ok;
-}
-
-const gint
-burn_show_start_dlgdvd(const BurnType burntype)
-{
-	GB_LOG_FUNC
-	if(burnargs != NULL)
-		exec_delete(burnargs);
-	burnargs = NULL;	
-
-	GtkWidget *dlg = startdlgdvd_new(burntype);	
-	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));	
-	startdlgdvd_delete(dlg);
-		
-	return ret;
 }
 
 
@@ -414,12 +393,10 @@ burn_format_dvdrw()
 	GB_LOG_FUNC
 	gboolean ok = FALSE;
 	
-	if(burn_show_start_dlgdvd(format_dvdrw) == GTK_RESPONSE_OK)
+	if(burn_show_start_dlg(format_dvdrw) == GTK_RESPONSE_OK)
 	{		
 		burnargs = exec_new(1);
-		g_message("burnargs->cmds[0]");
 		dvdformat_add_args(&burnargs->cmds[0]);
-
 		ok = burn_start_process();
 	}
 
@@ -432,9 +409,8 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
 	GB_LOG_FUNC
 	gboolean ok = FALSE;
 
-	if(burn_show_start_dlgdvd(create_data_dvd) == GTK_RESPONSE_OK)
+	if(burn_show_start_dlg(create_data_dvd) == GTK_RESPONSE_OK)
 	{	
-		ok = TRUE;
 		burnargs = exec_new(1);
 		growisofs_add_args(&burnargs->cmds[0],datamodel);
 		ok = burn_start_process();
