@@ -50,7 +50,10 @@
 
 
 #define GB_DEVICE_FORMAT 			"Device%.2d"
-#define GB_DEVICE_KEY				GB_BASE_KEY "/" GB_DEVICE_FORMAT
+#define GB_DEVICES_KEY				GB_BASE_KEY "/Devices" 
+#define GB_DEVICE_KEY				GB_DEVICES_KEY "/" GB_DEVICE_FORMAT
+
+
 #define GB_DEVICE_NAME_LABEL		"/DeviceName"
 #define GB_DEVICE_NAME				GB_DEVICE_KEY GB_DEVICE_NAME_LABEL
 #define GB_DEVICE_ID_LABEL			"/DeviceId"

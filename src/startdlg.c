@@ -108,8 +108,7 @@ startdlg_new(const BurnType burntype)
 	checkFinalize = startdlg_create_check_button(_("Finalize"), GB_FINALIZE);	
 	checkFastFormat = startdlg_create_check_button(_("Fast"), GB_FAST_FORMAT);
 	
-	GtkWidget *optmenWriteMode = glade_xml_get_widget(startdlg_xml, widget_startdlg_writemode);
-	
+	GtkWidget *optmenWriteMode = glade_xml_get_widget(startdlg_xml, widget_startdlg_writemode);	
 	GtkWidget *optmenReader = glade_xml_get_widget(startdlg_xml,widget_startdlg_reader);
 	
 	gchar* mode = preferences_get_string(GB_WRITE_MODE);
@@ -201,6 +200,7 @@ startdlg_delete(GtkWidget* self)
 	gtk_widget_destroy(checkISOOnly); checkISOOnly = NULL;
 	gtk_widget_destroy(checkForce); checkForce = NULL;
 	gtk_widget_destroy(checkFinalize); checkFinalize = NULL;
+	gtk_widget_destroy(checkFastFormat); checkFastFormat = NULL;
 	
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
@@ -231,6 +231,7 @@ startdlg_on_ok_clicked(GtkButton * button, gpointer user_data)
 	preferences_set_bool(GB_CREATEISOONLY, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkISOOnly)));	
 	preferences_set_bool(GB_FORCE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkForce)));	
 	preferences_set_bool(GB_FINALIZE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFinalize)));
+	preferences_set_bool(GB_FAST_FORMAT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFastFormat)));
 		
 	GtkWidget* optmenWriteMode = glade_xml_get_widget(startdlg_xml, widget_startdlg_writemode);
 	gchar* text = gbcommon_get_option_menu_selection(GTK_OPTION_MENU(optmenWriteMode));
