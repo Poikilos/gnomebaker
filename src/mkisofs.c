@@ -80,6 +80,11 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 		exec_cmd_add_arg(e, "%s", "-gui");
 		exec_cmd_add_arg(e, "%s", "-joliet-long");
 		
+		gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), "msinfo");
+		if(msinfo != NULL)
+			exec_cmd_add_arg(e, "-C %s", msinfo);
+		g_free(msinfo);		
+		
 		exec_cmd_add_arg(e, "-o%s", iso);
 		/*exec_cmd_add_arg(e, "-o%s", "test.iso");*/
 			
@@ -171,13 +176,15 @@ mkisofs_foreach_func(GtkTreeModel *model,
 	gtk_tree_model_get (model, iter, DATACD_COL_ICON, &icon, DATACD_COL_FILE, &file,
 		DATACD_COL_SIZE, &size, DATACD_COL_PATH, &filepath, -1);
 	
-	g_message( "%s %ld %s", file, size, filepath);
-	
-	gchar* buffer = g_strdup_printf("%s=%s", file, filepath);
-	
-	exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);
-	
-	g_free(buffer);
+	/* Only add files that are not part of an existing session */
+	if(g_ascii_strcasecmp(icon, DATACD_EXISTING_SESSION_ICON) != 0)
+	{
+		g_message( "%s %ld %s", file, size, filepath);
+		
+		gchar* buffer = g_strdup_printf("%s=%s", file, filepath);		
+		exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);	
+		g_free(buffer);
+	}
 	g_free(icon);	
 	g_free(file);	
 	g_free(filepath);

@@ -140,7 +140,7 @@ prefsdlg_create_device_list()
     gtk_tree_view_column_set_attributes(col, renderer, "text", DEVICELIST_COL_NODE, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);	
 	
-	/* Fourth column to display the device node */
+	/* Fourth column to display the mount point */
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, "Mount point");
 	renderer = gtk_cell_renderer_text_new();
