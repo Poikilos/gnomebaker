@@ -333,3 +333,20 @@ gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[],
 	gtk_option_menu_set_history(GTK_OPTION_MENU(optmen), history);
 
 }
+
+
+gchar* 
+gbcommon_get_mime_description(const gchar* mime)
+{
+	GB_LOG_FUNC
+	gchar* ret = NULL;
+	if(mime != NULL)
+	{
+		const gchar* desc = gnome_vfs_mime_get_description(mime);
+		if(desc != NULL)
+			ret = g_strdup(desc);
+	}
+	if(ret == NULL)
+		ret = g_strdup(_("Unknown"));
+	return ret;
+}

@@ -56,6 +56,7 @@ GdkPixbuf* gbcommon_get_icon_for_name(const gchar* mime, gint size);
 void gbcommon_launch_app_for_file(const gchar* file);
 void gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[], 
 											 const gint sizecount, const gint history);
+gchar* gbcommon_get_mime_description(const gchar* mime);
 
 /* defined in main.c */
 extern const gchar* glade_file;
