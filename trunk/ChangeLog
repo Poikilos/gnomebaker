@@ -1,0 +1,52 @@
+Version 0.2.1
+
+* Dismiss the progress dialog if the action is cancelled.
+* Refactor the preferences code to use gconf directly.
+* Totally rewrite device scanning on linux to look at /proc (influenced by k3b and nautilus).
+* Preferences dialog now has a tab for configuring devices.
+* Remember writer and reader to improve startup speed (saved in gconf).
+* Recursively create directories so it actually works.
+* Tidy up the labels we show in the devices combos and generally tidy up device handling.
+* Fix filebrowser problem where /home would display the users home contents.
+* Scanning for devices using cdrecord now ignores cameras, external drives etc.
+* Show when we are fixating the disk in the progress dialog.
+* Fix state bug where if you used a previous iso we would always say we failed.
+* App now watches the gnome toolbar style and changes accordingly.
+* Tooltips and toolbar styles have started working, looks like something got fixed in libglade.
+* Tidy up the progress dialog code, improve performance and hopefully fix some xlib multithreading issues.
+* Make the preferences dialog more gnomeesque with (almost) instant apply preferences.
+
+Version 0.2
+
+* Fix data cd size calculation problems.
+* Fix assert on app start from gtk_tree_store_remove call.
+* Preferences are now stored using gconf under apps/GnomeBaker.
+* Enable cancel before starting burning/ripping/building iso.
+* Add burnfree option to the burn process.
+* Add new icon set from Miroslav Strugarevic.
+* Stop using G_LOG_LEVEL_ERROR as it aborts the app.
+* Scan the SCSI, ATAPI AND ATA interfaces for devices.
+* Check the mime type is "application/x-cd-image" when burning an existing iso.
+* Make the app smaller as per Eugenias suggestion so it fits an 800x600 desktop.
+* Clean out the temp dir on exit (add option to preferences dialog).
+* Add horizontal pane to browser windows.
+* Modify iso dialog to show intent as to bootable cd support (not implemented yet).
+* Attempt at fixing BSD problems by using g_spawn code.
+* Upgrade logging to provide full navigation output to the console (temporary until final release).
+* Patch from Isak Savo to allow showing/hiding of hidden files (option on prefs dlg).
+* Fix small memory leak in the file browser.
+* Fix memory leak in the exec layer and refactor/tidy most of the exec code.
+* Progress bar now takes account of all of the operations rather than going to 100% for each.
+* Better support for Nautilus drag and dropping, we now handle %20 as spaces.
+* Killer new splash from gamehack.
+* Option to create an iso only and not burn when copying or creating a data cd.
+* Make 700MB and 80min the default cd sizes.
+* Fix potential memory leak when adding files to cds with the toolbar buttons.
+* Only enable the create cd buttons if the cd has content.
+* Modify the filebrowser so that the home directory is at the root (like Nautilus).
+* Fix the about dialog modality problems by making the application main window non-modal.
+* Add a refresh button to the toolbar to refresh the filebrowser list.
+* Add a write mode dropdown to the start burn dialog so users can select dao tao etc.
+* Use oggdec to convert oggs to wavs for audio cds.
+* Use lame to convert mp3s to wavs for audio cds.
+* Use sox to make sure wavs are in the correct format for audio cds (16 bit 44100Hz stereo).

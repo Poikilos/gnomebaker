@@ -1,0 +1,8 @@
+ * Check uniqueness of cd contents 	
+ * Refactor start dlg to have tabs with cd type specific options on each
+ * Use libmad and libogg to decode (speed improvement?). What does GStreamer give us extra (simpler code)?
+ * Add normalize option when creating cds
+ * Move show hidden files to the view menu
+ * Add a play button to the audio tab 
+ * Add 800MB cds with overburn feature
+ * Add flac support
