@@ -65,39 +65,27 @@ gbcommon_calc_dir_size(const gchar* dirname)
 	/*GB_LOG_FUNC*/
 	gulong size = 0;
 	GError *err = NULL;
-	GDir *dir = g_dir_open(dirname, 0, &err);	
-	/*g_return_val_if_fail(dir != NULL, 0);*/
 	
+	GDir *dir = g_dir_open(dirname, 0, &err);		
 	if(dir != NULL)
 	{
 		const gchar *name = g_dir_read_name(dir);	
 		while(name != NULL)
 		{
 			/* build up the full path to the name */
-			GString *fullname = g_string_new(dirname);
+			gchar* fullname = g_build_filename(dirname, name, NULL);
 	
-			g_string_append(fullname, "/");
-			g_string_append(fullname, name);
-	
-			/*g_print("fullname is [%s]\n", fullname->str);*/
-			
-			struct stat s;
-			if(stat(fullname->str, &s) == 0)
+			GB_DECLARE_STRUCT(struct stat, s);
+			if(stat(fullname, &s) == 0)
 			{
-				/* see if the name is actually a directory */
-				if((s.st_mode & S_IFDIR) && (name[0] != '.'))
-				{
-					size += gbcommon_calc_dir_size(fullname->str);
-				}
-				/* It's a file */
-				else if((s.st_mode & S_IFREG) && (name[0] != '.'))
-				{
+				/* see if the name is actually a directory or a regular file */
+				if((s.st_mode & S_IFDIR)/* && (name[0] != '.')*/)
+					size += gbcommon_calc_dir_size(fullname);
+				else if((s.st_mode & S_IFREG)/* && (name[0] != '.')*/)
 					size += s.st_size;
-				}
 			}
 			
-			g_string_free(fullname, TRUE);
-			
+			g_free(fullname);			
 			name = g_dir_read_name(dir);
 		}
 	
