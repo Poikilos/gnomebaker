@@ -180,3 +180,53 @@ gbcommon_get_file_as_list(const gchar* file)
 	g_free(contents);	
 	return ret;
 }
+
+
+gchar* 
+gbcommon_get_option_menu_selection(GtkOptionMenu* optmen)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(optmen != NULL, NULL);
+	
+	gchar* ret = NULL;
+	GtkWidget* mode = GTK_BIN(optmen)->child;
+	if(mode != NULL && GTK_IS_LABEL(mode))
+	{
+		gchar* text = NULL;
+		gtk_label_get(GTK_LABEL(mode), &text);
+		/*g_free(text);*/
+		ret = g_strdup(text);
+	}
+	return ret;
+}
+
+
+void 
+gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection)
+{	
+	GB_LOG_FUNC
+	g_return_if_fail(optmen != NULL);
+	g_return_if_fail(selection != NULL);
+	
+	GList* items = GTK_MENU_SHELL(gtk_option_menu_get_menu(optmen))->children;	
+	gint index = 0;
+	while(items)
+	{
+		if(GTK_BIN(items->data)->child)
+		{
+			GtkWidget *child = GTK_BIN(items->data)->child;				
+			if (GTK_IS_LABEL(child))
+			{
+				gchar *text = NULL;			
+				gtk_label_get(GTK_LABEL(child), &text);
+				if(g_ascii_strcasecmp(text, selection) == 0)
+				{
+					gtk_option_menu_set_history(optmen, index);	
+					break;
+				}
+			}
+		}
+		items = items->next;
+		++index;
+	}
+}

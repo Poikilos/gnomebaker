@@ -82,27 +82,8 @@ startdlgdvd_new(const BurnType burntype)
 
 
 	GtkWidget *optmenWriteModeDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_writemode);
-	GList* items = GTK_MENU_SHELL(gtk_option_menu_get_menu(
-		GTK_OPTION_MENU(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_reader))))->children;
 	gchar* mode = preferences_get_string(GB_WRITE_MODE);
-	gint index = 0;
-	while(items)
-	{
-		if (GTK_BIN (items->data)->child)
-		{
-			GtkWidget *child = GTK_BIN (items->data)->child;				
-			if (GTK_IS_LABEL (child))
-			{
-				gchar *text = NULL;			
-				gtk_label_get (GTK_LABEL (child), &text);
-				if(g_ascii_strcasecmp(text, mode) == 0)
-					gtk_option_menu_set_history(GTK_OPTION_MENU(optmenWriteModeDvd), index);	
-			}
-		}
-		items = items->next;
-		++index;
-	}
-	
+	gbcommon_set_option_menu_selection(GTK_OPTION_MENU(optmenWriteModeDvd), mode);	
 	g_free(mode);
 
 	/* TODO: when widgets are hidden, all other widgets
@@ -162,16 +143,10 @@ startdlgdvd_on_ok_clicked(GtkButton * button, gpointer user_data)
 	g_return_if_fail(startdlgdvd_xml != NULL);	
 	
 	GtkWidget* optmenReaderDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_reader);
-	gint index = gtk_option_menu_get_history(GTK_OPTION_MENU(optmenReaderDvd));
-	gchar* device = g_strdup_printf(GB_DEVICE_FORMAT, index + 1);
-	preferences_set_string(GB_READER, device);
-	g_free(device);
-	
+	devices_save_optionmenu(GTK_OPTION_MENU(optmenReaderDvd), GB_READER);
+
 	GtkWidget* optmenWriterDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_writer);
-	index = gtk_option_menu_get_history(GTK_OPTION_MENU(optmenWriterDvd));
-	device = g_strdup_printf(GB_DEVICE_FORMAT, index + 1);
-	preferences_set_string(GB_WRITER, device);
-	g_free(device);
+	devices_save_optionmenu(GTK_OPTION_MENU(optmenWriterDvd), GB_WRITER);
 
 	preferences_set_int(GB_WRITE_SPEED, gtk_spin_button_get_value(
 		GTK_SPIN_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_speed))));
@@ -201,14 +176,9 @@ startdlgdvd_on_ok_clicked(GtkButton * button, gpointer user_data)
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_finalize))));
 
 	GtkWidget* optmenWriteMode = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_writemode);
-	GtkWidget* mode = GTK_BIN(optmenWriteMode)->child;
-	if(mode != NULL && GTK_IS_LABEL(mode))
-	{
-		gchar *text = NULL;
-		gtk_label_get(GTK_LABEL(mode), &text);
-		preferences_set_string(GB_WRITE_MODE, text);
-		/*g_free(text);*/
-	}
+	gchar* text = gbcommon_get_option_menu_selection(GTK_OPTION_MENU(optmenWriteMode));
+	preferences_set_string(GB_WRITE_MODE, text);
+	g_free(text);
 }
 
 
@@ -231,14 +201,9 @@ startdlgdvd_populate_device_combos()
 	GB_LOG_FUNC
 	g_return_if_fail(startdlgdvd_xml != NULL);	
 	
-	GtkWidget *optmenReaderDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_reader);
-	gchar* reader = preferences_get_string(GB_READER);
-	devices_populate_optionmenu(optmenReaderDvd, reader);	
-	g_free(reader);
+	GtkWidget *optmenReaderDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_reader);	
+	devices_populate_optionmenu(optmenReaderDvd, GB_READER);	
 	
 	GtkWidget *optmenWriterDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_writer);
-	gchar* writer = preferences_get_string(GB_WRITER);
-	g_message(_("Writer is: %s"),writer);
-	devices_populate_optionmenu(optmenWriterDvd, writer);	
-	g_free(writer);
+	devices_populate_optionmenu(optmenWriterDvd, GB_WRITER);	
 }

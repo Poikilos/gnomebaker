@@ -30,7 +30,7 @@
 #include "burn.h"
 #include <unistd.h>
 #include <string.h>
-
+#include "selectdevicedlg.h"
 
 gint datadisksize = 0;
 
@@ -514,6 +514,13 @@ void
 datacd_import_session()
 {
 	GB_LOG_FUNC
+	
+	GtkWidget* dlg = selectdevicedlg_new();
+	const gint response = gtk_dialog_run(GTK_DIALOG(dlg));
+	selectdevicedlg_delete(dlg);
+	
+	if(response == GTK_RESPONSE_CANCEL)
+		return;
 	
 	gnomebaker_show_busy_cursor(TRUE);
 	
