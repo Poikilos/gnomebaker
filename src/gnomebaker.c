@@ -338,6 +338,9 @@ gnomebaker_on_add_dir(gpointer widget, gpointer user_data)
 		case 0:
 			datacd_add_selection(selection_data);
 			break;
+		case 1:
+			audiocd_add_selection(selection_data);
+			break;
 		default:{}
 	};	
 	

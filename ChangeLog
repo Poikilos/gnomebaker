@@ -7,7 +7,8 @@ Version 0.3.1
 * Fix data cd size typo from 600MB to 650MB.
 * Add 800MB and 90min cd sizes.
 * Right click menus now have icons and right click on a CD image gives option to burn it.
-* add cue bin support via cdrdao.
+* Add cue bin support via cdrdao.
+* Directories can now be added to the audio cd and all audio files within the dir will be added.
 
 Version 0.3
 
