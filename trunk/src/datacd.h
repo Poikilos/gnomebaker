@@ -51,4 +51,6 @@ void datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata);
 void datacd_on_drag_data_received(GtkWidget * widget, GdkDragContext * context,
     						  gint x, gint y, GtkSelectionData * seldata,
     						  guint info, guint time, gpointer userdata);
+void datacd_import_session();
+
 #endif	/*_DATACD_H_*/

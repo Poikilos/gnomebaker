@@ -24,6 +24,9 @@
 #include <sys/stat.h>
 #include "filebrowser.h"
 #include "gbcommon.h"
+#include "devices.h"
+#include "preferences.h"
+#include "exec.h"
 
 
 gboolean datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
@@ -57,6 +60,8 @@ datacd_setup_list(GtkTreeView * filelist)
 			G_TYPE_STRING, G_TYPE_ULONG, G_TYPE_STRING);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
     g_object_unref(store);
+	
+	g_object_set_data(G_OBJECT(store), "multisession", GINT_TO_POINTER(0));
 
 	/* First column which has an icon renderer and a text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
@@ -114,6 +119,46 @@ datacd_setup_list(GtkTreeView * filelist)
 }
 
 
+gboolean  
+datacd_add_to_compilation(const gchar* file, GtkListStore* liststore)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(file != NULL, FALSE);
+	g_return_val_if_fail(liststore != NULL, FALSE);
+	gboolean ret = TRUE;
+	
+	gchar* filename = gbcommon_tidy_nautilus_dnd_file(file);
+		
+	GB_DECLARE_STRUCT(struct stat, s);
+	if(stat(filename, &s) == 0)
+	{
+		gulong size = s.st_size;				
+		if(s.st_mode & S_IFDIR)
+			size = gbcommon_calc_dir_size(filename);			
+		
+		if(datacd_update_progress_bar(TRUE, (gdouble)size))
+		{					
+			GB_DECLARE_STRUCT(GtkTreeIter, iter);
+			gtk_list_store_append(liststore, &iter);										
+			gchar* basename = g_path_get_basename(filename);
+			
+			gtk_list_store_set(liststore, &iter, DATACD_COL_ICON, 
+				(s.st_mode & S_IFDIR) ? GTK_STOCK_OPEN : GTK_STOCK_DND, 
+				DATACD_COL_FILE, basename, DATACD_COL_SIZE, size, DATACD_COL_PATH, filename, -1);
+			
+			g_free(basename);
+		}
+		else
+		{				
+			ret = FALSE;
+		}
+	}
+	
+	g_free(filename);
+	return ret;
+}
+
+
 void
 datacd_on_drag_data_received(
     GtkWidget * widget,
@@ -129,51 +174,18 @@ datacd_on_drag_data_received(
     g_return_if_fail(seldata != NULL);
 	g_return_if_fail(seldata->data != NULL);
     g_return_if_fail(GTK_IS_TREE_VIEW(widget));
-
+	
 	gnomebaker_show_busy_cursor(TRUE);	    	
 	gnomebaker_update_status("Calculating size");
 	
-	g_message( "received sel %s", seldata->data);
-	
+	GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(widget)));
+
+	g_message( "received sel %s", seldata->data);	
 	const gchar* file = strtok((gchar*)seldata->data,"\n");
 	while(file != NULL)
 	{
-		gchar* filename = gbcommon_tidy_nautilus_dnd_file(file);
-		
-		GB_DECLARE_STRUCT(struct stat, s);
-		if(stat(filename, &s) == 0)
-		{
-			gulong size = s.st_size;				
-			if(s.st_mode & S_IFDIR)
-				size = gbcommon_calc_dir_size(filename);			
-			
-			if(datacd_update_progress_bar(TRUE, (gdouble)size))
-			{					
-				/* Get the model and add the file to it */
-				GtkTreeView *view = GTK_TREE_VIEW(widget);
-				GtkTreeModel *model = gtk_tree_view_get_model(view);
-			
-				if(GTK_IS_LIST_STORE(model))
-				{		
-					GB_DECLARE_STRUCT(GtkTreeIter, iter);
-					gtk_list_store_append(GTK_LIST_STORE(model), &iter);										
-					gchar* basename = g_path_get_basename(filename);
-					
-					gtk_list_store_set(GTK_LIST_STORE(model), &iter, DATACD_COL_ICON, 
-						(s.st_mode & S_IFDIR) ? GTK_STOCK_OPEN : GTK_STOCK_DND, 
-						DATACD_COL_FILE, basename, DATACD_COL_SIZE, size, DATACD_COL_PATH, filename, -1);
-					
-					g_free(basename);
-				}		
-			}
-			else
-			{				
-				break;
-			}
-		}
-		
-		g_free(filename);
-	
+		if(!datacd_add_to_compilation(file, model)) 
+			break;
 		file = strtok(NULL, "\n");
 	}
 	
@@ -214,7 +226,14 @@ datacd_update_progress_bar(gboolean add, gdouble filesize)
 	{
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
 		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0%");
+		
+		/* disable the create button as there's nothing on the disk */
 		gnomebaker_enable_widget(widget_datacd_create, FALSE);
+		
+		/* remove the multisession flag as there's nothing on the disk */
+		GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
+		GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));		
+		g_object_set_data(G_OBJECT(model), "multisession", GINT_TO_POINTER(0));
 	}	
 	/* If the file is too large then we don't allow the user to add it */
 	else if(fraction <= 1.0)
@@ -388,4 +407,66 @@ datacd_contents_cell_edited(GtkCellRendererText *cell,
 		
 		g_value_unset(&val);
 	}
+}
+
+
+void 
+datacd_import_session()
+{
+	GB_LOG_FUNC
+	
+	gnomebaker_show_busy_cursor(TRUE);
+	
+	gchar* mountpoint = devices_get_device_config(GB_WRITER, GB_DEVICE_MOUNT_LABEL);		
+	if((mountpoint == NULL) || (strlen(mountpoint) == 0))
+	{
+		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+			"The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
+			"Please go to preferences and manually enter the mount point.");
+	}
+	else
+	{
+		/* mount the cd in the writer */
+		gchar* mountcmd = g_strdup_printf("mount %s", mountpoint);	
+		GString* output = exec_run_cmd(mountcmd);
+		g_string_free(output, TRUE);
+		g_free(mountcmd);
+				
+		GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
+		GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));		
+				
+		GDir *dir = g_dir_open(mountpoint, 0, NULL);	
+		if(dir != NULL)
+		{
+			g_object_set_data(G_OBJECT(model), "multisession", GINT_TO_POINTER(1));
+			
+			const gchar *name = g_dir_read_name(dir);					
+			while(name != NULL)
+			{
+				gchar* fullname = g_build_filename(mountpoint, name, NULL);
+				if(!datacd_add_to_compilation(fullname, model))
+					break;
+				g_free(fullname);
+				name = g_dir_read_name(dir);				
+			}
+	
+			g_dir_close(dir);
+		}
+		else
+		{
+			gchar* message = g_strdup_printf("Error importing session from [%s]. "
+				"Please check the device configuration in preferences.", mountpoint);
+			gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
+			g_free(message);
+		}			
+		
+		/* unmount the cd in the writer */
+		gchar* umountcmd = g_strdup_printf("umount %s", mountpoint);	
+		output = exec_run_cmd(umountcmd);
+		g_string_free(output, TRUE);
+		g_free(umountcmd);
+	}
+	g_free(mountpoint);	
+	
+	gnomebaker_show_busy_cursor(FALSE);
 }

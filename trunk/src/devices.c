@@ -27,8 +27,6 @@
 #include <glib/gprintf.h>
 #include "preferences.h"
 
-
-void devices_add_device(const gchar* devicename, const gchar* deviceid, const gchar* devicenode);
 void devices_clear_devicedata();
 gboolean devices_parse_cdrecord_output(const gchar* buffer, const gchar* busname);
 void devices_add_ide_device(const gchar* devicenode, const gchar* devicenodepath);
@@ -44,7 +42,7 @@ devices_init()
 	GB_LOG_FUNC
 	
 	gboolean ok = TRUE;
-	
+		
 	gchar* device = g_strdup_printf(GB_DEVICE_KEY, 1);
 	if(!preferences_key_exists(device) || preferences_get_bool(GB_ALWAYS_SCAN))
 		ok = devices_probe_busses();
@@ -53,30 +51,86 @@ devices_init()
 	
 	return ok;
 }
-
-
+	
+	
 void
-devices_add_device(const gchar* devicename, const gchar* deviceid, const gchar* devicenode)
+devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename, 
+	const gchar* deviceid, const gchar* devicenode, const gchar* mountpoint)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(devicename != NULL);
-	g_return_if_fail(deviceid != NULL);
-	
-	++deviceadditionindex;
-	
-	gchar* devicenamekey = g_strdup_printf(GB_DEVICE_NAME, deviceadditionindex);			
-	gchar* deviceidkey = g_strdup_printf(GB_DEVICE_ID, deviceadditionindex);	
-	gchar* devicenodekey = g_strdup_printf(GB_DEVICE_NODE, deviceadditionindex);	
+	gchar* devicenamekey = g_strdup_printf(GB_DEVICE_NAME, devicenumber);			
+	gchar* deviceidkey = g_strdup_printf(GB_DEVICE_ID, devicenumber);	
+	gchar* devicenodekey = g_strdup_printf(GB_DEVICE_NODE, devicenumber);	
+	gchar* devicemountkey = g_strdup_printf(GB_DEVICE_MOUNT, devicenumber);	
 	
 	preferences_set_string(devicenamekey, devicename);
 	preferences_set_string(deviceidkey, deviceid);
 	preferences_set_string(devicenodekey, devicenode);
+	preferences_set_string(devicemountkey, mountpoint);
 	
 	g_free(devicenamekey);
 	g_free(deviceidkey);
 	g_free(devicenodekey);
+	g_free(devicemountkey);
 
-	g_message("devices_add_device - Added [%s] [%s] [%s]", devicename, deviceid, devicenode);
+	g_message("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]", 
+		devicename, deviceid, devicenode, mountpoint);
+}
+
+
+void
+devices_add_device(const gchar* devicename, const gchar* deviceid, 
+				   const gchar* devicenode)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(devicename != NULL);
+	g_return_if_fail(deviceid != NULL);
+	g_return_if_fail(devicenode != NULL);
+	gchar* mountpoint = NULL;
+		
+	/* Look for the device in /etc/fstab */
+	gchar** fstab = gbcommon_get_file_as_list("/etc/fstab");
+	gchar** line = fstab;
+	while((line != NULL) && (*line != NULL))
+	{
+		g_strstrip(*line);
+		if((*line)[0] != '#') /* ignore commented out lines */
+		{
+			gchar node[64], mount[64];
+			if(sscanf(*line, "%s\t%s", node, mount) == 2)
+			{
+				g_message("node [%s] mount [%s]", node, mount);
+				if(g_ascii_strcasecmp(node, devicenode) == 0)
+				{
+					mountpoint = g_strdup(mount);
+				}
+				else
+				{
+					/* try to resolve the devicenode in case it's a
+						symlink to the device we are looking for */
+					gchar* linktarget = g_file_read_link(node, NULL);
+					if((linktarget != NULL) && (g_ascii_strcasecmp(linktarget, devicenode) == 0))
+					{					
+						g_message("node [%s] is link to [%s]", node, linktarget);
+						mountpoint = g_strdup(mount);
+					}
+					g_free(linktarget);
+				}
+				
+				if(mountpoint != NULL)
+					break;
+			}
+		}
+		++line;
+	}
+
+	g_strfreev(fstab);
+
+	++deviceadditionindex;	
+	devices_write_device_to_gconf(deviceadditionindex, devicename, deviceid,
+		devicenode, mountpoint);
+	
+	g_free(mountpoint);
 }
 
 
@@ -165,11 +219,14 @@ devices_clear_devicedata()
 		preferences_delete_key(deviceidkey);				
 		gchar* devicenodekey = g_strconcat(devicekey, GB_DEVICE_NODE_LABEL, NULL);		
 		preferences_delete_key(devicenodekey);
+		gchar* devicemountkey = g_strconcat(devicekey, GB_DEVICE_MOUNT_LABEL, NULL);		
+		preferences_delete_key(devicemountkey);
 		preferences_delete_key(devicekey);
 		
 		g_free(deviceidkey);
 		g_free(devicenamekey);		
 		g_free(devicenodekey);
+		g_free(devicemountkey);
 		g_free(devicekey);
 		item = item->next;
 	}
@@ -213,10 +270,10 @@ devices_parse_cdrecord_output(const gchar* buffer, const gchar* busname)
 				else
 					device = g_strconcat(busname, ":", deviceid, NULL);
 				
-				gchar* displayname = g_strdup_printf("%s %s (%s)", g_strstrip(vendor), 
-					g_strstrip(model), device);
+				gchar* displayname = g_strdup_printf("%s %s", g_strstrip(vendor), 
+					g_strstrip(model));
 								
-				devices_add_device(displayname, device, device);
+				devices_add_device(displayname, device, "");
 				
 				g_free(displayname);
 				g_free(device);
@@ -290,24 +347,22 @@ devices_add_scsi_device(const gchar* devicenode, const gchar* devicenodepath)
 	g_return_if_fail(devicenode != NULL);
 	g_message("devices_add_scsi_device - probing [%s]", devicenode);
 	
-	gchar *devices_contents = NULL, *device_str_contents = NULL;
-	if(!g_file_get_contents("/proc/scsi/sg/devices", &devices_contents, NULL, NULL))
+	gchar **device_strs = NULL, **devices = NULL;	
+	if((devices = gbcommon_get_file_as_list("/proc/scsi/sg/devices")) == NULL)
 	{
 		g_critical("Failed to open /proc/scsi/sg/devices");
 	}
-	else if(!g_file_get_contents("/proc/scsi/sg/device_strs", &device_str_contents, NULL, NULL))
+	else if((device_strs = gbcommon_get_file_as_list("/proc/scsi/sg/device_strs")) == NULL)
 	{
 		g_critical("Failed to open /proc/scsi/sg/device_strs");
 	}
 	else
 	{
 		const gint scsicdromnum = atoi(&devicenode[strlen(devicenode) - 1]);
-		gchar** devices = g_strsplit(devices_contents, "\n", 0);
-		gchar** device_strs = g_strsplit(device_str_contents, "\n", 0);		
-		gchar** device = devices;
-		gchar** device_str = device_strs;
 		gint cddevice = 0;
-		while(*device != NULL)
+		gchar** device = devices;
+		gchar** device_str = device_strs;		
+		while((*device != NULL) && (*device_str) != NULL)
 		{
 			if((strcmp(*device, "<no active device>") != 0) && (strlen(*device) > 0))
 			{
@@ -347,13 +402,10 @@ devices_add_scsi_device(const gchar* devicenode, const gchar* devicenodepath)
 			++device_str;
 			++device;
 		}
-		
-		g_strfreev(devices);
-		g_strfreev(device_strs);
 	}
 	
-	g_free(devices_contents);
-	g_free(device_str_contents);
+	g_strfreev(devices);
+	g_strfreev(device_strs);
 }
 
 
@@ -414,6 +466,7 @@ devices_probe_busses()
 	devices_probe_bus("SCSI");	
 	devices_probe_bus("ATAPI");	
 	devices_probe_bus("ATA");	
+	ok = TRUE;
 
 #endif
 		

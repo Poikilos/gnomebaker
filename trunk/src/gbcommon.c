@@ -79,9 +79,9 @@ gbcommon_calc_dir_size(const gchar* dirname)
 			if(stat(fullname, &s) == 0)
 			{
 				/* see if the name is actually a directory or a regular file */
-				if((s.st_mode & S_IFDIR)/* && (name[0] != '.')*/)
+				if((s.st_mode & S_IFDIR) && (name[0] != '.'))
 					size += gbcommon_calc_dir_size(fullname);
-				else if((s.st_mode & S_IFREG)/* && (name[0] != '.')*/)
+				else if((s.st_mode & S_IFREG) && (name[0] != '.'))
 					size += s.st_size;
 			}
 			
@@ -161,4 +161,22 @@ gbcommon_mkdir(const gchar* dirname)
 	
 	g_string_free(dir, TRUE);
 	g_free(dirs);	
+}
+
+
+gchar** 
+gbcommon_get_file_as_list(const gchar* file)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(file != NULL, NULL);
+	
+	gchar** ret = NULL;	
+	gchar* contents = NULL;	
+	if(g_file_get_contents(file, &contents, NULL, NULL))
+		ret = g_strsplit(contents, "\n", 0);
+	else
+		g_critical("Failed to get contents of file [%s]", file);
+
+	g_free(contents);	
+	return ret;
 }

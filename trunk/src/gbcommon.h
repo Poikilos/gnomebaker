@@ -41,6 +41,7 @@ void gbcommon_end_busy_cursor1(GladeXML* xml, const gchar* windowname);
 gulong gbcommon_calc_dir_size(const gchar* dirname);
 gchar* gbcommon_tidy_nautilus_dnd_file(const gchar* file);
 void gbcommon_mkdir(const gchar* dir);
+gchar** gbcommon_get_file_as_list(const gchar* file);
 
 /* defined in main.c */
 extern const gchar* glade_file;
@@ -114,8 +115,7 @@ static const gchar* const widget_splashdlg_label = "splashLabel";
 	if(showtrace) g_print("Entering [%s] [%s] [%d]\n", __FUNCTION__, __FILE__, __LINE__);	\
 
 #define GB_DECLARE_STRUCT(STRUCT, INSTANCE)			\
-	STRUCT INSTANCE;							\
-	memset(&INSTANCE, 0x0, sizeof(STRUCT));	\
+	STRUCT INSTANCE; memset(&INSTANCE, 0x0, sizeof(STRUCT));	\
 
 /* nautilus drag and drop has this prepended */
 static const gchar* const fileurl = "file://";
