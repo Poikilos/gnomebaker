@@ -110,6 +110,30 @@ static const gchar* const widget_prefsdlg_devicelist = "treeview12";
 static const gchar* const widget_splashdlg = "splashWnd";
 static const gchar* const widget_splashdlg_label = "splashLabel";
 
+/* Data DVD glade widget names */
+static const gchar* const widget_datadvd_tree = "treeview12";
+static const gchar* const widget_datadvd_size = "optionmenu8";
+static const gchar* const widget_datadvd_progressbar = "progressbar6";
+static const gchar* const widget_datadvd_create = "button34";
+
+/* Start dialog DVD glade widget names */
+static const gchar* const widget_startdlgdvd = "startDlgDvd";
+static const gchar* const widget_startdlgdvd_reader = "optmenReaderDvd";
+static const gchar* const widget_startdlgdvd_writer = "optmenWriterDvd";
+static const gchar* const widget_startdlgdvd_speed = "spinSpeedDvd";
+static const gchar* const widget_startdlgdvd_dummy = "checkDummyDvd";
+static const gchar* const widget_startdlgdvd_multisession = "checkMultisessionDvd";
+static const gchar* const widget_startdlgdvd_eject = "checkEjectDvd";
+static const gchar* const widget_startdlgdvd_fasterase = "checkFastEraseDvd";
+static const gchar* const widget_startdlgdvd_overburn = "checkOverburnDvd";
+static const gchar* const widget_startdlgdvd_readlabel = "label282";
+static const gchar* const widget_startdlgdvd_burnfree = "checkBurnFreeDvd";
+static const gchar* const widget_startdlgdvd_isoonly = "checkISOOnlyDvd";
+static const gchar* const widget_startdlgdvd_writemode = "optmenWriteModeDvd";
+static const gchar* const widget_startdlgdvd_modelabel = "label288";
+static const gchar* const widget_startdlgdvd_force = "checkForceDvd";
+static const gchar* const widget_startdlgdvd_finalize = "checkFinalizeDvd";
+
 
 #define GB_LOG_FUNC											\
 	if(showtrace) g_print("Entering [%s] [%s] [%d]\n", __FUNCTION__, __FILE__, __LINE__);	\
