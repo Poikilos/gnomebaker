@@ -29,13 +29,21 @@
 #include <gnome.h>
 
 
+/* Capabilities of devices */
+static const gint DC_WRITE_CDR = 0x1;
+static const gint DC_WRITE_CDRW = 0x2;
+static const gint DC_WRITE_DVDR = 0x4;
+static const gint DC_WRITE_DVDRAM = 0x8;
+
+
 
 gboolean devices_probe_busses();
 gboolean devices_init();
 void devices_populate_optionmenu(GtkWidget* option_menu, const gchar* defaultselect);
 gchar* devices_get_device_config(const gchar* devicekey, const gchar* deviceitem);
 void devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename, 
-	const gchar* deviceid, const gchar* devicenode, const gchar* mountpoint);
+	const gchar* deviceid, const gchar* devicenode, const gchar* mountpoint,
+	const gint capabilities);
 gboolean devices_mount_device(const gchar* devicekey, gchar** mountpoint);
 
 

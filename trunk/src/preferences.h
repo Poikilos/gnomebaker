@@ -29,32 +29,34 @@
 #include <gconf/gconf-client.h>
 
 #define GB_BASE_KEY "/apps/GnomeBaker"
-#define GB_READER 				GB_BASE_KEY "/ReadDevice"
-#define GB_WRITER 				GB_BASE_KEY "/WriteDevice"
-#define GB_WRITE_SPEED 			GB_BASE_KEY "/WriteSpeed"
-#define GB_MULTI_SESSION		GB_BASE_KEY "/MultiSession"
-#define GB_DUMMY 				GB_BASE_KEY "/Dummy"
-#define GB_EJECT 				GB_BASE_KEY "/Eject"
-#define GB_TEMP_DIR 			GB_BASE_KEY "/TempDir"
-#define GB_FAST_BLANK 			GB_BASE_KEY "/FastBlank"
-#define GB_BURNFREE 			GB_BASE_KEY "/BurnFree"
-#define GB_SHOWHIDDEN 			GB_BASE_KEY "/ShowHiddenFiles"
-#define GB_CLEANTEMPDIR 		GB_BASE_KEY "/CleanTempDir"
-#define GB_CREATEISOONLY 		GB_BASE_KEY "/CreateISOOnly"
-#define GB_WRITE_MODE 			GB_BASE_KEY "/WriteMode"
-#define GB_ALWAYS_SCAN			GB_BASE_KEY "/AlwaysScanOnStartup"
-#define GB_FORCE				GB_BASE_KEY "/Force"
-#define GB_FINALIZE				GB_BASE_KEY "/Finalize"
-#define GB_DEVICE_FORMAT 		"Device%.2d"
-#define GB_DEVICE_KEY			GB_BASE_KEY "/" GB_DEVICE_FORMAT
-#define GB_DEVICE_NAME_LABEL	"/DeviceName"
-#define GB_DEVICE_NAME			GB_DEVICE_KEY GB_DEVICE_NAME_LABEL
-#define GB_DEVICE_ID_LABEL		"/DeviceId"
-#define GB_DEVICE_ID			GB_DEVICE_KEY GB_DEVICE_ID_LABEL
-#define GB_DEVICE_NODE_LABEL	"/DeviceNode"
-#define GB_DEVICE_NODE			GB_DEVICE_KEY GB_DEVICE_NODE_LABEL
-#define GB_DEVICE_MOUNT_LABEL	"/MountPoint"
-#define GB_DEVICE_MOUNT			GB_DEVICE_KEY GB_DEVICE_MOUNT_LABEL
+#define GB_READER 					GB_BASE_KEY "/ReadDevice"
+#define GB_WRITER 					GB_BASE_KEY "/WriteDevice"
+#define GB_WRITE_SPEED 				GB_BASE_KEY "/WriteSpeed"
+#define GB_MULTI_SESSION			GB_BASE_KEY "/MultiSession"
+#define GB_DUMMY 					GB_BASE_KEY "/Dummy"
+#define GB_EJECT 					GB_BASE_KEY "/Eject"
+#define GB_TEMP_DIR 				GB_BASE_KEY "/TempDir"
+#define GB_FAST_BLANK 				GB_BASE_KEY "/FastBlank"
+#define GB_BURNFREE 				GB_BASE_KEY "/BurnFree"
+#define GB_SHOWHIDDEN 				GB_BASE_KEY "/ShowHiddenFiles"
+#define GB_CLEANTEMPDIR 			GB_BASE_KEY "/CleanTempDir"
+#define GB_CREATEISOONLY 			GB_BASE_KEY "/CreateISOOnly"
+#define GB_WRITE_MODE 				GB_BASE_KEY "/WriteMode"
+#define GB_ALWAYS_SCAN				GB_BASE_KEY "/AlwaysScanOnStartup"
+#define GB_FORCE					GB_BASE_KEY "/Force"
+#define GB_FINALIZE					GB_BASE_KEY "/Finalize"
+#define GB_DEVICE_FORMAT 			"Device%.2d"
+#define GB_DEVICE_KEY				GB_BASE_KEY "/" GB_DEVICE_FORMAT
+#define GB_DEVICE_NAME_LABEL		"/DeviceName"
+#define GB_DEVICE_NAME				GB_DEVICE_KEY GB_DEVICE_NAME_LABEL
+#define GB_DEVICE_ID_LABEL			"/DeviceId"
+#define GB_DEVICE_ID				GB_DEVICE_KEY GB_DEVICE_ID_LABEL
+#define GB_DEVICE_NODE_LABEL		"/DeviceNode"
+#define GB_DEVICE_NODE				GB_DEVICE_KEY GB_DEVICE_NODE_LABEL
+#define GB_DEVICE_MOUNT_LABEL		"/MountPoint"
+#define GB_DEVICE_MOUNT				GB_DEVICE_KEY GB_DEVICE_MOUNT_LABEL
+#define GB_DEVICE_CAPABILITIES_LABEL	"/Capabilities"
+#define GB_DEVICE_CAPABILITIES		GB_DEVICE_KEY GB_DEVICE_CAPABILITIES_LABEL
 
 #define GNOME_TOOLBAR_STYLE		"/desktop/gnome/interface/toolbar_style"
 
