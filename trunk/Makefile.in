@@ -131,7 +131,7 @@ VERSION = @VERSION@
 SUBDIRS = intl po macros src pixmaps help
 
 gnomebakerdocdir = ${prefix}/doc/gnomebaker
-gnomebakerdoc_DATA =  	COPYING 	ChangeLog 	INSTALL 	TODO 	xmldocs.make 	omf.make
+gnomebakerdoc_DATA =  	README 	COPYING 	AUTHORS 	ChangeLog 	INSTALL 	NEWS 	TODO 	ABOUT-NLS 	xmldocs.make 	omf.make
 
 
 #gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Applications
@@ -149,8 +149,8 @@ CONFIG_CLEAN_FILES =  gnomebaker.desktop
 DATA =  $(gnomebaker_glade_file_DATA) $(gnomebakerdoc_DATA) \
 $(gnomemenu_DATA)
 
-DIST_COMMON =  README ./stamp-h.in COPYING ChangeLog \
-INSTALL Makefile.am Makefile.in TODO acconfig.h acinclude.m4 \
+DIST_COMMON =  README ./stamp-h.in AUTHORS COPYING ChangeLog \
+INSTALL Makefile.am Makefile.in NEWS TODO acconfig.h acinclude.m4 \
 aclocal.m4 config.guess config.h.in config.sub configure configure.in \
 gnomebaker.desktop.in install-sh ltmain.sh missing mkinstalldirs
 
