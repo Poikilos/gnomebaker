@@ -251,7 +251,7 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 		gchar* convertedfile = NULL;
 			
 		/* Check that the file extension is one we support */			
-		if(g_ascii_strcasecmp(mime, "audio/x-mp3") == 0)
+		if((g_ascii_strcasecmp(mime, "audio/x-mp3") == 0) || (g_ascii_strcasecmp(mime, "audio/mpeg") == 0))
 			mpg123_add_mp3_args(cmd, file, &convertedfile);
 		else if(g_ascii_strcasecmp(mime, "application/ogg") == 0)
 			oggdec_add_args(cmd, file, &convertedfile);
