@@ -17,6 +17,8 @@ Version 0.2.1
 * Make the preferences dialog more gnomeesque with (almost) instant apply preferences.
 * Filenames and directories can now be renamed by left clicking in the contents column of a data cd.
 * Function tracing is now enabled by starting gnomebaker with --trace-on rather than always on.
+* Use the splash screen on the about dialog as it looks good.
+* Make the application icon smaller and use it in the desktop file which should now appear on the gnome menu.
 
 Version 0.2
 
