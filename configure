@@ -22516,7 +22516,7 @@ packagedocdir=doc/${PACKAGE}
 
 packagepixmapsdir=share/${PACKAGE}
 packagehelpdir=share/gnome/help/${PACKAGE}
-packagemenudir=share/gnome/apps
+packagemenudir=share/applications
 
 NO_PREFIX_PACKAGE_DATA_DIR="${packagedatadir}"
 

@@ -18,8 +18,7 @@ gnomebakerdoc_DATA = \
 	omf.make
 
 
-#gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Applications
-gnomemenudir = /usr/share/applications
+gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@
 gnomemenu_DATA = gnomebaker.desktop
 
 ##gnomebaker_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/@PACKAGE@/glade

@@ -270,7 +270,7 @@ audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer use
 		const gint count = gtk_tree_selection_count_selected_rows(selection);
 		if(count == 1)
 		{
-			gbcommon_append_menu_item_stock(menu, _("_Open"), GTK_STOCK_OPEN, 
+			gbcommon_append_menu_item_stock(menu, _("_Play"), GTK_STOCK_MEDIA_PLAY, 
 				(GCallback)audiocd_on_open, view);
 		}
 		
