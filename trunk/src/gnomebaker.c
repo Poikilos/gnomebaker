@@ -258,7 +258,7 @@ gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	const gchar* authors[] = {"Luke Biddell", "Isak Savo", NULL};
+	const gchar* authors[] = {"Luke Biddell", "Isak Savo", "Christoffer Sørensen", NULL};
 	const gchar* documenters[] = {"Milen Dzhumerov", NULL};
 	
 	GtkWidget* about = gnome_about_new(_("GnomeBaker"), VERSION, "LGPL", 
