@@ -315,7 +315,7 @@ gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	const gchar* authors[] = {"Luke Biddell", "Isak Savo", "Christoffer Sørensen", NULL};
+	const gchar* authors[] = {"Luke Biddell", "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", NULL};
 	const gchar* documenters[] = {"Milen Dzhumerov", NULL};
 	GtkWidget* about = gnome_about_new(_("GnomeBaker"), VERSION, "LGPL", 
 		_("Simple CD Burning for Gnome"), authors, documenters, _("translator_credits"), 
@@ -484,19 +484,4 @@ gnomebaker_on_format_dvdrw(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	burn_format_dvdrw();	
-}
-
-void gnomebaker_on_help(gpointer widget,gpointer user_data)
-{
-	GB_LOG_FUNC
-	GError *error;
-	error = NULL;
-
-	gnome_help_display ("gnomebaker", NULL, &error);
-	if (error)
-	{
-		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,
-		GTK_BUTTONS_NONE,_("Could not display GnomeBaker help file.\n"));
-	}
-	
 }
