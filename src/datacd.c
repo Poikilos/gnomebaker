@@ -176,7 +176,7 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 	g_return_val_if_fail(liststore != NULL, FALSE);
 	gboolean ret = TRUE;
 	
-	gchar* filename = gbcommon_unescape_string(file);
+	gchar* filename = gbcommon_get_local_path(file);
 		
 	GB_DECLARE_STRUCT(struct stat, s);
 	gint statret = stat(filename, &s);
@@ -614,8 +614,10 @@ datacd_import_session()
 			while(name != NULL)
 			{
 				gchar* fullname = g_build_filename(mountpoint, name, NULL);
-				if(!datacd_add_to_compilation(fullname, model, TRUE))
+				gchar* uri = gbcommon_get_uri(fullname);
+				if(!datacd_add_to_compilation(uri, model, TRUE))
 					break;
+				g_free(uri);
 				g_free(fullname);
 				name = g_dir_read_name(dir);				
 			}
