@@ -633,7 +633,7 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 	/* 	exec_cmd_add_arg(e, "-A \"%s\"", "GnomeBaker");  */
 				
 		exec_cmd_add_arg(e, "%s", "-r");
-		exec_cmd_add_arg(e, "%s", "-f");
+		/*exec_cmd_add_arg(e, "%s", "-f"); don't follow links */
 		exec_cmd_add_arg(e, "%s", "-J");
 		/*exec_cmd_add_arg(e, "%s", "-hfs");*/
 		exec_cmd_add_arg(e, "%s", "-gui");

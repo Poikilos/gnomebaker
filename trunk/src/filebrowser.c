@@ -332,7 +332,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 						gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);
 						gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
 							FL_COL_ICON, GTK_STOCK_OPEN, FL_COL_NAME, name,
-							FL_COL_TYPE, DIRECTORY, FL_COL_SIZE, 4, FL_COL_HUMANSIZE, "4 B", -1);
+							FL_COL_TYPE, DIRECTORY, FL_COL_SIZE, (guint64)4, FL_COL_HUMANSIZE, "4 B", -1);
 					}
 				}
 				/* It's a file */
@@ -347,7 +347,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 					gchar* humansize = gbcommon_humanreadable_filesize(s.st_size);
 					gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
 						FL_COL_ICON, GTK_STOCK_DND, FL_COL_NAME, name,
-						FL_COL_TYPE, mime, FL_COL_SIZE, s.st_size, FL_COL_HUMANSIZE, humansize, -1);					
+						FL_COL_TYPE, mime, FL_COL_SIZE, (guint64)s.st_size, FL_COL_HUMANSIZE, humansize, -1);					
 					g_free(mime);
 					g_free(humansize);
 #else
@@ -756,7 +756,7 @@ filebrowser_setup_list(
 	
 	/* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(
-		FL_NUM_COLS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_ULONG, G_TYPE_STRING);
+		FL_NUM_COLS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
 	
 	gtk_tree_sortable_set_default_sort_func(
