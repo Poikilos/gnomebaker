@@ -317,7 +317,7 @@ gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
 	
 	GtkWidget* about = gnome_about_new(_("GnomeBaker"), VERSION, "LGPL", 
 		_("Simple CD Burning for Gnome"), authors, documenters, _(""), 
-		gtk_window_get_icon(GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker))));
+		gdk_pixbuf_new_from_file(PACKAGE_PIXMAPS_DIR"/splash_2.png", NULL));
 	
 	gtk_widget_show(about);	
 }
