@@ -48,11 +48,9 @@ enum
 #define DATACD_EXISTING_SESSION "msinfo"
 
 void datacd_new();
-void datacd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata);
-void datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata);
-void datacd_on_drag_data_received(GtkWidget * widget, GdkDragContext * context,
-    						  gint x, gint y, GtkSelectionData * seldata,
-    						  guint info, guint time, gpointer userdata);
+void datacd_clear();
+void datacd_remove();
+void datacd_add_selection(GtkSelectionData* selection);
 void datacd_import_session();
 
 #endif	/*_DATACD_H_*/

@@ -30,7 +30,6 @@
 
 void filebrowser_refresh (void);
 void filebrowser_new();
-void filebrowser_on_drag_data_get (GtkWidget * widget, GdkDragContext * context,
-	GtkSelectionData * selection_data, guint info, guint time, gpointer data);
+GtkSelectionData* filebrowser_get_selection(gboolean fromtree);
 
 #endif	/*_FILEBROWSER_H_*/

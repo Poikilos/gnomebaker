@@ -511,6 +511,23 @@ filebrowser_on_drag_data_get (GtkWidget * widget,
 }
 
 
+GtkSelectionData* 
+filebrowser_get_selection(gboolean fromtree)
+{
+	GB_LOG_FUNC
+	
+	GtkWidget* tree = NULL;
+	if(fromtree)
+		tree = glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree);
+	else
+		tree = glade_xml_get_widget(gnomebaker_getxml(), widget_browser_filelist);
+	
+	GtkSelectionData* selection_data = g_new0(GtkSelectionData, 1);	
+	filebrowser_on_drag_data_get(tree, NULL, selection_data, 0, 0, NULL);
+	return selection_data;
+}
+
+
 void
 filebrowser_setup_tree(
     GtkTreeView * dirtree,
