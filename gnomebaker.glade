@@ -6,6 +6,8 @@
 <requires lib="bonobo"/>
 
 <widget class="GnomeApp" id="GnomeBaker">
+  <property name="width_request">750</property>
+  <property name="height_request">550</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">GnomeBaker</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -321,7 +323,7 @@
 	      <property name="border_width">1</property>
 	      <property name="visible">True</property>
 	      <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
-	      <property name="toolbar_style">GTK_TOOLBAR_BOTH_HORIZ</property>
+	      <property name="toolbar_style">GTK_TOOLBAR_ICONS</property>
 	      <property name="tooltips">True</property>
 	      <property name="show_arrow">False</property>
 
@@ -767,7 +769,7 @@
 				  <property name="visible">True</property>
 				  <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
 				  <property name="fraction">0</property>
-				  <property name="pulse_step">0.1</property>
+				  <property name="pulse_step">0.10000000149</property>
 				  <property name="text" translatable="yes">0%</property>
 				</widget>
 				<packing>
@@ -781,43 +783,11 @@
 				<widget class="GtkOptionMenu" id="optionmenu1">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
-				  <property name="history">0</property>
+				  <property name="history">-1</property>
 				  <signal name="changed" handler="datacd_on_datadisk_size_changed" last_modification_time="Thu, 06 Jan 2005 20:46:45 GMT"/>
 
 				  <child>
 				    <widget class="GtkMenu" id="menu1">
-
-				      <child>
-					<widget class="GtkMenuItem" id="650mb_cd1">
-					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">650MB CD</property>
-					  <property name="use_underline">True</property>
-					</widget>
-				      </child>
-
-				      <child>
-					<widget class="GtkMenuItem" id="700mb_cd1">
-					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">700MB CD</property>
-					  <property name="use_underline">True</property>
-					</widget>
-				      </child>
-
-				      <child>
-					<widget class="GtkMenuItem" id="47gb_dvd1">
-					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">4.7GB DVD</property>
-					  <property name="use_underline">True</property>
-					</widget>
-				      </child>
-
-				      <child>
-					<widget class="GtkMenuItem" id="85gb_dvd1">
-					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">8.5GB DVD</property>
-					  <property name="use_underline">True</property>
-					</widget>
-				      </child>
 				    </widget>
 				  </child>
 				</widget>
@@ -981,7 +951,7 @@
 				  <property name="visible">True</property>
 				  <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
 				  <property name="fraction">0</property>
-				  <property name="pulse_step">0.1</property>
+				  <property name="pulse_step">0.10000000149</property>
 				  <property name="text" translatable="yes">0 mins 0 secs</property>
 				</widget>
 				<packing>
@@ -995,27 +965,11 @@
 				<widget class="GtkOptionMenu" id="optionmenu2">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
-				  <property name="history">0</property>
+				  <property name="history">-1</property>
 				  <signal name="changed" handler="audiocd_on_audiocd_size_changed" last_modification_time="Thu, 06 Jan 2005 21:02:09 GMT"/>
 
 				  <child>
 				    <widget class="GtkMenu" id="menu2">
-
-				      <child>
-					<widget class="GtkMenuItem" id="menuitem2">
-					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">80 min. CD</property>
-					  <property name="use_underline">True</property>
-					</widget>
-				      </child>
-
-				      <child>
-					<widget class="GtkMenuItem" id="menuitem1">
-					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">74 min. CD</property>
-					  <property name="use_underline">True</property>
-					</widget>
-				      </child>
 				    </widget>
 				  </child>
 				</widget>
@@ -1125,7 +1079,7 @@
 			  <property name="wrap">False</property>
 			  <property name="selectable">False</property>
 			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.49</property>
+			  <property name="yalign">0.490000009537</property>
 			  <property name="xpad">0</property>
 			  <property name="ypad">0</property>
 			</widget>
@@ -1179,7 +1133,7 @@
 				  <property name="visible">True</property>
 				  <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
 				  <property name="fraction">0</property>
-				  <property name="pulse_step">0.1</property>
+				  <property name="pulse_step">0.10000000149</property>
 				  <property name="text" translatable="yes">0%</property>
 				</widget>
 				<packing>
@@ -1441,7 +1395,7 @@
 	      <property name="visible">True</property>
 	      <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
 	      <property name="fraction">0</property>
-	      <property name="pulse_step">0.1</property>
+	      <property name="pulse_step">0.10000000149</property>
 	      <property name="text" translatable="yes">0%</property>
 	    </widget>
 	    <packing>
@@ -1813,6 +1767,7 @@
 		  <property name="directory_entry">True</property>
 		  <property name="modal">True</property>
 		  <property name="use_filechooser">False</property>
+		  <property name="filechooser_action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
 
 		  <child internal-child="entry">
 		    <widget class="GtkEntry" id="tmpDirEntry">
@@ -1823,7 +1778,7 @@
 		      <property name="max_length">0</property>
 		      <property name="text" translatable="yes">/tmp</property>
 		      <property name="has_frame">True</property>
-		      <property name="invisible_char" translatable="yes">*</property>
+		      <property name="invisible_char">*</property>
 		      <property name="activates_default">False</property>
 		    </widget>
 		  </child>
@@ -2829,7 +2784,7 @@
 	      <property name="max_length">0</property>
 	      <property name="text" translatable="yes">GnomeBaker data cd</property>
 	      <property name="has_frame">True</property>
-	      <property name="invisible_char" translatable="yes">*</property>
+	      <property name="invisible_char">*</property>
 	      <property name="activates_default">False</property>
 	    </widget>
 	    <packing>
@@ -2875,7 +2830,7 @@
 	      <property name="max_length">0</property>
 	      <property name="text" translatable="yes">Created by username</property>
 	      <property name="has_frame">True</property>
-	      <property name="invisible_char" translatable="yes">*</property>
+	      <property name="invisible_char">*</property>
 	      <property name="activates_default">False</property>
 	    </widget>
 	    <packing>
@@ -3081,6 +3036,7 @@
 	      <property name="directory_entry">False</property>
 	      <property name="modal">False</property>
 	      <property name="use_filechooser">False</property>
+	      <property name="filechooser_action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
 
 	      <child internal-child="entry">
 		<widget class="GtkEntry" id="combo-entry1">
@@ -3091,7 +3047,7 @@
 		  <property name="max_length">0</property>
 		  <property name="text" translatable="yes"></property>
 		  <property name="has_frame">True</property>
-		  <property name="invisible_char" translatable="yes">*</property>
+		  <property name="invisible_char">*</property>
 		  <property name="activates_default">False</property>
 		</widget>
 	      </child>
@@ -3165,7 +3121,7 @@
 	      <property name="max_length">0</property>
 	      <property name="text" translatable="yes"></property>
 	      <property name="has_frame">True</property>
-	      <property name="invisible_char" translatable="yes">*</property>
+	      <property name="invisible_char">*</property>
 	      <property name="activates_default">False</property>
 	    </widget>
 	    <packing>
@@ -3187,7 +3143,7 @@
 	      <property name="max_length">0</property>
 	      <property name="text" translatable="yes"></property>
 	      <property name="has_frame">True</property>
-	      <property name="invisible_char" translatable="yes">*</property>
+	      <property name="invisible_char">*</property>
 	      <property name="activates_default">False</property>
 	    </widget>
 	    <packing>
