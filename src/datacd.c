@@ -343,7 +343,7 @@ datacd_on_drag_data_received(
 	GtkTreeView *datatree = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree));
 	g_return_if_fail(datatree != NULL);			
 	GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(datatree));
-	g_return_if_fail(GTK_IS_TREE_VIEW(widget));
+	g_return_if_fail(model != NULL);
 	
 	gnomebaker_show_busy_cursor(TRUE);	    	
 
