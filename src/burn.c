@@ -33,6 +33,7 @@
 #include "progressdlg.h"
 #include "gbcommon.h"
 #include "audiocd.h"
+#include "devices.h"
 
 Exec *burnargs = NULL;
 
@@ -126,6 +127,9 @@ burn_start_process()
 {
 	GB_LOG_FUNC
 	gboolean ok = TRUE;
+	
+	/* this will umount the writer if it is mounted */
+	devices_mount_device(GB_WRITER, NULL);
 	
 	/* Wire up the function that gets called at the end of the burning process. 
 	   This finalises the text in the progress dialog.*/

@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"POT-Creation-Date: 2005-01-14 18:14-0200\n"
 "PO-Revision-Date: 2005-01-18 22:52+0100\n"
 "Last-Translator:  <>\n"
 "Language-Team: Swedish (Sweden) <sv_SE@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 
 #: src/audiocd.c:90
 #, c-format

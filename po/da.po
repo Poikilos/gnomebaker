@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-15 18:14-0200\n"
+"POT-Creation-Date: 2005-01-14 18:14-0200\n"
 "PO-Revision-Date: 2005-01-15 18:46-0200\n"
 "Last-Translator: Christoffer Sørensen <gnomebaker@curo.dk>\n"
 "Language-Team: \n"
@@ -246,7 +246,8 @@ msgstr "Filstørrrelse %f diskstørrelse %f brøkdel er %f"
 
 #: src/datacd.c:135
 msgid "File or directory is too large to fit in the remaining space on the CD"
-msgstr "Fil eller folder er for stor til at være på den resterendde plads på CD'en"
+msgstr ""
+"Fil eller folder er for stor til at være på den resterendde plads på CD'en"
 
 #: src/datacd.c:182
 #, c-format
@@ -304,8 +305,8 @@ msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
 msgstr ""
-"Fejl ved importering af session fra [%s]. Check venligst konfigurationen af enheden i "
-"opsætning."
+"Fejl ved importering af session fra [%s]. Check venligst konfigurationen af "
+"enheden i opsætning."
 
 #: src/datacd.c:550
 msgid "Error unmounting writer device"
@@ -376,7 +377,8 @@ msgstr "leder efter enhed [%d]"
 msgid ""
 "Requested device index [%d] is out of bounds. All devices have been read."
 msgstr ""
-"Det ønskede enhedsindex [%d] er uden for området. Alle enheder er blevet læst."
+"Det ønskede enhedsindex [%d] er uden for området. Alle enheder er blevet "
+"læst."
 
 #: src/devices.c:500
 msgid "Failed to open /proc/sys/dev/cdrom/info"
@@ -389,8 +391,8 @@ msgid ""
 "and then go to preferences and rescan for devices."
 msgstr ""
 "Monteringsstedet (eksempelvis /mnt/cdrom) for brænderenheden kunne ikke "
-"findes. Check venligst at brænderenheden har indgang i /etc/fstab "
-"og gå dernæst til opsætning og skan for enheder igen."
+"findes. Check venligst at brænderenheden har indgang i /etc/fstab og gå "
+"dernæst til opsætning og skan for enheder igen."
 
 #: src/devices.c:582
 #, c-format
@@ -634,8 +636,7 @@ msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr ""
-"Filen du har valgt er ikke et cdimage. Vælg venligst et cdimage at "
-"brænde."
+"Filen du har valgt er ikke et cdimage. Vælg venligst et cdimage at brænde."
 
 #: src/gnomebaker.c:264 gnomebaker.glade:10
 msgid "GnomeBaker"

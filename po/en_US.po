@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-14 18:14-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English (United States) <en_US@li.org>\n"
@@ -247,8 +247,7 @@ msgstr "File size %f  Disk size %f  Fraction is %f"
 
 #: src/datacd.c:135
 msgid "File or directory is too large to fit in the remaining space on the CD"
-msgstr ""
-"File or directory is too large to fit in the remaining space on the CD"
+msgstr "File or directory is too large to fit in the remaining space on the CD"
 
 #: src/datacd.c:182
 #, c-format

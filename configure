@@ -19609,7 +19609,7 @@ echo "${ECHO_T}$GNOME_LIBS" >&6
 
 
 
-ALL_LINGUAS="pt_BR da"
+ALL_LINGUAS="af  de     es     he  ko  nl_NL  pt  sk     tr cs  en_US  fr_FR  hr  lv  pl     ro  sv     zh_CN da  es_ES  fr     ja  ms  pt_BR  ru  sv_SE"
 
 
 for ac_header in locale.h

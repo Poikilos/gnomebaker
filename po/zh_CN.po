@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
-"Report-Msgid-Bugs-To: Li Qing <qingl@bluebottle.com>\n"
-"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-14 18:14-0200\n"
 "PO-Revision-Date: 2005-01-20 03:03:03.358888\n"
 "Last-Translator: Li Qing <qingl@bluebottle.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -383,7 +383,9 @@ msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
-msgstr "无法获得刻录设备的挂载点(例如 /mnt/cdrom)，请确认 /etc/fstab 中存在刻录设备的节点，然后进入首选项重新扫描设备。"
+msgstr ""
+"无法获得刻录设备的挂载点(例如 /mnt/cdrom)，请确认 /etc/fstab 中存在刻录设备的"
+"节点，然后进入首选项重新扫描设备。"
 
 #: src/devices.c:582
 #, c-format

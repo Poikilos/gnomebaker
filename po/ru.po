@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-14 18:14-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Rosetta-Version: 0.1\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 
 #: src/audiocd.c:90
 #, c-format
@@ -402,8 +402,8 @@ msgid ""
 "and then go to preferences and rescan for devices."
 msgstr ""
 "Точка монтирования /mnt/cdrom для записывающего привода не может быть "
-"получен. Пожалуйста проверьте, что записывающее устройство имеет запись в "
-"/etc/fstab, затем зайдите в настройки и заново перепроверьте устройства "
+"получен. Пожалуйста проверьте, что записывающее устройство имеет запись в /"
+"etc/fstab, затем зайдите в настройки и заново перепроверьте устройства "
 "(кнопка поиск записывающих устройств)."
 
 #: src/devices.c:582

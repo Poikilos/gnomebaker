@@ -548,7 +548,7 @@
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="headers_visible">True</property>
-			  <property name="rules_hint">False</property>
+			  <property name="rules_hint">True</property>
 			  <property name="reorderable">False</property>
 			  <property name="enable_search">True</property>
 			</widget>
@@ -1959,7 +1959,7 @@
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="headers_visible">True</property>
-		      <property name="rules_hint">False</property>
+		      <property name="rules_hint">True</property>
 		      <property name="reorderable">False</property>
 		      <property name="enable_search">True</property>
 		    </widget>
@@ -2151,6 +2151,7 @@
 		  <property name="top_attach">2</property>
 		  <property name="bottom_attach">3</property>
 		  <property name="x_options">fill</property>
+		  <property name="y_options">fill</property>
 		</packing>
 	      </child>
 	    </widget>

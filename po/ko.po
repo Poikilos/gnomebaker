@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-14 18:14-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -198,7 +198,8 @@ msgstr "<b>오디오 트랙 추출중...</>"
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
-msgstr "이미 이전 세션의 오디오 트랙이 디스크에 존재합니다. 기존 트랙을 사용할까요?"
+msgstr ""
+"이미 이전 세션의 오디오 트랙이 디스크에 존재합니다. 기존 트랙을 사용할까요?"
 
 #: src/cdda2wav.c:71
 msgid "Please insert the audio CD into the CD reader"
@@ -308,7 +309,8 @@ msgstr "쓰기 장치 마운트 오류"
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
-msgstr "[%s] 로 부터 세션 가져오기 오기. 기본 설정에 있는 장치 구성을 확인해 주십시오"
+msgstr ""
+"[%s] 로 부터 세션 가져오기 오기. 기본 설정에 있는 장치 구성을 확인해 주십시오"
 
 #: src/datacd.c:550
 msgid "Error unmounting writer device"
@@ -391,8 +393,9 @@ msgid ""
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
-"쓰기 장치를 위한 마운트 포인트(예를 들어 /mnt/cdrom)를 얻는데 실패했습니다. /etc/fstab내에 쓰기 장치가 등록되어 있는 "
-"확인한 후에 기본설정에서 장치를 다시 검색하십시오."
+"쓰기 장치를 위한 마운트 포인트(예를 들어 /mnt/cdrom)를 얻는데 실패했습니다. /"
+"etc/fstab내에 쓰기 장치가 등록되어 있는 확인한 후에 기본설정에서 장치를 다시 "
+"검색하십시오."
 
 #: src/devices.c:582
 #, fuzzy, c-format
@@ -639,7 +642,8 @@ msgstr ""
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
-msgstr "선택한 파일이 CD 이미지가 아닙니다. CD 굽기를 할 이미지를 선택하십시오."
+msgstr ""
+"선택한 파일이 CD 이미지가 아닙니다. CD 굽기를 할 이미지를 선택하십시오."
 
 #: src/gnomebaker.c:264 gnomebaker.glade:10
 msgid "GnomeBaker"
@@ -657,7 +661,9 @@ msgstr "<b>데이터 디스크 이미지 생성중...</b>"
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
-msgstr "이미 이전 세션의 데이터 CD 이미지가 디스크에 존재합니다, 기존 이미지를 이용하시겠습니까?"
+msgstr ""
+"이미 이전 세션의 데이터 CD 이미지가 디스크에 존재합니다, 기존 이미지를 이용하"
+"시겠습니까?"
 
 #: src/mpg123.c:19
 msgid "<b>Converting mp3 to cd audio...</b>"
