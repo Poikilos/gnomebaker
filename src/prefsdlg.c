@@ -40,7 +40,8 @@ static const gint DEVICELIST_COL_ICON = 0;
 static const gint DEVICELIST_COL_NAME = 1;
 static const gint DEVICELIST_COL_ID = 2;
 static const gint DEVICELIST_COL_NODE = 3;
-static const gint DEVICELIST_NUM_COLS = 4;
+static const gint DEVICELIST_COL_MOUNT = 4;
+static const gint DEVICELIST_NUM_COLS = 5;
 
 
 GladeXML* prefsdlg_xml = NULL;
@@ -97,7 +98,7 @@ prefsdlg_create_device_list()
 	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
 		
 	GtkListStore *store = gtk_list_store_new(DEVICELIST_NUM_COLS, 
-		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(devicelist), GTK_TREE_MODEL(store));
     g_object_unref(store);
 	
@@ -138,6 +139,17 @@ prefsdlg_create_device_list()
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DEVICELIST_COL_NODE, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);	
+	
+	/* Fourth column to display the device node */
+	col = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_title(col, "Mount point");
+	renderer = gtk_cell_renderer_text_new();
+	g_object_set_property(G_OBJECT(renderer), "editable", &value);
+	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
+		(gpointer)&DEVICELIST_COL_MOUNT);
+	gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", DEVICELIST_COL_MOUNT, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);
 
 	g_value_unset(&value);
 }
@@ -191,10 +203,12 @@ prefsdlg_populate_device_list()
 		gchar* devicenamekey = g_strconcat(devicekey, GB_DEVICE_NAME_LABEL, NULL);
 		gchar* deviceidkey = g_strconcat(devicekey, GB_DEVICE_ID_LABEL, NULL);		
 		gchar* devicenodekey = g_strconcat(devicekey, GB_DEVICE_NODE_LABEL, NULL);
+		gchar* devicemountkey = g_strconcat(devicekey, GB_DEVICE_MOUNT_LABEL, NULL);
 		
 		gchar* devicename = preferences_get_string(devicenamekey);
 		gchar* deviceid = preferences_get_string(deviceidkey);
 		gchar* devicenode = preferences_get_string(devicenodekey);
+		gchar* devicemount = preferences_get_string(devicemountkey);
 		
 		GB_DECLARE_STRUCT(GtkTreeIter, iter);
 		gtk_list_store_append(devicemodel, &iter);		
@@ -202,15 +216,19 @@ prefsdlg_populate_device_list()
 			DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
 			DEVICELIST_COL_NAME, devicename,
 			DEVICELIST_COL_ID, deviceid,
-			DEVICELIST_COL_NODE, devicenode, -1);
+			DEVICELIST_COL_NODE, devicenode, 
+			DEVICELIST_COL_MOUNT, devicemount, -1);
 				
 		g_free(deviceidkey);
 		g_free(devicenamekey);		
 		g_free(devicenodekey);
 		g_free(devicekey);
+		g_free(devicemountkey);
+		
 		g_free(deviceid);
 		g_free(devicename);		
 		g_free(devicenode);
+		g_free(devicemount);
 		item = item->next;
 	}
 	
@@ -240,9 +258,8 @@ prefsdlg_on_scan(GtkButton * button, gpointer user_data)
 	gbcommon_start_busy_cursor1(prefsdlg_xml, widget_prefsdlg);
 	
 	prefsdlg_clear_device_list();
-	
-	if(devices_probe_busses())
-		prefsdlg_populate_device_list();
+	devices_probe_busses();
+	prefsdlg_populate_device_list();
 	
 	gbcommon_end_busy_cursor1(prefsdlg_xml, widget_prefsdlg);
 }
@@ -297,33 +314,21 @@ prefsdlg_foreach_device(GtkTreeModel *devicemodel,
 	gint* devicecount = (gint*)userdata; 
 	++(*devicecount);
 	
-	gchar *icon, *name, *id, *node;
+	gchar *icon, *name, *id, *node, *mount;
 	gtk_tree_model_get(devicemodel, iter, DEVICELIST_COL_ICON, &icon, 
-		DEVICELIST_COL_NAME, &name, DEVICELIST_COL_ID, &id, DEVICELIST_COL_NODE, &node, -1);
+		DEVICELIST_COL_NAME, &name, DEVICELIST_COL_ID, &id, 
+		DEVICELIST_COL_NODE, &node, DEVICELIST_COL_MOUNT, &mount,-1);
 	
 	if((name == NULL) || (id == NULL) || (node == NULL))
-	{
 		g_critical("Invalid row in device list");	
-	}
 	else
-	{			
-		gchar* devicenamekey = g_strdup_printf(GB_DEVICE_NAME, *devicecount);			
-		gchar* deviceidkey = g_strdup_printf(GB_DEVICE_ID, *devicecount);	
-		gchar* devicenodekey = g_strdup_printf(GB_DEVICE_NODE, *devicecount);	
-		
-		preferences_set_string(devicenamekey, name);
-		preferences_set_string(deviceidkey, id);
-		preferences_set_string(devicenodekey, node);
-		
-		g_free(devicenamekey);
-		g_free(deviceidkey);
-		g_free(devicenodekey);
-	}
+		devices_write_device_to_gconf(*devicecount, name, id, node, mount);
 	
 	g_free(icon);
 	g_free(name);	
 	g_free(id);	
 	g_free(node);
+	g_free(mount);
 	
 	return FALSE; /* do not stop walking the store, call us with next row */
 }

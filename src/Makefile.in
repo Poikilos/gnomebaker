@@ -299,52 +299,6 @@ distdir: $(DISTFILES)
 	    || cp -p $$d/$$file $(distdir)/$$file || :; \
 	  fi; \
 	done
-audiocd.o: audiocd.c audiocd.h ../config.h gnomebaker.h gbcommon.h \
-	audioinfo.h
-audioinfo.o: audioinfo.c audioinfo.h ../config.h gbcommon.h
-audioutil.o: audioutil.c audioutil.h ../config.h
-burn.o: burn.c burn.h ../config.h preferences.h exec.h cdrecord.h \
-	readcd.h cdda2wav.h gnomebaker.h startdlg.h progressdlg.h \
-	mkisofs.h gbcommon.h audiocd.h mpg123.h oggdec.h sox.h
-cdda2wav.o: cdda2wav.c cdda2wav.h ../config.h exec.h preferences.h \
-	gnomebaker.h progressdlg.h gbcommon.h devices.h
-cdrecord.o: cdrecord.c cdrecord.h ../config.h exec.h preferences.h \
-	gnomebaker.h progressdlg.h gbcommon.h devices.h
-datacd.o: datacd.c datacd.h ../config.h gnomebaker.h filebrowser.h \
-	gbcommon.h
-devices.o: devices.c devices.h ../config.h exec.h gbcommon.h \
-	preferences.h
-exec.o: exec.c exec.h ../config.h gbcommon.h
-filebrowser.o: filebrowser.c filebrowser.h ../config.h gnomebaker.h \
-	gbcommon.h preferences.h
-gbcommon.o: gbcommon.c gbcommon.h ../config.h
-gnomebaker.o: gnomebaker.c gnomebaker.h ../config.h filebrowser.h \
-	audiocd.h datacd.h burn.h preferences.h devices.h prefsdlg.h \
-	splashdlg.h gbcommon.h
-lame.o: lame.c lame.h ../config.h exec.h preferences.h gbcommon.h \
-	progressdlg.h
-main.o: main.c ../config.h gnomebaker.h splashdlg.h gbcommon.h
-mkisofs.o: mkisofs.c mkisofs.h ../config.h exec.h gnomebaker.h \
-	preferences.h progressdlg.h datacd.h gbcommon.h
-mpg123.o: mpg123.c mpg123.h ../config.h exec.h preferences.h gbcommon.h \
-	progressdlg.h
-ogg.o: ogg.c ogg.h ../config.h
-ogg123.o: ogg123.c ogg123.h ../config.h exec.h gbcommon.h progressdlg.h \
-	preferences.h
-oggdec.o: oggdec.c oggdec.h ../config.h exec.h gbcommon.h progressdlg.h \
-	preferences.h
-preferences.o: preferences.c preferences.h gbcommon.h ../config.h
-prefsdlg.o: prefsdlg.c prefsdlg.h ../config.h preferences.h gbcommon.h \
-	filebrowser.h devices.h
-progressdlg.o: progressdlg.c progressdlg.h ../config.h burn.h gbcommon.h
-readcd.o: readcd.c readcd.h ../config.h exec.h preferences.h \
-	gnomebaker.h progressdlg.h gbcommon.h devices.h
-sox.o: sox.c sox.h ../config.h exec.h preferences.h gbcommon.h \
-	progressdlg.h
-splashdlg.o: splashdlg.c splashdlg.h ../config.h gbcommon.h
-startdlg.o: startdlg.c startdlg.h ../config.h burn.h preferences.h \
-	devices.h gnomebaker.h gbcommon.h
-
 info-am:
 info: info-am
 dvi-am:

@@ -169,7 +169,7 @@ preferences_set_string(const gchar* key, const gchar* value)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, FALSE);
-	return gconf_client_set_string(gconf_client, key, value, NULL);	
+	return gconf_client_set_string(gconf_client, key, value == NULL ? "" : value, NULL);
 }
 
 

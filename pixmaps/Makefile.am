@@ -15,6 +15,7 @@ gnomebaker_pixmaps_DATA = \
 	baker-cd.png\
 	baker-data-copy.png\
 	gnomebaker-48.png\
-	splash_2.png
+	splash_2.png\
+	baker-import-session.png
 
 EXTRA_DIST = $(gnomebaker_pixmaps_DATA)

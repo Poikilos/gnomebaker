@@ -48,6 +48,7 @@ void gnomebaker_on_add_files(gpointer widget, gpointer user_data);
 void gnomebaker_on_remove(gpointer widget, gpointer user_data);
 void gnomebaker_on_clear(gpointer widget, gpointer user_data);
 void gnomebaker_on_refresh(gpointer widget, gpointer user_data);
+void gnomebaker_on_import(gpointer widget, gpointer user_data);
 void gnomebaker_on_toolbar_style_changed(GConfClient *client, guint cnxn_id,
                                    	GConfEntry *entry, gpointer user_data);
 
@@ -583,7 +584,34 @@ gnomebaker_enable_widget(const gchar* widgetname, gboolean enabled)
 void 
 gnomebaker_on_refresh(gpointer widget, gpointer user_data)
 {
+	GB_LOG_FUNC
 	filebrowser_refresh();	
+}
+
+
+void 
+gnomebaker_on_import(gpointer widget, gpointer user_data)
+{
+	GB_LOG_FUNC
+	
+	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+	g_return_if_fail(notebook != NULL);	
+	
+	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
+	{
+		case 0:			
+		{
+			datacd_import_session();
+			break;
+		}
+		case 1:
+		{
+			break;
+		}		
+		default:
+		{
+		}	
+	};
 }
 
 

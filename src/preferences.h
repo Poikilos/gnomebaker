@@ -51,6 +51,8 @@
 #define GB_DEVICE_ID			GB_DEVICE_KEY GB_DEVICE_ID_LABEL
 #define GB_DEVICE_NODE_LABEL	"/DeviceNode"
 #define GB_DEVICE_NODE			GB_DEVICE_KEY GB_DEVICE_NODE_LABEL
+#define GB_DEVICE_MOUNT_LABEL	"/MountPoint"
+#define GB_DEVICE_MOUNT			GB_DEVICE_KEY GB_DEVICE_MOUNT_LABEL
 
 #define GNOME_TOOLBAR_STYLE		"/desktop/gnome/interface/toolbar_style"
 
