@@ -8,3 +8,4 @@
 * Add flac support
 * Refactor all tree view creating code to use gtk_tree_view_column_new_with_attributes (reduces code)
 * Externalise strings for internationalisation
+* Menu item to show/hide the filebrowser.
