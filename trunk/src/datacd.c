@@ -33,15 +33,15 @@
 #include "selectdevicedlg.h"
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 
-gint datadisksize = 0;
+gdouble datadisksize = 0.0;
 
-
-enum 
+DiskSize datadisksizes[] = 
 {
-	DISK_SIZE_600MB = 600,
-	DISK_SIZE_700MB = 700,
-	DISK_SIZE_4700MB = 4700,
-	DISK_SIZE_8500MB = 8500
+	{200 * 1000 * 1000, "200MB CD"},
+	{600 * 1000 * 1000, "600MB CD"},
+	{700 * 1000 * 1000, "700MB CD"},
+	{4.7 * 1000 * 1000 * 1000, "4.7GB DVD"},
+	{8.5 * 1000 * 1000 * 1000, "8.5GB DVD"}
 };
 
 
@@ -85,23 +85,14 @@ datacd_on_show_humansize_changed(GConfClient *client,
 	gtk_tree_view_column_set_visible(humansize_column, showhumansize);
 }
 
-gint 
+
+gdouble 
 datacd_get_datadisk_size()
 {
 	GB_LOG_FUNC
 	GtkWidget* optmen = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_size);
-	g_return_val_if_fail(optmen != NULL, 0);
-	
-	gint size = gtk_option_menu_get_history(GTK_OPTION_MENU(optmen));
-	if(size == 0)
-		datadisksize = DISK_SIZE_600MB;
-	else if(size == 1)
-		datadisksize = DISK_SIZE_700MB;
-	else if(size == 2)
-		datadisksize = DISK_SIZE_4700MB;
-	else
-		datadisksize = DISK_SIZE_8500MB;
-
+	g_return_val_if_fail(optmen != NULL, 0);	
+	datadisksize = datadisksizes[gtk_option_menu_get_history(GTK_OPTION_MENU(optmen))].size;
 	return datadisksize;
 }
 
@@ -120,8 +111,7 @@ datacd_update_progress_bar(gboolean add, guint64 filesize)
 	g_return_val_if_fail(progbar != NULL, FALSE);
 	
 	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
-	gint cdsize = datacd_get_datadisk_size();
-	gdouble disksize = (gdouble)(cdsize) * (gdouble)1024 * (gdouble)1024;	
+	const gdouble disksize = datacd_get_datadisk_size();
 	gdouble currentsize = fraction * disksize;
 	
 	if(add)
@@ -432,10 +422,7 @@ datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user
 					   gdk_event_get_time((GdkEvent*)event));
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+	return FALSE;
 }
 
 
@@ -530,7 +517,11 @@ datacd_new()
         G_CALLBACK(datacd_on_button_pressed), NULL);
 
 	preferences_register_notify(GB_SHOWHUMANSIZE, datacd_on_show_humansize_changed);
-
+	
+	GtkWidget* optmenu = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_size);
+	gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(optmenu), datadisksizes, 
+		(sizeof(datadisksizes)/sizeof(DiskSize)), 2);
+	
 	/* get the currently selected cd size */
 	datacd_get_datadisk_size();	
 }
@@ -643,7 +634,7 @@ datacd_on_datadisk_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 	g_return_if_fail(progbar != NULL);
 	
 	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
-	gint previoussize = datadisksize;
+	const gdouble previoussize = datadisksize;
 	datadisksize = datacd_get_datadisk_size();
 		
 	fraction = (fraction * previoussize)/datadisksize;
@@ -668,7 +659,7 @@ datacd_on_create_datadisk(gpointer widget, gpointer user_data)
 	GtkTreeModel* datamodel = gtk_tree_view_get_model(GTK_TREE_VIEW(datatree));
 	g_return_if_fail(datamodel != NULL);
 
-	if(datadisksize >= DISK_SIZE_4700MB)
+	if(datadisksize >= 4.7 * 1000 * 1000 * 1000)
 		burn_create_data_dvd(datamodel);
 	else
 		burn_create_data_cd(datamodel);	

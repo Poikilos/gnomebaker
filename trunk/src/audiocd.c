@@ -27,7 +27,14 @@
 #include <stdio.h>
 
 
-gint audiocdsize = 0;
+gdouble audiocdsize = 0.0;
+
+DiskSize audiodisksizes[] = 
+{
+	{22, "22 min. CD"},
+	{74, "74 min. CD"},
+	{80, "80 min. CD"}
+};
 
 
 enum
@@ -51,12 +58,7 @@ audiocd_get_audiocd_size()
 	GB_LOG_FUNC
 	GtkWidget* optmen = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_size);
 	g_return_val_if_fail(optmen != NULL, 0);
-	
-	if(gtk_option_menu_get_history(GTK_OPTION_MENU(optmen)) == 1)
-		audiocdsize = 74;
-	else
-		audiocdsize = 80;
-	
+	audiocdsize = audiodisksizes[gtk_option_menu_get_history(GTK_OPTION_MENU(optmen))].size;	
 	return audiocdsize;
 }
 
@@ -74,10 +76,8 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 	GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
 	g_return_val_if_fail(progbar != NULL, FALSE);
 	
-	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
-	
-	gint cdsize = audiocd_get_audiocd_size();
-	
+	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
+	const gdouble cdsize = audiocd_get_audiocd_size();	
 	gdouble currentsecs = fraction * cdsize * 60;
 	
 	if(add)
@@ -86,8 +86,6 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 		currentsecs -= seconds;
 	
 	fraction = currentsecs / (cdsize * 60);
-	
-	g_message( _("Duration %f Fraction is %f"), seconds, fraction);
 	
 	if(fraction < 0.0 || fraction == -0.0)
 	{
@@ -431,6 +429,10 @@ audiocd_new()
 	/* connect the signal to handle right click */
 	g_signal_connect (G_OBJECT(filelist), "button-press-event",
         G_CALLBACK(audiocd_on_button_pressed), NULL);
+		
+	GtkWidget* optmenu = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_size);
+	gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(optmenu), audiodisksizes, 
+		(sizeof(audiodisksizes)/sizeof(DiskSize)), 2);
 }
 
 
@@ -443,7 +445,7 @@ audiocd_on_audiocd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 	g_return_if_fail(progbar != NULL);
 	
 	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
-	gint previoussize = audiocdsize;
+	gdouble previoussize = audiocdsize;
 	audiocdsize = audiocd_get_audiocd_size();
 		
 	fraction = (fraction * previoussize)/audiocdsize;

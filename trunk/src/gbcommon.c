@@ -305,3 +305,31 @@ gbcommon_launch_app_for_file(const gchar* file)
 	
 	g_free(mime);	
 }
+
+
+void 
+gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[], 
+										const gint sizecount, const gint history)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(optmen != NULL);
+	g_return_if_fail(sizes != NULL);
+	
+	GtkWidget* menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(optmen));
+	if(menu != NULL)
+		gtk_widget_destroy(menu);
+	menu = gtk_menu_new();
+	gtk_widget_show(menu);
+	
+	gint i = 0; 
+	for(; i < sizecount; ++i)
+	{
+		GtkWidget* menuitem = gtk_menu_item_new_with_label(sizes[i].label);
+		gtk_widget_show(menuitem);
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+	}
+	
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(optmen), menu);	
+	gtk_option_menu_set_history(GTK_OPTION_MENU(optmen), history);
+
+}

@@ -33,6 +33,12 @@
 #include <glade/glade.h>
 #include <gnome.h>
 
+typedef struct
+{
+	gdouble size;
+	gchar* label;	
+} DiskSize;
+
 
 void gbcommon_start_busy_cursor(GtkWidget* window);
 void gbcommon_start_busy_cursor1(GladeXML* xml, const gchar* windowname);
@@ -48,6 +54,8 @@ gchar* gbcommon_humanreadable_filesize(guint64 size);
 GdkPixbuf* gbcommon_get_icon_for_mime(const gchar* mime, gint size);
 GdkPixbuf* gbcommon_get_icon_for_name(const gchar* mime, gint size);
 void gbcommon_launch_app_for_file(const gchar* file);
+void gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[], 
+											 const gint sizecount, const gint history);
 
 /* defined in main.c */
 extern const gchar* glade_file;
