@@ -18,6 +18,9 @@
  * Created by: luke_biddell@yahoo.com
  * Created on: Tue Apr  6 23:28:51 2004
  */
+ 
+/* This is for bonobo_dock_item_set_locked */
+#define BONOBO_UI_INTERNAL
 
 #include "gnomebaker.h"
 #include <gnome.h>
@@ -66,7 +69,11 @@ gnomebaker_on_toolbar_style_changed(GConfClient *client,
 	gtk_toolbar_set_style(GTK_TOOLBAR(toptoolbar), preferences_get_toolbar_style());
 	
 	GtkWidget* middletoolbar = glade_xml_get_widget(xml, widget_middle_toolbar);	
-	gtk_toolbar_set_style(GTK_TOOLBAR(middletoolbar), preferences_get_toolbar_style());	
+	gtk_toolbar_set_style(GTK_TOOLBAR(middletoolbar), preferences_get_toolbar_style());
+
+	GtkWidget* toptoolbardock = glade_xml_get_widget(xml, widget_top_toolbar_dock);
+	bonobo_dock_item_set_locked(BONOBO_DOCK_ITEM(toptoolbardock),
+		!preferences_get_bool(GNOME_TOOLBAR_DETACHABLE));
 }
 
 
@@ -95,6 +102,7 @@ gnomebaker_new()
 	/* Get and set the default toolbar style */
 	gnomebaker_on_toolbar_style_changed(NULL, 0, NULL, NULL);
 	preferences_register_notify(GNOME_TOOLBAR_STYLE, gnomebaker_on_toolbar_style_changed);
+	preferences_register_notify(GNOME_TOOLBAR_DETACHABLE, gnomebaker_on_toolbar_style_changed);
 	
 	g_main_context_iteration(NULL, TRUE);
 	

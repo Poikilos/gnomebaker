@@ -15,6 +15,9 @@
  */
 #include "gbcommon.h" 
 #include <sys/stat.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
+#include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 
 void 
@@ -278,4 +281,27 @@ gbcommon_get_icon_for_name(const gchar* icon, gint size)
 	GtkIconTheme* theme = gtk_icon_theme_get_default();
 	g_return_val_if_fail(theme != NULL, NULL);
 	return gtk_icon_theme_load_icon(theme, icon, 16, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
+}
+
+
+void
+gbcommon_launch_app_for_file(const gchar* file)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(file != NULL);
+	
+	gchar* mime = gnome_vfs_get_mime_type(file);
+	GnomeVFSMimeApplication* app = gnome_vfs_mime_get_default_application(mime);
+	if(app != NULL)
+	{			
+		gchar* uri = gnome_vfs_get_uri_from_local_path(file);
+		GList* uris = NULL;
+		uris = g_list_append(uris, uri);
+		gnome_vfs_mime_application_launch(app, uris);
+		g_free(uri);
+		g_list_free(uris);
+		gnome_vfs_mime_application_free(app);
+	}
+	
+	g_free(mime);	
 }

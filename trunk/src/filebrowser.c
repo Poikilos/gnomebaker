@@ -23,7 +23,6 @@
 #include "gnomebaker.h"
 #include "gbcommon.h"
 #include "preferences.h"
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 								   
@@ -42,9 +41,9 @@ enum /* FileList */
 {
     FL_COL_ICON = 0,
     FL_COL_NAME,
+	FL_COL_SIZE,
+	FL_COL_HUMANSIZE,
     FL_COL_TYPE,
-    FL_COL_SIZE,
-    FL_COL_HUMANSIZE,
     FL_NUM_COLS
 };
 
@@ -65,7 +64,7 @@ static GtkTargetEntry targetentries[] =
 static const gchar *ROOT_LABEL = "Filesystem";
 static const gchar *HOME_LABEL = "Home";
 static const gchar *EMPTY_LABEL = "(empty)";
-static const gchar *DIRECTORY = "directory";
+static const gchar *DIRECTORY = "Folder";
 
 
 gboolean
@@ -337,7 +336,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 						GdkPixbuf* icon = gbcommon_get_icon_for_name("gnome-fs-directory", 16);
 						gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
 							FL_COL_ICON, icon, FL_COL_NAME, name,
-							FL_COL_TYPE, DIRECTORY, FL_COL_SIZE, (guint64)4, FL_COL_HUMANSIZE, "4 B", -1);
+							FL_COL_TYPE, DIRECTORY, FL_COL_SIZE, (guint64)0, FL_COL_HUMANSIZE, "4 B", -1);
 						g_object_unref(icon);
 					}
 				}
@@ -347,17 +346,17 @@ filebrowser_populate(GtkTreeModel* treemodel,
 					/* We stored the right hand file list as user data when 
 					   when we set up the directory tree selection changed func */					
 					GB_DECLARE_STRUCT(GtkTreeIter, iterRight);					
-					gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);
-					gchar* mime = gnome_vfs_get_mime_type(fullname);
-					gchar* humansize = gbcommon_humanreadable_filesize(s.st_size);
+					gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);					
+  					gchar* mime = gnome_vfs_get_mime_type(fullname);
 					GdkPixbuf* icon = gbcommon_get_icon_for_mime(mime, 16);
-					gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
-						FL_COL_ICON, icon, FL_COL_NAME, name,
-						FL_COL_TYPE, mime, FL_COL_SIZE, (guint64)s.st_size, 
-						FL_COL_HUMANSIZE, humansize, -1);
+  					gchar* humansize = gbcommon_humanreadable_filesize(s.st_size);
+ 					const gchar* type = gnome_vfs_mime_get_description(mime);
+  					gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
+  						FL_COL_ICON, icon, FL_COL_NAME, name,
+ 						FL_COL_TYPE, type?type:mime, FL_COL_SIZE, (guint64)s.st_size, FL_COL_HUMANSIZE, humansize, -1);
 					g_object_unref(icon);
-					g_free(mime);
-					g_free(humansize);
+  					g_free(mime); 					
+  					g_free(humansize);
 				}
 			}
 			else
@@ -609,21 +608,7 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 	}
 	else
 	{
-		gchar* mime = NULL;
-		gtk_tree_model_get(model, &iter, FL_COL_TYPE, &mime, -1);
-		GnomeVFSMimeApplication* app = gnome_vfs_mime_get_default_application(mime);
-		if(app != NULL)
-		{			
-			gchar* uri = gnome_vfs_get_uri_from_local_path(selection->str);
-			GList* uris = NULL;
-			uris = g_list_append(uris, uri);
-			gnome_vfs_mime_application_launch(app, uris);
-			g_free(uri);
-			g_list_free(uris);
-			gnome_vfs_mime_application_free(app);
-		}
-		
-		g_free(mime);
+		gbcommon_launch_app_for_file(selection->str);
 	}
 	g_string_free(selection, TRUE);
 }
@@ -728,7 +713,7 @@ filebrowser_setup_list(
 	
 	/* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(
-		FL_NUM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING);
+		FL_NUM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
 	
 	gtk_tree_sortable_set_default_sort_func(
@@ -739,7 +724,7 @@ filebrowser_setup_list(
 	
     g_object_unref(store);
 
-	/* First column which has an icon renderer and a text renderer packed in */
+	/* 1st column which has an icon renderer and a text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
     gtk_tree_view_column_set_title(col, _("File"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
@@ -751,17 +736,9 @@ filebrowser_setup_list(
     gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_NAME, NULL);
     gtk_tree_view_append_column(filelist, col);
 	
-	/* second column to add the mime type to */
-	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, _("Type"));
-	renderer = gtk_cell_renderer_text_new();
-	gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_TYPE, NULL);
-    gtk_tree_view_append_column(filelist, col);
-	
 	const gboolean showhumansize = preferences_get_bool(GB_SHOWHUMANSIZE);
 
-	/* third column to add the size to */
+	/* 2nd column to add the size to */
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, _("Size"));
 	renderer = gtk_cell_renderer_text_new();
@@ -770,7 +747,7 @@ filebrowser_setup_list(
 	gtk_tree_view_column_set_visible(col, !showhumansize);
     gtk_tree_view_append_column(filelist, col);
 
-	/* fourth column to add the human readeable size to */
+	/* 3rd column to add the human readeable size to */
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, "Size");
 	renderer = gtk_cell_renderer_text_new();
@@ -778,6 +755,15 @@ filebrowser_setup_list(
 	gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_HUMANSIZE,NULL);
 	gtk_tree_view_column_set_visible(col, showhumansize);
 	gtk_tree_view_append_column(filelist, col);
+
+	/* 4th column to add the mime type to */
+	col = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_title(col, _("Type"));
+	renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_TYPE, NULL);
+    gtk_tree_view_append_column(filelist, col);
+	
 
 	/* Set the selection mode of the file list */
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist),

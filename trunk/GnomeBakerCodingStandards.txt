@@ -226,3 +226,10 @@ _("Something") will make the string translatable. _( is for gettext to do
 its work. Now, the po/gnomebaker.pot should be updated by the configure script to 
 reflect all the strings in the source files. A translator needs to copy that 
 file to a locale file, eg. pt_BR.po. In this file he can translate the strings.
+
+
+9. Compiler warnings
+--------------------------------------------------------------------------------
+
+As far as I am concerned, compiler warnings are errors. Please do not commit
+anything until it compiles without errors unless there's a good reason.
