@@ -33,7 +33,7 @@
 #include <gnome.h>
 
 
-void audiocd_setup_list(GtkTreeView * filelist);
+void audiocd_new();
 void audiocd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata);
 void audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata);
 void audiocd_on_drag_data_received(GtkWidget * widget, GdkDragContext * context,

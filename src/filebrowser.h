@@ -28,14 +28,9 @@
 
 #include <gnome.h>
 
-void 
-filebrowser_refresh (void);
-void
-filebrowser_setup_tree_and_list (GtkTreeView * dirtree, GtkTreeView * filelist);
-void
-filebrowser_on_drag_data_get (GtkWidget * widget,
-			      GdkDragContext * context,
-			      GtkSelectionData * selection_data,
-			      guint info, guint time, gpointer data);
+void filebrowser_refresh (void);
+void filebrowser_new();
+void filebrowser_on_drag_data_get (GtkWidget * widget, GdkDragContext * context,
+	GtkSelectionData * selection_data, guint info, guint time, gpointer data);
 
 #endif	/*_FILEBROWSER_H_*/

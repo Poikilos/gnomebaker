@@ -740,7 +740,7 @@
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="history">0</property>
-				  <signal name="changed" handler="gnomebaker_on_datadisk_size_changed" last_modification_time="Wed, 05 Jan 2005 23:51:21 GMT"/>
+				  <signal name="changed" handler="datacd_on_datadisk_size_changed" last_modification_time="Thu, 06 Jan 2005 20:46:45 GMT"/>
 
 				  <child>
 				    <widget class="GtkMenu" id="menu1">
@@ -794,7 +794,7 @@
 				  <property name="can_focus">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
 				  <property name="focus_on_click">True</property>
-				  <signal name="clicked" handler="gnomebaker_on_create_datadisk" last_modification_time="Wed, 05 Jan 2005 23:56:51 GMT"/>
+				  <signal name="clicked" handler="datacd_on_create_datadisk" last_modification_time="Thu, 06 Jan 2005 20:48:37 GMT"/>
 
 				  <child>
 				    <widget class="GtkAlignment" id="alignment13">
@@ -954,7 +954,7 @@
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="history">0</property>
-				  <signal name="changed" handler="gnomebaker_on_audiocd_size_changed" last_modification_time="Tue, 12 Oct 2004 22:24:36 GMT"/>
+				  <signal name="changed" handler="audiocd_on_audiocd_size_changed" last_modification_time="Thu, 06 Jan 2005 21:02:09 GMT"/>
 
 				  <child>
 				    <widget class="GtkMenu" id="menu2">
@@ -992,7 +992,7 @@
 				  <property name="can_focus">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
 				  <property name="focus_on_click">True</property>
-				  <signal name="clicked" handler="gnomebaker_on_create_audiocd" last_modification_time="Sat, 10 Apr 2004 22:04:41 GMT"/>
+				  <signal name="clicked" handler="audiocd_on_create_audiocd" last_modification_time="Thu, 06 Jan 2005 21:01:57 GMT"/>
 
 				  <child>
 				    <widget class="GtkAlignment" id="alignment14">
@@ -1031,7 +1031,7 @@
 					  <child>
 					    <widget class="GtkLabel" id="label259">
 					      <property name="visible">True</property>
-					      <property name="label" translatable="yes">Create Audio CD</property>
+					      <property name="label" translatable="yes">Create Audio Disk</property>
 					      <property name="use_underline">True</property>
 					      <property name="use_markup">False</property>
 					      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1076,7 +1076,7 @@
 		      <child>
 			<widget class="GtkLabel" id="label14">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">&lt;b&gt;Audio CD&lt;/b&gt;</property>
+			  <property name="label" translatable="yes">&lt;b&gt;Audio Disk&lt;/b&gt;</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">True</property>
 			  <property name="justify">GTK_JUSTIFY_LEFT</property>

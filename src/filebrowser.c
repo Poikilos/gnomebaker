@@ -660,11 +660,15 @@ filebrowser_setup_list(
 
 
 void
-filebrowser_setup_tree_and_list(
-    GtkTreeView * dirtree,
-    GtkTreeView * filelist)
+filebrowser_new()
 {
 	GB_LOG_FUNC
+	
+	GtkTreeView* dirtree = 
+		GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree));
+	GtkTreeView* filelist = 
+		GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_filelist));		
+
 	g_return_if_fail(dirtree != NULL);
 	g_return_if_fail(filelist != NULL);
 
