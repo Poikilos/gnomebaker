@@ -748,7 +748,7 @@ dvdformat_read_proc(void *ex, void *buffer)
 			if(curpercent > 0)
 				progressdlg_set_fraction(curpercent);
 			else
-				g_message(_("Failed to get percent in dvdformat_read_proc"));
+				g_message("Failed to get percent in dvdformat_read_proc");
 		}		
 	}
 	
@@ -904,7 +904,7 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 	progressdlg_append_output(buf);
 }
 
-/*
+
 gboolean
 growisofs_foreach_func(GtkTreeModel *model,
                 GtkTreePath  *path,
@@ -930,7 +930,7 @@ growisofs_foreach_func(GtkTreeModel *model,
 	
 	return FALSE;
 }
-*/
+
 
 void 
 growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
@@ -979,7 +979,7 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 		exec_cmd_add_arg(growisofs, "%s", "-dvd-compat");
 	/* -dvd-compat closes the session on DVD+RW's also */	
 	preferences_set_bool(GB_FINALIZE,FALSE);
-	gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, growisofs);
+	gtk_tree_model_foreach(datamodel, growisofs_foreach_func, growisofs);
 }
 
 
