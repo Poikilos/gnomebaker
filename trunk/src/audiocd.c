@@ -245,9 +245,9 @@ audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer use
 	if(event->button == 3)
 	{
 		GtkWidget* menu = gtk_menu_new();		
-		gbcommon_append_menu_item_stock(menu, _("Remove selected"), GTK_STOCK_REMOVE, 
+		gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
 			(GCallback)audiocd_on_remove_clicked, widget);	
-		gbcommon_append_menu_item_stock(menu, _("Clear"), GTK_STOCK_CLEAR,
+		gbcommon_append_menu_item_stock(menu, _("_Clear"), GTK_STOCK_CLEAR,
 			(GCallback)audiocd_on_clear_clicked, widget);	
 		gtk_widget_show_all(menu);
 	
