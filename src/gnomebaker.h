@@ -47,4 +47,6 @@ void gnomebaker_on_add_files(gpointer widget, gpointer user_data);
 void gnomebaker_update_status(const gchar* status);
 void gnomebaker_enable_widget(const gchar* widgetname, gboolean enabled);
 
+void gnomebaker_on_help(gpointer widget,gpointer user_data);
+
 #endif	/*_GNOMEBAKER_H_*/
