@@ -641,8 +641,10 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 		exec_cmd_add_arg(e, "%s", "mkisofs");		
 		if(volume != NULL && createdby != NULL)
 		{
-			exec_cmd_add_arg(e, "-V \"%s\"", volume);			
-			exec_cmd_add_arg(e, "-p \"%s\"", createdby);
+			exec_cmd_add_arg(e, "%s",  "-V");			
+			exec_cmd_add_arg(e, "%s", volume);
+			exec_cmd_add_arg(e, "%s", "-p");
+			exec_cmd_add_arg(e, "%s", createdby);
 		}
 				
 		exec_cmd_add_arg(e, "%s", "-r");
@@ -654,10 +656,12 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 				
 		if(msinfo != NULL)
 		{
-			exec_cmd_add_arg(e, "-C %s", msinfo);
+			exec_cmd_add_arg(e, "%s", "-C");
+			exec_cmd_add_arg(e, "%s", msinfo);
 			
 			gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
-			exec_cmd_add_arg(e, "-M%s", writer);
+			exec_cmd_add_arg(e, "%s", "-M");
+			exec_cmd_add_arg(e, "%s", writer);
 			g_free(writer);			
 			
 			/* This is a cludge so that we don't ask the user if they want to use the existing iso */
@@ -668,7 +672,8 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 			g_free(createdataiso);
 		}		
 		
-		exec_cmd_add_arg(e, "-o%s", iso);
+		exec_cmd_add_arg(e, "%s", "-o");
+		exec_cmd_add_arg(e, "%s", iso);
 		exec_cmd_add_arg(e, "%s", "-graft-points");
 		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
 				
@@ -960,11 +965,12 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_ID_LABEL);
 	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
 	if(msinfo != NULL)
-		exec_cmd_add_arg(growisofs, "-M%s", writer);
+		exec_cmd_add_arg(growisofs, "%s", "-M");
 	else
-		exec_cmd_add_arg(growisofs, "-Z%s", writer);
+		exec_cmd_add_arg(growisofs, "%s", "-Z");
 	/* We don't own the msinfo gchar datacd does 
 	g_free(msinfo);*/
+	exec_cmd_add_arg(growisofs, "%s", writer);
 	g_free(writer);
 	
 	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
@@ -1068,7 +1074,8 @@ mpg123_add_mp3_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 	exec_cmd_add_arg(cmd, "%s", "mpg123");
 	exec_cmd_add_arg(cmd, "%s", "-v");
 	exec_cmd_add_arg(cmd, "%s", "--resync");
-	exec_cmd_add_arg(cmd, "%s", "-r44100");
+	exec_cmd_add_arg(cmd, "%s", "-r");
+	exec_cmd_add_arg(cmd, "%s", "44100");
 	exec_cmd_add_arg(cmd, "%s", "--stereo");
 	
 	
@@ -1082,7 +1089,8 @@ mpg123_add_mp3_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 		if(suffix != NULL)
 			strncpy(suffix, ".wav", 4);
 				
-		exec_cmd_add_arg(cmd, "-w%s", *convertedfile);
+		exec_cmd_add_arg(cmd, "%s", "-w");
+		exec_cmd_add_arg(cmd, "%s", *convertedfile);
 		
 		g_message(_("Converted file is [%s]"), *convertedfile);
 		g_free(filename);
@@ -1182,7 +1190,8 @@ oggdec_add_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 */	
 
 	exec_cmd_add_arg(cmd, "%s", "oggdec");
-	exec_cmd_add_arg(cmd, "%s", "-b16");
+	exec_cmd_add_arg(cmd, "%s", "-b");
+	exec_cmd_add_arg(cmd, "%s", "16");
 	exec_cmd_add_arg(cmd, "%s", file);
 	
 	gchar* trackdir = preferences_get_convert_audio_track_dir();
@@ -1195,7 +1204,8 @@ oggdec_add_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 		if(suffix != NULL)
 			strncpy(suffix, ".wav", 4);
 		
-		exec_cmd_add_arg(cmd, "-o%s", *convertedfile);
+		exec_cmd_add_arg(cmd, "%s", "-o");
+		exec_cmd_add_arg(cmd, "%s", *convertedfile);
 		
 		g_message(_("Converted file is [%s]"), *convertedfile);
 		g_free(filename);
@@ -1376,8 +1386,10 @@ sox_add_wav_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 	exec_cmd_add_arg(cmd, "%s", "sox");
 	exec_cmd_add_arg(cmd, "%s", "-V");	
 	exec_cmd_add_arg(cmd, "%s", file);
-	exec_cmd_add_arg(cmd, "%s", "-r 44100");
-	exec_cmd_add_arg(cmd, "%s", "-c 2");
+	exec_cmd_add_arg(cmd, "%s", "-r");
+	exec_cmd_add_arg(cmd, "%s", "44100");
+	exec_cmd_add_arg(cmd, "%s", "-c");
+	exec_cmd_add_arg(cmd, "%s", "2");
 	exec_cmd_add_arg(cmd, "%s", "-w");
 	
 	gchar* trackdir = preferences_get_convert_audio_track_dir();
