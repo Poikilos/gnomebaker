@@ -6,6 +6,8 @@ Version 0.3.1
 * Fix Bug # 1150048	Dropping directories on DVD creation.
 * Fix data cd size typo from 600MB to 650MB.
 * Add 800MB and 90min cd sizes.
+* Right click menus now have icons and right click on a CD image gives option to burn it.
+* add cue bin support via cdrdao.
 
 Version 0.3
 
