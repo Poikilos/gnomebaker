@@ -28,6 +28,8 @@
 #include "preferences.h"
 #include "exec.h"
 #include "burn.h"
+#include <unistd.h>
+#include <string.h>
 
 
 gint datadisksize = 0;
