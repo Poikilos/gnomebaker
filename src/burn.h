@@ -38,6 +38,8 @@ gboolean burn_copy_data_cd ();
 gboolean burn_copy_audio_cd ();
 gboolean burn_blank_cdrw ();
 gboolean burn_end_process ();
+gboolean burn_create_data_dvd (GtkTreeModel* datamodel);
+gboolean burn_format_dvdrw();
 
 typedef enum 
 {
@@ -49,6 +51,8 @@ typedef enum
 	create_audio_cd,
 	create_mixed_cd,
 	create_video_cd,
+	format_dvdrw,
+	create_data_dvd,
 	BurnTypeCount
 } BurnType;
 
@@ -61,7 +65,9 @@ static const gchar* const BurnTypeText[BurnTypeCount] =
 	"Create Data CD",
 	"Create Audio CD",
 	"Create Mixed CD",
-	"Create Video CD"
+	"Create Video CD",
+	"Format DVD+RW",
+	"Create Data DVD"
 };
 
 
