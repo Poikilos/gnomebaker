@@ -711,6 +711,10 @@ dvdformat_pre_proc(void *ex, void *buffer)
 		ExecCmd* e = (ExecCmd*)ex;
 		e->state = CANCELLED;
 	}
+	else
+	{
+		progressdlg_pulse_start();
+	}
 }
 
 
@@ -755,6 +759,12 @@ dvdformat_read_proc(void *ex, void *buffer)
 	progressdlg_append_output(buf);
 }
 
+void
+dvdformat_post_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	progressdlg_pulse_stop();
+}
 
 void 
 dvdformat_add_args(ExecCmd * const dvdFormat)
@@ -762,8 +772,9 @@ dvdformat_add_args(ExecCmd * const dvdFormat)
 	GB_LOG_FUNC
 	g_return_if_fail(dvdFormat != NULL);
 	
-	dvdFormat->readProc = dvdformat_read_proc;
+	/* dvdFormat->readProc = dvdformat_read_proc; */
 	dvdFormat->preProc = dvdformat_pre_proc;
+	dvdFormat->postProc = dvdformat_post_proc;
 	
 	exec_cmd_add_arg(dvdFormat, "%s", "dvd+rw-format");
 	
