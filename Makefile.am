@@ -14,7 +14,6 @@ gnomebakerdoc_DATA = \
 	INSTALL\
 	NEWS\
 	TODO\
-	ABOUT-NLS\
 	xmldocs.make\
 	omf.make
 
