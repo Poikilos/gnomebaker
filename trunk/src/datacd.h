@@ -44,6 +44,8 @@ enum
     DATACD_NUM_COLS
 };
 
+#define DATACD_EXISTING_SESSION_ICON GNOME_STOCK_PIXMAP_CDROM
+
 
 void datacd_setup_list(GtkTreeView * filelist);
 void datacd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata);

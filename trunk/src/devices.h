@@ -36,5 +36,7 @@ void devices_populate_optionmenu(GtkWidget* option_menu, const gchar* defaultsel
 gchar* devices_get_device_config(const gchar* devicekey, const gchar* deviceitem);
 void devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename, 
 	const gchar* deviceid, const gchar* devicenode, const gchar* mountpoint);
+gboolean devices_mount_device(const gchar* devicekey, gchar** mountpoint);
+
 
 #endif	/*_DEVICES_H_*/

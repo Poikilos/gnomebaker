@@ -99,7 +99,6 @@ datacd_setup_list(GtkTreeView * filelist)
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_PATH, NULL);
 	gtk_tree_view_append_column(filelist, col);
-
 	
 	/* Set the selection mode of the file list */
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist),
@@ -120,7 +119,7 @@ datacd_setup_list(GtkTreeView * filelist)
 
 
 gboolean  
-datacd_add_to_compilation(const gchar* file, GtkListStore* liststore)
+datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean existingsession)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(file != NULL, FALSE);
@@ -134,17 +133,19 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore)
 	{
 		gulong size = s.st_size;				
 		if(s.st_mode & S_IFDIR)
-			size = gbcommon_calc_dir_size(filename);			
+			size = gbcommon_calc_dir_size(filename);
 		
 		if(datacd_update_progress_bar(TRUE, (gdouble)size))
 		{					
 			GB_DECLARE_STRUCT(GtkTreeIter, iter);
-			gtk_list_store_append(liststore, &iter);										
+			gtk_list_store_append(liststore, &iter);						
 			gchar* basename = g_path_get_basename(filename);
-			
+						
 			gtk_list_store_set(liststore, &iter, DATACD_COL_ICON, 
-				(s.st_mode & S_IFDIR) ? GTK_STOCK_OPEN : GTK_STOCK_DND, 
-				DATACD_COL_FILE, basename, DATACD_COL_SIZE, size, DATACD_COL_PATH, filename, -1);
+				existingsession ? DATACD_EXISTING_SESSION_ICON : 
+					((s.st_mode & S_IFDIR) ? GTK_STOCK_OPEN : GTK_STOCK_DND), 
+				DATACD_COL_FILE, basename, DATACD_COL_SIZE, size, 
+				DATACD_COL_PATH, filename, -1);
 			
 			g_free(basename);
 		}
@@ -184,7 +185,7 @@ datacd_on_drag_data_received(
 	const gchar* file = strtok((gchar*)seldata->data,"\n");
 	while(file != NULL)
 	{
-		if(!datacd_add_to_compilation(file, model)) 
+		if(!datacd_add_to_compilation(file, model, FALSE)) 
 			break;
 		file = strtok(NULL, "\n");
 	}
@@ -337,14 +338,21 @@ datacd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
 			{
 				GB_DECLARE_STRUCT(GtkTreeIter, iter);
 				if (gtk_tree_model_get_iter(filemodel, &iter, path))
-				{
-					GValue value = { 0 };
-					gtk_tree_model_get_value(filemodel, &iter, DATACD_COL_SIZE, &value);
-					
-					datacd_update_progress_bar(FALSE, (gdouble)g_value_get_ulong(&value));
-					
-					g_value_unset(&value);	
-					gtk_list_store_remove(GTK_LIST_STORE(filemodel), &iter);
+				{					
+					GValue iconvalue = { 0 };
+					gtk_tree_model_get_value(filemodel, &iter, DATACD_COL_ICON, &iconvalue);
+					const gchar* icon = g_value_get_string(&iconvalue);
+					if(g_ascii_strcasecmp(icon, DATACD_EXISTING_SESSION_ICON) != 0)
+					{										
+						GValue value = { 0 };
+						gtk_tree_model_get_value(filemodel, &iter, DATACD_COL_SIZE, &value);
+						
+						datacd_update_progress_bar(FALSE, (gdouble)g_value_get_ulong(&value));
+						
+						g_value_unset(&value);	
+						gtk_list_store_remove(GTK_LIST_STORE(filemodel), &iter);
+					}
+					g_value_unset(&iconvalue);	
 				}			
 				/* FIXME/CHECK: Do we need to free the path here? */
 			}
@@ -410,61 +418,92 @@ datacd_contents_cell_edited(GtkCellRendererText *cell,
 }
 
 
+gboolean 
+datacd_get_msinfo(gchar** msinfo)
+{
+	GB_LOG_FUNC
+	gboolean ok = FALSE;
+	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+	gchar* msinfocmd = g_strdup_printf("cdrecord -msinfo dev=%s", writer);
+	GString* output = exec_run_cmd(msinfocmd);
+	
+	if((output == NULL ) || (strlen(output->str) > 16))
+	{
+		gchar* message = g_strdup_printf("Error getting session information.\n\n%s", 
+			output != NULL ? output->str : "unknown error");
+		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
+		g_free(message);
+	}
+	else
+	{
+		g_message("datacd next session is [%s]", output->str);
+		*msinfo = g_strdup(output->str);
+		ok = TRUE;
+	}
+	
+	g_string_free(output, TRUE);
+	g_free(writer);
+	g_free(msinfocmd);
+	return ok;	
+}
+
+
 void 
 datacd_import_session()
 {
 	GB_LOG_FUNC
 	
 	gnomebaker_show_busy_cursor(TRUE);
-	
-	gchar* mountpoint = devices_get_device_config(GB_WRITER, GB_DEVICE_MOUNT_LABEL);		
-	if((mountpoint == NULL) || (strlen(mountpoint) == 0))
-	{
-		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-			"The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
-			"Please go to preferences and manually enter the mount point.");
-	}
-	else
-	{
-		/* mount the cd in the writer */
-		gchar* mountcmd = g_strdup_printf("mount %s", mountpoint);	
-		GString* output = exec_run_cmd(mountcmd);
-		g_string_free(output, TRUE);
-		g_free(mountcmd);
-				
-		GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
-		GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));		
-				
-		GDir *dir = g_dir_open(mountpoint, 0, NULL);	
-		if(dir != NULL)
-		{
-			g_object_set_data(G_OBJECT(model), "multisession", GINT_TO_POINTER(1));
-			
-			const gchar *name = g_dir_read_name(dir);					
-			while(name != NULL)
-			{
-				gchar* fullname = g_build_filename(mountpoint, name, NULL);
-				if(!datacd_add_to_compilation(fullname, model))
-					break;
-				g_free(fullname);
-				name = g_dir_read_name(dir);				
-			}
-	
-			g_dir_close(dir);
-		}
-		else
-		{
-			gchar* message = g_strdup_printf("Error importing session from [%s]. "
-				"Please check the device configuration in preferences.", mountpoint);
-			gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
-			g_free(message);
-		}			
 		
-		/* unmount the cd in the writer */
-		gchar* umountcmd = g_strdup_printf("umount %s", mountpoint);	
-		output = exec_run_cmd(umountcmd);
-		g_string_free(output, TRUE);
-		g_free(umountcmd);
+	gchar* mountpoint = NULL;
+	if(!devices_mount_device(GB_WRITER, &mountpoint))
+	{
+		g_critical("Error mounting writer device");
+	}
+	else 
+	{
+		gchar* msinfo = NULL;
+		if(!datacd_get_msinfo(&msinfo))
+		{
+			g_critical("Error getting msinfo");
+		}
+		else	
+		{							
+			/* try and open the mountpoint and read in the cd contents */
+			GDir *dir = g_dir_open(mountpoint, 0, NULL);	
+			if(dir != NULL)
+			{
+				GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
+				GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));		
+				g_object_set_data(G_OBJECT(model), "msinfo", msinfo);
+				
+				/* Make sure we turn multisession on in preferences */
+				preferences_set_bool(GB_MULTI_SESSION, TRUE);
+				
+				const gchar *name = g_dir_read_name(dir);					
+				while(name != NULL)
+				{
+					gchar* fullname = g_build_filename(mountpoint, name, NULL);
+					if(!datacd_add_to_compilation(fullname, model, TRUE))
+						break;
+					g_free(fullname);
+					name = g_dir_read_name(dir);				
+				}
+		
+				g_dir_close(dir);
+			}
+			else
+			{
+				gchar* message = g_strdup_printf("Error importing session from [%s]. "
+					"Please check the device configuration in preferences.", mountpoint);
+				gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
+				g_free(message);
+				g_free(msinfo);
+			}				
+		}
+		
+		if(!devices_mount_device(GB_WRITER, NULL))
+			g_critical("Error unmounting writer device");
 	}
 	g_free(mountpoint);	
 	

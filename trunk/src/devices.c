@@ -26,12 +26,7 @@
 #include "gbcommon.h"
 #include <glib/gprintf.h>
 #include "preferences.h"
-
-void devices_clear_devicedata();
-gboolean devices_parse_cdrecord_output(const gchar* buffer, const gchar* busname);
-void devices_add_ide_device(const gchar* devicenode, const gchar* devicenodepath);
-void devices_add_scsi_device(const gchar* devicenode, const gchar* devicenodepath);
-
+#include "gnomebaker.h"
 
 gint deviceadditionindex = 0;
 
@@ -474,7 +469,51 @@ devices_probe_busses()
 }
 
 
-
+gboolean 
+devices_mount_device(const gchar* devicekey, gchar** mountpoint)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(devicekey != NULL, FALSE);
+	gboolean ok = FALSE;
+	
+	gchar* mount = devices_get_device_config(devicekey, GB_DEVICE_MOUNT_LABEL);		
+	if((mount == NULL) || (strlen(mount) == 0))
+	{
+		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+			"The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
+			"Please go to preferences and manually enter the mount point.");
+	}
+	else
+	{
+		gchar* mountcmd = NULL;
+		if(mountpoint != NULL)
+			mountcmd = g_strdup_printf("mount %s", mount);	
+		else
+			mountcmd = g_strdup_printf("umount %s", mount);	
+		
+		GString* output = exec_run_cmd(mountcmd);		
+		if((output == NULL) || 
+			((strlen(output->str) > 0) && (strstr(output->str, "already mounted") == NULL)))
+		{
+			gchar* message = g_strdup_printf("Error %s %s.\n\n%s", 
+				mount ? "mounting" : "unmounting", mount, output != NULL ? output->str : "unknown error");
+			gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
+			g_free(message);
+		}
+		else
+		{
+			ok = TRUE;
+			if(mountpoint != NULL)
+				*mountpoint = g_strdup(mount);
+		}
+		
+		g_string_free(output, TRUE);
+		g_free(mountcmd);		
+	}
+	g_free(mount);
+	
+	return ok;
+}
 
 
 
