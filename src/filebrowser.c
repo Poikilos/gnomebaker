@@ -132,7 +132,7 @@ filebrowser_expand_path(GtkTreeModel* model, GtkTreeIter* iter)
 	if(current != NULL)
 		gtk_tree_iter_free(current);	
 	
-	g_message( "filebrowser_expand_path - returning [%s]", fullpath->str);
+	/*g_message( "filebrowser_expand_path - returning [%s]", fullpath->str);*/
 	
 	return fullpath;
 }
@@ -210,7 +210,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 	
 			/*g_print("fullname is [%s]\n", fullname);*/
 			
-			struct stat s;			
+			GB_DECLARE_STRUCT(struct stat, s);
 			if(stat(fullname, &s) == 0)
 			{
 				/* see if the name is actually a directory */
@@ -251,8 +251,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 #else
 					/* BSD users have reported crashes here so they get a special
 					version with extra debugging info so maybe I'll be able to fix it */
-					GB_DECLARE_STRUCT(GtkTreeIter, iterRight);
-					
+					GB_DECLARE_STRUCT(GtkTreeIter, iterRight);					
 					gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);
 					
 					g_print("*** iter is [%s]\n", gtk_list_store_iter_is_valid(
