@@ -305,7 +305,7 @@ datacd_remove()
 				{					
 					GValue sessionvalue = { 0 };
 					gtk_tree_model_get_value(filemodel, &iter, DATACD_COL_SESSION, &sessionvalue);
-					if(g_value_get_boolean(&sessionvalue))
+					if(g_value_get_boolean(&sessionvalue) == FALSE)
 					{										
 						GValue value = { 0 };
 						gtk_tree_model_get_value(filemodel, &iter, DATACD_COL_SIZE, &value);
