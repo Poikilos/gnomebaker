@@ -33,7 +33,8 @@ DiskSize audiodisksizes[] =
 {
 	{22, "22 min. CD"},
 	{74, "74 min. CD"},
-	{80, "80 min. CD"}
+	{80, "80 min. CD"},
+	{90, "90 min. CD"}
 };
 
 

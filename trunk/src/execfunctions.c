@@ -728,40 +728,10 @@ dvdformat_read_proc(void *ex, void *buffer)
 	GB_LOG_FUNC
 	
 	g_return_if_fail(buffer != NULL);
-	g_return_if_fail(ex != NULL);
-		
-	/* 	This is a hack for the moment until I figure out what's 
-		going on with the charset. */
-	gchar *buf = (gchar*)buffer;
-	
-	/*GB_TRACE("read_proc: %s",buf);*/
-	
-	const gint len = strlen(buf);		
-	gint i = 0;
-	for(; i < len; i++)
-	{
-		if(!g_ascii_isalnum(buf[i]) && !g_ascii_iscntrl(buf[i])
-			&& !g_ascii_ispunct(buf[i]) && !g_ascii_isspace(buf[i]))
-		{
-			buf[i] = ' ';
-		}
-	}
-		
-	const gchar* format = strstr(buf, "formatting");
-	if(format != NULL)
-	{
-		gint curpercent = 0;
-		if(sscanf(format, "%*s %d", &curpercent) > 0)
-		{
-			if(curpercent > 0)
-				progressdlg_set_fraction(curpercent);
-			else
-				GB_TRACE("Failed to get percent in dvdformat_read_proc");
-		}		
-	}
-	
-	progressdlg_append_output(buf);
+	g_return_if_fail(ex != NULL);		
+	progressdlg_append_output((gchar*)buffer);
 }
+
 
 void
 dvdformat_post_proc(void *ex, void *buffer)
@@ -770,19 +740,20 @@ dvdformat_post_proc(void *ex, void *buffer)
 	progressdlg_pulse_stop();
 }
 
+
 void 
 dvdformat_add_args(ExecCmd * const dvdFormat)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(dvdFormat != NULL);
 	
-	/* dvdFormat->readProc = dvdformat_read_proc; */
+	dvdFormat->readProc = dvdformat_read_proc;
 	dvdFormat->preProc = dvdformat_pre_proc;
 	dvdFormat->postProc = dvdformat_post_proc;
 	
 	exec_cmd_add_arg(dvdFormat, "%s", "dvd+rw-format");
 	
-	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_ID_LABEL);
+	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
 	exec_cmd_add_arg(dvdFormat, "%s", writer);
 	g_free(writer);
 		
@@ -793,10 +764,9 @@ dvdformat_add_args(ExecCmd * const dvdFormat)
 		else
 			exec_cmd_add_arg(dvdFormat, "%s","-force");
 	}
-	else
+	else if(!preferences_get_bool(GB_FAST_FORMAT))
 	{
-		if(!preferences_get_bool(GB_FAST_FORMAT))
-			exec_cmd_add_arg(dvdFormat, "%s", "-format=full");
+		exec_cmd_add_arg(dvdFormat, "%s", "-format=full");
 	}	
 }
 
@@ -932,7 +902,7 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	exec_cmd_add_arg(growisofs, "%s", "growisofs");
 	
 	/* merge new session with existing one */
-	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_ID_LABEL);
+	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
 	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
 	if(msinfo != NULL)
 		exec_cmd_add_arg(growisofs, "%s", "-M");
