@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnomebaker 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-06 11:24+0000\n"
-"PO-Revision-Date: 2005-01-14 18:46-0200\n"
+"PO-Revision-Date: 2005-03-21 16:22-0300\n"
 "Last-Translator: Goedson Teixeira Paixao <goedson@debian.org>\n"
 "Language-Team: Portuguese <debian-l10n-portuguese@blists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -992,7 +992,7 @@ msgstr "<b>Etiqueta de volume</b>"
 
 #: gnomebaker.glade:2937
 msgid "GnomeBaker data cd"
-msgstr "CD de dados feito pelo GnomeBaker"
+msgstr "CD feito pelo GnomeBaker"
 
 #: gnomebaker.glade:2955
 msgid "<b>Created by</b>"
