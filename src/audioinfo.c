@@ -386,11 +386,11 @@ audioinfo_get_mp3_info(AudioInfo* info, const gchar *FileName)
 					tagchars + 3, tagchars + 33, tagchars + 63);
 					
 				g_string_append_len(info->artist, tagchars + 33, 30);
-				g_strstrip(info->artist);
+				g_strstrip(info->artist->str);
 				g_string_append_len(info->album, tagchars + 63, 30);
-				g_strstrip(info->album);
+				g_strstrip(info->album->str);
 				g_string_append_len(info->title, tagchars + 3, 30);
-				g_strstrip(info->title);
+				g_strstrip(info->title->str);
 			}
 		}
 
@@ -710,20 +710,13 @@ audioinfo_get_ogg_info(AudioInfo* info, const gchar *oggfile)
 		{
 			g_message("[%s]", comment->user_comments[i]);				
 			if(comment->user_comments[i] == NULL)
-				continue;
-			
-			if(g_ascii_strncasecmp(comment->user_comments[i], "TITLE=", 6) == 0)
-			{
+				continue;			
+			else if(g_ascii_strncasecmp(comment->user_comments[i], "TITLE=", 6) == 0)
 				g_string_append(info->title, comment->user_comments[i] + 6);
-			}
 			else if(g_ascii_strncasecmp(comment->user_comments[i], "ARTIST=", 7) == 0)
-			{
 				g_string_append(info->artist, comment->user_comments[i] + 7);
-			}
 			else if(g_ascii_strncasecmp(comment->user_comments[i], "ALBUM=", 6) == 0)
-			{
 				g_string_append(info->album, comment->user_comments[i] + 6);
-			}
 		}
 		
 		ov_clear(&file);		

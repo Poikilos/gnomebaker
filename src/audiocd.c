@@ -71,7 +71,7 @@ audiocd_setup_list(GtkTreeView * filelist)
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_FILE, NULL);
     gtk_tree_view_append_column(filelist, col);
 
-	/* Second column to display the file/dir size */
+	/* Second column to display the duration*/
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, "Duration");
 	renderer = gtk_cell_renderer_text_new();
@@ -79,7 +79,7 @@ audiocd_setup_list(GtkTreeView * filelist)
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_DURATION, NULL);
 	gtk_tree_view_append_column(filelist, col);
 	
-	/* Third column to display the duration 
+	/* Third column to display the size 
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, "Size");
 	renderer = gtk_cell_renderer_text_new();
@@ -87,7 +87,7 @@ audiocd_setup_list(GtkTreeView * filelist)
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_SIZE, NULL);
 	gtk_tree_view_append_column(filelist, col);*/
 		
-	/* Second column to display the file/dir size */
+	/* column to display the artist */
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, "Artist");
 	renderer = gtk_cell_renderer_text_new();
@@ -95,7 +95,7 @@ audiocd_setup_list(GtkTreeView * filelist)
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ARTIST, NULL);
 	gtk_tree_view_append_column(filelist, col);
 	
-	/* Second column to display the file/dir size */
+	/* column to display the album */
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, "Album");
 	renderer = gtk_cell_renderer_text_new();
@@ -103,7 +103,7 @@ audiocd_setup_list(GtkTreeView * filelist)
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ALBUM, NULL);
 	gtk_tree_view_append_column(filelist, col);
 	
-	/* Second column to display the file/dir size */
+	/* column to display the title */
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, "Title");
 	renderer = gtk_cell_renderer_text_new();
@@ -161,19 +161,8 @@ audiocd_on_drag_data_received(
 			
 				if(GTK_IS_LIST_STORE(model))
 				{
-					GB_DECLARE_STRUCT(GtkTreeIter, iter);
-			
+					GB_DECLARE_STRUCT(GtkTreeIter, iter);		
 					gtk_list_store_append(GTK_LIST_STORE(model), &iter);
-					
-					g_message("adding %s", filename);
-					g_message("adding %s", info->formattedduration->str);
-					g_string_append_c(info->artist, '\0');
-					g_message("adding %s", info->artist->str);
-					g_string_append_c(info->album, '\0');
-					g_message("adding %s", info->album->str);
-					g_string_append_c(info->title, '\0');
-					g_message("adding %s", info->title->str);
-										
 					gtk_list_store_set(
 						GTK_LIST_STORE(model), &iter, 
 						AUDIOCD_COL_ICON, GNOME_STOCK_MIDI, 
@@ -183,7 +172,6 @@ audiocd_on_drag_data_received(
 						AUDIOCD_COL_ARTIST, info->artist->str, 
 						AUDIOCD_COL_ALBUM, info->album->str,
 						AUDIOCD_COL_TITLE, info->title->str, -1);
-					g_message("luke test");
 				}
 			}
 			else
