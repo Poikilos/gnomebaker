@@ -58,6 +58,31 @@ static GtkTargetEntry targetentries[] =
     {"text/uri-list", 0, TARGET_URL},
 };
 
+void
+datacd_on_show_humansize_changed(GConfClient *client,
+                                   guint cnxn_id,
+								   GConfEntry *entry,
+								   gpointer user_data)
+{
+	GB_LOG_FUNC
+
+	GtkTreeView* filelist = 
+		GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree));
+	g_return_if_fail(filelist != NULL);
+
+	GtkTreeViewColumn* size_column = 
+		gtk_tree_view_get_column(filelist, DATACD_COL_SIZE-1);
+	g_return_if_fail(size_column != NULL);
+
+	GtkTreeViewColumn* humansize_column = 
+		gtk_tree_view_get_column(filelist, DATACD_COL_HUMANSIZE-1);
+	g_return_if_fail(humansize_column != NULL);
+
+	const gboolean showhumansize = preferences_get_bool(GB_SHOWHUMANSIZE);
+
+	gtk_tree_view_column_set_visible(size_column, !showhumansize);
+	gtk_tree_view_column_set_visible(humansize_column, showhumansize);
+}
 
 gint 
 datacd_get_datadisk_size()
@@ -169,7 +194,7 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 			gtk_list_store_set(liststore, &iter, DATACD_COL_ICON, 
 				existingsession ? DATACD_EXISTING_SESSION_ICON : 
 					((s.st_mode & S_IFDIR) ? GTK_STOCK_OPEN : GTK_STOCK_DND), 
-				DATACD_COL_FILE, basename, DATACD_COL_SIZE, size, 
+				DATACD_COL_FILE, basename, DATACD_COL_SIZE, size, DATACD_COL_HUMANSIZE, gbcommon_humanreadable_filesize(size),
 				DATACD_COL_PATH, filename, -1);
 			
 			g_free(basename);
@@ -417,7 +442,7 @@ datacd_new()
 	
 	/* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(DATACD_NUM_COLS, G_TYPE_STRING, 
-			G_TYPE_STRING, G_TYPE_ULONG, G_TYPE_STRING);
+			G_TYPE_STRING, G_TYPE_ULONG, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
     g_object_unref(store);
 
@@ -441,6 +466,8 @@ datacd_new()
 	gtk_tree_view_append_column(filelist, col);	
 	
 	g_value_unset(&value);
+
+	const gboolean showhumansize = preferences_get_bool(GB_SHOWHUMANSIZE);
 	
 	/* Second column to display the file/dir size */
 	col = gtk_tree_view_column_new();
@@ -448,9 +475,19 @@ datacd_new()
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_SIZE, NULL);
+	gtk_tree_view_column_set_visible(col, !showhumansize);
+	gtk_tree_view_append_column(filelist, col);
+
+	/* Third column to display the human size of file/dir */
+	col = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_title(col, "Size");
+	renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(col, renderer, TRUE);
+	gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_HUMANSIZE, NULL);
+	gtk_tree_view_column_set_visible(col, showhumansize);
 	gtk_tree_view_append_column(filelist, col);
 	
-	/* Third column for the full path of the file/dir */
+	/* Fourth column for the full path of the file/dir */
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, _("Full Path"));
 	renderer = gtk_cell_renderer_text_new();
@@ -473,7 +510,9 @@ datacd_new()
 	/* connect the signal to handle right click */
 	g_signal_connect (G_OBJECT(filelist), "button-press-event",
         G_CALLBACK(datacd_on_button_pressed), NULL);
-			
+
+	preferences_register_notify(GB_SHOWHUMANSIZE, datacd_on_show_humansize_changed);
+
 	/* get the currently selected cd size */
 	datacd_get_datadisk_size();	
 }

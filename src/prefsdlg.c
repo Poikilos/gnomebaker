@@ -266,6 +266,9 @@ prefsdlg_on_ok(GtkButton* button, gpointer user_data)
 	
 	GtkWidget* checkShowHidden = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhidden);
 	preferences_set_bool(GB_SHOWHIDDEN, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkShowHidden)));
+
+	GtkWidget* checkShowHumanSize = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhumansize);
+	preferences_set_bool(GB_SHOWHUMANSIZE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkShowHumanSize)));
 	
 	GtkWidget* checkAlwaysScan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_alwaysscan);
 	preferences_set_bool(GB_ALWAYS_SCAN, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkAlwaysScan)));
@@ -420,6 +423,10 @@ prefsdlg_new(void)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkShowHidden), 
 		preferences_get_bool(GB_SHOWHIDDEN));
 	
+	GtkWidget* checkShowHumanSizes = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhumansize);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkShowHumanSizes),
+		preferences_get_bool(GB_SHOWHUMANSIZE));
+
 	GtkWidget* checkAlwaysScan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_alwaysscan);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkAlwaysScan), 
 		preferences_get_bool(GB_ALWAYS_SCAN));

@@ -230,3 +230,28 @@ gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection
 		++index;
 	}
 }
+
+gchar*
+gbcommon_humanreadable_filesize(gulong size)
+{
+	GB_LOG_FUNC
+	gchar* ret = NULL;
+	const gchar* unit_list[5] = {"B ", "KB", "MB", "GB", "TB"};
+	gint unit = 0;
+
+	gdouble human_size = (gdouble) size;
+	
+	while(human_size > 1024) 
+	{
+		human_size = human_size / 1024;
+		unit++;
+	}
+	
+	if((human_size - (gulong)human_size) > 0.1)
+		ret = g_strdup_printf("%.2f %s", human_size, unit_list[unit]);
+	else
+		ret = g_strdup_printf("%.0f %s", human_size, unit_list[unit]);
+	
+	return ret;
+}
+

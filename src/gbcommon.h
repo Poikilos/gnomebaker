@@ -44,6 +44,7 @@ void gbcommon_mkdir(const gchar* dir);
 gchar** gbcommon_get_file_as_list(const gchar* file);
 gchar* gbcommon_get_option_menu_selection(GtkOptionMenu* optmen);
 void gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection);
+gchar* gbcommon_humanreadable_filesize(gulong size);
 
 /* defined in main.c */
 extern const gchar* glade_file;
@@ -103,6 +104,7 @@ static const gchar* const widget_prefsdlg = "prefsDlg";
 static const gchar* const widget_prefsdlg_tempdir = "tmpDirEntry";
 static const gchar* const widget_prefsdlg_cleantempdir = "checkCleanTmp";
 static const gchar* const widget_prefsdlg_showhidden = "checkHiddenFiles";
+static const gchar* const widget_prefsdlg_showhumansize = "checkShowHumanSizes";
 static const gchar* const widget_prefsdlg_alwaysscan = "checkAlwaysScan";
 static const gchar* const widget_prefsdlg_devicelist = "treeview12";
 
