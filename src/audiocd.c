@@ -87,12 +87,12 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 	
 	fraction = currentsecs / (cdsize * 60);
 	
-	g_message( "Duration %f Fraction is %f", seconds, fraction);
+	g_message( _("Duration %f Fraction is %f"), seconds, fraction);
 	
 	if(fraction < 0.0 || fraction == -0.0)
 	{
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0 mins 0 secs");
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), _("0 mins 0 secs"));
 		gnomebaker_enable_widget(widget_audiocd_create, FALSE);
 	}	
 	/* If the file is too large then we don't allow the user to add it */
@@ -103,7 +103,7 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 		gint ss = ((gint)currentsecs)%60;
 		gint m = (((gint)currentsecs)-ss)/60;
 		
-		gchar* buf = g_strdup_printf("%d mins %d secs", m, ss);
+		gchar* buf = g_strdup_printf(_("%d mins %d secs"), m, ss);
 		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
 		g_free(buf);
 		gnomebaker_enable_widget(widget_audiocd_create, TRUE);
@@ -111,7 +111,7 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 	else
 	{
 		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-			"Track is too large to fit in the remaining space on the CD");
+			_("Track is too large to fit in the remaining space on the CD"));
 		ok = FALSE;
 	}
 
@@ -222,7 +222,7 @@ audiocd_clear()
 	GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
 	
 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0 mins 0 secs");
+	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), _("0 mins 0 secs"));
 	gnomebaker_enable_widget(widget_audiocd_create, FALSE);
 	
 	gnomebaker_show_busy_cursor(FALSE);	
@@ -247,12 +247,12 @@ audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer use
 	{
 		GtkWidget* menu = gtk_menu_new();	
 		
-		GtkWidget* menuitem = gtk_menu_item_new_with_label("Remove selected");	
+		GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Remove selected"));	
 		g_signal_connect(menuitem, "activate",
 			(GCallback)audiocd_on_remove_clicked, widget);	
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
 		
-		menuitem = gtk_menu_item_new_with_label("Clear");	
+		menuitem = gtk_menu_item_new_with_label(_("Clear"));	
 		g_signal_connect(menuitem, "activate",
 			(GCallback)audiocd_on_clear_clicked, widget);	
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
@@ -363,7 +363,7 @@ audiocd_new()
 
 	/* One column which has an icon renderer and text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(col, "Track");
+    gtk_tree_view_column_set_title(col, _("Track"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
     gtk_tree_view_column_set_attributes(col, renderer, "stock-id", AUDIOCD_COL_ICON, NULL);
@@ -375,7 +375,7 @@ audiocd_new()
 
 	/* Second column to display the duration*/
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Duration");
+	gtk_tree_view_column_set_title(col, _("Duration"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_DURATION, NULL);
@@ -391,7 +391,7 @@ audiocd_new()
 		
 	/* column to display the artist */
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Artist");
+	gtk_tree_view_column_set_title(col, _("Artist"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ARTIST, NULL);
@@ -399,7 +399,7 @@ audiocd_new()
 	
 	/* column to display the album */
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Album");
+	gtk_tree_view_column_set_title(col, _("Album"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ALBUM, NULL);
@@ -407,7 +407,7 @@ audiocd_new()
 	
 	/* column to display the title */
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Title");
+	gtk_tree_view_column_set_title(col, _("Title"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_TITLE, NULL);

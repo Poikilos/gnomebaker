@@ -36,3 +36,4 @@ void startdlg_delete(GtkWidget* self);
 
 
 #endif	/*_STARTDLG_H_*/
+

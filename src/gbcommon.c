@@ -131,7 +131,7 @@ gbcommon_tidy_nautilus_dnd_file(const gchar* file)
 		};		
 	}
 	
-	g_message("returning [%s]", ret);
+	g_message(_("returning [%s]"), ret);
 		
 	return ret;
 }
@@ -143,7 +143,7 @@ gbcommon_mkdir(const gchar* dirname)
 	GB_LOG_FUNC
 	g_return_if_fail(dirname != NULL);
 		
-	g_message("creating [%s]", dirname);
+	g_message(_("creating [%s]"), dirname);
 
 	gchar *dirs = g_strdup(dirname);
 	GString *dir = g_string_new("");
@@ -154,7 +154,7 @@ gbcommon_mkdir(const gchar* dirname)
 		g_string_append_printf(dir, "/%s", currentdir);
 		if((g_file_test(dir->str, G_FILE_TEST_IS_DIR) == FALSE) && 
 				(mkdir(dir->str, 0775) == -1))
-			g_critical("failed to create temp %d", errno);
+			g_critical(_("failed to create temp %d"), errno);
 
 		currentdir = strtok(NULL, "/");
 	}
@@ -175,7 +175,7 @@ gbcommon_get_file_as_list(const gchar* file)
 	if(g_file_get_contents(file, &contents, NULL, NULL))
 		ret = g_strsplit(contents, "\n", 0);
 	else
-		g_critical("Failed to get contents of file [%s]", file);
+		g_critical(_("Failed to get contents of file [%s]"), file);
 
 	g_free(contents);	
 	return ret;

@@ -38,7 +38,7 @@ readcd_pre_proc(void *ex, void *buffer)
 	GB_LOG_FUNC
 	totalguchars = -1;
 	
-	progressdlg_set_status("<b>Reading CD image...</b>");	
+	progressdlg_set_status(_("<b>Reading CD image...</b>"));	
 	progressdlg_increment_exec_number();
 	
 	gint response = GTK_RESPONSE_NO;

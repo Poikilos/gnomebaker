@@ -72,7 +72,7 @@ devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename,
 	g_free(devicemountkey);
 	g_free(devicecapabilitieskey);
 
-	g_message("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]", 
+	g_message(_("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"), 
 		devicename, deviceid, devicenode, mountpoint);
 }
 
@@ -98,7 +98,7 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 			gchar node[64], mount[64];
 			if(sscanf(*line, "%s\t%s", node, mount) == 2)
 			{
-				g_message("node [%s] mount [%s]", node, mount);
+				g_message(_("node [%s] mount [%s]"), node, mount);
 				if(g_ascii_strcasecmp(node, devicenode) == 0)
 				{
 					mountpoint = g_strdup(mount);
@@ -110,7 +110,7 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 					gchar* linktarget = g_file_read_link(node, NULL);
 					if((linktarget != NULL) && (g_ascii_strcasecmp(linktarget, devicenode) == 0))
 					{					
-						g_message("node [%s] is link to [%s]", node, linktarget);
+						g_message(_("node [%s] is link to [%s]"), node, linktarget);
 						mountpoint = g_strdup(mount);
 					}
 					g_free(linktarget);
@@ -307,9 +307,9 @@ devices_probe_bus(const gchar* bus)
 	
 	GString* buffer = exec_run_cmd(command);
 	if(buffer == NULL)
-		g_critical("devices_probe_bus - Failed to scan the scsi bus");
+		g_critical(_("devices_probe_bus - Failed to scan the scsi bus"));
 	else if(!devices_parse_cdrecord_output(buffer->str, bus))	
-		g_critical("devices_probe_bus - failed to parse cdrecord output");
+		g_critical(_("devices_probe_bus - failed to parse cdrecord output"));
 	else
 		ok = TRUE;
 	
@@ -327,7 +327,7 @@ devices_get_ide_device(const gchar* devicenode, const gchar* devicenodepath,
 	g_return_if_fail(devicenode != NULL);	
 	g_return_if_fail(modelname != NULL);
 	g_return_if_fail(deviceid != NULL);
-	g_message("devices_add_ide_device - probing [%s]", devicenode);
+	g_message(_("devices_add_ide_device - probing [%s]"), devicenode);
 
 	gchar* contents = NULL;
 	gchar* file = g_strdup_printf("/proc/ide/%s/model", devicenode);
@@ -340,7 +340,7 @@ devices_get_ide_device(const gchar* devicenode, const gchar* devicenodepath,
 	}
 	else
 	{
-		g_critical("Failed to open %s", file);
+		g_critical(_("Failed to open %s"), file);
 	}
 	g_free(file);
 }
@@ -354,16 +354,16 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 	g_return_if_fail(devicenode != NULL);
 	g_return_if_fail(modelname != NULL);
 	g_return_if_fail(deviceid != NULL);
-	g_message("devices_add_scsi_device - probing [%s]", devicenode);
+	g_message(_("devices_add_scsi_device - probing [%s]"), devicenode);
 	
 	gchar **device_strs = NULL, **devices = NULL;	
 	if((devices = gbcommon_get_file_as_list("/proc/scsi/sg/devices")) == NULL)
 	{
-		g_critical("Failed to open /proc/scsi/sg/devices");
+		g_critical(_("Failed to open /proc/scsi/sg/devices"));
 	}
 	else if((device_strs = gbcommon_get_file_as_list("/proc/scsi/sg/device_strs")) == NULL)
 	{
-		g_critical("Failed to open /proc/scsi/sg/device_strs");
+		g_critical(_("Failed to open /proc/scsi/sg/device_strs"));
 	}
 	else
 	{
@@ -379,7 +379,7 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 				if(sscanf(*device, "%d\t%*d\t%d\t%d\t%d", 
 					&scsihost, &scsiid, &scsilun, &scsitype) != 4)
 				{
-					g_critical("Error reading scsi information from /proc/scsi/sg/devices");
+					g_critical(_("Error reading scsi information from /proc/scsi/sg/devices"));
 				}			
 				/* 5 is the magic number according to lib-nautilus-burn */
 				else if(scsitype == 5)
@@ -417,7 +417,7 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 void 
 devices_for_each(gpointer key, gpointer value, gpointer user_data)
 {	
-	g_message("---- key [%s], value [%s]", (gchar*)key, (gchar*)value);
+	g_message(_("---- key [%s], value [%s]"), (gchar*)key, (gchar*)value);
 	g_free(key);
 	g_free(value);
 }
@@ -430,7 +430,7 @@ devices_get_cdrominfo(gchar** proccdrominfo, gint deviceindex)
 	g_return_val_if_fail(proccdrominfo != NULL, NULL);
 	g_return_val_if_fail(deviceindex >= 1, NULL);
 	
-	g_message("looking for device [%d]", deviceindex);
+	g_message(_("looking for device [%d]"), deviceindex);
 	
 	GHashTable* ret = NULL;
 	gchar** info = proccdrominfo;
@@ -466,8 +466,8 @@ devices_get_cdrominfo(gchar** proccdrominfo, gint deviceindex)
 				 looking for */
 				if(columnindex <= deviceindex)
 				{
-					g_message("Requested device index [%d] is out of bounds. "
-						"All devices have been read.", deviceindex);
+					g_message(_("Requested device index [%d] is out of bounds. "
+						"All devices have been read."), deviceindex);
 					g_hash_table_destroy(ret);
 					ret = NULL;
 					break;
@@ -497,7 +497,7 @@ devices_probe_busses()
 	gchar **info = NULL;
 	if((info = gbcommon_get_file_as_list("/proc/sys/dev/cdrom/info")) == NULL)
 	{
-		g_critical("Failed to open /proc/sys/dev/cdrom/info");
+		g_critical(_("Failed to open /proc/sys/dev/cdrom/info"));
 	}
 	else
 	{
@@ -563,9 +563,9 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 	if((mount == NULL) || (strlen(mount) == 0))
 	{
 		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-			"The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
+			_("The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
 			"Please check that the writing device has an entry in /etc/fstab and then go "
-			"to preferences and rescan for devices.");
+			"to preferences and rescan for devices."));
 	}
 	else
 	{
@@ -579,8 +579,8 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 		if((output == NULL) || 
 			((strlen(output->str) > 0) && (strstr(output->str, "already mounted") == NULL)))
 		{
-			gchar* message = g_strdup_printf("Error %s %s.\n\n%s", 
-				mount ? "mounting" : "unmounting", mount, output != NULL ? output->str : "unknown error");
+			gchar* message = g_strdup_printf(_("Error %s %s.\n\n%s"), 
+				mount ? _("mounting") : _("unmounting"), mount, output != NULL ? output->str : _("unknown error"));
 			gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 			g_free(message);
 		}

@@ -81,14 +81,14 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 				
 		if(GTK_IS_TREE_STORE(gtk_tree_view_get_model(view)))
 		{
-			GtkWidget* menuitem = gtk_menu_item_new_with_label("Add directory");	
+			GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Add directory"));	
 			g_signal_connect(menuitem, "activate",
 				(GCallback)gnomebaker_on_add_dir, widget);	
 			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 		}
 		else
 		{
-			GtkWidget* menuitem = gtk_menu_item_new_with_label("Add file(s)");	
+			GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Add file(s)"));	
 			g_signal_connect(menuitem, "activate",
 				(GCallback)gnomebaker_on_add_files, widget);	
 			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
@@ -165,7 +165,7 @@ filebrowser_expand_path(GtkTreeModel* model, GtkTreeIter* iter)
 		}
 		else
 		{
-			g_critical("subdir from GValue is NULL");
+			g_critical(_("subdir from GValue is NULL"));
 		}
 		
 		g_free(subdir);
@@ -329,27 +329,27 @@ filebrowser_populate(GtkTreeModel* treemodel,
 					GB_DECLARE_STRUCT(GtkTreeIter, iterRight);					
 					gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);
 					
-					g_print("*** iter is [%s]\n", gtk_list_store_iter_is_valid(
-						GTK_LIST_STORE(filemodel), &iterRight) ? "valid" : "invalid");
+					g_print(_("*** iter is [%s]\n"), gtk_list_store_iter_is_valid(
+						GTK_LIST_STORE(filemodel), &iterRight) ? _("valid") : _("invalid"));
 					
 					GValue val = {0};
 					g_value_init(&val, G_TYPE_STRING);
 					g_value_set_string(&val, GTK_STOCK_DND);
 					
-					g_print("*** model [%p]\n", filemodel);
+					g_print(_("*** model [%p]\n"), filemodel);
 					
 					gtk_list_store_set_value(GTK_LIST_STORE(filemodel), &iterRight, FL_COL_ICON, &val);					
 					g_value_set_string(&val, name);
 					gtk_list_store_set_value(GTK_LIST_STORE(filemodel), &iterRight, FL_COL_NAME, &val);
 					
-					g_print("*** name [%s]\n", name);
+					g_print(_("*** name [%s]\n"), name);
 					
 					gchar* mime = gnome_vfs_get_mime_type(fullname);
 					g_value_set_string(&val, mime);
 					
 					gtk_list_store_set_value(GTK_LIST_STORE(filemodel), &iterRight, FL_COL_TYPE, &val);					
 					
-					g_print("*** mime [%s]\n", mime);					
+					g_print(_("*** mime [%s]\n"), mime);					
 					g_free(mime);
 					
 					g_value_unset(&val);
@@ -358,13 +358,13 @@ filebrowser_populate(GtkTreeModel* treemodel,
 					gtk_list_store_set_value(GTK_LIST_STORE(filemodel), &iterRight, FL_COL_SIZE, &val);
 					g_value_unset(&val);
 					
-					g_print("*** size [%ld]\n", s.st_size);
+					g_print(_("*** size [%ld]\n"), s.st_size);
 #endif					
 				}
 			}
 			else
 			{
-				g_warning("Stat of file [%s] failed", fullname);
+				g_warning(_("Stat of file [%s] failed"), fullname);
 			}
 
 			g_free(fullname);
@@ -529,7 +529,7 @@ filebrowser_on_drag_data_get (GtkWidget * widget,
 		g_return_if_fail(file != NULL);
 	}
 	
-	g_message("selection data is %s\n", file->str);
+	g_message(_("selection data is %s\n"), file->str);
 	
 	/* Set the fully built path(s) as the selection data */
 	gtk_selection_data_set(selection_data, selection_data->target, 8, file->str,
@@ -575,7 +575,7 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 	filebrowser_foreach_fileselection(model, path, &iter, selection);
 	g_strstrip(selection->str);
 	const gchar* name = g_basename(selection->str);
-	g_message("%s was double clicked", selection->str);
+	g_message(_("%s was double clicked"), selection->str);
 	
 	if(g_file_test(selection->str, G_FILE_TEST_IS_DIR))
 	{
@@ -652,7 +652,7 @@ filebrowser_setup_tree(
 		
 	/* One column which has an icon renderer and a text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(col, "Filesystem");
+    gtk_tree_view_column_set_title(col, _("Filesystem"));
 	/*gtk_tree_view_column_set_sort_column_id(col, DT_COL_NAME);
 	gtk_tree_view_column_set_sort_order(col, GTK_SORT_ASCENDING);*/
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
@@ -680,7 +680,7 @@ filebrowser_setup_tree(
 	GB_DECLARE_STRUCT(GtkTreeIter, homeiter);
     gtk_tree_store_append(store, &homeiter, NULL);
 	const gchar* username = g_get_user_name();
-	HOME_LABEL = g_strdup_printf("%s's home", username);
+	HOME_LABEL = g_strdup_printf(_("%s's home"), username);
     gtk_tree_store_set(store, &homeiter, DT_COL_ICON, GTK_STOCK_HOME, DT_COL_NAME, HOME_LABEL, -1);	
 		
 	/* now give the right hand file list a reference to the left hand dir tree.
@@ -741,7 +741,7 @@ filebrowser_setup_list(
 
 	/* First column which has an icon renderer and a text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(col, "File");
+    gtk_tree_view_column_set_title(col, _("File"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
     gtk_tree_view_column_set_attributes(col, renderer, "stock-id", FL_COL_ICON, NULL);
@@ -753,7 +753,7 @@ filebrowser_setup_list(
 	
 	/* second column to add the mime type to */
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Type");
+	gtk_tree_view_column_set_title(col, _("Type"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_TYPE, NULL);
@@ -761,7 +761,7 @@ filebrowser_setup_list(
 	
 	/* third column to add the size to */
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Size");
+	gtk_tree_view_column_set_title(col, _("Size"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_SIZE, NULL);

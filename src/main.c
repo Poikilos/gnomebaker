@@ -18,11 +18,13 @@
 #  include <config.h>
 #endif
 
+#include "gnomebaker.h"
 #include <gnome.h>
 #include <glade/glade.h>
-#include "gnomebaker.h"
 #include "splashdlg.h"
 #include "gbcommon.h"
+#include <libintl.h>
+#include <locale.h>
 
 const gchar* glade_file;
 gboolean showtrace = FALSE;
@@ -44,8 +46,10 @@ main(gint argc, gchar *argv[])
 	gdk_threads_init();
 
 	#ifdef ENABLE_NLS
+		setlocale(LC_ALL,"");		
 		bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
-		textdomain (PACKAGE);
+		bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+		textdomain (GETTEXT_PACKAGE);
 	#endif
 	
 	/*gnome_init(PACKAGE, VERSION, argc, argv);*/

@@ -135,7 +135,7 @@ static const gchar* const widget_startdlgdvd_finalize = "checkFinalizeDvd";
 
 
 #define GB_LOG_FUNC											\
-	if(showtrace) g_print("Entering [%s] [%s] [%d]\n", __FUNCTION__, __FILE__, __LINE__);	\
+	if(showtrace) g_print(_("Entering [%s] [%s] [%d]\n"), __FUNCTION__, __FILE__, __LINE__);	\
 
 #define GB_DECLARE_STRUCT(STRUCT, INSTANCE)			\
 	STRUCT INSTANCE; memset(&INSTANCE, 0x0, sizeof(STRUCT));	\

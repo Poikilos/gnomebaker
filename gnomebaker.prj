@@ -26,24 +26,24 @@ anjuta.version=1.2.2
 anjuta.compatibility.level=1
 
 project.name=gnomebaker
-project.type=LIBGLADE2
+project.type=GTK
 project.target.type=EXECUTABLE
 project.version=0.2.1
-project.author=User
+project.author=Luke Bidell
 project.source.target=gnomebaker
 project.has.gettext=1
 project.gui.command=
 project.programming.language=C
-project.excluded.modules=intl po
+project.excluded.modules=intl
 
 project.config.extra.modules.before=
 project.config.extra.modules.after=
-project.config.blocked=0
-project.config.disable.overwriting=1 1 0 0 0 0 0 0 1 
+project.config.blocked=1
+project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
 
-project.menu.entry=gnomebaker Version 0.1
-project.menu.group=Applications
-project.menu.comment=gnomebaker Version 0.1
+project.menu.entry=gnomebaker Version 0.2.1
+project.menu.group=Application
+project.menu.comment=gnomebaker Version 0.2.1
 project.menu.icon=
 project.menu.need.terminal=0
 
@@ -51,8 +51,7 @@ project.configure.options=
 anjuta.program.arguments=
 preferences.build.option.jobs=0
 preferences.build.option.silent=0
-preferences.build.option.autosave=1
-preferences.anjuta.make.options=-k
+preferences.build.option.autosave=0
 preferences.make=make
 preferences.build.option.keep.going=1
 preferences.build.option.warn.undef=0
@@ -65,99 +64,112 @@ preferences.indent.size=4
 preferences.tabsize=4
 preferences.indent.closing=0
 
-module.include.name=include
+module.include.name=.
 module.include.type=
-module.include.files=
+module.include.files=\
+	src/audiocd.h\
+	src/audioinfo.h\
+	src/burn.h\
+	src/cdda2wav.h\
+	src/cdrecord.h\
+	src/datacd.h\
+	src/devices.h\
+	src/exec.h\
+	src/filebrowser.h\
+	src/gbcommon.h\
+	src/gnomebaker.h\
+	src/mkisofs.h\
+	src/mpg123.h\
+	src/oggdec.h\
+	src/preferences.h\
+	src/prefsdlg.h\
+	src/progressdlg.h\
+	src/readcd.h\
+	src/sox.h\
+	src/splashdlg.h\
+	src/startdlg.h\
+	src/dvdfunctions.h\
+	src/startdlgdvd.h\
+	acconfig.h\
+	config.h
 
-module.source.name=src
+module.source.name=.
 module.source.type=
 module.source.files=\
-	main.c\
-	progressdlg.c\
-	progressdlg.h\
-	burn.c\
-	burn.h\
-	exec.c\
-	exec.h\
-	cdda2wav.c\
-	cdda2wav.h\
-	cdrecord.c\
-	cdrecord.h\
-	readcd.c\
-	readcd.h\
-	devices.c\
-	devices.h\
-	filebrowser.c\
-	filebrowser.h\
-	mkisofs.c\
-	mkisofs.h\
-	preferences.c\
-	preferences.h\
-	gnomebaker.c\
-	gnomebaker.h\
-	startdlg.c\
-	startdlg.h\
-	prefsdlg.c\
-	prefsdlg.h\
-	splashdlg.c\
-	splashdlg.h\
-	audiocd.c\
-	audiocd.h\
-	datacd.c\
-	datacd.h\
-	gbcommon.h\
-	gbcommon.c\
-	audioinfo.c\
-	audioinfo.h\
-	sox.c\
-	sox.h\
-	mpg123.c\
-	mpg123.h\
-	oggdec.c\
-	oggdec.h\
-	dvdfunctions.c\
-	dvdfunctions.h\
-	startdlgdvd.c\
-	startdlgdvd.h
+	src/audiocd.c\
+	src/audioinfo.c\
+	src/burn.c\
+	src/cdda2wav.c\
+	src/cdrecord.c\
+	src/datacd.c\
+	src/devices.c\
+	src/exec.c\
+	src/filebrowser.c\
+	src/gbcommon.c\
+	src/gnomebaker.c\
+	src/main.c\
+	src/mkisofs.c\
+	src/mpg123.c\
+	src/oggdec.c\
+	src/preferences.c\
+	src/prefsdlg.c\
+	src/progressdlg.c\
+	src/readcd.c\
+	src/sox.c\
+	src/splashdlg.c\
+	src/startdlg.c\
+	src/dvdfunctions.c\
+	src/startdlgdvd.c
 
-module.pixmap.name=pixmaps
+module.pixmap.name=.
 module.pixmap.type=
 module.pixmap.files=\
-	baker-add-dir.png\
-	baker-add-files.png\
-	baker-audio-copy.png\
-	baker-blank-cdrw.png\
-	baker-burn-cd.png\
-	baker-cd.png\
-	baker-data-copy.png\
-	gnomebaker-48.png\
-	splash_2.png\
-	baker-import-session.png
+	pixmaps/baker-add-dir.png\
+	pixmaps/baker-add-files.png\
+	pixmaps/baker-audio-copy.png\
+	pixmaps/baker-blank-cdrw.png\
+	pixmaps/baker-burn-cd.png\
+	pixmaps/baker-cd.png\
+	pixmaps/baker-data-copy.png\
+	pixmaps/baker-import-session.png\
+	pixmaps/gnomebaker-48.png\
+	pixmaps/splash_2.png
 
-module.data.name=data
+module.data.name=.
 module.data.type=
 module.data.files=
 
-module.help.name=help
+module.help.name=.
 module.help.type=
 module.help.files=
 
-module.doc.name=doc
+module.doc.name=.
 module.doc.type=
-module.doc.files=
+module.doc.files=\
+	po/ChangeLog\
+	AUTHORS\
+	COPYING\
+	ChangeLog\
+	INSTALL\
+	NEWS\
+	README\
+	TODO\
+	macros/ChangeLog
 
 module.po.files=
 
 compiler.options.supports=
-compiler.options.include.paths=
+compiler.options.include.paths=\
+	.\
+	..
 compiler.options.library.paths=
-compiler.options.libraries=\
-	vorbisfile
-compiler.options.libraries.selected=1 
-compiler.options.defines=
-compiler.options.defines.selected=1 
-compiler.options.warning.buttons=0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
-compiler.options.optimize.buttons=1 0 0 0 
+compiler.options.libraries=
+compiler.options.libraries.selected=
+compiler.options.defines=\
+	HAVE_CONFIG_H
+compiler.options.defines.selected=
+compiler.options.warning.buttons=0 0 1 1 0 1 0 0 0 0 0 0 0 1 0 0 
+compiler.options.optimize.buttons=0 0 1 0 
 compiler.options.other.buttons=1 0 
 compiler.options.other.c.flags=
 compiler.options.other.l.flags=

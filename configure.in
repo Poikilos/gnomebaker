@@ -23,15 +23,15 @@ dnl Checks for header files.
 dnl Checks for typedefs, structures, and compiler characteristics.
 dnl Checks for library functions.
 dnl Checks for Additional stuffs.
+ALL_LINGUAS="pt_BR"
+AM_GLIB_GNU_GETTEXT
 GETTEXT_PACKAGE=gnomebaker
 AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["${GETTEXT_PACKAGE}"], [gettext domain])
 
 
 dnl Languages which your application supports
-ALL_LINGUAS=""
-AM_GNU_GETTEXT
-AM_GNU_GETTEXT_VERSION(0.10.40)
+dnl AM_GNU_GETTEXT_VERSION(0.10.40)
 
 dnl Set PACKAGE_LOCALE_DIR in config.h.
 if test "x${prefix}" = "xNONE"; then
@@ -101,9 +101,9 @@ AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}")
 AC_OUTPUT([
 Makefile
 intl/Makefile
-po/Makefile
 macros/Makefile
 src/Makefile
 pixmaps/Makefile
 gnomebaker.desktop
+po/Makefile.in
 ])

@@ -11,6 +11,11 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
+AM_CPPFLAGS = $(DEPS_CFLAGS) \
+	      -DLOCALE_DIR=\""$(datadir)/locale"\" \
+	      -DPIXMAPS_DIR=\""$(datadir)/pixmaps"\"
+
+
 bin_PROGRAMS = gnomebaker
 
 gnomebaker_SOURCES = \

@@ -105,7 +105,7 @@ datacd_update_progress_bar(gboolean add, gdouble filesize)
 	
 	fraction = currentguchars / disksize;
 	
-	g_message( "File size %f disksize %f Fraction is %f", filesize, disksize, fraction);
+	g_message( _("File size %f disksize %f Fraction is %f"), filesize, disksize, fraction);
 	
 	if(fraction < 0.0 || fraction == -0.0)
 	{
@@ -134,7 +134,7 @@ datacd_update_progress_bar(gboolean add, gdouble filesize)
 	else
 	{
 		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-			"File or directory is too large to fit in the remaining space on the CD");
+			_("File or directory is too large to fit in the remaining space on the CD"));
 		ok = FALSE;
 	}
 	
@@ -181,7 +181,7 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 	}
 	else
 	{
-		g_warning("failed to stat file [%s] with ret code [%d] error no [%s]", 
+		g_warning(_("failed to stat file [%s] with ret code [%d] error no [%s]"), 
 			filename, statret, strerror(errno));
 		
 		ret = FALSE;
@@ -206,7 +206,7 @@ datacd_add_selection(GtkSelectionData* selection)
 	
 	gnomebaker_show_busy_cursor(TRUE);	    	
 
-	g_message( "received sel %s", selection->data);	
+	g_message( _("received sel %s"), selection->data);	
 	const gchar* file = strtok((gchar*)selection->data,"\n");
 	while(file != NULL)
 	{
@@ -380,12 +380,12 @@ datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user
 	{
 		GtkWidget* menu = gtk_menu_new();	
 		
-		GtkWidget* menuitem = gtk_menu_item_new_with_label("Remove selected");	
+		GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Remove selected"));	
 		g_signal_connect(menuitem, "activate",
 			(GCallback)datacd_on_remove_clicked, widget);	
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
 		
-		menuitem = gtk_menu_item_new_with_label("Clear");	
+		menuitem = gtk_menu_item_new_with_label(_("Clear"));	
 		g_signal_connect(menuitem, "activate",
 			(GCallback)datacd_on_clear_clicked, widget);	
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
@@ -423,7 +423,7 @@ datacd_new()
 
 	/* First column which has an icon renderer and a text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(col, "Contents");
+    gtk_tree_view_column_set_title(col, _("Contents"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
     gtk_tree_view_column_set_attributes(col, renderer, "stock-id", DATACD_COL_ICON, NULL);
@@ -444,7 +444,7 @@ datacd_new()
 	
 	/* Second column to display the file/dir size */
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Size");
+	gtk_tree_view_column_set_title(col, _("Size"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_SIZE, NULL);
@@ -452,7 +452,7 @@ datacd_new()
 	
 	/* Third column for the full path of the file/dir */
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Full Path");
+	gtk_tree_view_column_set_title(col, _("Full Path"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_PATH, NULL);
@@ -491,15 +491,15 @@ datacd_get_msinfo(gchar** msinfo)
 	gint start = 0, end = 0;
 	if((output == NULL ) || (sscanf(output->str, "%d,%d\n", &start, &end) != 2))
 	{
-		gchar* message = g_strdup_printf("Error getting session information.\n\n%s", 
-			output != NULL ? output->str : "unknown error");
+		gchar* message = g_strdup_printf(_("Error getting session information.\n\n%s"), 
+			output != NULL ? output->str : _("unknown error"));
 		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 		g_free(message);
 	}
 	else
 	{
 		*msinfo = g_strdup_printf("%d,%d", start, end);
-		g_message("datacd next session is [%s]", *msinfo);		
+		g_message(_("datacd next session is [%s]"), *msinfo);		
 		ok = TRUE;
 	}
 	
@@ -523,11 +523,11 @@ datacd_import_session()
 	gchar* msinfo = NULL;
 	if(!datacd_get_msinfo(&msinfo))
 	{
-		g_critical("Error getting msinfo");
+		g_critical(_("Error getting msinfo"));
 	}
 	else if(!devices_mount_device(GB_WRITER, &mountpoint))
 	{
-		g_critical("Error mounting writer device");
+		g_critical(_("Error mounting writer device"));
 	}
 	else	
 	{							
@@ -556,14 +556,14 @@ datacd_import_session()
 		}
 		else
 		{
-			gchar* message = g_strdup_printf("Error importing session from [%s]. "
-				"Please check the device configuration in preferences.", mountpoint);
+			gchar* message = g_strdup_printf(_("Error importing session from [%s]. "
+				"Please check the device configuration in preferences."), mountpoint);
 			gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 			g_free(message);			
 		}				
 		
 		if(!devices_mount_device(GB_WRITER, NULL))
-			g_critical("Error unmounting writer device");	
+			g_critical(_("Error unmounting writer device"));	
 	}
 	
 	g_free(mountpoint);	

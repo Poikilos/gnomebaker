@@ -128,7 +128,7 @@ prefsdlg_create_device_list()
 
 	/* One column which has an icon renderer and text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(col, "Name");
+    gtk_tree_view_column_set_title(col, _("Name"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
     gtk_tree_view_column_set_attributes(col, renderer, "stock-id", DEVICELIST_COL_ICON, NULL);
@@ -143,7 +143,7 @@ prefsdlg_create_device_list()
 
 	/* Second column to display the device id */
 	renderer = gtk_cell_renderer_text_new();
-	col = gtk_tree_view_column_new_with_attributes("Id", renderer, 
+	col = gtk_tree_view_column_new_with_attributes(_("Id"), renderer, 
 		"text", DEVICELIST_COL_ID, NULL);
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
@@ -152,7 +152,7 @@ prefsdlg_create_device_list()
 			
 	/* Third column to display the device node */
 	renderer = gtk_cell_renderer_text_new();
-	col = gtk_tree_view_column_new_with_attributes("Node", renderer, 
+	col = gtk_tree_view_column_new_with_attributes(_("Node"), renderer, 
 		"text", DEVICELIST_COL_NODE, NULL);
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
@@ -161,7 +161,7 @@ prefsdlg_create_device_list()
 	
 	/* Fourth column to display the mount point */
 	renderer = gtk_cell_renderer_text_new();
-	col = gtk_tree_view_column_new_with_attributes("Mount point", renderer, 
+	col = gtk_tree_view_column_new_with_attributes(_("Mount point"), renderer, 
 		"text", DEVICELIST_COL_MOUNT, NULL);
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
@@ -170,7 +170,7 @@ prefsdlg_create_device_list()
 	
 	/* Fifth column for writing cdr */
 	renderer = gtk_cell_renderer_toggle_new();
-	col = gtk_tree_view_column_new_with_attributes("Write CD-R", renderer, "active",
+	col = gtk_tree_view_column_new_with_attributes(_("Write CD-R"), renderer, "active",
 		DEVICELIST_WRITE_CDR, NULL);
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
@@ -179,7 +179,7 @@ prefsdlg_create_device_list()
 	
 	/* Sixth column for writing cdrw */
 	renderer = gtk_cell_renderer_toggle_new();
-	col = gtk_tree_view_column_new_with_attributes("Write CD-RW", renderer, "active",
+	col = gtk_tree_view_column_new_with_attributes(_("Write CD-RW"), renderer, "active",
 		DEVICELIST_WRITE_CDRW, NULL);
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
@@ -188,7 +188,7 @@ prefsdlg_create_device_list()
 	
 	/* 7th column for writing dvdr */
 	renderer = gtk_cell_renderer_toggle_new();
-	col = gtk_tree_view_column_new_with_attributes("Write DVD-R", renderer, "active",
+	col = gtk_tree_view_column_new_with_attributes(_("Write DVD-R"), renderer, "active",
 		DEVICELIST_WRITE_DVDR, NULL);
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
@@ -197,7 +197,7 @@ prefsdlg_create_device_list()
 	
 	/* 8th column for writing dvdrw */
 	renderer = gtk_cell_renderer_toggle_new();
-	col = gtk_tree_view_column_new_with_attributes("Write DVD-RAM", renderer, "active",
+	col = gtk_tree_view_column_new_with_attributes(_("Write DVD-RAM"), renderer, "active",
 		DEVICELIST_WRITE_DVDRAM, NULL);
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
@@ -236,7 +236,7 @@ prefsdlg_foreach_device(GtkTreeModel *devicemodel,
 	if(writedvdram) capabilities |= DC_WRITE_DVDRAM;	
 	
 	if((name == NULL) || (id == NULL) || (node == NULL))
-		g_critical("Invalid row in device list");	
+		g_critical(_("Invalid row in device list"));	
 	else
 		devices_write_device_to_gconf(*devicecount, name, id, node, mount, capabilities);
 	

@@ -45,7 +45,7 @@ preferences_init()
 	gconf_client = gconf_client_get_default();
 	if(gconf_client == NULL) 
 	{
-		g_critical("Failed to initialise gconf");
+		g_critical(_("Failed to initialise gconf"));
 	}
 	else
 	{
@@ -131,7 +131,7 @@ preferences_get_toolbar_style()
 	else if(g_ascii_strcasecmp(style, "text") == 0)
 		ret = GTK_TOOLBAR_TEXT;
 	
-	g_message( "toolbar style [%s] [%d]", style, ret);
+	g_message( _("toolbar style [%s] [%d]"), style, ret);
 	g_free(style);
 	
 	return ret;

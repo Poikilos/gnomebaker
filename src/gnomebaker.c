@@ -19,8 +19,8 @@
  * Created on: Tue Apr  6 23:28:51 2004
  */
 
-#include <gnome.h>
 #include "gnomebaker.h"
+#include <gnome.h>
 #include "filebrowser.h"
 #include "audiocd.h"
 #include "datacd.h"
@@ -75,13 +75,13 @@ gnomebaker_new()
 {
 	GB_LOG_FUNC	
 	
-	splashdlg_set_text("Loading preferences...");
+	splashdlg_set_text(_("Loading preferences..."));
 	preferences_init();
 	
-	splashdlg_set_text("Detecting devices...");
+	splashdlg_set_text(_("Detecting devices..."));
 	devices_init();
 		
-	splashdlg_set_text("Loading GUI...");
+	splashdlg_set_text(_("Loading GUI..."));
 	xml = glade_xml_new(glade_file, widget_gnomebaker, NULL);
 
 	/* This is important */
@@ -127,7 +127,7 @@ gnomebaker_show_msg_dlg(GtkMessageType type, GtkButtonsType buttons,
 {
 	GB_LOG_FUNC
 	
-	g_message( "MessageDialog message [%s]", message);		
+	g_message( _("MessageDialog message [%s]"), message);		
 	
 	GtkWidget *dialog = gtk_message_dialog_new(
 		GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker)), 
@@ -149,7 +149,7 @@ gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data)
 	GB_LOG_FUNC
 	
 	switch(gnomebaker_show_msg_dlg(GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-		 "Are you sure you want to quit?"))
+		 _("Are you sure you want to quit?")))
 	{
 	case GTK_RESPONSE_OK:
 	
@@ -196,7 +196,7 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 		
-	GtkWidget *filesel = gtk_file_selection_new("Please select an iso file...");
+	GtkWidget *filesel = gtk_file_selection_new(_("Please select an iso file..."));
 	
 	gtk_file_selection_set_select_multiple(GTK_FILE_SELECTION(filesel), FALSE);
 
@@ -220,11 +220,11 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 
 	if(result == GTK_RESPONSE_OK)
 	{
-		g_message( "file is %s", file);
+		g_message( _("file is %s"), file);
 		
 		gchar* mime = gnome_vfs_get_mime_type(file);
 		g_return_if_fail(mime != NULL);
-		g_message("mime type is %s for %s", mime, file);
+		g_message(_("mime type is %s for %s"), mime, file);
 		
 		/* Check that the mime type is iso */
 		if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
@@ -234,7 +234,7 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 		else
 		{
 			gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
-			  "The file you have selected is not a cd image. Please select a cd image to burn.");
+			  _("The file you have selected is not a cd image. Please select a cd image to burn."));
 		}
 		
 		g_free(mime);
