@@ -136,7 +136,7 @@ AM_CFLAGS =  	 -Wall 	 -g
 
 bin_PROGRAMS = gnomebaker
 
-gnomebaker_SOURCES =  	main.c 	progressdlg.c 	progressdlg.h 	burn.c 	burn.h 	exec.c 	exec.h 	cdda2wav.c 	cdda2wav.h 	cdrecord.c 	cdrecord.h 	readcd.c 	readcd.h 	devices.c 	devices.h 	filebrowser.c 	filebrowser.h 	mkisofs.c 	mkisofs.h 	preferences.c 	preferences.h 	gnomebaker.c 	gnomebaker.h 	startdlg.c 	startdlg.h 	prefsdlg.c 	prefsdlg.h 	splashdlg.c 	splashdlg.h 	audiocd.c 	audiocd.h 	datacd.c 	datacd.h 	gbcommon.h 	gbcommon.c 	audioinfo.c 	audioinfo.h 	sox.c 	sox.h 	mpg123.c 	mpg123.h 	oggdec.c 	oggdec.h 	dvdfunctions.c 	dvdfunctions.h 	startdlgdvd.c 	startdlgdvd.h 	selectdevicedlg.c 	selectdevicedlg.h
+gnomebaker_SOURCES =  	main.c 	progressdlg.c 	progressdlg.h 	burn.c 	burn.h 	exec.c 	exec.h 	devices.c 	devices.h 	filebrowser.c 	filebrowser.h 	preferences.c 	preferences.h 	gnomebaker.c 	gnomebaker.h 	startdlg.c 	startdlg.h 	prefsdlg.c 	prefsdlg.h 	splashdlg.c 	splashdlg.h 	audiocd.c 	audiocd.h 	datacd.c 	datacd.h 	gbcommon.h 	gbcommon.c 	audioinfo.c 	audioinfo.h 	startdlgdvd.c 	startdlgdvd.h 	selectdevicedlg.c 	selectdevicedlg.h 	execfunctions.c 	execfunctions.h
 
 
 gnomebaker_LDFLAGS = 
@@ -155,13 +155,11 @@ CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 gnomebaker_OBJECTS =  main.$(OBJEXT) progressdlg.$(OBJEXT) \
-burn.$(OBJEXT) exec.$(OBJEXT) cdda2wav.$(OBJEXT) cdrecord.$(OBJEXT) \
-readcd.$(OBJEXT) devices.$(OBJEXT) filebrowser.$(OBJEXT) \
-mkisofs.$(OBJEXT) preferences.$(OBJEXT) gnomebaker.$(OBJEXT) \
-startdlg.$(OBJEXT) prefsdlg.$(OBJEXT) splashdlg.$(OBJEXT) \
-audiocd.$(OBJEXT) datacd.$(OBJEXT) gbcommon.$(OBJEXT) \
-audioinfo.$(OBJEXT) sox.$(OBJEXT) mpg123.$(OBJEXT) oggdec.$(OBJEXT) \
-dvdfunctions.$(OBJEXT) startdlgdvd.$(OBJEXT) selectdevicedlg.$(OBJEXT)
+burn.$(OBJEXT) exec.$(OBJEXT) devices.$(OBJEXT) filebrowser.$(OBJEXT) \
+preferences.$(OBJEXT) gnomebaker.$(OBJEXT) startdlg.$(OBJEXT) \
+prefsdlg.$(OBJEXT) splashdlg.$(OBJEXT) audiocd.$(OBJEXT) \
+datacd.$(OBJEXT) gbcommon.$(OBJEXT) audioinfo.$(OBJEXT) \
+startdlgdvd.$(OBJEXT) selectdevicedlg.$(OBJEXT) execfunctions.$(OBJEXT)
 gnomebaker_DEPENDENCIES = 
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -175,12 +173,11 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 TAR = tar
 GZIP_ENV = --best
 DEP_FILES =  .deps/audiocd.P .deps/audioinfo.P .deps/burn.P \
-.deps/cdda2wav.P .deps/cdrecord.P .deps/datacd.P .deps/devices.P \
-.deps/dvdfunctions.P .deps/exec.P .deps/filebrowser.P .deps/gbcommon.P \
-.deps/gnomebaker.P .deps/main.P .deps/mkisofs.P .deps/mpg123.P \
-.deps/oggdec.P .deps/preferences.P .deps/prefsdlg.P .deps/progressdlg.P \
-.deps/readcd.P .deps/selectdevicedlg.P .deps/sox.P .deps/splashdlg.P \
-.deps/startdlg.P .deps/startdlgdvd.P
+.deps/datacd.P .deps/devices.P .deps/exec.P .deps/execfunctions.P \
+.deps/filebrowser.P .deps/gbcommon.P .deps/gnomebaker.P .deps/main.P \
+.deps/preferences.P .deps/prefsdlg.P .deps/progressdlg.P \
+.deps/selectdevicedlg.P .deps/splashdlg.P .deps/startdlg.P \
+.deps/startdlgdvd.P
 SOURCES = $(gnomebaker_SOURCES)
 OBJECTS = $(gnomebaker_OBJECTS)
 

@@ -21,18 +21,10 @@ gnomebaker_SOURCES = \
 	burn.h\
 	exec.c\
 	exec.h\
-	cdda2wav.c\
-	cdda2wav.h\
-	cdrecord.c\
-	cdrecord.h\
-	readcd.c\
-	readcd.h\
 	devices.c\
 	devices.h\
 	filebrowser.c\
 	filebrowser.h\
-	mkisofs.c\
-	mkisofs.h\
 	preferences.c\
 	preferences.h\
 	gnomebaker.c\
@@ -51,18 +43,12 @@ gnomebaker_SOURCES = \
 	gbcommon.c\
 	audioinfo.c\
 	audioinfo.h\
-	sox.c\
-	sox.h\
-	mpg123.c\
-	mpg123.h\
-	oggdec.c\
-	oggdec.h\
-	dvdfunctions.c\
-	dvdfunctions.h\
 	startdlgdvd.c\
 	startdlgdvd.h\
 	selectdevicedlg.c\
-	selectdevicedlg.h
+	selectdevicedlg.h\
+	execfunctions.c\
+	execfunctions.h
 
 gnomebaker_LDFLAGS = 
 
