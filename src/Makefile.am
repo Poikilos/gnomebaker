@@ -57,14 +57,10 @@ gnomebaker_SOURCES = \
 	mpg123.h\
 	oggdec.c\
 	oggdec.h\
-	datadvd.c\
-	datadvd.h\
 	dvdfunctions.c\
 	dvdfunctions.h\
 	startdlgdvd.c\
 	startdlgdvd.h
-
-
 
 gnomebaker_LDFLAGS = 
 

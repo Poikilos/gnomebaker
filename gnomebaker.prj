@@ -114,7 +114,11 @@ module.source.files=\
 	mpg123.c\
 	mpg123.h\
 	oggdec.c\
-	oggdec.h
+	oggdec.h\
+	dvdfunctions.c\
+	dvdfunctions.h\
+	startdlgdvd.c\
+	startdlgdvd.h
 
 module.pixmap.name=pixmaps
 module.pixmap.type=

@@ -24,21 +24,10 @@
 #include "progressdlg.h"
 #include <glib/gprintf.h>
 #include "gbcommon.h"
-#include "datadvd.h"
+#include "datacd.h"
 #include "exec.h"
 #include "devices.h"
 
-void dvdformat_pre_proc(void *ex, void *buffer);
-void dvdformat_add_args(ExecCmd * const cdBurn);
-void dvdformat_read_proc (void *ex, void *buffer);
-void growisofs_read_proc(void *ex,void *buffer);
-void growisofs_pre_proc(void *ex,void *buffer);
-void growisofs_post_proc(void *ex,void *buffer);
-void growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel);
-gboolean growisofs_foreach_func(GtkTreeModel *model,
-                GtkTreePath  *path,
-                GtkTreeIter  *iter,
-                gpointer      user_data);
 
 /*
  * We pass a pointer to this function to Exec which will call us when it has
@@ -48,8 +37,7 @@ gboolean growisofs_foreach_func(GtkTreeModel *model,
 void
 dvdformat_pre_proc(void *ex, void *buffer)
 {	
-	GB_LOG_FUNC
-	
+	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
 	progressdlg_set_status("<b>Formatting DVD...</b>");
@@ -68,38 +56,6 @@ dvdformat_pre_proc(void *ex, void *buffer)
 }
 
 
-void 
-dvdformat_add_args(ExecCmd * const dvdFormat)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(dvdFormat != NULL);
-	
-	dvdFormat->readProc = dvdformat_read_proc;
-	dvdFormat->preProc = dvdformat_pre_proc;
-	
-	exec_cmd_add_arg(dvdFormat, "%s", "dvd+rw-format");
-	
-	gchar* writer = devices_get_device_config(GB_DVDWRITER,GB_DEVICE_ID_LABEL);
-	exec_cmd_add_arg(dvdFormat, "%s", writer);
-	g_free(writer);
-	
-	
-	if(preferences_get_bool(GB_DVDFORCE))
-	{
-		if(!preferences_get_bool(GB_DVDFAST_BLANK))
-			exec_cmd_add_arg(dvdFormat, "%s","-force=full");
-		else
-			exec_cmd_add_arg(dvdFormat, "%s","-force");
-	}
-	else
-	{
-		if(!preferences_get_bool(GB_DVDFAST_BLANK))
-			exec_cmd_add_arg(dvdFormat, "%s", "-format=full");
-	}
-	
-}
-
-
 void
 dvdformat_read_proc(void *ex, void *buffer)
 {
@@ -107,7 +63,8 @@ dvdformat_read_proc(void *ex, void *buffer)
 	
 	g_return_if_fail(buffer != NULL);
 	g_return_if_fail(ex != NULL);
-		/* 	This is a hack for the moment until I figure out what's 
+		
+	/* 	This is a hack for the moment until I figure out what's 
 		going on with the charset. */
 	gchar *buf = (gchar*)buffer;
 	
@@ -123,8 +80,7 @@ dvdformat_read_proc(void *ex, void *buffer)
 			buf[i] = ' ';
 		}
 	}
-	
-	
+		
 	const gchar* format = strstr(buf, "formatting");
 	if(format != NULL)
 	{
@@ -132,70 +88,50 @@ dvdformat_read_proc(void *ex, void *buffer)
 		if(sscanf(format, "%*s %d", &curpercent) > 0)
 		{
 			if(curpercent > 0)
-			{
 				progressdlg_set_fraction(curpercent);
-			}
 			else
-			{
 				g_message("Failed to get percent in dvdformat_read_proc");
-			}
 		}		
 	}
 	
 	progressdlg_append_output(buf);
 }
 
+
 void 
-growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
+dvdformat_add_args(ExecCmd * const dvdFormat)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(growisofs != NULL);
+	g_return_if_fail(dvdFormat != NULL);
 	
+	dvdFormat->readProc = dvdformat_read_proc;
+	dvdFormat->preProc = dvdformat_pre_proc;
 	
+	exec_cmd_add_arg(dvdFormat, "%s", "dvd+rw-format");
 	
-	
-	growisofs->readProc = growisofs_read_proc;
-	growisofs->preProc = growisofs_pre_proc;
-	//growisofs->postProc = growisofs_post_proc;
-	exec_cmd_add_arg(growisofs, "%s", "growisofs");
-	/* TODO: -M: merge new session with existing one */
-	exec_cmd_add_arg(growisofs, "%s", "-Z");
-	gchar* writer = devices_get_device_config(GB_DVDWRITER,GB_DEVICE_ID_LABEL);
-	exec_cmd_add_arg(growisofs,"%s",writer);
+	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(dvdFormat, "%s", writer);
 	g_free(writer);
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
-	exec_cmd_add_arg(growisofs,"-speed=%s",speed);
-	g_free(speed);
-	/* TODO: Rock Ridge and Joliet should go to preferences! */
-	exec_cmd_add_arg(growisofs, "%s", "-R"); /* Rock Ridge */
-	exec_cmd_add_arg(growisofs, "%s", "-J"); /* Joliet */
-	
-	/* -gui makes the output more verbose, so we can 
-	    interpret it easier */
-	exec_cmd_add_arg(growisofs,"%s","-gui");
-
-	/* stop the reloading of the disc */
-	exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=notray");
-	
-	/* TODO: Overburn support */
-	/* preferences_get_int(GB_DVDOVERBURN)
-	if(prefs->overburn)
-		exec_cmd_add_arg(growisofs, "%s", "-overburn"); */
-	/* TODO: where do we get temporary vars from ? */
-	/*if(prefs->finalize)
-		exec_cmd_add_arg(growisofs, "%s", "-dvd-compat");*/
-	/* -dvd-compat closes the session on DVD+RW's also */	
 		
-	gtk_tree_model_foreach(datamodel, growisofs_foreach_func, growisofs);
-	
-		
+	if(preferences_get_bool(GB_FORCE))
+	{
+		if(!preferences_get_bool(GB_FAST_BLANK))
+			exec_cmd_add_arg(dvdFormat, "%s","-force=full");
+		else
+			exec_cmd_add_arg(dvdFormat, "%s","-force");
+	}
+	else
+	{
+		if(!preferences_get_bool(GB_FAST_BLANK))
+			exec_cmd_add_arg(dvdFormat, "%s", "-format=full");
+	}	
 }
 
-void growisofs_pre_proc(void *ex,void *buffer)
-{
-		
-	GB_LOG_FUNC
-	
+
+void 
+growisofs_pre_proc(void *ex,void *buffer)
+{		
+	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
 	progressdlg_set_status("<b>Burning DVD...</b>");
@@ -204,6 +140,7 @@ void growisofs_pre_proc(void *ex,void *buffer)
 	gdk_threads_enter();
 	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
 			  "Please insert a writable DVD into the DVD writer");
+	gdk_flush();
 	gdk_threads_leave();
 	
 	if(ret == GTK_RESPONSE_CANCEL)
@@ -213,7 +150,9 @@ void growisofs_pre_proc(void *ex,void *buffer)
 	}
 }
 
-void growisofs_post_proc(void *ex,void *buffer)
+
+void 
+growisofs_post_proc(void *ex,void *buffer)
 {
 	GB_LOG_FUNC
 	/* if(prefs->eject)
@@ -280,6 +219,7 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 			buf[i] = ' ';
 		}
 	}
+	
 	const gchar* progressstr = strstr(buf, "done");
 	if(progressstr != NULL)
 	{
@@ -295,16 +235,12 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 	}
 	
 	const gchar* leadout = strstr(buf,"writing lead-out");
-	if(leadout != NULL)
-	{
+	if(leadout != NULL)	
 		progressdlg_set_fraction(1.0);
-	}
-	
-	
-	
-	
+		
 	progressdlg_append_output(buf);
 }
+
 
 gboolean
 growisofs_foreach_func(GtkTreeModel *model,
@@ -316,8 +252,8 @@ growisofs_foreach_func(GtkTreeModel *model,
 	gchar *icon, *file, *filepath;
 	glong size;
 		
-	gtk_tree_model_get (model, iter, DATADVD_COL_ICON, &icon, DATADVD_COL_FILE, &file,
-		DATADVD_COL_SIZE, &size, DATADVD_COL_PATH, &filepath, -1);
+	gtk_tree_model_get (model, iter, DATACD_COL_ICON, &icon, DATACD_COL_FILE, &file,
+		DATACD_COL_SIZE, &size, DATACD_COL_PATH, &filepath, -1);
 	
 	g_message( "%s %ld %s", file, size, filepath);
 	
@@ -331,4 +267,53 @@ growisofs_foreach_func(GtkTreeModel *model,
 	g_free(filepath);
 	
 	return FALSE; /* do not stop walking the store, call us with next row */
+}
+
+
+void 
+growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(growisofs != NULL);
+	
+	growisofs->readProc = growisofs_read_proc;
+	growisofs->preProc = growisofs_pre_proc;
+	//growisofs->postProc = growisofs_post_proc;
+	exec_cmd_add_arg(growisofs, "%s", "growisofs");
+	
+	/* merge new session with existing one */
+	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_ID_LABEL);
+	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
+	if(msinfo != NULL)
+		exec_cmd_add_arg(growisofs, "-M %s", writer);
+	else
+		exec_cmd_add_arg(growisofs, "-Z %s", writer);
+	g_free(msinfo);
+	g_free(writer);
+	
+	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
+	exec_cmd_add_arg(growisofs,"-speed=%s",speed);
+	g_free(speed);
+	
+	/* TODO: Rock Ridge and Joliet should go to preferences! */
+	exec_cmd_add_arg(growisofs, "%s", "-R"); /* Rock Ridge */
+	exec_cmd_add_arg(growisofs, "%s", "-J"); /* Joliet */
+	
+	/* -gui makes the output more verbose, so we can 
+	    interpret it easier */
+	exec_cmd_add_arg(growisofs,"%s","-gui");
+
+	/* stop the reloading of the disc */
+	exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=notray");
+	
+	/* TODO: Overburn support */
+	/* preferences_get_int(GB_OVERBURN)
+	if(prefs->overburn)
+		exec_cmd_add_arg(growisofs, "%s", "-overburn"); */
+	/* TODO: where do we get temporary vars from ? */
+	/*if(prefs->finalize)
+		exec_cmd_add_arg(growisofs, "%s", "-dvd-compat");*/
+	/* -dvd-compat closes the session on DVD+RW's also */	
+		
+	gtk_tree_model_foreach(datamodel, growisofs_foreach_func, growisofs);
 }

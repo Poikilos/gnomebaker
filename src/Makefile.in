@@ -131,7 +131,7 @@ AM_CFLAGS =  	 -Wall 	 -g
 
 bin_PROGRAMS = gnomebaker
 
-gnomebaker_SOURCES =  	main.c 	progressdlg.c 	progressdlg.h 	burn.c 	burn.h 	exec.c 	exec.h 	cdda2wav.c 	cdda2wav.h 	cdrecord.c 	cdrecord.h 	readcd.c 	readcd.h 	devices.c 	devices.h 	filebrowser.c 	filebrowser.h 	mkisofs.c 	mkisofs.h 	preferences.c 	preferences.h 	gnomebaker.c 	gnomebaker.h 	startdlg.c 	startdlg.h 	prefsdlg.c 	prefsdlg.h 	splashdlg.c 	splashdlg.h 	audiocd.c 	audiocd.h 	datacd.c 	datacd.h 	gbcommon.h 	gbcommon.c 	audioinfo.c 	audioinfo.h 	sox.c 	sox.h 	mpg123.c 	mpg123.h 	oggdec.c 	oggdec.h 	datadvd.c 	datadvd.h 	dvdfunctions.c 	dvdfunctions.h startdlgdvd.c startdlgdvd.h
+gnomebaker_SOURCES =  	main.c 	progressdlg.c 	progressdlg.h 	burn.c 	burn.h 	exec.c 	exec.h 	cdda2wav.c 	cdda2wav.h 	cdrecord.c 	cdrecord.h 	readcd.c 	readcd.h 	devices.c 	devices.h 	filebrowser.c 	filebrowser.h 	mkisofs.c 	mkisofs.h 	preferences.c 	preferences.h 	gnomebaker.c 	gnomebaker.h 	startdlg.c 	startdlg.h 	prefsdlg.c 	prefsdlg.h 	splashdlg.c 	splashdlg.h 	audiocd.c 	audiocd.h 	datacd.c 	datacd.h 	gbcommon.h 	gbcommon.c 	audioinfo.c 	audioinfo.h 	sox.c 	sox.h 	mpg123.c 	mpg123.h 	oggdec.c 	oggdec.h 	dvdfunctions.c 	dvdfunctions.h 	startdlgdvd.c 	startdlgdvd.h
 
 
 gnomebaker_LDFLAGS = 
@@ -156,7 +156,7 @@ mkisofs.$(OBJEXT) preferences.$(OBJEXT) gnomebaker.$(OBJEXT) \
 startdlg.$(OBJEXT) prefsdlg.$(OBJEXT) splashdlg.$(OBJEXT) \
 audiocd.$(OBJEXT) datacd.$(OBJEXT) gbcommon.$(OBJEXT) \
 audioinfo.$(OBJEXT) sox.$(OBJEXT) mpg123.$(OBJEXT) oggdec.$(OBJEXT) \
-datadvd.$(OBJEXT) dvdfunctions.$(OBJEXT) startdlgdvd.$(OBJEXT)
+dvdfunctions.$(OBJEXT) startdlgdvd.$(OBJEXT)
 gnomebaker_DEPENDENCIES = 
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)

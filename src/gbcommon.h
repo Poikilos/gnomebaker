@@ -110,12 +110,6 @@ static const gchar* const widget_prefsdlg_devicelist = "treeview12";
 static const gchar* const widget_splashdlg = "splashWnd";
 static const gchar* const widget_splashdlg_label = "splashLabel";
 
-/* Data DVD glade widget names */
-static const gchar* const widget_datadvd_tree = "treeview12";
-static const gchar* const widget_datadvd_size = "optionmenu8";
-static const gchar* const widget_datadvd_progressbar = "progressbar6";
-static const gchar* const widget_datadvd_create = "button34";
-
 /* Start dialog DVD glade widget names */
 static const gchar* const widget_startdlgdvd = "startDlgDvd";
 static const gchar* const widget_startdlgdvd_reader = "optmenReaderDvd";
