@@ -122,7 +122,8 @@ audioinfo_new(const gchar* audiofile)
 				/* Check that the file extension is one we support */			
 				if(g_ascii_strcasecmp(self->mimetype, "audio/x-wav") == 0)
 					audioinfo_get_wav_info(self, audiofile);				
-				else if(g_ascii_strcasecmp(self->mimetype, "audio/x-mp3") == 0)
+				else if((g_ascii_strcasecmp(self->mimetype, "audio/x-mp3") == 0) ||
+					(g_ascii_strcasecmp(self->mimetype, "audio/mpeg") == 0))
 					audioinfo_get_mp3_info(self, audiofile);
 				else if(g_ascii_strcasecmp(self->mimetype, "application/ogg") == 0)
 					audioinfo_get_ogg_info(self, audiofile);
