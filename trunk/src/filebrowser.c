@@ -350,12 +350,14 @@ filebrowser_populate(GtkTreeModel* treemodel,
   					gchar* mime = gnome_vfs_get_mime_type(fullname);
 					GdkPixbuf* icon = gbcommon_get_icon_for_mime(mime, 16);
   					gchar* humansize = gbcommon_humanreadable_filesize(s.st_size);
- 					const gchar* type = gnome_vfs_mime_get_description(mime);
+					gchar* type = gbcommon_get_mime_description(mime);
   					gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
   						FL_COL_ICON, icon, FL_COL_NAME, name,
- 						FL_COL_TYPE, type?type:mime, FL_COL_SIZE, (guint64)s.st_size, FL_COL_HUMANSIZE, humansize, -1);
+ 						FL_COL_TYPE, type, FL_COL_SIZE, (guint64)s.st_size, 
+						FL_COL_HUMANSIZE, humansize, -1);
 					g_object_unref(icon);
-  					g_free(mime); 					
+					g_free(mime);
+  					g_free(type);
   					g_free(humansize);
 				}
 			}
