@@ -19,6 +19,9 @@
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
+/* nautilus drag and drop has this prepended */
+static const gchar* const fileurl = "file://";
+
 
 void 
 gbcommon_start_busy_cursor(GtkWidget* window)
@@ -98,54 +101,13 @@ gbcommon_calc_dir_size(const gchar* dirname)
 }
 
 
-gchar* 
-gbcommon_tidy_nautilus_dnd_file(const gchar* file)
-{
-	GB_LOG_FUNC
-	g_return_val_if_fail(file, NULL);
-	
-	/* If there's a file url at the start then strip it off */	
-	if(g_ascii_strncasecmp(file, fileurl, strlen(fileurl)) == 0)
-		file += strlen(fileurl);
-	
-	guint length = strlen(file);
-	gchar* ret = g_malloc((length + 1) * sizeof(gchar));
-	memset(ret, 0x0, (length + 1) * sizeof(gchar));
-		
-	guint i = 0;
-	for(; i < length; i++)
-	{
-		switch(file[i])
-		{
-		case '\r':
-			strcat(ret, "\0");
-			break;
-		case '%':
-			if(strncmp(&(file[i]), "%20", 3) == 0)
-			{
-				strcat(ret, " ");
-				i += 2;
-				break;
-			}
-		/* fall through and add the % as it's not a space */
-		default:
-			strncat(ret, &(file[i]), 1);
-		};		
-	}
-	
-	g_message(_("returning [%s]"), ret);
-		
-	return ret;
-}
-
-
 void 
 gbcommon_mkdir(const gchar* dirname)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(dirname != NULL);
 		
-	g_message(_("creating [%s]"), dirname);
+	GB_TRACE(_("creating [%s]"), dirname);
 
 	gchar *dirs = g_strdup(dirname);
 	GString *dir = g_string_new("");
@@ -290,7 +252,7 @@ gbcommon_launch_app_for_file(const gchar* file)
 	GB_LOG_FUNC
 	g_return_if_fail(file != NULL);
 	
-	gchar* mime = gnome_vfs_get_mime_type(file);
+	gchar* mime = gbcommon_get_mime_type(file);
 	if(mime != NULL)
 	{		
 		GnomeVFSMimeApplication* app = gnome_vfs_mime_get_default_application(mime);
@@ -333,7 +295,6 @@ gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[],
 	
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(optmen), menu);	
 	gtk_option_menu_set_history(GTK_OPTION_MENU(optmen), history);
-
 }
 
 
@@ -341,14 +302,70 @@ gchar*
 gbcommon_get_mime_description(const gchar* mime)
 {
 	GB_LOG_FUNC
+	g_return_val_if_fail(mime != NULL, NULL);
+	
 	gchar* ret = NULL;
-	if(mime != NULL)
-	{
-		const gchar* desc = gnome_vfs_mime_get_description(mime);
-		if(desc != NULL)
-			ret = g_strdup(desc);
-	}
-	if(ret == NULL)
-		ret = g_strdup(_("Unknown"));
+	const gchar* desc = gnome_vfs_mime_get_description(mime);
+	if(desc != NULL)
+		ret = g_strdup(desc);
+	else
+		ret = g_strdup(mime);
+	
+	GB_TRACE("gbcommon_get_mime_description - mime [%s] description [%s]", mime, ret);	
 	return ret;
+}
+
+
+gchar* 
+gbcommon_unescape_string(const gchar* file)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(file != NULL, NULL);		
+	
+	gchar* filename = g_strdup(file);
+	g_strstrip(filename); /* We sometimes get files with /r etc on the end */
+	gchar* localpath = gbcommon_get_local_path(filename);
+	gchar* ret = gnome_vfs_unescape_string_for_display(localpath);
+	g_free(localpath);
+	g_free(filename);		
+	GB_TRACE(_("gbcommon_unescape_string - returning [%s]"), ret);		
+	return ret;
+}
+
+
+gchar*
+gbcommon_get_mime_type(const gchar* file)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(file != NULL, NULL);	
+	
+	gchar* uri = gbcommon_get_uri(file);	
+	gchar* mime = gnome_vfs_get_mime_type(uri);
+	GB_TRACE("gbcommon_get_mime_type - uri [%s] mime [%s]", uri, mime);
+	g_free(uri);	
+	return mime;
+}
+
+
+gchar* 
+gbcommon_get_local_path(const gchar* uri)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(uri != NULL, NULL);	
+	
+	if(g_ascii_strncasecmp(uri, fileurl, strlen(fileurl)) == 0)
+		return gnome_vfs_get_local_path_from_uri(uri);
+	return g_strdup(uri);	
+}
+
+
+gchar* 
+gbcommon_get_uri(const gchar* localpath)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(localpath != NULL, NULL);
+	
+	if(g_ascii_strncasecmp(localpath, fileurl, strlen(fileurl)) != 0)
+		return gnome_vfs_get_uri_from_local_path(localpath);
+	return g_strdup(localpath);	
 }

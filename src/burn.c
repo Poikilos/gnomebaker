@@ -246,9 +246,9 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 			
 	gtk_tree_model_get (model, iter, AUDIOCD_COL_FILE, &file, -1);
 	
-	g_message( "%s", file);
+	GB_TRACE( "%s", file);
 	
-	gchar* mime = gnome_vfs_get_mime_type(file);
+	gchar* mime = gbcommon_get_mime_type(file);
 	if(mime != NULL)
 	{
 		ExecCmd* cmd = exec_add_cmd(burnargs);
@@ -262,7 +262,7 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 		else if(g_ascii_strcasecmp(mime, "audio/x-wav") == 0)
 			sox_add_wav_args(cmd, file, &convertedfile);
 		
-		g_message(_("burn - [%s]"), convertedfile);
+		GB_TRACE(_("burn - [%s]"), convertedfile);
 		*audiofiles = g_list_append(*audiofiles, convertedfile);
 		g_free(mime);	
 	}

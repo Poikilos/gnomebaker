@@ -106,17 +106,8 @@ audioinfo_new(const gchar* audiofile)
 		}
 		else
 		{			
-			GString* vfsfile = g_string_new(audiofile);
-		
-			/* Get the file name that's been dropped and if there's a 
-			   file url at the start then strip it off */				
-			if(g_ascii_strncasecmp(audiofile, fileurl, strlen(fileurl)) == 0)
-				audiofile += strlen(fileurl);
-			else
-				g_string_insert(vfsfile, 0, fileurl);
-			
-			self->mimetype = gnome_vfs_get_mime_type(vfsfile->str);
-			g_message( _("mime type is %s for %s %s"), self->mimetype, audiofile, vfsfile->str);
+			self->mimetype = gbcommon_get_mime_type(audiofile);
+			GB_TRACE( _("audioinfo_new - mime type is %s for %s"), self->mimetype, audiofile);
 			if(self->mimetype != NULL)
 			{
 				/* Check that the file extension is one we support */			
@@ -142,8 +133,6 @@ audioinfo_new(const gchar* audiofile)
 					audioinfo_set_formatted_length(self);
 				}
 			}
-			
-			g_string_free(vfsfile, TRUE);
 		}
 	}
 	return self;
@@ -230,7 +219,7 @@ Field 	guchars 	format 	contains
 		static const size_t StructSize = sizeof(struct WavHeader);
 		if(fread(&wav, 1, StructSize, st) == StructSize)
 		{					
-			g_message("[%d] [%d] [%d]", wav.totalguchars, wav.gucharspersecond,
+			GB_TRACE("[%d] [%d] [%d]", wav.totalguchars, wav.gucharspersecond,
 				wav.gucharsindata);			
 			self->bitrate = wav.gucharspersecond;
 			
@@ -375,7 +364,7 @@ audioinfo_get_mp3_info(AudioInfo* info, const gchar *FileName)
 			
 			if(g_ascii_strncasecmp(tagchars, "TAG", 3) == 0)
 			{
-				g_message("%ld [%s] [%s] [%s]", lngFileSize - 128, 
+				GB_TRACE("%ld [%s] [%s] [%s]", lngFileSize - 128, 
 					tagchars + 3, tagchars + 33, tagchars + 63);
 					
 				g_string_append_len(info->artist, tagchars + 33, 30);
@@ -695,7 +684,7 @@ audioinfo_get_ogg_info(AudioInfo* info, const gchar *oggfile)
 		gint i = 0;
 		for(; i < comment->comments; i++)
 		{
-			g_message("[%s]", comment->user_comments[i]);				
+			GB_TRACE("[%s]", comment->user_comments[i]);				
 			if(comment->user_comments[i] == NULL)
 				continue;			
 			else if(g_ascii_strncasecmp(comment->user_comments[i], _("TITLE="), 6) == 0)

@@ -198,7 +198,7 @@ filebrowser_expand_path(GtkTreeModel* model, GtkTreeIter* iter)
 		current = parent;
 	}
 	
-	/*g_message( "filebrowser_expand_path - returning [%s]", fullpath->str);*/
+	/*GB_TRACE( "filebrowser_expand_path - returning [%s]", fullpath->str);*/
 	
 	return fullpath;
 }
@@ -299,9 +299,6 @@ filebrowser_populate(GtkTreeModel* treemodel,
 
 			/* build up the full path to the name */
 			gchar* fullname = g_build_filename(fullpath->str, name, NULL);
-	
-			/*g_print("fullname is [%s]\n", fullname);*/
-			
 			GB_DECLARE_STRUCT(struct stat, s);
 			if(stat(fullname, &s) == 0)
 			{
@@ -347,7 +344,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 					   when we set up the directory tree selection changed func */					
 					GB_DECLARE_STRUCT(GtkTreeIter, iterRight);					
 					gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);					
-  					gchar* mime = gnome_vfs_get_mime_type(fullname);
+  					gchar* mime = gbcommon_get_mime_type(fullname);
 					GdkPixbuf* icon = gbcommon_get_icon_for_mime(mime, 16);
   					gchar* humansize = gbcommon_humanreadable_filesize(s.st_size);
 					gchar* type = gbcommon_get_mime_description(mime);
@@ -528,7 +525,7 @@ filebrowser_on_drag_data_get (GtkWidget * widget,
 		g_return_if_fail(file != NULL);
 	}
 	
-	g_message(_("selection data is %s\n"), file->str);
+	GB_TRACE(_("selection data is %s\n"), file->str);
 	
 	/* Set the fully built path(s) as the selection data */
 	gtk_selection_data_set(selection_data, selection_data->target, 8, file->str,

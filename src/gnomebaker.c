@@ -150,7 +150,7 @@ gnomebaker_show_msg_dlg(GtkMessageType type, GtkButtonsType buttons,
 {
 	GB_LOG_FUNC
 	
-	g_message( _("MessageDialog message [%s]"), message);		
+	GB_TRACE( _("MessageDialog message [%s]"), message);		
 	
 	GtkWidget *dialog = gtk_message_dialog_new(
 		GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker)), 
@@ -253,11 +253,11 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 
 	if(result == GTK_RESPONSE_OK)
 	{
-		g_message( _("file is %s"), file);
+		GB_TRACE( _("file is %s"), file);
 		
-		gchar* mime = gnome_vfs_get_mime_type(file);
+		gchar* mime = gbcommon_get_mime_type(file);
 		g_return_if_fail(mime != NULL);
-		g_message(_("mime type is %s for %s"), mime, file);
+		GB_TRACE(_("mime type is %s for %s"), mime, file);
 		
 		/* Check that the mime type is iso */
 		if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)

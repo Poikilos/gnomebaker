@@ -45,7 +45,7 @@ void gbcommon_start_busy_cursor1(GladeXML* xml, const gchar* windowname);
 void gbcommon_end_busy_cursor(GtkWidget* window);
 void gbcommon_end_busy_cursor1(GladeXML* xml, const gchar* windowname);
 guint64 gbcommon_calc_dir_size(const gchar* dirname);
-gchar* gbcommon_tidy_nautilus_dnd_file(const gchar* file);
+gchar* gbcommon_unescape_string(const gchar* file);
 void gbcommon_mkdir(const gchar* dir);
 gchar** gbcommon_get_file_as_list(const gchar* file);
 gchar* gbcommon_get_option_menu_selection(GtkOptionMenu* optmen);
@@ -57,6 +57,9 @@ void gbcommon_launch_app_for_file(const gchar* file);
 void gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[], 
 											 const gint sizecount, const gint history);
 gchar* gbcommon_get_mime_description(const gchar* mime);
+gchar* gbcommon_get_mime_type(const gchar* file);
+gchar* gbcommon_get_local_path(const gchar* uri);
+gchar* gbcommon_get_uri(const gchar* localpath);
 
 /* defined in main.c */
 extern const gchar* glade_file;
@@ -134,12 +137,11 @@ static const gchar* const widget_select_device_dlg = "selectDeviceDlg";
 
 #define GB_LOG_FUNC											\
 	if(showtrace) g_print(_("Entering [%s] [%s] [%d]\n"), __FUNCTION__, __FILE__, __LINE__);	\
+		
+#define GB_TRACE			\
+	if(showtrace) g_message	\
 
 #define GB_DECLARE_STRUCT(STRUCT, INSTANCE)			\
 	STRUCT INSTANCE; memset(&INSTANCE, 0x0, sizeof(STRUCT));	\
-
-/* nautilus drag and drop has this prepended */
-static const gchar* const fileurl = "file://";
-
 
 #endif /* _GBCOMMON_H */
