@@ -23,7 +23,7 @@ dnl Checks for header files.
 dnl Checks for typedefs, structures, and compiler characteristics.
 dnl Checks for library functions.
 dnl Checks for Additional stuffs.
-ALL_LINGUAS="pt_BR"
+ALL_LINGUAS="pt_BR da"
 AM_GLIB_GNU_GETTEXT
 GETTEXT_PACKAGE=gnomebaker
 AC_SUBST(GETTEXT_PACKAGE)
