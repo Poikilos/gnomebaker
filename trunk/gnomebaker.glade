@@ -95,7 +95,7 @@
 			  <signal name="activate" handler="gnomebaker_on_blank_cdrw" last_modification_time="Thu, 08 Apr 2004 20:55:06 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image212">
+			    <widget class="GtkImage" id="image224">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-cdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -115,9 +115,9 @@
 			  <signal name="activate" handler="gnomebaker_on_format_dvdrw" last_modification_time="Wed, 05 Jan 2005 22:09:46 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image213">
+			    <widget class="GtkImage" id="image225">
 			      <property name="visible">True</property>
-			      <property name="pixbuf">baker-blank-cdrw.png</property>
+			      <property name="pixbuf">baker-blank-dvdrw.png</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xpad">0</property>
@@ -141,7 +141,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_datacd" last_modification_time="Fri, 09 Apr 2004 20:26:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image214">
+			    <widget class="GtkImage" id="image226">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -161,7 +161,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_audiocd" last_modification_time="Fri, 09 Apr 2004 20:26:00 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image215">
+			    <widget class="GtkImage" id="image227">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-audio-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -187,7 +187,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_iso" last_modification_time="Thu, 08 Apr 2004 21:00:53 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image216">
+			    <widget class="GtkImage" id="image228">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-burn-cd.png</property>
 			      <property name="xalign">0.5</property>
@@ -213,7 +213,7 @@
 			  <signal name="activate" handler="gnomebaker_on_import" last_modification_time="Tue, 04 Jan 2005 00:49:21 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image217">
+			    <widget class="GtkImage" id="image229">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-import-session.png</property>
 			      <property name="xalign">0.5</property>
@@ -246,7 +246,7 @@
 			  <signal name="activate" handler="gnomebaker_on_refresh" last_modification_time="Sun, 21 Nov 2004 15:12:14 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image218">
+			    <widget class="GtkImage" id="image230">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
 			      <property name="icon_size">1</property>
@@ -343,6 +343,37 @@
 	      </child>
 
 	      <child>
+		<widget class="GtkToolButton" id="toolbutton6">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Format DVDRW</property>
+		  <property name="label" translatable="yes">Format DVDRW</property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">baker-blank-dvdrw.png</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">True</property>
+		  <signal name="clicked" handler="gnomebaker_on_format_dvdrw" last_modification_time="Sun, 23 Jan 2005 23:15:48 GMT"/>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkSeparatorToolItem" id="separatortoolitem2">
+		  <property name="visible">True</property>
+		  <property name="draw">True</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">False</property>
+		</packing>
+	      </child>
+
+	      <child>
 		<widget class="GtkToolButton" id="button24">
 		  <property name="visible">True</property>
 		  <property name="tooltip" translatable="yes">Copy Data CD</property>
@@ -379,6 +410,19 @@
 	      </child>
 
 	      <child>
+		<widget class="GtkSeparatorToolItem" id="separatortoolitem1">
+		  <property name="visible">True</property>
+		  <property name="draw">True</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">False</property>
+		</packing>
+	      </child>
+
+	      <child>
 		<widget class="GtkToolButton" id="toolbutton3">
 		  <property name="visible">True</property>
 		  <property name="tooltip" translatable="yes">Burn CD Image</property>
@@ -397,17 +441,11 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkToolItem" id="toolitem1">
+		<widget class="GtkSeparatorToolItem" id="separatortoolitem3">
 		  <property name="visible">True</property>
+		  <property name="draw">True</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-
-		  <child>
-		    <widget class="GtkVSeparator" id="vseparator1">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
@@ -436,17 +474,11 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkToolItem" id="toolitem2">
+		<widget class="GtkSeparatorToolItem" id="separatortoolitem4">
 		  <property name="visible">True</property>
+		  <property name="draw">True</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-
-		  <child>
-		    <widget class="GtkVSeparator" id="vseparator2">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
@@ -642,17 +674,11 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkToolItem" id="toolitem3">
+			<widget class="GtkSeparatorToolItem" id="separatortoolitem5">
 			  <property name="visible">True</property>
+			  <property name="draw">True</property>
 			  <property name="visible_horizontal">True</property>
 			  <property name="visible_vertical">True</property>
-			  <property name="is_important">False</property>
-
-			  <child>
-			    <widget class="GtkVSeparator" id="vseparator3">
-			      <property name="visible">True</property>
-			    </widget>
-			  </child>
 			</widget>
 			<packing>
 			  <property name="expand">False</property>
@@ -1749,7 +1775,7 @@
 	    <widget class="GtkTable" id="table4">
 	      <property name="border_width">10</property>
 	      <property name="visible">True</property>
-	      <property name="n_rows">5</property>
+	      <property name="n_rows">6</property>
 	      <property name="n_columns">3</property>
 	      <property name="homogeneous">False</property>
 	      <property name="row_spacing">10</property>
@@ -1882,29 +1908,28 @@
 		</packing>
 	      </child>
 
-              <child>
-                <widget class="GtkCheckButton" id="checkShowHumanSizes">
-                  <property name="visible">True</property>
-                  <property name="can_focus">True</property>
-                  <property name="label" translatable="yes">Show humanreadable filesizes</property>
+	      <child>
+		<widget class="GtkCheckButton" id="checkShowHumanSizes">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Show humanreadable filesizes</property>
 		  <property name="use_underline">True</property>
-                  <property name="relief">GTK_RELIEF_NORMAL</property>
-                  <property name="focus_on_click">True</property>
-                  <property name="active">False</property>
-                  <property name="inconsistent">False</property>
-                  <property name="draw_indicator">True</property>
-                </widget>
-                <packing>
-                  <property name="left_attach">0</property>
-                  <property name="right_attach">3</property>
-                  <property name="top_attach">5</property>
-                  <property name="bottom_attach">6</property>
-                  <property name="x_padding">10</property>
-                  <property name="x_options">fill</property>
-                  <property name="y_options"></property>
-               </packing>
-	     </child>
-	      
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">0</property>
+		  <property name="right_attach">3</property>
+		  <property name="top_attach">5</property>
+		  <property name="bottom_attach">6</property>
+		  <property name="x_padding">10</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options"></property>
+		</packing>
+	      </child>
 	    </widget>
 	    <packing>
 	      <property name="tab_expand">False</property>
