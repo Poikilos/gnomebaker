@@ -106,5 +106,7 @@ macros/Makefile
 src/Makefile
 pixmaps/Makefile
 gnomebaker.desktop
+help/Makefile
+help/C/Makefile
 po/Makefile.in
 ])
