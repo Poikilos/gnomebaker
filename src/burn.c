@@ -32,6 +32,7 @@
 #include "cdda2wav.h"
 #include "gnomebaker.h"
 #include "startdlg.h"
+#include "startdlgdvd.h"
 #include "progressdlg.h"
 #include "mkisofs.h"
 #include "gbcommon.h"
@@ -39,6 +40,7 @@
 #include "mpg123.h"
 #include "oggdec.h"
 #include "sox.h"
+#include "dvdfunctions.h"
 
 Exec *burnargs = NULL;
 
@@ -396,3 +398,55 @@ burn_blank_cdrw()
 
 	return ok;
 }
+
+const gint
+burn_show_start_dlgdvd(const BurnType burntype)
+{
+	GB_LOG_FUNC
+	if(burnargs != NULL)
+		exec_delete(burnargs);
+	burnargs = NULL;	
+
+	GtkWidget *dlg = startdlgdvd_new(burntype);	
+	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));	
+	startdlgdvd_delete(dlg);
+		
+	return ret;
+}
+
+
+gboolean
+burn_format_dvdrw()
+{
+	GB_LOG_FUNC
+	gboolean ok = FALSE;
+	
+	if(burn_show_start_dlgdvd(format_dvdrw) == GTK_RESPONSE_OK)
+	{		
+		burnargs = exec_new(1);
+		g_message("burnargs->cmds[0]");
+		dvdformat_add_args(&burnargs->cmds[0]);
+
+		ok = burn_start_process();
+	}
+
+	return ok;
+}
+
+gboolean
+burn_create_data_dvd(GtkTreeModel* datamodel)
+{
+	GB_LOG_FUNC
+	gboolean ok = FALSE;
+
+	if(burn_show_start_dlgdvd(create_data_dvd) == GTK_RESPONSE_OK)
+	{	
+		ok = TRUE;
+		burnargs = exec_new(1);
+		growisofs_add_args(&burnargs->cmds[0],datamodel);
+		ok = burn_start_process();
+	}
+
+	return ok;
+}
+
