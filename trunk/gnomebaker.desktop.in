@@ -7,5 +7,5 @@ Icon=@PACKAGE_PIXMAPS_DIR@/gnomebaker-48.png
 Terminal=false
 MultipleArgs=false
 Type=Application
-Categories=Application;AudioVideo;
+Categories=Application;Utility;
 StartupNotify=true
