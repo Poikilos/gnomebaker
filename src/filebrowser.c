@@ -30,6 +30,8 @@
 /* callback id, so we can block it! */
 gulong sel_changed_id;
 
+GtkTreePath* dirtreeselected = NULL;
+
 enum /* Directory Tree */
 {
     DT_COL_ICON = 0,
@@ -378,9 +380,19 @@ filebrowser_sel_changed(
     /* The selection in the dir tree has changed so get that selection */
     if(gtk_tree_selection_get_selected(selection, &treemodel, &iter))
     {
-		GtkTreeView* dirtree = gtk_tree_selection_get_tree_view(selection);
-		filebrowser_populate(treemodel, &iter, dirtree, GTK_TREE_VIEW(userdata));
-    }
+		GtkTreePath* selectedpath = gtk_tree_model_get_path(treemodel, &iter);		
+		if((dirtreeselected == NULL) || (gtk_tree_path_compare(selectedpath, dirtreeselected) != 0))
+		{
+			GtkTreeView* dirtree = gtk_tree_selection_get_tree_view(selection);
+			filebrowser_populate(treemodel, &iter, dirtree, GTK_TREE_VIEW(userdata));
+			gtk_tree_path_free(dirtreeselected);
+			dirtreeselected = selectedpath;
+    	}
+		else
+		{
+			gtk_tree_path_free(selectedpath);
+		}
+	}
     g_signal_handler_unblock (selection, sel_changed_id);
 }
 
@@ -577,7 +589,7 @@ gboolean
 filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(widget != NULL, FALSE);
+	g_return_val_if_fail(widget != NULL, FALSE);	
 
 	/* look for a right click */	
 	if(event->button == 3)
@@ -630,10 +642,7 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 					   gdk_event_get_time((GdkEvent*)event));
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+	return FALSE;
 }
 
 
@@ -651,20 +660,30 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 	GB_DECLARE_STRUCT(GtkTreeIter, iter);
 	gtk_tree_model_get_iter(model, &iter, path);
 	
-	GString* selection = g_string_new("");
-		
+	GString* selection = g_string_new("");		
 	filebrowser_foreach_fileselection(model, path, &iter, selection);
 	gchar* localpath = gbcommon_get_local_path(selection->str);	
 	if(g_file_test(localpath, G_FILE_TEST_IS_DIR))
-	{
 		filebrowser_select_directory(localpath);
-	}
 	else
-	{
 		gbcommon_launch_app_for_file(localpath);
-	}
 	g_string_free(selection, TRUE);
 	g_free(localpath);
+}
+
+
+void 
+filebrowser_on_tree_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
+                       	      GtkTreeViewColumn* col, gpointer userdata)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(treeview != NULL);
+	g_return_if_fail(path != NULL);
+
+	if(gtk_tree_view_row_expanded(treeview, path))
+		gtk_tree_view_collapse_row(treeview, path);
+	else
+		gtk_tree_view_expand_row(treeview, path, FALSE);
 }
 
 
@@ -741,6 +760,10 @@ filebrowser_setup_tree(
 	/* connect the signal to handle right click */
 	g_signal_connect (G_OBJECT(dirtree), "button-press-event",
         G_CALLBACK(filebrowser_on_button_pressed), NULL);
+	
+	/* handle double clicks */	
+	g_signal_connect(G_OBJECT(dirtree), "row-activated", 
+		G_CALLBACK(filebrowser_on_tree_dbl_click), NULL);
 		
 	/* Force the populate of the filesystem node so that it shows an expander. We
 	   must do this before we force selection of the home dir so that the list
