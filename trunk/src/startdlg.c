@@ -25,11 +25,26 @@
 #include "gnomebaker.h"
 #include "gbcommon.h"
 
-void startdlg_on_ok_clicked (GtkButton * button, gpointer user_data);
-void startdlg_on_scan (GtkButton * button, gpointer user_data);
-void startdlg_populate_device_combos();
 
 GladeXML* startdlg_xml = NULL;
+
+
+void 
+startdlg_populate_device_combos()
+{
+	GB_LOG_FUNC
+	g_return_if_fail(startdlg_xml != NULL);	
+	
+	GtkWidget *optmenReadDev = glade_xml_get_widget(startdlg_xml, widget_startdlg_reader);
+	gchar* reader = preferences_get_string(GB_READER);
+	devices_populate_optionmenu(optmenReadDev, reader);	
+	g_free(reader);
+	
+	GtkWidget *optmenWriteDev = glade_xml_get_widget(startdlg_xml, widget_startdlg_writer);
+	gchar* writer = preferences_get_string(GB_WRITER);
+	devices_populate_optionmenu(optmenWriteDev, writer);	
+	g_free(writer);
+}
 
 
 GtkWidget* 
@@ -199,22 +214,4 @@ startdlg_on_scan(GtkButton * button, gpointer user_data)
 		startdlg_populate_device_combos();
 	
 	gbcommon_end_busy_cursor1(startdlg_xml, widget_startdlg);
-}
-
-
-void 
-startdlg_populate_device_combos()
-{
-	GB_LOG_FUNC
-	g_return_if_fail(startdlg_xml != NULL);	
-	
-	GtkWidget *optmenReadDev = glade_xml_get_widget(startdlg_xml, widget_startdlg_reader);
-	gchar* reader = preferences_get_string(GB_READER);
-	devices_populate_optionmenu(optmenReadDev, reader);	
-	g_free(reader);
-	
-	GtkWidget *optmenWriteDev = glade_xml_get_widget(startdlg_xml, widget_startdlg_writer);
-	gchar* writer = preferences_get_string(GB_WRITER);
-	devices_populate_optionmenu(optmenWriteDev, writer);	
-	g_free(writer);
 }
