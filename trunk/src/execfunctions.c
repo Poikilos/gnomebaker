@@ -757,14 +757,14 @@ dvdformat_add_args(ExecCmd * const dvdFormat)
 		
 	if(preferences_get_bool(GB_FORCE))
 	{
-		if(!preferences_get_bool(GB_FAST_BLANK))
+		if(!preferences_get_bool(GB_FAST_FORMAT))
 			exec_cmd_add_arg(dvdFormat, "%s","-force=full");
 		else
 			exec_cmd_add_arg(dvdFormat, "%s","-force");
 	}
 	else
 	{
-		if(!preferences_get_bool(GB_FAST_BLANK))
+		if(!preferences_get_bool(GB_FAST_FORMAT))
 			exec_cmd_add_arg(dvdFormat, "%s", "-format=full");
 	}	
 }
@@ -961,10 +961,11 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	if(prefs->overburn)
 		exec_cmd_add_arg(growisofs, "%s", "-overburn"); */
 	/* TODO: where do we get temporary vars from ? */
-	/*if(prefs->finalize)
-		exec_cmd_add_arg(growisofs, "%s", "-dvd-compat");*/
+	/* we should not store FINALIZE etc in gconf */
+	if(preferences_get_bool(GB_FINALIZE))
+		exec_cmd_add_arg(growisofs, "%s", "-dvd-compat");
 	/* -dvd-compat closes the session on DVD+RW's also */	
-		
+	preferences_set_bool(GB_FINALIZE,FALSE);
 	gtk_tree_model_foreach(datamodel, growisofs_foreach_func, growisofs);
 }
 

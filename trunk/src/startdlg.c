@@ -34,7 +34,8 @@ GtkWidget* checkFastErase = NULL;
 GtkWidget* checkBurnFree = NULL;	
 GtkWidget* checkISOOnly = NULL;	
 GtkWidget* checkForce = NULL;	
-GtkWidget* checkFinalize = NULL;	
+GtkWidget* checkFinalize = NULL;
+GtkWidget* checkFastFormat = NULL;
 
 static const guint xpad = 10;
 static const guint ypad = 0;
@@ -105,6 +106,7 @@ startdlg_new(const BurnType burntype)
 	g_signal_connect(G_OBJECT(checkISOOnly), "toggled", (GCallback)startdlg_create_iso_toggled, NULL);
 	checkForce = startdlg_create_check_button(_("Force"), GB_FORCE);		
 	checkFinalize = startdlg_create_check_button(_("Finalize"), GB_FINALIZE);	
+	checkFastFormat = startdlg_create_check_button(_("Fast"), GB_FAST_FORMAT);
 	
 	GtkWidget *optmenWriteMode = glade_xml_get_widget(startdlg_xml, widget_startdlg_writemode);
 	
@@ -170,6 +172,7 @@ startdlg_new(const BurnType burntype)
 			gtk_widget_hide(optmenReader);
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
 			gtk_table_attach(table, checkForce, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkFastFormat, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
 			break;
 		case create_data_dvd:
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));

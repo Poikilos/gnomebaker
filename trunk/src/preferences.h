@@ -46,6 +46,8 @@
 #define GB_FORCE					GB_BASE_KEY "/Force"
 #define GB_FINALIZE					GB_BASE_KEY "/Finalize"
 #define GB_SHOW_FILE_BROWSER		GB_BASE_KEY "/ShowFileBrowser"
+#define GB_FAST_FORMAT 				GB_BASE_KEY "/FastFormat"
+
 
 #define GB_DEVICE_FORMAT 			"Device%.2d"
 #define GB_DEVICE_KEY				GB_BASE_KEY "/" GB_DEVICE_FORMAT
