@@ -138,15 +138,12 @@ datacd_on_drag_data_received(
 	const gchar* file = strtok((gchar*)seldata->data,"\n");
 	while(file != NULL)
 	{
-		g_message( "%s", file);
-		
 		gchar* filename = gbcommon_tidy_nautilus_dnd_file(file);
 		
-		struct stat s;
+		GB_DECLARE_STRUCT(struct stat, s);
 		if(stat(filename, &s) == 0)
 		{
-			gulong size = s.st_size;
-				
+			gulong size = s.st_size;				
 			if(s.st_mode & S_IFDIR)
 				size = gbcommon_calc_dir_size(filename);			
 			
