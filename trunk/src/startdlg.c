@@ -108,6 +108,8 @@ startdlg_new(const BurnType burntype)
 	
 	GtkWidget *optmenWriteMode = glade_xml_get_widget(startdlg_xml, widget_startdlg_writemode);
 	
+	GtkWidget *optmenReader = glade_xml_get_widget(startdlg_xml,widget_startdlg_reader);
+	
 	gchar* mode = preferences_get_string(GB_WRITE_MODE);
 	gbcommon_set_option_menu_selection(GTK_OPTION_MENU(optmenWriteMode), mode);	
 	g_free(mode);
@@ -165,16 +167,16 @@ startdlg_new(const BurnType burntype)
 		case format_dvdrw:
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));
 			gtk_widget_hide(optmenWriteMode);
+			gtk_widget_hide(optmenReader);
+			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
 			gtk_table_attach(table, checkForce, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkFinalize, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);		
 			break;
 		case create_data_dvd:
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));
-			gtk_widget_hide(optmenWriteMode);		
-			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));
 			gtk_widget_hide(optmenWriteMode);
-			gtk_table_attach(table, checkForce, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkFinalize, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);		
+			gtk_widget_hide(optmenReader);
+			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
+			gtk_table_attach(table, checkFinalize, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);		
 			break;
 		default:
 			break;
