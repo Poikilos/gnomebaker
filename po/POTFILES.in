@@ -1,0 +1,29 @@
+#source files 
+src/audiocd.c
+src/audioinfo.c
+src/burn.c
+src/cdda2wav.c
+src/datacd.c
+src/devices.c
+src/filebrowser.c
+src/dvdfunctions.c
+src/exec.c
+src/gbcommon.c
+src/gnomebaker.c
+src/mkisofs.c
+src/mpg123.c
+src/oggdec.c
+src/preferences.c
+src/prefsdlg.c
+src/readcd.c
+src/sox.c
+src/startdlgdvd.c
+
+#header files
+src/burn.h
+src/gbcommon.h
+
+#glade files
+gnomebaker.glade
+
+
