@@ -3,7 +3,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-SUBDIRS = intl po macros src pixmaps
+SUBDIRS = intl po macros src pixmaps help
 
 gnomebakerdocdir = ${prefix}/doc/gnomebaker
 gnomebakerdoc_DATA = \
@@ -14,7 +14,9 @@ gnomebakerdoc_DATA = \
 	INSTALL\
 	NEWS\
 	TODO\
-	ABOUT-NLS
+	ABOUT-NLS\
+	xmldocs.make\
+	omf.make
 
 
 #gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Applications
