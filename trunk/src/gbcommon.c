@@ -322,23 +322,6 @@ gbcommon_get_mime_description(const gchar* mime)
 }
 
 
-gchar* 
-gbcommon_unescape_string(const gchar* file)
-{
-	GB_LOG_FUNC
-	g_return_val_if_fail(file != NULL, NULL);		
-	
-	gchar* filename = g_strdup(file);
-	g_strstrip(filename); /* We sometimes get files with /r etc on the end */
-	gchar* localpath = gbcommon_get_local_path(filename);
-	gchar* ret = gnome_vfs_unescape_string_for_display(localpath);
-	g_free(localpath);
-	g_free(filename);		
-	GB_TRACE(_("gbcommon_unescape_string - returning [%s]"), ret);		
-	return ret;
-}
-
-
 gchar*
 gbcommon_get_mime_type(const gchar* file)
 {
@@ -359,9 +342,11 @@ gbcommon_get_local_path(const gchar* uri)
 	GB_LOG_FUNC
 	g_return_val_if_fail(uri != NULL, NULL);	
 	
-	if(g_ascii_strncasecmp(uri, fileurl, strlen(fileurl)) == 0)
-		return gnome_vfs_get_local_path_from_uri(uri);
-	return g_strdup(uri);	
+	gchar* fileuri = g_strdup(uri);
+	g_strstrip(fileuri); /* We sometimes get files with /r etc on the end */
+	gchar* ret = gnome_vfs_get_local_path_from_uri(fileuri);
+	g_free(fileuri);
+	return ret;
 }
 
 
@@ -369,9 +354,6 @@ gchar*
 gbcommon_get_uri(const gchar* localpath)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(localpath != NULL, NULL);
-	
-	if(g_ascii_strncasecmp(localpath, fileurl, strlen(fileurl)) != 0)
-		return gnome_vfs_get_uri_from_local_path(localpath);
-	return g_strdup(localpath);	
+	g_return_val_if_fail(localpath != NULL, NULL);	
+	return gnome_vfs_get_uri_from_local_path(localpath);
 }

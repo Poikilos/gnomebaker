@@ -463,16 +463,14 @@ filebrowser_foreach_fileselection(GtkTreeModel *filemodel,
 	gtk_tree_selection_get_selected(gtk_tree_view_get_selection(view), &treemodel, &diriter);
 	GString* fullpath = filebrowser_expand_path(treemodel, &diriter);
 	g_return_if_fail(fullpath != NULL);
-	
-	if(g_ascii_strcasecmp(fullpath->str, "/") != 0)
-		g_string_append(fullpath, "/");
-	
-	g_string_append(fullpath, val);
-	g_string_append(fullpath, "\n");
-	
-	g_string_append(dragpath, fullpath->str);
-	
+		
+	gchar* filename = g_build_filename(fullpath->str, val, NULL);
+	gchar* uri = gbcommon_get_uri(filename);	
+	g_string_append(dragpath, uri);
+	g_string_append(dragpath, "\n");	
 	g_string_free(fullpath, TRUE);
+	g_free(filename);
+	g_free(uri);
 	g_free(val);
 }
 
@@ -569,9 +567,9 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 	GString* selection = g_string_new("");
 		
 	filebrowser_foreach_fileselection(model, path, &iter, selection);
-	g_strstrip(selection->str);
-	const gchar* name = g_basename(selection->str);	
-	if(g_file_test(selection->str, G_FILE_TEST_IS_DIR))
+	gchar* localpath = gbcommon_get_local_path(selection->str);
+	const gchar* name = g_basename(localpath);	
+	if(g_file_test(localpath, G_FILE_TEST_IS_DIR))
 	{
 		GtkTreeView* dirtree = 
 			GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree));
@@ -607,9 +605,10 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 	}
 	else
 	{
-		gbcommon_launch_app_for_file(selection->str);
+		gbcommon_launch_app_for_file(localpath);
 	}
 	g_string_free(selection, TRUE);
+	g_free(localpath);
 }
 
 
