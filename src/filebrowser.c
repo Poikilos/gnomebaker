@@ -24,6 +24,7 @@
 #include "gbcommon.h"
 #include "preferences.h"
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <libgnomevfs/gnome-vfs-mime-handlers.h>
 								   
 
 /* callback id, so we can block it! */
@@ -131,7 +132,6 @@ filebrowser_expand_path(GtkTreeModel* model, GtkTreeIter* iter)
 	g_return_val_if_fail(val != NULL, NULL);
 
 	GString *fullpath = g_string_new("");
-	g_return_val_if_fail(fullpath != NULL, NULL);
 
 	/* Have a look at the selection value, if it's the root label then we
 	   append / rather than "Filesystem" as that would make an invalid path */
@@ -146,7 +146,6 @@ filebrowser_expand_path(GtkTreeModel* model, GtkTreeIter* iter)
 	
 	GB_DECLARE_STRUCT(GtkTreeIter, parent);
 	GtkTreeIter *current = gtk_tree_iter_copy(iter);
-	g_return_val_if_fail(current != NULL, NULL);
 
 	/* Now work our way up the ancestors building the path */
 	while(current != NULL && gtk_tree_model_iter_parent(model, &parent, current))
@@ -199,7 +198,6 @@ filebrowser_populate(GtkTreeModel* treemodel,
 	
 	/* Now get the full path for the selection */
 	GString* fullpath = filebrowser_expand_path(treemodel, iter);
-	g_return_if_fail(fullpath != NULL);	
 	
 	/* Get the directory tree and unref it's model so it sorts faster 		
 	GtkTreeView* dirtree = gtk_tree_selection_get_tree_view(selection);
@@ -279,9 +277,18 @@ filebrowser_populate(GtkTreeModel* treemodel,
 						gtk_tree_store_set(GTK_TREE_STORE(treemodel), &siblingchild,
 							DT_COL_ICON, "", DT_COL_NAME, EMPTY_LABEL, -1);
 					}
+					/* need this when I improve the list to include dirs */
+					if(filemodel != NULL)
+					{
+						GB_DECLARE_STRUCT(GtkTreeIter, iterRight);
+						gtk_list_store_append(GTK_LIST_STORE(filemodel), &iterRight);
+						gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
+							FL_COL_ICON, GTK_STOCK_OPEN, FL_COL_NAME, name,
+							FL_COL_TYPE, "directory", FL_COL_SIZE, 4, -1);
+					}
 				}
 				/* It's a file */
-				else if((s.st_mode & S_IFREG) && /*(name[0] != '.') && */(filemodel != NULL))
+				else if((s.st_mode & S_IFREG) && (filemodel != NULL))
 				{
 #ifdef __linux__					
 					/* We stored the right hand file list as user data when 
@@ -528,6 +535,85 @@ filebrowser_get_selection(gboolean fromtree)
 }
 
 
+void 
+filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
+                       	      GtkTreeViewColumn* col, gpointer userdata)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(treeview != NULL);
+	g_return_if_fail(path != NULL);
+	
+	GtkTreeModel* model = gtk_tree_view_get_model(treeview);
+	g_return_if_fail(model != NULL);
+	
+	GB_DECLARE_STRUCT(GtkTreeIter, iter);
+	gtk_tree_model_get_iter(model, &iter, path);
+	
+	GString* selection = g_string_new("");
+		
+	filebrowser_foreach_fileselection(model, path, &iter, selection);
+	g_strstrip(selection->str);
+	const gchar* name = g_basename(selection->str);
+	g_message("%s was double clicked", selection->str);
+	
+	if(g_file_test(selection->str, G_FILE_TEST_IS_DIR))
+	{
+		GtkTreeView* dirtree = 
+			GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree));
+		GtkTreeModel* treemodel = NULL;
+		GB_DECLARE_STRUCT(GtkTreeIter, diriter);
+		GtkTreeSelection* sel = gtk_tree_view_get_selection(dirtree);
+		gtk_tree_selection_get_selected(sel, &treemodel, &diriter);
+		
+		GB_DECLARE_STRUCT(GtkTreeIter, childiter);
+		if(gtk_tree_model_iter_children(treemodel, &childiter, &diriter))
+		{
+			do
+			{
+				GValue value = { 0 };
+				gtk_tree_model_get_value(treemodel, &childiter, DT_COL_NAME, &value);
+				
+				const gchar* val = g_value_get_string(&value);
+				if(g_ascii_strcasecmp(val, name) == 0)
+				{
+					/* Force the tree to expand */
+					GtkTreePath* currentpath = gtk_tree_model_get_path(treemodel, &diriter);
+					gtk_tree_view_expand_row(dirtree, currentpath, FALSE);
+					gtk_tree_path_free(currentpath);	
+									
+					/* Now select the node we have found */									
+					gtk_tree_selection_select_iter(sel, &childiter);
+					g_value_unset(&value);	
+					break;
+				}
+				
+				g_value_unset(&value);
+			}
+			while(gtk_tree_model_iter_next(treemodel, &childiter));
+		}
+		
+	}
+	else
+	{
+		GValue value = { 0 };
+		gtk_tree_model_get_value(model, &iter, FL_COL_TYPE, &value);
+		
+		const gchar* mime = g_value_get_string(&value);
+		GnomeVFSMimeApplication* app = gnome_vfs_mime_get_default_application(mime);
+		if(app != NULL)
+		{
+			/*gnome_vfs_mime_application_launch(app, NULL);*/
+			gchar* cmd = g_strdup_printf("%s %s &", app->command, selection->str);
+			system(cmd);
+			g_free(cmd);
+		}
+		g_free(app);		
+		g_value_unset(&value);
+	}
+	g_string_free(selection, TRUE);
+}
+
+
 void
 filebrowser_setup_tree(
     GtkTreeView * dirtree,
@@ -575,8 +661,7 @@ filebrowser_setup_tree(
     gtk_tree_store_append(store, &homeiter, NULL);
 	const gchar* username = g_get_user_name();
 	HOME_LABEL = g_strdup_printf("%s's home", username);
-    gtk_tree_store_set(store, &homeiter, DT_COL_ICON, GTK_STOCK_HOME, DT_COL_NAME, HOME_LABEL, -1);
-	
+    gtk_tree_store_set(store, &homeiter, DT_COL_ICON, GTK_STOCK_HOME, DT_COL_NAME, HOME_LABEL, -1);	
 		
 	/* now give the right hand file list a reference to the left hand dir tree.
        We do this so when we drag a file from the right hand list we can fully
@@ -609,8 +694,7 @@ filebrowser_setup_tree(
 	GtkTreePath* path = gtk_tree_model_get_path(GTK_TREE_MODEL(store), &homeiter);
 	gtk_tree_view_expand_row(dirtree, path, FALSE);
 	gtk_tree_path_free(path);	
-	
-	
+		
 	preferences_register_notify(GB_SHOWHIDDEN, filebrowser_on_show_hidden_changed);
 }
 
@@ -673,6 +757,9 @@ filebrowser_setup_list(
 	/* connect the signal to handle right click */
 	g_signal_connect (G_OBJECT(filelist), "button-press-event",
         G_CALLBACK(filebrowser_on_button_pressed), NULL);
+		
+	g_signal_connect(G_OBJECT(filelist), "row-activated", 
+		G_CALLBACK(filebrowser_on_list_dbl_click), NULL);
 }
 
 
