@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-14 18:14-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -394,8 +394,8 @@ msgid ""
 "and then go to preferences and rescan for devices."
 msgstr ""
 "Directorul în care trebuie montat dispozitivul de scriere (ex. /mnt/cdrw) nu "
-"a putut fi obţinut. Vă rog verificaţi dacă dispozitivul este trecut în "
-"/etc/fstab şi mergeţi la preferinţe pentru a recăuta dispozitivele."
+"a putut fi obţinut. Vă rog verificaţi dacă dispozitivul este trecut în /etc/"
+"fstab şi mergeţi la preferinţe pentru a recăuta dispozitivele."
 
 #: src/devices.c:582
 #, c-format

@@ -597,8 +597,9 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 			mountcmd = g_strdup_printf("umount %s", mount);	
 		
 		GString* output = exec_run_cmd(mountcmd);		
-		if((output == NULL) || 
-			((strlen(output->str) > 0) && (strstr(output->str, "already mounted") == NULL)))
+		if((output == NULL) || ((strlen(output->str) > 0) && 
+				(strstr(output->str, "already mounted") == NULL) && 
+					(strstr(output->str, "is not mounted") == NULL)))
 		{
 			gchar* message = g_strdup_printf(_("Error %s %s.\n\n%s"), 
 				mount ? _("mounting") : _("unmounting"), mount, output != NULL ? output->str : _("unknown error"));

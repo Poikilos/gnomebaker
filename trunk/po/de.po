@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-14 18:14-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German <de@li.org>\n"
@@ -365,8 +365,7 @@ msgstr "Konnte /proc/scsi/sg/device_strs nicht öffnen"
 
 #: src/devices.c:382
 msgid "Error reading scsi information from /proc/scsi/sg/devices"
-msgstr ""
-"Konnte die Informationen zu SCSI auf /proc/scsi/sg/devices nicht lesen"
+msgstr "Konnte die Informationen zu SCSI auf /proc/scsi/sg/devices nicht lesen"
 
 #: src/devices.c:420
 #, c-format

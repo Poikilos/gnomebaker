@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-14 18:14-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (France) <fr_FR@li.org>\n"
@@ -34,8 +34,7 @@ msgstr "%d min %d s"
 
 #: src/audiocd.c:114
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr ""
-"La piste est trop grande pour tenir dans l'espace disque restant du CD"
+msgstr "La piste est trop grande pour tenir dans l'espace disque restant du CD"
 
 #: src/audiocd.c:236 src/datacd.c:367 gnomebaker.glade:599
 msgid "Remove selected"

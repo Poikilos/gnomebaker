@@ -70,6 +70,8 @@ cdrecord_pre_proc(void *ex, void *buffer)
 		ExecCmd* e = (ExecCmd*)ex;
 		e->state = CANCELLED;
 	}
+	
+	
 }
 
 
