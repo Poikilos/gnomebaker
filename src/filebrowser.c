@@ -23,6 +23,7 @@
 #include "gnomebaker.h"
 #include "gbcommon.h"
 #include "preferences.h"
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 								   
@@ -617,13 +618,16 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 		gtk_tree_model_get(model, &iter, FL_COL_TYPE, &mime, -1);
 		GnomeVFSMimeApplication* app = gnome_vfs_mime_get_default_application(mime);
 		if(app != NULL)
-		{
-			/*gnome_vfs_mime_application_launch(app, NULL);*/
-			gchar* cmd = g_strdup_printf("%s %s &", app->command, selection->str);
-			system(cmd);
-			g_free(cmd);
+		{			
+			gchar* uri = gnome_vfs_get_uri_from_local_path(selection->str);
+			GList* uris = NULL;
+			uris = g_list_append(uris, uri);
+			gnome_vfs_mime_application_launch(app, uris);
+			g_free(uri);
+			g_list_free(uris);
+			gnome_vfs_mime_application_free(app);
 		}
-		g_free(app);		
+		
 		g_free(mime);
 	}
 	g_string_free(selection, TRUE);
