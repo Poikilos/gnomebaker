@@ -153,8 +153,7 @@ exec_cmd_add_arg(ExecCmd * const e, const gchar * const format,
 	g_return_if_fail(value != NULL);
 
 	e->argv = g_realloc(e->argv, (++e->argc) * sizeof(gchar*));	
-	e->argv[e->argc - 2] = g_malloc((strlen(format) + strlen(value) + 1) * sizeof(gchar));
-	g_sprintf(e->argv[e->argc - 2], format, value);
+	e->argv[e->argc - 2] = g_strdup_printf(format, value);
 	e->argv[e->argc - 1] = NULL;
 }
 
