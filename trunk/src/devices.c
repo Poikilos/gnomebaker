@@ -143,7 +143,7 @@ devices_get_device_config(const gchar* devicekey, const gchar* deviceitem)
 	gchar* devicekeylabel = preferences_get_string(devicekey);
 	if(devicekeylabel != NULL);
 	{
-		gchar* devitemkey = g_strconcat(GB_BASE_KEY, "/", devicekeylabel, deviceitem, NULL);
+		gchar* devitemkey = g_strconcat(GB_DEVICES_KEY, "/", devicekeylabel, deviceitem, NULL);
 		deviceitemvalue = preferences_get_string(devitemkey);		
 		g_free(devitemkey);
 		g_free(devicekeylabel);	
@@ -169,7 +169,7 @@ devices_populate_optionmenu(GtkWidget* option_menu, const gchar* devicekey)
 	gtk_widget_show(menu);
 	
 	gint index = 0, history = 0;
-	GSList* devices = preferences_get_key_subkeys(GB_BASE_KEY);
+	GSList* devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
 	GSList* item = devices;	
 	while(item)
 	{
@@ -228,7 +228,7 @@ devices_clear_devicedata()
 
 	deviceadditionindex = 0;
 
-	GSList* devices = preferences_get_key_subkeys(GB_BASE_KEY);
+	GSList* devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
 	GSList* item = devices;	
 	while(item)
 	{
