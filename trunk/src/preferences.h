@@ -43,6 +43,8 @@
 #define GB_CREATEISOONLY 		GB_BASE_KEY "/CreateISOOnly"
 #define GB_WRITE_MODE 			GB_BASE_KEY "/WriteMode"
 #define GB_ALWAYS_SCAN			GB_BASE_KEY "/AlwaysScanOnStartup"
+#define GB_FORCE				GB_BASE_KEY "/Force"
+#define GB_FINALIZE				GB_BASE_KEY "/Finalize"
 #define GB_DEVICE_FORMAT 		"Device%.2d"
 #define GB_DEVICE_KEY			GB_BASE_KEY "/" GB_DEVICE_FORMAT
 #define GB_DEVICE_NAME_LABEL	"/DeviceName"
@@ -55,21 +57,6 @@
 #define GB_DEVICE_MOUNT			GB_DEVICE_KEY GB_DEVICE_MOUNT_LABEL
 
 #define GNOME_TOOLBAR_STYLE		"/desktop/gnome/interface/toolbar_style"
-
-#define GB_DVDBASE_KEY "/apps/GnomeBaker/dvd"
-#define GB_DVDREADER 				GB_DVDBASE_KEY "/ReadDevice"
-#define GB_DVDWRITER 				GB_DVDBASE_KEY "/WriteDevice"
-#define GB_DVDWRITE_SPEED 			GB_DVDBASE_KEY "/WriteSpeed"
-#define GB_DVDMULTI_SESSION			GB_DVDBASE_KEY "/MultiSession"
-#define GB_DVDDUMMY 				GB_DVDBASE_KEY "/Dummy"
-#define GB_DVDEJECT 				GB_DVDBASE_KEY "/Eject"
-#define GB_DVDFAST_BLANK 			GB_DVDBASE_KEY "/FastBlank"
-#define GB_DVDBURNFREE 				GB_DVDBASE_KEY "/BurnFree"
-#define GB_DVDCREATEISOONLY 		GB_DVDBASE_KEY "/CreateISOOnly"
-#define GB_DVDWRITE_MODE 			GB_DVDBASE_KEY "/WriteMode"
-#define GB_DVDFORCE					GB_DVDBASE_KEY "/Force"
-#define GB_DVDFINALIZE				GB_DVDBASE_KEY "/Finalize"
-
 
 gboolean preferences_init ();
 

@@ -187,19 +187,18 @@ datacd_update_progress_bar(gboolean add, gdouble filesize)
 	g_return_val_if_fail(progbar != NULL, FALSE);
 	
 	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
-	
-	gint cdsize = gnomebaker_get_datacd_size();
-	
-	gdouble currentguchars = fraction * cdsize * 1024 * 1024;
+	gint cdsize = gnomebaker_get_datadisk_size();
+	gdouble disksize = (gdouble)(cdsize) * (gdouble)1024 * (gdouble)1024;	
+	gdouble currentguchars = fraction * disksize;
 	
 	if(add)
 		currentguchars += filesize;
 	else
 		currentguchars -= filesize;
 	
-	fraction = currentguchars / (cdsize * 1024 * 1024);
+	fraction = currentguchars / disksize;
 	
-	g_message( "File size %f Fraction is %f", filesize, fraction);
+	g_message( "File size %f disksize %f Fraction is %f", filesize, disksize, fraction);
 	
 	if(fraction < 0.0 || fraction == -0.0)
 	{

@@ -50,41 +50,41 @@ startdlgdvd_new(const BurnType burntype)
 	startdlgdvd_populate_device_combos();
 		
 	GtkWidget* spinSpeed = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_speed);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinSpeed), preferences_get_int(GB_DVDWRITE_SPEED));
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinSpeed), preferences_get_int(GB_WRITE_SPEED));
 
 	GtkWidget* checkDummyDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_dummy);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkDummyDvd), preferences_get_bool(GB_DVDDUMMY));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkDummyDvd), preferences_get_bool(GB_DUMMY));
 
 	GtkWidget* checkMultisession = glade_xml_get_widget(startdlgdvd_xml,  widget_startdlgdvd_multisession);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkMultisession), preferences_get_bool(GB_DVDMULTI_SESSION));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkMultisession), preferences_get_bool(GB_MULTI_SESSION));
 
 	GtkWidget* checkEject = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_eject);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkEject), preferences_get_bool(GB_DVDEJECT));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkEject), preferences_get_bool(GB_EJECT));
 	
 	GtkWidget* checkFastErase = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_fasterase);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkFastErase), preferences_get_bool(GB_DVDFAST_BLANK));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkFastErase), preferences_get_bool(GB_FAST_BLANK));
 	
 	GtkWidget* checkOverburn = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_overburn);	
 	/*gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkOverburn), appPrefs->overburn);*/
 	
 	GtkWidget* checkBurnFree = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_burnfree);	
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkBurnFree), preferences_get_bool(GB_DVDBURNFREE));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkBurnFree), preferences_get_bool(GB_BURNFREE));
 	
 	GtkWidget* checkISOOnly = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_isoonly);	
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkISOOnly), preferences_get_bool(GB_DVDCREATEISOONLY));	
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkISOOnly), preferences_get_bool(GB_CREATEISOONLY));	
 	
 
 	GtkWidget* checkForce = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_force);	
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkForce), preferences_get_bool(GB_DVDFORCE));	
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkForce), preferences_get_bool(GB_FORCE));	
 
 	GtkWidget* checkFinalize = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_finalize);	
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkFinalize), preferences_get_bool(GB_DVDFINALIZE));	
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkFinalize), preferences_get_bool(GB_FINALIZE));	
 
 
 	GtkWidget *optmenWriteModeDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_writemode);
 	GList* items = GTK_MENU_SHELL(gtk_option_menu_get_menu(
 		GTK_OPTION_MENU(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_reader))))->children;
-	gchar* mode = preferences_get_string(GB_DVDWRITE_MODE);
+	gchar* mode = preferences_get_string(GB_WRITE_MODE);
 	gint index = 0;
 	while(items)
 	{
@@ -164,40 +164,40 @@ startdlgdvd_on_ok_clicked(GtkButton * button, gpointer user_data)
 	GtkWidget* optmenReaderDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_reader);
 	gint index = gtk_option_menu_get_history(GTK_OPTION_MENU(optmenReaderDvd));
 	gchar* device = g_strdup_printf(GB_DEVICE_FORMAT, index + 1);
-	preferences_set_string(GB_DVDREADER, device);
+	preferences_set_string(GB_READER, device);
 	g_free(device);
 	
 	GtkWidget* optmenWriterDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_writer);
 	index = gtk_option_menu_get_history(GTK_OPTION_MENU(optmenWriterDvd));
 	device = g_strdup_printf(GB_DEVICE_FORMAT, index + 1);
-	preferences_set_string(GB_DVDWRITER, device);
+	preferences_set_string(GB_WRITER, device);
 	g_free(device);
 
-	preferences_set_int(GB_DVDWRITE_SPEED, gtk_spin_button_get_value(
+	preferences_set_int(GB_WRITE_SPEED, gtk_spin_button_get_value(
 		GTK_SPIN_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_speed))));
 
-	preferences_set_bool(GB_DVDDUMMY, gtk_toggle_button_get_active(
+	preferences_set_bool(GB_DUMMY, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_dummy))));
 	
-	preferences_set_bool(GB_DVDEJECT, gtk_toggle_button_get_active(
+	preferences_set_bool(GB_EJECT, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_eject))));
 	
-	preferences_set_bool(GB_DVDMULTI_SESSION, gtk_toggle_button_get_active(
+	preferences_set_bool(GB_MULTI_SESSION, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_multisession))));
 	
-	preferences_set_bool(GB_DVDFAST_BLANK, gtk_toggle_button_get_active(
+	preferences_set_bool(GB_FAST_BLANK, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_fasterase))));
 	
-	preferences_set_bool(GB_DVDBURNFREE, gtk_toggle_button_get_active(
+	preferences_set_bool(GB_BURNFREE, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_burnfree))));
 	
-	preferences_set_bool(GB_DVDCREATEISOONLY, gtk_toggle_button_get_active(
+	preferences_set_bool(GB_CREATEISOONLY, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_isoonly))));
 		
-	preferences_set_bool(GB_DVDFORCE, gtk_toggle_button_get_active(
+	preferences_set_bool(GB_FORCE, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_force))));
 
-	preferences_set_bool(GB_DVDFINALIZE, gtk_toggle_button_get_active(
+	preferences_set_bool(GB_FINALIZE, gtk_toggle_button_get_active(
 		GTK_TOGGLE_BUTTON(glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_finalize))));
 
 	GtkWidget* optmenWriteMode = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_writemode);
@@ -206,7 +206,7 @@ startdlgdvd_on_ok_clicked(GtkButton * button, gpointer user_data)
 	{
 		gchar *text = NULL;
 		gtk_label_get(GTK_LABEL(mode), &text);
-		preferences_set_string(GB_DVDWRITE_MODE, text);
+		preferences_set_string(GB_WRITE_MODE, text);
 		/*g_free(text);*/
 	}
 }
@@ -232,12 +232,12 @@ startdlgdvd_populate_device_combos()
 	g_return_if_fail(startdlgdvd_xml != NULL);	
 	
 	GtkWidget *optmenReaderDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_reader);
-	gchar* reader = preferences_get_string(GB_DVDREADER);
+	gchar* reader = preferences_get_string(GB_READER);
 	devices_populate_optionmenu(optmenReaderDvd, reader);	
 	g_free(reader);
 	
 	GtkWidget *optmenWriterDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_writer);
-	gchar* writer = preferences_get_string(GB_DVDWRITER);
+	gchar* writer = preferences_get_string(GB_WRITER);
 	g_message("Writer is: %s",writer);
 	devices_populate_optionmenu(optmenWriterDvd, writer);	
 	g_free(writer);

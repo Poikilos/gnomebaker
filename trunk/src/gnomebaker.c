@@ -24,7 +24,6 @@
 #include "filebrowser.h"
 #include "audiocd.h"
 #include "datacd.h"
-#include "datadvd.h"
 #include "burn.h"
 #include "preferences.h"
 #include "devices.h"
@@ -35,9 +34,16 @@
 
 
 GladeXML *xml = NULL;
-gint datacdsize = 0;
+gint datadisksize = 0;
 gint audiocdsize = 0;
-gint datadvdsize = 0;
+
+enum 
+{
+	DISK_SIZE_600MB = 600,
+	DISK_SIZE_700MB = 700,
+	DISK_SIZE_4700MB = 4700,
+	DISK_SIZE_8500MB = 8500
+};
 
 
 void 
@@ -82,12 +88,9 @@ gnomebaker_new()
 				
 	GtkWidget *tree8 = glade_xml_get_widget(xml, widget_audiocd_tree);
 	audiocd_setup_list(GTK_TREE_VIEW(tree8));
-
-	GtkWidget *tree12 = glade_xml_get_widget(xml, widget_datadvd_tree);
-	datadvd_setup_list(GTK_TREE_VIEW(tree12));		
 	
 	/* get the currently selected cd size */
-	gnomebaker_get_datacd_size();	
+	gnomebaker_get_datadisk_size();	
 	
 	/* Get and set the default toolbar style */
 	gnomebaker_on_toolbar_style_changed(NULL, 0, NULL, NULL);
@@ -95,17 +98,11 @@ gnomebaker_new()
 	
 	g_main_context_iteration(NULL, TRUE);
 	
-	/*
-	This is disabled so the DataDVD tab is shown. TODO: remove VideoCD tab.
-
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
 	if(notebook != NULL)
-		gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);*/
+		gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
 	
-	GtkWidget* gb = glade_xml_get_widget(xml, widget_gnomebaker);
-	/*gtk_widget_hide(gb);
-	gtk_widget_show_all(gb);*/
-	return gb;
+	return glade_xml_get_widget(xml, widget_gnomebaker);
 }
 
 
@@ -181,7 +178,7 @@ gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data)
 
 
 void
-gnomebaker_on_create_datacd(gpointer widget, gpointer user_data)
+gnomebaker_on_create_datadisk(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
@@ -193,7 +190,10 @@ gnomebaker_on_create_datacd(gpointer widget, gpointer user_data)
 	GtkTreeModel* datamodel = gtk_tree_view_get_model(GTK_TREE_VIEW(datatree));
 	g_return_if_fail(datamodel != NULL);
 
-	burn_create_data_cd(datamodel);	
+	if(datadisksize >= DISK_SIZE_4700MB)
+		burn_create_data_dvd(datamodel);
+	else
+		burn_create_data_cd(datamodel);	
 }
 
 
@@ -345,23 +345,28 @@ gnomebaker_show_busy_cursor(gboolean isbusy)
 
 
 gint 
-gnomebaker_get_datacd_size()
+gnomebaker_get_datadisk_size()
 {
 	GB_LOG_FUNC
 	GtkWidget* optmen = glade_xml_get_widget(xml, widget_datacd_size);
 	g_return_val_if_fail(optmen != NULL, 0);
 	
-	if(gtk_option_menu_get_history(GTK_OPTION_MENU(optmen)) == 1)
-		datacdsize = 650;
+	gint size = gtk_option_menu_get_history(GTK_OPTION_MENU(optmen));
+	if(size == 0)
+		datadisksize = DISK_SIZE_600MB;
+	else if(size == 1)
+		datadisksize = DISK_SIZE_700MB;
+	else if(size == 2)
+		datadisksize = DISK_SIZE_4700MB;
 	else
-		datacdsize = 700;
-	
-	return datacdsize;
+		datadisksize = DISK_SIZE_8500MB;
+
+	return datadisksize;
 }
 
 
 void 
-gnomebaker_on_datacd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
+gnomebaker_on_datadisk_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 {
 	GB_LOG_FUNC
 		
@@ -369,10 +374,10 @@ gnomebaker_on_datacd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 	g_return_if_fail(progbar != NULL);
 	
 	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
-	gint previoussize = datacdsize;
-	datacdsize = gnomebaker_get_datacd_size();
+	gint previoussize = datadisksize;
+	datadisksize = gnomebaker_get_datadisk_size();
 		
-	fraction = (fraction * previoussize)/datacdsize;
+	fraction = (fraction * previoussize)/datadisksize;
 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
 	
 	gchar* buf = g_strdup_printf("%d%%", (gint)(fraction * 100));
@@ -604,60 +609,10 @@ gnomebaker_on_import(gpointer widget, gpointer user_data)
 	};
 }
 
-gint 
-gnomebaker_get_datadvd_size()
-{
-	GB_LOG_FUNC
-	GtkWidget* optmen = glade_xml_get_widget(xml, widget_datadvd_size);
-	g_return_val_if_fail(optmen != NULL, 0);
-	
-	if(gtk_option_menu_get_history(GTK_OPTION_MENU(optmen)) == 1)
-		datadvdsize = 8500;
-	else
-		datadvdsize = 4700;
-	
-	g_message("Returning datadvdsize %d",datadvdsize);
-	
-	return datadvdsize;
-}
 
 void 
-gnomebaker_on_datadvd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
-{
-	GB_LOG_FUNC
-		
-	GtkWidget* progbar = glade_xml_get_widget(xml, widget_datadvd_progressbar);
-	g_return_if_fail(progbar != NULL);
-	
-	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
-	gint previoussize = datadvdsize;
-	datadvdsize = gnomebaker_get_datadvd_size();
-		
-	fraction = (fraction * previoussize)/datadvdsize;
-	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
-	
-	gchar* buf = g_strdup_printf("%d%%", (gint)(fraction * 100));
-	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
-	g_free(buf);
-}
-
-void gnomebaker_on_format_dvdrw(gpointer widget, gpointer user_data)
+gnomebaker_on_format_dvdrw(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	burn_format_dvdrw();	
 }
-
-void
-gnomebaker_on_create_datadvd(gpointer widget, gpointer user_data)
-{
-	GB_LOG_FUNC
-	
-	GtkWidget *datatree = glade_xml_get_widget(xml, widget_datadvd_tree);
-	g_return_if_fail(datatree != NULL);
-	
-	GtkTreeModel* datamodel = gtk_tree_view_get_model(GTK_TREE_VIEW(datatree));
-	g_return_if_fail(datamodel != NULL);
-
-	burn_create_data_dvd(datamodel);	
-}
-
