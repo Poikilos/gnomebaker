@@ -137,10 +137,9 @@ audiocd_foreach_fileselection(GtkTreeModel *filemodel,
 
 
 void 
-audiocd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
+audiocd_remove()
 {
-	GB_LOG_FUNC	
-	
+	GB_LOG_FUNC
 	gnomebaker_show_busy_cursor(TRUE);
 	
 	GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
@@ -198,12 +197,19 @@ audiocd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
 	g_list_free(rr_list);		
 	
 	gnomebaker_show_busy_cursor(FALSE);
-	
 }
 
 
 void 
-audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
+audiocd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
+{
+	GB_LOG_FUNC	
+	audiocd_remove();
+}
+
+
+void
+audiocd_clear()
 {
 	GB_LOG_FUNC
 	
@@ -220,6 +226,14 @@ audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 	gnomebaker_enable_widget(widget_audiocd_create, FALSE);
 	
 	gnomebaker_show_busy_cursor(FALSE);	
+}
+
+
+void 
+audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
+{
+	GB_LOG_FUNC
+	audiocd_clear();
 }
 
 
@@ -447,22 +461,6 @@ audiocd_on_create_audiocd(gpointer widget, gpointer user_data)
 	g_return_if_fail(audiomodel != NULL);
 		
 	burn_create_audio_cd(audiomodel);
-}
-
-
-void
-audiocd_clear()
-{
-	GB_LOG_FUNC
-	audiocd_on_clear_clicked(NULL, NULL);
-}
-
-
-void 
-audiocd_remove()
-{
-	GB_LOG_FUNC
-	audiocd_on_remove_clicked(NULL, NULL);
 }
 
 
