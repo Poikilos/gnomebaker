@@ -64,6 +64,7 @@ preferences_init()
 			preferences_set_bool(GB_FAST_BLANK, FALSE);
 			preferences_set_bool(GB_BURNFREE, FALSE);
 			preferences_set_bool(GB_SHOWHIDDEN, FALSE);
+			preferences_set_bool(GB_SHOWHUMANSIZE, TRUE);
 			preferences_set_bool(GB_CLEANTEMPDIR, TRUE);
 			preferences_set_bool(GB_CREATEISOONLY, FALSE);
 			preferences_set_string(GB_WRITE_MODE, "default");

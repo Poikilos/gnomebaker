@@ -38,6 +38,7 @@
 #define GB_FAST_BLANK 				GB_BASE_KEY "/FastBlank"
 #define GB_BURNFREE 				GB_BASE_KEY "/BurnFree"
 #define GB_SHOWHIDDEN 				GB_BASE_KEY "/ShowHiddenFiles"
+#define GB_SHOWHUMANSIZE			GB_BASE_KEY "/ShowHumanFilesizes"
 #define GB_CLEANTEMPDIR 			GB_BASE_KEY "/CleanTempDir"
 #define GB_CREATEISOONLY 			GB_BASE_KEY "/CreateISOOnly"
 #define GB_WRITE_MODE 				GB_BASE_KEY "/WriteMode"
