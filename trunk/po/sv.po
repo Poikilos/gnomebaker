@@ -1,0 +1,1102 @@
+# Swedish translation for GTK2/Gnome cd burning application
+# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# This file is distributed under the same license as the GTK2/Gnome cd burning application package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: GTK2/Gnome cd burning application\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Rosetta-Version: 0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+
+#: src/audiocd.c:90
+#, fuzzy, c-format
+msgid "Duration %f Fraction is %f"
+msgstr "Varaktighet %f Bråkdel är %f"
+
+#: src/audiocd.c:95 src/audiocd.c:219 gnomebaker.glade:943
+msgid "0 mins 0 secs"
+msgstr "0 min 0 sek"
+
+#: src/audiocd.c:106
+#, c-format
+msgid "%d mins %d secs"
+msgstr "%d min %d sek"
+
+#: src/audiocd.c:114
+msgid "Track is too large to fit in the remaining space on the CD"
+msgstr ""
+"Spåret är för stort för att få plats på den återstående platsen på cdskivan"
+
+#: src/audiocd.c:236 src/datacd.c:367 gnomebaker.glade:599
+msgid "Remove selected"
+msgstr "Ta bort markerat"
+
+#: src/audiocd.c:241 src/datacd.c:372
+msgid "Clear"
+msgstr "Töm"
+
+#: src/audiocd.c:352 src/cdrecord.c:119
+msgid "Track"
+msgstr "Spår"
+
+#: src/audiocd.c:364
+#, fuzzy
+msgid "Duration"
+msgstr "Varaktighet"
+
+#: src/audiocd.c:380
+msgid "Artist"
+msgstr "Artist"
+
+#: src/audiocd.c:388
+msgid "Album"
+msgstr "Album"
+
+#: src/audiocd.c:396
+msgid "Title"
+msgstr "Titel"
+
+#: src/audioinfo.c:119
+#, c-format
+msgid "mime type is %s for %s %s"
+msgstr "Mime-typ är %s for %s %s"
+
+#: src/audioinfo.c:224 src/audioinfo.c:683
+#, fuzzy, c-format
+msgid "File %s was not opened \n"
+msgstr "Filen %s öppnades inte•↵"
+
+#: src/audioinfo.c:247
+#, fuzzy, c-format
+msgid "Error reading wav header for file [%s]"
+msgstr "Fel i wav-huvud för fil [%s]"
+
+#: src/audioinfo.c:267
+#, fuzzy
+msgid "Performer"
+msgstr "Artist"
+
+#: src/audioinfo.c:267
+msgid "Albumtitle"
+msgstr "Albumtitel"
+
+#: src/audioinfo.c:267
+msgid "Tracktitle"
+msgstr "Spårtitel"
+
+#: src/audioinfo.c:315
+#, fuzzy, c-format
+msgid "File %s was not opened"
+msgstr "Filen %s öppnades inte"
+
+#: src/audioinfo.c:617
+msgid "Stereo"
+msgstr "Stereo"
+
+#: src/audioinfo.c:622
+#, fuzzy
+msgid "Joint Stereo"
+msgstr "Sammanbunden stereo"
+
+#: src/audioinfo.c:627
+#, fuzzy
+msgid "Dual Channel"
+msgstr "Dubbel kanal"
+
+#: src/audioinfo.c:632
+msgid "Single Channel"
+msgstr "Enkel kanel"
+
+#: src/audioinfo.c:700
+msgid "TITLE="
+msgstr "TITEL="
+
+#: src/audioinfo.c:702
+msgid "ARTIST="
+msgstr "ARTIST="
+
+#: src/audioinfo.c:704
+msgid "ALBUM="
+msgstr "ALBUM="
+
+#: src/burn.c:113
+msgid "Completed"
+msgstr "Färdig"
+
+#: src/burn.c:117
+msgid "Failed"
+msgstr "Misslyckades"
+
+#: src/burn.c:154
+msgid "Failed to start child process"
+msgstr "Misslyckades att starta barn-process"
+
+#: src/burn.c:206 src/burn.c:330
+msgid "Please select an iso file to save to..."
+msgstr "Var vänlig välj en iso fil att spara till..."
+
+#: src/burn.c:269
+#, c-format
+msgid "burn - [%s]"
+msgstr "bränn - [%s]"
+
+#: src/burn.h:61 gnomebaker.glade:314 gnomebaker.glade:315
+msgid "Blank CDRW"
+msgstr "Töm CDRW"
+
+#: src/burn.h:62 gnomebaker.glade:332 gnomebaker.glade:333
+msgid "Copy Data CD"
+msgstr "Kopiera data-CD"
+
+#: src/burn.h:63 gnomebaker.glade:350 gnomebaker.glade:351
+msgid "Copy Audio CD"
+msgstr "Kopiera ljud-CD"
+
+#: src/burn.h:64 gnomebaker.glade:368 gnomebaker.glade:369
+msgid "Burn CD Image"
+msgstr "Bränn CD-avbild"
+
+#: src/burn.h:65
+msgid "Create Data CD"
+msgstr "Skapa data-CD"
+
+#: src/burn.h:66
+msgid "Create Audio CD"
+msgstr "Skapa ljud-CD"
+
+#: src/burn.h:67
+msgid "Create Mixed CD"
+msgstr "Skapa mixad CD"
+
+#: src/burn.h:68 gnomebaker.glade:1229
+msgid "Create Video CD"
+msgstr "Skapa Video-CD"
+
+#: src/burn.h:69
+msgid "Format DVD+RW"
+msgstr "Formatera DVD+RW"
+
+#: src/burn.h:70
+msgid "Create Data DVD"
+msgstr "Skapa data-DVD"
+
+#: src/cdda2wav.c:43
+msgid "<b>Extracting audio tracks...</b>"
+msgstr "<b>Packar upp ljudspår...</b>"
+
+#: src/cdda2wav.c:55
+msgid ""
+"Audio tracks from a previous sesion already exist on disk, do you wish to "
+"use the existing tracks?"
+msgstr ""
+"Ljudspår från en tidigare session finns redan på disken, vill du använda de "
+"existerande spåren?"
+
+#: src/cdda2wav.c:71
+msgid "Please insert the audio CD into the CD reader"
+msgstr "Var snäll att sätta in ljud-skivan i CD-läsaren"
+
+#: src/cdda2wav.c:103
+msgid "Tracks:"
+msgstr "Spår:"
+
+#: src/cdda2wav.c:111
+#, fuzzy, c-format
+msgid "cdda2wav_read_proc - total tracks %d"
+msgstr "cdda2wav_read_proc - totalt antal spår %d"
+
+#: src/cdrecord.c:47
+msgid "<b>Burning disk...</b>"
+msgstr "<b>Bränner CD...</b>"
+
+#: src/cdrecord.c:52
+msgid "Please insert a blank CD into the CD writer"
+msgstr "Var snäll och sätt i en tom CD-skiva i CD-brännaren"
+
+#: src/cdrecord.c:68
+msgid "<b>Blanking disk...</b>"
+msgstr "<b>Tömmer CD...</b>"
+
+#: src/cdrecord.c:73
+msgid "Please insert the CD-RW into the CD writer"
+msgstr "Var snäll och sätt i CDRW-skivan i CD-brännaren"
+
+#: src/cdrecord.c:146 src/cdrecord.c:151
+msgid "Fixating"
+msgstr "Fixerar"
+
+#: src/cdrecord.c:219
+#, fuzzy, c-format
+msgid "cdrecord - adding create audio data [%s]"
+msgstr "cdrecord - lägger till skapa ljud data [%s]"
+
+#: src/cdrecord.c:275
+#, c-format
+msgid "adding [%s]"
+msgstr "lägger till [%s]"
+
+#: src/datacd.c:106
+#, fuzzy, c-format
+msgid "File size %f disksize %f Fraction is %f"
+msgstr "Filestorlek %f skivstorlek %f Bråkdel är %f"
+
+#: src/datacd.c:135
+msgid "File or directory is too large to fit in the remaining space on the CD"
+msgstr ""
+"Fil eller katalog är för stor för att få plats på den återstående platsen på "
+"CD-skivan"
+
+#: src/datacd.c:182
+#, c-format
+msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
+msgstr ""
+
+#: src/datacd.c:207
+#, c-format
+msgid "received sel %s"
+msgstr ""
+
+#: src/datacd.c:410
+msgid "Contents"
+msgstr "Innehåll"
+
+#: src/datacd.c:431 src/filebrowser.c:764
+msgid "Size"
+msgstr "Storlek"
+
+#: src/datacd.c:439
+msgid "Full Path"
+msgstr "Fullständig sökväg"
+
+#: src/datacd.c:478
+#, c-format
+msgid ""
+"Error getting session information.\n"
+"\n"
+"%s"
+msgstr ""
+
+#: src/datacd.c:479 src/devices.c:583
+msgid "unknown error"
+msgstr "okänt fel"
+
+#: src/datacd.c:486
+#, c-format
+msgid "datacd next session is [%s]"
+msgstr "datacd nästa session är [%s]"
+
+#: src/datacd.c:510
+msgid "Error getting msinfo"
+msgstr ""
+
+#: src/datacd.c:514
+msgid "Error mounting writer device"
+msgstr ""
+
+#: src/datacd.c:543
+#, c-format
+msgid ""
+"Error importing session from [%s]. Please check the device configuration in "
+"preferences."
+msgstr ""
+
+#: src/datacd.c:550
+msgid "Error unmounting writer device"
+msgstr ""
+
+#: src/devices.c:75
+#, c-format
+msgid "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
+msgstr ""
+
+#: src/devices.c:101
+#, fuzzy, c-format
+msgid "node [%s] mount [%s]"
+msgstr "nod [%s] montera [%s]"
+
+#: src/devices.c:113
+#, fuzzy, c-format
+msgid "node [%s] is link to [%s]"
+msgstr "nod [%s] länkar till [%s]"
+
+#: src/devices.c:310
+msgid "devices_probe_bus - Failed to scan the scsi bus"
+msgstr "devices_probe_bus - Misslyckades att scanna SCSI-bussen"
+
+#: src/devices.c:312
+msgid "devices_probe_bus - failed to parse cdrecord output"
+msgstr ""
+
+#: src/devices.c:330
+#, c-format
+msgid "devices_add_ide_device - probing [%s]"
+msgstr ""
+
+#: src/devices.c:343
+#, c-format
+msgid "Failed to open %s"
+msgstr "Misslyckades med att öppna %s"
+
+#: src/devices.c:357
+#, c-format
+msgid "devices_add_scsi_device - probing [%s]"
+msgstr ""
+
+#: src/devices.c:362
+msgid "Failed to open /proc/scsi/sg/devices"
+msgstr "Misslyckades med att öppna /proc/scsi/sg/devices"
+
+#: src/devices.c:366
+msgid "Failed to open /proc/scsi/sg/device_strs"
+msgstr "Misslyckades med att öppna /proc/scsi/sg/device_strs"
+
+#: src/devices.c:382
+msgid "Error reading scsi information from /proc/scsi/sg/devices"
+msgstr ""
+
+#: src/devices.c:420
+#, c-format
+msgid "---- key [%s], value [%s]"
+msgstr "---- nyckel [%s], värde [%s]"
+
+#: src/devices.c:433
+#, c-format
+msgid "looking for device [%d]"
+msgstr "letar efter enhet [%d]"
+
+#: src/devices.c:469
+#, c-format
+msgid ""
+"Requested device index [%d] is out of bounds. All devices have been read."
+msgstr ""
+
+#: src/devices.c:500
+msgid "Failed to open /proc/sys/dev/cdrom/info"
+msgstr "Misslyckades med att öppna /proc/sys/dev/cdrom/info"
+
+#: src/devices.c:566
+#, fuzzy
+msgid ""
+"The mount point (e.g. /mnt/cdrom) for the writing device could not be "
+"obtained. Please check that the writing device has an entry in /etc/fstab "
+"and then go to preferences and rescan for devices."
+msgstr ""
+"Monteringspunkten (e.g. /mnt/cdrom) för skriv-enheten kunde inte fås. Var "
+"vänlig kolla att skriv-enheten har en plats i /etc/fstab och gå sedan till "
+"inställningar för att åter-scanna efter enheter."
+
+#: src/devices.c:582
+#, c-format
+msgid ""
+"Error %s %s.\n"
+"\n"
+"%s"
+msgstr ""
+
+#: src/devices.c:583
+msgid "mounting"
+msgstr "monterar"
+
+#: src/devices.c:583
+msgid "unmounting"
+msgstr "avmonterar"
+
+#: src/dvdfunctions.c:43
+msgid "<b>Formatting DVD...</b>"
+msgstr "<b>Formaterar DVD...</b>"
+
+#: src/dvdfunctions.c:48
+msgid "Please insert a rewritable DVD into the DVD writer"
+msgstr "Var vänlig att sätta i en återskrivningsbar DVD i DVD-brännaren"
+
+#: src/dvdfunctions.c:93
+msgid "Failed to get percent in dvdformat_read_proc"
+msgstr "Misslyckades att få procent i dvdformat_read_proc"
+
+#: src/dvdfunctions.c:137
+msgid "<b>Burning DVD...</b>"
+msgstr "<b>Bränner DVD...</b>"
+
+#: src/dvdfunctions.c:142
+msgid "Please insert a writable DVD into the DVD writer"
+msgstr "Var vänlig sätt i en skrivbar DVD i DVD-brännaren"
+
+#: src/dvdfunctions.c:229
+#, fuzzy, c-format
+msgid "growisofs: progress: %d"
+msgstr "growisofs: framgång: %d"
+
+#: src/dvdfunctions.c:231
+#, fuzzy, c-format
+msgid "growisofs: fraction: %f"
+msgstr "growisofs: bråktal: %f"
+
+#: src/exec.c:144
+#, c-format
+msgid "exec_thread - parent created child with pid %d"
+msgstr "exec_thread - föräldern skapade barn med pid %d"
+
+#: src/exec.c:176
+msgid "exec_thread - created child"
+msgstr "exec_thread - skapade barn"
+
+#: src/exec.c:189
+msgid "exec_thread - Exec failed"
+msgstr "exec_thread - Exekvering misslyckades"
+
+#: src/exec.c:194
+#, c-format
+msgid "exec_thread - child exited with code [%d]\n"
+msgstr "exec_thread - barnet avslutade med kod [%d]\n"
+
+#: src/exec.c:209
+msgid "exec_thread - exiting"
+msgstr "exec_thread - avslutar"
+
+#: src/exec.c:226
+#, c-format
+msgid "exec_go - failed to create thread [%d] [%s]"
+msgstr "exec_go - misslyckades att skapa tråd [%d] [%s]"
+
+#: src/exec.c:246
+#, c-format
+msgid "exec_cancel - killing %d"
+msgstr "exec_cancel - dödar %d"
+
+#: src/exec.c:252
+msgid "exec_cancel - complete"
+msgstr "exec_cancel - färdig"
+
+#: src/exec.c:260
+#, c-format
+msgid "exec_run_cmd - %s"
+msgstr "exec_run_cmd - %s"
+
+#: src/exec.c:280
+#, c-format
+msgid "error [%s] spawning command [%s]"
+msgstr ""
+
+#: src/exec.c:285
+#, c-format
+msgid "Uknown error spawning command [%s]"
+msgstr ""
+
+#: src/filebrowser.c:84 gnomebaker.glade:563
+msgid "Add directory"
+msgstr "Lägg till katalog"
+
+#: src/filebrowser.c:91 gnomebaker.glade:581
+msgid "Add file(s)"
+msgstr "Lägg till fil(er)"
+
+#: src/filebrowser.c:168
+msgid "subdir from GValue is NULL"
+msgstr ""
+
+#: src/filebrowser.c:332
+#, c-format
+msgid "*** iter is [%s]\n"
+msgstr ""
+
+#: src/filebrowser.c:333
+#, fuzzy
+msgid "valid"
+msgstr "korrekt"
+
+#: src/filebrowser.c:333
+#, fuzzy
+msgid "invalid"
+msgstr "inkorrekt"
+
+#: src/filebrowser.c:339
+#, c-format
+msgid "*** model [%p]\n"
+msgstr "*** modell [%p]\n"
+
+#: src/filebrowser.c:345
+#, c-format
+msgid "*** name [%s]\n"
+msgstr "*** namn [%s]\n"
+
+#: src/filebrowser.c:352
+#, c-format
+msgid "*** mime [%s]\n"
+msgstr "*** mime [%s]\n"
+
+#: src/filebrowser.c:361
+#, c-format
+msgid "*** size [%ld]\n"
+msgstr "*** storlek [%ld]\n"
+
+#: src/filebrowser.c:367
+#, c-format
+msgid "Stat of file [%s] failed"
+msgstr ""
+
+#: src/filebrowser.c:532
+#, c-format
+msgid "selection data is %s\n"
+msgstr ""
+
+#: src/filebrowser.c:578
+#, c-format
+msgid "%s was double clicked"
+msgstr "%s blev dubbelklickad"
+
+#: src/filebrowser.c:655
+msgid "Filesystem"
+msgstr "Filsystem"
+
+#: src/filebrowser.c:683
+#, c-format
+msgid "%s's home"
+msgstr "%ss hem"
+
+#: src/filebrowser.c:744
+msgid "File"
+msgstr "Fil"
+
+#: src/filebrowser.c:756
+msgid "Type"
+msgstr "Typ"
+
+#: src/gbcommon.c:134
+#, c-format
+msgid "returning [%s]"
+msgstr ""
+
+#: src/gbcommon.c:146
+#, c-format
+msgid "creating [%s]"
+msgstr "skapar [%s]"
+
+#: src/gbcommon.c:157
+#, fuzzy, c-format
+msgid "failed to create temp %d"
+msgstr "misslyckades att skapa temp %d"
+
+#: src/gbcommon.c:178
+#, c-format
+msgid "Failed to get contents of file [%s]"
+msgstr "Misslyckades att få innehållet av fil [%s]"
+
+#: src/gbcommon.h:133
+#, c-format
+msgid "Entering [%s] [%s] [%d]\n"
+msgstr ""
+
+#: src/gnomebaker.c:59
+msgid "Loading preferences..."
+msgstr "Laddar inställningar..."
+
+#: src/gnomebaker.c:62
+#, fuzzy
+msgid "Detecting devices..."
+msgstr "Finner enheter..."
+
+#: src/gnomebaker.c:65
+msgid "Loading GUI..."
+msgstr "Laddar GUI..."
+
+#: src/gnomebaker.c:106
+#, fuzzy, c-format
+msgid "MessageDialog message [%s]"
+msgstr "MeddelandeDialog meddelande [%s]"
+
+#: src/gnomebaker.c:128
+msgid "Are you sure you want to quit?"
+msgstr "Är du säker på att du vill avsluta?"
+
+#: src/gnomebaker.c:175
+msgid "Please select an iso file..."
+msgstr "Var vänlig välj en iso fil..."
+
+#: src/gnomebaker.c:199
+#, fuzzy, c-format
+msgid "file is %s"
+msgstr "fil är %s"
+
+#: src/gnomebaker.c:203
+#, c-format
+msgid "mime type is %s for %s"
+msgstr "mime-typ är %s för %s"
+
+#: src/gnomebaker.c:213
+msgid ""
+"The file you have selected is not a cd image. Please select a cd image to "
+"burn."
+msgstr ""
+"Filen du har valt är inte en cd-avbild. Var vänlig välj en cd-avbild att "
+"bränna."
+
+#: src/gnomebaker.c:264 gnomebaker.glade:10
+msgid "GnomeBaker"
+msgstr "GnomeBaker"
+
+#: src/gnomebaker.c:265
+msgid "Simple CD Burning for Gnome"
+msgstr "Enkel CD-bränning för Gnome"
+
+#: src/mkisofs.c:51
+msgid "<b>Creating data disk image...</b>"
+msgstr ""
+
+#: src/mkisofs.c:59
+#, fuzzy
+msgid ""
+"A data CD image from a previous session already exists on disk, do you wish "
+"to use the existing image?"
+msgstr ""
+"En data-CD-avbild från en tidigare session existerar redan på disken, vill "
+"du använda den existerande avbilden?"
+
+#: src/mpg123.c:19
+msgid "<b>Converting mp3 to cd audio...</b>"
+msgstr "<b>Konverterar mp3 till ljud-spår...</b>"
+
+#: src/mpg123.c:96 src/oggdec.c:108
+#, c-format
+msgid "Converted file is [%s]"
+msgstr "Konverterad fil är [%s]"
+
+#: src/oggdec.c:19
+msgid "<b>Converting ogg to cd audio...</b>"
+msgstr "<b>Konverterar ogg till ljud-spår...</b>"
+
+#: src/preferences.c:48
+msgid "Failed to initialise gconf"
+msgstr "Misslyckades med att initiera gconf"
+
+#: src/preferences.c:133
+#, c-format
+msgid "toolbar style [%s] [%d]"
+msgstr ""
+
+#: src/prefsdlg.c:131
+msgid "Name"
+msgstr "Namn"
+
+#: src/prefsdlg.c:146
+msgid "Id"
+msgstr "Id"
+
+#: src/prefsdlg.c:155
+#, fuzzy
+msgid "Node"
+msgstr "Nod"
+
+#: src/prefsdlg.c:164
+msgid "Mount point"
+msgstr "Monteringspunkt"
+
+#: src/prefsdlg.c:173
+msgid "Write CD-R"
+msgstr "Skriv CD-R"
+
+#: src/prefsdlg.c:182
+msgid "Write CD-RW"
+msgstr "Skriv CD-RW"
+
+#: src/prefsdlg.c:191
+msgid "Write DVD-R"
+msgstr "Skriv DVD-R"
+
+#: src/prefsdlg.c:200
+msgid "Write DVD-RAM"
+msgstr "Skriv DVD-RAM"
+
+#: src/prefsdlg.c:239
+#, fuzzy
+msgid "Invalid row in device list"
+msgstr "Felaktig rad i enhetslista"
+
+#: src/readcd.c:41
+msgid "<b>Reading CD image...</b>"
+msgstr "<b>Läser CD-avbild...</b>"
+
+#: src/sox.c:34
+msgid "<b>Converting wav to cd audio...</b>"
+msgstr "<b>Konverterar wav till ljud-spår...</b>"
+
+#: src/startdlgdvd.c:241
+#, fuzzy, c-format
+msgid "Writer is: %s"
+msgstr "Brännare är: %s"
+
+#: gnomebaker.glade:84
+msgid "_Actions"
+msgstr ""
+
+#: gnomebaker.glade:93
+#, fuzzy
+msgid "Bl_ank CDRW"
+msgstr "Töm CDRW"
+
+#: gnomebaker.glade:113
+msgid "_Format DVDRW"
+msgstr "_Formatera DVDRW"
+
+#: gnomebaker.glade:139
+msgid "C_opy Data CD"
+msgstr "K_opiera data-CD"
+
+#: gnomebaker.glade:159
+msgid "Co_py Audio CD"
+msgstr "Ko_piera ljud-CD"
+
+#: gnomebaker.glade:185
+msgid "_Burn CD Image"
+msgstr "_Bränn CD-avbild"
+
+#: gnomebaker.glade:211
+msgid "_Import Session"
+msgstr "_Importera session"
+
+#: gnomebaker.glade:235
+msgid "_View"
+msgstr "_Visa"
+
+#: gnomebaker.glade:244
+msgid "_Refresh"
+msgstr ""
+
+#: gnomebaker.glade:405
+msgid "Edit GnomeBaker's preferences"
+msgstr ""
+
+#: gnomebaker.glade:444
+msgid "Refresh the file browser file list"
+msgstr ""
+
+#: gnomebaker.glade:562
+msgid "Add the current directory to the CD"
+msgstr "Lägg till den nuvarande katalogen till CD-skivan"
+
+#: gnomebaker.glade:580
+msgid "Add the selected files to the CD"
+msgstr "Lägg till de valda filerna till CD-skivan"
+
+#: gnomebaker.glade:598
+msgid "Remove the selected files from the CD"
+msgstr "Ta bort de markerade filerna från CD-skivan"
+
+#: gnomebaker.glade:616
+msgid "Clear the contents of the CD"
+msgstr "Rensa innehållet från CD-skivan"
+
+#: gnomebaker.glade:651
+msgid "Import existing session"
+msgstr "Importera existerande session"
+
+#: gnomebaker.glade:652
+msgid "Import"
+msgstr "Importera"
+
+#: gnomebaker.glade:729 gnomebaker.glade:1141 gnomebaker.glade:1403
+msgid "0%"
+msgstr "0%"
+
+#: gnomebaker.glade:751
+msgid "650MB CD"
+msgstr "650MB CD"
+
+#: gnomebaker.glade:759
+msgid "700MB CD"
+msgstr "700MB CD"
+
+#: gnomebaker.glade:767
+msgid "4.7GB DVD"
+msgstr "4.7GB DVD"
+
+#: gnomebaker.glade:775
+msgid "8.5GB DVD"
+msgstr "8.5GB DVD"
+
+#: gnomebaker.glade:793
+#, fuzzy
+msgid "Click to begin the process of creating a data disk."
+msgstr "Klicka för att påbörja skapandet av en data-disk."
+
+#: gnomebaker.glade:836
+#, fuzzy
+msgid "Create Data Disk"
+msgstr "Skapa data-disk"
+
+#: gnomebaker.glade:881
+#, fuzzy
+msgid "<b>Data Disk</b>"
+msgstr "<b>Data disk</b>"
+
+#: gnomebaker.glade:965 gnomebaker.glade:1170
+msgid "80 min. CD"
+msgstr "80 min. CD"
+
+#: gnomebaker.glade:973 gnomebaker.glade:1162
+msgid "74 min. CD"
+msgstr "74 min. CD"
+
+#: gnomebaker.glade:991
+msgid "Click to begin the process of creating an audio cd"
+msgstr "Klicka för att påbörja skapandet av en ljud-CD"
+
+#: gnomebaker.glade:1034
+msgid "Create Audio Disk"
+msgstr "Skapa ljud-CD"
+
+#: gnomebaker.glade:1079
+msgid "<b>Audio Disk</b>"
+msgstr "<b>Ljud-CD</b>"
+
+#: gnomebaker.glade:1274
+msgid "<b>Video CD</b>"
+msgstr "<b>Video CD</b>"
+
+#: gnomebaker.glade:1335
+msgid "Baking CD"
+msgstr "Bakar CD"
+
+#: gnomebaker.glade:1379
+msgid "<b>Burning</b>"
+msgstr "<b>Bränner</b>"
+
+#: gnomebaker.glade:1506
+msgid "View output"
+msgstr "Visa utdata"
+
+#: gnomebaker.glade:1605
+msgid "GPL"
+msgstr "GPL"
+
+#: gnomebaker.glade:1606
+msgid "Simple CD burning for Gnome."
+msgstr "Enkel CD-bränning för Gnome."
+
+#: gnomebaker.glade:1608
+#, fuzzy
+msgid "translator_credits"
+msgstr "Översättningstack"
+
+#: gnomebaker.glade:1613
+#, fuzzy
+msgid "Splash window"
+msgstr "Startfönster"
+
+#: gnomebaker.glade:1651
+msgid "Starting GnomeBaker..."
+msgstr "Startar GnomeBaker..."
+
+#: gnomebaker.glade:1675
+msgid "Preferences"
+msgstr "Inställningar"
+
+#: gnomebaker.glade:1746
+msgid "<b>Temporary Directory</b>"
+msgstr "<b>Temporär katalog</b>"
+
+#: gnomebaker.glade:1783
+msgid "/tmp"
+msgstr "/tmp"
+
+#: gnomebaker.glade:1804
+msgid "Clean temporary directory on exit"
+msgstr "Rensa temporär katalog vid avslut"
+
+#: gnomebaker.glade:1826
+msgid "<b>File Browser</b>"
+msgstr "<b>Filehanterare</b>"
+
+#: gnomebaker.glade:1851
+msgid "Show hidden files"
+msgstr "Visa dolda filer"
+
+#: gnomebaker.glade:1879
+msgid "General"
+msgstr ""
+
+#: gnomebaker.glade:1908
+#, fuzzy
+msgid "<b>Detected devices</b>"
+msgstr "<b>Funna enheter</b>"
+
+#: gnomebaker.glade:1962
+msgid "Always scan for devices on startup"
+msgstr "Sök alltid efter enheter vid start"
+
+#: gnomebaker.glade:2034
+#, fuzzy
+msgid "_Add device"
+msgstr "Lägg till enhet"
+
+#: gnomebaker.glade:2105 gnomebaker.glade:2645 gnomebaker.glade:3783
+#, fuzzy
+msgid "Sc_an for devices"
+msgstr "Sök efter enheter"
+
+#: gnomebaker.glade:2147
+msgid "Devices"
+msgstr "Enheter"
+
+#: gnomebaker.glade:2175
+msgid "Start burning..."
+msgstr "Börja bränn..."
+
+#: gnomebaker.glade:2261 gnomebaker.glade:3394
+#, fuzzy
+msgid "_Start"
+msgstr "Börja"
+
+#: gnomebaker.glade:2306 gnomebaker.glade:3439
+msgid "Reader"
+msgstr "Läsare"
+
+#: gnomebaker.glade:2331 gnomebaker.glade:3464
+msgid "Writer"
+msgstr "Brännare"
+
+#: gnomebaker.glade:2356 gnomebaker.glade:3489
+msgid "<b>Devices</b>"
+msgstr "<b>Enheter</b>"
+
+#: gnomebaker.glade:2414 gnomebaker.glade:3552
+msgid "Allow overburning"
+msgstr "Tillåt överbränning"
+
+#: gnomebaker.glade:2436 gnomebaker.glade:3574
+msgid "Multisession"
+msgstr "Multi-session"
+
+#: gnomebaker.glade:2459 gnomebaker.glade:3597
+msgid "BurnFree"
+msgstr "BurnFree"
+
+#: gnomebaker.glade:2482 gnomebaker.glade:3620
+msgid "Create ISO Only"
+msgstr "Skapa ISO enbart"
+
+#: gnomebaker.glade:2505 gnomebaker.glade:3643
+msgid "Eject CD"
+msgstr "Mata ut CD"
+
+#: gnomebaker.glade:2527
+msgid "Fast blank"
+msgstr "Snabb tömning"
+
+#: gnomebaker.glade:2550 gnomebaker.glade:3688
+msgid "Dummy write"
+msgstr ""
+
+#: gnomebaker.glade:2572 gnomebaker.glade:3710
+msgid "<b>Options</b>"
+msgstr "<b>Alternativ</b>"
+
+#: gnomebaker.glade:2682 gnomebaker.glade:3820
+msgid "Speed"
+msgstr "Hastighet"
+
+#: gnomebaker.glade:2728 gnomebaker.glade:3866
+msgid "Mode"
+msgstr "Läge"
+
+#: gnomebaker.glade:2761 gnomebaker.glade:3899
+msgid "default"
+msgstr "förval"
+
+#: gnomebaker.glade:2769 gnomebaker.glade:3907
+msgid "tao"
+msgstr "tao"
+
+#: gnomebaker.glade:2777 gnomebaker.glade:3915
+msgid "dao"
+msgstr "dao"
+
+#: gnomebaker.glade:2785 gnomebaker.glade:3923
+msgid "raw96p"
+msgstr "raw96p"
+
+#: gnomebaker.glade:2793 gnomebaker.glade:3931
+msgid "raw16"
+msgstr "raw16"
+
+#: gnomebaker.glade:2823
+#, fuzzy
+msgid "ISO filesystem details"
+msgstr "ISO filsystemdetaljer"
+
+#: gnomebaker.glade:2895
+msgid "<b>Volume label</b>"
+msgstr "<b>Volymetikett</b>"
+
+#: gnomebaker.glade:2923
+msgid "GnomeBaker data cd"
+msgstr "GnomeBaker data-CD"
+
+#: gnomebaker.glade:2941
+msgid "<b>Created by</b>"
+msgstr "<b>Skapad av</b>"
+
+#: gnomebaker.glade:2969
+msgid "Created by username"
+msgstr "Skapad av användarnamn"
+
+#: gnomebaker.glade:2987
+msgid "<b>Boot options</b>"
+msgstr "<b>Boot-alternativ</b>"
+
+#: gnomebaker.glade:3013
+msgid "Not bootable"
+msgstr "Inte bootbar"
+
+#: gnomebaker.glade:3037
+msgid "PC bootable"
+msgstr "PC bootbar"
+
+#: gnomebaker.glade:3070
+msgid "Floppy disk image"
+msgstr "Diskett-avbild"
+
+#: gnomebaker.glade:3091
+msgid "Hard disk image"
+msgstr "Hårddisk-avbild"
+
+#: gnomebaker.glade:3122
+msgid "Boot catalog"
+msgstr "Boot-katalog"
+
+#: gnomebaker.glade:3147
+msgid "Boot Image"
+msgstr "Boot-avbild"
+
+#: gnomebaker.glade:3207
+msgid "Sun workstation bootable"
+msgstr "Sun workstation bootbar"
+
+#: gnomebaker.glade:3230
+msgid "Boot Image list"
+msgstr "Boot-avbildslista"
+
+#: gnomebaker.glade:3308
+msgid "Start burning"
+msgstr "Börja bränn"
+
+#: gnomebaker.glade:3665
+msgid "Fast"
+msgstr "Snabb"
+
+#: gnomebaker.glade:3952
+msgid "Force"
+msgstr "Tvinga"
+
+#: gnomebaker.glade:3975
+msgid "Finalize"
+msgstr ""

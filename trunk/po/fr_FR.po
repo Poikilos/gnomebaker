@@ -1,0 +1,1093 @@
+# French (France) translation for The GnomeBaker CD Burner
+# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# This file is distributed under the same license as the The GnomeBaker CD Burner package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: The GnomeBaker CD Burner\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French (France) <fr_FR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Rosetta-Version: 0.1\n"
+"Plural-Forms: nplurals=2; plural=n > 1\n"
+
+#: src/audiocd.c:90
+#, c-format
+msgid "Duration %f Fraction is %f"
+msgstr "Durée %f (fraction: %f)"
+
+#: src/audiocd.c:95 src/audiocd.c:219 gnomebaker.glade:943
+msgid "0 mins 0 secs"
+msgstr "0 min 0 s"
+
+#: src/audiocd.c:106
+#, c-format
+msgid "%d mins %d secs"
+msgstr "%d min %d s"
+
+#: src/audiocd.c:114
+msgid "Track is too large to fit in the remaining space on the CD"
+msgstr ""
+"La piste est trop grande pour tenir dans l'espace disque restant du CD"
+
+#: src/audiocd.c:236 src/datacd.c:367 gnomebaker.glade:599
+msgid "Remove selected"
+msgstr "Retirer sélectionné(s)"
+
+#: src/audiocd.c:241 src/datacd.c:372
+msgid "Clear"
+msgstr "Effacer"
+
+#: src/audiocd.c:352 src/cdrecord.c:119
+msgid "Track"
+msgstr "Piste"
+
+#: src/audiocd.c:364
+msgid "Duration"
+msgstr "Durée"
+
+#: src/audiocd.c:380
+msgid "Artist"
+msgstr "Artiste"
+
+#: src/audiocd.c:388
+msgid "Album"
+msgstr "Album"
+
+#: src/audiocd.c:396
+msgid "Title"
+msgstr "Titre"
+
+#: src/audioinfo.c:119
+#, c-format
+msgid "mime type is %s for %s %s"
+msgstr "le type mime est %s pour %s %s"
+
+#: src/audioinfo.c:224 src/audioinfo.c:683
+#, c-format
+msgid "File %s was not opened \n"
+msgstr "Le fichier %s n'était pas ouvert \n"
+
+#: src/audioinfo.c:247
+#, c-format
+msgid "Error reading wav header for file [%s]"
+msgstr "Erreur durant la lecture des entêtes wav du fichier [%s]"
+
+#: src/audioinfo.c:267
+msgid "Performer"
+msgstr "Artiste"
+
+#: src/audioinfo.c:267
+msgid "Albumtitle"
+msgstr "Titre de l'album"
+
+#: src/audioinfo.c:267
+msgid "Tracktitle"
+msgstr "Titre de la piste"
+
+#: src/audioinfo.c:315
+#, c-format
+msgid "File %s was not opened"
+msgstr "Le fichier %s n'était pas ouvert"
+
+#: src/audioinfo.c:617
+msgid "Stereo"
+msgstr "Stéréo"
+
+#: src/audioinfo.c:622
+msgid "Joint Stereo"
+msgstr "Stéréo jointe"
+
+#: src/audioinfo.c:627
+msgid "Dual Channel"
+msgstr "Canal Double"
+
+#: src/audioinfo.c:632
+msgid "Single Channel"
+msgstr "Canal Simple"
+
+#: src/audioinfo.c:700
+msgid "TITLE="
+msgstr "TITRE="
+
+#: src/audioinfo.c:702
+msgid "ARTIST="
+msgstr "ARTISTE="
+
+#: src/audioinfo.c:704
+msgid "ALBUM="
+msgstr "ALBUM="
+
+#: src/burn.c:113
+msgid "Completed"
+msgstr "Terminé"
+
+#: src/burn.c:117
+msgid "Failed"
+msgstr "Echoué"
+
+#: src/burn.c:154
+msgid "Failed to start child process"
+msgstr "Echec de lancement des processus fils"
+
+#: src/burn.c:206 src/burn.c:330
+msgid "Please select an iso file to save to..."
+msgstr "Veuillez selectionner un fichier iso pour sauvegarder ..."
+
+#: src/burn.c:269
+#, c-format
+msgid "burn - [%s]"
+msgstr "Graver - [%s]"
+
+#: src/burn.h:61 gnomebaker.glade:314 gnomebaker.glade:315
+msgid "Blank CDRW"
+msgstr "Effacer CDRW"
+
+#: src/burn.h:62 gnomebaker.glade:332 gnomebaker.glade:333
+msgid "Copy Data CD"
+msgstr "Copier le CD de Données"
+
+#: src/burn.h:63 gnomebaker.glade:350 gnomebaker.glade:351
+msgid "Copy Audio CD"
+msgstr "Copier le CD Audio"
+
+#: src/burn.h:64 gnomebaker.glade:368 gnomebaker.glade:369
+msgid "Burn CD Image"
+msgstr "Graver une image de CD"
+
+#: src/burn.h:65
+msgid "Create Data CD"
+msgstr "Créer un CD de Données"
+
+#: src/burn.h:66
+msgid "Create Audio CD"
+msgstr "Créer un CD Audio"
+
+#: src/burn.h:67
+msgid "Create Mixed CD"
+msgstr "Créer un CD mixte"
+
+#: src/burn.h:68 gnomebaker.glade:1229
+msgid "Create Video CD"
+msgstr "Créer un CD vidéo"
+
+#: src/burn.h:69
+msgid "Format DVD+RW"
+msgstr "Formater un DVD+RW"
+
+#: src/burn.h:70
+msgid "Create Data DVD"
+msgstr "Créer un DVD de Données"
+
+#: src/cdda2wav.c:43
+msgid "<b>Extracting audio tracks...</b>"
+msgstr "<b>Extraction des pistes audio...</b>"
+
+#: src/cdda2wav.c:55
+msgid ""
+"Audio tracks from a previous sesion already exist on disk, do you wish to "
+"use the existing tracks?"
+msgstr ""
+"Des pistes audio d'une session précédente existent sur le disque, voulez- "
+"vous utiliser les pistes existantes?"
+
+#: src/cdda2wav.c:71
+msgid "Please insert the audio CD into the CD reader"
+msgstr "Veuillez insérer le CD audio dans le lecteur"
+
+#: src/cdda2wav.c:103
+msgid "Tracks:"
+msgstr "Pistes:"
+
+#: src/cdda2wav.c:111
+#, c-format
+msgid "cdda2wav_read_proc - total tracks %d"
+msgstr "cdda2wav_read_proc - nombre total de pistes %d"
+
+#: src/cdrecord.c:47
+msgid "<b>Burning disk...</b>"
+msgstr "<b>Gravure du disque en cours...</b>"
+
+#: src/cdrecord.c:52
+msgid "Please insert a blank CD into the CD writer"
+msgstr "Veuillez insérer un CD vierge dans le graveur"
+
+#: src/cdrecord.c:68
+msgid "<b>Blanking disk...</b>"
+msgstr "<b>Effacement du disque en cours...</b>"
+
+#: src/cdrecord.c:73
+msgid "Please insert the CD-RW into the CD writer"
+msgstr "Veuillez insérer une CD-RW dans le graveur"
+
+#: src/cdrecord.c:146 src/cdrecord.c:151
+msgid "Fixating"
+msgstr "Fixation en cours"
+
+#: src/cdrecord.c:219
+#, c-format
+msgid "cdrecord - adding create audio data [%s]"
+msgstr "cdrecord - ajout des données audio [%s]"
+
+#: src/cdrecord.c:275
+#, c-format
+msgid "adding [%s]"
+msgstr "ajout de [%s]"
+
+#: src/datacd.c:106
+#, c-format
+msgid "File size %f disksize %f Fraction is %f"
+msgstr "Taille du fichier %f Taille du disque %f Fraction : %f"
+
+#: src/datacd.c:135
+msgid "File or directory is too large to fit in the remaining space on the CD"
+msgstr ""
+"Le fichier ou le répertoire est trop gros pour loger dans l'espace restant "
+"sur le CD"
+
+#: src/datacd.c:182
+#, c-format
+msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
+msgstr ""
+"Echec sur les statistiques du fichier [%s] code retour [%d] erreur [%s]"
+
+#: src/datacd.c:207
+#, c-format
+msgid "received sel %s"
+msgstr "Sélection reçue: %s"
+
+#: src/datacd.c:410
+msgid "Contents"
+msgstr "Contenu"
+
+#: src/datacd.c:431 src/filebrowser.c:764
+msgid "Size"
+msgstr "Taille"
+
+#: src/datacd.c:439
+msgid "Full Path"
+msgstr "Chemin complet"
+
+#: src/datacd.c:478
+#, c-format
+msgid ""
+"Error getting session information.\n"
+"\n"
+"%s"
+msgstr ""
+"Erreur lors de la récupération des informations de session.\n"
+"\n"
+"%s"
+
+#: src/datacd.c:479 src/devices.c:583
+msgid "unknown error"
+msgstr "erreur inconnue"
+
+#: src/datacd.c:486
+#, c-format
+msgid "datacd next session is [%s]"
+msgstr "La prochaine session de données est [%s]"
+
+#: src/datacd.c:510
+msgid "Error getting msinfo"
+msgstr "Echec lors de la récupération de msinfo"
+
+#: src/datacd.c:514
+msgid "Error mounting writer device"
+msgstr "Echec lors du montage du graveur"
+
+#: src/datacd.c:543
+#, c-format
+msgid ""
+"Error importing session from [%s]. Please check the device configuration in "
+"preferences."
+msgstr ""
+"Erreur lors de l'import de session depuis [%s]. Vérifiez la configuration "
+"des périphériques dans les Préférences."
+
+#: src/datacd.c:550
+msgid "Error unmounting writer device"
+msgstr "Echec lors du démontage du graveur"
+
+#: src/devices.c:75
+#, c-format
+msgid "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
+msgstr "devices_write_device_to_gconf - [%s] [%s] [%s] [%s] ajouté"
+
+#: src/devices.c:101
+#, c-format
+msgid "node [%s] mount [%s]"
+msgstr "Le dossier [%s] est lié au périphérique [%s]"
+
+#: src/devices.c:113
+#, c-format
+msgid "node [%s] is link to [%s]"
+msgstr "Le dossier [%s] est un lien vers [%s]"
+
+#: src/devices.c:310
+msgid "devices_probe_bus - Failed to scan the scsi bus"
+msgstr "devices_probe_bus - Echec lors de l'examen du bus scsi"
+
+#: src/devices.c:312
+msgid "devices_probe_bus - failed to parse cdrecord output"
+msgstr "devices_probe_bus - Echec lors de l'analyse des données de cdrecord"
+
+#: src/devices.c:330
+#, c-format
+msgid "devices_add_ide_device - probing [%s]"
+msgstr "devices_add_ide_device - analyse de [%s]"
+
+#: src/devices.c:343
+#, c-format
+msgid "Failed to open %s"
+msgstr "Impossible d'ouvrir %s"
+
+#: src/devices.c:357
+#, c-format
+msgid "devices_add_scsi_device - probing [%s]"
+msgstr "devices_add_scsi_device - analyse de [%s]"
+
+#: src/devices.c:362
+msgid "Failed to open /proc/scsi/sg/devices"
+msgstr "Impossible d'ouvrir /proc/scsi/sg/devices"
+
+#: src/devices.c:366
+msgid "Failed to open /proc/scsi/sg/device_strs"
+msgstr "Impossible d'ouvrir /proc/scsi/sg/device_strs"
+
+#: src/devices.c:382
+msgid "Error reading scsi information from /proc/scsi/sg/devices"
+msgstr ""
+"Erreur lors de la lecture des informations SCSI depuis /proc/scsi/sg/devices"
+
+#: src/devices.c:420
+#, c-format
+msgid "---- key [%s], value [%s]"
+msgstr "--- clef [%s], valeur [%s]"
+
+#: src/devices.c:433
+#, c-format
+msgid "looking for device [%d]"
+msgstr "recherche du périphérique [%d]"
+
+#: src/devices.c:469
+#, c-format
+msgid ""
+"Requested device index [%d] is out of bounds. All devices have been read."
+msgstr ""
+"Le numéro de périphérique demandé [%d] est hors limites. Tous les "
+"périphériques ont été lus."
+
+#: src/devices.c:500
+msgid "Failed to open /proc/sys/dev/cdrom/info"
+msgstr "Impossible d'ouvrir /proc/sys/dev/cdrom/info"
+
+#: src/devices.c:566
+msgid ""
+"The mount point (e.g. /mnt/cdrom) for the writing device could not be "
+"obtained. Please check that the writing device has an entry in /etc/fstab "
+"and then go to preferences and rescan for devices."
+msgstr ""
+"Le point de montage (ex: /mnt/cdrom) pour le périphérique de gravure n'a pu "
+"etre obtenu. Veuillez vérifier que le périphérique de gravure a une entrée "
+"dans /etc/fstab, puis allez dans les Préférences et recherchez à nouveau les "
+"périphériques."
+
+#: src/devices.c:582
+#, c-format
+msgid ""
+"Error %s %s.\n"
+"\n"
+"%s"
+msgstr ""
+"Erreur %s %s.\n"
+"\n"
+"%s"
+
+#: src/devices.c:583
+msgid "mounting"
+msgstr "montage"
+
+#: src/devices.c:583
+msgid "unmounting"
+msgstr "démontage"
+
+#: src/dvdfunctions.c:43
+msgid "<b>Formatting DVD...</b>"
+msgstr "<b>Formatage du  DVD...</b>"
+
+#: src/dvdfunctions.c:48
+msgid "Please insert a rewritable DVD into the DVD writer"
+msgstr "Veuillez insérer un DVD réinscriptible dans le graveur de DVD"
+
+#: src/dvdfunctions.c:93
+msgid "Failed to get percent in dvdformat_read_proc"
+msgstr "Impossible d'obtenir le pourcentage dans dvdformat_read_proc"
+
+#: src/dvdfunctions.c:137
+msgid "<b>Burning DVD...</b>"
+msgstr "<b>Gravure du  DVD...</b>"
+
+#: src/dvdfunctions.c:142
+msgid "Please insert a writable DVD into the DVD writer"
+msgstr "Veuillez insérer un DVD inscriptible dans le graveur de DVD"
+
+#: src/dvdfunctions.c:229
+#, c-format
+msgid "growisofs: progress: %d"
+msgstr "growisofs: progression : %d"
+
+#: src/dvdfunctions.c:231
+#, c-format
+msgid "growisofs: fraction: %f"
+msgstr "growisofs: fraction: %f"
+
+#: src/exec.c:144
+#, c-format
+msgid "exec_thread - parent created child with pid %d"
+msgstr "exec_thread - le père a creé un  fils de pid %d"
+
+#: src/exec.c:176
+msgid "exec_thread - created child"
+msgstr "exec_thread -  fils créé"
+
+#: src/exec.c:189
+msgid "exec_thread - Exec failed"
+msgstr "exec_thread - échec de Exec "
+
+#: src/exec.c:194
+#, c-format
+msgid "exec_thread - child exited with code [%d]\n"
+msgstr "exec_thread - le fils s'est terminé avec le code [%d]\n"
+
+#: src/exec.c:209
+msgid "exec_thread - exiting"
+msgstr "exec_thread - sortie"
+
+#: src/exec.c:226
+#, c-format
+msgid "exec_go - failed to create thread [%d] [%s]"
+msgstr "exec_go - échec lors de la création du thread [%d] [%s]"
+
+#: src/exec.c:246
+#, c-format
+msgid "exec_cancel - killing %d"
+msgstr "exec_cancel - tue %d"
+
+#: src/exec.c:252
+msgid "exec_cancel - complete"
+msgstr "exec_cancel - fini"
+
+#: src/exec.c:260
+#, c-format
+msgid "exec_run_cmd - %s"
+msgstr "exec_run_cmd - %s"
+
+#: src/exec.c:280
+#, c-format
+msgid "error [%s] spawning command [%s]"
+msgstr "Erreur [%s] lors de la création de la commande [%s]"
+
+#: src/exec.c:285
+#, c-format
+msgid "Uknown error spawning command [%s]"
+msgstr "Erreur inconnue lors de la création de la commande [%s]"
+
+#: src/filebrowser.c:84 gnomebaker.glade:563
+msgid "Add directory"
+msgstr "Ajouter un dossier"
+
+#: src/filebrowser.c:91 gnomebaker.glade:581
+msgid "Add file(s)"
+msgstr "Ajouter un(des) fichier(s)"
+
+#: src/filebrowser.c:168
+msgid "subdir from GValue is NULL"
+msgstr "le sous-dossier de GValue est NULL"
+
+#: src/filebrowser.c:332
+#, c-format
+msgid "*** iter is [%s]\n"
+msgstr "*** itération [%s]\n"
+
+#: src/filebrowser.c:333
+msgid "valid"
+msgstr "valide"
+
+#: src/filebrowser.c:333
+msgid "invalid"
+msgstr "invalide"
+
+#: src/filebrowser.c:339
+#, c-format
+msgid "*** model [%p]\n"
+msgstr "*** modèle [%p]\n"
+
+#: src/filebrowser.c:345
+#, c-format
+msgid "*** name [%s]\n"
+msgstr "*** nom [%s]\n"
+
+#: src/filebrowser.c:352
+#, c-format
+msgid "*** mime [%s]\n"
+msgstr "*** type mime [%s]\n"
+
+#: src/filebrowser.c:361
+#, c-format
+msgid "*** size [%ld]\n"
+msgstr "*** taille [%ld]\n"
+
+#: src/filebrowser.c:367
+#, c-format
+msgid "Stat of file [%s] failed"
+msgstr "Echec des statistiques du fichier [%s]"
+
+#: src/filebrowser.c:532
+#, c-format
+msgid "selection data is %s\n"
+msgstr "Les données de sélection sont %s\n"
+
+#: src/filebrowser.c:578
+#, c-format
+msgid "%s was double clicked"
+msgstr "Vous avez double-cliqué sur %s"
+
+#: src/filebrowser.c:655
+msgid "Filesystem"
+msgstr "Système de fichiers"
+
+#: src/filebrowser.c:683
+#, c-format
+msgid "%s's home"
+msgstr "Dossier personnel de %s"
+
+#: src/filebrowser.c:744
+msgid "File"
+msgstr "Fichier"
+
+#: src/filebrowser.c:756
+msgid "Type"
+msgstr "Type"
+
+#: src/gbcommon.c:134
+#, c-format
+msgid "returning [%s]"
+msgstr "Renvoi de [%s]"
+
+#: src/gbcommon.c:146
+#, c-format
+msgid "creating [%s]"
+msgstr "Création de [%s]"
+
+#: src/gbcommon.c:157
+#, c-format
+msgid "failed to create temp %d"
+msgstr "Echec lors de la création du fichier temporaire %d"
+
+#: src/gbcommon.c:178
+#, c-format
+msgid "Failed to get contents of file [%s]"
+msgstr "Impossible d'obtenir le contenu du fichier [%s]"
+
+#: src/gbcommon.h:133
+#, c-format
+msgid "Entering [%s] [%s] [%d]\n"
+msgstr "Accès à [%s] [%s] [%d]\n"
+
+#: src/gnomebaker.c:59
+msgid "Loading preferences..."
+msgstr "Chargement des préférences..."
+
+#: src/gnomebaker.c:62
+msgid "Detecting devices..."
+msgstr "Détection des périphériques..."
+
+#: src/gnomebaker.c:65
+msgid "Loading GUI..."
+msgstr "Chargement de l'interface graphique..."
+
+#: src/gnomebaker.c:106
+#, c-format
+msgid "MessageDialog message [%s]"
+msgstr "MessageDialog message [%s]"
+
+#: src/gnomebaker.c:128
+msgid "Are you sure you want to quit?"
+msgstr "Êtes-vous sûr de vouloir quitter?"
+
+#: src/gnomebaker.c:175
+msgid "Please select an iso file..."
+msgstr "Veuillez sélectionner un fichier ISO..."
+
+#: src/gnomebaker.c:199
+#, c-format
+msgid "file is %s"
+msgstr "Le fichier est %s"
+
+#: src/gnomebaker.c:203
+#, c-format
+msgid "mime type is %s for %s"
+msgstr "Le type mime est %s pour %s"
+
+#: src/gnomebaker.c:213
+msgid ""
+"The file you have selected is not a cd image. Please select a cd image to "
+"burn."
+msgstr ""
+"Le fichier que vous avez sélectionné n'est pas une image de CD. Veuillez "
+"sélectionner une image CD à graver."
+
+#: src/gnomebaker.c:264 gnomebaker.glade:10
+msgid "GnomeBaker"
+msgstr "GnomeBaker"
+
+#: src/gnomebaker.c:265
+msgid "Simple CD Burning for Gnome"
+msgstr "La gravure de CD facile pour Gnome"
+
+#: src/mkisofs.c:51
+msgid "<b>Creating data disk image...</b>"
+msgstr "<b>Création de l'image du disque de données...</b>"
+
+#: src/mkisofs.c:59
+msgid ""
+"A data CD image from a previous session already exists on disk, do you wish "
+"to use the existing image?"
+msgstr ""
+"Une image de disque de données provenant d'une session précédente existe "
+"déjà sur le disque, souhiatez-vous l'utiliser ?"
+
+#: src/mpg123.c:19
+msgid "<b>Converting mp3 to cd audio...</b>"
+msgstr "<b>Conversion des fichiers mp3 en cd audio...</b>"
+
+#: src/mpg123.c:96 src/oggdec.c:108
+#, c-format
+msgid "Converted file is [%s]"
+msgstr "Le fichier converti est [%s]"
+
+#: src/oggdec.c:19
+msgid "<b>Converting ogg to cd audio...</b>"
+msgstr "<b>Conversion des fichiers ogg en cd audio...</b>"
+
+#: src/preferences.c:48
+msgid "Failed to initialise gconf"
+msgstr "Erreur lors de l'initialisation de gconf"
+
+#: src/preferences.c:133
+#, c-format
+msgid "toolbar style [%s] [%d]"
+msgstr "style de barre d'outils [%s] [%d]"
+
+#: src/prefsdlg.c:131
+msgid "Name"
+msgstr "Nom"
+
+#: src/prefsdlg.c:146
+msgid "Id"
+msgstr "Identifiant"
+
+#: src/prefsdlg.c:155
+msgid "Node"
+msgstr "dossier"
+
+#: src/prefsdlg.c:164
+msgid "Mount point"
+msgstr "Point de montage"
+
+#: src/prefsdlg.c:173
+msgid "Write CD-R"
+msgstr "Graver un CD-R"
+
+#: src/prefsdlg.c:182
+msgid "Write CD-RW"
+msgstr "Graver un CD-RW"
+
+#: src/prefsdlg.c:191
+msgid "Write DVD-R"
+msgstr "Graver un DVD-R"
+
+#: src/prefsdlg.c:200
+msgid "Write DVD-RAM"
+msgstr "Graver un DVD-RAM"
+
+#: src/prefsdlg.c:239
+msgid "Invalid row in device list"
+msgstr "Ligne invalide dans la liste des périphériques"
+
+#: src/readcd.c:41
+msgid "<b>Reading CD image...</b>"
+msgstr "<b>Lecture de l'image CD...</b>"
+
+#: src/sox.c:34
+msgid "<b>Converting wav to cd audio...</b>"
+msgstr "<b>Conversion des fichiers wev en cd audio...</b>"
+
+#: src/startdlgdvd.c:241
+#, c-format
+msgid "Writer is: %s"
+msgstr "Le graveur est: %s"
+
+#: gnomebaker.glade:84
+msgid "_Actions"
+msgstr "_Actions"
+
+#: gnomebaker.glade:93
+msgid "Bl_ank CDRW"
+msgstr "Eff_acer un CDRW"
+
+#: gnomebaker.glade:113
+msgid "_Format DVDRW"
+msgstr "_Formater un DVDRW"
+
+#: gnomebaker.glade:139
+msgid "C_opy Data CD"
+msgstr "C_opier un CD de données"
+
+#: gnomebaker.glade:159
+msgid "Co_py Audio CD"
+msgstr "Co_pier un CD audio"
+
+#: gnomebaker.glade:185
+msgid "_Burn CD Image"
+msgstr "_Graver une image CD"
+
+#: gnomebaker.glade:211
+msgid "_Import Session"
+msgstr "_Importer une Session"
+
+#: gnomebaker.glade:235
+msgid "_View"
+msgstr "_Afficher"
+
+#: gnomebaker.glade:244
+msgid "_Refresh"
+msgstr "_Recharger"
+
+#: gnomebaker.glade:405
+msgid "Edit GnomeBaker's preferences"
+msgstr "Editer les préférences de GnomeBaker"
+
+#: gnomebaker.glade:444
+msgid "Refresh the file browser file list"
+msgstr "Recharger la liste des fichiers du navigateur"
+
+#: gnomebaker.glade:562
+msgid "Add the current directory to the CD"
+msgstr "Ajoute le dossier courant au CD"
+
+#: gnomebaker.glade:580
+msgid "Add the selected files to the CD"
+msgstr "Ajoute les fichiers sélectionnés au CD"
+
+#: gnomebaker.glade:598
+msgid "Remove the selected files from the CD"
+msgstr "Retire les fichiers sélectionnés du CD"
+
+#: gnomebaker.glade:616
+msgid "Clear the contents of the CD"
+msgstr "Enlève tout le contenu du CD"
+
+#: gnomebaker.glade:651
+msgid "Import existing session"
+msgstr "Importer une session existante"
+
+#: gnomebaker.glade:652
+msgid "Import"
+msgstr "Importer"
+
+#: gnomebaker.glade:729 gnomebaker.glade:1141 gnomebaker.glade:1403
+msgid "0%"
+msgstr "0%"
+
+#: gnomebaker.glade:751
+msgid "650MB CD"
+msgstr "CD 650Mo"
+
+#: gnomebaker.glade:759
+msgid "700MB CD"
+msgstr "CD 700Mo"
+
+#: gnomebaker.glade:767
+msgid "4.7GB DVD"
+msgstr "DVD 4.7Go"
+
+#: gnomebaker.glade:775
+msgid "8.5GB DVD"
+msgstr "DVD 8.5Go"
+
+#: gnomebaker.glade:793
+msgid "Click to begin the process of creating a data disk."
+msgstr "Cliquez pour démarrer la création d'un disque de données."
+
+#: gnomebaker.glade:836
+msgid "Create Data Disk"
+msgstr "Créer un Disque de Données"
+
+#: gnomebaker.glade:881
+msgid "<b>Data Disk</b>"
+msgstr "<b>Disque de Données</b>"
+
+#: gnomebaker.glade:965 gnomebaker.glade:1170
+msgid "80 min. CD"
+msgstr "CD 80min."
+
+#: gnomebaker.glade:973 gnomebaker.glade:1162
+msgid "74 min. CD"
+msgstr "CD 74min."
+
+#: gnomebaker.glade:991
+msgid "Click to begin the process of creating an audio cd"
+msgstr "Cliquez pour démarrer la création d'un cd audio"
+
+#: gnomebaker.glade:1034
+msgid "Create Audio Disk"
+msgstr "Créer un CD Audio"
+
+#: gnomebaker.glade:1079
+msgid "<b>Audio Disk</b>"
+msgstr "<b>CD Audio</b>"
+
+#: gnomebaker.glade:1274
+msgid "<b>Video CD</b>"
+msgstr "<b>Vidéo CD</b>"
+
+#: gnomebaker.glade:1335
+msgid "Baking CD"
+msgstr "Gravure du CD"
+
+#: gnomebaker.glade:1379
+msgid "<b>Burning</b>"
+msgstr "<b>Gravure</b>"
+
+#: gnomebaker.glade:1506
+msgid "View output"
+msgstr "Voir les messages"
+
+#: gnomebaker.glade:1605
+msgid "GPL"
+msgstr "GPL"
+
+#: gnomebaker.glade:1606
+msgid "Simple CD burning for Gnome."
+msgstr "Gravure de CD facile pour Gnome."
+
+#: gnomebaker.glade:1608
+msgid "translator_credits"
+msgstr "translator_credits"
+
+#: gnomebaker.glade:1613
+msgid "Splash window"
+msgstr "Ecran de démarrage"
+
+#: gnomebaker.glade:1651
+msgid "Starting GnomeBaker..."
+msgstr "Démarrage de GnomeBaker..."
+
+#: gnomebaker.glade:1675
+msgid "Preferences"
+msgstr "Préférences"
+
+#: gnomebaker.glade:1746
+msgid "<b>Temporary Directory</b>"
+msgstr "<b>Dossier Temporaire</b>"
+
+#: gnomebaker.glade:1783
+msgid "/tmp"
+msgstr "/tmp"
+
+#: gnomebaker.glade:1804
+msgid "Clean temporary directory on exit"
+msgstr "Nettoyer le dossier temporaire en quittant"
+
+#: gnomebaker.glade:1826
+msgid "<b>File Browser</b>"
+msgstr "<b>Navigateur</b>"
+
+#: gnomebaker.glade:1851
+msgid "Show hidden files"
+msgstr "Afficher les fichiers cachés"
+
+#: gnomebaker.glade:1879
+msgid "General"
+msgstr "Général"
+
+#: gnomebaker.glade:1908
+msgid "<b>Detected devices</b>"
+msgstr "<b>Périphériques détectés</b>"
+
+#: gnomebaker.glade:1962
+msgid "Always scan for devices on startup"
+msgstr "Toujours rechercher les périphériques au démarrage"
+
+#: gnomebaker.glade:2034
+msgid "_Add device"
+msgstr "_Ajout d'un périphérique"
+
+#: gnomebaker.glade:2105 gnomebaker.glade:2645 gnomebaker.glade:3783
+msgid "Sc_an for devices"
+msgstr "_Recherche de périphériques"
+
+#: gnomebaker.glade:2147
+msgid "Devices"
+msgstr "Périphériques"
+
+#: gnomebaker.glade:2175
+msgid "Start burning..."
+msgstr "Début de la gravure"
+
+#: gnomebaker.glade:2261 gnomebaker.glade:3394
+msgid "_Start"
+msgstr "_Début"
+
+#: gnomebaker.glade:2306 gnomebaker.glade:3439
+msgid "Reader"
+msgstr "Lecteur"
+
+#: gnomebaker.glade:2331 gnomebaker.glade:3464
+msgid "Writer"
+msgstr "Graveur"
+
+#: gnomebaker.glade:2356 gnomebaker.glade:3489
+msgid "<b>Devices</b>"
+msgstr "<b>Périphériques</b>"
+
+#: gnomebaker.glade:2414 gnomebaker.glade:3552
+msgid "Allow overburning"
+msgstr "Permettre l'overburning"
+
+#: gnomebaker.glade:2436 gnomebaker.glade:3574
+msgid "Multisession"
+msgstr "Multisession"
+
+#: gnomebaker.glade:2459 gnomebaker.glade:3597
+msgid "BurnFree"
+msgstr "BurnFree"
+
+#: gnomebaker.glade:2482 gnomebaker.glade:3620
+msgid "Create ISO Only"
+msgstr "Créer uniquement l'ISO"
+
+#: gnomebaker.glade:2505 gnomebaker.glade:3643
+msgid "Eject CD"
+msgstr "Éjecter le CD"
+
+#: gnomebaker.glade:2527
+msgid "Fast blank"
+msgstr "Effacement rapide"
+
+#: gnomebaker.glade:2550 gnomebaker.glade:3688
+msgid "Dummy write"
+msgstr "Simulation"
+
+#: gnomebaker.glade:2572 gnomebaker.glade:3710
+msgid "<b>Options</b>"
+msgstr "<b>Options</b>"
+
+#: gnomebaker.glade:2682 gnomebaker.glade:3820
+msgid "Speed"
+msgstr "Vitesse"
+
+#: gnomebaker.glade:2728 gnomebaker.glade:3866
+msgid "Mode"
+msgstr "Mode"
+
+#: gnomebaker.glade:2761 gnomebaker.glade:3899
+msgid "default"
+msgstr "par défaut"
+
+#: gnomebaker.glade:2769 gnomebaker.glade:3907
+msgid "tao"
+msgstr "tao"
+
+#: gnomebaker.glade:2777 gnomebaker.glade:3915
+msgid "dao"
+msgstr "dao"
+
+#: gnomebaker.glade:2785 gnomebaker.glade:3923
+msgid "raw96p"
+msgstr "raw96p"
+
+#: gnomebaker.glade:2793 gnomebaker.glade:3931
+msgid "raw16"
+msgstr "raw16"
+
+#: gnomebaker.glade:2823
+msgid "ISO filesystem details"
+msgstr "détails du système de fichiers ISO"
+
+#: gnomebaker.glade:2895
+msgid "<b>Volume label</b>"
+msgstr "<b>Nom de volume</b>"
+
+#: gnomebaker.glade:2923
+msgid "GnomeBaker data cd"
+msgstr "CD de données GnomeBaker"
+
+#: gnomebaker.glade:2941
+msgid "<b>Created by</b>"
+msgstr "<b>Créé par</b>"
+
+#: gnomebaker.glade:2969
+msgid "Created by username"
+msgstr "Créé par username"
+
+#: gnomebaker.glade:2987
+msgid "<b>Boot options</b>"
+msgstr "<b>Options de boot</b>"
+
+#: gnomebaker.glade:3013
+msgid "Not bootable"
+msgstr "non bootable"
+
+#: gnomebaker.glade:3037
+msgid "PC bootable"
+msgstr "Bootable sur PC"
+
+#: gnomebaker.glade:3070
+msgid "Floppy disk image"
+msgstr "Image de disquette"
+
+#: gnomebaker.glade:3091
+msgid "Hard disk image"
+msgstr "Image de disque dur"
+
+#: gnomebaker.glade:3122
+msgid "Boot catalog"
+msgstr "Catalogue de boot"
+
+#: gnomebaker.glade:3147
+msgid "Boot Image"
+msgstr "Image de boot"
+
+#: gnomebaker.glade:3207
+msgid "Sun workstation bootable"
+msgstr "Bootable sur station Sun"
+
+#: gnomebaker.glade:3230
+msgid "Boot Image list"
+msgstr "Liste d'images de boot"
+
+#: gnomebaker.glade:3308
+msgid "Start burning"
+msgstr "Début de la gravure"
+
+#: gnomebaker.glade:3665
+msgid "Fast"
+msgstr "Rapide"
+
+#: gnomebaker.glade:3952
+msgid "Force"
+msgstr "Forcer"
+
+#: gnomebaker.glade:3975
+msgid "Finalize"
+msgstr "Finaliser"

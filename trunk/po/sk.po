@@ -1,0 +1,1091 @@
+# Slovak translation for The GnomeBaker CD Burner
+# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# This file is distributed under the same license as the The GnomeBaker CD Burner package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: The GnomeBaker CD Burner\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Slovak <sk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Rosetta-Version: 0.1\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+
+#: src/audiocd.c:90
+#, c-format
+msgid "Duration %f Fraction is %f"
+msgstr "Dĺžka %f  Časť je %f"
+
+#: src/audiocd.c:95 src/audiocd.c:219 gnomebaker.glade:943
+msgid "0 mins 0 secs"
+msgstr "0 m 0 s"
+
+#: src/audiocd.c:106
+#, c-format
+msgid "%d mins %d secs"
+msgstr "%d m %d s"
+
+#: src/audiocd.c:114
+msgid "Track is too large to fit in the remaining space on the CD"
+msgstr "Stopa je väčšia ako zostávajúce miesto na CD"
+
+#: src/audiocd.c:236 src/datacd.c:367 gnomebaker.glade:599
+msgid "Remove selected"
+msgstr "Odobrať vybrané zo zoznamu"
+
+#: src/audiocd.c:241 src/datacd.c:372
+msgid "Clear"
+msgstr "Odobrať všetky zo zoznamu"
+
+#: src/audiocd.c:352 src/cdrecord.c:119
+msgid "Track"
+msgstr "Stopa"
+
+#: src/audiocd.c:364
+msgid "Duration"
+msgstr "Dĺžka"
+
+#: src/audiocd.c:380
+msgid "Artist"
+msgstr "Interpret"
+
+#: src/audiocd.c:388
+msgid "Album"
+msgstr "Album"
+
+#: src/audiocd.c:396
+msgid "Title"
+msgstr "Skladba"
+
+#: src/audioinfo.c:119
+#, c-format
+msgid "mime type is %s for %s %s"
+msgstr "mime-type je %s pre %s %s"
+
+#: src/audioinfo.c:224 src/audioinfo.c:683
+#, c-format
+msgid "File %s was not opened \n"
+msgstr "Súbor %s nebol otvorený \n"
+
+#: src/audioinfo.c:247
+#, c-format
+msgid "Error reading wav header for file [%s]"
+msgstr "Chyba počas čítania hlavičky súboru [%s]"
+
+#: src/audioinfo.c:267
+msgid "Performer"
+msgstr "Interpret"
+
+#: src/audioinfo.c:267
+msgid "Albumtitle"
+msgstr "Názov albumu"
+
+#: src/audioinfo.c:267
+msgid "Tracktitle"
+msgstr "Názov skladby"
+
+#: src/audioinfo.c:315
+#, c-format
+msgid "File %s was not opened"
+msgstr "Súbor %s nebol otvorený"
+
+#: src/audioinfo.c:617
+msgid "Stereo"
+msgstr "Stereo"
+
+#: src/audioinfo.c:622
+msgid "Joint Stereo"
+msgstr "Zmiešané (joint) stereo"
+
+#: src/audioinfo.c:627
+msgid "Dual Channel"
+msgstr "2 kanály"
+
+#: src/audioinfo.c:632
+msgid "Single Channel"
+msgstr "1 kanál"
+
+#: src/audioinfo.c:700
+msgid "TITLE="
+msgstr "TITLE="
+
+#: src/audioinfo.c:702
+msgid "ARTIST="
+msgstr "ARTIST="
+
+#: src/audioinfo.c:704
+msgid "ALBUM="
+msgstr "ALBUM="
+
+#: src/burn.c:113
+msgid "Completed"
+msgstr "Dokončené"
+
+#: src/burn.c:117
+msgid "Failed"
+msgstr "Zlyhanie"
+
+#: src/burn.c:154
+msgid "Failed to start child process"
+msgstr "Zlyhalo spustenie nového procesu"
+
+#: src/burn.c:206 src/burn.c:330
+msgid "Please select an iso file to save to..."
+msgstr "Vyberte prosím názov súboru na uloženie obrazu disku..."
+
+#: src/burn.c:269
+#, c-format
+msgid "burn - [%s]"
+msgstr "vypáliť - [%s]"
+
+#: src/burn.h:61 gnomebaker.glade:314 gnomebaker.glade:315
+msgid "Blank CDRW"
+msgstr "Vymazať CD-RW"
+
+#: src/burn.h:62 gnomebaker.glade:332 gnomebaker.glade:333
+msgid "Copy Data CD"
+msgstr "Kopírovať dátové CD"
+
+#: src/burn.h:63 gnomebaker.glade:350 gnomebaker.glade:351
+msgid "Copy Audio CD"
+msgstr "Kopírovať audio CD"
+
+#: src/burn.h:64 gnomebaker.glade:368 gnomebaker.glade:369
+msgid "Burn CD Image"
+msgstr "Vypáliť obraz CD zo súboru"
+
+#: src/burn.h:65
+msgid "Create Data CD"
+msgstr "Vytvoriť dátové CD"
+
+#: src/burn.h:66
+msgid "Create Audio CD"
+msgstr "Vytvoriť audio CD"
+
+#: src/burn.h:67
+msgid "Create Mixed CD"
+msgstr "Vytvoriť zmiešané CD (Mixed CD)"
+
+#: src/burn.h:68 gnomebaker.glade:1229
+msgid "Create Video CD"
+msgstr "Vytvoriť video CD"
+
+#: src/burn.h:69
+msgid "Format DVD+RW"
+msgstr "Naformátovať DVD+RW"
+
+#: src/burn.h:70
+msgid "Create Data DVD"
+msgstr "Vytvoriť dátové DVD"
+
+#: src/cdda2wav.c:43
+msgid "<b>Extracting audio tracks...</b>"
+msgstr "<b>Extrahujem hudobné stopy...</b>"
+
+#: src/cdda2wav.c:55
+msgid ""
+"Audio tracks from a previous sesion already exist on disk, do you wish to "
+"use the existing tracks?"
+msgstr ""
+"Hudobné stopy z predchádzajúcej sekcie sa nachádzajú na disku. Chcete použiť "
+"existujúce stopy?"
+
+#: src/cdda2wav.c:71
+msgid "Please insert the audio CD into the CD reader"
+msgstr "Vložte prosím audio CD do CD mechaniky"
+
+#: src/cdda2wav.c:103
+msgid "Tracks:"
+msgstr "Stopy:"
+
+#: src/cdda2wav.c:111
+#, c-format
+msgid "cdda2wav_read_proc - total tracks %d"
+msgstr "cdda2wav_read_proc - celkom stôp %d"
+
+#: src/cdrecord.c:47
+msgid "<b>Burning disk...</b>"
+msgstr "<b>Vypaľujem disk...</b>"
+
+#: src/cdrecord.c:52
+msgid "Please insert a blank CD into the CD writer"
+msgstr "Vložte prosím čisté CD do CD napalovačky"
+
+#: src/cdrecord.c:68
+msgid "<b>Blanking disk...</b>"
+msgstr "<b>Mažem disk...</b>"
+
+#: src/cdrecord.c:73
+msgid "Please insert the CD-RW into the CD writer"
+msgstr "Vložte prosím CD-RW do CD napalovačky"
+
+#: src/cdrecord.c:146 src/cdrecord.c:151
+msgid "Fixating"
+msgstr "Prebieha fixácia"
+
+#: src/cdrecord.c:219
+#, c-format
+msgid "cdrecord - adding create audio data [%s]"
+msgstr "cdrecord - pridávam audio data [%s]"
+
+#: src/cdrecord.c:275
+#, c-format
+msgid "adding [%s]"
+msgstr "pridávam [%s]"
+
+#: src/datacd.c:106
+#, c-format
+msgid "File size %f disksize %f Fraction is %f"
+msgstr "Veľkosť súboru %f veľkosť disku %f Časť je %f"
+
+#: src/datacd.c:135
+msgid "File or directory is too large to fit in the remaining space on the CD"
+msgstr "Súbor alebo adresár je príliš veľký na to, aby sa zmestil na CD"
+
+#: src/datacd.c:182
+#, fuzzy, c-format
+msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
+msgstr "failed to stat file [%s] with ret code [%d] error no [%s]"
+
+#: src/datacd.c:207
+#, fuzzy, c-format
+msgid "received sel %s"
+msgstr "received sel %s"
+
+#: src/datacd.c:410
+msgid "Contents"
+msgstr "Súbor"
+
+#: src/datacd.c:431 src/filebrowser.c:764
+msgid "Size"
+msgstr "Veľkosť"
+
+#: src/datacd.c:439
+msgid "Full Path"
+msgstr "Kompletná cesta"
+
+#: src/datacd.c:478
+#, c-format
+msgid ""
+"Error getting session information.\n"
+"\n"
+"%s"
+msgstr ""
+"Chyba počas získavania informácií o sekcii.\n"
+"\n"
+"%s"
+
+#: src/datacd.c:479 src/devices.c:583
+msgid "unknown error"
+msgstr "neznáma chyba"
+
+#: src/datacd.c:486
+#, c-format
+msgid "datacd next session is [%s]"
+msgstr "ďalšia sekcia dátového CD je [%s]"
+
+#: src/datacd.c:510
+msgid "Error getting msinfo"
+msgstr "Chyba počas získavania msinfo"
+
+#: src/datacd.c:514
+msgid "Error mounting writer device"
+msgstr "Chyba počas pripájania zapisovacieho zariadenia"
+
+#: src/datacd.c:543
+#, c-format
+msgid ""
+"Error importing session from [%s]. Please check the device configuration in "
+"preferences."
+msgstr ""
+"Chyba počas importu sekcie z [%s]. Skontrolujte prosím konfiguráciu "
+"zariadenia v predvoľbách."
+
+#: src/datacd.c:550
+msgid "Error unmounting writer device"
+msgstr "Chyba počas odpájania zapisovacieho zariadenia"
+
+#: src/devices.c:75
+#, c-format
+msgid "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
+msgstr "devices_write_device_to_gconf - Pridané [%s] [%s] [%s] [%s]"
+
+#: src/devices.c:101
+#, c-format
+msgid "node [%s] mount [%s]"
+msgstr "uzol [%s] prípojný bod [%s]"
+
+#: src/devices.c:113
+#, c-format
+msgid "node [%s] is link to [%s]"
+msgstr "uzol [%s] je linka na [%s]"
+
+#: src/devices.c:310
+msgid "devices_probe_bus - Failed to scan the scsi bus"
+msgstr "devices_probe_bus - Zlyhalo prehľadávanie scsi zbernice"
+
+#: src/devices.c:312
+msgid "devices_probe_bus - failed to parse cdrecord output"
+msgstr "devices_probe_bus - zlyhalo analyzovanie výstupu z cdrecord"
+
+#: src/devices.c:330
+#, fuzzy, c-format
+msgid "devices_add_ide_device - probing [%s]"
+msgstr "devices_add_ide_device - skúmam [%s]"
+
+#: src/devices.c:343
+#, c-format
+msgid "Failed to open %s"
+msgstr "Nepodarilo sa otvoriť %s"
+
+#: src/devices.c:357
+#, c-format
+msgid "devices_add_scsi_device - probing [%s]"
+msgstr "devices_add_scsi_device - skúmam [%s]"
+
+#: src/devices.c:362
+msgid "Failed to open /proc/scsi/sg/devices"
+msgstr "Nepodarilo sa otvoriť /proc/scsi/sg/devices"
+
+#: src/devices.c:366
+msgid "Failed to open /proc/scsi/sg/device_strs"
+msgstr "Nepodarilo sa otvoriť /proc/scsi/sg/device_strs"
+
+#: src/devices.c:382
+msgid "Error reading scsi information from /proc/scsi/sg/devices"
+msgstr "Chyba počas čítania scsi informácií z /proc/scsi/sg/devices"
+
+#: src/devices.c:420
+#, c-format
+msgid "---- key [%s], value [%s]"
+msgstr "---- kľúč [%s], hodnota [%s]"
+
+#: src/devices.c:433
+#, c-format
+msgid "looking for device [%d]"
+msgstr "hľadám zariadenie [%d]"
+
+#: src/devices.c:469
+#, c-format
+msgid ""
+"Requested device index [%d] is out of bounds. All devices have been read."
+msgstr ""
+"Požadovaný index zariadenia [%d] je mimo povoleného rozsahu. Všetky "
+"zariadenia boli prečítané."
+
+#: src/devices.c:500
+msgid "Failed to open /proc/sys/dev/cdrom/info"
+msgstr "Chyba počas otvárania /proc/sys/dev/cdrom/info"
+
+#: src/devices.c:566
+msgid ""
+"The mount point (e.g. /mnt/cdrom) for the writing device could not be "
+"obtained. Please check that the writing device has an entry in /etc/fstab "
+"and then go to preferences and rescan for devices."
+msgstr ""
+"Nepodarilo sa zistiť prípojný bod pre nabaľovačku (napr. /mnt/cdrom). "
+"Skontrolujte, či má napaľovačka záznam v /etc/fstab a potom v predvoľbách "
+"vyhľadajte zariadenia."
+
+#: src/devices.c:582
+#, c-format
+msgid ""
+"Error %s %s.\n"
+"\n"
+"%s"
+msgstr ""
+"Chyba %s %s.\n"
+"\n"
+"%s"
+
+#: src/devices.c:583
+msgid "mounting"
+msgstr "pripájam"
+
+#: src/devices.c:583
+msgid "unmounting"
+msgstr "odpájam"
+
+#: src/dvdfunctions.c:43
+msgid "<b>Formatting DVD...</b>"
+msgstr "<b>Formátujem DVD...</b>"
+
+#: src/dvdfunctions.c:48
+msgid "Please insert a rewritable DVD into the DVD writer"
+msgstr "Vložte prosím prepisovateľné DVD do DVD napaľovačky"
+
+#: src/dvdfunctions.c:93
+msgid "Failed to get percent in dvdformat_read_proc"
+msgstr "Zlyhalo získavanie stavu z dvdformat_read_proc"
+
+#: src/dvdfunctions.c:137
+msgid "<b>Burning DVD...</b>"
+msgstr "<b>Vypaľujem DVD...</b>"
+
+#: src/dvdfunctions.c:142
+msgid "Please insert a writable DVD into the DVD writer"
+msgstr "Vložte zapisovateľné DVD do DVD napaľovačky"
+
+#: src/dvdfunctions.c:229
+#, c-format
+msgid "growisofs: progress: %d"
+msgstr "growisofs: progres: %d"
+
+#: src/dvdfunctions.c:231
+#, c-format
+msgid "growisofs: fraction: %f"
+msgstr "growisofs: časť: %f"
+
+#: src/exec.c:144
+#, fuzzy, c-format
+msgid "exec_thread - parent created child with pid %d"
+msgstr "exec_thread - parent created child with pid %d"
+
+#: src/exec.c:176
+#, fuzzy
+msgid "exec_thread - created child"
+msgstr "exec_thread - created child"
+
+#: src/exec.c:189
+#, fuzzy
+msgid "exec_thread - Exec failed"
+msgstr "exec_thread - Exec failed"
+
+#: src/exec.c:194
+#, fuzzy, c-format
+msgid "exec_thread - child exited with code [%d]\n"
+msgstr "exec_thread - child exited with code [%d]\n"
+
+#: src/exec.c:209
+msgid "exec_thread - exiting"
+msgstr "exec_thread - končím"
+
+#: src/exec.c:226
+#, c-format
+msgid "exec_go - failed to create thread [%d] [%s]"
+msgstr "exec_go - nepodarilo sa vytvoriť vlákno [%d] [%s]"
+
+#: src/exec.c:246
+#, c-format
+msgid "exec_cancel - killing %d"
+msgstr "exec_cancel - ukončujem %d"
+
+#: src/exec.c:252
+msgid "exec_cancel - complete"
+msgstr "exec_cancel - dokončené"
+
+#: src/exec.c:260
+#, c-format
+msgid "exec_run_cmd - %s"
+msgstr "exec_run_cmd - %s"
+
+#: src/exec.c:280
+#, fuzzy, c-format
+msgid "error [%s] spawning command [%s]"
+msgstr "error [%s] spawning command [%s]"
+
+#: src/exec.c:285
+#, fuzzy, c-format
+msgid "Uknown error spawning command [%s]"
+msgstr "Uknown error spawning command [%s]"
+
+#: src/filebrowser.c:84 gnomebaker.glade:563
+msgid "Add directory"
+msgstr "Pridaj adresár"
+
+#: src/filebrowser.c:91 gnomebaker.glade:581
+msgid "Add file(s)"
+msgstr "Pridaj súbor(y)"
+
+#: src/filebrowser.c:168
+msgid "subdir from GValue is NULL"
+msgstr "priečinok z GValue je NULL"
+
+#: src/filebrowser.c:332
+#, fuzzy, c-format
+msgid "*** iter is [%s]\n"
+msgstr "*** iter is [%s]\n"
+
+#: src/filebrowser.c:333
+msgid "valid"
+msgstr "správny"
+
+#: src/filebrowser.c:333
+msgid "invalid"
+msgstr "nesprávny"
+
+#: src/filebrowser.c:339
+#, c-format
+msgid "*** model [%p]\n"
+msgstr "*** model [%p]\n"
+
+#: src/filebrowser.c:345
+#, c-format
+msgid "*** name [%s]\n"
+msgstr "*** meno [%s]\n"
+
+#: src/filebrowser.c:352
+#, c-format
+msgid "*** mime [%s]\n"
+msgstr "*** mime [%s]\n"
+
+#: src/filebrowser.c:361
+#, c-format
+msgid "*** size [%ld]\n"
+msgstr "*** veľkosť [%ld]\n"
+
+#: src/filebrowser.c:367
+#, fuzzy, c-format
+msgid "Stat of file [%s] failed"
+msgstr "Stat of file [%s] failed"
+
+#: src/filebrowser.c:532
+#, c-format
+msgid "selection data is %s\n"
+msgstr "dáta výberu sú %s\n"
+
+#: src/filebrowser.c:578
+#, c-format
+msgid "%s was double clicked"
+msgstr "%s bolo vybrané"
+
+#: src/filebrowser.c:655
+msgid "Filesystem"
+msgstr "Systém súborov"
+
+#: src/filebrowser.c:683
+#, c-format
+msgid "%s's home"
+msgstr "Domovský priečinok"
+
+#: src/filebrowser.c:744
+msgid "File"
+msgstr "Súbor"
+
+#: src/filebrowser.c:756
+msgid "Type"
+msgstr "Typ"
+
+#: src/gbcommon.c:134
+#, fuzzy, c-format
+msgid "returning [%s]"
+msgstr "returning [%s]"
+
+#: src/gbcommon.c:146
+#, c-format
+msgid "creating [%s]"
+msgstr "vytváram [%s]"
+
+#: src/gbcommon.c:157
+#, c-format
+msgid "failed to create temp %d"
+msgstr "zlyhalo vytvorenie dočasného súboru %d"
+
+#: src/gbcommon.c:178
+#, c-format
+msgid "Failed to get contents of file [%s]"
+msgstr "Zlyhalo získanie obsahu súboru [%s]"
+
+#: src/gbcommon.h:133
+#, fuzzy, c-format
+msgid "Entering [%s] [%s] [%d]\n"
+msgstr "Entering [%s] [%s] [%d]\n"
+
+#: src/gnomebaker.c:59
+msgid "Loading preferences..."
+msgstr "Načítavam predvoľby..."
+
+#: src/gnomebaker.c:62
+msgid "Detecting devices..."
+msgstr "Detegujem zariadenia..."
+
+#: src/gnomebaker.c:65
+msgid "Loading GUI..."
+msgstr "Načítavam užívateľské rozhranie..."
+
+#: src/gnomebaker.c:106
+#, fuzzy, c-format
+msgid "MessageDialog message [%s]"
+msgstr "MessageDialog message [%s]"
+
+#: src/gnomebaker.c:128
+msgid "Are you sure you want to quit?"
+msgstr "Naozaj chcete skončiť?"
+
+#: src/gnomebaker.c:175
+msgid "Please select an iso file..."
+msgstr "Vyberte obraz disku..."
+
+#: src/gnomebaker.c:199
+#, c-format
+msgid "file is %s"
+msgstr "súbor je %s"
+
+#: src/gnomebaker.c:203
+#, c-format
+msgid "mime type is %s for %s"
+msgstr "mime-type je %s pre %s"
+
+#: src/gnomebaker.c:213
+msgid ""
+"The file you have selected is not a cd image. Please select a cd image to "
+"burn."
+msgstr ""
+"Súbor, čo ste vybrali nie je obrazom disku CD. Vyberte prosím obraz disku CD "
+"na napálenie."
+
+#: src/gnomebaker.c:264 gnomebaker.glade:10
+msgid "GnomeBaker"
+msgstr "GnomeBaker"
+
+#: src/gnomebaker.c:265
+msgid "Simple CD Burning for Gnome"
+msgstr "Jednoduchá aplikácia na napaľovanie pre prostredie GNOME"
+
+#: src/mkisofs.c:51
+msgid "<b>Creating data disk image...</b>"
+msgstr "<b>Vytváram obraz disku...</b>"
+
+#: src/mkisofs.c:59
+msgid ""
+"A data CD image from a previous session already exists on disk, do you wish "
+"to use the existing image?"
+msgstr ""
+"Obraz CD predchádzajúcej sekcie existuje na pevnom disku. Chcete použiť "
+"existujúci obraz?"
+
+#: src/mpg123.c:19
+msgid "<b>Converting mp3 to cd audio...</b>"
+msgstr "<b>Konvertujem mp3 na hudobné CD...</b>"
+
+#: src/mpg123.c:96 src/oggdec.c:108
+#, c-format
+msgid "Converted file is [%s]"
+msgstr "Skonvertovaný súbor je [%s]"
+
+#: src/oggdec.c:19
+msgid "<b>Converting ogg to cd audio...</b>"
+msgstr "<b>Konvertujem ogg na hudobné CD...</b>"
+
+#: src/preferences.c:48
+msgid "Failed to initialise gconf"
+msgstr "Zlyhala inicializácia gconf"
+
+#: src/preferences.c:133
+#, c-format
+msgid "toolbar style [%s] [%d]"
+msgstr "Štýl nástrojovej lišty [%s] [%d]"
+
+#: src/prefsdlg.c:131
+msgid "Name"
+msgstr "Meno"
+
+#: src/prefsdlg.c:146
+msgid "Id"
+msgstr "ID"
+
+#: src/prefsdlg.c:155
+msgid "Node"
+msgstr "Uzol"
+
+#: src/prefsdlg.c:164
+msgid "Mount point"
+msgstr "Prípojný bod"
+
+#: src/prefsdlg.c:173
+msgid "Write CD-R"
+msgstr "Napáliť CD-R"
+
+#: src/prefsdlg.c:182
+msgid "Write CD-RW"
+msgstr "Napáliť CD-RW"
+
+#: src/prefsdlg.c:191
+msgid "Write DVD-R"
+msgstr "Napáliť DVD-R"
+
+#: src/prefsdlg.c:200
+msgid "Write DVD-RAM"
+msgstr "Napáliť DVD-RAM"
+
+#: src/prefsdlg.c:239
+msgid "Invalid row in device list"
+msgstr "Chybný riadok v zozname zariadení"
+
+#: src/readcd.c:41
+msgid "<b>Reading CD image...</b>"
+msgstr "<b>Čítam obraz CD...</b>"
+
+#: src/sox.c:34
+msgid "<b>Converting wav to cd audio...</b>"
+msgstr "<b>Konvertujem wav na hudobné CD...</b>"
+
+#: src/startdlgdvd.c:241
+#, c-format
+msgid "Writer is: %s"
+msgstr "Napaľovačka je: %s"
+
+#: gnomebaker.glade:84
+msgid "_Actions"
+msgstr "_Akcie"
+
+#: gnomebaker.glade:93
+msgid "Bl_ank CDRW"
+msgstr "_Vymazať CD-RW"
+
+#: gnomebaker.glade:113
+msgid "_Format DVDRW"
+msgstr "_Formátovať DVD RW"
+
+#: gnomebaker.glade:139
+msgid "C_opy Data CD"
+msgstr "Kopírovať _dátové CD"
+
+#: gnomebaker.glade:159
+msgid "Co_py Audio CD"
+msgstr "Kopírovať _hudobné CD"
+
+#: gnomebaker.glade:185
+msgid "_Burn CD Image"
+msgstr "_Napáliť obraz disku"
+
+#: gnomebaker.glade:211
+msgid "_Import Session"
+msgstr "_Importovať sekciu"
+
+#: gnomebaker.glade:235
+msgid "_View"
+msgstr "_Pohľad"
+
+#: gnomebaker.glade:244
+msgid "_Refresh"
+msgstr "_Obnoviť"
+
+#: gnomebaker.glade:405
+msgid "Edit GnomeBaker's preferences"
+msgstr "Upraviť predvoľby pre GnomeBaker"
+
+#: gnomebaker.glade:444
+msgid "Refresh the file browser file list"
+msgstr "Obnoviť zoznam súborov"
+
+#: gnomebaker.glade:562
+msgid "Add the current directory to the CD"
+msgstr "Pridať aktuálny priečinok na CD"
+
+#: gnomebaker.glade:580
+msgid "Add the selected files to the CD"
+msgstr "Pridať vybrané súbory na CD"
+
+#: gnomebaker.glade:598
+msgid "Remove the selected files from the CD"
+msgstr "Odobrať vybrané súbory z CD"
+
+#: gnomebaker.glade:616
+msgid "Clear the contents of the CD"
+msgstr "Zmazať obsah CD"
+
+#: gnomebaker.glade:651
+msgid "Import existing session"
+msgstr "Naimportovať existujúcu sekciu"
+
+#: gnomebaker.glade:652
+msgid "Import"
+msgstr "Import"
+
+#: gnomebaker.glade:729 gnomebaker.glade:1141 gnomebaker.glade:1403
+msgid "0%"
+msgstr "0 %"
+
+#: gnomebaker.glade:751
+msgid "650MB CD"
+msgstr "650 MB CD"
+
+#: gnomebaker.glade:759
+msgid "700MB CD"
+msgstr "700 MB CD"
+
+#: gnomebaker.glade:767
+msgid "4.7GB DVD"
+msgstr "4,7 GB DVD"
+
+#: gnomebaker.glade:775
+msgid "8.5GB DVD"
+msgstr "8,5 GB DVD"
+
+#: gnomebaker.glade:793
+msgid "Click to begin the process of creating a data disk."
+msgstr "Kliknutím spustíte vytváranie dátového disku."
+
+#: gnomebaker.glade:836
+msgid "Create Data Disk"
+msgstr "Vytvoríť dátový disk"
+
+#: gnomebaker.glade:881
+msgid "<b>Data Disk</b>"
+msgstr "b>Dátový disk</b>"
+
+#: gnomebaker.glade:965 gnomebaker.glade:1170
+msgid "80 min. CD"
+msgstr "80 min. CD"
+
+#: gnomebaker.glade:973 gnomebaker.glade:1162
+msgid "74 min. CD"
+msgstr "74 min. CD"
+
+#: gnomebaker.glade:991
+msgid "Click to begin the process of creating an audio cd"
+msgstr "Kliknutím spustíte vytváranie hudobného CD."
+
+#: gnomebaker.glade:1034
+msgid "Create Audio Disk"
+msgstr "Vytvoriť hudobný disk"
+
+#: gnomebaker.glade:1079
+msgid "<b>Audio Disk</b>"
+msgstr "<b>Hudobný disk</b>"
+
+#: gnomebaker.glade:1274
+msgid "<b>Video CD</b>"
+msgstr "<b>Video CD</b>"
+
+#: gnomebaker.glade:1335
+msgid "Baking CD"
+msgstr "Pálim CD"
+
+#: gnomebaker.glade:1379
+msgid "<b>Burning</b>"
+msgstr "<b>Vypaľujem</b>"
+
+#: gnomebaker.glade:1506
+msgid "View output"
+msgstr "Zobraziť podrobnosti"
+
+#: gnomebaker.glade:1605
+msgid "GPL"
+msgstr "GPL"
+
+#: gnomebaker.glade:1606
+msgid "Simple CD burning for Gnome."
+msgstr "Jednoduchá napaľovacia aplikácie pre prostredie GNOME."
+
+#: gnomebaker.glade:1608
+#, fuzzy
+msgid "translator_credits"
+msgstr "translator_credits"
+
+#: gnomebaker.glade:1613
+msgid "Splash window"
+msgstr "Úvodná obrazovka"
+
+#: gnomebaker.glade:1651
+msgid "Starting GnomeBaker..."
+msgstr "Spúšťam GnomeBaker..."
+
+#: gnomebaker.glade:1675
+msgid "Preferences"
+msgstr "Predvoľby"
+
+#: gnomebaker.glade:1746
+msgid "<b>Temporary Directory</b>"
+msgstr "<b>Priečinok pre dočasné súbory</b>"
+
+#: gnomebaker.glade:1783
+msgid "/tmp"
+msgstr "/tmp"
+
+#: gnomebaker.glade:1804
+msgid "Clean temporary directory on exit"
+msgstr "Pri skončení vyčistiť priečinok pre dočasné súbory"
+
+#: gnomebaker.glade:1826
+msgid "<b>File Browser</b>"
+msgstr "<b>Prehliadač súborov</b>"
+
+#: gnomebaker.glade:1851
+msgid "Show hidden files"
+msgstr "Zobraziť skryté súbory"
+
+#: gnomebaker.glade:1879
+msgid "General"
+msgstr "Všeobecné"
+
+#: gnomebaker.glade:1908
+msgid "<b>Detected devices</b>"
+msgstr "<b>Nájdené zariadenia</b>"
+
+#: gnomebaker.glade:1962
+msgid "Always scan for devices on startup"
+msgstr "Pri štarte vždy hľadaj nové zariadenia"
+
+#: gnomebaker.glade:2034
+msgid "_Add device"
+msgstr "_Pridaj zariadenie"
+
+#: gnomebaker.glade:2105 gnomebaker.glade:2645 gnomebaker.glade:3783
+msgid "Sc_an for devices"
+msgstr "Nájdi _zariadenia"
+
+#: gnomebaker.glade:2147
+msgid "Devices"
+msgstr "Zariadenia"
+
+#: gnomebaker.glade:2175
+msgid "Start burning..."
+msgstr "Začínam napaľovať..."
+
+#: gnomebaker.glade:2261 gnomebaker.glade:3394
+msgid "_Start"
+msgstr "Štar_t"
+
+#: gnomebaker.glade:2306 gnomebaker.glade:3439
+msgid "Reader"
+msgstr "Čítaj z"
+
+#: gnomebaker.glade:2331 gnomebaker.glade:3464
+msgid "Writer"
+msgstr "Zapisuj na"
+
+#: gnomebaker.glade:2356 gnomebaker.glade:3489
+msgid "<b>Devices</b>"
+msgstr "<b>Zariadenia</b>"
+
+#: gnomebaker.glade:2414 gnomebaker.glade:3552
+msgid "Allow overburning"
+msgstr "Umožni overburning"
+
+#: gnomebaker.glade:2436 gnomebaker.glade:3574
+msgid "Multisession"
+msgstr "Multisession"
+
+#: gnomebaker.glade:2459 gnomebaker.glade:3597
+msgid "BurnFree"
+msgstr "BurnFree"
+
+#: gnomebaker.glade:2482 gnomebaker.glade:3620
+msgid "Create ISO Only"
+msgstr "Vytvor iba ISO obraz"
+
+#: gnomebaker.glade:2505 gnomebaker.glade:3643
+msgid "Eject CD"
+msgstr "Vysunúť CD"
+
+#: gnomebaker.glade:2527
+msgid "Fast blank"
+msgstr "Rýchle vymazanie"
+
+#: gnomebaker.glade:2550 gnomebaker.glade:3688
+msgid "Dummy write"
+msgstr "Simulácia"
+
+#: gnomebaker.glade:2572 gnomebaker.glade:3710
+msgid "<b>Options</b>"
+msgstr "<b>Nastavenia</b>"
+
+#: gnomebaker.glade:2682 gnomebaker.glade:3820
+msgid "Speed"
+msgstr "Rýchlosť"
+
+#: gnomebaker.glade:2728 gnomebaker.glade:3866
+msgid "Mode"
+msgstr "Mód"
+
+#: gnomebaker.glade:2761 gnomebaker.glade:3899
+msgid "default"
+msgstr "predvolený"
+
+#: gnomebaker.glade:2769 gnomebaker.glade:3907
+msgid "tao"
+msgstr "TAO"
+
+#: gnomebaker.glade:2777 gnomebaker.glade:3915
+msgid "dao"
+msgstr "DAO"
+
+#: gnomebaker.glade:2785 gnomebaker.glade:3923
+msgid "raw96p"
+msgstr "raw96p"
+
+#: gnomebaker.glade:2793 gnomebaker.glade:3931
+msgid "raw16"
+msgstr "raw16"
+
+#: gnomebaker.glade:2823
+msgid "ISO filesystem details"
+msgstr "Podrobnosti ISO súboru"
+
+#: gnomebaker.glade:2895
+msgid "<b>Volume label</b>"
+msgstr "<b>Názov disku</b>"
+
+#: gnomebaker.glade:2923
+msgid "GnomeBaker data cd"
+msgstr "Dátové CD GnomeBaker"
+
+#: gnomebaker.glade:2941
+msgid "<b>Created by</b>"
+msgstr "<b>Vytvorené</b>"
+
+#: gnomebaker.glade:2969
+msgid "Created by username"
+msgstr "Vytvorené užívateľom"
+
+#: gnomebaker.glade:2987
+msgid "<b>Boot options</b>"
+msgstr "<b>Bootovacie voľby</b>"
+
+#: gnomebaker.glade:3013
+msgid "Not bootable"
+msgstr "Nebootovateľné"
+
+#: gnomebaker.glade:3037
+msgid "PC bootable"
+msgstr "PC bootovateľné"
+
+#: gnomebaker.glade:3070
+msgid "Floppy disk image"
+msgstr "Obraz bootovacej diskety"
+
+#: gnomebaker.glade:3091
+msgid "Hard disk image"
+msgstr "Obraz pevného disku"
+
+#: gnomebaker.glade:3122
+msgid "Boot catalog"
+msgstr "Boot catalog"
+
+#: gnomebaker.glade:3147
+msgid "Boot Image"
+msgstr "Bootovací obraz"
+
+#: gnomebaker.glade:3207
+msgid "Sun workstation bootable"
+msgstr "Bootovateľné na pracovných staniciach Sun"
+
+#: gnomebaker.glade:3230
+msgid "Boot Image list"
+msgstr "Zoznam bootovacích obrazov"
+
+#: gnomebaker.glade:3308
+msgid "Start burning"
+msgstr "Začať napaľovať"
+
+#: gnomebaker.glade:3665
+msgid "Fast"
+msgstr "Rýchlo"
+
+#: gnomebaker.glade:3952
+msgid "Force"
+msgstr "Vnútiť"
+
+#: gnomebaker.glade:3975
+msgid "Finalize"
+msgstr "Finalizovať"

@@ -1,0 +1,1076 @@
+# Chinese (China) translation for GTK2/Gnome cd burning application
+# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# This file is distributed under the same license as the GTK2/Gnome cd burning application package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: GTK2/Gnome cd burning application\n"
+"Report-Msgid-Bugs-To: Li Qing <qingl@bluebottle.com>\n"
+"POT-Creation-Date: 2005-01-16 15:05:21.358888\n"
+"PO-Revision-Date: 2005-01-20 03:03:03.358888\n"
+"Last-Translator: Li Qing <qingl@bluebottle.com>\n"
+"Language-Team: Chinese (China) <zh_CN@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Rosetta-Version: 0.1\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: src/audiocd.c:90
+#, c-format
+msgid "Duration %f Fraction is %f"
+msgstr "时长 %f 占用百分比 %f"
+
+#: src/audiocd.c:95 src/audiocd.c:219 gnomebaker.glade:943
+msgid "0 mins 0 secs"
+msgstr "0 分 0 秒"
+
+#: src/audiocd.c:106
+#, c-format
+msgid "%d mins %d secs"
+msgstr "%d 分 %d 秒"
+
+#: src/audiocd.c:114
+msgid "Track is too large to fit in the remaining space on the CD"
+msgstr "音轨太大，无法放入 CD 的剩余空间"
+
+#: src/audiocd.c:236 src/datacd.c:367 gnomebaker.glade:599
+msgid "Remove selected"
+msgstr "删除被选项"
+
+#: src/audiocd.c:241 src/datacd.c:372
+msgid "Clear"
+msgstr "清除"
+
+#: src/audiocd.c:352 src/cdrecord.c:119
+msgid "Track"
+msgstr "音轨"
+
+#: src/audiocd.c:364
+msgid "Duration"
+msgstr "时长"
+
+#: src/audiocd.c:380
+msgid "Artist"
+msgstr "艺术家"
+
+#: src/audiocd.c:388
+msgid "Album"
+msgstr "专辑"
+
+#: src/audiocd.c:396
+msgid "Title"
+msgstr "曲名"
+
+#: src/audioinfo.c:119
+#, c-format
+msgid "mime type is %s for %s %s"
+msgstr "%2$s %3$s 的 MIME 类型是 %1$s"
+
+#: src/audioinfo.c:224 src/audioinfo.c:683
+#, c-format
+msgid "File %s was not opened \n"
+msgstr "未打开文件 %s\n"
+
+#: src/audioinfo.c:247
+#, c-format
+msgid "Error reading wav header for file [%s]"
+msgstr "读取文件 %s 的 wav 文件头出错"
+
+#: src/audioinfo.c:267
+msgid "Performer"
+msgstr "演奏者"
+
+#: src/audioinfo.c:267
+msgid "Albumtitle"
+msgstr "专辑标题"
+
+#: src/audioinfo.c:267
+msgid "Tracktitle"
+msgstr "乐曲名"
+
+#: src/audioinfo.c:315
+#, c-format
+msgid "File %s was not opened"
+msgstr "未打开文件 %s"
+
+#: src/audioinfo.c:617
+msgid "Stereo"
+msgstr "立体声"
+
+#: src/audioinfo.c:622
+msgid "Joint Stereo"
+msgstr "混合立体声"
+
+#: src/audioinfo.c:627
+msgid "Dual Channel"
+msgstr "双声道"
+
+#: src/audioinfo.c:632
+msgid "Single Channel"
+msgstr "单声道"
+
+#: src/audioinfo.c:700
+msgid "TITLE="
+msgstr "标题＝"
+
+#: src/audioinfo.c:702
+msgid "ARTIST="
+msgstr "艺术家＝"
+
+#: src/audioinfo.c:704
+msgid "ALBUM="
+msgstr "专辑＝"
+
+#: src/burn.c:113
+msgid "Completed"
+msgstr "完成"
+
+#: src/burn.c:117
+msgid "Failed"
+msgstr "失败"
+
+#: src/burn.c:154
+msgid "Failed to start child process"
+msgstr "启动子进程失败"
+
+#: src/burn.c:206 src/burn.c:330
+msgid "Please select an iso file to save to..."
+msgstr "请选择要保存的 ISO 文件..."
+
+#: src/burn.c:269
+#, c-format
+msgid "burn - [%s]"
+msgstr "刻录 － [%s]"
+
+#: src/burn.h:61 gnomebaker.glade:314 gnomebaker.glade:315
+msgid "Blank CDRW"
+msgstr "空白 CDRW"
+
+#: src/burn.h:62 gnomebaker.glade:332 gnomebaker.glade:333
+msgid "Copy Data CD"
+msgstr "复制数据 CD"
+
+#: src/burn.h:63 gnomebaker.glade:350 gnomebaker.glade:351
+msgid "Copy Audio CD"
+msgstr "复制音乐 CD"
+
+#: src/burn.h:64 gnomebaker.glade:368 gnomebaker.glade:369
+msgid "Burn CD Image"
+msgstr "刻录 CD 映像"
+
+#: src/burn.h:65
+msgid "Create Data CD"
+msgstr "创建数据 CD"
+
+#: src/burn.h:66
+msgid "Create Audio CD"
+msgstr "创建音频 CD"
+
+#: src/burn.h:67
+msgid "Create Mixed CD"
+msgstr "创建混合 CD"
+
+#: src/burn.h:68 gnomebaker.glade:1229
+msgid "Create Video CD"
+msgstr "创建视频 CD"
+
+#: src/burn.h:69
+msgid "Format DVD+RW"
+msgstr "格式化 DVD+RW"
+
+#: src/burn.h:70
+msgid "Create Data DVD"
+msgstr "制作数据 DVD"
+
+#: src/cdda2wav.c:43
+msgid "<b>Extracting audio tracks...</b>"
+msgstr "<b>正在抓取频道...</b>"
+
+#: src/cdda2wav.c:55
+msgid ""
+"Audio tracks from a previous sesion already exist on disk, do you wish to "
+"use the existing tracks?"
+msgstr "硬盘里已经存在上次对话保存的一些音轨，你希望使用这些已存在的音轨吗？"
+
+#: src/cdda2wav.c:71
+msgid "Please insert the audio CD into the CD reader"
+msgstr "请在光驱中插入一张音乐 CD"
+
+#: src/cdda2wav.c:103
+msgid "Tracks:"
+msgstr "音轨："
+
+#: src/cdda2wav.c:111
+#, c-format
+msgid "cdda2wav_read_proc - total tracks %d"
+msgstr "cdd2wav_read_proc - 音轨总数 %d"
+
+#: src/cdrecord.c:47
+msgid "<b>Burning disk...</b>"
+msgstr "<b>正在刻录光盘...</b>"
+
+#: src/cdrecord.c:52
+msgid "Please insert a blank CD into the CD writer"
+msgstr "请在刻录机中插入一张空白 CD"
+
+#: src/cdrecord.c:68
+msgid "<b>Blanking disk...</b>"
+msgstr "<b>正在擦除光盘...</b>"
+
+#: src/cdrecord.c:73
+msgid "Please insert the CD-RW into the CD writer"
+msgstr "请在刻录机中插入一张 CD-RW"
+
+#: src/cdrecord.c:146 src/cdrecord.c:151
+msgid "Fixating"
+msgstr "准备中"
+
+#: src/cdrecord.c:219
+#, c-format
+msgid "cdrecord - adding create audio data [%s]"
+msgstr "cdrecord - 增加创建音频数据 [%s]"
+
+#: src/cdrecord.c:275
+#, c-format
+msgid "adding [%s]"
+msgstr "正在加入 [%s]"
+
+#: src/datacd.c:106
+#, c-format
+msgid "File size %f disksize %f Fraction is %f"
+msgstr "文件大小 %f 光盘大小 %f 占用百分比 %f"
+
+#: src/datacd.c:135
+msgid "File or directory is too large to fit in the remaining space on the CD"
+msgstr "文件或目录太大，无法放入 CD 剩余的空间"
+
+#: src/datacd.c:182
+#, c-format
+msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
+msgstr "无法 stat 文件 [%s] 返回值 [%d] 错误号 [%s]"
+
+#: src/datacd.c:207
+#, c-format
+msgid "received sel %s"
+msgstr "已经接收被选的 %s"
+
+#: src/datacd.c:410
+msgid "Contents"
+msgstr "内容"
+
+#: src/datacd.c:431 src/filebrowser.c:764
+msgid "Size"
+msgstr "大小"
+
+#: src/datacd.c:439
+msgid "Full Path"
+msgstr "完整路径"
+
+#: src/datacd.c:478
+#, c-format
+msgid ""
+"Error getting session information.\n"
+"\n"
+"%s"
+msgstr ""
+"提取会话信息出错。\n"
+"\n"
+"%s"
+
+#: src/datacd.c:479 src/devices.c:583
+msgid "unknown error"
+msgstr "未知错误"
+
+#: src/datacd.c:486
+#, c-format
+msgid "datacd next session is [%s]"
+msgstr "数据 CD 的下一 session 是 [%s]"
+
+#: src/datacd.c:510
+msgid "Error getting msinfo"
+msgstr "获取 msinfo 出错"
+
+#: src/datacd.c:514
+msgid "Error mounting writer device"
+msgstr "挂载刻录设备出错"
+
+#: src/datacd.c:543
+#, c-format
+msgid ""
+"Error importing session from [%s]. Please check the device configuration in "
+"preferences."
+msgstr "无法从[%s]导入对话。请在首选项中检查设备配置。"
+
+#: src/datacd.c:550
+msgid "Error unmounting writer device"
+msgstr "卸载刻录设备出错"
+
+#: src/devices.c:75
+#, c-format
+msgid "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
+msgstr "devices_write_device_to_gconf - 加入 [%s] [%s] [%s] [%s]"
+
+#: src/devices.c:101
+#, c-format
+msgid "node [%s] mount [%s]"
+msgstr "节点 [%s] 挂载点 [%s]"
+
+#: src/devices.c:113
+#, c-format
+msgid "node [%s] is link to [%s]"
+msgstr "节点 [%s] 是到 [%s] 的连接"
+
+#: src/devices.c:310
+msgid "devices_probe_bus - Failed to scan the scsi bus"
+msgstr "devices_probe_bus - 扫描 SCSI 总线失败"
+
+#: src/devices.c:312
+msgid "devices_probe_bus - failed to parse cdrecord output"
+msgstr "devices_probe_bus - 无法分析 cdrecord 输出"
+
+#: src/devices.c:330
+#, c-format
+msgid "devices_add_ide_device - probing [%s]"
+msgstr "devices_add_ide_device - 正在探测 [%s]"
+
+#: src/devices.c:343
+#, c-format
+msgid "Failed to open %s"
+msgstr "打开 %s 失败"
+
+#: src/devices.c:357
+#, c-format
+msgid "devices_add_scsi_device - probing [%s]"
+msgstr "devices_add_scsi_device - 正在探测 [%s]"
+
+#: src/devices.c:362
+msgid "Failed to open /proc/scsi/sg/devices"
+msgstr "无法打开 /proc/scsi/sg/devices"
+
+#: src/devices.c:366
+msgid "Failed to open /proc/scsi/sg/device_strs"
+msgstr "无法打开 /proc/scsi/sg/device_strs"
+
+#: src/devices.c:382
+msgid "Error reading scsi information from /proc/scsi/sg/devices"
+msgstr "无法从 /proc/scsi/sg/devices 读取 SCSI 信息"
+
+#: src/devices.c:420
+#, c-format
+msgid "---- key [%s], value [%s]"
+msgstr "---- 键 [%s]，值 [%s]"
+
+#: src/devices.c:433
+#, c-format
+msgid "looking for device [%d]"
+msgstr "正在寻找设备 [%d]"
+
+#: src/devices.c:469
+#, c-format
+msgid ""
+"Requested device index [%d] is out of bounds. All devices have been read."
+msgstr "被请求的设备索引号 [%d] 已经超出边界，全部设备识别结束"
+
+#: src/devices.c:500
+msgid "Failed to open /proc/sys/dev/cdrom/info"
+msgstr "无法打开 /proc/sys/dev/cdrom/info"
+
+#: src/devices.c:566
+msgid ""
+"The mount point (e.g. /mnt/cdrom) for the writing device could not be "
+"obtained. Please check that the writing device has an entry in /etc/fstab "
+"and then go to preferences and rescan for devices."
+msgstr "无法获得刻录设备的挂载点(例如 /mnt/cdrom)，请确认 /etc/fstab 中存在刻录设备的节点，然后进入首选项重新扫描设备。"
+
+#: src/devices.c:582
+#, c-format
+msgid ""
+"Error %s %s.\n"
+"\n"
+"%s"
+msgstr ""
+"错误 %s %s。\n"
+"\n"
+"%s"
+
+#: src/devices.c:583
+msgid "mounting"
+msgstr "正在挂载"
+
+#: src/devices.c:583
+msgid "unmounting"
+msgstr "正在卸载"
+
+#: src/dvdfunctions.c:43
+msgid "<b>Formatting DVD...</b>"
+msgstr "<b>正在格式化 DVD...</b>"
+
+#: src/dvdfunctions.c:48
+msgid "Please insert a rewritable DVD into the DVD writer"
+msgstr "请在 DVD 刻录机中插入一张可反复擦写的 DVD"
+
+#: src/dvdfunctions.c:93
+msgid "Failed to get percent in dvdformat_read_proc"
+msgstr "无法在 dvdformat_read_proc 中得到百分比"
+
+#: src/dvdfunctions.c:137
+msgid "<b>Burning DVD...</b>"
+msgstr "<b>正在刻录 DVD...</b>"
+
+#: src/dvdfunctions.c:142
+msgid "Please insert a writable DVD into the DVD writer"
+msgstr "请在 DVD 刻录机中插入一张可写的 DVD"
+
+#: src/dvdfunctions.c:229
+#, c-format
+msgid "growisofs: progress: %d"
+msgstr "growisofs：进度：%d"
+
+#: src/dvdfunctions.c:231
+#, c-format
+msgid "growisofs: fraction: %f"
+msgstr "growisofs：百分比：%f"
+
+#: src/exec.c:144
+#, c-format
+msgid "exec_thread - parent created child with pid %d"
+msgstr "exec_thread - 父进程建立了pid 为 %d 的子进程"
+
+#: src/exec.c:176
+msgid "exec_thread - created child"
+msgstr "exec_thread - 建立了子进程"
+
+#: src/exec.c:189
+msgid "exec_thread - Exec failed"
+msgstr "exec_thread - Exec 失败"
+
+#: src/exec.c:194
+#, c-format
+msgid "exec_thread - child exited with code [%d]\n"
+msgstr "exec_thread - 子进程退出，返回值 [%d]\n"
+
+#: src/exec.c:209
+msgid "exec_thread - exiting"
+msgstr "exec_thread - 退出"
+
+#: src/exec.c:226
+#, c-format
+msgid "exec_go - failed to create thread [%d] [%s]"
+msgstr "exec_go - 无法创建线程 [%d] [%s]"
+
+#: src/exec.c:246
+#, c-format
+msgid "exec_cancel - killing %d"
+msgstr "exec_cancel - 正在杀死 %d"
+
+#: src/exec.c:252
+msgid "exec_cancel - complete"
+msgstr "exec_cancel - 完成"
+
+#: src/exec.c:260
+#, c-format
+msgid "exec_run_cmd - %s"
+msgstr "exec_run_cmd - %s"
+
+#: src/exec.c:280
+#, c-format
+msgid "error [%s] spawning command [%s]"
+msgstr "执行命令 [%s] 时发生错误 [%s]"
+
+#: src/exec.c:285
+#, c-format
+msgid "Uknown error spawning command [%s]"
+msgstr "执行命令 [%s] 时发生未知错误"
+
+#: src/filebrowser.c:84 gnomebaker.glade:563
+msgid "Add directory"
+msgstr "加入目录"
+
+#: src/filebrowser.c:91 gnomebaker.glade:581
+msgid "Add file(s)"
+msgstr "加入文件"
+
+#: src/filebrowser.c:168
+msgid "subdir from GValue is NULL"
+msgstr "GValue 下的子目录为 NULL"
+
+#: src/filebrowser.c:332
+#, c-format
+msgid "*** iter is [%s]\n"
+msgstr "*** iter is [%s]\n"
+
+#: src/filebrowser.c:333
+msgid "valid"
+msgstr "有效的"
+
+#: src/filebrowser.c:333
+msgid "invalid"
+msgstr "无效的"
+
+#: src/filebrowser.c:339
+#, c-format
+msgid "*** model [%p]\n"
+msgstr "*** model [%p]\n"
+
+#: src/filebrowser.c:345
+#, c-format
+msgid "*** name [%s]\n"
+msgstr "*** 名称 [%s]\n"
+
+#: src/filebrowser.c:352
+#, c-format
+msgid "*** mime [%s]\n"
+msgstr "*** MIME [%s]\n"
+
+#: src/filebrowser.c:361
+#, c-format
+msgid "*** size [%ld]\n"
+msgstr "*** 大小 [%ld]\n"
+
+#: src/filebrowser.c:367
+#, c-format
+msgid "Stat of file [%s] failed"
+msgstr "stat 文件 [%s] 失败"
+
+#: src/filebrowser.c:532
+#, c-format
+msgid "selection data is %s\n"
+msgstr "被选数据为 %s\n"
+
+#: src/filebrowser.c:578
+#, c-format
+msgid "%s was double clicked"
+msgstr "双击了 %s"
+
+#: src/filebrowser.c:655
+msgid "Filesystem"
+msgstr "文件系统"
+
+#: src/filebrowser.c:683
+#, c-format
+msgid "%s's home"
+msgstr "%s 的起始目录"
+
+#: src/filebrowser.c:744
+msgid "File"
+msgstr "文件"
+
+#: src/filebrowser.c:756
+msgid "Type"
+msgstr "类型"
+
+#: src/gbcommon.c:134
+#, c-format
+msgid "returning [%s]"
+msgstr "返回 [%s]"
+
+#: src/gbcommon.c:146
+#, c-format
+msgid "creating [%s]"
+msgstr "正在创建 [%s]"
+
+#: src/gbcommon.c:157
+#, c-format
+msgid "failed to create temp %d"
+msgstr "无法建立临时目录 %d"
+
+#: src/gbcommon.c:178
+#, c-format
+msgid "Failed to get contents of file [%s]"
+msgstr "无法得到文件 [%s] 的内容"
+
+#: src/gbcommon.h:133
+#, c-format
+msgid "Entering [%s] [%s] [%d]\n"
+msgstr "进入 [%s] [%s] [%d]\n"
+
+#: src/gnomebaker.c:59
+msgid "Loading preferences..."
+msgstr "正在加载配置 ..."
+
+#: src/gnomebaker.c:62
+msgid "Detecting devices..."
+msgstr "正在探测设备 ..."
+
+#: src/gnomebaker.c:65
+msgid "Loading GUI..."
+msgstr "加载图形界面 ...."
+
+#: src/gnomebaker.c:106
+#, c-format
+msgid "MessageDialog message [%s]"
+msgstr "对话框信息 [%s]"
+
+#: src/gnomebaker.c:128
+msgid "Are you sure you want to quit?"
+msgstr "您确定要退出吗？"
+
+#: src/gnomebaker.c:175
+msgid "Please select an iso file..."
+msgstr "请选择一个 iso 文件"
+
+#: src/gnomebaker.c:199
+#, c-format
+msgid "file is %s"
+msgstr "文件 %s"
+
+#: src/gnomebaker.c:203
+#, c-format
+msgid "mime type is %s for %s"
+msgstr "%2$s 的 MIME 类型是 %1$s"
+
+#: src/gnomebaker.c:213
+msgid ""
+"The file you have selected is not a cd image. Please select a cd image to "
+"burn."
+msgstr "您选择的文件不是一个 CD 映像，请选择一个 CD 映像来刻录。"
+
+#: src/gnomebaker.c:264 gnomebaker.glade:10
+msgid "GnomeBaker"
+msgstr "GomeBaker"
+
+#: src/gnomebaker.c:265
+msgid "Simple CD Burning for Gnome"
+msgstr "GNOME 下的简易 CD 刻录器"
+
+#: src/mkisofs.c:51
+msgid "<b>Creating data disk image...</b>"
+msgstr "<b>正在创建数据盘映像...</b>"
+
+#: src/mkisofs.c:59
+msgid ""
+"A data CD image from a previous session already exists on disk, do you wish "
+"to use the existing image?"
+msgstr "发现上次对话保存的一个数据 CD 映像，希望使用已经存在的映像吗？"
+
+#: src/mpg123.c:19
+msgid "<b>Converting mp3 to cd audio...</b>"
+msgstr "<b>正在把 mp3 文件转换成 CD 音频...</b>"
+
+#: src/mpg123.c:96 src/oggdec.c:108
+#, c-format
+msgid "Converted file is [%s]"
+msgstr "转换成了文件 [%s]"
+
+#: src/oggdec.c:19
+msgid "<b>Converting ogg to cd audio...</b>"
+msgstr "<b>正在把 ogg 文件转换成 CD 音频...</b>"
+
+#: src/preferences.c:48
+msgid "Failed to initialise gconf"
+msgstr "初始化 gconf 失败"
+
+#: src/preferences.c:133
+#, c-format
+msgid "toolbar style [%s] [%d]"
+msgstr "工具栏样式 [%s] [%d]"
+
+#: src/prefsdlg.c:131
+msgid "Name"
+msgstr "名称"
+
+#: src/prefsdlg.c:146
+msgid "Id"
+msgstr "Id"
+
+#: src/prefsdlg.c:155
+msgid "Node"
+msgstr "节点"
+
+#: src/prefsdlg.c:164
+msgid "Mount point"
+msgstr "挂载点"
+
+#: src/prefsdlg.c:173
+msgid "Write CD-R"
+msgstr "刻录 CD-R"
+
+#: src/prefsdlg.c:182
+msgid "Write CD-RW"
+msgstr "刻录 CD-RW"
+
+#: src/prefsdlg.c:191
+msgid "Write DVD-R"
+msgstr "刻录 DVD-R"
+
+#: src/prefsdlg.c:200
+msgid "Write DVD-RAM"
+msgstr "刻录 DVD-RAM"
+
+#: src/prefsdlg.c:239
+msgid "Invalid row in device list"
+msgstr "设备列表中有无效列"
+
+#: src/readcd.c:41
+msgid "<b>Reading CD image...</b>"
+msgstr "<b>正在读取 CD 映像...</b>"
+
+#: src/sox.c:34
+msgid "<b>Converting wav to cd audio...</b>"
+msgstr "<b>正在转换 wav 文件为 CD 音频...</b>"
+
+#: src/startdlgdvd.c:241
+#, c-format
+msgid "Writer is: %s"
+msgstr "刻录机为：%s"
+
+#: gnomebaker.glade:84
+msgid "_Actions"
+msgstr "操作(_A)"
+
+#: gnomebaker.glade:93
+msgid "Bl_ank CDRW"
+msgstr "擦除 CDRW(_A)"
+
+#: gnomebaker.glade:113
+msgid "_Format DVDRW"
+msgstr "格式化 DVDRW(_F)"
+
+#: gnomebaker.glade:139
+msgid "C_opy Data CD"
+msgstr "复制数据光盘(_O)"
+
+#: gnomebaker.glade:159
+msgid "Co_py Audio CD"
+msgstr "复制音乐光盘(_P)"
+
+#: gnomebaker.glade:185
+msgid "_Burn CD Image"
+msgstr "刻录光盘映像(_B)"
+
+#: gnomebaker.glade:211
+msgid "_Import Session"
+msgstr "导入对话(_I)"
+
+#: gnomebaker.glade:235
+msgid "_View"
+msgstr "查看(_V)"
+
+#: gnomebaker.glade:244
+msgid "_Refresh"
+msgstr "刷新(_R)"
+
+#: gnomebaker.glade:405
+msgid "Edit GnomeBaker's preferences"
+msgstr "编辑 GnomeBaker 的首选项"
+
+#: gnomebaker.glade:444
+msgid "Refresh the file browser file list"
+msgstr "刷新文件浏览器列表"
+
+#: gnomebaker.glade:562
+msgid "Add the current directory to the CD"
+msgstr "将当前目录添加到 CD"
+
+#: gnomebaker.glade:580
+msgid "Add the selected files to the CD"
+msgstr "将被选文件添加到 CD"
+
+#: gnomebaker.glade:598
+msgid "Remove the selected files from the CD"
+msgstr "将被选文件添从 CD 上删除"
+
+#: gnomebaker.glade:616
+msgid "Clear the contents of the CD"
+msgstr "清空 CD 内容"
+
+#: gnomebaker.glade:651
+msgid "Import existing session"
+msgstr "导入已保存的对话"
+
+#: gnomebaker.glade:652
+msgid "Import"
+msgstr "导入"
+
+#: gnomebaker.glade:729 gnomebaker.glade:1141 gnomebaker.glade:1403
+msgid "0%"
+msgstr "0%"
+
+#: gnomebaker.glade:751
+msgid "650MB CD"
+msgstr "650MB CD"
+
+#: gnomebaker.glade:759
+msgid "700MB CD"
+msgstr "700MB CD"
+
+#: gnomebaker.glade:767
+msgid "4.7GB DVD"
+msgstr "4.7GB DVD"
+
+#: gnomebaker.glade:775
+msgid "8.5GB DVD"
+msgstr "8.5GB DVD"
+
+#: gnomebaker.glade:793
+msgid "Click to begin the process of creating a data disk."
+msgstr "请点击按钮以开始创建数据光盘"
+
+#: gnomebaker.glade:836
+msgid "Create Data Disk"
+msgstr "创建数据光盘"
+
+#: gnomebaker.glade:881
+msgid "<b>Data Disk</b>"
+msgstr "<b>数据光盘</b>"
+
+#: gnomebaker.glade:965 gnomebaker.glade:1170
+msgid "80 min. CD"
+msgstr "80 分钟 CD"
+
+#: gnomebaker.glade:973 gnomebaker.glade:1162
+msgid "74 min. CD"
+msgstr "74 分钟 CD"
+
+#: gnomebaker.glade:991
+msgid "Click to begin the process of creating an audio cd"
+msgstr "请点击按钮以开始创建音乐 CD"
+
+#: gnomebaker.glade:1034
+msgid "Create Audio Disk"
+msgstr "创建音乐光盘"
+
+#: gnomebaker.glade:1079
+msgid "<b>Audio Disk</b>"
+msgstr "<b>音乐光盘</b>"
+
+#: gnomebaker.glade:1274
+msgid "<b>Video CD</b>"
+msgstr "<b>视频光盘</b>"
+
+#: gnomebaker.glade:1335
+msgid "Baking CD"
+msgstr "正在烘焙 CD"
+
+#: gnomebaker.glade:1379
+msgid "<b>Burning</b>"
+msgstr "<b>正在刻录</b>"
+
+#: gnomebaker.glade:1506
+msgid "View output"
+msgstr "查看输出"
+
+#: gnomebaker.glade:1605
+msgid "GPL"
+msgstr "GPL"
+
+#: gnomebaker.glade:1606
+msgid "Simple CD burning for Gnome."
+msgstr "简易 GNOME 光盘刻录器"
+
+#: gnomebaker.glade:1608
+msgid "translator_credits"
+msgstr ""
+"Li Qing, 2004\n"
+"Carlos Z.F. Liu <carlosliu@users.sourceforge.net>, 2004"
+
+#: gnomebaker.glade:1613
+msgid "Splash window"
+msgstr "启动画面"
+
+#: gnomebaker.glade:1651
+msgid "Starting GnomeBaker..."
+msgstr "正在启动 GnomeBaker..."
+
+#: gnomebaker.glade:1675
+msgid "Preferences"
+msgstr "首选项"
+
+#: gnomebaker.glade:1746
+msgid "<b>Temporary Directory</b>"
+msgstr "<b>临时目录</b>"
+
+#: gnomebaker.glade:1783
+msgid "/tmp"
+msgstr "/tmp"
+
+#: gnomebaker.glade:1804
+msgid "Clean temporary directory on exit"
+msgstr "退出时清空临时目录"
+
+#: gnomebaker.glade:1826
+msgid "<b>File Browser</b>"
+msgstr "<b>文件浏览器</b>"
+
+#: gnomebaker.glade:1851
+msgid "Show hidden files"
+msgstr "显示隐藏文件"
+
+#: gnomebaker.glade:1879
+msgid "General"
+msgstr "常规"
+
+#: gnomebaker.glade:1908
+msgid "<b>Detected devices</b>"
+msgstr "<b>已探测到的设备</b>"
+
+#: gnomebaker.glade:1962
+msgid "Always scan for devices on startup"
+msgstr "启动程序时总是扫描设备"
+
+#: gnomebaker.glade:2034
+msgid "_Add device"
+msgstr "增加设备(_A)"
+
+#: gnomebaker.glade:2105 gnomebaker.glade:2645 gnomebaker.glade:3783
+msgid "Sc_an for devices"
+msgstr "扫描设备(_A)"
+
+#: gnomebaker.glade:2147
+msgid "Devices"
+msgstr "设备"
+
+#: gnomebaker.glade:2175
+msgid "Start burning..."
+msgstr "开始刻录..."
+
+#: gnomebaker.glade:2261 gnomebaker.glade:3394
+msgid "_Start"
+msgstr "开始(_S)"
+
+#: gnomebaker.glade:2306 gnomebaker.glade:3439
+msgid "Reader"
+msgstr "读取器"
+
+#: gnomebaker.glade:2331 gnomebaker.glade:3464
+msgid "Writer"
+msgstr "刻录机"
+
+#: gnomebaker.glade:2356 gnomebaker.glade:3489
+msgid "<b>Devices</b>"
+msgstr "<b>设备</b>"
+
+#: gnomebaker.glade:2414 gnomebaker.glade:3552
+msgid "Allow overburning"
+msgstr "允许超量刻录"
+
+#: gnomebaker.glade:2436 gnomebaker.glade:3574
+msgid "Multisession"
+msgstr "多片段"
+
+#: gnomebaker.glade:2459 gnomebaker.glade:3597
+msgid "BurnFree"
+msgstr "BurnFree"
+
+#: gnomebaker.glade:2482 gnomebaker.glade:3620
+msgid "Create ISO Only"
+msgstr "仅创建 ISO 文件"
+
+#: gnomebaker.glade:2505 gnomebaker.glade:3643
+msgid "Eject CD"
+msgstr "弹出 CD"
+
+#: gnomebaker.glade:2527
+msgid "Fast blank"
+msgstr "快速清空"
+
+#: gnomebaker.glade:2550 gnomebaker.glade:3688
+msgid "Dummy write"
+msgstr "模拟写入"
+
+#: gnomebaker.glade:2572 gnomebaker.glade:3710
+msgid "<b>Options</b>"
+msgstr "<b>选项</b>"
+
+#: gnomebaker.glade:2682 gnomebaker.glade:3820
+msgid "Speed"
+msgstr "速度"
+
+#: gnomebaker.glade:2728 gnomebaker.glade:3866
+msgid "Mode"
+msgstr "模式"
+
+#: gnomebaker.glade:2761 gnomebaker.glade:3899
+msgid "default"
+msgstr "默认"
+
+#: gnomebaker.glade:2769 gnomebaker.glade:3907
+msgid "tao"
+msgstr "tao"
+
+#: gnomebaker.glade:2777 gnomebaker.glade:3915
+msgid "dao"
+msgstr "dao"
+
+#: gnomebaker.glade:2785 gnomebaker.glade:3923
+msgid "raw96p"
+msgstr "raw96p"
+
+#: gnomebaker.glade:2793 gnomebaker.glade:3931
+msgid "raw16"
+msgstr "raw16"
+
+#: gnomebaker.glade:2823
+msgid "ISO filesystem details"
+msgstr "ISO 文件系统详情"
+
+#: gnomebaker.glade:2895
+msgid "<b>Volume label</b>"
+msgstr "<b>卷标</b>"
+
+#: gnomebaker.glade:2923
+msgid "GnomeBaker data cd"
+msgstr "GnomeBaker data cd"
+
+#: gnomebaker.glade:2941
+msgid "<b>Created by</b>"
+msgstr "<b>创建者</b>"
+
+#: gnomebaker.glade:2969
+msgid "Created by username"
+msgstr "Created by username"
+
+#: gnomebaker.glade:2987
+msgid "<b>Boot options</b>"
+msgstr "<b>启动选项</b>"
+
+#: gnomebaker.glade:3013
+msgid "Not bootable"
+msgstr "不可启动"
+
+#: gnomebaker.glade:3037
+msgid "PC bootable"
+msgstr "在 PC 上启动"
+
+#: gnomebaker.glade:3070
+msgid "Floppy disk image"
+msgstr "软盘映像"
+
+#: gnomebaker.glade:3091
+msgid "Hard disk image"
+msgstr "硬盘映像"
+
+#: gnomebaker.glade:3122
+msgid "Boot catalog"
+msgstr "启动类别"
+
+#: gnomebaker.glade:3147
+msgid "Boot Image"
+msgstr "启动映像"
+
+#: gnomebaker.glade:3207
+msgid "Sun workstation bootable"
+msgstr "在 Sun 工作站上启动"
+
+#: gnomebaker.glade:3230
+msgid "Boot Image list"
+msgstr "启动映像列表"
+
+#: gnomebaker.glade:3308
+msgid "Start burning"
+msgstr "开始刻录"
+
+#: gnomebaker.glade:3665
+msgid "Fast"
+msgstr "快速"
+
+#: gnomebaker.glade:3952
+msgid "Force"
+msgstr "强制"
+
+#: gnomebaker.glade:3975
+msgid "Finalize"
+msgstr "结束"
