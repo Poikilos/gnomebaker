@@ -26,11 +26,6 @@
 #include <stdio.h>
 
 
-
-gboolean audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
-gboolean audiocd_update_progress_bar(gboolean add, gdouble filesize);
-
-
 enum
 {
     TARGET_STRING,
@@ -44,6 +39,100 @@ static GtkTargetEntry targetentries[] =
     {"text/plain", 0, TARGET_STRING},
     {"text/uri-list", 0, TARGET_URL},
 };
+
+
+gboolean
+audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+{
+	GB_LOG_FUNC
+
+	/* look for a right click */	
+	if(event->button == 3)
+	{
+		GtkWidget* menu = gtk_menu_new();	
+		
+		GtkWidget* menuitem = gtk_menu_item_new_with_label("Remove selected");	
+		g_signal_connect(menuitem, "activate",
+			(GCallback)audiocd_on_remove_clicked, widget);	
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
+		
+		menuitem = gtk_menu_item_new_with_label("Clear");	
+		g_signal_connect(menuitem, "activate",
+			(GCallback)audiocd_on_clear_clicked, widget);	
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
+		
+		gtk_widget_show_all(menu);
+	
+		/* Note: event can be NULL here when called. However,
+		 *  gdk_event_get_time() accepts a NULL argument */
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+					   (event != NULL) ? event->button : 0,
+					   gdk_event_get_time((GdkEvent*)event));
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+
+gboolean 
+audiocd_update_progress_bar(gboolean add, gdouble seconds)
+{
+	GB_LOG_FUNC
+	gboolean ok = TRUE;
+	
+	/* Now update the progress bar with the cd size */
+	GladeXML* xml = gnomebaker_getxml();
+	g_return_val_if_fail(xml != NULL, FALSE);
+	
+	GtkWidget* progbar = glade_xml_get_widget(xml, widget_audiocd_progressbar);
+	g_return_val_if_fail(progbar != NULL, FALSE);
+	
+	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
+	
+	gint cdsize = gnomebaker_get_audiocd_size();
+	
+	gdouble currentsecs = fraction * cdsize * 60;
+	
+	if(add)
+		currentsecs += seconds;
+	else
+		currentsecs -= seconds;
+	
+	fraction = currentsecs / (cdsize * 60);
+	
+	g_message( "Duration %f Fraction is %f", seconds, fraction);
+	
+	if(fraction < 0.0 || fraction == -0.0)
+	{
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0 mins 0 secs");
+		gnomebaker_enable_widget(widget_audiocd_create, FALSE);
+	}	
+	/* If the file is too large then we don't allow the user to add it */
+	else if(fraction <= 1.0)
+	{
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
+
+		gint ss = ((gint)currentsecs)%60;
+		gint m = (((gint)currentsecs)-ss)/60;
+		
+		gchar* buf = g_strdup_printf("%d mins %d secs", m, ss);
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+		g_free(buf);
+		gnomebaker_enable_widget(widget_audiocd_create, TRUE);
+	}
+	else
+	{
+		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+			"Track is too large to fit in the remaining space on the CD");
+		ok = FALSE;
+	}
+
+	return ok;
+}
 
 
 void
@@ -293,98 +382,4 @@ audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 	gnomebaker_enable_widget(widget_audiocd_create, FALSE);
 	
 	gnomebaker_show_busy_cursor(FALSE);	
-}
-
-
-gboolean
-audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
-{
-	GB_LOG_FUNC
-
-	/* look for a right click */	
-	if(event->button == 3)
-	{
-		GtkWidget* menu = gtk_menu_new();	
-		
-		GtkWidget* menuitem = gtk_menu_item_new_with_label("Remove selected");	
-		g_signal_connect(menuitem, "activate",
-			(GCallback)audiocd_on_remove_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
-		menuitem = gtk_menu_item_new_with_label("Clear");	
-		g_signal_connect(menuitem, "activate",
-			(GCallback)audiocd_on_clear_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
-		gtk_widget_show_all(menu);
-	
-		/* Note: event can be NULL here when called. However,
-		 *  gdk_event_get_time() accepts a NULL argument */
-		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-					   (event != NULL) ? event->button : 0,
-					   gdk_event_get_time((GdkEvent*)event));
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
-}
-
-
-gboolean 
-audiocd_update_progress_bar(gboolean add, gdouble seconds)
-{
-	GB_LOG_FUNC
-	gboolean ok = TRUE;
-	
-	/* Now update the progress bar with the cd size */
-	GladeXML* xml = gnomebaker_getxml();
-	g_return_val_if_fail(xml != NULL, FALSE);
-	
-	GtkWidget* progbar = glade_xml_get_widget(xml, widget_audiocd_progressbar);
-	g_return_val_if_fail(progbar != NULL, FALSE);
-	
-	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
-	
-	gint cdsize = gnomebaker_get_audiocd_size();
-	
-	gdouble currentsecs = fraction * cdsize * 60;
-	
-	if(add)
-		currentsecs += seconds;
-	else
-		currentsecs -= seconds;
-	
-	fraction = currentsecs / (cdsize * 60);
-	
-	g_message( "Duration %f Fraction is %f", seconds, fraction);
-	
-	if(fraction < 0.0 || fraction == -0.0)
-	{
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0 mins 0 secs");
-		gnomebaker_enable_widget(widget_audiocd_create, FALSE);
-	}	
-	/* If the file is too large then we don't allow the user to add it */
-	else if(fraction <= 1.0)
-	{
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
-
-		gint ss = ((gint)currentsecs)%60;
-		gint m = (((gint)currentsecs)-ss)/60;
-		
-		gchar* buf = g_strdup_printf("%d mins %d secs", m, ss);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
-		g_free(buf);
-		gnomebaker_enable_widget(widget_audiocd_create, TRUE);
-	}
-	else
-	{
-		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-			"Track is too large to fit in the remaining space on the CD");
-		ok = FALSE;
-	}
-
-	return ok;
 }

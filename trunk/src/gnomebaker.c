@@ -33,30 +33,24 @@
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 
 
-void gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data);
-void gnomebaker_on_create_datacd(gpointer widget, gpointer user_data);
-void gnomebaker_on_copy_datacd(gpointer widget, gpointer user_data);
-void gnomebaker_on_copy_audiocd(gpointer widget, gpointer user_data);
-void gnomebaker_on_blank_cdrw(gpointer widget, gpointer user_data);
-void gnomebaker_on_burn_iso(gpointer widget, gpointer user_data);
-void gnomebaker_on_preferences(gpointer widget, gpointer user_data);
-gboolean gnomebaker_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data);
-void gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data);
-void gnomebaker_on_datacd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data);
-void gnomebaker_on_add_dir(gpointer widget, gpointer user_data);
-void gnomebaker_on_add_files(gpointer widget, gpointer user_data);
-void gnomebaker_on_remove(gpointer widget, gpointer user_data);
-void gnomebaker_on_clear(gpointer widget, gpointer user_data);
-void gnomebaker_on_refresh(gpointer widget, gpointer user_data);
-void gnomebaker_on_import(gpointer widget, gpointer user_data);
-void gnomebaker_on_toolbar_style_changed(GConfClient *client, guint cnxn_id,
-                                   	GConfEntry *entry, gpointer user_data);
-
-
 GladeXML *xml = NULL;
 gint datacdsize = 0;
 gint audiocdsize = 0;
 
+
+void 
+gnomebaker_on_toolbar_style_changed(GConfClient *client,
+                                   guint cnxn_id,
+                                   GConfEntry *entry,
+                                   gpointer user_data)
+{
+	GB_LOG_FUNC
+	GtkWidget* toptoolbar = glade_xml_get_widget(xml, widget_top_toolbar);
+	gtk_toolbar_set_style(GTK_TOOLBAR(toptoolbar), preferences_get_toolbar_style());
+	
+	GtkWidget* middletoolbar = glade_xml_get_widget(xml, widget_middle_toolbar);	
+	gtk_toolbar_set_style(GTK_TOOLBAR(middletoolbar), preferences_get_toolbar_style());	
+}
 
 
 GtkWidget* 
@@ -600,19 +594,4 @@ gnomebaker_on_import(gpointer widget, gpointer user_data)
 		{
 		}	
 	};
-}
-
-
-void 
-gnomebaker_on_toolbar_style_changed(GConfClient *client,
-                                   guint cnxn_id,
-                                   GConfEntry *entry,
-                                   gpointer user_data)
-{
-	GB_LOG_FUNC
-	GtkWidget* toptoolbar = glade_xml_get_widget(xml, widget_top_toolbar);
-	gtk_toolbar_set_style(GTK_TOOLBAR(toptoolbar), preferences_get_toolbar_style());
-	
-	GtkWidget* middletoolbar = glade_xml_get_widget(xml, widget_middle_toolbar);	
-	gtk_toolbar_set_style(GTK_TOOLBAR(middletoolbar), preferences_get_toolbar_style());	
 }
