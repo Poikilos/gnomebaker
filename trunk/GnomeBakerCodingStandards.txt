@@ -2,16 +2,21 @@ GnomeBaker Coding Standards
 -----------------------------------------
 
 
-1. All functions use the GB_LOG_FUNC macro
+1. All functions use the GB_LOG_FUNC macro and GB_TRACE
 -------------------------------------------------------------------------------
 
 The first line in any function should be GB_LOG_FUNC. It is a really simple
 macro which when enabled logs the function entry to a console. It's pretty
-noddy but helps when debugging peoples problems remotely.
+noddy but helps when debugging peoples problems remotely. 
 
-It's enabled by starting the app with the flag --trace-on.
+Also, when wishing to output debugging info, please use the GB_TRACE macro. eg.
 
-eg. gnomebaker --trace-on > gboutput.txt
+GB_TRACE("burn - [%s]", convertedfile);
+
+
+Both macros are enabled by starting the app with the flag --trace-on.
+
+eg. gnomebaker --trace-on &> gboutput.txt
 
 
 
@@ -232,4 +237,4 @@ file to a locale file, eg. pt_BR.po. In this file he can translate the strings.
 --------------------------------------------------------------------------------
 
 As far as I am concerned, compiler warnings are errors. Please do not commit
-anything until it compiles without errors unless there's a good reason.
+anything until it compiles without warnings unless there's a good reason.
