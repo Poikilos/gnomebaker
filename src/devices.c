@@ -481,7 +481,8 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 	{
 		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
 			"The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
-			"Please go to preferences and manually enter the mount point.");
+			"Please check that the writing device has an entry in /etc/fstab and then go "
+			"to preferences and rescan for devices.");
 	}
 	else
 	{

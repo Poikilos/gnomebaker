@@ -212,16 +212,15 @@ void
 audiocd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
 {
 	GB_LOG_FUNC	
-	g_return_if_fail(userdata != NULL);
 	
 	gnomebaker_show_busy_cursor(TRUE);
 	
-	GtkTreeView* fileview = GTK_TREE_VIEW(userdata);
-	GtkTreeModel* filemodel = gtk_tree_view_get_model(fileview);
+	GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
+	GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));	
 	
 	GList *rr_list = g_list_alloc();    /* list of GtkTreeRowReferences to remove */    
 	
-	GtkTreeSelection* selection = gtk_tree_view_get_selection(fileview);
+	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(audiotree));
 	gtk_tree_selection_selected_foreach(selection, audiocd_foreach_fileselection, &rr_list);		
 	
 	GList *node = rr_list;
@@ -279,18 +278,15 @@ void
 audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(userdata != NULL);
+	
 	gnomebaker_show_busy_cursor(TRUE);
 	
-	GtkTreeView* fileview = GTK_TREE_VIEW(userdata);
-	GtkTreeModel* filemodel = gtk_tree_view_get_model(fileview);	
+	GladeXML* xml = gnomebaker_getxml();
+	GtkWidget *audiotree = glade_xml_get_widget(xml, widget_audiocd_tree);
+	GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));	
 	gtk_list_store_clear(GTK_LIST_STORE(filemodel));
 	
-	GladeXML* xml = gnomebaker_getxml();
-	g_return_if_fail(xml != NULL);
-	
 	GtkWidget* progbar = glade_xml_get_widget(xml, widget_audiocd_progressbar);
-	g_return_if_fail(progbar != NULL);
 	
 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
 	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0 mins 0 secs");

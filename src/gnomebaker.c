@@ -500,19 +500,13 @@ gnomebaker_on_remove(gpointer widget, gpointer user_data)
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
 		case 0:
-		{
-			GtkWidget *datatree = glade_xml_get_widget(xml, widget_datacd_tree);
-			g_return_if_fail(datatree != NULL);	
-			
-			datacd_on_remove_clicked(NULL, datatree);		
+		{			
+			datacd_on_remove_clicked(NULL, NULL);		
 			break;
 		}
 		case 1:
 		{
-			GtkWidget *audiotree = glade_xml_get_widget(xml, widget_audiocd_tree);
-			g_return_if_fail(audiotree != NULL);	
-			
-			audiocd_on_remove_clicked(NULL, audiotree);	
+			audiocd_on_remove_clicked(NULL, NULL);	
 			break;
 		}
 		default:
@@ -534,18 +528,12 @@ gnomebaker_on_clear(gpointer widget, gpointer user_data)
 	{
 		case 0:			
 		{
-			GtkWidget *datatree = glade_xml_get_widget(xml, widget_datacd_tree);
-			g_return_if_fail(datatree != NULL);	
-			
-			datacd_on_clear_clicked(NULL, datatree);
+			datacd_on_clear_clicked(NULL, NULL);
 			break;
 		}
 		case 1:
 		{
-			GtkWidget *audiotree = glade_xml_get_widget(xml, widget_audiocd_tree);
-			g_return_if_fail(audiotree != NULL);	
-			
-			audiocd_on_clear_clicked(NULL, audiotree);
+			audiocd_on_clear_clicked(NULL, NULL);
 			break;
 		}		
 		default:

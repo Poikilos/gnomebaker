@@ -25,6 +25,7 @@
 #include "progressdlg.h"
 #include "datacd.h"
 #include "gbcommon.h"
+#include "devices.h"
 
 /*
 	mkisofs -o gb.iso -R -J -hfs *
@@ -36,8 +37,7 @@
 	 
 shell> NEXT_TRACK=`cdrecord -msinfo dev=0,6,0`
 shell> echo $NEXT_TRACK
-shell> mkisofs -R -o cd_image2 -C $NEXT_TRACK -M /dev/scd5
-         private_collection/ \
+shell> mkisofs -R -o cd_image2 -C $NEXT_TRACK -M /dev/scd5 private_collection/
 */
 
 void mkisofs_pre_proc(void *ex, void *buffer);
@@ -63,10 +63,7 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));
 	if(ret == GTK_RESPONSE_OK)
 	{
-		exec_cmd_add_arg(e, "%s", "mkisofs");
-		
-		//exec_cmd_add_arg(e, "%s", "fdjsafhslh");
-		
+		exec_cmd_add_arg(e, "%s", "mkisofs");		
 		exec_cmd_add_arg(e, "-V \"%s\"", gtk_entry_get_text(
 			GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
 		
@@ -80,10 +77,16 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 		exec_cmd_add_arg(e, "%s", "-gui");
 		exec_cmd_add_arg(e, "%s", "-joliet-long");
 		
-		gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), "msinfo");
+		gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
 		if(msinfo != NULL)
+		{
 			exec_cmd_add_arg(e, "-C %s", msinfo);
-		g_free(msinfo);		
+			
+			gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+			exec_cmd_add_arg(e, "-M %s", writer);
+			g_free(writer);			
+			g_free(msinfo);
+		}		
 		
 		exec_cmd_add_arg(e, "-o%s", iso);
 		/*exec_cmd_add_arg(e, "-o%s", "test.iso");*/
