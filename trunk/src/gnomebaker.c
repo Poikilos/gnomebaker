@@ -236,11 +236,20 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
 	
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
-
+	GtkFileFilter *isofilter = gtk_file_filter_new();
+	gtk_file_filter_add_pattern (isofilter, "*.iso");
+	gtk_file_filter_set_name(isofilter,_("ISO files"));
+	GtkFileFilter *allfilter = gtk_file_filter_new();
+	gtk_file_filter_add_pattern (allfilter, "*");
+	gtk_file_filter_set_name(allfilter,_("All files"));
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel),isofilter);
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel),allfilter);
+	
 	const gint result = gtk_dialog_run(GTK_DIALOG(filesel));
 	const gchar *file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
 
 	gtk_widget_destroy(filesel);
+	
 
 	if(result == GTK_RESPONSE_OK)
 	{
@@ -308,7 +317,6 @@ gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
 	
 	const gchar* authors[] = {"Luke Biddell", "Isak Savo", "Christoffer Sørensen", NULL};
 	const gchar* documenters[] = {"Milen Dzhumerov", NULL};
-	
 	GtkWidget* about = gnome_about_new(_("GnomeBaker"), VERSION, "LGPL", 
 		_("Simple CD Burning for Gnome"), authors, documenters, _(""), 
 		gdk_pixbuf_new_from_file(PACKAGE_PIXMAPS_DIR"/splash_2.png", NULL));
