@@ -44,7 +44,7 @@ void gbcommon_mkdir(const gchar* dir);
 
 /* defined in main.c */
 extern const gchar* glade_file;
-
+extern gboolean showtrace;
 
 /* Main gui glade widget names */
 static const gchar* const widget_gnomebaker = "GnomeBaker";
@@ -111,7 +111,7 @@ static const gchar* const widget_splashdlg_label = "splashLabel";
 
 
 #define GB_LOG_FUNC											\
-	g_print("Entering [%s] [%s] [%d]\n", __FUNCTION__, __FILE__, __LINE__);	\
+	if(showtrace) g_print("Entering [%s] [%s] [%d]\n", __FUNCTION__, __FILE__, __LINE__);	\
 
 #define GB_DECLARE_STRUCT(STRUCT, INSTANCE)			\
 	STRUCT INSTANCE;							\
