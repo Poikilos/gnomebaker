@@ -328,7 +328,7 @@ burn_copy_data_cd()
 			if((ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)))
 			{
 				burnargs = exec_new(1);			
-				file = g_strdup(gtk_file_selection_get_filename(GTK_FILE_SELECTION(filesel)));
+				file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));
 			}
 			
 			gtk_widget_destroy(filesel);

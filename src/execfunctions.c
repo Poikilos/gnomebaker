@@ -61,7 +61,7 @@ cdrecord_pre_proc(void *ex, void *buffer)
 	
 	gdk_threads_enter();
 	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			  _("Please insert a blank CD into the CD writer"));
+			  _("Please insert the CD into the CD writer"));
 	gdk_flush();
 	gdk_threads_leave();
 	
@@ -614,21 +614,34 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 	g_return_val_if_fail(datamodel != NULL, FALSE);
 	g_return_val_if_fail(iso != NULL, FALSE);
 	
-	GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);
+	/* If this is a another session on an existing cd we don't show the 
+	   iso details dialog */	
+	gint ret = GTK_RESPONSE_OK;
+	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
 	
-	GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
-	gtk_entry_set_text(created, g_get_real_name());
+	gchar* volume = NULL;
+	gchar* createdby = NULL;
+	if(msinfo == NULL)
+	{
+		GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);	
+		GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
+		gtk_entry_set_text(created, g_get_real_name());
+		GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
+		ret = gtk_dialog_run(GTK_DIALOG(dlg));
+		volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
+		createdby = g_strdup(gtk_entry_get_text(created));
+		gtk_widget_hide(dlg);
+		gtk_widget_destroy(dlg);
+	}
 	
-	GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
-	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));
 	if(ret == GTK_RESPONSE_OK)
 	{
 		exec_cmd_add_arg(e, "%s", "mkisofs");		
-		exec_cmd_add_arg(e, "-V \"%s\"", gtk_entry_get_text(
-			GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
-		
-		exec_cmd_add_arg(e, "-p \"%s\"", gtk_entry_get_text(created));	
-	/* 	exec_cmd_add_arg(e, "-A \"%s\"", "GnomeBaker");  */
+		if(volume != NULL && createdby != NULL)
+		{
+			exec_cmd_add_arg(e, "-V \"%s\"", volume);			
+			exec_cmd_add_arg(e, "-p \"%s\"", createdby);
+		}
 				
 		exec_cmd_add_arg(e, "%s", "-r");
 		/*exec_cmd_add_arg(e, "%s", "-f"); don't follow links */
@@ -636,21 +649,24 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 		/*exec_cmd_add_arg(e, "%s", "-hfs");*/
 		exec_cmd_add_arg(e, "%s", "-gui");
 		exec_cmd_add_arg(e, "%s", "-joliet-long");
-		
-		gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
+				
 		if(msinfo != NULL)
 		{
 			exec_cmd_add_arg(e, "-C %s", msinfo);
 			
 			gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
-			exec_cmd_add_arg(e, "-M %s", writer);
+			exec_cmd_add_arg(e, "-M%s", writer);
 			g_free(writer);			
-			g_free(msinfo);
+			
+			/* This is a cludge so that we don't ask the user if they want to use the existing iso */
+			gchar* createdataiso = preferences_get_create_data_cd_image();
+			gchar* cmd = g_strdup_printf("rm -fr %s", createdataiso);
+			system(cmd);			
+			g_free(cmd);
+			g_free(createdataiso);
 		}		
 		
 		exec_cmd_add_arg(e, "-o%s", iso);
-		/*exec_cmd_add_arg(e, "-o%s", "test.iso");*/
-			
 		exec_cmd_add_arg(e, "%s", "-graft-points");
 		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
 				
@@ -658,8 +674,10 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 		e->readProc = mkisofs_read_proc;
 	}
 	
-	gtk_widget_hide(dlg);
-	gtk_widget_destroy(dlg);
+	/* We don't own the msinfo gchar datacd does 
+	g_free(msinfo);*/
+	g_free(volume);
+	g_free(createdby);
 	
 	return (ret == GTK_RESPONSE_OK);
 }
@@ -886,7 +904,7 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 	progressdlg_append_output(buf);
 }
 
-
+/*
 gboolean
 growisofs_foreach_func(GtkTreeModel *model,
                 GtkTreePath  *path,
@@ -900,7 +918,6 @@ growisofs_foreach_func(GtkTreeModel *model,
 	gtk_tree_model_get (model, iter, DATACD_COL_FILE, &file,
 		DATACD_COL_PATH, &filepath, DATACD_COL_SESSION, &existingsession, -1);
 	
-	/* Only add files that are not part of an existing session */
 	if(!existingsession)
 	{
 		gchar* buffer = g_strdup_printf("%s", filepath);		
@@ -911,9 +928,9 @@ growisofs_foreach_func(GtkTreeModel *model,
 	g_free(file);	
 	g_free(filepath);
 	
-	return FALSE; /* do not stop walking the store, call us with next row */
+	return FALSE;
 }
-
+*/
 
 void 
 growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
@@ -923,17 +940,18 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	
 	growisofs->readProc = growisofs_read_proc;
 	growisofs->preProc = growisofs_pre_proc;
-	//growisofs->postProc = growisofs_post_proc;
+	/*growisofs->postProc = growisofs_post_proc;*/
 	exec_cmd_add_arg(growisofs, "%s", "growisofs");
 	
 	/* merge new session with existing one */
 	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_ID_LABEL);
 	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
 	if(msinfo != NULL)
-		exec_cmd_add_arg(growisofs, "-M %s", writer);
+		exec_cmd_add_arg(growisofs, "-M%s", writer);
 	else
-		exec_cmd_add_arg(growisofs, "-Z %s", writer);
-	g_free(msinfo);
+		exec_cmd_add_arg(growisofs, "-Z%s", writer);
+	/* We don't own the msinfo gchar datacd does 
+	g_free(msinfo);*/
 	g_free(writer);
 	
 	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
@@ -961,7 +979,7 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 		exec_cmd_add_arg(growisofs, "%s", "-dvd-compat");
 	/* -dvd-compat closes the session on DVD+RW's also */	
 	preferences_set_bool(GB_FINALIZE,FALSE);
-	gtk_tree_model_foreach(datamodel, growisofs_foreach_func, growisofs);
+	gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, growisofs);
 }
 
 
@@ -1297,9 +1315,9 @@ readcd_add_copy_args(ExecCmd * e, const gchar* iso)
 	g_free(reader);
 	
 	exec_cmd_add_arg(e, "f=%s", iso);	
-	exec_cmd_add_arg(e, "%s", "-notrunc");
+	/*exec_cmd_add_arg(e, "%s", "-notrunc");
 	exec_cmd_add_arg(e, "%s", "-clone");
-	/*exec_cmd_add_arg(e, "%s", "-silent");*/
+	exec_cmd_add_arg(e, "%s", "-silent");*/
 
 	e->preProc = readcd_pre_proc;	
 	e->readProc = readcd_read_proc;

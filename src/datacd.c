@@ -59,6 +59,21 @@ static GtkTargetEntry targetentries[] =
     {"text/uri-list", 0, TARGET_URL},
 };
 
+
+void 
+datacd_set_multisession(const gchar* msinfo)
+{
+	GB_LOG_FUNC
+		
+	GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
+	GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));	
+	if(msinfo == NULL)
+		g_free((gchar*)g_object_get_data(G_OBJECT(model), DATACD_EXISTING_SESSION));
+	g_object_set_data(G_OBJECT(model), DATACD_EXISTING_SESSION, 
+		msinfo == NULL ? NULL : g_strdup(msinfo));	
+}
+
+
 void
 datacd_on_show_humansize_changed(GConfClient *client,
                                    guint cnxn_id,
@@ -130,10 +145,7 @@ datacd_update_progress_bar(gboolean add, guint64 filesize)
 		gnomebaker_enable_widget(widget_datacd_create, FALSE);
 		
 		/* remove the multisession flag as there's nothing on the disk */
-		GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
-		GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));	
-		g_free((gchar*)g_object_get_data(G_OBJECT(model), DATACD_EXISTING_SESSION));
-		g_object_set_data(G_OBJECT(model), DATACD_EXISTING_SESSION, NULL);
+		datacd_set_multisession(NULL);
 	}	
 	/* If the file is too large then we don't allow the user to add it */
 	else if(fraction <= 1.0)
@@ -355,6 +367,9 @@ datacd_clear()
 	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0%");
 	gnomebaker_enable_widget(widget_datacd_create, FALSE);
 	
+	/* clear any multisession flags */	
+	datacd_set_multisession(NULL);
+	
 	gnomebaker_show_busy_cursor(FALSE);
 }
 
@@ -572,7 +587,7 @@ datacd_import_session()
 	
 	gnomebaker_show_busy_cursor(TRUE);
 	
-	datacd_on_clear_clicked(NULL, NULL);
+	datacd_clear();
 
 	gchar* mountpoint = NULL;	
 	gchar* msinfo = NULL;
@@ -590,10 +605,11 @@ datacd_import_session()
 		GDir *dir = g_dir_open(mountpoint, 0, NULL);	
 		if(dir != NULL)
 		{
-			GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
-			GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));		
-			g_object_set_data(G_OBJECT(model), DATACD_EXISTING_SESSION, g_strdup(msinfo));
+			datacd_set_multisession(msinfo);
 						
+			GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
+			GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));	
+			
 			const gchar *name = g_dir_read_name(dir);					
 			while(name != NULL)
 			{
