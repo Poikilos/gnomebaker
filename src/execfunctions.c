@@ -202,7 +202,7 @@ cdrecord_add_common_args(ExecCmd * const cdBurn)
 		exec_cmd_add_arg(cdBurn, "%s", "driveropts=burnfree");
 	
 	gchar* mode = preferences_get_string(GB_WRITE_MODE);
-	if(g_ascii_strcasecmp(mode, "default") != 0)
+	if(g_ascii_strcasecmp(mode, _("default")) != 0)
 		exec_cmd_add_arg(cdBurn, "-%s", mode);
 
 	g_free(mode);
