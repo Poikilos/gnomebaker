@@ -27,20 +27,13 @@
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include "preferences.h"
 #include "exec.h"
-#include "cdrecord.h"
-#include "readcd.h"
-#include "cdda2wav.h"
+#include "execfunctions.h"
 #include "gnomebaker.h"
 #include "startdlg.h"
 #include "startdlgdvd.h"
 #include "progressdlg.h"
-#include "mkisofs.h"
 #include "gbcommon.h"
 #include "audiocd.h"
-#include "mpg123.h"
-#include "oggdec.h"
-#include "sox.h"
-#include "dvdfunctions.h"
 
 Exec *burnargs = NULL;
 
@@ -449,4 +442,3 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
 
 	return ok;
 }
-
