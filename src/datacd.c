@@ -29,11 +29,6 @@
 #include "exec.h"
 
 
-gboolean datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
-gboolean datacd_update_progress_bar(gboolean add, gdouble filesize);
-void datacd_contents_cell_edited(GtkCellRendererText *cell, gchar* path_string,
-								gchar* new_text, gpointer user_data);
-
 enum
 {
     TARGET_STRING,
@@ -47,6 +42,68 @@ static GtkTargetEntry targetentries[] =
     {"text/plain", 0, TARGET_STRING},
     {"text/uri-list", 0, TARGET_URL},
 };
+
+
+void
+datacd_contents_cell_edited(GtkCellRendererText *cell,
+							gchar* path_string,
+							gchar* new_text,
+							gpointer user_data)
+{
+	GB_LOG_FUNC	
+	g_return_if_fail(cell != NULL);
+	g_return_if_fail(path_string != NULL);
+	g_return_if_fail(new_text != NULL);
+	g_return_if_fail(user_data != NULL);
+		
+	GB_DECLARE_STRUCT(GtkTreeIter, iter);
+	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(user_data), &iter, path_string))
+	{
+		GValue val = {0};
+		g_value_init(&val, G_TYPE_STRING);
+		g_value_set_string(&val, new_text);
+
+		gtk_list_store_set_value(GTK_LIST_STORE(user_data), &iter, DATACD_COL_FILE, &val);
+		
+		g_value_unset(&val);
+	}
+}
+
+
+gboolean
+datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+{
+	GB_LOG_FUNC
+
+	/* look for a right click */	
+	if(event->button == 3)
+	{
+		GtkWidget* menu = gtk_menu_new();	
+		
+		GtkWidget* menuitem = gtk_menu_item_new_with_label("Remove selected");	
+		g_signal_connect(menuitem, "activate",
+			(GCallback)datacd_on_remove_clicked, widget);	
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
+		
+		menuitem = gtk_menu_item_new_with_label("Clear");	
+		g_signal_connect(menuitem, "activate",
+			(GCallback)datacd_on_clear_clicked, widget);	
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
+		
+		gtk_widget_show_all(menu);
+	
+		/* Note: event can be NULL here when called. However,
+		 *  gdk_event_get_time() accepts a NULL argument */
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+					   (event != NULL) ? event->button : 0,
+					   gdk_event_get_time((GdkEvent*)event));
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
 
 
 void
@@ -113,6 +170,69 @@ datacd_setup_list(GtkTreeView * filelist)
 	/* connect the signal to handle right click */
 	g_signal_connect (G_OBJECT(filelist), "button-press-event",
         G_CALLBACK(datacd_on_button_pressed), NULL);
+}
+
+
+gboolean 
+datacd_update_progress_bar(gboolean add, gdouble filesize)
+{
+	GB_LOG_FUNC
+	gboolean ok = TRUE;
+	
+	/* Now update the progress bar with the cd size */
+	GladeXML* xml = gnomebaker_getxml();
+	g_return_val_if_fail(xml != NULL, FALSE);
+	
+	GtkWidget* progbar = glade_xml_get_widget(xml, widget_datacd_progressbar);
+	g_return_val_if_fail(progbar != NULL, FALSE);
+	
+	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
+	
+	gint cdsize = gnomebaker_get_datacd_size();
+	
+	gdouble currentguchars = fraction * cdsize * 1024 * 1024;
+	
+	if(add)
+		currentguchars += filesize;
+	else
+		currentguchars -= filesize;
+	
+	fraction = currentguchars / (cdsize * 1024 * 1024);
+	
+	g_message( "File size %f Fraction is %f", filesize, fraction);
+	
+	if(fraction < 0.0 || fraction == -0.0)
+	{
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0%");
+		
+		/* disable the create button as there's nothing on the disk */
+		gnomebaker_enable_widget(widget_datacd_create, FALSE);
+		
+		/* remove the multisession flag as there's nothing on the disk */
+		GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
+		GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));	
+		g_free((gchar*)g_object_get_data(G_OBJECT(model), DATACD_EXISTING_SESSION));
+		g_object_set_data(G_OBJECT(model), DATACD_EXISTING_SESSION, NULL);
+	}	
+	/* If the file is too large then we don't allow the user to add it */
+	else if(fraction <= 1.0)
+	{
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
+		
+		gchar* buf = g_strdup_printf("%d%%", (gint)(fraction * 100));
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+		g_free(buf);
+		gnomebaker_enable_widget(widget_datacd_create, TRUE);
+	}
+	else
+	{
+		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+			"File or directory is too large to fit in the remaining space on the CD");
+		ok = FALSE;
+	}
+	
+	return ok;
 }
 
 
@@ -198,105 +318,6 @@ datacd_on_drag_data_received(
 	
 	gnomebaker_show_busy_cursor(FALSE);
 	gnomebaker_update_status("");
-}
-
-
-gboolean 
-datacd_update_progress_bar(gboolean add, gdouble filesize)
-{
-	GB_LOG_FUNC
-	gboolean ok = TRUE;
-	
-	/* Now update the progress bar with the cd size */
-	GladeXML* xml = gnomebaker_getxml();
-	g_return_val_if_fail(xml != NULL, FALSE);
-	
-	GtkWidget* progbar = glade_xml_get_widget(xml, widget_datacd_progressbar);
-	g_return_val_if_fail(progbar != NULL, FALSE);
-	
-	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
-	
-	gint cdsize = gnomebaker_get_datacd_size();
-	
-	gdouble currentguchars = fraction * cdsize * 1024 * 1024;
-	
-	if(add)
-		currentguchars += filesize;
-	else
-		currentguchars -= filesize;
-	
-	fraction = currentguchars / (cdsize * 1024 * 1024);
-	
-	g_message( "File size %f Fraction is %f", filesize, fraction);
-	
-	if(fraction < 0.0 || fraction == -0.0)
-	{
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0%");
-		
-		/* disable the create button as there's nothing on the disk */
-		gnomebaker_enable_widget(widget_datacd_create, FALSE);
-		
-		/* remove the multisession flag as there's nothing on the disk */
-		GtkWidget* datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
-		GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(datatree)));	
-		g_free((gchar*)g_object_get_data(G_OBJECT(model), DATACD_EXISTING_SESSION));
-		g_object_set_data(G_OBJECT(model), DATACD_EXISTING_SESSION, NULL);
-	}	
-	/* If the file is too large then we don't allow the user to add it */
-	else if(fraction <= 1.0)
-	{
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
-		
-		gchar* buf = g_strdup_printf("%d%%", (gint)(fraction * 100));
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
-		g_free(buf);
-		gnomebaker_enable_widget(widget_datacd_create, TRUE);
-	}
-	else
-	{
-		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-			"File or directory is too large to fit in the remaining space on the CD");
-		ok = FALSE;
-	}
-	
-	return ok;
-}
-
-
-gboolean
-datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
-{
-	GB_LOG_FUNC
-
-	/* look for a right click */	
-	if(event->button == 3)
-	{
-		GtkWidget* menu = gtk_menu_new();	
-		
-		GtkWidget* menuitem = gtk_menu_item_new_with_label("Remove selected");	
-		g_signal_connect(menuitem, "activate",
-			(GCallback)datacd_on_remove_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
-		menuitem = gtk_menu_item_new_with_label("Clear");	
-		g_signal_connect(menuitem, "activate",
-			(GCallback)datacd_on_clear_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
-		gtk_widget_show_all(menu);
-	
-		/* Note: event can be NULL here when called. However,
-		 *  gdk_event_get_time() accepts a NULL argument */
-		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-					   (event != NULL) ? event->button : 0,
-					   gdk_event_get_time((GdkEvent*)event));
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
 }
 
 
@@ -392,32 +413,6 @@ datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 	gnomebaker_enable_widget(widget_datacd_create, FALSE);
 	
 	gnomebaker_show_busy_cursor(FALSE);
-}
-
-
-void
-datacd_contents_cell_edited(GtkCellRendererText *cell,
-							gchar* path_string,
-							gchar* new_text,
-							gpointer user_data)
-{
-	GB_LOG_FUNC	
-	g_return_if_fail(cell != NULL);
-	g_return_if_fail(path_string != NULL);
-	g_return_if_fail(new_text != NULL);
-	g_return_if_fail(user_data != NULL);
-		
-	GB_DECLARE_STRUCT(GtkTreeIter, iter);
-	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(user_data), &iter, path_string))
-	{
-		GValue val = {0};
-		g_value_init(&val, G_TYPE_STRING);
-		g_value_set_string(&val, new_text);
-
-		gtk_list_store_set_value(GTK_LIST_STORE(user_data), &iter, DATACD_COL_FILE, &val);
-		
-		g_value_unset(&val);
-	}
 }
 
 
