@@ -25,6 +25,7 @@ Version 0.2.1
 * Filebrowser now shows directories on the right hand side. You can double click to open them
 and double click to launch files according to their mime type.
 * Device scanning now also attempts to detect the device capabilities (ie is a writer etc)
+* View menu now has the option to show/hide the filebrowser.
 
 Version 0.2
 

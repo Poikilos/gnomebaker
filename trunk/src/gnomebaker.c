@@ -37,6 +37,25 @@ GladeXML *xml = NULL;
 
 
 void 
+gnomebaker_on_show_file_browser(GtkCheckMenuItem *checkmenuitem, gpointer user_data)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(checkmenuitem != NULL);
+	
+	gboolean show = gtk_check_menu_item_get_active(checkmenuitem);
+	preferences_set_bool(GB_SHOW_FILE_BROWSER, show);
+				
+	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_menu), show);
+	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_button), show);
+	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_add_button), show);
+	
+	GtkWidget* hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);	
+	if(show) gtk_widget_show(hpaned3);
+	else gtk_widget_hide(hpaned3);
+}
+
+
+void 
 gnomebaker_on_toolbar_style_changed(GConfClient *client,
                                    guint cnxn_id,
                                    GConfEntry *entry,
@@ -82,6 +101,11 @@ gnomebaker_new()
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
 	if(notebook != NULL)
 		gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
+	
+	GtkWidget* checkmenuitem = glade_xml_get_widget(xml, widget_show_browser_menu);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(checkmenuitem),
+		preferences_get_bool(GB_SHOW_FILE_BROWSER));
+	g_signal_emit_by_name(checkmenuitem, "toggled", checkmenuitem, NULL);
 	
 	return glade_xml_get_widget(xml, widget_gnomebaker);
 }
