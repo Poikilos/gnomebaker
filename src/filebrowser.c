@@ -25,7 +25,7 @@
 #include "preferences.h"
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
-								   
+#include "burn.h"			   
 
 /* callback id, so we can block it! */
 gulong sel_changed_id;
@@ -44,6 +44,7 @@ enum /* FileList */
 	FL_COL_SIZE,
 	FL_COL_HUMANSIZE,
     FL_COL_TYPE,
+	FL_COL_MIME,
     FL_NUM_COLS
 };
 
@@ -66,47 +67,15 @@ static const gchar *HOME_LABEL = "Home";
 static const gchar *EMPTY_LABEL = "(empty)";
 static const gchar *DIRECTORY = "Folder";
 
+gchar* rightclickselection = NULL;
 
-gboolean
-filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+
+
+void 
+filebrowser_burn_image(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(widget != NULL, FALSE);
-
-	/* look for a right click */	
-	if(event->button == 3)
-	{
-		GtkWidget* menu = gtk_menu_new();		
-		GtkTreeView* view = GTK_TREE_VIEW(widget);
-				
-		if(GTK_IS_TREE_STORE(gtk_tree_view_get_model(view)))
-		{
-			GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Add directory"));	
-			g_signal_connect(menuitem, "activate",
-				(GCallback)gnomebaker_on_add_dir, widget);	
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-		}
-		else
-		{
-			GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Add file(s)"));	
-			g_signal_connect(menuitem, "activate",
-				(GCallback)gnomebaker_on_add_files, widget);	
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-		}
-			
-		gtk_widget_show_all(menu);
-	
-		/* Note: event can be NULL here when called. However,
-		 *  gdk_event_get_time() accepts a NULL argument */
-		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-					   (event != NULL) ? event->button : 0,
-					   gdk_event_get_time((GdkEvent*)event));
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+	burn_cd_image_file(rightclickselection);
 }
 
 
@@ -148,7 +117,7 @@ filebrowser_on_show_humansize_changed(GConfClient *client,
 
 
 GString* 
-filebrowser_expand_path(GtkTreeModel* model, GtkTreeIter* iter)
+filebrowser_build_path(GtkTreeModel* model, GtkTreeIter* iter)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(model != NULL, NULL);
@@ -198,8 +167,6 @@ filebrowser_expand_path(GtkTreeModel* model, GtkTreeIter* iter)
 		current = parent;
 	}
 	
-	/*GB_TRACE( "filebrowser_expand_path - returning [%s]", fullpath->str);*/
-	
 	return fullpath;
 }
 
@@ -247,7 +214,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 	gnomebaker_show_busy_cursor(TRUE);
 	
 	/* Now get the full path for the selection */
-	GString* fullpath = filebrowser_expand_path(treemodel, iter);
+	GString* fullpath = filebrowser_build_path(treemodel, iter);
 	
 	/* Get the directory tree and unref it's model so it sorts faster 
 	GtkTreeView* dirtree = gtk_tree_selection_get_tree_view(selection);
@@ -333,7 +300,8 @@ filebrowser_populate(GtkTreeModel* treemodel,
 						GdkPixbuf* icon = gbcommon_get_icon_for_name("gnome-fs-directory", 16);
 						gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
 							FL_COL_ICON, icon, FL_COL_NAME, name,
-							FL_COL_TYPE, DIRECTORY, FL_COL_SIZE, (guint64)0, FL_COL_HUMANSIZE, "4 B", -1);
+							FL_COL_SIZE, (guint64)0, FL_COL_HUMANSIZE, "4 B", 
+							FL_COL_TYPE, DIRECTORY, FL_COL_MIME, "x-directory/normal", -1);
 						g_object_unref(icon);
 					}
 				}
@@ -347,11 +315,11 @@ filebrowser_populate(GtkTreeModel* treemodel,
   					gchar* mime = gbcommon_get_mime_type(fullname);
 					GdkPixbuf* icon = gbcommon_get_icon_for_mime(mime, 16);
   					gchar* humansize = gbcommon_humanreadable_filesize(s.st_size);
-					gchar* type = gbcommon_get_mime_description(mime);
+					gchar* type = gbcommon_get_mime_description(mime);					
   					gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
   						FL_COL_ICON, icon, FL_COL_NAME, name,
- 						FL_COL_TYPE, type, FL_COL_SIZE, (guint64)s.st_size, 
-						FL_COL_HUMANSIZE, humansize, -1);
+ 						FL_COL_SIZE, (guint64)s.st_size, FL_COL_HUMANSIZE, humansize, 
+						FL_COL_TYPE, type, FL_COL_MIME, mime, -1);
 					g_object_unref(icon);
 					g_free(mime);
   					g_free(type);
@@ -434,24 +402,15 @@ filebrowser_on_tree_expanding(GtkTreeView *treeview,
 }
 
 
-void
-filebrowser_foreach_fileselection(GtkTreeModel *filemodel,
-			  GtkTreePath *path,
-			  GtkTreeIter *iter,
-			  gpointer userdata)
+gchar* 
+filebrowser_build_filename(GtkTreeModel *filemodel, GtkTreeIter *iter)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(filemodel != NULL);
-	g_return_if_fail(iter != NULL);
-	
-	GString* dragpath = (GString*)userdata;
-	g_return_if_fail(dragpath != NULL);
-	
-	/* The drag get is for the file list so we first get the filename
-	   from the list and then we get the dir tree so we can build the
-	   rest of the path */	
-	gchar* val = NULL;
-	gtk_tree_model_get(filemodel, iter, FL_COL_NAME, &val, -1);
+	g_return_val_if_fail(filemodel != NULL, NULL);
+	g_return_val_if_fail(iter != NULL, NULL);
+		
+	gchar* name = NULL;
+	gtk_tree_model_get(filemodel, iter, FL_COL_NAME, &name, -1);
 	
 	/* now we have the filename we can get the directory tree and fully
 		expand the path */
@@ -461,17 +420,31 @@ filebrowser_foreach_fileselection(GtkTreeModel *filemodel,
 	GtkTreeModel* treemodel = NULL;
 	GB_DECLARE_STRUCT(GtkTreeIter, diriter);
 	gtk_tree_selection_get_selected(gtk_tree_view_get_selection(view), &treemodel, &diriter);
-	GString* fullpath = filebrowser_expand_path(treemodel, &diriter);
-	g_return_if_fail(fullpath != NULL);
-		
-	gchar* filename = g_build_filename(fullpath->str, val, NULL);
+	GString* fullpath = filebrowser_build_path(treemodel, &diriter);
+	/* build up the full filename from the path and name */
+	gchar* filename = g_build_filename(fullpath->str, name, NULL);
+	g_free(name);
+	g_string_free(fullpath, TRUE);
+	return filename;
+}
+
+
+void
+filebrowser_foreach_fileselection(GtkTreeModel *filemodel,
+			  GtkTreePath *path,
+			  GtkTreeIter *iter,
+			  gpointer userdata)
+{
+	GB_LOG_FUNC	
+	g_return_if_fail(userdata != NULL);
+	
+	GString* dragpath = (GString*)userdata;
+	gchar* filename = filebrowser_build_filename(filemodel, iter);
 	gchar* uri = gbcommon_get_uri(filename);	
 	g_string_append(dragpath, uri);
-	g_string_append(dragpath, "\n");	
-	g_string_free(fullpath, TRUE);
+	g_string_append(dragpath, "\n");		
 	g_free(filename);
-	g_free(uri);
-	g_free(val);
+	g_free(uri);	
 }
 
 
@@ -519,8 +492,9 @@ filebrowser_on_drag_data_get (GtkWidget * widget,
 		GtkTreeModel* treemodel = NULL;
 		GB_DECLARE_STRUCT(GtkTreeIter, diriter);
 		gtk_tree_selection_get_selected(gtk_tree_view_get_selection(view), &treemodel, &diriter);
-		file = filebrowser_expand_path(treemodel, &diriter);
-		g_return_if_fail(file != NULL);
+		file = filebrowser_build_path(treemodel, &diriter);
+		gchar* uri = gbcommon_get_uri(file->str);
+		g_string_assign(file, uri);
 	}
 	
 	GB_TRACE(_("selection data is %s\n"), file->str);
@@ -551,6 +525,119 @@ filebrowser_get_selection(gboolean fromtree)
 
 
 void 
+filebrowser_select_directory(const gchar* directory)
+{
+	GtkTreeView* dirtree = 
+		GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree));
+	GtkTreeModel* treemodel = NULL;
+	GB_DECLARE_STRUCT(GtkTreeIter, diriter);
+	GtkTreeSelection* sel = gtk_tree_view_get_selection(dirtree);
+	gtk_tree_selection_get_selected(sel, &treemodel, &diriter);
+	
+	GB_DECLARE_STRUCT(GtkTreeIter, childiter);
+	if(gtk_tree_model_iter_children(treemodel, &childiter, &diriter))
+	{
+		do
+		{
+			gchar* val = NULL;
+			gtk_tree_model_get(treemodel, &childiter, DT_COL_NAME, &val, -1);
+			const gchar* name = g_basename(directory);
+			if(g_ascii_strcasecmp(val, name) == 0)
+			{
+				/* Force the tree to expand */
+				GtkTreePath* currentpath = gtk_tree_model_get_path(treemodel, &diriter);
+				gtk_tree_view_expand_row(dirtree, currentpath, FALSE);
+				gtk_tree_path_free(currentpath);	
+								
+				/* Now select the node we have found */									
+				gtk_tree_selection_select_iter(sel, &childiter);
+				g_free(val);	
+				break;
+			}
+			
+			g_free(val);
+		}
+		while(gtk_tree_model_iter_next(treemodel, &childiter));
+	}			
+}
+
+
+void 
+filebrowser_on_open(gpointer widget, gpointer user_data)
+{
+	GB_LOG_FUNC	
+	if(g_file_test(rightclickselection, G_FILE_TEST_IS_DIR))
+		filebrowser_select_directory(rightclickselection);
+	else
+		gbcommon_launch_app_for_file(rightclickselection);
+}
+
+
+gboolean
+filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(widget != NULL, FALSE);
+
+	/* look for a right click */	
+	if(event->button == 3)
+	{
+		GtkWidget* menu = gtk_menu_new();		
+		GtkTreeView* view = GTK_TREE_VIEW(widget);
+				
+		if(GTK_IS_TREE_STORE(gtk_tree_view_get_model(view)))
+		{
+			GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Add directory"));	
+			g_signal_connect(menuitem, "activate",
+				(GCallback)gnomebaker_on_add_dir, widget);	
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		}
+		else
+		{		
+			GtkTreeSelection* selection = gtk_tree_view_get_selection(view);
+			const gint count = gtk_tree_selection_count_selected_rows(selection);
+			if(count == 1)
+			{
+				gbcommon_append_menu_item_stock(menu, _("_Open"), GTK_STOCK_OPEN, 
+					(GCallback)filebrowser_on_open, view);
+								
+				GtkTreeModel* model = gtk_tree_view_get_model(view);
+				GB_DECLARE_STRUCT(GtkTreeIter, iter);
+				gtk_tree_selection_selected_foreach(selection, 
+					(GtkTreeSelectionForeachFunc)gbcommon_get_first_selected_row, &iter);	
+				gchar *name = NULL, *mime = NULL;
+				gtk_tree_model_get(model, &iter, FL_COL_NAME, &name, FL_COL_MIME, &mime, -1);
+				g_free(rightclickselection);
+					rightclickselection = filebrowser_build_filename(model, &iter);
+				
+				if(g_str_has_suffix(name, ".cue") || g_str_has_suffix(name, ".bin") || (g_ascii_strcasecmp(mime, "application/x-cd-image") == 0))
+				{	
+					gbcommon_append_menu_item_file(menu, _("_Burn CD Image"), 
+						"baker-burn-cd.png", (GCallback)filebrowser_burn_image, view);	
+				}				
+			}
+				
+			gbcommon_append_menu_item_stock(menu, _("_Add file(s)"), GTK_STOCK_ADD, 
+				(GCallback)gnomebaker_on_add_files, view);
+		}
+			
+		gtk_widget_show_all(menu);
+	
+		/* Note: event can be NULL here when called. However,
+		 *  gdk_event_get_time() accepts a NULL argument */
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+					   (event != NULL) ? event->button : 0,
+					   gdk_event_get_time((GdkEvent*)event));
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+
+void 
 filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
                        	      GtkTreeViewColumn* col, gpointer userdata)
 {
@@ -567,41 +654,10 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 	GString* selection = g_string_new("");
 		
 	filebrowser_foreach_fileselection(model, path, &iter, selection);
-	gchar* localpath = gbcommon_get_local_path(selection->str);
-	const gchar* name = g_basename(localpath);	
+	gchar* localpath = gbcommon_get_local_path(selection->str);	
 	if(g_file_test(localpath, G_FILE_TEST_IS_DIR))
 	{
-		GtkTreeView* dirtree = 
-			GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree));
-		GtkTreeModel* treemodel = NULL;
-		GB_DECLARE_STRUCT(GtkTreeIter, diriter);
-		GtkTreeSelection* sel = gtk_tree_view_get_selection(dirtree);
-		gtk_tree_selection_get_selected(sel, &treemodel, &diriter);
-		
-		GB_DECLARE_STRUCT(GtkTreeIter, childiter);
-		if(gtk_tree_model_iter_children(treemodel, &childiter, &diriter))
-		{
-			do
-			{
-				gchar* val = NULL;
-				gtk_tree_model_get(treemodel, &childiter, DT_COL_NAME, &val, -1);
-				if(g_ascii_strcasecmp(val, name) == 0)
-				{
-					/* Force the tree to expand */
-					GtkTreePath* currentpath = gtk_tree_model_get_path(treemodel, &diriter);
-					gtk_tree_view_expand_row(dirtree, currentpath, FALSE);
-					gtk_tree_path_free(currentpath);	
-									
-					/* Now select the node we have found */									
-					gtk_tree_selection_select_iter(sel, &childiter);
-					g_free(val);	
-					break;
-				}
-				
-				g_free(val);
-			}
-			while(gtk_tree_model_iter_next(treemodel, &childiter));
-		}		
+		filebrowser_select_directory(localpath);
 	}
 	else
 	{
@@ -711,7 +767,8 @@ filebrowser_setup_list(
 	
 	/* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(
-		FL_NUM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING);
+		FL_NUM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, 
+		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
 	
 	gtk_tree_sortable_set_default_sort_func(
@@ -754,12 +811,21 @@ filebrowser_setup_list(
 	gtk_tree_view_column_set_visible(col, showhumansize);
 	gtk_tree_view_append_column(filelist, col);
 
-	/* 4th column to add the mime type to */
+	/* 4th column to add the mime type description to */
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col, _("Type"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_TYPE, NULL);
+    gtk_tree_view_append_column(filelist, col);
+	
+	/* 5th hidden column to add the mime type to */
+	col = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_title(col, _("Mime"));
+	gtk_tree_view_column_set_visible(col, FALSE);
+	renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_MIME, NULL);
     gtk_tree_view_append_column(filelist, col);
 	
 

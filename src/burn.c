@@ -185,6 +185,49 @@ burn_iso(const gchar * const file)
 
 
 gboolean
+burn_cue_or_bin(const gchar * const file)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(file != NULL, FALSE);
+	gboolean ok = FALSE;
+
+	if(burn_show_start_dlg(burn_cd_image) == GTK_RESPONSE_OK)
+	{
+		burnargs = exec_new(1);
+		ExecCmd *e = &burnargs->cmds[0];
+		cdrdao_add_bin_args(e, file);
+		ok = burn_start_process();
+	}
+
+	return ok;
+}
+
+
+gboolean 
+burn_cd_image_file(const gchar* file)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(file != NULL, FALSE);
+	gchar* mime = gbcommon_get_mime_type(file);
+	g_return_val_if_fail(mime != NULL, FALSE);
+	GB_TRACE(_("mime type is %s for %s"), mime, file);
+	gboolean ret = FALSE;
+	
+	/* Check that the mime type is iso */
+	if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
+		ret = burn_iso(file);
+	else if(g_str_has_suffix(file, ".cue") || g_str_has_suffix(file, ".bin"))
+		ret = burn_cue_or_bin(file);
+	else
+		gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+		  _("The file you have selected is not a cd image. Please select a cd image to burn."));
+	
+	g_free(mime);	
+	return ret;
+}
+
+
+gboolean
 burn_create_data_cd(GtkTreeModel* datamodel)
 {
 	GB_LOG_FUNC

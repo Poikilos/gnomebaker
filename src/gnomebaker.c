@@ -232,18 +232,20 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 	GB_LOG_FUNC
 		
 	GtkWidget *filesel = gtk_file_chooser_dialog_new(
-		_("Please select an iso file..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
+		_("Please select a CD image file..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
 	
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
-	GtkFileFilter *isofilter = gtk_file_filter_new();
-	gtk_file_filter_add_pattern (isofilter, "*.iso");
-	gtk_file_filter_set_name(isofilter,_("ISO files"));
+	GtkFileFilter *imagefilter = gtk_file_filter_new();
+	gtk_file_filter_add_pattern (imagefilter, "*.iso");
+	gtk_file_filter_add_pattern (imagefilter, "*.bin");
+	gtk_file_filter_add_pattern (imagefilter, "*.cue");
+	gtk_file_filter_set_name(imagefilter,_("CD Image files"));
 	GtkFileFilter *allfilter = gtk_file_filter_new();
 	gtk_file_filter_add_pattern (allfilter, "*");
 	gtk_file_filter_set_name(allfilter,_("All files"));
-	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel),isofilter);
-	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel),allfilter);
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), imagefilter);
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), allfilter);
 	
 	const gint result = gtk_dialog_run(GTK_DIALOG(filesel));
 	const gchar *file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
@@ -251,20 +253,7 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 	gtk_widget_destroy(filesel);
 	
 	if(result == GTK_RESPONSE_OK)
-	{
-		gchar* mime = gbcommon_get_mime_type(file);
-		g_return_if_fail(mime != NULL);
-		GB_TRACE(_("mime type is %s for %s"), mime, file);
-		
-		/* Check that the mime type is iso */
-		if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
-			burn_iso(file);
-		else
-			gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
-			  _("The file you have selected is not a cd image. Please select a cd image to burn."));
-		
-		g_free(mime);
-	}
+		burn_cd_image_file(file);
 }
 
 
@@ -310,7 +299,7 @@ gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
 	
 	const gchar* authors[] = {"Luke Biddell", "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", NULL};
 	const gchar* documenters[] = {"Milen Dzhumerov", NULL};
-	GtkWidget* about = gnome_about_new(_("GnomeBaker"), VERSION, "LGPL", 
+	GtkWidget* about = gnome_about_new(_("GnomeBaker"), VERSION, "GPL", 
 		_("Simple CD Burning for Gnome"), authors, documenters, _("translator_credits"), 
 		gdk_pixbuf_new_from_file(PACKAGE_PIXMAPS_DIR"/splash_2.png", NULL));
 	

@@ -1365,8 +1365,8 @@ cdrdao_read_proc(void *ex, void *buffer)
 	GB_LOG_FUNC
 	g_return_if_fail(buffer != NULL);
 	g_return_if_fail(ex != NULL);	
-	const gchar* output = (gchar*)buffer;
 	
+	const gchar* output = (gchar*)buffer;		
 	const gchar* length = strstr(output, ", length");
 	if(length != NULL)
 	{
@@ -1374,20 +1374,20 @@ cdrdao_read_proc(void *ex, void *buffer)
 		if(sscanf(length, ", length %d:", &len) == 1)
 			cdrdao_cdminutes = len;
 	}
-	
+
 	const gchar* newline = strstr(output, "\n");
 	if(newline != NULL)
 	{
 		gint currentminutes = 0;
-		if(sscanf(length, "\n%d:", &currentminutes) == 1)
+		if(sscanf(output, "\n%d:", &currentminutes) == 1)
 			progressdlg_set_fraction((gfloat)currentminutes/(gfloat)cdrdao_cdminutes);
 	}
-	progressdlg_set_text(output);
+	progressdlg_append_output(output);
 }
 
 
 void
-cdrdao_add_bin_args(ExecCmd* cmd, const gchar* bin)
+cdrdao_add_bin_args(ExecCmd* cmd, const gchar* const bin)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cmd != NULL);

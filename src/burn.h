@@ -31,7 +31,7 @@
 
 
 gboolean burn_init ();
-gboolean burn_iso (const gchar * const file);
+gboolean burn_cd_image_file(const gchar* file);
 gboolean burn_create_data_cd (GtkTreeModel* datamodel);
 gboolean burn_create_audio_cd (GtkTreeModel* audiomodel);
 gboolean burn_copy_data_cd ();

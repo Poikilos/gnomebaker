@@ -417,18 +417,11 @@ datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user
 	/* look for a right click */	
 	if(event->button == 3)
 	{
-		GtkWidget* menu = gtk_menu_new();	
-		
-		GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Remove selected"));	
-		g_signal_connect(menuitem, "activate",
+		GtkWidget* menu = gtk_menu_new();			
+		gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
 			(GCallback)datacd_on_remove_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
-		menuitem = gtk_menu_item_new_with_label(_("Clear"));	
-		g_signal_connect(menuitem, "activate",
-			(GCallback)datacd_on_clear_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
+		gbcommon_append_menu_item_stock(menu, _("Clear"), GTK_STOCK_CLEAR, 
+			(GCallback)datacd_on_clear_clicked, widget);		
 		gtk_widget_show_all(menu);
 	
 		/* Note: event can be NULL here when called. However,

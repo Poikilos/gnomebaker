@@ -353,3 +353,64 @@ gbcommon_get_uri(const gchar* localpath)
 	g_return_val_if_fail(localpath != NULL, NULL);	
 	return gnome_vfs_get_uri_from_local_path(localpath);
 }
+
+
+gboolean
+gbcommon_get_first_selected_row(GtkTreeModel *model,
+								GtkTreePath  *path,
+								GtkTreeIter  *iter,
+								gpointer      user_data)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(user_data != NULL, TRUE);
+	GtkTreeIter* treeiter = (GtkTreeIter*)user_data;
+	*treeiter = *iter;
+	return TRUE; /* only process the first selected item */
+}
+
+
+void 
+gbcommon_append_menu_item(GtkWidget* menu, const gchar* menuitemlabel, GtkWidget* image,
+						  GCallback activated, gpointer userdata)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(menu != NULL);
+	g_return_if_fail(menuitemlabel != NULL);
+	g_return_if_fail(image != NULL);
+	g_return_if_fail(activated != NULL);
+	g_return_if_fail(userdata != NULL);
+	
+	GtkWidget* menuitem = gtk_image_menu_item_new_with_mnemonic(menuitemlabel);	
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem), image);
+	g_signal_connect(menuitem, "activate",
+		(GCallback)activated, userdata);	
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
+}
+
+
+void 
+gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel, const gchar* stockid,
+								GCallback activated, gpointer userdata)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(stockid != NULL);
+	
+	GtkWidget* image = gtk_image_new_from_stock(stockid, GTK_ICON_SIZE_MENU);
+	gbcommon_append_menu_item(menu, menuitemlabel, image, activated, userdata);	
+}
+
+
+void 
+gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel, const gchar* filename,
+								GCallback activated, gpointer userdata)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(filename != NULL);
+	
+	gchar* fullfilename = g_build_filename(PACKAGE_PIXMAPS_DIR, filename, NULL);
+	GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file(fullfilename, NULL);
+	GtkWidget* image = gtk_image_new_from_pixbuf(pixbuf);
+	gbcommon_append_menu_item(menu, menuitemlabel, image, activated, userdata);	
+	g_free(fullfilename);
+	g_object_unref(pixbuf);
+}
