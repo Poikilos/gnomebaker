@@ -108,10 +108,36 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 					/* try to resolve the devicenode in case it's a
 						symlink to the device we are looking for */
 					gchar* linktarget = g_file_read_link(node, NULL);
-					if((linktarget != NULL) && (g_ascii_strcasecmp(linktarget, devicenode) == 0))
-					{					
-						g_message(_("node [%s] is link to [%s]"), node, linktarget);
-						mountpoint = g_strdup(mount);
+					if(linktarget!= NULL)
+					{
+						g_message("node [%s] is link to [%s]", node, linktarget);
+						/* if linktarget not an absolute path make it one */
+						if(!g_path_is_absolute(linktarget))
+						{							
+							gchar* basename = g_path_get_basename(linktarget);
+							gchar* cmd = g_strdup_printf("find /dev -name %s", basename);
+							GString* output = exec_run_cmd(cmd);
+							if((output != NULL) && (output->len > 0))
+							{
+								g_free(linktarget);
+								linktarget = g_strdup(output->str);
+								g_strstrip(linktarget);
+								g_message("Link resolved to [%s]", linktarget);
+							}
+							else
+							{
+								g_critical("Failed to resolve link [%s] to a node in /dev", linktarget);
+							}
+							g_string_free(output, TRUE);							
+							g_free(cmd);
+							g_free(basename);							
+						}
+						
+						if(g_ascii_strcasecmp(linktarget, devicenode) == 0)
+						{					
+							g_message(_("node [%s] is link to [%s]"), node, linktarget);
+							mountpoint = g_strdup(mount);
+						}
 					}
 					g_free(linktarget);
 				}
