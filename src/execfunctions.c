@@ -938,7 +938,7 @@ growisofs_foreach_func(GtkTreeModel *model,
 	
 	if(!existingsession)
 	{
-		gchar* buffer = g_strdup_printf("%s", filepath);		
+		gchar* buffer = g_strdup_printf("%s=%s", file, filepath);		
 		exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);
 		g_free(buffer);
 	}	
@@ -988,6 +988,8 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	/* stop the reloading of the disc */
 	exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=notray");
 	
+	/* force overwriting existing filesystem */
+	exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=tty");
 	/* TODO: Overburn support */
 	/* preferences_get_int(GB_OVERBURN)
 	if(prefs->overburn)
@@ -998,6 +1000,7 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 		exec_cmd_add_arg(growisofs, "%s", "-dvd-compat");
 	/* -dvd-compat closes the session on DVD+RW's also */	
 	preferences_set_bool(GB_FINALIZE,FALSE);
+	exec_cmd_add_arg(growisofs, "%s", "-graft-points");
 	gtk_tree_model_foreach(datamodel, growisofs_foreach_func, growisofs);
 }
 
