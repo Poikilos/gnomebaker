@@ -97,6 +97,9 @@ prefsdlg_create_device_list()
     gtk_tree_view_column_set_attributes(col, renderer, "stock-id", DEVICELIST_COL_ICON, NULL);
 	
     renderer = gtk_cell_renderer_text_new();
+	g_object_set_property(G_OBJECT(renderer), "editable", &value);
+	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
+		(gpointer)&DEVICELIST_COL_NAME);
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DEVICELIST_COL_NAME, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);
@@ -226,15 +229,18 @@ prefsdlg_populate_device_list()
 		gchar* devicenode = preferences_get_string(devicenodekey);
 		gchar* devicemount = preferences_get_string(devicemountkey);
 		
-		GB_DECLARE_STRUCT(GtkTreeIter, iter);
-		gtk_list_store_append(devicemodel, &iter);		
-		gtk_list_store_set(devicemodel, &iter, 
-			DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
-			DEVICELIST_COL_NAME, devicename,
-			DEVICELIST_COL_ID, deviceid,
-			DEVICELIST_COL_NODE, devicenode, 
-			DEVICELIST_COL_MOUNT, devicemount, -1);
-				
+		if((devicename != NULL) && (strlen(devicename) > 0))
+		{		
+			GB_DECLARE_STRUCT(GtkTreeIter, iter);
+			gtk_list_store_append(devicemodel, &iter);		
+			gtk_list_store_set(devicemodel, &iter, 
+				DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
+				DEVICELIST_COL_NAME, devicename,
+				DEVICELIST_COL_ID, deviceid,
+				DEVICELIST_COL_NODE, devicenode, 
+				DEVICELIST_COL_MOUNT, devicemount, -1);
+		}
+		
 		g_free(deviceidkey);
 		g_free(devicenamekey);		
 		g_free(devicenodekey);
@@ -278,6 +284,27 @@ prefsdlg_on_scan(GtkButton * button, gpointer user_data)
 	prefsdlg_populate_device_list();
 	
 	gbcommon_end_busy_cursor1(prefsdlg_xml, widget_prefsdlg);
+}
+
+
+void 
+prefsdlg_on_add(GtkButton * button, gpointer user_data)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(prefsdlg_xml != NULL);
+	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
+	g_return_if_fail(devicelist != NULL);
+	GtkListStore* devicemodel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist)));
+	g_return_if_fail(devicemodel != NULL);
+
+	GB_DECLARE_STRUCT(GtkTreeIter, iter);
+	gtk_list_store_append(devicemodel, &iter);		
+	gtk_list_store_set(devicemodel, &iter, 
+		DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
+		DEVICELIST_COL_NAME, "New CD Burner",
+		DEVICELIST_COL_ID, "1,0,0",
+		DEVICELIST_COL_NODE, "/dev/cdrom", 
+		DEVICELIST_COL_MOUNT, "/mnt/cdrom", -1);
 }
 
 
