@@ -196,19 +196,9 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 		
-	GtkWidget *filesel = gtk_file_selection_new(_("Please select an iso file..."));
-	
-	gtk_file_selection_set_select_multiple(GTK_FILE_SELECTION(filesel), FALSE);
-
-	const gint result = gtk_dialog_run(GTK_DIALOG(filesel));
-	const gchar *file = gtk_file_selection_get_filename(GTK_FILE_SELECTION(filesel));
-
-	gtk_widget_destroy(filesel);
-	
-	/* Not using this at the moment as I'm not sure if it's backward compatible
-	   with gtk < 2.4...!
 	GtkWidget *filesel = gtk_file_chooser_dialog_new(
-		"Please select an iso file...", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
+		_("Please select an iso file..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
+		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
 	
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
 
@@ -216,7 +206,6 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 	const gchar *file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
 
 	gtk_widget_destroy(filesel);
-	*/
 
 	if(result == GTK_RESPONSE_OK)
 	{

@@ -44,7 +44,9 @@ void gbcommon_mkdir(const gchar* dir);
 gchar** gbcommon_get_file_as_list(const gchar* file);
 gchar* gbcommon_get_option_menu_selection(GtkOptionMenu* optmen);
 void gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection);
-gchar* gbcommon_humanreadable_filesize(gulong size);
+gchar* gbcommon_humanreadable_filesize(guint64 size);
+GdkPixbuf* gbcommon_get_icon_for_mime(const gchar* mime, gint size);
+GdkPixbuf* gbcommon_get_icon_for_name(const gchar* mime, gint size);
 
 /* defined in main.c */
 extern const gchar* glade_file;
