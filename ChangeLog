@@ -21,6 +21,10 @@ Version 0.2.1
 * Make the application icon smaller and use it in the desktop file which should now appear on the gnome menu.
 * Preferences dialog now allows adding devices manually.
 * Refactor the datacd and audiocd so that they expose the same methods (for when we support projects)
+* Add DVD burning.
+* Filebrowser now shows directories on the right hand side. You can double click to open them
+and double click to launch files according to their mime type.
+* Device scanning now also attempts to detect the device capabilities (ie is a writer etc)
 
 Version 0.2
 
