@@ -26,12 +26,10 @@
 #include "gbcommon.h"
 
 
-gboolean
-datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
-
-gboolean 
-datacd_update_progress_bar(gboolean add, gdouble filesize);
-
+gboolean datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+gboolean datacd_update_progress_bar(gboolean add, gdouble filesize);
+void datacd_contents_cell_edited(GtkCellRendererText *cell, gchar* path_string,
+								gchar* new_text, gpointer user_data);
 
 enum
 {
@@ -66,11 +64,20 @@ datacd_setup_list(GtkTreeView * filelist)
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
     gtk_tree_view_column_set_attributes(col, renderer, "stock-id", DATACD_COL_ICON, NULL);
+	
+	GValue value = { 0 };
+	g_value_init(&value, G_TYPE_BOOLEAN);
+	g_value_set_boolean(&value, TRUE);	
 
     renderer = gtk_cell_renderer_text_new();
+	g_object_set_property(G_OBJECT(renderer), "editable", &value);
+	g_signal_connect(renderer, "edited", (GCallback)datacd_contents_cell_edited, 
+		(gpointer)store);
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_FILE, NULL);
 	gtk_tree_view_append_column(filelist, col);	
+	
+	g_value_unset(&value);
 	
 	/* Second column to display the file/dir size */
 	col = gtk_tree_view_column_new();
@@ -358,4 +365,30 @@ datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 	gnomebaker_enable_widget(widget_datacd_create, FALSE);
 	
 	gnomebaker_show_busy_cursor(FALSE);
+}
+
+
+void
+datacd_contents_cell_edited(GtkCellRendererText *cell,
+							gchar* path_string,
+							gchar* new_text,
+							gpointer user_data)
+{
+	GB_LOG_FUNC	
+	g_return_if_fail(cell != NULL);
+	g_return_if_fail(path_string != NULL);
+	g_return_if_fail(new_text != NULL);
+	g_return_if_fail(user_data != NULL);
+		
+	GB_DECLARE_STRUCT(GtkTreeIter, iter);
+	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(user_data), &iter, path_string))
+	{
+		GValue val = {0};
+		g_value_init(&val, G_TYPE_STRING);
+		g_value_set_string(&val, new_text);
+
+		gtk_list_store_set_value(GTK_LIST_STORE(user_data), &iter, DATACD_COL_FILE, &val);
+		
+		g_value_unset(&val);
+	}
 }
