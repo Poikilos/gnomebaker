@@ -1,8 +1,10 @@
- * Check uniqueness of cd contents 	
- * Refactor start dlg to have tabs with cd type specific options on each
- * Use libmad and libogg to decode (speed improvement?). What does GStreamer give us extra (simpler code)?
- * Add normalize option when creating cds
- * Move show hidden files to the view menu
- * Add a play button to the audio tab 
- * Add 800MB cds with overburn feature
- * Add flac support
+* Check uniqueness of cd contents 	
+* Refactor start dlg to have tabs with cd type specific options on each
+* Use libmad and libogg to decode (speed improvement?). What does GStreamer give us extra (simpler code)?
+* Add normalize option when creating cds
+* Move show hidden files to the view menu
+* Add a play button to the audio tab 
+* Add 800MB cds with overburn feature
+* Add flac support
+* Refactor all tree view creating code to use gtk_tree_view_column_new_with_attributes (reduces code)
+* Externalise strings for internationalisation
