@@ -34,7 +34,7 @@ void cdrecord_add_common_args(ExecCmd * const cdBurn);
 void cdrecord_read_proc (void *ex, void *buffer);
 
 gint totaltrackstowrite = 1;
-
+gint firsttrack = -1;
 
 /*
  *  ISO
@@ -139,6 +139,7 @@ cdrecord_add_common_args(ExecCmd * const cdBurn)
 	g_free(mode);
 	
 	totaltrackstowrite = 1;
+	firsttrack = -1;
 }
 
 
@@ -270,11 +271,18 @@ cdrecord_read_proc(void *ex, void *buffer)
 		{
 			if(current > 0.0)
 			{
+				if(firsttrack == -1)
+					firsttrack = currenttrack;			
+
 				/* Figure out how many tracks we have written so far and calc the fraction */
-				gfloat totalfraction = ((gfloat)currenttrack - 1.0) * (1.0 / totaltrackstowrite);				
+				gfloat totalfraction = 
+					((gfloat)currenttrack - firsttrack) * (1.0 / totaltrackstowrite);
 				
 				/* now add on the fraction of the track we are currently writing */
 				totalfraction += ((current / total) * (1.0 / totaltrackstowrite));
+				
+				/*g_message("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
+					currenttrack, firsttrack, current, total, totalfraction);*/
 				
 				progressdlg_set_fraction(totalfraction);
 			}
