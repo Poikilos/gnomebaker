@@ -79,7 +79,7 @@ dvdformat_add_args(ExecCmd * const dvdFormat)
 	
 	exec_cmd_add_arg(dvdFormat, "%s", "dvd+rw-format");
 	
-	gchar* writer = devices_get_deviceid(GB_DVDWRITER);
+	gchar* writer = devices_get_device_config(GB_DVDWRITER,GB_DEVICE_ID_LABEL);
 	exec_cmd_add_arg(dvdFormat, "%s", writer);
 	g_free(writer);
 	
@@ -160,7 +160,7 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	exec_cmd_add_arg(growisofs, "%s", "growisofs");
 	/* TODO: -M: merge new session with existing one */
 	exec_cmd_add_arg(growisofs, "%s", "-Z");
-	gchar* writer = devices_get_deviceid(GB_DVDWRITER);
+	gchar* writer = devices_get_device_config(GB_DVDWRITER,GB_DEVICE_ID_LABEL);
 	exec_cmd_add_arg(growisofs,"%s",writer);
 	g_free(writer);
 	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
