@@ -48,7 +48,7 @@ mkisofs_pre_proc(void *ex, void *buffer)
 	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status("<b>Creating data disk image...</b>");
+	progressdlg_set_status(_("<b>Creating data disk image...</b>"));
 	progressdlg_increment_exec_number();
 	
 	gchar* file = preferences_get_create_data_cd_image();	
@@ -56,8 +56,8 @@ mkisofs_pre_proc(void *ex, void *buffer)
 	{
 		gdk_threads_enter();
 		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_OK,
-			"A data CD image from a previous session already exists on disk, "
-			"do you wish to use the existing image?");
+			_("A data CD image from a previous session already exists on disk, "
+			"do you wish to use the existing image?"));
 		gdk_flush();
 		gdk_threads_leave();
 		

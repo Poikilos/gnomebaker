@@ -40,12 +40,12 @@ dvdformat_pre_proc(void *ex, void *buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status("<b>Formatting DVD...</b>");
+	progressdlg_set_status(_("<b>Formatting DVD...</b>"));
 	progressdlg_increment_exec_number();
 	
 	gdk_threads_enter();
 	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			  "Please insert a rewritable DVD into the DVD writer");
+			  _("Please insert a rewritable DVD into the DVD writer"));
 	gdk_threads_leave();
 	
 	if(ret == GTK_RESPONSE_CANCEL)
@@ -90,7 +90,7 @@ dvdformat_read_proc(void *ex, void *buffer)
 			if(curpercent > 0)
 				progressdlg_set_fraction(curpercent);
 			else
-				g_message("Failed to get percent in dvdformat_read_proc");
+				g_message(_("Failed to get percent in dvdformat_read_proc"));
 		}		
 	}
 	
@@ -134,12 +134,12 @@ growisofs_pre_proc(void *ex,void *buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status("<b>Burning DVD...</b>");
+	progressdlg_set_status(_("<b>Burning DVD...</b>"));
 	progressdlg_increment_exec_number();
 	
 	gdk_threads_enter();
 	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			  "Please insert a writable DVD into the DVD writer");
+			  _("Please insert a writable DVD into the DVD writer"));
 	gdk_flush();
 	gdk_threads_leave();
 	
@@ -226,9 +226,9 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 		gint progress = 0;
 		if(sscanf(buf,"%d.%*d",&progress) >0)
 		{
-			g_message("growisofs: progress: %d",progress);
+			g_message(_("growisofs: progress: %d"),progress);
 			gfloat fraction = (gfloat)progress / 100.0;
-			g_message("growisofs: fraction: %f",fraction);
+			g_message(_("growisofs: fraction: %f"),fraction);
 			
 			progressdlg_set_fraction(fraction);
 		}

@@ -40,7 +40,7 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 	totaltracks = -1;
 	totaltracksread = 0;
 	
-	progressdlg_set_status("<b>Extracting audio tracks...</b>");
+	progressdlg_set_status(_("<b>Extracting audio tracks...</b>"));
 	progressdlg_increment_exec_number();
 
 	gint response = GTK_RESPONSE_NO;
@@ -52,8 +52,8 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 	{
 		gdk_threads_enter();
 		response = gnomebaker_show_msg_dlg(GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
-			"Audio tracks from a previous sesion already exist on disk, "
-			"do you wish to use the existing tracks?");
+			_("Audio tracks from a previous sesion already exist on disk, "
+			"do you wish to use the existing tracks?"));
 		gdk_flush();
 		gdk_threads_leave();
 	}
@@ -68,7 +68,7 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 		
 		gdk_threads_enter();
 		response = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			"Please insert the audio CD into the CD reader");				
+			_("Please insert the audio CD into the CD reader"));				
 		gdk_flush();
 		gdk_threads_leave();	
 	}
@@ -100,7 +100,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 	
 	if(totaltracks == -1)
 	{
-		const gchar* tracksstart = strstr(text, "Tracks:");		
+		const gchar* tracksstart = strstr(text, _("Tracks:"));		
 		if(tracksstart != NULL)
 		{
 			gchar tmpbuf[4];
@@ -108,7 +108,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 			g_strlcpy(tmpbuf, tracksstart + 7, 3);
 			g_strstrip(tmpbuf);
 			totaltracks = atoi(tmpbuf);			
-			g_message("cdda2wav_read_proc - total tracks %d", totaltracks);
+			g_message(_("cdda2wav_read_proc - total tracks %d"), totaltracks);
 		}
 	}
 	else if(totaltracks)

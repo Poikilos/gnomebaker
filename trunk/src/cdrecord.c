@@ -44,12 +44,12 @@ cdrecord_pre_proc(void *ex, void *buffer)
 	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status("<b>Burning disk...</b>");
+	progressdlg_set_status(_("<b>Burning disk...</b>"));
 	progressdlg_increment_exec_number();
 	
 	gdk_threads_enter();
 	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			  "Please insert a blank CD into the CD writer");
+			  _("Please insert a blank CD into the CD writer"));
 	gdk_flush();
 	gdk_threads_leave();
 	
@@ -65,12 +65,12 @@ void
 cdrecord_blank_pre_proc(void *ex, void *buffer)
 {
 	GB_LOG_FUNC
-	progressdlg_set_status("<b>Blanking disk...</b>");
+	progressdlg_set_status(_("<b>Blanking disk...</b>"));
 	progressdlg_set_text("");
 	
 	gdk_threads_enter();
 	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-		"Please insert the CD-RW into the CD writer");
+		_("Please insert the CD-RW into the CD writer"));
 	gdk_flush();
 	gdk_threads_leave();
 	
@@ -116,7 +116,7 @@ cdrecord_read_proc(void *ex, void *buffer)
 		}
 	}
 	
-	const gchar* track = strstr(buf, "Track");
+	const gchar* track = strstr(buf, _("Track"));
 	if(track != NULL)
 	{
 		gint currenttrack = 0;
@@ -143,12 +143,12 @@ cdrecord_read_proc(void *ex, void *buffer)
 		}		
 	}
 	
-	const gchar* fixating = strstr(buf, "Fixating");
+	const gchar* fixating = strstr(buf, _("Fixating"));
 	if(fixating != NULL)
 	{
 		/* Order of these is important as set fraction also sets the text */
 		progressdlg_set_fraction(1.0);		
-		progressdlg_set_text("Fixating");
+		progressdlg_set_text(_("Fixating"));
 	}
 	
 	progressdlg_append_output(buffer);
@@ -216,7 +216,7 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
 		if(audiofile->data)	
 		{
 			exec_cmd_add_arg(e, "%s", audiofile->data);
-			g_message("cdrecord - adding create audio data [%s]", (gchar*)audiofile->data);
+			g_message(_("cdrecord - adding create audio data [%s]"), (gchar*)audiofile->data);
 			totaltrackstowrite++;
 		}
 		audiofile = audiofile->next;
@@ -272,7 +272,7 @@ cdrecord_add_audio_args(ExecCmd * const cdBurn)
 		{
 			if(g_str_has_suffix(name, ".wav"))
 			{
-				g_message( "adding [%s]", name);
+				g_message( _("adding [%s]"), name);
 				gchar* fullpath = g_build_filename(tmp, name, NULL);
 				exec_cmd_add_arg(cdBurn, "%s", fullpath);
 				totaltrackstowrite++;

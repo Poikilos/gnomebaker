@@ -19,12 +19,12 @@
  * Created on: Tue Jan 28 22:12:09 2003
  */
 
+#include "burn.h"
 #include <gnome.h>
 #include <signal.h>
 #include <sys/types.h>
 #include <glib/gprintf.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
-#include "burn.h"
 #include "preferences.h"
 #include "exec.h"
 #include "cdrecord.h"
@@ -110,11 +110,11 @@ burn_end_proc(void *ex, void *data)
 		}
 		else if(e->cmds[i].state == COMPLETE)
 		{
-			progressdlg_set_text("Completed");
+			progressdlg_set_text(_("Completed"));
 		}
 		else if(e->cmds[i].state == FAILED)
 		{
-			progressdlg_set_text("Failed");
+			progressdlg_set_text(_("Failed"));
 			outcome = FAILED;
 			break;
 		}
@@ -151,7 +151,7 @@ burn_start_process()
 	}
 	else
 	{
-		g_critical("Failed to start child process");
+		g_critical(_("Failed to start child process"));
 		ok = FALSE;
 	}
 	
@@ -203,7 +203,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 		gchar* file = NULL;
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
-			GtkWidget *filesel = gtk_file_selection_new("Please select an iso file to save to...");	
+			GtkWidget *filesel = gtk_file_selection_new(_("Please select an iso file to save to..."));	
 			gtk_file_selection_set_select_multiple(GTK_FILE_SELECTION(filesel), FALSE);
 			gtk_file_selection_set_filename(GTK_FILE_SELECTION(filesel), "gnomebaker.iso");
 		
@@ -266,7 +266,7 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 		else if(g_ascii_strcasecmp(mime, "audio/x-wav") == 0)
 			sox_add_wav_args(cmd, file, &convertedfile);
 		
-		g_message("burn - [%s]", convertedfile);
+		g_message(_("burn - [%s]"), convertedfile);
 		*audiofiles = g_list_append(*audiofiles, convertedfile);
 		g_free(mime);	
 	}
@@ -327,7 +327,7 @@ burn_copy_data_cd()
 		gchar* file = NULL;		
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
-			GtkWidget *filesel = gtk_file_selection_new("Please select an iso file to save to...");
+			GtkWidget *filesel = gtk_file_selection_new(_("Please select an iso file to save to..."));
 			gtk_file_selection_set_select_multiple(GTK_FILE_SELECTION(filesel), FALSE);
 			gtk_file_selection_set_filename(GTK_FILE_SELECTION(filesel), "gnomebaker.iso");
 		

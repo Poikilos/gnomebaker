@@ -141,7 +141,7 @@ exec_thread(gpointer data)
 		{
 			/* Parent */
 			e->pid = pid;
-			g_message("exec_thread - parent created child with pid %d", e->pid);
+			g_message(_("exec_thread - parent created child with pid %d"), e->pid);
 
 			/* Connect to the downstream end of the stdin pipe and close
 			 * the other end */
@@ -173,7 +173,7 @@ exec_thread(gpointer data)
 		else
 		{
 			/* Child */
-			g_message("exec_thread - created child");
+			g_message(_("exec_thread - created child"));
 
 			/* Connect child stdout to the upstream end of the stdin pipe,
 			 * Connect child std err to the upstream end of the stdin pipe
@@ -186,12 +186,12 @@ exec_thread(gpointer data)
 			execvp(e->argv[0], e->argv);
 
 			/* If it didn't take over the Exec call failed.*/
-			g_message("exec_thread - Exec failed");
+			g_message(_("exec_thread - Exec failed"));
 		}
 
 		wait(&e->exitCode);
 		
-		g_message("exec_thread - child exited with code [%d]\n", e->exitCode);
+		g_message(_("exec_thread - child exited with code [%d]\n"), e->exitCode);
 
 		close(stdin_pipe[0]);
 		close(stdin_pipe[1]);
@@ -206,7 +206,7 @@ exec_thread(gpointer data)
 
 	if(ex->endProc) ex->endProc(ex, NULL);
 
-	g_message( "exec_thread - exiting");
+	g_message( _("exec_thread - exiting"));
 
 	return NULL;
 }
@@ -223,7 +223,7 @@ exec_go(Exec * const e)
 	g_thread_create(exec_thread,(gpointer) e, TRUE, &e->err);
 	if(e->err != NULL)
 	{
-		g_critical("exec_go - failed to create thread [%d] [%s]",
+		g_critical(_("exec_go - failed to create thread [%d] [%s]"),
 			   e->err->code, e->err->message);
 		ret = e->err->code;
 	}
@@ -243,13 +243,13 @@ exec_cancel(const Exec * const e)
 	{
 		if(e->cmds[j].pid > 0)
 		{
-			g_message( "exec_cancel - killing %d", e->cmds[j].pid);
+			g_message( _("exec_cancel - killing %d"), e->cmds[j].pid);
 			kill(e->cmds[j].pid, SIGKILL);
 			e->cmds[j].state = CANCELLED;
 		}
 	}
 	
-	g_message( "exec_cancel - complete");
+	g_message( _("exec_cancel - complete"));
 }
 
 
@@ -257,7 +257,7 @@ GString*
 exec_run_cmd(const gchar* cmd)
 {
 	GB_LOG_FUNC
-	g_message( "exec_run_cmd - %s", cmd);
+	g_message( _("exec_run_cmd - %s"), cmd);
 	g_return_val_if_fail(cmd != NULL, NULL);
 	
 	GString* ret = NULL;	
@@ -277,12 +277,12 @@ exec_run_cmd(const gchar* cmd)
 	}
 	else if(error != NULL)
 	{		
-		g_critical("error [%s] spawning command [%s]", error->message, cmd);		
+		g_critical(_("error [%s] spawning command [%s]"), error->message, cmd);		
 		g_error_free(error);
 	}
 	else
 	{
-		g_critical("Uknown error spawning command [%s]", cmd);		
+		g_critical(_("Uknown error spawning command [%s]"), cmd);		
 	}
 	
 	return ret;

@@ -116,7 +116,7 @@ audioinfo_new(const gchar* audiofile)
 				g_string_insert(vfsfile, 0, fileurl);
 			
 			gchar* mime = gnome_vfs_get_mime_type(vfsfile->str);
-			g_message( "mime type is %s for %s %s", mime, audiofile, vfsfile->str);
+			g_message( _("mime type is %s for %s %s"), mime, audiofile, vfsfile->str);
 			if(mime != NULL)
 			{
 				/* Check that the file extension is one we support */			
@@ -221,7 +221,7 @@ Field 	guchars 	format 	contains
 	FILE* st = fopen(wavfile, "rb");
 	if (st == NULL)
 	{
-		printf("File %s was not opened \n", wavfile);
+		printf(_("File %s was not opened \n"), wavfile);
 	}
 	else
 	{		
@@ -244,7 +244,7 @@ Field 	guchars 	format 	contains
 		}
 		else
 		{
-			g_warning("Error reading wav header for file [%s]", wavfile);
+			g_warning(_("Error reading wav header for file [%s]"), wavfile);
 		}	
 		
 		fclose(st);
@@ -264,7 +264,7 @@ Field 	guchars 	format 	contains
 			{
 				const gint numlabels = 3;
 				const gchar* labels[3] = 
-					{ "Performer","Albumtitle","Tracktitle" };
+					{ N_ ("Performer"),N_ ("Albumtitle"),N_ ("Tracktitle") };
 				
 				GString* copyto[3] = 
 					{ self->artist, self->album, self->title };					
@@ -312,7 +312,7 @@ audioinfo_get_mp3_info(AudioInfo* info, const gchar *FileName)
 	FILE* st = fopen(FileName, "rb");
 	if (st == NULL)
 	{
-		g_warning("File %s was not opened", FileName);
+		g_warning(_("File %s was not opened"), FileName);
 	}
 	else
 	{		
@@ -614,22 +614,22 @@ audioinfo_mp3_get_mode()
 	{
 		default:
 		{
-			static const gchar* stereo = "Stereo";
+			static const gchar* stereo = N_("Stereo");
 			return stereo;
 		}
 		case 1:
 		{
-			static const gchar* joint_stereo = "Joint Stereo";
+			static const gchar* joint_stereo = N_("Joint Stereo");
 			return joint_stereo;
 		}
 		case 2:
 		{
-			static const gchar* dual_channel = "Dual Channel";
+			static const gchar* dual_channel = N_("Dual Channel");
 			return dual_channel;
 		}
 		case 3:
 		{
-			static const gchar* single_channel = "Single Channel";
+			static const gchar* single_channel = N_("Single Channel");
 			return single_channel;
 		}
 	};
@@ -680,7 +680,7 @@ audioinfo_get_ogg_info(AudioInfo* info, const gchar *oggfile)
 	FILE* st = fopen(oggfile, "rb");
 	if (st == NULL)
 	{
-		printf("File %s was not opened \n", oggfile);
+		printf(_("File %s was not opened \n"), oggfile);
 	}
 	else if(ov_open(st, &file, NULL, 0) == 0)
 	{
@@ -697,11 +697,11 @@ audioinfo_get_ogg_info(AudioInfo* info, const gchar *oggfile)
 			g_message("[%s]", comment->user_comments[i]);				
 			if(comment->user_comments[i] == NULL)
 				continue;			
-			else if(g_ascii_strncasecmp(comment->user_comments[i], "TITLE=", 6) == 0)
+			else if(g_ascii_strncasecmp(comment->user_comments[i], _("TITLE="), 6) == 0)
 				g_string_append(info->title, comment->user_comments[i] + 6);
-			else if(g_ascii_strncasecmp(comment->user_comments[i], "ARTIST=", 7) == 0)
+			else if(g_ascii_strncasecmp(comment->user_comments[i], _("ARTIST="), 7) == 0)
 				g_string_append(info->artist, comment->user_comments[i] + 7);
-			else if(g_ascii_strncasecmp(comment->user_comments[i], "ALBUM=", 6) == 0)
+			else if(g_ascii_strncasecmp(comment->user_comments[i], _("ALBUM="), 6) == 0)
 				g_string_append(info->album, comment->user_comments[i] + 6);
 		}
 		

@@ -16,7 +16,7 @@ mpg123_pre_proc(void *ex, void *buffer)
 	GB_LOG_FUNC
 	
 	g_return_if_fail(ex != NULL);
-	progressdlg_set_status("<b>Converting mp3 to cd audio...</b>");
+	progressdlg_set_status(_("<b>Converting mp3 to cd audio...</b>"));
 	progressdlg_increment_exec_number();
 }
 
@@ -93,7 +93,7 @@ mpg123_add_mp3_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 				
 		exec_cmd_add_arg(cmd, "-w%s", *convertedfile);
 		
-		g_message("Converted file is [%s]", *convertedfile);
+		g_message(_("Converted file is [%s]"), *convertedfile);
 		g_free(filename);
 		
 		exec_cmd_add_arg(cmd, "%s", file);

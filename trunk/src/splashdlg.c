@@ -56,7 +56,7 @@ splashdlg_set_text(const gchar* text)
 {
 	GB_LOG_FUNC	
 	g_return_if_fail(splashdlg_xml != NULL);
-	g_message( "splashdlg_set_text - %s", text);
+	g_message("splashdlg_set_text - %s", text);
 	GtkWidget* label = glade_xml_get_widget(splashdlg_xml, widget_splashdlg_label);
 	gtk_label_set_text(GTK_LABEL(label), text);	
 

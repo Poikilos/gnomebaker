@@ -238,7 +238,7 @@ startdlgdvd_populate_device_combos()
 	
 	GtkWidget *optmenWriterDvd = glade_xml_get_widget(startdlgdvd_xml, widget_startdlgdvd_writer);
 	gchar* writer = preferences_get_string(GB_WRITER);
-	g_message("Writer is: %s",writer);
+	g_message(_("Writer is: %s"),writer);
 	devices_populate_optionmenu(optmenWriterDvd, writer);	
 	g_free(writer);
 }

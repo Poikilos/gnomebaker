@@ -31,7 +31,7 @@ sox_pre_proc(void *ex, void *buffer)
 	GB_LOG_FUNC
 	
 	g_return_if_fail(ex != NULL);
-	progressdlg_set_status("<b>Converting wav to cd audio...</b>");
+	progressdlg_set_status(_("<b>Converting wav to cd audio...</b>"));
 	progressdlg_increment_exec_number();
 }
 
