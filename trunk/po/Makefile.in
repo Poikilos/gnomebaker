@@ -52,14 +52,14 @@ INCLUDES = -I.. -I$(top_srcdir)/intl
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
 SOURCES = 
-POFILES =  af.po de.po es.po he.po ko.po nl_NL.po pt.po sk.po tr.po cs.po en_US.po fr_FR.po hr.po lv.po pl.po ro.po sv.po zh_CN.po da.po es_ES.po fr.po ja.po ms.po pt_BR.po ru.po sv_SE.po
-GMOFILES =  af.gmo de.gmo es.gmo he.gmo ko.gmo nl_NL.gmo pt.gmo sk.gmo tr.gmo cs.gmo en_US.gmo fr_FR.gmo hr.gmo lv.gmo pl.gmo ro.gmo sv.gmo zh_CN.gmo da.gmo es_ES.gmo fr.gmo ja.gmo ms.gmo pt_BR.gmo ru.gmo sv_SE.gmo
+POFILES =  af.po de.po es.po he.po ko.po nl_NL.po pt.po sk.po tr.po cs.po en_US.po fr_FR.po hr.po lv.po pl.po ro.po sv.po zh_CN.po da.po es_ES.po fr.po ja.po ms.po pt_BR.po ru.po sv_SE.po eu.po
+GMOFILES =  af.gmo de.gmo es.gmo he.gmo ko.gmo nl_NL.gmo pt.gmo sk.gmo tr.gmo cs.gmo en_US.gmo fr_FR.gmo hr.gmo lv.gmo pl.gmo ro.gmo sv.gmo zh_CN.gmo da.gmo es_ES.gmo fr.gmo ja.gmo ms.gmo pt_BR.gmo ru.gmo sv_SE.gmo eu.gmo
 DISTFILES = ChangeLog Makefile.in.in POTFILES.in $(GETTEXT_PACKAGE).pot \
 $(POFILES) $(GMOFILES) $(SOURCES)
 
 POTFILES = \
 
-CATALOGS =  af.gmo de.gmo es.gmo he.gmo ko.gmo nl_NL.gmo pt.gmo sk.gmo tr.gmo cs.gmo en_US.gmo fr_FR.gmo hr.gmo lv.gmo pl.gmo ro.gmo sv.gmo zh_CN.gmo da.gmo es_ES.gmo fr.gmo ja.gmo ms.gmo pt_BR.gmo ru.gmo sv_SE.gmo
+CATALOGS =  af.gmo de.gmo es.gmo he.gmo ko.gmo nl_NL.gmo pt.gmo sk.gmo tr.gmo cs.gmo en_US.gmo fr_FR.gmo hr.gmo lv.gmo pl.gmo ro.gmo sv.gmo zh_CN.gmo da.gmo es_ES.gmo fr.gmo ja.gmo ms.gmo pt_BR.gmo ru.gmo sv_SE.gmo eu.gmo
 CATOBJEXT = .gmo
 INSTOBJEXT = .mo
 
