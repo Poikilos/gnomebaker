@@ -291,18 +291,20 @@ gbcommon_launch_app_for_file(const gchar* file)
 	g_return_if_fail(file != NULL);
 	
 	gchar* mime = gnome_vfs_get_mime_type(file);
-	GnomeVFSMimeApplication* app = gnome_vfs_mime_get_default_application(mime);
-	if(app != NULL)
-	{			
-		gchar* uri = gnome_vfs_get_uri_from_local_path(file);
-		GList* uris = NULL;
-		uris = g_list_append(uris, uri);
-		gnome_vfs_mime_application_launch(app, uris);
-		g_free(uri);
-		g_list_free(uris);
-		gnome_vfs_mime_application_free(app);
+	if(mime != NULL)
+	{		
+		GnomeVFSMimeApplication* app = gnome_vfs_mime_get_default_application(mime);
+		if(app != NULL)
+		{			
+			gchar* uri = gnome_vfs_get_uri_from_local_path(file);
+			GList* uris = NULL;
+			uris = g_list_append(uris, uri);
+			gnome_vfs_mime_application_launch(app, uris);
+			g_free(uri);
+			g_list_free(uris);
+			gnome_vfs_mime_application_free(app);
+		}
 	}
-	
 	g_free(mime);	
 }
 
