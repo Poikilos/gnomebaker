@@ -50,23 +50,27 @@ devices_init()
 	
 void
 devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename, 
-	const gchar* deviceid, const gchar* devicenode, const gchar* mountpoint)
+	const gchar* deviceid, const gchar* devicenode, const gchar* mountpoint,
+	const gint capabilities)
 {
 	GB_LOG_FUNC
 	gchar* devicenamekey = g_strdup_printf(GB_DEVICE_NAME, devicenumber);			
 	gchar* deviceidkey = g_strdup_printf(GB_DEVICE_ID, devicenumber);	
 	gchar* devicenodekey = g_strdup_printf(GB_DEVICE_NODE, devicenumber);	
 	gchar* devicemountkey = g_strdup_printf(GB_DEVICE_MOUNT, devicenumber);	
+	gchar* devicecapabilitieskey = g_strdup_printf(GB_DEVICE_CAPABILITIES, devicenumber);	
 	
 	preferences_set_string(devicenamekey, devicename);
 	preferences_set_string(deviceidkey, deviceid);
 	preferences_set_string(devicenodekey, devicenode);
 	preferences_set_string(devicemountkey, mountpoint);
+	preferences_set_int(devicecapabilitieskey, capabilities);
 	
 	g_free(devicenamekey);
 	g_free(deviceidkey);
 	g_free(devicenodekey);
 	g_free(devicemountkey);
+	g_free(devicecapabilitieskey);
 
 	g_message("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]", 
 		devicename, deviceid, devicenode, mountpoint);
@@ -75,7 +79,7 @@ devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename,
 
 void
 devices_add_device(const gchar* devicename, const gchar* deviceid, 
-				   const gchar* devicenode)
+				   const gchar* devicenode, const gint capabilities)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(devicename != NULL);
@@ -123,7 +127,7 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 
 	++deviceadditionindex;	
 	devices_write_device_to_gconf(deviceadditionindex, devicename, deviceid,
-		devicenode, mountpoint);
+		devicenode, mountpoint, capabilities);
 	
 	g_free(mountpoint);
 }
@@ -216,12 +220,16 @@ devices_clear_devicedata()
 		preferences_delete_key(devicenodekey);
 		gchar* devicemountkey = g_strconcat(devicekey, GB_DEVICE_MOUNT_LABEL, NULL);		
 		preferences_delete_key(devicemountkey);
+		gchar* devicecapabilitieskey = g_strconcat(devicekey, GB_DEVICE_CAPABILITIES_LABEL, NULL);		
+		preferences_delete_key(devicecapabilitieskey);
+		
 		preferences_delete_key(devicekey);
 		
 		g_free(deviceidkey);
 		g_free(devicenamekey);		
 		g_free(devicenodekey);
 		g_free(devicemountkey);
+		g_free(devicecapabilitieskey);
 		g_free(devicekey);
 		item = item->next;
 	}
@@ -268,7 +276,7 @@ devices_parse_cdrecord_output(const gchar* buffer, const gchar* busname)
 				gchar* displayname = g_strdup_printf("%s %s", g_strstrip(vendor), 
 					g_strstrip(model));
 								
-				devices_add_device(displayname, device, "");
+				devices_add_device(displayname, device, "", 0);
 				
 				g_free(displayname);
 				g_free(device);
@@ -312,10 +320,13 @@ devices_probe_bus(const gchar* bus)
 
 
 void 
-devices_add_ide_device(const gchar* devicenode, const gchar* devicenodepath)
+devices_get_ide_device(const gchar* devicenode, const gchar* devicenodepath,
+					   gchar** modelname, gchar** deviceid)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(devicenode != NULL);	
+	g_return_if_fail(modelname != NULL);
+	g_return_if_fail(deviceid != NULL);
 	g_message("devices_add_ide_device - probing [%s]", devicenode);
 
 	gchar* contents = NULL;
@@ -323,8 +334,8 @@ devices_add_ide_device(const gchar* devicenode, const gchar* devicenodepath)
 	if(g_file_get_contents(file, &contents, NULL, NULL))
 	{
 		g_strstrip(contents);
-		g_message("devices_add_ide_device - model is [%s]", contents);
-		devices_add_device(contents, devicenodepath, devicenodepath);		
+		*modelname = g_strdup(contents);
+		*deviceid = g_strdup(devicenodepath);
 		g_free(contents);
 	}
 	else
@@ -336,10 +347,13 @@ devices_add_ide_device(const gchar* devicenode, const gchar* devicenodepath)
 
 
 void 
-devices_add_scsi_device(const gchar* devicenode, const gchar* devicenodepath)
+devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
+						gchar** modelname, gchar** deviceid)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(devicenode != NULL);
+	g_return_if_fail(modelname != NULL);
+	g_return_if_fail(deviceid != NULL);
 	g_message("devices_add_scsi_device - probing [%s]", devicenode);
 	
 	gchar **device_strs = NULL, **devices = NULL;	
@@ -382,13 +396,9 @@ devices_add_scsi_device(const gchar* devicenode, const gchar* devicenodepath)
 							model [16] = '\0'; 
 							g_strstrip(model);
 							
-							gchar* modelname = g_strdup_printf("%s %s", vendor, model);
-							gchar* deviceid = g_strdup_printf("%d,%d,%d", scsihost, scsiid, scsilun);
-							
-							devices_add_device(modelname, deviceid, devicenodepath);
-						
-							g_free(deviceid);
-							g_free(modelname);
+							*modelname = g_strdup_printf("%s %s", vendor, model);
+							*deviceid = g_strdup_printf("%d,%d,%d", scsihost, scsiid, scsilun);
+							break;
 						}
 					}
 					++cddevice;
@@ -404,6 +414,75 @@ devices_add_scsi_device(const gchar* devicenode, const gchar* devicenodepath)
 }
 
 
+void 
+devices_for_each(gpointer key, gpointer value, gpointer user_data)
+{	
+	g_message("---- key [%s], value [%s]", (gchar*)key, (gchar*)value);
+	g_free(key);
+	g_free(value);
+}
+
+
+GHashTable* 
+devices_get_cdrominfo(gchar** proccdrominfo, gint deviceindex)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(proccdrominfo != NULL, NULL);
+	g_return_val_if_fail(deviceindex >= 1, NULL);
+	
+	g_message("looking for device [%d]", deviceindex);
+	
+	GHashTable* ret = NULL;
+	gchar** info = proccdrominfo;
+	while(*info != NULL)
+	{
+		g_strstrip(*info);
+		if(strlen(*info) > 0)
+		{
+			if(strstr(*info, "drive name:") != NULL)
+				ret = g_hash_table_new(g_str_hash, g_str_equal);
+			
+			if(ret != NULL)
+			{
+				gint columnindex = 0;
+				gchar* key = NULL;
+				gchar** columns = g_strsplit_set(*info, "\t", 0);				
+				gchar** column = columns;
+				while(*column != NULL)
+				{
+					g_strstrip(*column);
+					if(strlen(*column) > 0)
+					{
+						if(columnindex == 0)
+							key = *column;
+						else if(columnindex == deviceindex)
+							g_hash_table_insert(ret, g_strdup(key), g_strdup(*column));
+						++columnindex;
+					}					
+					++column;
+				}
+				
+				/* We must check if we found the device index we were
+				 looking for */
+				if(columnindex <= deviceindex)
+				{
+					g_message("Requested device index [%d] is out of bounds. "
+						"All devices have been read.", deviceindex);
+					g_hash_table_destroy(ret);
+					ret = NULL;
+					break;
+				}
+				
+				g_strfreev(columns);
+			}
+		}
+		++info;
+	}
+	
+	return ret;
+}
+
+
 gboolean
 devices_probe_busses()
 {
@@ -414,48 +493,52 @@ devices_probe_busses()
 	devices_clear_devicedata();	
 		
 #ifdef __linux__	
-	
-	static const gchar* const drivelabel = "drive name:\t\t";
-	gchar* ptr = NULL;
 
-	gchar* contents = NULL;
-	if(!g_file_get_contents("/proc/sys/dev/cdrom/info", &contents, NULL, NULL))
+	gchar **info = NULL;
+	if((info = gbcommon_get_file_as_list("/proc/sys/dev/cdrom/info")) == NULL)
 	{
 		g_critical("Failed to open /proc/sys/dev/cdrom/info");
 	}
-	else if((ptr = strstr(contents, drivelabel)) == NULL)
-	{
-		g_critical("Failed to find 'drive name:' in /proc/sys/dev/cdrom/info");
-	}
 	else
 	{
-		ok = TRUE;
-		ptr += strlen(drivelabel);			
-		gchar* lineend = strstr(ptr, "\n");
-		if(lineend != NULL)
+		gint devicenum = 1;
+		GHashTable* devinfo = NULL;
+		while((devinfo = devices_get_cdrominfo(info, devicenum)) != NULL)
 		{
-			gchar* line = g_strndup(ptr, lineend - ptr);
-			gchar** devices = g_strsplit_set(line, "\t ", 0);				
-			gchar** device = devices;
-			while((*device != NULL) && (strlen(*device) > 0))
-			{
-				gchar* devicenodepath = g_strdup_printf("/dev/%s", *device);
-				g_message("devices_probe_busses - found device [%s]", *device);
-				if((*device)[0] == 'h')
-					devices_add_ide_device(*device, devicenodepath);
-				else
-					devices_add_scsi_device(*device, devicenodepath);						
-				g_free(devicenodepath);
-				++device;
-			}
+			const gchar* device = g_hash_table_lookup(devinfo, "drive name:");
+			gchar* devicenodepath = g_strdup_printf("/dev/%s", device);
 			
-			g_strfreev(devices);				
-			g_free(line);
+			gchar *modelname = NULL, *deviceid = NULL;
+			
+			if(device[0] == 'h')
+				devices_get_ide_device(device, devicenodepath, &modelname, &deviceid);
+			else
+				devices_get_scsi_device(device, devicenodepath, &modelname, &deviceid);
+			
+			gint capabilities = 0;
+			if(g_ascii_strcasecmp(g_hash_table_lookup(devinfo, "Can write CD-R:"), "1") == 0)
+				capabilities |= DC_WRITE_CDR;
+			if(g_ascii_strcasecmp(g_hash_table_lookup(devinfo, "Can write CD-RW:"), "1") == 0)
+				capabilities |= DC_WRITE_CDRW;
+			if(g_ascii_strcasecmp(g_hash_table_lookup(devinfo, "Can write DVD-R:"), "1") == 0)
+				capabilities |= DC_WRITE_DVDR;
+			if(g_ascii_strcasecmp(g_hash_table_lookup(devinfo, "Can write DVD-RAM:"), "1") == 0)
+				capabilities |= DC_WRITE_DVDRAM;
+			
+			devices_add_device(modelname, deviceid, devicenodepath, capabilities);			
+			
+			g_free(modelname);
+			g_free(deviceid);
+			g_free(devicenodepath);			
+			g_hash_table_foreach(devinfo, devices_for_each, NULL);
+			g_hash_table_destroy(devinfo);
+			devinfo = NULL;
+			++devicenum;
 		}
 	}
-			
-	g_free(contents);
-		
+	
+	g_strfreev(info);
+
 #else	
 
 	devices_probe_bus("SCSI");	
