@@ -15,7 +15,7 @@
  */
 /*
  * File: audioinfo.h
- * Created by: Luke - MP3 code ported to C from CMP3Info (written by Gustav Munkby)
+ * Copyright: Luke - MP3 code ported to C from CMP3Info (written by Gustav Munkby)
  * Created on: Thu Sep 16 20:16:51 2004
  */
 

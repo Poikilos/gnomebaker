@@ -15,7 +15,7 @@
  */
  /*
  * File: prefsdlg.h
- * Created by: luke_biddell@yahoo.com
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Fri Apr  9 12:04:30 2004
  */
 

@@ -15,7 +15,7 @@
  */
 /*
  * File: gnomebaker.h
- * Created by: luke_biddell@yahoo.com
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Tue Apr  6 23:28:51 2004
  */
  
@@ -250,25 +250,18 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 
 	gtk_widget_destroy(filesel);
 	
-
 	if(result == GTK_RESPONSE_OK)
 	{
-		GB_TRACE( _("file is %s"), file);
-		
 		gchar* mime = gbcommon_get_mime_type(file);
 		g_return_if_fail(mime != NULL);
 		GB_TRACE(_("mime type is %s for %s"), mime, file);
 		
 		/* Check that the mime type is iso */
 		if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
-		{
 			burn_iso(file);
-		}
 		else
-		{
 			gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
 			  _("The file you have selected is not a cd image. Please select a cd image to burn."));
-		}
 		
 		g_free(mime);
 	}

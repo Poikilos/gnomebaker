@@ -15,7 +15,7 @@
  */
  /*
  * File: splashdlg.h
- * Created by: luke_biddell@yahoo.com
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Fri Apr  9 21:07:18 2004
  */
 

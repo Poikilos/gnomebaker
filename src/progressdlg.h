@@ -15,7 +15,7 @@
  */
  /*
  * File: progressdlg.h
- * Created by: luke_biddell@yahoo.com
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Tue Apr  6 22:51:22 2004
  */
 

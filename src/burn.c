@@ -15,7 +15,7 @@
  */
 /*
  * File: burn.c
- * Created by: luke <luke@dhcp-45-369>
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Tue Jan 28 22:12:09 2003
  */
 

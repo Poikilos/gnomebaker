@@ -15,7 +15,7 @@
  */
  /*
  * File: execfunctions.h
- * Created by: luke_biddell@yahoo.com
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Sun Jan 11 17:22:09 2004
  */
 

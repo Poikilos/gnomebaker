@@ -15,7 +15,7 @@
  */
 /*
  * File: gnomebaker.h
- * Created by: luke_biddell@yahoo.com
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Tue Apr  6 23:28:51 2004
  */
 

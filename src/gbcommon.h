@@ -1,11 +1,3 @@
-/***************************************************************************
- *            gbcommon.h
- *
- *  Sun Jul  4 23:23:55 2004
- *  Copyright  2004  User
- *  Email
- ****************************************************************************/
-
 /*
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,8 +13,12 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
- 
+ /*
+ * File: gbcommon.c
+ * Copyright: luke_biddell@yahoo.com
+ * Created on: Sun Jul  4 23:23:55 2004
+ */
+  
 #ifndef _GBCOMMON_H
 #define _GBCOMMON_H
 

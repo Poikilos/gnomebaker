@@ -15,7 +15,7 @@
  */
 /*
  * File: execfunctions.c
- * Created by: luke_biddell@yahoo.com
+ * Copyright: luke_biddell@yahoo.com
  * Created on: Sun Jan 11 17:22:09 2004
  */
 
@@ -38,7 +38,7 @@ gint cdda2wav_totaltracks = -1;
 gint cdda2wav_totaltracksread = 0;
 
 gint readcd_totalguchars = -1;
-
+gint cdrdao_cdminutes = -1;
 
 /*******************************************************************************
  * CDRECORD
@@ -70,8 +70,6 @@ cdrecord_pre_proc(void *ex, void *buffer)
 		ExecCmd* e = (ExecCmd*)ex;
 		e->state = CANCELLED;
 	}
-	
-	
 }
 
 
@@ -112,7 +110,6 @@ void
 cdrecord_read_proc(void *ex, void *buffer)
 {
 	GB_LOG_FUNC
-
 	g_return_if_fail(buffer != NULL);
 	g_return_if_fail(ex != NULL);
 
@@ -1385,4 +1382,66 @@ sox_add_wav_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 	
 	cmd->preProc = sox_pre_proc;
 	cmd->readProc = sox_read_proc;
+}
+
+
+/*******************************************************************************
+ * CDRDAO
+ ******************************************************************************/
+
+void
+cdrdao_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(buffer != NULL);
+	g_return_if_fail(ex != NULL);	
+	const gchar* output = (gchar*)buffer;
+	
+	const gchar* length = strstr(output, ", length");
+	if(length != NULL)
+	{
+		gint len = 0;
+		if(sscanf(length, ", length %d:", &len) == 1)
+			cdrdao_cdminutes = len;
+	}
+	
+	const gchar* newline = strstr(output, "\n");
+	if(newline != NULL)
+	{
+		gint currentminutes = 0;
+		if(sscanf(length, "\n%d:", &currentminutes) == 1)
+			progressdlg_set_fraction((gfloat)currentminutes/(gfloat)cdrdao_cdminutes);
+	}
+	progressdlg_set_text(output);
+}
+
+
+void
+cdrdao_add_bin_args(ExecCmd* cmd, const gchar* bin)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cmd != NULL);
+	g_return_if_fail(bin != NULL);	
+	
+	cmd->preProc = cdrecord_pre_proc;	
+	cmd->readProc = cdrdao_read_proc;
+	
+	exec_cmd_add_arg(cmd, "%s", "cdrdao");
+	exec_cmd_add_arg(cmd, "%s", "write");
+	
+	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(cmd, "%s", "--device");
+	exec_cmd_add_arg(cmd, "%s", writer);
+	g_free(writer);	
+	
+	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
+	exec_cmd_add_arg(cmd, "%s", "--speed");
+	exec_cmd_add_arg(cmd, "%s", speed);
+	g_free(speed);
+	
+	if(preferences_get_bool(GB_EJECT))
+		exec_cmd_add_arg(cmd, "%s", "--eject");
+
+	if(preferences_get_bool(GB_DUMMY))
+		exec_cmd_add_arg(cmd, "%s", "--simulate");
 }
