@@ -149,7 +149,7 @@ cdrecord_read_proc(void *ex, void *buffer)
 				/* now add on the fraction of the track we are currently writing */
 				totalfraction += ((current / total) * (1.0 / cdrecord_totaltrackstowrite));
 				
-				/*g_message("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
+				/*GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 					currenttrack, cdrecord_firsttrack, current, total, totalfraction);*/
 				
 				progressdlg_set_fraction(totalfraction);
@@ -230,7 +230,7 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
 		if(audiofile->data)	
 		{
 			exec_cmd_add_arg(e, "%s", audiofile->data);
-			g_message(_("cdrecord - adding create audio data [%s]"), (gchar*)audiofile->data);
+			GB_TRACE(_("cdrecord - adding create audio data [%s]"), (gchar*)audiofile->data);
 			cdrecord_totaltrackstowrite++;
 		}
 		audiofile = audiofile->next;
@@ -286,7 +286,7 @@ cdrecord_add_audio_args(ExecCmd * const cdBurn)
 		{
 			if(g_str_has_suffix(name, ".wav"))
 			{
-				g_message( _("adding [%s]"), name);
+				GB_TRACE( _("adding [%s]"), name);
 				gchar* fullpath = g_build_filename(tmp, name, NULL);
 				exec_cmd_add_arg(cdBurn, "%s", fullpath);
 				cdrecord_totaltrackstowrite++;
@@ -408,7 +408,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 	
 	gchar* text = (gchar*)buffer;
 	
-	/*g_message( "cdda2wav_read_proc - read [%s]", text);*/
+	/*GB_TRACE( "cdda2wav_read_proc - read [%s]", text);*/
 	
 	if(cdda2wav_totaltracks == -1)
 	{
@@ -420,7 +420,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 			g_strlcpy(tmpbuf, tracksstart + 7, 3);
 			g_strstrip(tmpbuf);
 			cdda2wav_totaltracks = atoi(tmpbuf);			
-			g_message(_("cdda2wav_read_proc - total tracks %d"), cdda2wav_totaltracks);
+			GB_TRACE(_("cdda2wav_read_proc - total tracks %d"), cdda2wav_totaltracks);
 		}
 	}
 	else if(cdda2wav_totaltracks)
@@ -451,7 +451,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 					fraction = 1.0;
 			}
 			
-			/*g_message("cdda2wav_read_proc - track fraction %f", fraction);*/
+			/*GB_TRACE("cdda2wav_read_proc - track fraction %f", fraction);*/
 			
 			fraction *= (1.0/(gfloat)cdda2wav_totaltracks);			
 			fraction += ((gfloat)cdda2wav_totaltracksread *(1.0/(gfloat)cdda2wav_totaltracks));
@@ -737,7 +737,7 @@ dvdformat_read_proc(void *ex, void *buffer)
 		going on with the charset. */
 	gchar *buf = (gchar*)buffer;
 	
-	/*g_message("read_proc: %s",buf);*/
+	/*GB_TRACE("read_proc: %s",buf);*/
 	
 	const gint len = strlen(buf);		
 	gint i = 0;
@@ -759,7 +759,7 @@ dvdformat_read_proc(void *ex, void *buffer)
 			if(curpercent > 0)
 				progressdlg_set_fraction(curpercent);
 			else
-				g_message("Failed to get percent in dvdformat_read_proc");
+				GB_TRACE("Failed to get percent in dvdformat_read_proc");
 		}		
 	}
 	
@@ -907,9 +907,9 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 		gint progress = 0;
 		if(sscanf(buf,"%d.%*d",&progress) >0)
 		{
-			g_message(_("growisofs: progress: %d"),progress);
+			GB_TRACE(_("growisofs: progress: %d"),progress);
 			gfloat fraction = (gfloat)progress / 100.0;
-			g_message(_("growisofs: fraction: %f"),fraction);
+			GB_TRACE(_("growisofs: fraction: %f"),fraction);
 			
 			progressdlg_set_fraction(fraction);
 		}
@@ -920,33 +920,6 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 		progressdlg_set_fraction(1.0);
 		
 	progressdlg_append_output(buf);
-}
-
-
-gboolean
-growisofs_foreach_func(GtkTreeModel *model,
-                GtkTreePath  *path,
-                GtkTreeIter  *iter,
-                gpointer      user_data)
-{
-	GB_LOG_FUNC
-	gchar *file = NULL, *filepath = NULL;
-	gboolean existingsession = FALSE;
-		
-	gtk_tree_model_get (model, iter, DATACD_COL_FILE, &file,
-		DATACD_COL_PATH, &filepath, DATACD_COL_SESSION, &existingsession, -1);
-	
-	if(!existingsession)
-	{
-		gchar* buffer = g_strdup_printf("%s=%s", file, filepath);		
-		exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);
-		g_free(buffer);
-	}	
-	
-	g_free(file);	
-	g_free(filepath);
-	
-	return FALSE;
 }
 
 
@@ -1001,7 +974,7 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	/* -dvd-compat closes the session on DVD+RW's also */	
 	preferences_set_bool(GB_FINALIZE,FALSE);
 	exec_cmd_add_arg(growisofs, "%s", "-graft-points");
-	gtk_tree_model_foreach(datamodel, growisofs_foreach_func, growisofs);
+	gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, growisofs);
 }
 
 
@@ -1035,7 +1008,7 @@ mpg123_read_proc(void *ex, void *buffer)
 		guint current, total;
 		if(sscanf(frame, "%*s\t%d/%d", &current, &total) > 0)
 		{
-			g_message("track [%d] [%d]", current, total);		
+			GB_TRACE("track [%d] [%d]", current, total);		
 			progressdlg_set_fraction((gfloat)current/(gfloat)total);
 		}
 	}
@@ -1095,7 +1068,7 @@ mpg123_add_mp3_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 		exec_cmd_add_arg(cmd, "%s", "-w");
 		exec_cmd_add_arg(cmd, "%s", *convertedfile);
 		
-		g_message(_("Converted file is [%s]"), *convertedfile);
+		GB_TRACE(_("Converted file is [%s]"), *convertedfile);
 		g_free(filename);
 		
 		exec_cmd_add_arg(cmd, "%s", file);
@@ -1140,7 +1113,7 @@ oggdec_read_proc(void *ex, void *buffer)
 		if(sscanf(frame, "Time: %d:%d.%*d [%*d:%*d.%*d] of %d:%d.%*d", 
 				&currentmins, &currentsecs, &totalmins, &totalsecs) > 0)
 		{
-			g_message("track [%d] [%d] [%d] [%d]", currentmins, currentsecs, totalmins, totalsecs);		
+			GB_TRACE("track [%d] [%d] [%d] [%d]", currentmins, currentsecs, totalmins, totalsecs);		
 			progressdlg_set_fraction(
 				(gfloat)((currentmins * 60) + currentsecs) / 
 				(gfloat)((totalmins * 60) + totalsecs));
@@ -1186,7 +1159,7 @@ oggdec_add_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 		
 		exec_cmd_add_arg(cmd, "-f%s", *convertedfile);
 		
-		g_message("Converted file is [%s]", *convertedfile);
+		GB_TRACE("Converted file is [%s]", *convertedfile);
 	}
 	
 	g_free(trackdir);		
@@ -1210,7 +1183,7 @@ oggdec_add_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 		exec_cmd_add_arg(cmd, "%s", "-o");
 		exec_cmd_add_arg(cmd, "%s", *convertedfile);
 		
-		g_message(_("Converted file is [%s]"), *convertedfile);
+		GB_TRACE(_("Converted file is [%s]"), *convertedfile);
 		g_free(filename);
 	}
 	
@@ -1285,7 +1258,7 @@ readcd_read_proc(void *ex, void *buffer)
 		if(end != NULL)
 		{			
 			if(sscanf(end, "%*s %d", &readcd_totalguchars) > 0)
-				g_message("readcd size is %d", readcd_totalguchars);
+				GB_TRACE("readcd size is %d", readcd_totalguchars);
 		}
 		progressdlg_append_output(text);
 	}
@@ -1297,7 +1270,7 @@ readcd_read_proc(void *ex, void *buffer)
 			gint readguchars = 0;
 			if(sscanf(start, "%*s %d", &readguchars) > 0)
 			{
-				/*g_message( "read %d, total %d", readguchars, readcd_totalguchars);*/
+				/*GB_TRACE( "read %d, total %d", readguchars, readcd_totalguchars);*/
 				const gfloat fraction = (gfloat)readguchars/(gfloat)readcd_totalguchars;
 				progressdlg_set_fraction(fraction);
 			}		
@@ -1404,7 +1377,7 @@ sox_add_wav_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
 		
 		exec_cmd_add_arg(cmd, "%s", *convertedfile);
 		
-		g_message("Converted file is [%s]", *convertedfile);
+		GB_TRACE("Converted file is [%s]", *convertedfile);
 		g_free(filename);
 	}
 	

@@ -72,7 +72,7 @@ devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename,
 	g_free(devicemountkey);
 	g_free(devicecapabilitieskey);
 
-	g_message(_("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"), 
+	GB_TRACE(_("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"), 
 		devicename, deviceid, devicenode, mountpoint);
 }
 
@@ -98,7 +98,7 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 			gchar node[64], mount[64];
 			if(sscanf(*line, "%s\t%s", node, mount) == 2)
 			{
-				g_message(_("node [%s] mount [%s]"), node, mount);
+				GB_TRACE(_("node [%s] mount [%s]"), node, mount);
 				if(g_ascii_strcasecmp(node, devicenode) == 0)
 				{
 					mountpoint = g_strdup(mount);
@@ -106,38 +106,13 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 				else
 				{
 					/* try to resolve the devicenode in case it's a
-						symlink to the device we are looking for */
-					gchar* linktarget = g_file_read_link(node, NULL);
-					if(linktarget!= NULL)
-					{
-						g_message("node [%s] is link to [%s]", node, linktarget);
-						/* if linktarget not an absolute path make it one */
-						if(!g_path_is_absolute(linktarget))
-						{							
-							gchar* basename = g_path_get_basename(linktarget);
-							gchar* cmd = g_strdup_printf("find /dev -name %s", basename);
-							GString* output = exec_run_cmd(cmd);
-							if((output != NULL) && (output->len > 0))
-							{
-								g_free(linktarget);
-								linktarget = g_strdup(output->str);
-								g_strstrip(linktarget);
-								g_message("Link resolved to [%s]", linktarget);
-							}
-							else
-							{
-								g_critical("Failed to resolve link [%s] to a node in /dev", linktarget);
-							}
-							g_string_free(output, TRUE);							
-							g_free(cmd);
-							g_free(basename);							
-						}
-						
-						if(g_ascii_strcasecmp(linktarget, devicenode) == 0)
-						{					
-							g_message(_("node [%s] is link to [%s]"), node, linktarget);
-							mountpoint = g_strdup(mount);
-						}
+						symlink to the device we are looking for */					
+					gchar* linktarget = g_new0(gchar, PATH_MAX);
+					realpath(node, linktarget);					
+					if(g_ascii_strcasecmp(linktarget, devicenode) == 0)
+					{					
+						GB_TRACE(_("node [%s] is link to [%s]"), node, linktarget);
+						mountpoint = g_strdup(mount);
 					}
 					g_free(linktarget);
 				}
@@ -374,7 +349,7 @@ devices_get_ide_device(const gchar* devicenode, const gchar* devicenodepath,
 	g_return_if_fail(devicenode != NULL);	
 	g_return_if_fail(modelname != NULL);
 	g_return_if_fail(deviceid != NULL);
-	g_message(_("devices_add_ide_device - probing [%s]"), devicenode);
+	GB_TRACE(_("devices_get_ide_device - probing [%s]"), devicenode);
 
 	gchar* contents = NULL;
 	gchar* file = g_strdup_printf("/proc/ide/%s/model", devicenode);
@@ -401,7 +376,7 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 	g_return_if_fail(devicenode != NULL);
 	g_return_if_fail(modelname != NULL);
 	g_return_if_fail(deviceid != NULL);
-	g_message(_("devices_add_scsi_device - probing [%s]"), devicenode);
+	GB_TRACE(_("devices_add_scsi_device - probing [%s]"), devicenode);
 	
 	gchar **device_strs = NULL, **devices = NULL;	
 	if((devices = gbcommon_get_file_as_list("/proc/scsi/sg/devices")) == NULL)
@@ -464,7 +439,7 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 void 
 devices_for_each(gpointer key, gpointer value, gpointer user_data)
 {	
-	g_message(_("---- key [%s], value [%s]"), (gchar*)key, (gchar*)value);
+	GB_TRACE(_("---- key [%s], value [%s]"), (gchar*)key, (gchar*)value);
 	g_free(key);
 	g_free(value);
 }
@@ -477,7 +452,7 @@ devices_get_cdrominfo(gchar** proccdrominfo, gint deviceindex)
 	g_return_val_if_fail(proccdrominfo != NULL, NULL);
 	g_return_val_if_fail(deviceindex >= 1, NULL);
 	
-	g_message(_("looking for device [%d]"), deviceindex);
+	GB_TRACE(_("looking for device [%d]"), deviceindex);
 	
 	GHashTable* ret = NULL;
 	gchar** info = proccdrominfo;
@@ -513,7 +488,7 @@ devices_get_cdrominfo(gchar** proccdrominfo, gint deviceindex)
 				 looking for */
 				if(columnindex <= deviceindex)
 				{
-					g_message(_("Requested device index [%d] is out of bounds. "
+					GB_TRACE(_("Requested device index [%d] is out of bounds. "
 						"All devices have been read."), deviceindex);
 					g_hash_table_destroy(ret);
 					ret = NULL;
@@ -658,7 +633,7 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 	}
 	fclose(file);
 	
-	g_message("kernel version is [%f]", version);
+	GB_TRACE("kernel version is [%f]", version);
 		
 	if(version > 2.4 || version == 0.0)
 	{	

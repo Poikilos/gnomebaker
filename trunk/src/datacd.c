@@ -38,7 +38,7 @@ gdouble datadisksize = 0.0;
 DiskSize datadisksizes[] = 
 {
 	{200 * 1000 * 1000, "200MB CD"},
-	{600 * 1000 * 1000, "600MB CD"},
+	{650 * 1000 * 1000, "650MB CD"},
 	{700 * 1000 * 1000, "700MB CD"},
 	{4.7 * 1000 * 1000 * 1000, "4.7GB DVD"},
 	{8.5 * 1000 * 1000 * 1000, "8.5GB DVD"}
@@ -176,7 +176,7 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 	g_return_val_if_fail(liststore != NULL, FALSE);
 	gboolean ret = TRUE;
 	
-	gchar* filename = gbcommon_tidy_nautilus_dnd_file(file);
+	gchar* filename = gbcommon_unescape_string(file);
 		
 	GB_DECLARE_STRUCT(struct stat, s);
 	gint statret = stat(filename, &s);
@@ -199,7 +199,7 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 			} 
 			else 
 			{
-				gchar* mime = gnome_vfs_get_mime_type(filename);
+				gchar* mime = gbcommon_get_mime_type(filename);
 				icon = gbcommon_get_icon_for_mime(mime, 16);
 				g_free(mime);
 			}
@@ -242,7 +242,7 @@ datacd_add_selection(GtkSelectionData* selection)
 	
 	gnomebaker_show_busy_cursor(TRUE);	    	
 
-	g_message( _("received sel %s"), selection->data);	
+	GB_TRACE( _("received sel %s"), selection->data);	
 	const gchar* file = strtok((gchar*)selection->data,"\n");
 	while(file != NULL)
 	{
@@ -562,7 +562,7 @@ datacd_get_msinfo(gchar** msinfo)
 	else
 	{
 		*msinfo = g_strdup_printf("%d,%d", start, end);
-		g_message(_("datacd next session is [%s]"), *msinfo);		
+		GB_TRACE(_("datacd next session is [%s]"), *msinfo);		
 		ok = TRUE;
 	}
 	

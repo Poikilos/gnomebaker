@@ -290,7 +290,7 @@ audiocd_add_selection(GtkSelectionData* selection)
 	{
 		/* Get the file name that's been dropped and if there's a 
 	   	   file url at the start then strip it off */	
-		gchar* filename = gbcommon_tidy_nautilus_dnd_file(file);
+		gchar* filename = gbcommon_unescape_string(file);
 		
 		AudioInfo* info = audioinfo_new(filename);
 		if(info != NULL)

@@ -141,7 +141,7 @@ exec_thread(gpointer data)
 		{
 			/* Parent */
 			e->pid = pid;
-			g_message(_("exec_thread - parent created child with pid %d"), e->pid);
+			GB_TRACE(_("exec_thread - parent created child with pid %d"), e->pid);
 
 			/* Connect to the downstream end of the stdin pipe and close
 			 * the other end */
@@ -161,11 +161,11 @@ exec_thread(gpointer data)
 			timeout.tv_usec = 0;
 			
 			select(FD_SETSIZE, &set, NULL, NULL, &timeout);
-			g_message( "Select returned - [%d]", selectresult);*/
+			GB_TRACE( "Select returned - [%d]", selectresult);*/
 
 			while(read(stdin_pipe[0], buffer, BUFF_SIZE) > 0)
 			{				
-				/*g_message( "Exec stdin pipe - %s", buffer);*/
+				/*GB_TRACE( "Exec stdin pipe - %s", buffer);*/
 				if(e->readProc)	e->readProc(e, buffer);
 				memset(buffer, 0, BUFF_SIZE);
 			}
@@ -173,7 +173,7 @@ exec_thread(gpointer data)
 		else
 		{
 			/* Child */
-			g_message(_("exec_thread - created child"));
+			GB_TRACE(_("exec_thread - created child"));
 
 			/* Connect child stdout to the upstream end of the stdin pipe,
 			 * Connect child std err to the upstream end of the stdin pipe
@@ -186,12 +186,12 @@ exec_thread(gpointer data)
 			execvp(e->argv[0], e->argv);
 
 			/* If it didn't take over the Exec call failed.*/
-			g_message(_("exec_thread - Exec failed"));
+			GB_TRACE(_("exec_thread - Exec failed"));
 		}
 
 		wait(&e->exitCode);
 		
-		g_message(_("exec_thread - child exited with code [%d]\n"), e->exitCode);
+		GB_TRACE(_("exec_thread - child exited with code [%d]\n"), e->exitCode);
 
 		close(stdin_pipe[0]);
 		close(stdin_pipe[1]);
@@ -206,7 +206,7 @@ exec_thread(gpointer data)
 
 	if(ex->endProc) ex->endProc(ex, NULL);
 
-	g_message( _("exec_thread - exiting"));
+	GB_TRACE( _("exec_thread - exiting"));
 
 	return NULL;
 }
@@ -243,13 +243,13 @@ exec_cancel(const Exec * const e)
 	{
 		if(e->cmds[j].pid > 0)
 		{
-			g_message( _("exec_cancel - killing %d"), e->cmds[j].pid);
+			GB_TRACE( _("exec_cancel - killing %d"), e->cmds[j].pid);
 			kill(e->cmds[j].pid, SIGKILL);
 			e->cmds[j].state = CANCELLED;
 		}
 	}
 	
-	g_message( _("exec_cancel - complete"));
+	GB_TRACE( _("exec_cancel - complete"));
 }
 
 
@@ -257,7 +257,7 @@ GString*
 exec_run_cmd(const gchar* cmd)
 {
 	GB_LOG_FUNC
-	g_message( _("exec_run_cmd - %s"), cmd);
+	GB_TRACE( _("exec_run_cmd - %s"), cmd);
 	g_return_val_if_fail(cmd != NULL, NULL);
 	
 	GString* ret = NULL;	
@@ -273,7 +273,7 @@ exec_run_cmd(const gchar* cmd)
 		
 		g_free(stdout);
 		g_free(stderr);		
-		/*g_message(ret->str);*/
+		/*GB_TRACE(ret->str);*/
 	}
 	else if(error != NULL)
 	{		
