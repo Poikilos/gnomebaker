@@ -25,10 +25,6 @@
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
-/* nautilus drag and drop has this prepended */
-static const gchar* const fileurl = "file://";
-
-
 void 
 gbcommon_start_busy_cursor(GtkWidget* window)
 {
