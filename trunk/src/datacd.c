@@ -253,11 +253,10 @@ datacd_foreach_fileselection(GtkTreeModel *filemodel,
 }
 
 
-void
-datacd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
+void 
+datacd_remove()
 {
-	GB_LOG_FUNC	
-			
+	GB_LOG_FUNC
 	gnomebaker_show_busy_cursor(TRUE);
 	
 	GtkWidget *datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);	
@@ -309,10 +308,17 @@ datacd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
 
 
 void
-datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
-{	
-	GB_LOG_FUNC
+datacd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
+{
+	GB_LOG_FUNC	
+	datacd_remove();		
+}
 
+
+void
+datacd_clear()
+{
+	GB_LOG_FUNC
 	gnomebaker_show_busy_cursor(TRUE);
 	
 	GladeXML* xml = gnomebaker_getxml();
@@ -327,6 +333,14 @@ datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 	gnomebaker_enable_widget(widget_datacd_create, FALSE);
 	
 	gnomebaker_show_busy_cursor(FALSE);
+}
+
+
+void
+datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
+{	
+	GB_LOG_FUNC
+	datacd_clear();
 }
 
 
@@ -597,20 +611,4 @@ datacd_on_create_datadisk(gpointer widget, gpointer user_data)
 		burn_create_data_dvd(datamodel);
 	else
 		burn_create_data_cd(datamodel);	
-}
-
-
-void
-datacd_clear()
-{
-	GB_LOG_FUNC
-	datacd_on_clear_clicked(NULL, NULL);
-}
-
-
-void 
-datacd_remove()
-{
-	GB_LOG_FUNC
-	datacd_on_remove_clicked(NULL, NULL);
 }
