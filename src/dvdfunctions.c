@@ -255,13 +255,16 @@ growisofs_foreach_func(GtkTreeModel *model,
 	gtk_tree_model_get (model, iter, DATACD_COL_ICON, &icon, DATACD_COL_FILE, &file,
 		DATACD_COL_SIZE, &size, DATACD_COL_PATH, &filepath, -1);
 	
-	g_message( "%s %ld %s", file, size, filepath);
+	/* Only add files that are not part of an existing session */
+	if(g_ascii_strcasecmp(icon, DATACD_EXISTING_SESSION_ICON) != 0)
+	{	
+		g_message( "%s %ld %s", file, size, filepath);
+		
+		gchar* buffer = g_strdup_printf("%s", filepath);		
+		exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);
+		g_free(buffer);
+	}	
 	
-	gchar* buffer = g_strdup_printf("%s", filepath);
-	
-	exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);
-	
-	g_free(buffer);
 	g_free(icon);	
 	g_free(file);	
 	g_free(filepath);
