@@ -95,7 +95,7 @@
 			  <signal name="activate" handler="gnomebaker_on_blank_cdrw" last_modification_time="Thu, 08 Apr 2004 20:55:06 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image185">
+			    <widget class="GtkImage" id="image212">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-cdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -115,7 +115,7 @@
 			  <signal name="activate" handler="gnomebaker_on_format_dvdrw" last_modification_time="Wed, 05 Jan 2005 22:09:46 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image186">
+			    <widget class="GtkImage" id="image213">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-cdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -141,7 +141,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_datacd" last_modification_time="Fri, 09 Apr 2004 20:26:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image187">
+			    <widget class="GtkImage" id="image214">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -161,7 +161,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_audiocd" last_modification_time="Fri, 09 Apr 2004 20:26:00 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image188">
+			    <widget class="GtkImage" id="image215">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-audio-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -187,7 +187,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_iso" last_modification_time="Thu, 08 Apr 2004 21:00:53 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image189">
+			    <widget class="GtkImage" id="image216">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-burn-cd.png</property>
 			      <property name="xalign">0.5</property>
@@ -213,7 +213,7 @@
 			  <signal name="activate" handler="gnomebaker_on_import" last_modification_time="Tue, 04 Jan 2005 00:49:21 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image190">
+			    <widget class="GtkImage" id="image217">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-import-session.png</property>
 			      <property name="xalign">0.5</property>
@@ -246,7 +246,7 @@
 			  <signal name="activate" handler="gnomebaker_on_refresh" last_modification_time="Sun, 21 Nov 2004 15:12:14 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image191">
+			    <widget class="GtkImage" id="image218">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
 			      <property name="icon_size">1</property>
@@ -256,6 +256,22 @@
 			      <property name="ypad">0</property>
 			    </widget>
 			  </child>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkSeparatorMenuItem" id="separator4">
+			  <property name="visible">True</property>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkCheckMenuItem" id="show_file_browser1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">_Show File Browser</property>
+			  <property name="use_underline">True</property>
+			  <property name="active">True</property>
+			  <signal name="activate" handler="gnomebaker_on_show_file_browser" last_modification_time="Sat, 15 Jan 2005 00:45:27 GMT"/>
 			</widget>
 		      </child>
 		    </widget>
@@ -558,7 +574,6 @@
 
 		      <child>
 			<widget class="GtkToolButton" id="buttonAdd">
-			  <property name="visible">True</property>
 			  <property name="tooltip" translatable="yes">Add the current directory to the CD</property>
 			  <property name="label" translatable="yes">Add directory</property>
 			  <property name="use_underline">True</property>
@@ -580,7 +595,7 @@
 			  <property name="tooltip" translatable="yes">Add the selected files to the CD</property>
 			  <property name="label" translatable="yes">Add file(s)</property>
 			  <property name="use_underline">True</property>
-			  <property name="icon">baker-add-files.png</property>
+			  <property name="stock_id">gtk-add</property>
 			  <property name="visible_horizontal">True</property>
 			  <property name="visible_vertical">True</property>
 			  <property name="is_important">True</property>

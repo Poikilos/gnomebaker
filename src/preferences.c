@@ -69,6 +69,7 @@ preferences_init()
 			preferences_set_bool(GB_CREATEISOONLY, FALSE);
 			preferences_set_string(GB_WRITE_MODE, "default");
 			preferences_set_bool(GB_ALWAYS_SCAN, TRUE);
+			preferences_set_bool(GB_SHOW_FILE_BROWSER, TRUE);
 		}		
 		
 		gbcommon_mkdir(tempdir);

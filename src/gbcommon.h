@@ -67,6 +67,11 @@ static const gchar* const widget_audiocd_create = "button14";
 static const gchar* const widget_top_toolbar = "toolbar3";
 static const gchar* const widget_middle_toolbar = "toolbar4";
 
+static const gchar* const widget_show_browser_menu = "show_file_browser1";
+static const gchar* const widget_browser_hpane = "hpaned3";
+static const gchar* const widget_add_button = "buttonAddFiles";
+static const gchar* const widget_refresh_menu = "refresh1";
+static const gchar* const widget_refresh_button = "toolbutton4";
 
 /* Start dialog glade widget names */
 static const gchar* const widget_startdlg = "startDlg";
