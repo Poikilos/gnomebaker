@@ -15,6 +15,7 @@ Version 0.2.1
 * Tooltips and toolbar styles have started working, looks like something got fixed in libglade.
 * Tidy up the progress dialog code, improve performance and hopefully fix some xlib multithreading issues.
 * Make the preferences dialog more gnomeesque with (almost) instant apply preferences.
+* Filenames and directories can now be renamed by left clicking in the contents column of a data cd.
 
 Version 0.2
 
