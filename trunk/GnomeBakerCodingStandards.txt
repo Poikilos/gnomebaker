@@ -1,0 +1,228 @@
+GnomeBaker Coding Standards
+-----------------------------------------
+
+
+1. All functions use the GB_LOG_FUNC macro
+-------------------------------------------------------------------------------
+
+The first line in any function should be GB_LOG_FUNC. It is a really simple
+macro which when enabled logs the function entry to a console. It's pretty
+noddy but helps when debugging peoples problems remotely.
+
+It's enabled by starting the app with the flag --trace-on.
+
+eg. gnomebaker --trace-on > gboutput.txt
+
+
+
+2. Brackets go on next line from control statements. 
+-------------------------------------------------------------------------------
+
+All of the existing code is formatted this way so this is the way the remainder 
+will be formatted.
+
+
+void
+my_function()
+{
+	GB_LOG_FUNC
+	if(some_other_function())
+	{
+		/* do something */
+	}
+	else
+	{
+		/* do something else */
+	}
+}
+
+
+
+3. Scope variables as tightly as possible
+-------------------------------------------------------------------------------
+
+Variables should assigned on the line they are declared as shown below:
+
+void 
+my_function()
+{
+	GB_LOG_FUNC
+	if(some_other_function())
+	{
+		gint count = get_count();
+		++count;
+	}
+}
+
+rather than:
+
+void 
+my_function()
+{
+	GB_LOG_FUNC
+	gint count;
+	if(some_other_function())
+	{
+		count = get_count();
+		++count;
+	}
+}
+
+
+
+4. Check function parameters using glib macros
+-------------------------------------------------------------------------------
+
+GLib provides several convenient macros for checking parameter values. They should
+be used.
+
+void 
+my_function(const gchar* value)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(value != NULL);
+	...
+}
+
+
+gboolean 
+my_function(const gchar* value)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(value != NULL, FALSE);
+	...
+}
+
+
+
+5. Avoid multiple return points where possible
+-------------------------------------------------------------------------------
+
+Multiple return points aren't all bad but consider the following code (it's
+not a great example as it doesn't make much sense and is somewhat extreme):
+
+
+gboolean 
+my_function()
+{
+	GB_LOG_FUNC
+	
+	GString* value1 = g_string_new("");
+	GString* value2 = g_string_new("");
+	
+	if(!some_function(value1, value2))
+	{
+		g_string_free(value1, TRUE);
+		g_string_free(value1, TRUE);
+		return FALSE;
+	}
+
+	if(!some_other_function(value1, value2))
+	{
+		g_string_free(value1, TRUE);
+		g_string_free(value1, TRUE);
+		return FALSE;
+	}
+	
+	another_function(TRUE);
+	
+	g_message("value1 is %s", value1->str);
+	g_message("value2 is %s", value2->str);
+	
+	g_string_free(value1, TRUE);
+	g_string_free(value1, TRUE);
+
+	return TRUE;
+}
+
+
+is much better written:
+
+
+gboolean 
+my_function()
+{
+	GB_LOG_FUNC
+	gboolean ret = FALSE;
+	GString* value1 = g_string_new("");
+	GString* value2 = g_string_new("");
+	
+	if(!some_function(value1, value2))
+	{
+		g_critical("Error calling some_function");
+	}
+	else if(!some_other_function(value1, value2))
+	{
+		g_critical("Error calling some_other_function");
+	}
+	else
+	{
+		another_function(TRUE);
+		g_message("value1 is %s", value1->str);
+		g_message("value2 is %s", value2->str);
+		ret = TRUE;
+	}
+	
+	g_string_free(value1, TRUE);
+	g_string_free(value1, TRUE);
+
+	return ret;
+}
+
+
+Now there is one allocation and one free. There's less lines of code and memory
+is guaranteed to be freed. Where there are multiple exit points it's easy to
+miss a call to free. The preferred way also forces you to log a g_critical or
+something appropriate as you have to do something in the if.
+
+
+
+6. Function names begin with the filename
+-------------------------------------------------------------------------------
+
+Where practical function names should begin with the file they are implemented
+in.
+
+ie
+
+	 /*
+	 * File: datacd.h
+	 * Created by: Luke Biddell <Email>
+	 * Created on: Sun May  9 15:16:08 2004
+	 */
+	
+	#ifndef _DATACD_H_
+	#define _DATACD_H_
+	
+	#ifdef HAVE_CONFIG_H
+	#  include <config.h>
+	#endif
+	
+	#include <glade/glade.h>
+	#include <gnome.h>
+	
+	void datacd_new();
+	void datacd_clear();
+	void datacd_remove();
+	void datacd_add_selection(GtkSelectionData* selection);
+	void datacd_import_session();
+
+
+
+7. Don't forward declare functions
+-------------------------------------------------------------------------------
+
+Private functions should be ordered such that forward declaration in the .c
+file should be unnecessary. Public functions will obviously be declared in the .h
+
+
+
+8. Externalise all strings
+--------------------------------------------------------------------------------
+
+When you need a string which will be displayed to a user, write this:
+
+_("Something") will make the string translatable. _( is for gettext to do 
+its work. Now, the po/gnomebaker.pot should be updated by the configure script to 
+reflect all the strings in the source files. A translator needs to copy that 
+file to a locale file, eg. pt_BR.po. In this file he can translate the strings.
