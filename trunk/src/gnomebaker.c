@@ -293,26 +293,14 @@ gnomebaker_on_add_dir(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	GtkWidget *dirtree = glade_xml_get_widget(xml, widget_browser_dirtree);
-	g_return_if_fail(dirtree != NULL);	
-	
-	GtkSelectionData* selection_data = g_new0(GtkSelectionData, 1);	
-	filebrowser_on_drag_data_get(dirtree, NULL, selection_data, 0, 0, NULL);
-	
+	GtkSelectionData* selection_data = filebrowser_get_selection(TRUE);
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
-	g_return_if_fail(notebook != NULL);	
-	
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
 		case 0:
-		{
-			datacd_on_drag_data_received(
-				NULL, NULL, 0, 0, selection_data, 0, 0, NULL);
+			datacd_add_selection(selection_data);
 			break;
-		}
-		default:
-		{
-		}
+		default:{}
 	};	
 	
 	gtk_selection_data_free(selection_data);
@@ -324,32 +312,17 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	GtkWidget *filetree = glade_xml_get_widget(xml, widget_browser_filelist);
-	g_return_if_fail(filetree != NULL);	
-	
-	GtkSelectionData* selection_data = g_new0(GtkSelectionData, 1);	
-	filebrowser_on_drag_data_get(filetree, NULL, selection_data, 0, 0, NULL);
-	
-	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
-	g_return_if_fail(notebook != NULL);	
-	
+	GtkSelectionData* selection_data = filebrowser_get_selection(FALSE);
+	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);	
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
 		case 0:
-		{
-			datacd_on_drag_data_received(
-				NULL, NULL, 0, 0, selection_data, 0, 0, NULL);
+			datacd_add_selection(selection_data);
 			break;
-		}
 		case 1:
-		{				
-			audiocd_on_drag_data_received(
-				NULL, NULL, 0, 0, selection_data, 0, 0, NULL);
+			audiocd_add_selection(selection_data);
 			break;
-		}
-		default:
-		{
-		}
+		default:{}
 	};
 	
 	gtk_selection_data_free(selection_data);
@@ -363,22 +336,15 @@ gnomebaker_on_remove(gpointer widget, gpointer user_data)
 	
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
 	g_return_if_fail(notebook != NULL);	
-	
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
 		case 0:
-		{			
-			datacd_on_remove_clicked(NULL, NULL);		
+			datacd_remove();
 			break;
-		}
 		case 1:
-		{
-			audiocd_on_remove_clicked(NULL, NULL);	
+			audiocd_remove();
 			break;
-		}
-		default:
-		{
-		}
+		default:{}
 	};
 }
 
@@ -390,22 +356,15 @@ gnomebaker_on_clear(gpointer widget, gpointer user_data)
 	
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
 	g_return_if_fail(notebook != NULL);	
-	
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
 		case 0:			
-		{
-			datacd_on_clear_clicked(NULL, NULL);
+			datacd_clear();
 			break;
-		}
 		case 1:
-		{
-			audiocd_on_clear_clicked(NULL, NULL);
+			audiocd_clear();
 			break;
-		}		
-		default:
-		{
-		}	
+		default:{}
 	};
 }
 
@@ -450,22 +409,16 @@ gnomebaker_on_import(gpointer widget, gpointer user_data)
 	GB_LOG_FUNC
 	
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
-	g_return_if_fail(notebook != NULL);	
-	
+	g_return_if_fail(notebook != NULL);		
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
 		case 0:			
-		{
 			datacd_import_session();
 			break;
-		}
 		case 1:
-		{
+			audiocd_import_session();
 			break;
-		}		
-		default:
-		{
-		}	
+		default:{}	
 	};
 }
 

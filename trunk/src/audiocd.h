@@ -33,13 +33,6 @@
 #include <gnome.h>
 
 
-void audiocd_new();
-void audiocd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata);
-void audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata);
-void audiocd_on_drag_data_received(GtkWidget * widget, GdkDragContext * context,
-    						  gint x, gint y, GtkSelectionData * seldata,
-    						  guint info, guint time, gpointer userdata);
-							  
 enum
 {    
 	AUDIOCD_COL_ICON = 0,
@@ -52,5 +45,12 @@ enum
     AUDIOCD_NUM_COLS
 };
 
+
+void audiocd_new();
+void audiocd_clear();
+void audiocd_remove();
+void audiocd_add_selection(GtkSelectionData* selection);
+void audiocd_import_session();
+							  
 							  
 #endif	/*_AUDIOCD_H_*/

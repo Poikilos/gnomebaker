@@ -57,68 +57,6 @@ static GtkTargetEntry targetentries[] =
 };
 
 
-void
-datacd_contents_cell_edited(GtkCellRendererText *cell,
-							gchar* path_string,
-							gchar* new_text,
-							gpointer user_data)
-{
-	GB_LOG_FUNC	
-	g_return_if_fail(cell != NULL);
-	g_return_if_fail(path_string != NULL);
-	g_return_if_fail(new_text != NULL);
-	g_return_if_fail(user_data != NULL);
-		
-	GB_DECLARE_STRUCT(GtkTreeIter, iter);
-	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(user_data), &iter, path_string))
-	{
-		GValue val = {0};
-		g_value_init(&val, G_TYPE_STRING);
-		g_value_set_string(&val, new_text);
-
-		gtk_list_store_set_value(GTK_LIST_STORE(user_data), &iter, DATACD_COL_FILE, &val);
-		
-		g_value_unset(&val);
-	}
-}
-
-
-gboolean
-datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
-{
-	GB_LOG_FUNC
-
-	/* look for a right click */	
-	if(event->button == 3)
-	{
-		GtkWidget* menu = gtk_menu_new();	
-		
-		GtkWidget* menuitem = gtk_menu_item_new_with_label("Remove selected");	
-		g_signal_connect(menuitem, "activate",
-			(GCallback)datacd_on_remove_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
-		menuitem = gtk_menu_item_new_with_label("Clear");	
-		g_signal_connect(menuitem, "activate",
-			(GCallback)datacd_on_clear_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
-		gtk_widget_show_all(menu);
-	
-		/* Note: event can be NULL here when called. However,
-		 *  gdk_event_get_time() accepts a NULL argument */
-		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-					   (event != NULL) ? event->button : 0,
-					   gdk_event_get_time((GdkEvent*)event));
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
-}
-
-
 gint 
 datacd_get_datadisk_size()
 {
@@ -137,79 +75,6 @@ datacd_get_datadisk_size()
 		datadisksize = DISK_SIZE_8500MB;
 
 	return datadisksize;
-}
-
-
-void
-datacd_new()
-{
-	GB_LOG_FUNC
-	
-	GtkTreeView* filelist = GTK_TREE_VIEW(glade_xml_get_widget(
-		gnomebaker_getxml(), widget_datacd_tree));
-	g_return_if_fail(filelist != NULL);
-	
-	/* Create the list store for the file list */
-    GtkListStore *store = gtk_list_store_new(DATACD_NUM_COLS, G_TYPE_STRING, 
-			G_TYPE_STRING, G_TYPE_ULONG, G_TYPE_STRING);
-    gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
-    g_object_unref(store);
-
-	/* First column which has an icon renderer and a text renderer packed in */
-    GtkTreeViewColumn *col = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(col, "Contents");
-    GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
-    gtk_tree_view_column_pack_start(col, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(col, renderer, "stock-id", DATACD_COL_ICON, NULL);
-	
-	GValue value = { 0 };
-	g_value_init(&value, G_TYPE_BOOLEAN);
-	g_value_set_boolean(&value, TRUE);	
-
-    renderer = gtk_cell_renderer_text_new();
-	g_object_set_property(G_OBJECT(renderer), "editable", &value);
-	g_signal_connect(renderer, "edited", (GCallback)datacd_contents_cell_edited, 
-		(gpointer)store);
-    gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_FILE, NULL);
-	gtk_tree_view_append_column(filelist, col);	
-	
-	g_value_unset(&value);
-	
-	/* Second column to display the file/dir size */
-	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Size");
-	renderer = gtk_cell_renderer_text_new();
-	gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_SIZE, NULL);
-	gtk_tree_view_append_column(filelist, col);
-	
-	/* Third column for the full path of the file/dir */
-	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Full Path");
-	renderer = gtk_cell_renderer_text_new();
-	gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_PATH, NULL);
-	gtk_tree_view_append_column(filelist, col);
-	
-	/* Set the selection mode of the file list */
-    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist),
-		GTK_SELECTION_MULTIPLE /*GTK_SELECTION_BROWSE*/);
-
-	/* Enable the file list as a drag destination */	
-    gtk_drag_dest_set(GTK_WIDGET(filelist), GTK_DEST_DEFAULT_ALL,
-		targetentries, 3, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
-
-	/* Connect the function to handle the drag data */
-    g_signal_connect(filelist, "drag_data_received",
-		G_CALLBACK(datacd_on_drag_data_received), store);
-	
-	/* connect the signal to handle right click */
-	g_signal_connect (G_OBJECT(filelist), "button-press-event",
-        G_CALLBACK(datacd_on_button_pressed), NULL);
-			
-	/* get the currently selected cd size */
-	datacd_get_datadisk_size();	
 }
 
 
@@ -325,6 +190,33 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 }
 
 
+void 
+datacd_add_selection(GtkSelectionData* selection)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(selection != NULL);
+	g_return_if_fail(selection->data != NULL);
+	
+	GtkTreeView *datatree = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree));
+	g_return_if_fail(datatree != NULL);			
+	GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(datatree));
+	g_return_if_fail(model != NULL);
+	
+	gnomebaker_show_busy_cursor(TRUE);	    	
+
+	g_message( "received sel %s", selection->data);	
+	const gchar* file = strtok((gchar*)selection->data,"\n");
+	while(file != NULL)
+	{
+		if(!datacd_add_to_compilation(file, model, FALSE)) 
+			break;
+		file = strtok(NULL, "\n");
+	}
+	
+	gnomebaker_show_busy_cursor(FALSE);	
+}
+
+
 void
 datacd_on_drag_data_received(
     GtkWidget * widget,
@@ -337,26 +229,7 @@ datacd_on_drag_data_received(
     gpointer userdata)
 {
 	GB_LOG_FUNC	
-    g_return_if_fail(seldata != NULL);
-	g_return_if_fail(seldata->data != NULL);
-    
-	GtkTreeView *datatree = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree));
-	g_return_if_fail(datatree != NULL);			
-	GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(datatree));
-	g_return_if_fail(model != NULL);
-	
-	gnomebaker_show_busy_cursor(TRUE);	    	
-
-	g_message( "received sel %s", seldata->data);	
-	const gchar* file = strtok((gchar*)seldata->data,"\n");
-	while(file != NULL)
-	{
-		if(!datacd_add_to_compilation(file, model, FALSE)) 
-			break;
-		file = strtok(NULL, "\n");
-	}
-	
-	gnomebaker_show_busy_cursor(FALSE);
+ 	datacd_add_selection(seldata);
 }
 
 
@@ -452,6 +325,141 @@ datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 	gnomebaker_enable_widget(widget_datacd_create, FALSE);
 	
 	gnomebaker_show_busy_cursor(FALSE);
+}
+
+
+void
+datacd_contents_cell_edited(GtkCellRendererText *cell,
+							gchar* path_string,
+							gchar* new_text,
+							gpointer user_data)
+{
+	GB_LOG_FUNC	
+	g_return_if_fail(cell != NULL);
+	g_return_if_fail(path_string != NULL);
+	g_return_if_fail(new_text != NULL);
+	g_return_if_fail(user_data != NULL);
+		
+	GB_DECLARE_STRUCT(GtkTreeIter, iter);
+	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(user_data), &iter, path_string))
+	{
+		GValue val = {0};
+		g_value_init(&val, G_TYPE_STRING);
+		g_value_set_string(&val, new_text);
+
+		gtk_list_store_set_value(GTK_LIST_STORE(user_data), &iter, DATACD_COL_FILE, &val);
+		
+		g_value_unset(&val);
+	}
+}
+
+
+gboolean
+datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+{
+	GB_LOG_FUNC
+
+	/* look for a right click */	
+	if(event->button == 3)
+	{
+		GtkWidget* menu = gtk_menu_new();	
+		
+		GtkWidget* menuitem = gtk_menu_item_new_with_label("Remove selected");	
+		g_signal_connect(menuitem, "activate",
+			(GCallback)datacd_on_remove_clicked, widget);	
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
+		
+		menuitem = gtk_menu_item_new_with_label("Clear");	
+		g_signal_connect(menuitem, "activate",
+			(GCallback)datacd_on_clear_clicked, widget);	
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
+		
+		gtk_widget_show_all(menu);
+	
+		/* Note: event can be NULL here when called. However,
+		 *  gdk_event_get_time() accepts a NULL argument */
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+					   (event != NULL) ? event->button : 0,
+					   gdk_event_get_time((GdkEvent*)event));
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+
+void
+datacd_new()
+{
+	GB_LOG_FUNC
+	
+	GtkTreeView* filelist = GTK_TREE_VIEW(glade_xml_get_widget(
+		gnomebaker_getxml(), widget_datacd_tree));
+	g_return_if_fail(filelist != NULL);
+	
+	/* Create the list store for the file list */
+    GtkListStore *store = gtk_list_store_new(DATACD_NUM_COLS, G_TYPE_STRING, 
+			G_TYPE_STRING, G_TYPE_ULONG, G_TYPE_STRING);
+    gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
+    g_object_unref(store);
+
+	/* First column which has an icon renderer and a text renderer packed in */
+    GtkTreeViewColumn *col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(col, "Contents");
+    GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_tree_view_column_pack_start(col, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(col, renderer, "stock-id", DATACD_COL_ICON, NULL);
+	
+	GValue value = { 0 };
+	g_value_init(&value, G_TYPE_BOOLEAN);
+	g_value_set_boolean(&value, TRUE);	
+
+    renderer = gtk_cell_renderer_text_new();
+	g_object_set_property(G_OBJECT(renderer), "editable", &value);
+	g_signal_connect(renderer, "edited", (GCallback)datacd_contents_cell_edited, 
+		(gpointer)store);
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_FILE, NULL);
+	gtk_tree_view_append_column(filelist, col);	
+	
+	g_value_unset(&value);
+	
+	/* Second column to display the file/dir size */
+	col = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_title(col, "Size");
+	renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_SIZE, NULL);
+	gtk_tree_view_append_column(filelist, col);
+	
+	/* Third column for the full path of the file/dir */
+	col = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_title(col, "Full Path");
+	renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_PATH, NULL);
+	gtk_tree_view_append_column(filelist, col);
+	
+	/* Set the selection mode of the file list */
+    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist),
+		GTK_SELECTION_MULTIPLE /*GTK_SELECTION_BROWSE*/);
+
+	/* Enable the file list as a drag destination */	
+    gtk_drag_dest_set(GTK_WIDGET(filelist), GTK_DEST_DEFAULT_ALL,
+		targetentries, 3, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+
+	/* Connect the function to handle the drag data */
+    g_signal_connect(filelist, "drag_data_received",
+		G_CALLBACK(datacd_on_drag_data_received), store);
+	
+	/* connect the signal to handle right click */
+	g_signal_connect (G_OBJECT(filelist), "button-press-event",
+        G_CALLBACK(datacd_on_button_pressed), NULL);
+			
+	/* get the currently selected cd size */
+	datacd_get_datadisk_size();	
 }
 
 
@@ -587,4 +595,20 @@ datacd_on_create_datadisk(gpointer widget, gpointer user_data)
 		burn_create_data_dvd(datamodel);
 	else
 		burn_create_data_cd(datamodel);	
+}
+
+
+void
+datacd_clear()
+{
+	GB_LOG_FUNC
+	datacd_on_clear_clicked(NULL, NULL);
+}
+
+
+void 
+datacd_remove()
+{
+	GB_LOG_FUNC
+	datacd_on_remove_clicked(NULL, NULL);
 }
