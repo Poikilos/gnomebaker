@@ -25,11 +25,21 @@
 #include "gbcommon.h"
 
 const gchar* glade_file;
-
+gboolean showtrace = FALSE;
 
 gint 
 main(gint argc, gchar *argv[])
 {	
+	gint i = 0;	
+	for(; i < argc; ++i)
+	{
+		if(g_ascii_strcasecmp("--trace-on", argv[i]) == 0)
+		{
+			showtrace = TRUE;
+			break;
+		}
+	}
+	
 	g_thread_init(NULL);
 	gdk_threads_init();
 
