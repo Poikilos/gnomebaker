@@ -164,7 +164,7 @@ audiocd_on_drag_data_received(
 					GB_DECLARE_STRUCT(GtkTreeIter, iter);
 			
 					gtk_list_store_append(GTK_LIST_STORE(model), &iter);
-/*					
+					
 					g_message("adding %s", filename);
 					g_message("adding %s", info->formattedduration->str);
 					g_string_append_c(info->artist, '\0');
@@ -173,8 +173,7 @@ audiocd_on_drag_data_received(
 					g_message("adding %s", info->album->str);
 					g_string_append_c(info->title, '\0');
 					g_message("adding %s", info->title->str);
-*/					
-					
+										
 					gtk_list_store_set(
 						GTK_LIST_STORE(model), &iter, 
 						AUDIOCD_COL_ICON, GNOME_STOCK_MIDI, 
