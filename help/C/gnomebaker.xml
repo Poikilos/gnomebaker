@@ -1,0 +1,373 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "0.2">
+  <!ENTITY manrevision "0.2">
+  <!ENTITY date "October 2004">
+  <!ENTITY app "GnomeBaker">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.GNOME.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Jan 30, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="en">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+	 <title>&app; Manual V&manrevision;</title>
+	 <copyright>
+		<year>2004</year>
+		<holder>Milen Dzhumerov</holder> </copyright>
+
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2003</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+	 <publisher> 
+		<publishername> Milen Dzhumerov </publishername>
+	 </publisher>
+	 &legal; 
+	 <authorgroup> 
+		<author> 
+		  <firstname>Milen </firstname>
+		  <surname>Dzhumerov</surname>
+		  <address><email>gamehack@gmail.com</email></address>
+		</author>
+		<othercredit role="reviewer">
+			<firstname>Luke</firstname> 
+			<surname>Biddell</surname>
+			<email>luke_biddell@yahoo.com</email> 
+			<contrib>Acknowledgements</contrib>
+      </othercredit>
+
+
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email> </address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+	 </authorgroup>
+
+<!-- According to GNU FDL, revision history is mandatory if you are -->
+<!-- modifying/reusing someone else's document.  If not, you can omit it. -->
+	 <revhistory>
+<!-- Remember to remove the &manrevision; entity from the revision entries other
+   than the current revision. -->
+		<revision> 
+		  <revnumber>GnomeBaker v0.2</revnumber>
+		  <date>2004</date> 
+		  <revdescription> 
+			 <para role="author">Milen Dzhumerov <email>gamehack@gmail.com</email>
+				</para>
+		  </revdescription>
+		</revision>
+	 </revhistory>
+	 <releaseinfo> This manual describes version &appversion; of &app;.
+		</releaseinfo>
+	 <legalnotice> 
+		<title>Feedback</title>
+		<para>To report a bug or make a suggestion regarding the <application>&app;</application> application or this manual, contact Luke Biddell. 
+      </para>
+<!-- Translators may also add here feedback address for translations -->
+	 </legalnotice>
+  </articleinfo>
+  <indexterm><primary>gnomebaker</primary></indexterm>
+  <indexterm><primary>cd burning utility</primary></indexterm>
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+  <sect1 id="gnomebaker-intro"> 
+	 <title>Introduction</title>
+	 <para>The <application>&app;</application> application enables you to write and manipulate different types of CD recording media. <application>&app;</application> depends on <application>cdrecord</application>, so basically if your writing device works with it, <application>&app;</application> will work flawlessly.</para>
+  </sect1>
+<!-- ============= Getting Started =========================== -->
+  <sect1 id="gnomebaker-getting-started"> 
+	 <title>Getting Started</title>
+
+<!-- ============= To Start gnomebaker ============================ -->
+	 <sect2 id="gnomebaker-to-start"> 
+		<title>To Start &app;</title>
+		<para>You can start <application>&app;</application> in the following way:</para>
+		<variablelist>
+    		<!-- <varlistentry>
+			 GnomeBaker isn't added to the GNOME menu yet
+    		<term><guimenu>Applications</guimenu> menu</term>
+    		<listitem>
+    		<para>Choose <menuchoice><guisubmenu>Accessories</guisubmenu><guimenuitem>Text Editor</guimenuitem></menuchoice>. </para>
+    		</listitem>
+    		</varlistentry> -->
+    		<varlistentry>
+    		<term>Command line</term>
+    		<listitem>
+    		<para>Execute the following command: <command>gnomebaker</command></para>
+    		</listitem>
+    		</varlistentry>
+    		</variablelist>
+	</sect2>
+<!-- ============= When you start GnomeBaker ============================ -->	
+	<sect2 id="gnomebaker-when-you-start">
+	
+		<title>When You Start &app;</title>	
+		<para>When you start <application>&app;</application>, the following window is displayed:</para>
+	
+		<figure id="gnomebaker-window"> 
+		  <title>&app;'s Window</title>
+		  <screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnomebaker_window.png" format="PNG"/>
+					 </imageobject>
+				<textobject> <phrase>Shows <application>&app;</application> main window.</phrase>
+				</textobject> 
+			</mediaobject>
+		  </screenshot>
+		</figure>
+	
+		<para>The <application>&app;</application> window contains the following
+		  elements: </para>
+		<variablelist> 
+		  <varlistentry> <term>Menubar</term> 
+			 <listitem> 
+				<para>The menus on the menubar contain all of the commands you need to work with <application>&app;</application>.</para>
+			 </listitem>
+		  </varlistentry>
+		  <varlistentry> <term>Toolbar</term> 
+			 <listitem> 
+				<para>The toolbar contains a subset of the commands that you can access from the menubar.</para>
+			 </listitem>
+		  </varlistentry>
+		  <varlistentry> <term>File Browser</term> 
+			 <listitem> 
+				<para>The File Browser contains the files on your system which you can write on the CD. </para>
+			 </listitem>
+		  </varlistentry>
+		  <varlistentry> <term>Compilation Browser</term> 
+			 <listitem> 
+				<para>The Compilation Browser shows the files and directories to be written on the CD. </para>
+			 </listitem>
+		  </varlistentry>
+		  <varlistentry> <term>Media Size</term> 
+			 <listitem> 
+				<para>The Media Size dropdown menu let's you adjust the CD capacity. </para>
+			 </listitem>
+		  </varlistentry>
+		 <!-- <varlistentry> <term>Statusbar</term> 
+			 <listitem> 
+				<para>The statusbar displays information about current <application>&app;</application> activity and contextual information about the menu items. The statusbar also displays the following information:</para>
+		  <itemizedlist>
+		  <listitem>
+		  <para>Cursor position: the line number and column number where the cursor is located.</para>
+		  </listitem>
+		  <listitem>
+		  <para>Edit mode: If the editor is in insert mode, the statusbar contains the text <guilabel>INS</guilabel>. If the editor is in overwrite mode, the statusbar contains the text <guilabel>OVR</guilabel>. Press the <keycap>Insert</keycap> key to change edit mode.</para>
+		  </listitem>
+		  </itemizedlist>
+			 </listitem>
+		  </varlistentry> -->
+		</variablelist>
+	 </sect2>
+  </sect1>
+<!-- ================ Usage ================================ -->
+  <sect1 id="gnomebaker-usage">
+	 <title>Usage</title>
+
+<!-- ============= Create Data CD ======================== -->
+	 <sect2 id="gnomebaker-create-data-cd"> 
+		<title>Create a Data CD</title>
+		<para>To create a Data CD choose <guilabel>Data CD</guilabel> from the Compilation Browser. Then drag the files you want to burn on the CD from the Filesystem Browser to the Compilation Browser. Then press the <guibutton>Create Data CD</guibutton> button in the lower right corner. After clicking it, you will see the following dialog:
+		  <screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnomebaker-create-data-cd.png" format="PNG"/>
+					 </imageobject>
+			</mediaobject>
+		  </screenshot>
+		  <para>Use the <guilabel>Writer</guilabel> dropdown menu to select your writer.</para>
+		  <para>Select the speed that you want to burn the CD.</para>
+		  <para>Select the <guilabel>Eject CD</guilabel> option so <application>&app;</application> would eject the CD-RW dics after finishing the writing.</para>
+		  <para>Select the <guilabel>Dummy Write</guilabel> option to simulate CD writing.</para>
+ 		  <para>Select the <guilabel>Burn Free</guilabel> option turn on the BurnFree protection.</para>
+		  </para>
+	 </sect2>
+<!-- ============= Create Audio CD ======================== -->
+	 <sect2 id="gnomebaker-create-audio-cd"> 
+		<title>Create an Audio CD</title>
+		<para>To create an Audio CD choose <guilabel>Audio CD</guilabel> from the Compilation Browser. Then drag the music files you want to burn on the CD from the Filesystem Browser to the Compilation Browser. Then press the <guibutton>Create Audio CD</guibutton> button in the lower right corner. After clicking it, you will see the following dialog:
+		  <screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnomebaker-create-data-cd.png" format="PNG"/>
+					 </imageobject>
+			</mediaobject>
+		  </screenshot>
+		  <para>Use the <guilabel>Writer</guilabel> dropdown menu to select your writer.</para>
+		  <para>Select the speed that you want to burn the CD.</para>
+		  <para>Select the <guilabel>Eject CD</guilabel> option so <application>&app;</application> would eject the CD-RW dics after finishing the writing.</para>
+		  <para>Select the <guilabel>Dummy Write</guilabel> option to simulate CD writing.</para>
+ 		  <para>Select the <guilabel>Burn Free</guilabel> option turn on the BurnFree protection.</para>
+		  </para>
+	 </sect2>
+<!-- ============= Copy Data CD ======================== -->
+	 <sect2 id="gnomebaker-copy-data-cd"> 
+		<title>Copy a Data CD</title>
+		<para>To copy a Data CD, choose <menuchoice><guimenu>Actions</guimenu><guimenuitem>Copy Data CD</guimenuitem></menuchoice>. The application will show the following dialog:
+		<screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnomebaker-copy-data-cd.png" format="PNG"/>
+					 </imageobject>
+			</mediaobject>
+		  </screenshot>
+  	     <para>Use the <guilabel>Reader</guilabel> dropdown menu to select the reader from which the data will be copied.</para>
+  		  <para>Use the <guilabel>Writer</guilabel> dropdown menu to select your writer.</para>
+		  <para>Select the speed that you want to burn the CD.</para>
+		  <para>Select the <guilabel>Eject CD</guilabel> option so <application>&app;</application> would eject the CD dics after finishing the writing.</para>
+		  <para>Select the <guilabel>Dummy Write</guilabel> option to simulate CD writing.</para>
+ 		  <para>Select the <guilabel>Burn Free</guilabel> option turn on the BurnFree protection.</para>
+		</para>
+	 </sect2>
+<!-- ============= Copy Audio CD ======================== -->
+	 <sect2 id="gnomebaker-copy-audio-cd"> 
+		<title>Copy an Audio CD</title>
+		<para>To copy an Audio CD, choose <menuchoice><guimenu>Actions</guimenu><guimenuitem>Copy Audio CD</guimenuitem></menuchoice>. The application will show the following dialog:
+		<screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnomebaker-copy-audio-cd.png" format="PNG"/>
+					 </imageobject>
+			</mediaobject>
+		  </screenshot>
+  	     <para>Use the <guilabel>Reader</guilabel> dropdown menu to select the reader from which the data will be copied.</para>
+  		  <para>Use the <guilabel>Writer</guilabel> dropdown menu to select your writer.</para>
+		  <para>Select the speed that you want to burn the CD.</para>
+		  <para>Select the <guilabel>Eject CD</guilabel> option so <application>&app;</application> would eject the CD dics after finishing the writing.</para>
+		  <para>Select the <guilabel>Dummy Write</guilabel> option to simulate CD writing.</para>
+ 		  <para>Select the <guilabel>Burn Free</guilabel> option turn on the BurnFree protection.</para>
+		</para>
+	 </sect2>
+<!-- ============= Blank CD-RW ======================== -->
+	 <sect2 id="gnomebaker-blank-cdrw"> 
+		<title>Blank a CD-RW</title>
+		<para>To erase a CD-RW, choose <menuchoice><guimenu>Actions</guimenu><guimenuitem>Blank CDRW</guimenuitem></menuchoice>. The application will show the following dialog:
+		<screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnomebaker-blank-cdrw.png" format="PNG"/>
+					 </imageobject>
+			</mediaobject>
+		  </screenshot>
+		  <para>Use the <guilabel>Writer</guilabel> dropdown menu to select your writer.</para>
+		  <para>Select the speed that you want to burn the CD.</para>
+		  <para>Select the <guilabel>Eject CD</guilabel> option so <application>&app;</application> would eject the CD-RW dics after finishing blaking it.</para>
+		  <para>Select the <guilabel>Fast blank</guilabel> option to activate this method of blanking.</para>
+		</para>
+	 </sect2>	 
+<!-- ============= Burn ISO ======================== -->
+	 <sect2 id="gnomebaker-burn-iso"> 
+		<title>Burn an ISO Image</title>
+		<para>To burn an ISO image, choose <menuchoice><guimenu>Actions</guimenu><guimenuitem>Burn CD Image</guimenuitem></menuchoice>. The application will show the following dialog:
+		<screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnomebaker-burn-iso.png" format="PNG"/>
+					 </imageobject>
+			</mediaobject>
+		  </screenshot>
+		  <para>Navigate through the directories and after selecting the ISO file which you want to burn, press <guibutton>OK</guibutton>.</para>
+		</para>
+	 </sect2>
+
+  </sect1>
+<!-- ============= Preferences ============================= -->
+  <sect1 id="gnomebaker-prefs"> 
+	 <title>Preferences</title>
+	   
+	 <para>To configure <application>&app;</application>, choose <menuchoice> <guimenu>Edit</guimenu> <guimenuitem>Preferences</guimenuitem> </menuchoice>. The <guilabel>Preferences</guilabel> dialog contains the following sections:</para>
+	 <itemizedlist> 
+		<listitem><para><xref linkend="gnomebaker-prefs-main"/></para></listitem>
+	 </itemizedlist>
+	 
+	 <sect2 id="gnomebaker-prefs-main">
+	 <title>Main Preferences</title>
+	 		
+			<variablelist>
+	 		<varlistentry> <term><guilabel>Temporary Directory</guilabel> </term> 
+			 <listitem>
+			 <figure id="gnomebaker-prefs_tmp"> 
+		  <title>&app;'s Temporary Directory Options</title>
+		  <screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnomebaker_prefs-tmp.png" format="PNG"/>
+					 </imageobject>
+				<textobject> <phrase>Shows <application>&app;</application> main window.</phrase>
+				</textobject> 
+			</mediaobject>
+		  </screenshot>
+		</figure> 
+				<para>Use the edit box to specify the location where <application>&app;</application> will place its temporary files.You can also use the <guibutton>Browse</guibutton> button for easier navigation to the directory. </para>
+				<para>Select the <guilabel>Clean temporary directory on exit</guilabel> option to instruct <application>&app;</application> to delete the temporary files created during its operation. </para>
+			 </listitem>
+		  	</varlistentry>
+	 		<varlistentry> <term><guilabel>Filebrowser</guilabel> </term> 
+			 <listitem> 
+			 <figure id="gnomebaker-prefs_filebrowser"> 
+		  <title>&app;'s File Browser Options</title>
+		  <screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnomebaker_prefs-filebrowser.png" format="PNG"/>
+					 </imageobject>
+				<textobject> <phrase>Shows <application>&app;</application> main window.</phrase>
+				</textobject> 
+			</mediaobject>
+		  </screenshot>
+		</figure>
+			 <para>Select the <guilabel>Show hidden files</guilabel> option to view the hidden files in the Filebrowser while creating CD compilations.  </para>
+			 </listitem>
+		  	</varlistentry>
+			</variablelist>
+	 	</sect2>
+	 
+ </sect1>
+<!-- ============= GnomeBaker's Future ========================= -->
+	 <sect1 id="gnomebaker-future"> 
+		<title>Future</title>
+		<para>Fortunately, <application>&app;</application> has a bright future :-) Here are some of the planned improvements and additions:</para>
+		<itemizedlist> 
+		  <listitem> Creating of mixed mode CDs</listitem> 
+  		  <listitem> Creating Video CDs from existing video and stills</listitem>
+		  <listitem>	On-the-fly burning</listitem>
+		  <listitem>	Multisession capability</listitem>
+		</itemizedlist>
+  </sect1>
+  
+  <sect1 id="gnomebaker-contacts">
+  <title>References</title>
+  <para>Useful links for obtaining more information:</para>
+  <itemizedlist>
+  <listitem>GnomeBaker's <ulink type="http" url="http://www.biddell.co.uk/gnomebaker.php">homepage</ulink></listitem>
+  <listitem>cdrecord's <ulink type="http" url="http://www.fokus.fhg.de/research/cc/glone/employees/joerg.schilling/private/cdrecord.html">homepage</ulink></listitem>
+  <listitem>Luke Biddell's <ulink type="http" url="http://www.biddell.co.uk/">homepage</ulink></listitem>
+  <listitem>Milen Dzhumerov's <ulink type="http" url="http://www.1nsp1r3d.co.uk">homepage</ulink></listitem>
+  </itemizedlist>
+  </sect1>
+
+</article>
