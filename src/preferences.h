@@ -69,7 +69,8 @@
 #define GB_DEVICE_CAPABILITIES_LABEL	"/Capabilities"
 #define GB_DEVICE_CAPABILITIES		GB_DEVICE_KEY GB_DEVICE_CAPABILITIES_LABEL
 
-#define GNOME_TOOLBAR_STYLE		"/desktop/gnome/interface/toolbar_style"
+#define GNOME_TOOLBAR_STYLE		 "/desktop/gnome/interface/toolbar_style"
+#define GNOME_TOOLBAR_DETACHABLE "/desktop/gnome/interface/toolbar_detachable"
 
 gboolean preferences_init ();
 

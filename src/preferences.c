@@ -124,12 +124,14 @@ preferences_get_toolbar_style()
 	gchar* style = gconf_client_get_string(gconf_client, GNOME_TOOLBAR_STYLE, NULL);
 	g_return_val_if_fail(style != NULL, ret);		
 			
-	if(g_ascii_strcasecmp(style, "both_horiz") == 0)
+	if(g_ascii_strcasecmp(style, "both-horiz") == 0)
 		ret = GTK_TOOLBAR_BOTH_HORIZ;
 	else if(g_ascii_strcasecmp(style, "icons") == 0)
 		ret = GTK_TOOLBAR_ICONS;
 	else if(g_ascii_strcasecmp(style, "text") == 0)
 		ret = GTK_TOOLBAR_TEXT;
+	else if(g_ascii_strcasecmp(style, "both") == 0)
+		ret = GTK_TOOLBAR_BOTH;
 	
 	g_message( _("toolbar style [%s] [%d]"), style, ret);
 	g_free(style);

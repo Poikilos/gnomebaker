@@ -47,6 +47,7 @@ void gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* sele
 gchar* gbcommon_humanreadable_filesize(guint64 size);
 GdkPixbuf* gbcommon_get_icon_for_mime(const gchar* mime, gint size);
 GdkPixbuf* gbcommon_get_icon_for_name(const gchar* mime, gint size);
+void gbcommon_launch_app_for_file(const gchar* file);
 
 /* defined in main.c */
 extern const gchar* glade_file;
@@ -69,6 +70,7 @@ static const gchar* const widget_audiocd_size = "optionmenu2";
 static const gchar* const widget_audiocd_progressbar = "progressbar3";
 static const gchar* const widget_audiocd_create = "button14";
 
+static const gchar* const widget_top_toolbar_dock = "bonobodockitem4";
 static const gchar* const widget_top_toolbar = "toolbar3";
 static const gchar* const widget_middle_toolbar = "toolbar4";
 
