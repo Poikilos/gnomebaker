@@ -15,7 +15,7 @@
  */
 /*
  * File: audioinfo.h
- * Created by: Luke - MP3 code from c# example I've lost the link to.
+ * Created by: Luke - MP3 code ported to C from CMP3Info (written by Gustav Munkby)
  * Created on: Thu Sep 16 20:16:51 2004
  */
 
@@ -135,9 +135,8 @@ audioinfo_new(const gchar* audiofile)
 				
 				if(self != NULL)
 				{
-					/* This is a bit of a cludge but I want to get 0.2 out. Add
-					2 seconds to the duration to factor in cdrecord -pad times 
-					when calculating the size of the cd */
+					/* This is a bit of a cludge. Add 2 seconds to the duration 
+					to factor in cdrecord -pad times when calculating the size of the cd */
 					self->duration += 2;
 					audioinfo_set_formatted_length(self);
 				}
@@ -336,20 +335,18 @@ audioinfo_get_mp3_info(AudioInfo* info, const gchar *FileName)
 		}
 		while(!audioinfo_mp3_is_valid_header() && (ftell(st) < lngFileSize));
 		
-		/* If the current file stream position is equal to the length, 
-		 that means that we've read the entire file and it's not a valid MP3 file */
 		if(ftell(st) < lngFileSize)
 		{
 			intPos += 3;
 	
-			if(audioinfo_mp3_get_version_index() == 3)    /* MPEG Version 1 */
+			if(audioinfo_mp3_get_version_index() == 3) /* MPEG Version 1 */
 			{
-				if(audioinfo_mp3_get_mode_index() == 3)    /* Single Channel */
+				if(audioinfo_mp3_get_mode_index() == 3) /* Single Channel */
 					intPos += 17;
 				else
 					intPos += 32;
 			}
-			else                        /* MPEG Version 2.0 or 2.5 */
+			else /* MPEG Version 2.0 or 2.5 */
 			{
 				if(audioinfo_mp3_get_mode_index() == 3)    /* Single Channel */
 					intPos += 9;
@@ -362,17 +359,11 @@ audioinfo_get_mp3_info(AudioInfo* info, const gchar *FileName)
 			fread(bytVBitRate, 1, 12, st);
 			boolVBitRate = audioinfo_load_mp3_vbr_header(bytVBitRate);
 	
-			/* Once the file's read in, then assign the properties of the file to the variables */
 			info->bitrate = audioinfo_mp3_get_bitrate();
 			intFrequency = audioinfo_mp3_get_frequency();
-			/*const gchar* strMode = audioinfo_mp3_get_mode();*/
 			info->duration = audioinfo_mp3_get_length();
-			/*gchar* strLengthFormatted = audioinfo_mp3_get_formatted_length();*/
 			
-			/******************************************************/
 			/* get tag from the last 128 guchars in an .mp3-file    */
-			/******************************************************/
-			
 			gchar tagchars[128];
 	
 			/* get last 128 guchars */
@@ -402,18 +393,6 @@ audioinfo_get_mp3_info(AudioInfo* info, const gchar *FileName)
 void 
 audioinfo_load_mp3_header(guchar c[])
 {
-	/* this thing is quite interesting, it works like the following
-	 c[0] = 00000011
-	 c[1] = 00001100
-	 c[2] = 00110000
-	 c[3] = 11000000
-	 the operator << means that we'll move the bits in that direction
-	 00000011 << 24 = 00000011000000000000000000000000
-	 00001100 << 16 =         000011000000000000000000
-	 00110000 << 24 =                 0011000000000000
-	 11000000       =                         11000000
-	                +_________________________________
-	                  00000011000011000011000011000000*/
 	bithdr = (gulong)(((c[0] & 255) << 24) | ((c[1] & 255) << 16) | ((c[2] & 255) <<  8) | ((c[3] & 255))); 
 }
 
@@ -421,8 +400,6 @@ audioinfo_load_mp3_header(guchar c[])
 gboolean 
 audioinfo_load_mp3_vbr_header(guchar inputheader[])
 {
-	/* If it's a variable bitrate MP3, the first 4 guchars will read 'Xing'
-	 since they're the ones who added variable bitrate-edness to MP3s */
 	if(inputheader[0] == 88 && inputheader[1] == 105 && 
 		inputheader[2] == 110 && inputheader[3] == 103)
 	{
@@ -564,8 +541,6 @@ audioinfo_mp3_get_layer()
 gint 
 audioinfo_mp3_get_bitrate() 
 {
-	/* If the file has a variable bitrate, then we return an integer average bitrate,
-	 otherwise, we use a lookup table to return the bitrate */
 	if(boolVBitRate)
 	{
 		gdouble medFrameSize = (gdouble)lngFileSize / (gdouble)audioinfo_mp3_get_num_frames();
@@ -606,7 +581,6 @@ audioinfo_mp3_get_frequency()
 						{22050, 24000, 16000}, /* MPEG 2 */
 						{44100, 48000, 32000}  /*  MPEG 1 */
 					};
-
 	return table[audioinfo_mp3_get_version_index()][audioinfo_mp3_get_frequency_index()];
 }
 
@@ -642,37 +616,24 @@ audioinfo_mp3_get_mode()
 
 gint 
 audioinfo_mp3_get_length() 
-{
-	/* "intKilBitFileSize" made by dividing by 1000 in order to match the "Kilobits/second" */
-	gint intKiloBitFileSize = (gint)((8 * lngFileSize) / 1000);
-	return (gint)(intKiloBitFileSize/audioinfo_mp3_get_bitrate());
+{	
+	return (gint)(((gint)((8 * lngFileSize) / 1000))/audioinfo_mp3_get_bitrate());
 }
 
 
 void 
 audioinfo_set_formatted_length(AudioInfo* info) 
 {
-	/* Seconds to display */
-	gint ss = info->duration%60;
-
-	/* Complete number of minutes */
-	gint m  = (info->duration-ss)/60;
-
-	/* Minutes to display
-	gint mm = m%60;
-
-	 Complete number of hours
-	gint h = (m-mm)/60; */
-
-	/* Make "hh:mm:ss */
-	g_string_printf(info->formattedduration, "%d:%.2d", m, ss);
+	gint seconds = info->duration % 60;
+	gint minutes = (info->duration-seconds) / 60;
+	
+	g_string_printf(info->formattedduration, "%d:%.2d", minutes, seconds);
 }
 
 
 gint 
 audioinfo_mp3_get_num_frames() 
 {
-	/* Again, the number of MPEG frames is dependant on whether it's a variable bitrate MP3 or not */
 	if (!boolVBitRate) 
 	{
 		gdouble medFrameSize = (gdouble)(((audioinfo_mp3_get_layer_index()==3) ? 12 : 144) *((1000.0 * (gfloat)audioinfo_mp3_get_bitrate())/(gfloat)audioinfo_mp3_get_frequency()));
@@ -727,3 +688,68 @@ audioinfo_get_ogg_info(AudioInfo* info, const gchar *oggfile)
 		fclose(st);
 	}
 }
+
+
+/* WIP
+
+void 
+audioinfo_get_mp3_info(AudioInfo* info, const gchar* mp3file)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(NULL != info);
+	g_return_if_fail(NULL != mp3file);
+		
+	const struct id3_tag* id3tag = NULL;
+	struct id3_file* id3file = id3_file_open(mp3file, ID3_FILE_MODE_READONLY);
+	if(id3file == NULL)
+	{
+		g_critical("Failed to open mp3 file [%s]", mp3file);
+	}
+	else if((id3tag = id3_file_tag(id3file)) == NULL)
+	{
+		g_critical("Failed to get id3 file tag for mp3 file [%s]", mp3file);
+	}
+	else
+	{
+		audioinfo_mp3_get_id3_value(id3tag, ID3_FRAME_ARTIST, info->artist);
+		audioinfo_mp3_get_id3_value(id3tag, ID3_FRAME_ALBUM, info->album);
+		audioinfo_mp3_get_id3_value(id3tag, ID3_FRAME_TITLE, info->title);		
+		
+		GString* length = g_string_new("");
+		audioinfo_mp3_get_id3_value(id3tag, "TLEN", length);
+		if(length->len == 0)
+			audioinfo_mp3_get_id3_value(id3tag, "TLE", length);
+		g_string_free(length, TRUE);
+	}
+	
+	id3_file_close(id3file);
+}
+
+
+void 
+audioinfo_mp3_get_id3_value(const struct id3_tag* id3tag, const gchar* id3item, GString* value)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(id3tag != NULL);
+	g_return_if_fail(id3item != NULL);
+	g_return_if_fail(value != NULL);
+	
+	const struct id3_frame* id3frame = id3_tag_findframe(id3tag, id3item, 0);
+	const union id3_field* framefield = NULL;
+	const id3_ucs4_t* fieldvalue = NULL;				
+	
+	if(id3frame == NULL)
+		g_warning("Failed to get id3_frame [%s]", id3item);
+	else if((framefield = id3_frame_field(id3frame, 1)) == NULL)
+		g_warning("Failed to get id3_field [%s]", id3item);
+	else if((fieldvalue = id3_field_getstrings(framefield, 0)) == NULL)
+		g_warning("Failed to get id3_field strings [%s]", id3item);
+	else	
+	{
+		gchar* tag = id3_ucs4_utf8duplicate(fieldvalue);
+		g_string_append(value, tag);
+		g_free(tag);
+	}
+}
+
+*/
