@@ -48,11 +48,15 @@
 #define GB_SHOW_FILE_BROWSER		GB_BASE_KEY "/ShowFileBrowser"
 #define GB_FAST_FORMAT 				GB_BASE_KEY "/FastFormat"
 
+#define GB_MAIN_WINDOW_HEIGHT		GB_BASE_KEY "/UI/MainWindowHeight"
+#define GB_MAIN_WINDOW_WIDTH		GB_BASE_KEY "/UI/MainWindowWidth"
+#define GB_MAIN_WINDOW_POSITION_X	GB_BASE_KEY "/UI/MainWindowPositionX"
+#define GB_MAIN_WINDOW_POSITION_Y	GB_BASE_KEY "/UI/MainWindowPositionY"
+#define GB_MAIN_WINDOW_MAXIMIZED	GB_BASE_KEY "/UI/MainWindowMaximized"
 
 #define GB_DEVICE_FORMAT 			"Device%.2d"
 #define GB_DEVICES_KEY				GB_BASE_KEY "/Devices" 
 #define GB_DEVICE_KEY				GB_DEVICES_KEY "/" GB_DEVICE_FORMAT
-
 
 #define GB_DEVICE_NAME_LABEL		"/DeviceName"
 #define GB_DEVICE_NAME				GB_DEVICE_KEY GB_DEVICE_NAME_LABEL
