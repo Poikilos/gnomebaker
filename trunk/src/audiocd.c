@@ -236,15 +236,44 @@ audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 }
 
 
+void 
+audiocd_on_open(gpointer widget, gpointer user_data)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(user_data != NULL);
+
+	GtkTreeView* view = (GtkTreeView*)user_data;	
+	GtkTreeModel* model = gtk_tree_view_get_model(view);
+	GtkTreeSelection* selection = gtk_tree_view_get_selection(view);
+	GB_DECLARE_STRUCT(GtkTreeIter, iter);
+	gtk_tree_selection_selected_foreach(selection, 
+		(GtkTreeSelectionForeachFunc)gbcommon_get_first_selected_row, &iter);	
+	gchar *file = NULL;
+	gtk_tree_model_get(model, &iter, AUDIOCD_COL_FILE, &file, -1);
+	gbcommon_launch_app_for_file(file);
+	g_free(file);
+}
+
+
 gboolean
 audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 {
 	GB_LOG_FUNC
+	g_return_val_if_fail(widget != NULL, FALSE);
 
 	/* look for a right click */	
 	if(event->button == 3)
 	{
-		GtkWidget* menu = gtk_menu_new();		
+		GtkWidget* menu = gtk_menu_new();
+		GtkTreeView* view = (GtkTreeView*)widget;
+		GtkTreeSelection* selection = gtk_tree_view_get_selection(view);
+		const gint count = gtk_tree_selection_count_selected_rows(selection);
+		if(count == 1)
+		{
+			gbcommon_append_menu_item_stock(menu, _("_Open"), GTK_STOCK_OPEN, 
+				(GCallback)audiocd_on_open, view);
+		}
+		
 		gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
 			(GCallback)audiocd_on_remove_clicked, widget);	
 		gbcommon_append_menu_item_stock(menu, _("_Clear"), GTK_STOCK_CLEAR,
@@ -258,10 +287,7 @@ audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer use
 					   gdk_event_get_time((GdkEvent*)event));
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+	return FALSE;	
 }
 
 
@@ -284,8 +310,7 @@ audiocd_add_selection(GtkSelectionData* selection)
 	{
 		/* Get the file name that's been dropped and if there's a 
 	   	   file url at the start then strip it off */	
-		gchar* filename = gbcommon_get_local_path(file);
-		
+		gchar* filename = gbcommon_get_local_path(file);		
 		AudioInfo* info = audioinfo_new(filename);
 		if(info != NULL)
 		{
@@ -316,8 +341,7 @@ audiocd_add_selection(GtkSelectionData* selection)
 			audioinfo_delete(info);
 		}
 		
-		g_free(filename);
-		
+		g_free(filename);		
 		file = strtok(NULL, "\n");
 	}
 	
