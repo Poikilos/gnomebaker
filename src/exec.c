@@ -77,7 +77,8 @@ exec_end(Exec * self)
 		exec_cmd_end(&self->cmds[j]);
 
 	g_free(self->cmds);
-	g_error_free(self->err);
+	if(self->err != NULL)
+		g_error_free(self->err);
 }
 
 
@@ -326,10 +327,14 @@ exec_run_cmd(const gchar* cmd)
 		g_free(stderr);		
 		/*g_message(ret->str);*/
 	}
+	else if(error != NULL)
+	{		
+		g_critical("error [%s] spawning command [%s]", error->message, cmd);		
+		g_error_free(error);
+	}
 	else
 	{
-		g_critical("error [%s] spawning command [%s]", error->message, cmd);
-		g_error_free(error);
+		g_critical("Uknown error spawning command [%s]", cmd);		
 	}
 	
 	return ret;
