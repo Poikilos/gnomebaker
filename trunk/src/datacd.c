@@ -27,6 +27,19 @@
 #include "devices.h"
 #include "preferences.h"
 #include "exec.h"
+#include "burn.h"
+
+
+gint datadisksize = 0;
+
+
+enum 
+{
+	DISK_SIZE_600MB = 600,
+	DISK_SIZE_700MB = 700,
+	DISK_SIZE_4700MB = 4700,
+	DISK_SIZE_8500MB = 8500
+};
 
 
 enum
@@ -106,10 +119,34 @@ datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user
 }
 
 
-void
-datacd_setup_list(GtkTreeView * filelist)
+gint 
+datacd_get_datadisk_size()
 {
 	GB_LOG_FUNC
+	GtkWidget* optmen = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_size);
+	g_return_val_if_fail(optmen != NULL, 0);
+	
+	gint size = gtk_option_menu_get_history(GTK_OPTION_MENU(optmen));
+	if(size == 0)
+		datadisksize = DISK_SIZE_600MB;
+	else if(size == 1)
+		datadisksize = DISK_SIZE_700MB;
+	else if(size == 2)
+		datadisksize = DISK_SIZE_4700MB;
+	else
+		datadisksize = DISK_SIZE_8500MB;
+
+	return datadisksize;
+}
+
+
+void
+datacd_new()
+{
+	GB_LOG_FUNC
+	
+	GtkTreeView* filelist = GTK_TREE_VIEW(glade_xml_get_widget(
+		gnomebaker_getxml(), widget_datacd_tree));
 	g_return_if_fail(filelist != NULL);
 	
 	/* Create the list store for the file list */
@@ -170,6 +207,9 @@ datacd_setup_list(GtkTreeView * filelist)
 	/* connect the signal to handle right click */
 	g_signal_connect (G_OBJECT(filelist), "button-press-event",
         G_CALLBACK(datacd_on_button_pressed), NULL);
+			
+	/* get the currently selected cd size */
+	datacd_get_datadisk_size();	
 }
 
 
@@ -187,7 +227,7 @@ datacd_update_progress_bar(gboolean add, gdouble filesize)
 	g_return_val_if_fail(progbar != NULL, FALSE);
 	
 	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
-	gint cdsize = gnomebaker_get_datadisk_size();
+	gint cdsize = datacd_get_datadisk_size();
 	gdouble disksize = (gdouble)(cdsize) * (gdouble)1024 * (gdouble)1024;	
 	gdouble currentguchars = fraction * disksize;
 	
@@ -299,12 +339,13 @@ datacd_on_drag_data_received(
 	GB_LOG_FUNC	
     g_return_if_fail(seldata != NULL);
 	g_return_if_fail(seldata->data != NULL);
-    g_return_if_fail(GTK_IS_TREE_VIEW(widget));
+    
+	GtkTreeView *datatree = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree));
+	g_return_if_fail(datatree != NULL);			
+	GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(datatree));
+	g_return_if_fail(GTK_IS_TREE_VIEW(widget));
 	
 	gnomebaker_show_busy_cursor(TRUE);	    	
-	gnomebaker_update_status("Calculating size");
-	
-	GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(widget)));
 
 	g_message( "received sel %s", seldata->data);	
 	const gchar* file = strtok((gchar*)seldata->data,"\n");
@@ -316,7 +357,6 @@ datacd_on_drag_data_received(
 	}
 	
 	gnomebaker_show_busy_cursor(FALSE);
-	gnomebaker_update_status("");
 }
 
 
@@ -506,4 +546,45 @@ datacd_import_session()
 	g_free(msinfo);
 	
 	gnomebaker_show_busy_cursor(FALSE);
+}
+
+
+void 
+datacd_on_datadisk_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
+{
+	GB_LOG_FUNC
+		
+	GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_progressbar);
+	g_return_if_fail(progbar != NULL);
+	
+	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
+	gint previoussize = datadisksize;
+	datadisksize = datacd_get_datadisk_size();
+		
+	fraction = (fraction * previoussize)/datadisksize;
+	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
+	
+	gchar* buf = g_strdup_printf("%d%%", (gint)(fraction * 100));
+	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+	g_free(buf);
+}
+
+
+void
+datacd_on_create_datadisk(gpointer widget, gpointer user_data)
+{
+	GB_LOG_FUNC
+	
+	/* Here we should get a glist of data files to burn to the cd.
+	 * or something like that */	
+	GtkWidget *datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
+	g_return_if_fail(datatree != NULL);
+	
+	GtkTreeModel* datamodel = gtk_tree_view_get_model(GTK_TREE_VIEW(datatree));
+	g_return_if_fail(datamodel != NULL);
+
+	if(datadisksize >= DISK_SIZE_4700MB)
+		burn_create_data_dvd(datamodel);
+	else
+		burn_create_data_cd(datamodel);	
 }

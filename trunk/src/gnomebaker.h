@@ -39,8 +39,7 @@ gnomebaker_show_msg_dlg(GtkMessageType type, GtkButtonsType buttons,
 
 GladeXML* gnomebaker_getxml();
 void gnomebaker_show_busy_cursor(gboolean isbusy);
-gint gnomebaker_get_datadisk_size();
-gint gnomebaker_get_audiocd_size();
+
 
 void gnomebaker_on_add_dir(gpointer widget, gpointer user_data);
 void gnomebaker_on_add_files(gpointer widget, gpointer user_data);

@@ -23,7 +23,11 @@
 #include "gnomebaker.h"
 #include "gbcommon.h"
 #include "audioinfo.h"
+#include "burn.h"
 #include <stdio.h>
+
+
+gint audiocdsize = 0;
 
 
 enum
@@ -77,6 +81,22 @@ audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer use
 }
 
 
+gint 
+audiocd_get_audiocd_size()
+{
+	GB_LOG_FUNC
+	GtkWidget* optmen = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_size);
+	g_return_val_if_fail(optmen != NULL, 0);
+	
+	if(gtk_option_menu_get_history(GTK_OPTION_MENU(optmen)) == 1)
+		audiocdsize = 74;
+	else
+		audiocdsize = 80;
+	
+	return audiocdsize;
+}
+
+
 gboolean 
 audiocd_update_progress_bar(gboolean add, gdouble seconds)
 {
@@ -87,12 +107,12 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 	GladeXML* xml = gnomebaker_getxml();
 	g_return_val_if_fail(xml != NULL, FALSE);
 	
-	GtkWidget* progbar = glade_xml_get_widget(xml, widget_audiocd_progressbar);
+	GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
 	g_return_val_if_fail(progbar != NULL, FALSE);
 	
 	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));
 	
-	gint cdsize = gnomebaker_get_audiocd_size();
+	gint cdsize = audiocd_get_audiocd_size();
 	
 	gdouble currentsecs = fraction * cdsize * 60;
 	
@@ -136,9 +156,12 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 
 
 void
-audiocd_setup_list(GtkTreeView * filelist)
+audiocd_new()
 {
 	GB_LOG_FUNC
+	
+	GtkTreeView *filelist = 
+		GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree));
 	g_return_if_fail(filelist != NULL);
 	
 	/* Create the list store for the file list */
@@ -231,8 +254,14 @@ audiocd_on_drag_data_received(
     GB_LOG_FUNC
     g_return_if_fail(seldata != NULL);
 	g_return_if_fail(seldata->data != NULL);
-    g_return_if_fail(GTK_IS_TREE_VIEW(widget));	
+    
+	GtkTreeView* view = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree));
+	g_return_if_fail(view != NULL);							
+	GtkTreeModel *model = gtk_tree_view_get_model(view);
+	g_return_if_fail(model != NULL);
 	
+	gnomebaker_show_busy_cursor(TRUE);
+
 	const gchar* file = strtok((gchar*)seldata->data, "\n");
 	while(file != NULL)
 	{
@@ -244,24 +273,18 @@ audiocd_on_drag_data_received(
 		if(info != NULL)
 		{
 			if(audiocd_update_progress_bar(TRUE, (gdouble)info->duration))
-			{
-				GtkTreeView *view = GTK_TREE_VIEW(widget);
-				GtkTreeModel *model = gtk_tree_view_get_model(view);
-			
-				if(GTK_IS_LIST_STORE(model))
-				{
-					GB_DECLARE_STRUCT(GtkTreeIter, iter);		
-					gtk_list_store_append(GTK_LIST_STORE(model), &iter);
-					gtk_list_store_set(
-						GTK_LIST_STORE(model), &iter, 
-						AUDIOCD_COL_ICON, GNOME_STOCK_MIDI, 
-						AUDIOCD_COL_FILE, (gchar*)filename, 
-						AUDIOCD_COL_DURATION, info->formattedduration->str,
-						/*AUDIOCD_COL_SIZE, info->filesize,*/
-						AUDIOCD_COL_ARTIST, info->artist->str, 
-						AUDIOCD_COL_ALBUM, info->album->str,
-						AUDIOCD_COL_TITLE, info->title->str, -1);
-				}
+			{			
+				GB_DECLARE_STRUCT(GtkTreeIter, iter);		
+				gtk_list_store_append(GTK_LIST_STORE(model), &iter);
+				gtk_list_store_set(
+					GTK_LIST_STORE(model), &iter, 
+					AUDIOCD_COL_ICON, GNOME_STOCK_MIDI, 
+					AUDIOCD_COL_FILE, (gchar*)filename, 
+					AUDIOCD_COL_DURATION, info->formattedduration->str,
+					/*AUDIOCD_COL_SIZE, info->filesize,*/
+					AUDIOCD_COL_ARTIST, info->artist->str, 
+					AUDIOCD_COL_ALBUM, info->album->str,
+					AUDIOCD_COL_TITLE, info->title->str, -1);
 			}
 			else
 			{
@@ -276,6 +299,8 @@ audiocd_on_drag_data_received(
 		
 		file = strtok(NULL, "\n");
 	}
+	
+	gnomebaker_show_busy_cursor(FALSE);
 }
 
 
@@ -370,16 +395,49 @@ audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 	
 	gnomebaker_show_busy_cursor(TRUE);
 	
-	GladeXML* xml = gnomebaker_getxml();
-	GtkWidget *audiotree = glade_xml_get_widget(xml, widget_audiocd_tree);
+	GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
 	GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));	
 	gtk_list_store_clear(GTK_LIST_STORE(filemodel));
 	
-	GtkWidget* progbar = glade_xml_get_widget(xml, widget_audiocd_progressbar);
+	GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
 	
 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
 	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0 mins 0 secs");
 	gnomebaker_enable_widget(widget_audiocd_create, FALSE);
 	
 	gnomebaker_show_busy_cursor(FALSE);	
+}
+
+
+void 
+audiocd_on_audiocd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
+{
+	GB_LOG_FUNC
+		
+	GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
+	g_return_if_fail(progbar != NULL);
+	
+	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
+	gint previoussize = audiocdsize;
+	audiocdsize = audiocd_get_audiocd_size();
+		
+	fraction = (fraction * previoussize)/audiocdsize;
+	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);	
+}
+
+
+void
+audiocd_on_create_audiocd(gpointer widget, gpointer user_data)
+{
+	GB_LOG_FUNC
+	
+	/* Here we should get a glist of data files to burn to the cd.
+	 * or something like that */	
+	GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
+	g_return_if_fail(audiotree != NULL);
+	
+	GtkTreeModel* audiomodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));
+	g_return_if_fail(audiomodel != NULL);
+		
+	burn_create_audio_cd(audiomodel);
 }

@@ -34,16 +34,6 @@
 
 
 GladeXML *xml = NULL;
-gint datadisksize = 0;
-gint audiocdsize = 0;
-
-enum 
-{
-	DISK_SIZE_600MB = 600,
-	DISK_SIZE_700MB = 700,
-	DISK_SIZE_4700MB = 4700,
-	DISK_SIZE_8500MB = 8500
-};
 
 
 void 
@@ -79,18 +69,9 @@ gnomebaker_new()
 	glade_xml_signal_autoconnect(xml);			
 
 	/* set up the tree and lists */	
-	GtkWidget *tree1 = glade_xml_get_widget(xml, widget_browser_dirtree);
-	GtkWidget *tree2 = glade_xml_get_widget(xml, widget_browser_filelist);
-	filebrowser_setup_tree_and_list(GTK_TREE_VIEW(tree1), GTK_TREE_VIEW(tree2));
-	
-	GtkWidget *tree4 = glade_xml_get_widget(xml, widget_datacd_tree);
-	datacd_setup_list(GTK_TREE_VIEW(tree4));
-				
-	GtkWidget *tree8 = glade_xml_get_widget(xml, widget_audiocd_tree);
-	audiocd_setup_list(GTK_TREE_VIEW(tree8));
-	
-	/* get the currently selected cd size */
-	gnomebaker_get_datadisk_size();	
+	filebrowser_new();	
+	datacd_new();
+	audiocd_new();
 	
 	/* Get and set the default toolbar style */
 	gnomebaker_on_toolbar_style_changed(NULL, 0, NULL, NULL);
@@ -174,43 +155,6 @@ gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data)
 	default:
 		break;
 	}
-}
-
-
-void
-gnomebaker_on_create_datadisk(gpointer widget, gpointer user_data)
-{
-	GB_LOG_FUNC
-	
-	/* Here we should get a glist of data files to burn to the cd.
-	 * or something like that */	
-	GtkWidget *datatree = glade_xml_get_widget(xml, widget_datacd_tree);
-	g_return_if_fail(datatree != NULL);
-	
-	GtkTreeModel* datamodel = gtk_tree_view_get_model(GTK_TREE_VIEW(datatree));
-	g_return_if_fail(datamodel != NULL);
-
-	if(datadisksize >= DISK_SIZE_4700MB)
-		burn_create_data_dvd(datamodel);
-	else
-		burn_create_data_cd(datamodel);	
-}
-
-
-void
-gnomebaker_on_create_audiocd(gpointer widget, gpointer user_data)
-{
-	GB_LOG_FUNC
-	
-	/* Here we should get a glist of data files to burn to the cd.
-	 * or something like that */	
-	GtkWidget *audiotree = glade_xml_get_widget(xml, widget_audiocd_tree);
-	g_return_if_fail(audiotree != NULL);
-	
-	GtkTreeModel* audiomodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));
-	g_return_if_fail(audiomodel != NULL);
-		
-	burn_create_audio_cd(audiomodel);
 }
 
 
@@ -344,81 +288,6 @@ gnomebaker_show_busy_cursor(gboolean isbusy)
 }
 
 
-gint 
-gnomebaker_get_datadisk_size()
-{
-	GB_LOG_FUNC
-	GtkWidget* optmen = glade_xml_get_widget(xml, widget_datacd_size);
-	g_return_val_if_fail(optmen != NULL, 0);
-	
-	gint size = gtk_option_menu_get_history(GTK_OPTION_MENU(optmen));
-	if(size == 0)
-		datadisksize = DISK_SIZE_600MB;
-	else if(size == 1)
-		datadisksize = DISK_SIZE_700MB;
-	else if(size == 2)
-		datadisksize = DISK_SIZE_4700MB;
-	else
-		datadisksize = DISK_SIZE_8500MB;
-
-	return datadisksize;
-}
-
-
-void 
-gnomebaker_on_datadisk_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
-{
-	GB_LOG_FUNC
-		
-	GtkWidget* progbar = glade_xml_get_widget(xml, widget_datacd_progressbar);
-	g_return_if_fail(progbar != NULL);
-	
-	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
-	gint previoussize = datadisksize;
-	datadisksize = gnomebaker_get_datadisk_size();
-		
-	fraction = (fraction * previoussize)/datadisksize;
-	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
-	
-	gchar* buf = g_strdup_printf("%d%%", (gint)(fraction * 100));
-	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
-	g_free(buf);
-}
-
-
-void 
-gnomebaker_on_audiocd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
-{
-	GB_LOG_FUNC
-		
-	GtkWidget* progbar = glade_xml_get_widget(xml, widget_audiocd_progressbar);
-	g_return_if_fail(progbar != NULL);
-	
-	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
-	gint previoussize = audiocdsize;
-	audiocdsize = gnomebaker_get_audiocd_size();
-		
-	fraction = (fraction * previoussize)/audiocdsize;
-	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);	
-}
-
-
-gint 
-gnomebaker_get_audiocd_size()
-{
-	GB_LOG_FUNC
-	GtkWidget* optmen = glade_xml_get_widget(xml, widget_audiocd_size);
-	g_return_val_if_fail(optmen != NULL, 0);
-	
-	if(gtk_option_menu_get_history(GTK_OPTION_MENU(optmen)) == 1)
-		audiocdsize = 74;
-	else
-		audiocdsize = 80;
-	
-	return audiocdsize;
-}
-
-
 void 
 gnomebaker_on_add_dir(gpointer widget, gpointer user_data)
 {
@@ -437,11 +306,8 @@ gnomebaker_on_add_dir(gpointer widget, gpointer user_data)
 	{
 		case 0:
 		{
-			GtkWidget *datatree = glade_xml_get_widget(xml, widget_datacd_tree);
-			g_return_if_fail(datatree != NULL);			
-			
 			datacd_on_drag_data_received(
-				datatree, NULL, 0, 0, selection_data, 0, 0, NULL);
+				NULL, NULL, 0, 0, selection_data, 0, 0, NULL);
 			break;
 		}
 		default:
@@ -471,20 +337,14 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
 	{
 		case 0:
 		{
-			GtkWidget *datatree = glade_xml_get_widget(xml, widget_datacd_tree);
-			g_return_if_fail(datatree != NULL);			
-			
 			datacd_on_drag_data_received(
-				datatree, NULL, 0, 0, selection_data, 0, 0, NULL);
+				NULL, NULL, 0, 0, selection_data, 0, 0, NULL);
 			break;
 		}
 		case 1:
-		{
-			GtkWidget *audiotree = glade_xml_get_widget(xml, widget_audiocd_tree);
-			g_return_if_fail(audiotree != NULL);			
-				
+		{				
 			audiocd_on_drag_data_received(
-				audiotree, NULL, 0, 0, selection_data, 0, 0, NULL);
+				NULL, NULL, 0, 0, selection_data, 0, 0, NULL);
 			break;
 		}
 		default:

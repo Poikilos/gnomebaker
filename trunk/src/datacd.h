@@ -47,7 +47,7 @@ enum
 #define DATACD_EXISTING_SESSION_ICON GNOME_STOCK_PIXMAP_CDROM
 #define DATACD_EXISTING_SESSION "msinfo"
 
-void datacd_setup_list(GtkTreeView * filelist);
+void datacd_new();
 void datacd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata);
 void datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata);
 void datacd_on_drag_data_received(GtkWidget * widget, GdkDragContext * context,
