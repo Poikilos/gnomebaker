@@ -7,12 +7,17 @@ SUBDIRS = intl po macros src pixmaps help
 
 gnomebakerdocdir = ${prefix}/doc/gnomebaker
 gnomebakerdoc_DATA = \
+	README\
 	COPYING\
+	AUTHORS\
 	ChangeLog\
 	INSTALL\
+	NEWS\
 	TODO\
+	ABOUT-NLS\
 	xmldocs.make\
 	omf.make
+
 
 #gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Applications
 gnomemenudir = /usr/share/applications
