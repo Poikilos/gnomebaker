@@ -347,6 +347,27 @@ audiocd_on_drag_data_received(
 }
 
 
+void 
+audiocd_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
+                       	GtkTreeViewColumn* col, gpointer userdata)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(treeview != NULL);
+	g_return_if_fail(path != NULL);
+	
+	GtkTreeModel* model = gtk_tree_view_get_model(treeview);
+	g_return_if_fail(model != NULL);
+	
+	GB_DECLARE_STRUCT(GtkTreeIter, iter);
+	gtk_tree_model_get_iter(model, &iter, path);
+	
+	gchar* file = NULL;
+	gtk_tree_model_get(model, &iter, AUDIOCD_COL_FILE, &file, -1);
+	gbcommon_launch_app_for_file(file);
+	g_free(file);
+}
+
+
 void
 audiocd_new()
 {
@@ -429,6 +450,9 @@ audiocd_new()
 	/* connect the signal to handle right click */
 	g_signal_connect (G_OBJECT(filelist), "button-press-event",
         G_CALLBACK(audiocd_on_button_pressed), NULL);
+		
+	g_signal_connect(G_OBJECT(filelist), "row-activated", 
+		G_CALLBACK(audiocd_on_list_dbl_click), NULL);
 		
 	GtkWidget* optmenu = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_size);
 	gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(optmenu), audiodisksizes, 

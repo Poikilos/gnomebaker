@@ -31,6 +31,8 @@ and double click to launch files according to their mime type.
 * We can now toggle between human readable file sizes and bytes.
 * Remember the window position.
 * App now has option to hide the filebrowser.
+* audio/mpeg is now supported on audio cds.
+* audiocd tracks can now be double clicked and they will launch in the default mime application.
 
 Version 0.2
 
