@@ -55,6 +55,12 @@ gchar* gbcommon_get_mime_description(const gchar* mime);
 gchar* gbcommon_get_mime_type(const gchar* file);
 gchar* gbcommon_get_local_path(const gchar* uri);
 gchar* gbcommon_get_uri(const gchar* localpath);
+gboolean gbcommon_get_first_selected_row(GtkTreeModel *model, GtkTreePath  *path,
+										 GtkTreeIter  *iter, gpointer user_data);
+void gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel, 
+					const gchar* filename, GCallback activated, gpointer userdata);
+void gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel, 
+					const gchar* stockid, GCallback activated, gpointer userdata);
 
 /* defined in main.c */
 extern const gchar* glade_file;

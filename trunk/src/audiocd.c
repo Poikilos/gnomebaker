@@ -244,18 +244,11 @@ audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer use
 	/* look for a right click */	
 	if(event->button == 3)
 	{
-		GtkWidget* menu = gtk_menu_new();	
-		
-		GtkWidget* menuitem = gtk_menu_item_new_with_label(_("Remove selected"));	
-		g_signal_connect(menuitem, "activate",
+		GtkWidget* menu = gtk_menu_new();		
+		gbcommon_append_menu_item_stock(menu, _("Remove selected"), GTK_STOCK_REMOVE, 
 			(GCallback)audiocd_on_remove_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
-		menuitem = gtk_menu_item_new_with_label(_("Clear"));	
-		g_signal_connect(menuitem, "activate",
+		gbcommon_append_menu_item_stock(menu, _("Clear"), GTK_STOCK_CLEAR,
 			(GCallback)audiocd_on_clear_clicked, widget);	
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
-		
 		gtk_widget_show_all(menu);
 	
 		/* Note: event can be NULL here when called. However,
