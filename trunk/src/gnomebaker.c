@@ -485,3 +485,18 @@ gnomebaker_on_format_dvdrw(gpointer widget, gpointer user_data)
 	GB_LOG_FUNC
 	burn_format_dvdrw();	
 }
+
+
+void 
+gnomebaker_on_help(gpointer widget, gpointer user_data)
+{
+	GB_LOG_FUNC
+	GError *error = NULL;
+	gnome_help_display("gnomebaker", NULL, &error);
+	if(error)
+	{
+		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,
+			GTK_BUTTONS_NONE, error->message);
+		g_error_free(error);
+	}	
+}
