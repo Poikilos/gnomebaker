@@ -105,9 +105,24 @@ gnomebaker_new()
 	GtkWidget* checkmenuitem = glade_xml_get_widget(xml, widget_show_browser_menu);
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(checkmenuitem),
 		preferences_get_bool(GB_SHOW_FILE_BROWSER));
-	g_signal_emit_by_name(checkmenuitem, "toggled", checkmenuitem, NULL);
+	g_signal_emit_by_name(checkmenuitem, "toggled", checkmenuitem, NULL);	
 	
-	return glade_xml_get_widget(xml, widget_gnomebaker);
+	/* Resize and move the window to saved settings */
+	GtkWidget* main_window = glade_xml_get_widget(xml, widget_gnomebaker);
+	const gint x = preferences_get_int(GB_MAIN_WINDOW_POSITION_X);
+	const gint y = preferences_get_int(GB_MAIN_WINDOW_POSITION_Y);
+	const gint width = preferences_get_int(GB_MAIN_WINDOW_WIDTH);
+	const gint height = preferences_get_int(GB_MAIN_WINDOW_HEIGHT);
+	const gboolean maximized = preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED);
+
+	if(x*y != -1)
+		gtk_window_move(GTK_WINDOW(main_window), x, y);
+	if(width*height != -1)
+		gtk_window_resize(GTK_WINDOW(main_window), width, height);
+	if(maximized)
+		gtk_window_maximize(GTK_WINDOW(main_window));
+
+	return main_window;
 }
 
 
@@ -171,6 +186,18 @@ gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data)
 			g_free(createdataiso);
 			g_free(audiodir);
 		}
+		
+		/* Save main window position and size */
+		GtkWidget* main_window = glade_xml_get_widget(xml, widget_gnomebaker);
+
+		gint width, height, x, y;
+		gtk_window_get_size(GTK_WINDOW(main_window), &width, &height);
+		gtk_window_get_position(GTK_WINDOW(main_window), &x, &y);
+
+		preferences_set_int(GB_MAIN_WINDOW_WIDTH, width);
+		preferences_set_int(GB_MAIN_WINDOW_HEIGHT, height);
+		preferences_set_int(GB_MAIN_WINDOW_POSITION_X, x);
+		preferences_set_int(GB_MAIN_WINDOW_POSITION_Y, y);
 		
 		gtk_main_quit();
 		break;

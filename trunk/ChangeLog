@@ -1,11 +1,11 @@
-Version 0.2.1
+Version 0.3
 
 * Dismiss the progress dialog if the action is cancelled.
 * Refactor the preferences code to use gconf directly.
 * Totally rewrite device scanning on linux to look at /proc (influenced by k3b and nautilus).
 * Preferences dialog now has a tab for configuring devices.
 * Remember writer and reader to improve startup speed (saved in gconf).
-* Recursively create directories so it actually works.
+* Recursively create directories so it actually creates directories.
 * Tidy up the labels we show in the devices combos and generally tidy up device handling.
 * Fix filebrowser problem where /home would display the users home contents.
 * Scanning for devices using cdrecord now ignores cameras, external drives etc.
@@ -27,6 +27,9 @@ and double click to launch files according to their mime type.
 * Device scanning now also attempts to detect the device capabilities (ie is a writer etc)
 * View menu now has the option to show/hide the filebrowser.
 * Startdlg options now react to other settings. ie eject becomes disabled if we're only create an iso.
+* Use the gnome icon theme in the filebrowser and cd contents.
+* We can now toggle between human readable file sizes and bytes.
+* Remember the window position.
 
 Version 0.2
 
