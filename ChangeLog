@@ -26,6 +26,7 @@ Version 0.2.1
 and double click to launch files according to their mime type.
 * Device scanning now also attempts to detect the device capabilities (ie is a writer etc)
 * View menu now has the option to show/hide the filebrowser.
+* Startdlg options now react to other settings. ie eject becomes disabled if we're only create an iso.
 
 Version 0.2
 
