@@ -21251,7 +21251,7 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 
-                                                                      ac_config_files="$ac_config_files Makefile intl/Makefile macros/Makefile src/Makefile pixmaps/Makefile gnomebaker.desktop po/Makefile.in"
+                                                                                          ac_config_files="$ac_config_files Makefile intl/Makefile macros/Makefile src/Makefile pixmaps/Makefile gnomebaker.desktop help/Makefile help/C/Makefile po/Makefile.in"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -21794,6 +21794,8 @@ do
   "src/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
   "pixmaps/Makefile" ) CONFIG_FILES="$CONFIG_FILES pixmaps/Makefile" ;;
   "gnomebaker.desktop" ) CONFIG_FILES="$CONFIG_FILES gnomebaker.desktop" ;;
+  "help/Makefile" ) CONFIG_FILES="$CONFIG_FILES help/Makefile" ;;
+  "help/C/Makefile" ) CONFIG_FILES="$CONFIG_FILES help/C/Makefile" ;;
   "po/Makefile.in" ) CONFIG_FILES="$CONFIG_FILES po/Makefile.in" ;;
   "default-1" ) CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
   "default-2" ) CONFIG_COMMANDS="$CONFIG_COMMANDS default-2" ;;
