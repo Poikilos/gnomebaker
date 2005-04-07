@@ -40,6 +40,29 @@ gint cdda2wav_totaltracksread = 0;
 gint readcd_totalguchars = -1;
 gint cdrdao_cdminutes = -1;
 
+
+void 
+generic_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC	
+	g_return_if_fail(ex != NULL);
+	gchar *buf = (gchar*)buffer;
+	const gint len = strlen(buf);		
+	gint i = 0;
+	for(; i < len; i++)
+	{
+		if(!g_ascii_isalnum(buf[i]) && !g_ascii_iscntrl(buf[i])
+			&& !g_ascii_ispunct(buf[i]) && !g_ascii_isspace(buf[i]))
+		{
+			buf[i] = ' ';
+		}
+	}
+	
+	/*GB_TRACE((gchar*)buffer);*/
+	progressdlg_append_output(buf);
+}
+
+
 /*******************************************************************************
  * CDRECORD
  ******************************************************************************/
@@ -52,8 +75,7 @@ gint cdrdao_cdminutes = -1;
 void
 cdrecord_pre_proc(void *ex, void *buffer)
 {	
-	GB_LOG_FUNC
-	
+	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
 	progressdlg_set_status(_("<b>Burning disk...</b>"));
@@ -127,7 +149,7 @@ cdrecord_read_proc(void *ex, void *buffer)
 		}
 	}
 	
-	const gchar* track = strstr(buf, _("Track"));
+	const gchar* track = strstr(buf, "Track");
 	if(track != NULL)
 	{
 		gint currenttrack = 0;
@@ -409,7 +431,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 	
 	if(cdda2wav_totaltracks == -1)
 	{
-		const gchar* tracksstart = strstr(text, _("Tracks:"));		
+		const gchar* tracksstart = strstr(text, "Tracks:");		
 		if(tracksstart != NULL)
 		{
 			gchar tmpbuf[4];
