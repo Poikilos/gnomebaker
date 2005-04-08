@@ -267,7 +267,7 @@ datacd_on_drag_data_received(
     guint time,
     gpointer userdata)
 {
-	GB_LOG_FUNC	
+	GB_LOG_FUNC		
  	datacd_add_selection(seldata);
 }
 

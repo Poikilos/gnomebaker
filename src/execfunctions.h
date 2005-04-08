@@ -42,6 +42,6 @@ void oggdec_add_args(ExecCmd* cmd, gchar* file, gchar** convertedfile);
 void readcd_add_copy_args (ExecCmd * e, const gchar* iso);
 void sox_add_wav_args(ExecCmd* cmd, gchar* file, gchar** convertedfile);
 void cdrdao_add_bin_args(ExecCmd* cmd, const gchar* const bin);
-
+void generic_read_proc(void *ex, void *buffer);
 
 #endif	/*_EXECFUNCTIONS_H_*/

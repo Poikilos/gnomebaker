@@ -340,9 +340,13 @@ gbcommon_get_local_path(const gchar* uri)
 	
 	gchar* fileuri = g_strdup(uri);
 	g_strstrip(fileuri); /* We sometimes get files with /r etc on the end */
-	gchar* ret = gnome_vfs_get_local_path_from_uri(fileuri);
-	g_free(fileuri);
-	return ret;
+	if(g_ascii_strncasecmp(fileuri, "file:", 5) == 0)
+	{
+		gchar* localpath = gnome_vfs_get_local_path_from_uri(fileuri);
+		g_free(fileuri);
+		return localpath;
+	}
+	return fileuri;		
 }
 
 

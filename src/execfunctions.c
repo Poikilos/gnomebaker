@@ -33,6 +33,7 @@
 
 gint cdrecord_totaltrackstowrite = 1;
 gint cdrecord_firsttrack = -1;
+gdouble cdrecord_totaldiskbytes = 0.0;
 
 gint cdda2wav_totaltracks = -1;
 gint cdda2wav_totaltracksread = 0;
@@ -276,6 +277,9 @@ cdrecord_add_iso_args(ExecCmd * const cdBurn, const gchar * const iso)
 		exec_cmd_add_arg(cdBurn, "%s", "-multi");
 
 	exec_cmd_add_arg(cdBurn, "%s", iso);
+	/* on the fly 
+	exec_cmd_add_arg(cdBurn, "%s", "-");*/
+	
 	cdBurn->readProc = cdrecord_read_proc;
 	cdBurn->preProc = cdrecord_pre_proc;
 }
@@ -691,6 +695,7 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 			g_free(createdataiso);
 		}		
 		
+		/* remove these two for on the fly */
 		exec_cmd_add_arg(e, "%s", "-o");
 		exec_cmd_add_arg(e, "%s", iso);
 		exec_cmd_add_arg(e, "%s", "-graft-points");
