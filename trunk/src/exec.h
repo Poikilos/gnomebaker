@@ -58,8 +58,7 @@ typedef struct
 	ExecCmd* cmds;
 	ExecFunc startProc;
 	ExecFunc endProc;
-	GtkWidget* progBar;
-	GtkWidget* textView;	
+	gint child_child_pipe[2];
 	GError *err;
 } Exec;
 
@@ -67,7 +66,7 @@ typedef struct
 Exec* exec_new(const gint cmds);
 void exec_delete(Exec* self);
 ExecCmd* exec_add_cmd(Exec* self);
-gint exec_go (Exec * const e);
+gint exec_go (Exec * const e, gboolean onthefly);
 void exec_cmd_add_arg (ExecCmd * const e, const gchar * const format, const gchar* const value);
 void exec_cancel (const Exec * const e);
 GString* exec_run_cmd(const gchar* cmd);

@@ -123,7 +123,7 @@ burn_end_proc(void *ex, void *data)
  * This function kicks off the whole writing process on a separate thread.
  */
 gboolean
-burn_start_process()
+burn_start_process(gboolean onthefly)
 {
 	GB_LOG_FUNC
 	gboolean ok = TRUE;
@@ -141,7 +141,7 @@ burn_start_process()
 	 */
 	GtkWidget *dlg = progressdlg_new(burnargs->cmdCount);
 	
-	if(exec_go(burnargs) == 0)
+	if(exec_go(burnargs, onthefly) == 0)
 	{
 		gtk_dialog_run(GTK_DIALOG(dlg));		
 	}
@@ -177,7 +177,7 @@ burn_iso(const gchar * const file)
 		burnargs = exec_new(1);
 		ExecCmd *e = &burnargs->cmds[0];
 		cdrecord_add_iso_args(e, file);
-		ok = burn_start_process();
+		ok = burn_start_process(FALSE);
 	}
 
 	return ok;
@@ -196,7 +196,7 @@ burn_cue_or_bin(const gchar * const file)
 		burnargs = exec_new(1);
 		ExecCmd *e = &burnargs->cmds[0];
 		cdrdao_add_bin_args(e, file);
-		ok = burn_start_process();
+		ok = burn_start_process(FALSE);
 	}
 
 	return ok;
@@ -233,6 +233,20 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 	GB_LOG_FUNC
 	g_return_val_if_fail(datamodel != NULL, FALSE);
 	gboolean ok = FALSE;
+	
+	/*
+	burnargs = exec_new(2);
+	ExecCmd *e1 = &burnargs->cmds[0];
+	exec_cmd_add_arg(e1, "%s", "cat");
+	exec_cmd_add_arg(e1, "%s", "/home/luke/temp/exec.c");
+	e1->readProc = generic_read_proc;
+	ExecCmd *e2 = &burnargs->cmds[1];
+	exec_cmd_add_arg(e2, "%s", "grep");
+	exec_cmd_add_arg(e2, "%s", "spawn");
+	//exec_cmd_add_arg(e2, "%s", "/home/luke/temp/exec.c");	
+	e2->readProc = generic_read_proc;
+	ok = burn_start_process(TRUE);
+	*/
 
 	if(burn_show_start_dlg(create_data_cd) == GTK_RESPONSE_OK)
 	{	
@@ -262,14 +276,14 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 			
 		if(ok && mkisofs_add_args(&burnargs->cmds[0], datamodel, file))
 		{
-			if(!preferences_get_bool(GB_CREATEISOONLY))
+			const gboolean createisoonly = preferences_get_bool(GB_CREATEISOONLY);
+			if(!createisoonly)
 				cdrecord_add_iso_args(&burnargs->cmds[1], file);
-			ok = burn_start_process();
+			ok = burn_start_process(FALSE);
 		}
 		
 		g_free(file);
 	}
-
 	return ok;
 }
 
@@ -335,7 +349,7 @@ burn_create_audio_cd(GtkTreeModel* audiomodel)
 		ExecCmd* cmd = exec_add_cmd(burnargs);		
 		cdrecord_add_create_audio_cd_args(cmd, audiofiles);
 		
-		ok = burn_start_process();
+		ok = burn_start_process(FALSE);
 		
 		const GList *audiofile = audiofiles;
 		while(audiofile != NULL)
@@ -391,7 +405,7 @@ burn_copy_data_cd()
 			readcd_add_copy_args(&burnargs->cmds[0], file);
 			if(!preferences_get_bool(GB_CREATEISOONLY))
 				cdrecord_add_iso_args(&burnargs->cmds[1], file);
-			ok = burn_start_process();
+			ok = burn_start_process(FALSE);
 		}
 		
 		g_free(file);
@@ -414,7 +428,7 @@ burn_copy_audio_cd()
 		burnargs = exec_new(2);
 		cdda2wav_add_copy_args(&burnargs->cmds[0]);
 		cdrecord_add_audio_args(&burnargs->cmds[1]);
-		ok = burn_start_process();
+		ok = burn_start_process(FALSE);
 	}
 
 	return ok;
@@ -431,7 +445,7 @@ burn_blank_cdrw()
 	{		
 		burnargs = exec_new(1);
 		cdrecord_add_blank_args(&burnargs->cmds[0]);
-		ok = burn_start_process();
+		ok = burn_start_process(FALSE);
 	}
 
 	return ok;
@@ -448,7 +462,7 @@ burn_format_dvdrw()
 	{		
 		burnargs = exec_new(1);
 		dvdformat_add_args(&burnargs->cmds[0]);
-		ok = burn_start_process();
+		ok = burn_start_process(FALSE);
 	}
 
 	return ok;
@@ -464,7 +478,7 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
 	{	
 		burnargs = exec_new(1);
 		growisofs_add_args(&burnargs->cmds[0],datamodel);
-		ok = burn_start_process();
+		ok = burn_start_process(FALSE);
 	}
 
 	return ok;
