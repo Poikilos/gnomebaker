@@ -42,13 +42,12 @@ gint readcd_totalguchars = -1;
 gint cdrdao_cdminutes = -1;
 
 
+/* 	This is a hack for the moment until I figure out what's 
+    going on with the charset. */
 void 
-generic_read_proc(void *ex, void *buffer)
+hack_characters(gchar* buf)
 {
-	GB_LOG_FUNC	
-	g_return_if_fail(ex != NULL);
-	gchar *buf = (gchar*)buffer;
-	const gint len = strlen(buf);		
+    const gint len = strlen(buf);
 	gint i = 0;
 	for(; i < len; i++)
 	{
@@ -58,7 +57,16 @@ generic_read_proc(void *ex, void *buffer)
 			buf[i] = ' ';
 		}
 	}
-	
+}
+
+
+void 
+generic_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC	
+	g_return_if_fail(ex != NULL);
+	gchar *buf = (gchar*)buffer;
+	hack_characters(buf);
 	/*GB_TRACE((gchar*)buffer);*/
 	progressdlg_append_output(buf);
 }
@@ -136,19 +144,8 @@ cdrecord_read_proc(void *ex, void *buffer)
 	g_return_if_fail(buffer != NULL);
 	g_return_if_fail(ex != NULL);
 
-	/* 	This is a hack for the moment until I figure out what's 
-		going on with the charset. */
 	gchar *buf = (gchar*)buffer;
-	const gint len = strlen(buf);		
-	gint i = 0;
-	for(; i < len; i++)
-	{
-		if(!g_ascii_isalnum(buf[i]) && !g_ascii_iscntrl(buf[i])
-			&& !g_ascii_ispunct(buf[i]) && !g_ascii_isspace(buf[i]))
-		{
-			buf[i] = ' ';
-		}
-	}
+	hack_characters(buf);
 	
 	const gchar* track = strstr(buf, "Track");
 	if(track != NULL)
@@ -269,16 +266,16 @@ cdrecord_add_iso_args(ExecCmd * const cdBurn, const gchar * const iso)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);
-	g_return_if_fail(iso != NULL);	
 	
 	cdrecord_add_common_args(cdBurn);
 	
 	/*if(!prefs->multisession)*/
 		exec_cmd_add_arg(cdBurn, "%s", "-multi");
 
-	exec_cmd_add_arg(cdBurn, "%s", iso);
-	/* on the fly 
-	exec_cmd_add_arg(cdBurn, "%s", "-");*/
+    if(iso != NULL)
+	    exec_cmd_add_arg(cdBurn, "%s", iso);
+	else 
+	    exec_cmd_add_arg(cdBurn, "%s", "-"); /* no filename so we're on the fly */
 	
 	cdBurn->readProc = cdrecord_read_proc;
 	cdBurn->preProc = cdrecord_pre_proc;
@@ -612,8 +609,9 @@ mkisofs_foreach_func(GtkTreeModel *model,
 	GB_LOG_FUNC
 	gchar *file = NULL, *filepath = NULL;
 	gboolean existingsession = FALSE;
+    guint64 size = 0;
 		
-	gtk_tree_model_get (model, iter, DATACD_COL_FILE, &file,
+	gtk_tree_model_get (model, iter, DATACD_COL_FILE, &file, DATACD_COL_SIZE, &size, 
 		DATACD_COL_PATH, &filepath, DATACD_COL_SESSION, &existingsession, -1);
 	
 	/* Only add files that are not part of an existing session */
@@ -622,6 +620,7 @@ mkisofs_foreach_func(GtkTreeModel *model,
 		gchar* buffer = g_strdup_printf("%s=%s", file, filepath);		
 		exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);	
 		g_free(buffer);
+        cdrecord_totaldiskbytes += (gdouble)size;
 	}
 
 	g_free(file);	
@@ -637,7 +636,6 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 	GB_LOG_FUNC
 	g_return_val_if_fail(e != NULL, FALSE);
 	g_return_val_if_fail(datamodel != NULL, FALSE);
-	g_return_val_if_fail(iso != NULL, FALSE);
 	
 	/* If this is a another session on an existing cd we don't show the 
 	   iso details dialog */	
@@ -669,13 +667,19 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 			exec_cmd_add_arg(e, "%s", "-p");
 			exec_cmd_add_arg(e, "%s", createdby);
 		}
-				
-		exec_cmd_add_arg(e, "%s", "-r");
-		/*exec_cmd_add_arg(e, "%s", "-f"); don't follow links */
-		exec_cmd_add_arg(e, "%s", "-J");
+		
+        if(preferences_get_bool(GB_ROCKRIDGE))		
+		    exec_cmd_add_arg(e, "%s", "-R");
+		
+        if(preferences_get_bool(GB_JOLIET))
+        {
+		    exec_cmd_add_arg(e, "%s", "-J");
+            /*exec_cmd_add_arg(e, "%s", "-joliet-long");*/
+        }
+        
+        /*exec_cmd_add_arg(e, "%s", "-f"); don't follow links */
 		/*exec_cmd_add_arg(e, "%s", "-hfs");*/
-		exec_cmd_add_arg(e, "%s", "-gui");
-		exec_cmd_add_arg(e, "%s", "-joliet-long");
+		exec_cmd_add_arg(e, "%s", "-gui");		
 				
 		if(msinfo != NULL)
 		{
@@ -695,9 +699,11 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 			g_free(createdataiso);
 		}		
 		
-		/* remove these two for on the fly */
-		exec_cmd_add_arg(e, "%s", "-o");
-		exec_cmd_add_arg(e, "%s", iso);
+        if(iso != NULL) /* no filename so we're on the fly */
+        {            
+            exec_cmd_add_arg(e, "%s", "-o");
+            exec_cmd_add_arg(e, "%s", iso);
+        }
 		exec_cmd_add_arg(e, "%s", "-graft-points");
 		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
 				
@@ -883,17 +889,7 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 		/* 	This is a hack for the moment until I figure out what's 
 		going on with the charset. */
 	gchar *buf = (gchar*)buffer;
-	
-	const gint len = strlen(buf);		
-	gint i = 0;
-	for(; i < len; i++)
-	{
-		if(!g_ascii_isalnum(buf[i]) && !g_ascii_iscntrl(buf[i])
-			&& !g_ascii_ispunct(buf[i]) && !g_ascii_isspace(buf[i]))
-		{
-			buf[i] = ' ';
-		}
-	}
+    hack_characters(buf);
 	
 	const gchar* progressstr = strstr(buf, "done");
 	if(progressstr != NULL)
@@ -944,9 +940,10 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	exec_cmd_add_arg(growisofs,"-speed=%s",speed);
 	g_free(speed);
 	
-	/* TODO: Rock Ridge and Joliet should go to preferences! */
-	exec_cmd_add_arg(growisofs, "%s", "-R"); /* Rock Ridge */
-	exec_cmd_add_arg(growisofs, "%s", "-J"); /* Joliet */
+	if(preferences_get_bool(GB_ROCKRIDGE))
+	    exec_cmd_add_arg(growisofs, "%s", "-R"); /* Rock Ridge */
+    if(preferences_get_bool(GB_JOLIET))
+	    exec_cmd_add_arg(growisofs, "%s", "-J"); /* Joliet */
 	
 	/* -gui makes the output more verbose, so we can 
 	    interpret it easier */

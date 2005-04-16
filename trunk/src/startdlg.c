@@ -36,6 +36,9 @@ GtkWidget* checkISOOnly = NULL;
 GtkWidget* checkForce = NULL;	
 GtkWidget* checkFinalize = NULL;
 GtkWidget* checkFastFormat = NULL;
+GtkWidget* checkJoliet = NULL;
+GtkWidget* checkRockRidge = NULL;
+GtkWidget* checkOnTheFly = NULL;
 
 static const guint xpad = 10;
 static const guint ypad = 0;
@@ -54,6 +57,7 @@ startdlg_create_iso_toggled(GtkToggleButton* togglebutton, gpointer user_data)
 	gtk_widget_set_sensitive(checkDummy, !state);
 	gtk_widget_set_sensitive(checkEject, !state);
 	gtk_widget_set_sensitive(checkBurnFree, !state);
+    gtk_widget_set_sensitive(checkOnTheFly, !state);
 }
 
 
@@ -107,6 +111,9 @@ startdlg_new(const BurnType burntype)
 	checkForce = startdlg_create_check_button(_("Force"), GB_FORCE);		
 	checkFinalize = startdlg_create_check_button(_("Finalize"), GB_FINALIZE);	
 	checkFastFormat = startdlg_create_check_button(_("Fast"), GB_FAST_FORMAT);
+    checkJoliet = startdlg_create_check_button(_("Joliet"), GB_JOLIET);
+    checkRockRidge = startdlg_create_check_button(_("Rock Ridge"), GB_ROCKRIDGE);
+    checkOnTheFly = startdlg_create_check_button(_("On The Fly"), GB_ONTHEFLY);
 	
 	GtkWidget *optmenWriteMode = glade_xml_get_widget(startdlg_xml, widget_startdlg_writemode);	
 	GtkWidget *optmenReader = glade_xml_get_widget(startdlg_xml,widget_startdlg_reader);
@@ -150,7 +157,10 @@ startdlg_new(const BurnType burntype)
 			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
 			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);		
 			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkISOOnly, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);		
+			gtk_table_attach(table, checkISOOnly, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);
+            gtk_table_attach(table, checkJoliet, 0, 2, 8, 9, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkRockRidge, 2, 4, 8, 9, TABLE_ATTACH_OPTIONS);
+            gtk_table_attach(table, checkOnTheFly, 0, 2, 9, 10, TABLE_ATTACH_OPTIONS);
 			g_signal_emit_by_name(checkISOOnly, "toggled", checkISOOnly, NULL);
 			break;
 		case copy_audio_cd:
@@ -178,7 +188,9 @@ startdlg_new(const BurnType burntype)
 			gtk_widget_hide(optmenWriteMode);
 			gtk_widget_hide(optmenReader);
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
-			gtk_table_attach(table, checkFinalize, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);		
+			gtk_table_attach(table, checkFinalize, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
+            gtk_table_attach(table, checkJoliet, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkRockRidge, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
 			break;
 		default:
 			break;
@@ -201,6 +213,9 @@ startdlg_delete(GtkWidget* self)
 	gtk_widget_destroy(checkForce); checkForce = NULL;
 	gtk_widget_destroy(checkFinalize); checkFinalize = NULL;
 	gtk_widget_destroy(checkFastFormat); checkFastFormat = NULL;
+    gtk_widget_destroy(checkJoliet); checkJoliet = NULL;
+	gtk_widget_destroy(checkRockRidge); checkRockRidge = NULL;
+    gtk_widget_destroy(checkOnTheFly); checkOnTheFly = NULL;
 	
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
@@ -232,7 +247,10 @@ startdlg_on_ok_clicked(GtkButton * button, gpointer user_data)
 	preferences_set_bool(GB_FORCE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkForce)));	
 	preferences_set_bool(GB_FINALIZE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFinalize)));
 	preferences_set_bool(GB_FAST_FORMAT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFastFormat)));
-		
+    preferences_set_bool(GB_JOLIET, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkJoliet)));
+    preferences_set_bool(GB_ROCKRIDGE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkRockRidge)));
+    preferences_set_bool(GB_ONTHEFLY, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkOnTheFly)));
+
 	GtkWidget* optmenWriteMode = glade_xml_get_widget(startdlg_xml, widget_startdlg_writemode);
 	gchar* text = gbcommon_get_option_menu_selection(GTK_OPTION_MENU(optmenWriteMode));
 	preferences_set_string(GB_WRITE_MODE, text);

@@ -9,6 +9,9 @@ Version 0.3.1
 * Right click menus now have icons and right click on a CD image gives option to burn it.
 * Add cue bin support via cdrdao.
 * Directories can now be added to the audio cd and all audio files within the dir will be added.
+* Add on the fly burning for data cds.
+
+
 
 Version 0.3
 

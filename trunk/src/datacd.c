@@ -34,8 +34,21 @@
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 
 gdouble datadisksize = 0.0;
+GtkCellRenderer* contentrenderer = NULL;
 
-DiskSize datadisksizes[] = 
+enum
+{
+    CD_200MB = 0,
+    CD_650MB,
+    CD_700MB,
+    CD_800MB,
+    DVD_4GB,
+    DVD_8GB,
+    DISK_SIZE_COUNT
+};
+
+
+DiskSize datadisksizes[DISK_SIZE_COUNT] = 
 {
 	{200 * 1024 * 1024, "200MB CD"},
 	{650 * 1024 * 1024, "650MB CD"},
@@ -409,6 +422,15 @@ datacd_contents_cell_edited(GtkCellRendererText *cell,
 }
 
 
+void 
+datacd_on_edit(gpointer widget, gpointer user_data)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(user_data != NULL);        
+    //g_signal_emit_by_name (contentrenderer, "edited", NULL, NULL);    
+}
+
+
 gboolean
 datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 {
@@ -418,6 +440,14 @@ datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user
 	if(event->button == 3)
 	{
 		GtkWidget* menu = gtk_menu_new();			
+        GtkTreeView* view = (GtkTreeView*)widget;
+		GtkTreeSelection* selection = gtk_tree_view_get_selection(view);
+		const gint count = gtk_tree_selection_count_selected_rows(selection);
+		if(count == 1)
+		{
+			gbcommon_append_menu_item_stock(menu, _("_Edit name"), GTK_STOCK_EDIT, 
+				(GCallback)datacd_on_edit, view);
+		}
 		gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
 			(GCallback)datacd_on_remove_clicked, widget);	
 		gbcommon_append_menu_item_stock(menu, _("Clear"), GTK_STOCK_CLEAR, 
@@ -461,12 +491,12 @@ datacd_new()
 	g_value_init(&value, G_TYPE_BOOLEAN);
 	g_value_set_boolean(&value, TRUE);	
 
-    renderer = gtk_cell_renderer_text_new();
-	g_object_set_property(G_OBJECT(renderer), "editable", &value);
-	g_signal_connect(renderer, "edited", (GCallback)datacd_contents_cell_edited, 
+    contentrenderer = gtk_cell_renderer_text_new();
+	g_object_set_property(G_OBJECT(contentrenderer), "editable", &value);
+	g_signal_connect(contentrenderer, "edited", (GCallback)datacd_contents_cell_edited, 
 		(gpointer)store);
-    gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_FILE, NULL);
+    gtk_tree_view_column_pack_start(col, contentrenderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, contentrenderer, "text", DATACD_COL_FILE, NULL);
 	gtk_tree_view_append_column(filelist, col);	
 	
 	g_value_unset(&value);
@@ -529,7 +559,7 @@ datacd_new()
 	
 	GtkWidget* optmenu = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_size);
 	gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(optmenu), datadisksizes, 
-		(sizeof(datadisksizes)/sizeof(DiskSize)), 2);
+		DISK_SIZE_COUNT, 2);
 	
 	/* get the currently selected cd size */
 	datacd_get_datadisk_size();	
@@ -671,7 +701,7 @@ datacd_on_create_datadisk(gpointer widget, gpointer user_data)
 	GtkTreeModel* datamodel = gtk_tree_view_get_model(GTK_TREE_VIEW(datatree));
 	g_return_if_fail(datamodel != NULL);
 
-	if(datadisksize >= 4.7 * 1000 * 1000 * 1000)
+	if(datadisksize >= datadisksizes[DVD_4GB].size)
 		burn_create_data_dvd(datamodel);
 	else
 		burn_create_data_cd(datamodel);	

@@ -146,12 +146,20 @@ exec_read(ExecCmd* e, gint fd)
 		while((res = exec_select(fd, 2 /* seconds */)) != -1)
 		{
 			GB_TRACE( "exec_read - select returned [%d] errno [%d]", res, errno);
-			memset(buffer, 0, BUFF_SIZE);
-			if((res > 0) && (read(fd, buffer, BUFF_SIZE) > 0))
-				e->readProc(e, buffer);		
+            if(res > 0)
+            {
+                memset(buffer, 0, BUFF_SIZE);
+                if(read(fd, buffer, BUFF_SIZE) > 0)
+                    e->readProc(e, buffer);		
+            }
 			
 			if(waitpid(e->pid, &e->exitCode, WNOHANG) == -1) /* child no longer running */
-				break;			
+				break;	
+
+            /* this is a bit of a hack but it stops gb from hard looping and
+               using up lots of cpu reading little fragments of data from the pipe.
+               This way we wait until there's more data in the pipe and read less times. */
+            g_usleep(500000);
 		}	
 		GB_TRACE( "exec_read - final select returned [%d] errno [%d]", res, errno);
 	}
