@@ -52,7 +52,7 @@ burn_init()
 /*
  *
  */
-const gint
+gint
 burn_show_start_dlg(const BurnType burntype)
 {
 	GB_LOG_FUNC
@@ -248,10 +248,8 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 	ok = burn_start_process(TRUE);
 	*/
 
-	if(burn_show_start_dlg(create_data_cd) == GTK_RESPONSE_OK)
+	if((ok = (burn_show_start_dlg(create_data_cd) == GTK_RESPONSE_OK)))
 	{	
-		ok = TRUE;
-		gchar* file = NULL;
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
 			GtkWidget *filesel = gtk_file_chooser_dialog_new(
@@ -262,27 +260,32 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 		
 			if((ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)))
 			{
-				file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));		
+				gchar* file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));		
 				burnargs = exec_new(1);			
+                mkisofs_add_args(&burnargs->cmds[0], datamodel, file);
+                g_free(file);
 			}
 			
-			gtk_widget_destroy(filesel);
+			gtk_widget_destroy(filesel);            
+            if(ok)
+                ok = burn_start_process(FALSE);
 		}
+        else if(preferences_get_bool(GB_ONTHEFLY))
+        {
+            burnargs = exec_new(2);
+            mkisofs_add_args(&burnargs->cmds[0], datamodel, NULL);			
+            cdrecord_add_iso_args(&burnargs->cmds[1], NULL);
+            ok = burn_start_process(TRUE);
+        }
 		else
 		{
-			file = preferences_get_create_data_cd_image();
-			burnargs = exec_new(2);
+            burnargs = exec_new(2);
+			gchar* file = preferences_get_create_data_cd_image();            
+            mkisofs_add_args(&burnargs->cmds[0], datamodel, file);			
+            cdrecord_add_iso_args(&burnargs->cmds[1], file);
+            g_free(file);
+            ok = burn_start_process(FALSE);
 		}
-			
-		if(ok && mkisofs_add_args(&burnargs->cmds[0], datamodel, file))
-		{
-			const gboolean createisoonly = preferences_get_bool(GB_CREATEISOONLY);
-			if(!createisoonly)
-				cdrecord_add_iso_args(&burnargs->cmds[1], file);
-			ok = burn_start_process(FALSE);
-		}
-		
-		g_free(file);
 	}
 	return ok;
 }

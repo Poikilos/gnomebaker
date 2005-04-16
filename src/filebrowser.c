@@ -512,8 +512,8 @@ filebrowser_on_drag_data_get (GtkWidget * widget,
 	GB_TRACE(_("selection data is %s\n"), file->str);
 	
 	/* Set the fully built path(s) as the selection data */
-	gtk_selection_data_set(selection_data, selection_data->target, 8, file->str,
-		strlen(file->str) * sizeof(gchar));
+	gtk_selection_data_set(selection_data, selection_data->target, 8, 
+        (const guchar*)file->str, strlen(file->str) * sizeof(gchar));
 	
 	g_string_free(file, TRUE);	
 }
