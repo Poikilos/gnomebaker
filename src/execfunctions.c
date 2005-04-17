@@ -150,31 +150,42 @@ cdrecord_read_proc(void *ex, void *buffer)
 	const gchar* track = strstr(buf, "Track");
 	if(track != NULL)
 	{
-		gint currenttrack = 0;
-		gfloat current = 0, total = 0; 
-		if(sscanf(track, "%*s %d %*s %f %*s %f", &currenttrack, &current, &total) > 0)
-		{
-			if(current > 0.0)
-			{
-				if(cdrecord_firsttrack == -1)
-					cdrecord_firsttrack = currenttrack;			
-
-				/* Figure out how many tracks we have written so far and calc the fraction */
-				gfloat totalfraction = 
-					((gfloat)currenttrack - cdrecord_firsttrack) * (1.0 / cdrecord_totaltrackstowrite);
-				
-				/* now add on the fraction of the track we are currently writing */
-				totalfraction += ((current / total) * (1.0 / cdrecord_totaltrackstowrite));
-				
-				/*GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-					currenttrack, cdrecord_firsttrack, current, total, totalfraction);*/
-				
-				progressdlg_set_fraction(totalfraction);
-			}
-		}		
+        gint currenttrack = 0;
+        gfloat current = 0, total = 0; 
+        
+        const gchar* of = strstr(buf, " of ");
+        if(of != NULL) /* regular burn i.e not on the fly */
+        {
+            /*  Track 01:    3 of   19 MB written (fifo 100%) [buf  98%]   4.5x. */        
+            sscanf(track, "%*s %d %*s %f %*s %f", &currenttrack, &current, &total);
+        }
+        else /* on the fly */
+        {            
+            /* Track 01:   12 MB written (fifo 100%) [buf  96%]   4.0x. */
+            sscanf(track, "%*s %d %*s %f", &currenttrack, &current);
+            total = cdrecord_totaldiskbytes / 1024 / 1024;
+        }
+        
+        if(current > 0.0)
+        {
+            if(cdrecord_firsttrack == -1)
+                cdrecord_firsttrack = currenttrack;			
+    
+            /* Figure out how many tracks we have written so far and calc the fraction */
+            gfloat totalfraction = 
+                ((gfloat)currenttrack - cdrecord_firsttrack) * (1.0 / cdrecord_totaltrackstowrite);
+            
+            /* now add on the fraction of the track we are currently writing */
+            totalfraction += ((current / total) * (1.0 / cdrecord_totaltrackstowrite));
+            
+            /*GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
+                currenttrack, cdrecord_firsttrack, current, total, totalfraction);*/
+            
+            progressdlg_set_fraction(totalfraction);
+        }
 	}
 	
-	const gchar* fixating = strstr(buf, _("Fixating"));
+	const gchar* fixating = strstr(buf, "Fixating");
 	if(fixating != NULL)
 	{
 		/* Order of these is important as set fraction also sets the text */

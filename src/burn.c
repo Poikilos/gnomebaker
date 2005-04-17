@@ -137,9 +137,10 @@ burn_start_process(gboolean onthefly)
 
 	/*
 	 * Create the dlg before we start the thread as callbacks from the
-	 * thread may need to use the controls 
+	 * thread may need to use the controls. If we're on the fly then 
+     * there is only ever _1_ command to tell the progress bar about.
 	 */
-	GtkWidget *dlg = progressdlg_new(burnargs->cmdCount);
+	GtkWidget *dlg = progressdlg_new(onthefly ? 1 : burnargs->cmdCount);
 	
 	if(exec_go(burnargs, onthefly) == 0)
 	{
