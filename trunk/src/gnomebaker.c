@@ -296,14 +296,21 @@ void
 gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
 {
 	GB_LOG_FUNC
-	
-	const gchar* authors[] = {"Luke Biddell", "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", NULL};
-	const gchar* documenters[] = {"Milen Dzhumerov", NULL};
-	GtkWidget* about = gnome_about_new(_("GnomeBaker"), VERSION, "GPL", 
-		_("Simple CD Burning for Gnome"), authors, documenters, _("translator_credits"), 
-		gdk_pixbuf_new_from_file(PACKAGE_PIXMAPS_DIR"/splash_2.png", NULL));
-	
-	gtk_widget_show(about);	
+	static GtkWidget* about = NULL;
+	if (about != NULL)
+    {
+		gtk_window_present(GTK_WINDOW(about));
+    }
+	else
+	{
+		const gchar* authors[] = {"Luke Biddell", "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", NULL};
+		const gchar* documenters[] = {"Milen Dzhumerov", NULL};
+		about = gnome_about_new(_("GnomeBaker"), VERSION, "GPL", 
+			_("Simple CD Burning for Gnome"), authors, documenters, _("translator_credits"), 
+			gdk_pixbuf_new_from_file(PACKAGE_PIXMAPS_DIR"/splash_2.png", NULL));
+		g_object_add_weak_pointer(G_OBJECT(about), (void**)&about);
+		gtk_widget_show(about);	
+	}
 }
 
 
