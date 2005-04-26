@@ -678,19 +678,24 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 			exec_cmd_add_arg(e, "%s", "-p");
 			exec_cmd_add_arg(e, "%s", createdby);
 		}
+        
+        exec_cmd_add_arg(e, "%s", "-iso-level");
+        exec_cmd_add_arg(e, "%s", "3");
+        exec_cmd_add_arg(e, "%s", "-l"); /* allow 31 character iso9660 filenames */
 		
         if(preferences_get_bool(GB_ROCKRIDGE))		
-		    exec_cmd_add_arg(e, "%s", "-R");
+        {
+		    exec_cmd_add_arg(e, "%s", "-r");
+        }
 		
         if(preferences_get_bool(GB_JOLIET))
         {
 		    exec_cmd_add_arg(e, "%s", "-J");
-            /*exec_cmd_add_arg(e, "%s", "-joliet-long");*/
+            exec_cmd_add_arg(e, "%s", "-joliet-long");
         }
         
         /*exec_cmd_add_arg(e, "%s", "-f"); don't follow links */
-		/*exec_cmd_add_arg(e, "%s", "-hfs");*/
-		exec_cmd_add_arg(e, "%s", "-gui");		
+		/*exec_cmd_add_arg(e, "%s", "-hfs");*/		
 				
 		if(msinfo != NULL)
 		{
@@ -710,8 +715,9 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 			g_free(createdataiso);
 		}		
 		
-        if(iso != NULL) /* no filename so we're on the fly */
+        if(iso != NULL) /* no filename means we're on the fly */
         {            
+            exec_cmd_add_arg(e, "%s", "-gui");	
             exec_cmd_add_arg(e, "%s", "-o");
             exec_cmd_add_arg(e, "%s", iso);
         }
