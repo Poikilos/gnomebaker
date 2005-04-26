@@ -246,7 +246,7 @@ exec_run_remainder(gpointer data)
 			/* child */
 			GB_TRACE(_("exec_run_remainder - child running"));	
 			dup2(ex->child_child_pipe[1], STDOUT_FILENO);
-			dup2(ex->child_child_pipe[1], STDERR_FILENO);
+			/*dup2(ex->child_child_pipe[1], STDERR_FILENO); don't want stderr */
 			close(ex->child_child_pipe[0]);	
 			
 			execvp(e->argv[0], e->argv);
@@ -292,8 +292,8 @@ exec_thread_on_the_fly(gpointer data)
 	{
 		/* Child */
 		GB_TRACE(_("exec_thread_on_the_fly - root child running"));
-		const gint res = exec_select(ex->child_child_pipe[0], 4);
-		GB_TRACE("exec_thread_on_the_fly - root child select returned [%d] errno [%d]", res, errno);				
+		/*const gint res = exec_select(ex->child_child_pipe[0], 4);
+		GB_TRACE("exec_thread_on_the_fly - root child select returned [%d] errno [%d]", res, errno);*/
 				
 		dup2(ex->child_child_pipe[0], STDIN_FILENO);
 		close(ex->child_child_pipe[1]);
