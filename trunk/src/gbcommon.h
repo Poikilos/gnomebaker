@@ -62,6 +62,8 @@ void gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel,
 void gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel, 
 					const gchar* stockid, GCallback activated, gpointer userdata);
 
+gchar* gbcommon_show_iso_dlg();
+
 /* defined in main.c */
 extern const gchar* glade_file;
 extern gboolean showtrace;
@@ -137,7 +139,7 @@ static const gchar* const widget_select_device_dlg = "selectDeviceDlg";
 
 
 #define GB_LOG_FUNC											\
-	if(showtrace) g_print(_("Entering [%s] [%s] [%d]\n"), __FUNCTION__, __FILE__, __LINE__);	\
+	if(showtrace) g_print("Entering [%s] [%s] [%d]\n", __FUNCTION__, __FILE__, __LINE__);	\
 		
 #define GB_TRACE			\
 	if(showtrace) g_message	\

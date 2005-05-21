@@ -34,6 +34,9 @@
 #include "gbcommon.h"
 #include "audiocd.h"
 #include "devices.h"
+#include "gst/gst.h"
+#include "audioinfo.h"
+#include "media.h"
 
 Exec *burnargs = NULL;
 
@@ -148,7 +151,7 @@ burn_start_process(gboolean onthefly)
 	}
 	else
 	{
-		g_critical(_("Failed to start child process"));
+		g_critical("Failed to start child process");
 		ok = FALSE;
 	}
 	
@@ -184,6 +187,25 @@ burn_iso(const gchar * const file)
 	return ok;
 }
 
+gboolean
+burn_dvd_iso(const gchar * const file)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(file != NULL, FALSE);
+	gboolean ok = FALSE;
+
+	if(burn_show_start_dlg(burn_dvd_image) == GTK_RESPONSE_OK)
+	{
+		burnargs = exec_new(1);
+		ExecCmd *e = &burnargs->cmds[0];
+		growisofs_add_iso_args(e,file);
+		ok = burn_start_process(FALSE);
+	}
+
+	return ok;
+}
+
+
 
 gboolean
 burn_cue_or_bin(const gchar * const file)
@@ -211,7 +233,7 @@ burn_cd_image_file(const gchar* file)
 	g_return_val_if_fail(file != NULL, FALSE);
 	gchar* mime = gbcommon_get_mime_type(file);
 	g_return_val_if_fail(mime != NULL, FALSE);
-	GB_TRACE(_("mime type is %s for %s"), mime, file);
+	GB_TRACE("mime type is %s for %s", mime, file);
 	gboolean ret = FALSE;
 	
 	/* Check that the mime type is iso */
@@ -302,7 +324,8 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 	g_return_val_if_fail(model != NULL, FALSE);
 	g_return_val_if_fail(path != NULL, FALSE);
 
-	GList** audiofiles = (GList**)user_data;
+	GSList** pipelines = (GSList**)user_data;
+	
 	gchar *file = NULL;
 			
 	gtk_tree_model_get (model, iter, AUDIOCD_COL_FILE, &file, -1);
@@ -312,20 +335,19 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 	gchar* mime = gbcommon_get_mime_type(file);
 	if(mime != NULL)
 	{
-		ExecCmd* cmd = exec_add_cmd(burnargs);
-		gchar* convertedfile = NULL;
-			
-		/* Check that the file extension is one we support */			
-		if((g_ascii_strcasecmp(mime, "audio/x-mp3") == 0) || (g_ascii_strcasecmp(mime, "audio/mpeg") == 0))
-			mpg123_add_mp3_args(cmd, file, &convertedfile);
-		else if(g_ascii_strcasecmp(mime, "application/ogg") == 0)
-			oggdec_add_args(cmd, file, &convertedfile);
-		else if(g_ascii_strcasecmp(mime, "audio/x-wav") == 0)
-			sox_add_wav_args(cmd, file, &convertedfile);
-		
-		GB_TRACE(_("burn - [%s]"), convertedfile);
-		*audiofiles = g_list_append(*audiofiles, convertedfile);
-		g_free(mime);	
+		gchar* trackdir = preferences_get_convert_audio_track_dir();
+		gchar* filename = g_path_get_basename(file);
+		gchar* convertedfile = g_build_filename(trackdir, filename, NULL);
+		gchar* fullfilename = g_strdup_printf("%s.wav",convertedfile);
+		MediaInfoPtr mediainfo = g_new0(MediaInfo, 1);
+		GB_TRACE("convertedfile is %s", fullfilename);
+		GB_TRACE("file is %s",file);
+		media_convert_to_wav(file,fullfilename, mediainfo);
+		mediainfo->convertedfile = fullfilename;
+		*pipelines = g_slist_append(*pipelines, mediainfo);	
+        g_free(convertedfile);
+        g_free(trackdir);
+        g_free(filename);
 	}
 
 	g_free(file);
@@ -341,27 +363,59 @@ burn_create_audio_cd(GtkTreeModel* audiomodel)
 	GB_LOG_FUNC
 	g_return_val_if_fail(audiomodel != NULL, FALSE);
 	gboolean ok = FALSE;
-
+	
 	if(burn_show_start_dlg(create_audio_cd) == GTK_RESPONSE_OK)
 	{
-		burnargs = exec_new(0);
+		burnargs = exec_new(2);
 		
 		GList *audiofiles = g_list_alloc();
+		GSList *pipelines = g_slist_alloc(); 
 		
-		gtk_tree_model_foreach(audiomodel, burn_foreachaudiotrack_func, &audiofiles);
-		
-		ExecCmd* cmd = exec_add_cmd(burnargs);		
-		cdrecord_add_create_audio_cd_args(cmd, audiofiles);
+		gtk_tree_model_foreach(audiomodel, burn_foreachaudiotrack_func, &pipelines);
+		/*ExecCmd* cmd = exec_add_cmd(burnargs);*/		
+		media_convert_add_args(&burnargs->cmds[0],pipelines);
+		const GSList* pipeline = pipelines;
+		while(pipeline)
+		{
+			MediaInfoPtr mip = (MediaInfoPtr)pipeline->data;
+			if(mip)
+				audiofiles = g_list_append(audiofiles,mip->convertedfile);
+			pipeline = pipeline->next;
+				
+		}
+		cdrecord_add_create_audio_cd_args(&burnargs->cmds[1], audiofiles);
 		
 		ok = burn_start_process(FALSE);
+		
 		
 		const GList *audiofile = audiofiles;
 		while(audiofile != NULL)
 		{
 			g_free(audiofile->data);
 			audiofile = audiofile->next;
-		}		
-		
+		}
+		/*
+		const GSList* pipeline_clean = pipelines;
+		while(pipeline_clean != NULL)
+		{
+			MediaInfoPtr mip = (MediaInfoPtr)pipeline_clean;
+			if(mip && mip->pipeline)
+			{
+				GB_TRACE("burn.c: pipeline %x",mip->pipeline);
+				media_pause_playing(mip->pipeline);
+				media_cleanup(mip->pipeline);
+				we only cleanup the pipeline since it
+				holds all elements
+				if(mip->convertedfile)
+					g_free(mip->convertedfile);
+				if(pipeline->data)
+					g_free(pipeline->data);
+				
+			}
+			pipeline_clean = pipeline_clean->next;
+		}
+		*/
+		g_slist_free(pipelines);
 		g_list_free(audiofiles);
 	}
 

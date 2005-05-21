@@ -20959,12 +20959,12 @@ else
   if test "x$ac_cv_env_GNOME_CFLAGS_set" = "xset"; then
 	pkg_cv_GNOME_CFLAGS=$ac_cv_env_GNOME_CFLAGS_value
 elif test -n "$PKG_CONFIG"; then
-	if { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists \"libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile\" >/dev/null 2>&1") >&5
-  ($PKG_CONFIG --exists "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile" >/dev/null 2>&1) 2>&5
+	if { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists \"libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile gstreamer-0.8\" >/dev/null 2>&1") >&5
+  ($PKG_CONFIG --exists "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile gstreamer-0.8" >/dev/null 2>&1) 2>&5
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-		pkg_cv_GNOME_CFLAGS=`$PKG_CONFIG --cflags "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile" 2>/dev/null`
+		pkg_cv_GNOME_CFLAGS=`$PKG_CONFIG --cflags "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile gstreamer-0.8" 2>/dev/null`
 	else
 		pkg_failed=yes
 	fi
@@ -20982,12 +20982,12 @@ else
   if test "x$ac_cv_env_GNOME_LIBS_set" = "xset"; then
 	pkg_cv_GNOME_LIBS=$ac_cv_env_GNOME_LIBS_value
 elif test -n "$PKG_CONFIG"; then
-	if { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists \"libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile\" >/dev/null 2>&1") >&5
-  ($PKG_CONFIG --exists "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile" >/dev/null 2>&1) 2>&5
+	if { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists \"libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile gstreamer-0.8\" >/dev/null 2>&1") >&5
+  ($PKG_CONFIG --exists "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile gstreamer-0.8" >/dev/null 2>&1) 2>&5
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-		pkg_cv_GNOME_LIBS=`$PKG_CONFIG --libs "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile" 2>/dev/null`
+		pkg_cv_GNOME_LIBS=`$PKG_CONFIG --libs "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile gstreamer-0.8" 2>/dev/null`
 	else
 		pkg_failed=yes
 	fi
@@ -20999,7 +20999,7 @@ echo "$as_me:$LINENO: result: $pkg_cv_GNOME_LIBS" >&5
 echo "${ECHO_T}$pkg_cv_GNOME_LIBS" >&6
 
 if test $pkg_failed = yes; then
-	GNOME_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile"`
+	GNOME_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libgnomeui-2.0 gtk+-2.0 >= 2.4.0 glib-2.0 >= 2.4.0 libglade-2.0 vorbisfile gstreamer-0.8"`
 	# Put the nasty error message in config.log where it belongs
 	echo "$GNOME_PKG_ERRORS" 1>&5
 

@@ -46,9 +46,12 @@ gnomebaker_SOURCES = \
 	selectdevicedlg.c\
 	selectdevicedlg.h\
 	execfunctions.c\
-	execfunctions.h
+	execfunctions.h\
+	media.c
 
 gnomebaker_LDFLAGS = 
 
 gnomebaker_LDADD =  \
-	$(GNOME_LIBS)
+	$(GNOME_LIBS)\
+	 -lvorbisfile
+

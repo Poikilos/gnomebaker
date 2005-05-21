@@ -34,7 +34,8 @@
 #include "splashdlg.h"
 #include "gbcommon.h"
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
-
+#include "gst/gst.h"
+#include "media.h"
 
 GladeXML *xml = NULL;
 
@@ -87,7 +88,10 @@ gnomebaker_new()
 	
 	splashdlg_set_text(_("Detecting devices..."));
 	devices_init();
-		
+
+	splashdlg_set_text(_("Registering gstreamer plugins..."));
+	media_register_plugins();
+
 	splashdlg_set_text(_("Loading GUI..."));
 	xml = glade_xml_new(glade_file, widget_gnomebaker, NULL);
 
@@ -149,8 +153,7 @@ gnomebaker_show_msg_dlg(GtkMessageType type, GtkButtonsType buttons,
 		  			GtkButtonsType additional, const gchar * message)
 {
 	GB_LOG_FUNC
-	
-	GB_TRACE( _("MessageDialog message [%s]"), message);		
+	GB_TRACE("MessageDialog message [%s]", message);		
 	
 	GtkWidget *dialog = gtk_message_dialog_new(
 		GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker)), 
@@ -225,36 +228,64 @@ gnomebaker_on_blank_cdrw(gpointer widget, gpointer user_data)
 	burn_blank_cdrw();	
 }
 
-
 void
 gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 		
-	GtkWidget *filesel = gtk_file_chooser_dialog_new(
-		_("Please select a CD image file..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
-		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
-	
-	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
-	GtkFileFilter *imagefilter = gtk_file_filter_new();
-	gtk_file_filter_add_pattern (imagefilter, "*.iso");
-	gtk_file_filter_add_pattern (imagefilter, "*.bin");
-	gtk_file_filter_add_pattern (imagefilter, "*.cue");
-	gtk_file_filter_set_name(imagefilter,_("CD Image files"));
-	GtkFileFilter *allfilter = gtk_file_filter_new();
-	gtk_file_filter_add_pattern (allfilter, "*");
-	gtk_file_filter_set_name(allfilter,_("All files"));
-	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), imagefilter);
-	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), allfilter);
-	
-	const gint result = gtk_dialog_run(GTK_DIALOG(filesel));
-	const gchar *file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
-
-	gtk_widget_destroy(filesel);
-	
-	if(result == GTK_RESPONSE_OK)
-		burn_cd_image_file(file);
+	const gchar* file = gbcommon_show_iso_dlg();
+	if(file != NULL)
+	{
+		GB_TRACE("file is %s", file);
+		
+		gchar* mime = gnome_vfs_get_mime_type(file);
+		g_return_if_fail(mime != NULL);
+		GB_TRACE("mime type is %s for %s", mime, file);
+		
+		/* Check that the mime type is iso */
+		if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
+		{
+			burn_iso(file);
+		}
+		else
+		{
+			gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+			  _("The file you have selected is not a cd image. Please select a cd image to burn."));
+		}
+		
+		g_free(mime);
+	}
 }
+
+void
+gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
+{
+	GB_LOG_FUNC
+		
+	const gchar* file = gbcommon_show_iso_dlg();
+	if(file != NULL)
+	{
+		GB_TRACE("file is %s", file);
+		
+		gchar* mime = gnome_vfs_get_mime_type(file);
+		g_return_if_fail(mime != NULL);
+		GB_TRACE("mime type is %s for %s", mime, file);
+		
+		/* Check that the mime type is iso */
+		if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
+		{
+			burn_dvd_iso(file);
+		}
+		else
+		{
+			gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+			  _("The file you have selected is not a DVD image. Please select a DVD image to burn."));
+		}
+		
+		g_free(mime);
+	}
+}
+
 
 
 void

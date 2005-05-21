@@ -74,10 +74,18 @@ gchar* rightclickselection = NULL;
 
 
 void 
-filebrowser_burn_image(gpointer widget, gpointer user_data)
+filebrowser_burn_cd_image(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	burn_cd_image_file(rightclickselection);
+}
+
+
+void 
+filebrowser_burn_dvd_image(gpointer widget, gpointer user_data)
+{
+	GB_LOG_FUNC
+	burn_dvd_iso(rightclickselection);
 }
 
 
@@ -162,7 +170,7 @@ filebrowser_build_path(GtkTreeModel* model, GtkTreeIter* iter)
 		}
 		else
 		{
-			g_critical(_("subdir from GValue is NULL"));
+			g_critical("subdir from GValue is NULL");
 		}
 		
 		g_free(subdir);
@@ -330,7 +338,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 			}
 			else
 			{
-				g_warning(_("Stat of file [%s] failed"), fullname);
+				g_warning("Stat of file [%s] failed", fullname);
 			}
 
 			g_free(fullname);
@@ -509,7 +517,7 @@ filebrowser_on_drag_data_get (GtkWidget * widget,
 		g_string_assign(file, uri);
 	}
 	
-	GB_TRACE(_("selection data is %s\n"), file->str);
+	GB_TRACE("selection data is %s\n", file->str);
 	
 	/* Set the fully built path(s) as the selection data */
 	gtk_selection_data_set(selection_data, selection_data->target, 8, 
@@ -610,7 +618,13 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 			{
 				gbcommon_append_menu_item_stock(menu, _("_Open"), GTK_STOCK_OPEN, 
 					(GCallback)filebrowser_on_open, view);
-								
+			}
+            
+            gbcommon_append_menu_item_stock(menu, _("_Add file(s)"), GTK_STOCK_ADD, 
+				    (GCallback)gnomebaker_on_add_files, view);            
+            if(count == 1)
+            {
+                gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());	
 				GtkTreeModel* model = gtk_tree_view_get_model(view);
 				GB_DECLARE_STRUCT(GtkTreeIter, iter);
 				gtk_tree_selection_selected_foreach(selection, 
@@ -623,14 +637,13 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 				if(g_str_has_suffix(name, ".cue") || g_str_has_suffix(name, ".bin") || (g_ascii_strcasecmp(mime, "application/x-cd-image") == 0))
 				{	
 					gbcommon_append_menu_item_file(menu, _("_Burn CD Image"), 
-						"baker-burn-cd.png", (GCallback)filebrowser_burn_image, view);	
+						"baker-cd-iso.png", (GCallback)filebrowser_burn_cd_image, view);	
+                    gbcommon_append_menu_item_file(menu, _("_Burn DVD Image"), 
+						"baker-dvd-iso.png", (GCallback)filebrowser_burn_dvd_image, view);	
 				}				
 				g_free(name);
 				g_free(mime);
-			}
-				
-			gbcommon_append_menu_item_stock(menu, _("_Add file(s)"), GTK_STOCK_ADD, 
-				(GCallback)gnomebaker_on_add_files, view);
+			}							
 		}
 			
 		gtk_widget_show_all(menu);

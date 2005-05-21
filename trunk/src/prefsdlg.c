@@ -236,7 +236,7 @@ prefsdlg_foreach_device(GtkTreeModel *devicemodel,
 	if(writedvdram) capabilities |= DC_WRITE_DVDRAM;	
 	
 	if((name == NULL) || (id == NULL) || (node == NULL))
-		g_critical(_("Invalid row in device list"));	
+		g_critical("Invalid row in device list");	
 	else
 		devices_write_device_to_gconf(*devicecount, name, id, node, mount, capabilities);
 	

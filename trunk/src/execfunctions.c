@@ -28,7 +28,8 @@
 #include "gbcommon.h"
 #include "devices.h"
 #include "datacd.h"
-
+#include "gst/gst.h"
+#include "media.h"
 
 
 gint cdrecord_totaltrackstowrite = 1;
@@ -40,6 +41,13 @@ gint cdda2wav_totaltracksread = 0;
 
 gint readcd_totalguchars = -1;
 gint cdrdao_cdminutes = -1;
+
+MediaInfoPtr current_element = NULL;
+ExecCmd* g_ex = NULL;
+
+GSList* g_elements = NULL;
+guint media_totalelements = 0;
+guint media_current_element = 0;
 
 
 /* 	This is a hack for the moment until I figure out what's 
@@ -80,7 +88,7 @@ generic_read_proc(void *ex, void *buffer)
  * We pass a pointer to this function to Exec which will call us when it has
  * read from it pipe. We get the data and stuff the text into our text entry
  * for the user to read.
- */
+m */
 void
 cdrecord_pre_proc(void *ex, void *buffer)
 {	
@@ -89,17 +97,19 @@ cdrecord_pre_proc(void *ex, void *buffer)
 	
 	progressdlg_set_status(_("<b>Burning disk...</b>"));
 	progressdlg_increment_exec_number();
-	
-	gdk_threads_enter();
-	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			  _("Please insert the CD into the CD writer"));
-	gdk_flush();
-	gdk_threads_leave();
-	
-	if(ret == GTK_RESPONSE_CANCEL)
+	if(!devices_query_cdstatus(GB_WRITER))
 	{
-		ExecCmd* e = (ExecCmd*)ex;
-		e->state = CANCELLED;
+		gdk_threads_enter();
+		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+				  _("Please insert the CD into the CD writer"));
+		gdk_flush();
+		gdk_threads_leave();
+		
+		if(ret == GTK_RESPONSE_CANCEL)
+		{
+			ExecCmd* e = (ExecCmd*)ex;
+			e->state = CANCELLED;
+		}
 	}
 }
 
@@ -111,20 +121,23 @@ cdrecord_blank_pre_proc(void *ex, void *buffer)
 	progressdlg_set_status(_("<b>Blanking disk...</b>"));
 	progressdlg_set_text("");
 	
-	gdk_threads_enter();
-	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-		_("Please insert the CD-RW into the CD writer"));
-	gdk_flush();
-	gdk_threads_leave();
-	
-	if(ret == GTK_RESPONSE_CANCEL)
+	if(!devices_query_cdstatus(GB_WRITER))
 	{
-		ExecCmd* e = (ExecCmd*)ex;
-		e->state = CANCELLED;
-	}
-	else
-	{
-		progressdlg_pulse_start();
+		gdk_threads_enter();
+		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+			_("Please insert the CD-RW into the CD writer"));
+		gdk_flush();
+		gdk_threads_leave();
+		
+		if(ret == GTK_RESPONSE_CANCEL)
+		{
+			ExecCmd* e = (ExecCmd*)ex;
+			e->state = CANCELLED;
+		}
+		else
+		{
+			progressdlg_pulse_start();
+		}
 	}
 }
 
@@ -214,7 +227,7 @@ cdrecord_add_common_args(ExecCmd * const cdBurn)
 	
 	exec_cmd_add_arg(cdBurn, "%s", "gracetime=2");
 	
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
+	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_CDWRITE_SPEED));
 	exec_cmd_add_arg(cdBurn, "speed=%s", speed);
 	g_free(speed);
 	
@@ -252,18 +265,24 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
 	exec_cmd_add_arg(e, "%s", "-pad");
 	exec_cmd_add_arg(e, "%s", "-audio");	
 	
-	const GList *audiofile = audiofiles;
-	while(audiofile != NULL)
-	{
-		if(audiofile->data)	
-		{
-			exec_cmd_add_arg(e, "%s", audiofile->data);
-			GB_TRACE(_("cdrecord - adding create audio data [%s]"), (gchar*)audiofile->data);
-			cdrecord_totaltrackstowrite++;
-		}
-		audiofile = audiofile->next;
-	}		
-	
+    if(preferences_get_bool(GB_ONTHEFLY))
+    {
+        exec_cmd_add_arg(e, "%s", "-"); 
+    }
+    else
+    {    
+        const GList *audiofile = audiofiles;
+        while(audiofile != NULL)
+        {
+            if(audiofile->data)	
+            {
+                exec_cmd_add_arg(e, "%s", audiofile->data);
+                GB_TRACE("cdrecord - adding create audio data [%s]", (gchar*)audiofile->data);
+                cdrecord_totaltrackstowrite++;
+            }
+            audiofile = audiofile->next;
+        }		
+    }	
 	e->readProc = cdrecord_read_proc;
 	e->preProc = cdrecord_pre_proc;
 }
@@ -302,37 +321,33 @@ cdrecord_add_audio_args(ExecCmd * const cdBurn)
 	exec_cmd_add_arg(cdBurn, "%s", "-useinfo");
 	exec_cmd_add_arg(cdBurn, "%s", "-audio");
 	exec_cmd_add_arg(cdBurn, "%s", "-pad");
-	
-	GError *err = NULL;
-	
-	gchar* tmp = preferences_get_string(GB_TEMP_DIR);
-	GDir *dir = g_dir_open(tmp, 0, &err);
-
-	if(dir != NULL)
-	{
-		cdrecord_totaltrackstowrite = 0;
-		/* loop around reading the files in the directory */
-		const gchar *name = g_dir_read_name(dir);	
-		while(name != NULL)
-		{
-			if(g_str_has_suffix(name, ".wav"))
-			{
-				GB_TRACE( _("adding [%s]"), name);
-				gchar* fullpath = g_build_filename(tmp, name, NULL);
-				exec_cmd_add_arg(cdBurn, "%s", fullpath);
-				cdrecord_totaltrackstowrite++;
-				g_free(fullpath);
-			}
-			
-			name = g_dir_read_name(dir);
-		}
-		g_dir_close(dir);
-	}
-	
+	  
+    GError *err = NULL;	
+    gchar* tmp = preferences_get_string(GB_TEMP_DIR);
+    GDir *dir = g_dir_open(tmp, 0, &err);
+    if(dir != NULL)
+    {
+        cdrecord_totaltrackstowrite = 0;
+        /* loop around reading the files in the directory */
+        const gchar *name = g_dir_read_name(dir);	
+        while(name != NULL)
+        {
+            if(g_str_has_suffix(name, ".wav"))
+            {
+                GB_TRACE("adding [%s]", name);
+                gchar* fullpath = g_build_filename(tmp, name, NULL);
+                exec_cmd_add_arg(cdBurn, "%s", fullpath);
+                cdrecord_totaltrackstowrite++;
+                g_free(fullpath);
+            }
+            
+            name = g_dir_read_name(dir);
+        }
+        g_dir_close(dir);
+    }
+    g_free(tmp);
 	cdBurn->readProc = cdrecord_read_proc;
-	cdBurn->preProc = cdrecord_pre_proc;
-	
-	g_free(tmp);
+	cdBurn->preProc = cdrecord_pre_proc;	
 }
 
 
@@ -354,7 +369,7 @@ cdrecord_add_blank_args(ExecCmd * const cdBurn)
 	exec_cmd_add_arg(cdBurn, "dev=%s", writer);
 	g_free(writer);
 
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
+	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_CDWRITE_SPEED));
 	exec_cmd_add_arg(cdBurn, "speed=%s", speed);
 	g_free(speed);
 	
@@ -451,7 +466,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 			g_strlcpy(tmpbuf, tracksstart + 7, 3);
 			g_strstrip(tmpbuf);
 			cdda2wav_totaltracks = atoi(tmpbuf);			
-			GB_TRACE(_("cdda2wav_read_proc - total tracks %d"), cdda2wav_totaltracks);
+			GB_TRACE("cdda2wav_read_proc - total tracks %d", cdda2wav_totaltracks);
 		}
 	}
 	else if(cdda2wav_totaltracks)
@@ -755,19 +770,22 @@ dvdformat_pre_proc(void *ex, void *buffer)
 	progressdlg_set_status(_("<b>Formatting DVD...</b>"));
 	progressdlg_increment_exec_number();
 	
-	gdk_threads_enter();
-	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			  _("Please insert a rewritable DVD into the DVD writer"));
-	gdk_threads_leave();
-	
-	if(ret == GTK_RESPONSE_CANCEL)
+	if(!devices_query_cdstatus(GB_WRITER))
 	{
-		ExecCmd* e = (ExecCmd*)ex;
-		e->state = CANCELLED;
-	}
-	else
-	{
-		progressdlg_pulse_start();
+		gdk_threads_enter();
+		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+				  _("Please insert a rewritable DVD into the DVD writer"));
+		gdk_threads_leave();
+		
+		if(ret == GTK_RESPONSE_CANCEL)
+		{
+			ExecCmd* e = (ExecCmd*)ex;
+			e->state = CANCELLED;
+		}
+		else
+		{
+			progressdlg_pulse_start();
+		}
 	}
 }
 
@@ -788,6 +806,10 @@ dvdformat_post_proc(void *ex, void *buffer)
 {
 	GB_LOG_FUNC
 	progressdlg_pulse_stop();
+	if(preferences_get_bool(GB_EJECT))
+	{
+		devices_eject_cd(GB_WRITER);
+	}
 }
 
 
@@ -806,6 +828,9 @@ dvdformat_add_args(ExecCmd * const dvdFormat)
 	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
 	exec_cmd_add_arg(dvdFormat, "%s", writer);
 	g_free(writer);
+	
+	/* make the output gui friendly */
+	exec_cmd_add_arg(dvdFormat, "%s", "-gui");
 		
 	if(preferences_get_bool(GB_FORCE))
 	{
@@ -835,16 +860,20 @@ growisofs_pre_proc(void *ex,void *buffer)
 	progressdlg_set_status(_("<b>Burning DVD...</b>"));
 	progressdlg_increment_exec_number();
 	
-	gdk_threads_enter();
-	gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			  _("Please insert a writable DVD into the DVD writer"));
-	gdk_flush();
-	gdk_threads_leave();
-	
-	if(ret == GTK_RESPONSE_CANCEL)
+	if(!devices_query_cdstatus(GB_WRITER))
 	{
-		ExecCmd* e = (ExecCmd*)ex;
-		e->state = CANCELLED;
+	
+		gdk_threads_enter();
+		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+				  _("Please insert a writable DVD into the DVD writer"));
+		gdk_flush();
+		gdk_threads_leave();
+		
+		if(ret == GTK_RESPONSE_CANCEL)
+		{
+			ExecCmd* e = (ExecCmd*)ex;
+			e->state = CANCELLED;
+		}
 	}
 }
 
@@ -853,21 +882,10 @@ void
 growisofs_post_proc(void *ex,void *buffer)
 {
 	GB_LOG_FUNC
-	/* if(prefs->eject)
+	if(preferences_get_bool(GB_EJECT))
 	{
-		gchar command[32] = "eject ";
-		strcat(command, prefs->writeBlockDevice);
-		GString* buf = exec_run_cmd(command);
-		if(buffer != NULL)
-		{
-			Something is probably wrong 
-			ExecCmd* e = (ExecCmd*)ex;
-			e->state = FAILED;
-			progressdlg_append_output(buf->str);
-			
-		}
+		devices_eject_cd(GB_WRITER);
 	}
-			*/	
 }
 
 
@@ -914,9 +932,9 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 		gint progress = 0;
 		if(sscanf(buf,"%d.%*d",&progress) >0)
 		{
-			GB_TRACE(_("growisofs: progress: %d"),progress);
+			GB_TRACE("growisofs: progress: %d", progress);
 			gfloat fraction = (gfloat)progress / 100.0;
-			GB_TRACE(_("growisofs: fraction: %f"),fraction);
+			GB_TRACE("growisofs: fraction: %f", fraction);
 			
 			progressdlg_set_fraction(fraction);
 		}
@@ -924,8 +942,54 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 	
 	const gchar* leadout = strstr(buf,"writing lead-out");
 	if(leadout != NULL)	
+	{
 		progressdlg_set_fraction(1.0);
-		
+		progressdlg_set_text(_("Writing lead-out"));
+	}		
+	progressdlg_append_output(buf);
+}
+
+void
+growisofs_read_iso_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+/*
+WARNING: /dev/hdc already carries isofs!
+About to execute 'builtin_dd if=/home2/cs/SL-9.3-LiveDVD-i386-1.iso of=/dev/hdc obs=32k seek=0'
+/dev/hdc: "Current Write Speed" is 4.0x1385KBps.
+  14876672/1480370176 ( 1.0%) @1.6x, remaining 9:51
+  22380544/1480370176 ( 1.5%) @1.6x, remaining 10:51
+  29753344/1480370176 ( 2.0%) @1.6x, remaining 10:33
+/dev/hdc: flushing cache
+/dev/hdc: writing lead-out
+
+	*/
+	
+	g_return_if_fail(buffer != NULL);
+	g_return_if_fail(ex != NULL);
+		/* 	This is a hack for the moment until I figure out what's 
+		going on with the charset. */
+	gchar *buf = (gchar*)buffer;
+    hack_characters(buf);	
+	const gchar* progressstr = strstr(buf, "remaining");
+	if(progressstr != NULL)
+	{
+		gint progress = 0;
+		if(sscanf(buf,"%*d/%*d ( %d.%*d%%)",&progress) >0)
+		{
+			GB_TRACE("growisofs: progress: %d", progress);
+			gfloat fraction = (gfloat)progress / 100.0;
+			GB_TRACE("growisofs: fraction: %f", fraction);			
+			progressdlg_set_fraction(fraction);
+		}
+	}
+	
+	const gchar* leadout = strstr(buf,"writing lead-out");
+	if(leadout != NULL)	
+	{
+		progressdlg_set_fraction(1.0);
+		progressdlg_set_text(_("Writing lead-out"));
+	}		
 	progressdlg_append_output(buf);
 }
 
@@ -938,7 +1002,7 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	
 	growisofs->readProc = growisofs_read_proc;
 	growisofs->preProc = growisofs_pre_proc;
-	/*growisofs->postProc = growisofs_post_proc;*/
+	growisofs->postProc = growisofs_post_proc;
 	exec_cmd_add_arg(growisofs, "%s", "growisofs");
 	
 	/* merge new session with existing one */
@@ -953,7 +1017,7 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	exec_cmd_add_arg(growisofs, "%s", writer);
 	g_free(writer);
 	
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
+	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
 	exec_cmd_add_arg(growisofs,"-speed=%s",speed);
 	g_free(speed);
 	
@@ -970,7 +1034,8 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=notray");
 	
 	/* force overwriting existing filesystem */
-	exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=tty");
+    exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=tty");
+	
 	/* TODO: Overburn support */
 	/* preferences_get_int(GB_OVERBURN)
 	if(prefs->overburn)
@@ -985,219 +1050,42 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, growisofs);
 }
 
-
-/*******************************************************************************
- * MPG123
- ******************************************************************************/
-
-
-void
-mpg123_pre_proc(void *ex, void *buffer)
-{	
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	progressdlg_set_status(_("<b>Converting mp3 to cd audio...</b>"));
-	progressdlg_increment_exec_number();
-}
-
-
-void
-mpg123_read_proc(void *ex, void *buffer)
-{
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	g_return_if_fail(buffer != NULL);
-/*	
-	const gchar* frame = strstr(buffer, "Frame#");
-	if(frame != NULL)
-	{
-		guint current, total;
-		if(sscanf(frame, "%*s\t%d/%d", &current, &total) > 0)
-		{
-			GB_TRACE("track [%d] [%d]", current, total);		
-			progressdlg_set_fraction((gfloat)current/(gfloat)total);
-		}
-	}
-	else
-	{
-		progressdlg_append_output(buffer);
-	}
-*/
-	const gchar* frame = strstr(buffer, "Frame#");
-	if(frame != NULL)
-	{
-		guint current, remaining;		
-		if(sscanf(frame, "%*s\t%d [%d]", &current, &remaining) > 0)
-			progressdlg_set_fraction((gfloat)current/(gfloat)(current + remaining));
-	}
-	else
-	{
-		progressdlg_append_output(buffer);
-	}	
-}
-
-
 void 
-mpg123_add_mp3_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
+growisofs_add_iso_args(ExecCmd * const growisofs,const gchar *iso)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(cmd != NULL);	
-	g_return_if_fail(file != NULL);	
+	g_return_if_fail(growisofs != NULL);
+	g_return_if_fail(iso != NULL);
 	
-	/*exec_cmd_add_arg(cmd, "%s", "lame");
-	exec_cmd_add_arg(cmd, "%s", "--decode");
-	exec_cmd_add_arg(cmd, "%s", "--resample 44.1");
-	exec_cmd_add_arg(cmd, "%s", "-ms");
-	exec_cmd_add_arg(cmd, "%s", "--brief");	
-	exec_cmd_add_arg(cmd, "%s", file);*/
+	growisofs->readProc = growisofs_read_iso_proc;
+	growisofs->preProc = growisofs_pre_proc;
+	growisofs->postProc = growisofs_post_proc;
+	exec_cmd_add_arg(growisofs, "%s", "growisofs");
+	exec_cmd_add_arg(growisofs,"%s","-dvd-compat");
 	
-	//mpg123 -v --rate 44100 --stereo -w honda.wav HondaServiceCall.mp3
+	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
+	exec_cmd_add_arg(growisofs,"-speed=%s",speed);
+	g_free(speed);
 	
-	exec_cmd_add_arg(cmd, "%s", "mpg123");
-	exec_cmd_add_arg(cmd, "%s", "-v");
-	exec_cmd_add_arg(cmd, "%s", "--resync");
-	exec_cmd_add_arg(cmd, "%s", "-r");
-	exec_cmd_add_arg(cmd, "%s", "44100");
-	exec_cmd_add_arg(cmd, "%s", "--stereo");
-	
-	
-	gchar* trackdir = preferences_get_convert_audio_track_dir();
-	
-	gchar* filename = g_path_get_basename(file);
-	if(filename != NULL)
-	{
-		*convertedfile = g_build_filename(trackdir, filename, NULL);
-		gchar* suffix = strstr(*convertedfile, ".mp3");
-		if(suffix != NULL)
-			strncpy(suffix, ".wav", 4);
-				
-		exec_cmd_add_arg(cmd, "%s", "-w");
-		exec_cmd_add_arg(cmd, "%s", *convertedfile);
-		
-		GB_TRACE(_("Converted file is [%s]"), *convertedfile);
-		g_free(filename);
-		
-		exec_cmd_add_arg(cmd, "%s", file);
-	}
-	
-	g_free(trackdir);		
-	
-	cmd->preProc = mpg123_pre_proc;
-	cmd->readProc = mpg123_read_proc;
-}
+	/* -gui makes the output more verbose, so we can 
+	    interpret it easier */
+/*	exec_cmd_add_arg(growisofs,"%s","-gui"); */
+	/* -gui does not work with iso's, argh! */
 
-
-/*******************************************************************************
- * OGGDEC
- ******************************************************************************/
-
-
-void
-oggdec_pre_proc(void *ex, void *buffer)
-{	
-	GB_LOG_FUNC
+	/* stop the reloading of the disc */
+	exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=notray");
 	
-	g_return_if_fail(ex != NULL);
-	progressdlg_set_status(_("<b>Converting ogg to cd audio...</b>"));
-	progressdlg_increment_exec_number();
-}
-
-
-void
-oggdec_read_proc(void *ex, void *buffer)
-{
-	GB_LOG_FUNC
+	/* force overwriting existing filesystem */
+    exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=tty");
 	
-	g_return_if_fail(ex != NULL);
-	g_return_if_fail(buffer != NULL);
+	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(growisofs, "%s", "-Z");
 	
-/*	
-	const gchar* frame = strstr(buffer, "Time:");
-	if(frame != NULL)
-	{
-		guint currentsecs, currentmins, totalmins, totalsecs;
-		if(sscanf(frame, "Time: %d:%d.%*d [%*d:%*d.%*d] of %d:%d.%*d", 
-				&currentmins, &currentsecs, &totalmins, &totalsecs) > 0)
-		{
-			GB_TRACE("track [%d] [%d] [%d] [%d]", currentmins, currentsecs, totalmins, totalsecs);		
-			progressdlg_set_fraction(
-				(gfloat)((currentmins * 60) + currentsecs) / 
-				(gfloat)((totalmins * 60) + totalsecs));
-		}
-	}
-*/
-	const gchar* frame = strstr(buffer, "[");
-	if(frame != NULL)
-	{
-		gfloat percentage;
-		if(sscanf(frame, "[%f%%]", &percentage) > 0)
-			progressdlg_set_fraction(percentage/100.0);
-	}
-	else
-	{
-		progressdlg_append_output(buffer);
-	}
-}
-
-
-void 
-oggdec_add_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(cmd != NULL);	
-	g_return_if_fail(file != NULL);	
-
-/*	
-	exec_cmd_add_arg(cmd, "%s", "oggdec");
-	exec_cmd_add_arg(cmd, "%s", file);
-	exec_cmd_add_arg(cmd, "%s", "-dwav");	
+	gchar* buffer = g_strdup_printf("%s=%s",writer, iso);		
+	exec_cmd_add_arg(growisofs, "%s", buffer);
+	g_free(writer);
 	
-	gchar* trackdir = preferences_get_convert_audio_track_dir();
 	
-	gchar* filename = strrchr(file, '/');
-	if(filename != NULL)
-	{
-		++filename;
-		*convertedfile = g_build_filename(trackdir, filename, NULL);
-		gchar* suffix = strstr(*convertedfile, ".ogg");
-		if(suffix != NULL)
-			strncpy(suffix, ".wav", 4);
-		
-		exec_cmd_add_arg(cmd, "-f%s", *convertedfile);
-		
-		GB_TRACE("Converted file is [%s]", *convertedfile);
-	}
-	
-	g_free(trackdir);		
-*/	
-
-	exec_cmd_add_arg(cmd, "%s", "oggdec");
-	exec_cmd_add_arg(cmd, "%s", "-b");
-	exec_cmd_add_arg(cmd, "%s", "16");
-	exec_cmd_add_arg(cmd, "%s", file);
-	
-	gchar* trackdir = preferences_get_convert_audio_track_dir();
-	
-	gchar* filename = g_path_get_basename(file);
-	if(filename != NULL)
-	{
-		*convertedfile = g_build_filename(trackdir, filename, NULL);
-		gchar* suffix = strstr(*convertedfile, ".ogg");
-		if(suffix != NULL)
-			strncpy(suffix, ".wav", 4);
-		
-		exec_cmd_add_arg(cmd, "%s", "-o");
-		exec_cmd_add_arg(cmd, "%s", *convertedfile);
-		
-		GB_TRACE(_("Converted file is [%s]"), *convertedfile);
-		g_free(filename);
-	}
-	
-	g_free(trackdir);		
-	cmd->preProc = oggdec_pre_proc;
-	cmd->readProc = oggdec_read_proc;	
 }
 
 
@@ -1331,71 +1219,6 @@ readcd_add_copy_args(ExecCmd * e, const gchar* iso)
 	e->postProc = readcd_post_proc;
 }
 
-
-void
-sox_pre_proc(void *ex, void *buffer)
-{	
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	progressdlg_set_status(_("<b>Converting wav to cd audio...</b>"));
-	progressdlg_increment_exec_number();
-}
-
-
-/*******************************************************************************
- * SOX
- ******************************************************************************/
-
-
-void
-sox_read_proc(void *ex, void *buffer)
-{
-	GB_LOG_FUNC
-	
-	g_return_if_fail(ex != NULL);
-	g_return_if_fail(buffer != NULL);
-	
-	progressdlg_append_output(buffer);
-}
-
-
-void 
-sox_add_wav_args(ExecCmd* cmd, gchar* file, gchar** convertedfile)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(cmd != NULL);	
-	g_return_if_fail(file != NULL);	
-	
-	exec_cmd_add_arg(cmd, "%s", "sox");
-	exec_cmd_add_arg(cmd, "%s", "-V");	
-	exec_cmd_add_arg(cmd, "%s", file);
-	exec_cmd_add_arg(cmd, "%s", "-r");
-	exec_cmd_add_arg(cmd, "%s", "44100");
-	exec_cmd_add_arg(cmd, "%s", "-c");
-	exec_cmd_add_arg(cmd, "%s", "2");
-	exec_cmd_add_arg(cmd, "%s", "-w");
-	
-	gchar* trackdir = preferences_get_convert_audio_track_dir();
-	
-	gchar* filename = g_path_get_basename(file);
-	if(filename != NULL)
-	{
-		*convertedfile = g_build_filename(trackdir, filename, NULL);
-		
-		exec_cmd_add_arg(cmd, "%s", *convertedfile);
-		
-		GB_TRACE("Converted file is [%s]", *convertedfile);
-		g_free(filename);
-	}
-	
-	g_free(trackdir);		
-	
-	cmd->preProc = sox_pre_proc;
-	cmd->readProc = sox_read_proc;
-}
-
-
 /*******************************************************************************
  * CDRDAO
  ******************************************************************************/
@@ -1445,7 +1268,7 @@ cdrdao_add_bin_args(ExecCmd* cmd, const gchar* const bin)
 	exec_cmd_add_arg(cmd, "%s", writer);
 	g_free(writer);	
 	
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_WRITE_SPEED));
+	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_CDWRITE_SPEED));
 	exec_cmd_add_arg(cmd, "%s", "--speed");
 	exec_cmd_add_arg(cmd, "%s", speed);
 	g_free(speed);
@@ -1455,4 +1278,133 @@ cdrdao_add_bin_args(ExecCmd* cmd, const gchar* const bin)
 
 	if(preferences_get_bool(GB_DUMMY))
 		exec_cmd_add_arg(cmd, "%s", "--simulate");
+}
+
+
+/*******************************************************************************
+ * GSTREAMER / MEDIA
+ ******************************************************************************/
+
+void
+media_error()
+{
+	GB_LOG_FUNC
+	g_return_if_fail(g_ex != NULL);
+	g_ex->state = FAILED;
+}
+
+
+void
+media_setup_element(MediaInfoPtr element)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(element != NULL);
+	
+	media_connect_eos_callback(element->pipeline,media_next_element);
+	media_connect_error_callback(element->pipeline,media_error);
+	media_start_playing(element->pipeline);
+	media_start_iteration(element->pipeline);
+	media_pause_playing(element->pipeline);
+	media_cleanup(element->pipeline);
+}
+
+
+void
+media_next_element()
+{
+	GB_LOG_FUNC
+	g_return_if_fail(g_ex != NULL);
+	
+	g_elements = g_elements->next;
+	if(g_elements)
+	{
+		media_current_element++;
+		MediaInfo* mi = (MediaInfo*)g_elements->data;
+		current_element = mi;
+		media_setup_element(mi);
+/*
+		media_connect_eos_callback(mi->pipeline,media_next_element);
+		media_connect_error_callback(mi->pipeline,media_error);
+		media_start_playing(current_element->pipeline);
+		media_start_iteration(current_element->pipeline);
+		media_pause_playing(mi->pipeline);
+		media_cleanup(mi->pipeline);
+*/
+	}
+	else
+	{
+		/* no more elements, signal complete */
+		g_ex->state = SKIP;	
+	}
+}
+
+
+void
+media_convert_pre_proc(void *ex, void *buffer)
+{	
+	GB_LOG_FUNC	
+	g_return_if_fail(ex != NULL);
+    
+	progressdlg_set_status(_("<b>Converting files to cd audio...</b>"));
+	progressdlg_increment_exec_number();
+	MediaInfo* mi = (MediaInfo*)g_elements->data;
+	if(!mi) /* why is first element NULL ? */
+	{
+		g_elements = g_elements->next;
+		mi = (MediaInfo*)g_elements->data;
+	}	
+	current_element = mi;
+	media_setup_element(mi);
+/*
+	media_connect_eos_callback(mi->pipeline,media_next_element);
+	media_connect_error_callback(mi->pipeline,media_error);
+	media_start_playing(mi->pipeline);
+	media_start_iteration(mi->pipeline);
+	media_pause_playing(mi->pipeline);
+	media_cleanup(mi->pipeline);
+*/
+	/* callbacks will used to signal end-of-stream
+	   and we iterate to the next pipeline if any */
+	
+}
+
+
+void
+media_convert_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(ex != NULL);
+	g_return_if_fail(buffer != NULL);
+	
+    gint64 pos = 0, len = 0;
+	media_query_progress_bytes(current_element->last_element,&pos,&len);
+	gfloat progress = 0.5*(gfloat)pos/((gfloat)len*(gfloat)media_totalelements);
+	progressdlg_set_fraction(progress);	
+	progressdlg_append_output(buffer);
+}
+
+
+void
+media_convert_post_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	media_current_element = 0;
+	media_totalelements = 0;
+}
+
+
+void
+media_convert_add_args(ExecCmd * cmd, GSList* orgelements)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cmd != NULL);
+	g_return_if_fail(orgelements != NULL);
+	
+	g_elements = orgelements;
+	media_totalelements = g_slist_length(orgelements);
+	
+	cmd->preProc = media_convert_pre_proc; 
+	cmd->readProc = media_convert_read_proc;
+	cmd->postProc = media_convert_post_proc;
+	g_ex = cmd;
 }

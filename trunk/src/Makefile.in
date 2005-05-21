@@ -58,7 +58,8 @@ am_gnomebaker_OBJECTS = main.$(OBJEXT) progressdlg.$(OBJEXT) \
 	gnomebaker.$(OBJEXT) startdlg.$(OBJEXT) prefsdlg.$(OBJEXT) \
 	splashdlg.$(OBJEXT) audiocd.$(OBJEXT) datacd.$(OBJEXT) \
 	gbcommon.$(OBJEXT) audioinfo.$(OBJEXT) \
-	selectdevicedlg.$(OBJEXT) execfunctions.$(OBJEXT)
+	selectdevicedlg.$(OBJEXT) execfunctions.$(OBJEXT) \
+	media.$(OBJEXT)
 gnomebaker_OBJECTS = $(am_gnomebaker_OBJECTS)
 am__DEPENDENCIES_1 =
 gnomebaker_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -244,11 +245,13 @@ gnomebaker_SOURCES = \
 	selectdevicedlg.c\
 	selectdevicedlg.h\
 	execfunctions.c\
-	execfunctions.h
+	execfunctions.h\
+	media.c
 
 gnomebaker_LDFLAGS = 
 gnomebaker_LDADD = \
-	$(GNOME_LIBS)
+	$(GNOME_LIBS)\
+	 -lvorbisfile
 
 all: all-am
 
@@ -332,6 +335,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gbcommon.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnomebaker.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/media.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/preferences.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/prefsdlg.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/progressdlg.Po@am__quote@

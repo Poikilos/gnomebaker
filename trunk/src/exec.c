@@ -164,7 +164,7 @@ exec_read(ExecCmd* e, gint fd)
 		GB_TRACE( "exec_read - final select returned [%d] errno [%d]", res, errno);
 	}
 	waitpid(e->pid, &e->exitCode, 0);
-	GB_TRACE(_("exec_read - child exited with code [%d]\n"), e->exitCode);
+	GB_TRACE("exec_read - child exited with code [%d]\n", e->exitCode);
 }
 
 
@@ -189,12 +189,11 @@ exec_thread(gpointer data)
 				
 		gint stdin_pipe[2];		
 		pipe(stdin_pipe);
-
 		e->pid = fork();
 		if(e->pid == 0)
 		{
 			/* Child */
-			GB_TRACE(_("exec_thread - created child"));
+			GB_TRACE("exec_thread - created child");
 
 			/* Connect child stdout to the upstream end of the stdin pipe,
 			 * Connect child std err to the upstream end of the stdin pipe
@@ -207,11 +206,11 @@ exec_thread(gpointer data)
 			execvp(e->argv[0], e->argv);
 
 			/* If it didn't take over the Exec call failed.*/
-			GB_TRACE(_("exec_thread - Exec failed"));
+			GB_TRACE("exec_thread - Exec failed");
 		}
 
 		/* Parent */
-		GB_TRACE(_("exec_thread - parent created child with pid %d"), e->pid);
+		GB_TRACE("exec_thread - parent created child with pid %d", e->pid);
 		exec_read(e, stdin_pipe[0]);
 
 		close(stdin_pipe[0]);
@@ -223,7 +222,7 @@ exec_thread(gpointer data)
 	}
 
 	if(ex->endProc) ex->endProc(ex, NULL);
-	GB_TRACE( _("exec_thread - exiting"));
+	GB_TRACE("exec_thread - exiting");
 	return NULL;
 }
 
@@ -244,7 +243,7 @@ exec_run_remainder(gpointer data)
 		if(e->pid == 0)
 		{
 			/* child */
-			GB_TRACE(_("exec_run_remainder - child running"));	
+			GB_TRACE("exec_run_remainder - child running");	
 			dup2(ex->child_child_pipe[1], STDOUT_FILENO);
 			/*dup2(ex->child_child_pipe[1], STDERR_FILENO); don't want stderr */
 			close(ex->child_child_pipe[0]);	
@@ -252,18 +251,18 @@ exec_run_remainder(gpointer data)
 			execvp(e->argv[0], e->argv);
 
 			/* If it didn't take over the Exec call failed.*/
-			GB_TRACE(_("exec_run_remainder - Exec failed"));			
+			GB_TRACE("exec_run_remainder - Exec failed");
 		}
 		/* parent */		
-		GB_TRACE(_("exec_run_remainder - parent created child with pid %d"), e->pid);
+		GB_TRACE("exec_run_remainder - parent created child with pid %d", e->pid);
 		waitpid(e->pid, &e->exitCode, 0);
-		GB_TRACE(_("exec_run_remainder - child exited with code [%d]\n"), e->exitCode);
+		GB_TRACE("exec_run_remainder - child exited with code [%d]\n", e->exitCode);
 		close(ex->child_child_pipe[1]);	
 		if(e->exitCode != 0)
 			break;		
 	}	
 	
-	GB_TRACE(_("exec_run_remainder - thread exiting"));
+	GB_TRACE("exec_run_remainder - thread exiting");
 	return NULL;
 }
 
@@ -291,7 +290,7 @@ exec_thread_on_the_fly(gpointer data)
 	if(e->pid == 0)
 	{
 		/* Child */
-		GB_TRACE(_("exec_thread_on_the_fly - root child running"));
+		GB_TRACE("exec_thread_on_the_fly - root child running");
 		/*const gint res = exec_select(ex->child_child_pipe[0], 4);
 		GB_TRACE("exec_thread_on_the_fly - root child select returned [%d] errno [%d]", res, errno);*/
 				
@@ -305,7 +304,7 @@ exec_thread_on_the_fly(gpointer data)
 		execvp(e->argv[0], e->argv);
 
 		/* If it didn't take over the Exec call failed.*/
-		GB_TRACE(_("exec_thread_on_the_fly - Exec failed"));
+		GB_TRACE("exec_thread_on_the_fly - Exec failed");
 	}
 	
 	/* Parent */
@@ -313,7 +312,7 @@ exec_thread_on_the_fly(gpointer data)
 	/* Spool off the remaining exec instructions */
 	g_thread_create(exec_run_remainder, data, TRUE, NULL);
 			
-	GB_TRACE(_("exec_thread_on_the_fly - parent created root child with pid %d"), e->pid);		
+	GB_TRACE("exec_thread_on_the_fly - parent created root child with pid %d", e->pid);		
 	exec_read(e, parent_child_pipe[0]);
 	
 	close(parent_child_pipe[0]);
@@ -325,7 +324,7 @@ exec_thread_on_the_fly(gpointer data)
 	if(e->state != CANCELLED) e->state = (e->exitCode == 0) ? COMPLETE : FAILED;
 	if(ex->endProc) ex->endProc(ex, NULL);
 
-	GB_TRACE( _("exec_thread_on_the_fly - exiting"));
+	GB_TRACE("exec_thread_on_the_fly - exiting");
 	return NULL;
 }
 
@@ -341,7 +340,7 @@ exec_go(Exec * const e, gboolean onthefly)
 		(gpointer) e, TRUE, &e->err);
 	if(e->err != NULL)
 	{
-		g_critical(_("exec_go - failed to create thread [%d] [%s]"),
+		g_critical("exec_go - failed to create thread [%d] [%s]",
 			   e->err->code, e->err->message);
 		ret = e->err->code;
 	}
@@ -361,13 +360,13 @@ exec_cancel(const Exec * const e)
 	{
 		if(e->cmds[j].pid > 0)
 		{
-			GB_TRACE( _("exec_cancel - killing %d"), e->cmds[j].pid);
+			GB_TRACE("exec_cancel - killing %d", e->cmds[j].pid);
 			kill(e->cmds[j].pid, SIGKILL);
 			e->cmds[j].state = CANCELLED;
 		}
 	}
 	
-	GB_TRACE( _("exec_cancel - complete"));
+	GB_TRACE("exec_cancel - complete");
 }
 
 
@@ -375,7 +374,7 @@ GString*
 exec_run_cmd(const gchar* cmd)
 {
 	GB_LOG_FUNC
-	GB_TRACE( _("exec_run_cmd - %s"), cmd);
+	GB_TRACE("exec_run_cmd - %s", cmd);
 	g_return_val_if_fail(cmd != NULL, NULL);
 	
 	GString* ret = NULL;	
@@ -395,12 +394,12 @@ exec_run_cmd(const gchar* cmd)
 	}
 	else if(error != NULL)
 	{		
-		g_critical(_("error [%s] spawning command [%s]"), error->message, cmd);		
+		g_critical("error [%s] spawning command [%s]", error->message, cmd);		
 		g_error_free(error);
 	}
 	else
 	{
-		g_critical(_("Uknown error spawning command [%s]"), cmd);		
+		g_critical("Unknown error spawning command [%s]", cmd);		
 	}
 	
 	return ret;

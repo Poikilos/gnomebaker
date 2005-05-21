@@ -25,6 +25,10 @@
 #include "audioinfo.h"
 #include "burn.h"
 #include <stdio.h>
+#include "gst/gst.h"
+#include "media.h"
+#include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 
 gdouble audiocdsize = 0.0;
@@ -303,24 +307,49 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
 	gboolean ret = TRUE;
 	AudioInfo* info = audioinfo_new(filename);
 	if(info != NULL)
-	{
-		ret = audiocd_update_progress_bar(TRUE, (gdouble)info->duration);
-		if(ret)
-		{
-			GdkPixbuf* icon = gbcommon_get_icon_for_mime(info->mimetype, 16);		
-			GB_DECLARE_STRUCT(GtkTreeIter, iter);		
-			gtk_list_store_append(GTK_LIST_STORE(model), &iter);
-			gtk_list_store_set(
-				GTK_LIST_STORE(model), &iter, 
-				AUDIOCD_COL_ICON, icon, 
-				AUDIOCD_COL_FILE, (gchar*)filename, 
-				AUDIOCD_COL_DURATION, info->formattedduration->str,
-				/*AUDIOCD_COL_SIZE, info->filesize,*/
-				AUDIOCD_COL_ARTIST, info->artist->str, 
-				AUDIOCD_COL_ALBUM, info->album->str,
-				AUDIOCD_COL_TITLE, info->title->str, -1);			
-			g_object_unref(icon);
-		}		
+	{     
+		switch(media_query_plugin_status(info->mimetype))
+        {
+            case INSTALLED:
+            {
+                if(audiocd_update_progress_bar(TRUE, (gdouble)info->duration))
+                {
+                    GdkPixbuf* icon = gbcommon_get_icon_for_mime(info->mimetype, 16);
+            
+                    GB_DECLARE_STRUCT(GtkTreeIter, iter);		
+                    gtk_list_store_append(GTK_LIST_STORE(model), &iter);
+                    gtk_list_store_set(
+                        GTK_LIST_STORE(model), &iter, 
+                        AUDIOCD_COL_ICON, icon, 
+                        AUDIOCD_COL_FILE, (gchar*)filename, 
+                        AUDIOCD_COL_DURATION, info->formattedduration->str,
+                        /*AUDIOCD_COL_SIZE, info->filesize,*/
+                        AUDIOCD_COL_ARTIST, info->artist->str, 
+                        AUDIOCD_COL_ALBUM, info->album->str,
+                        AUDIOCD_COL_TITLE, info->title->str, -1);
+                
+                    g_object_unref(icon);
+                }
+                else
+                {
+                    ret = FALSE;
+                }       
+            }
+            break;
+            case NOT_INSTALLED:
+            {
+                gchar* buf = g_strdup_printf(_("The plugin to handle a file of type %s is not installed."),gnome_vfs_mime_get_description(info->mimetype));
+                gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
+                g_free(buf);
+            }
+            break;
+            default:
+            {
+                gchar* buf = g_strdup_printf(_("There is no known plugin to handle a file of type %s."),info->mimetype);
+                gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
+                g_free(buf);
+            }
+        }
 		audioinfo_delete(info);
 	}
 	return ret;
@@ -353,21 +382,18 @@ audiocd_add_selection(GtkSelectionData* selection)
 		and attempt to add any audio files in the directory */
 		if(g_file_test(filename, G_FILE_TEST_IS_DIR))
 		{
-			GDir *dir = g_dir_open(filename, 0, NULL);
-			if(dir != NULL)
-			{
-				const gchar *name = g_dir_read_name(dir);
-				while((name != NULL) && cont)
-				{
-					gchar* fullname = g_build_filename(filename, name, NULL);
-					if(!g_file_test(fullname, G_FILE_TEST_IS_DIR))
-						cont = audiocd_add_file(fullname, model);
-					g_free(fullname);
-					name = g_dir_read_name(dir);					
-				}
-				g_dir_close(dir);
-			}
-		}
+            GDir* dir = g_dir_open(filename, 0, NULL);
+            const gchar *name = g_dir_read_name(dir);
+            while((name != NULL) && cont)
+            {
+                gchar* fullname = g_build_filename(filename, name, NULL);
+                if(!g_file_test(fullname, G_FILE_TEST_IS_DIR))
+                    cont = audiocd_add_file(fullname, model);
+                g_free(fullname);
+                name = g_dir_read_name(dir);					
+            }
+            g_dir_close(dir);
+        }
 		else
 		{
 			cont = audiocd_add_file(filename, model);
@@ -378,6 +404,7 @@ audiocd_add_selection(GtkSelectionData* selection)
 	}
 	
 	gnomebaker_show_busy_cursor(FALSE);
+		
 }
 
 

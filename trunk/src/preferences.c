@@ -53,7 +53,8 @@ preferences_init()
 			/* set up default values */			
 			preferences_set_string(GB_READER, "Device01");
 			preferences_set_string(GB_WRITER, "Device01");			
-			preferences_set_int(GB_WRITE_SPEED, 4);
+			preferences_set_int(GB_CDWRITE_SPEED, 4);
+			preferences_set_int(GB_DVDWRITE_SPEED, 2);
 			preferences_set_bool(GB_DUMMY, FALSE);
 			preferences_set_bool(GB_EJECT, TRUE);
 			preferences_set_string(GB_TEMP_DIR, tempdir);
@@ -132,7 +133,7 @@ preferences_get_toolbar_style()
 	else if(g_ascii_strcasecmp(style, "both") == 0)
 		ret = GTK_TOOLBAR_BOTH;
 	
-	GB_TRACE( _("toolbar style [%s] [%d]"), style, ret);
+	GB_TRACE("toolbar style [%s] [%d]", style, ret);
 	g_free(style);
 	
 	return ret;
