@@ -102,14 +102,13 @@ gbcommon_calc_dir_size(const gchar* dirname)
 	return size;
 }
 
-
 void 
 gbcommon_mkdir(const gchar* dirname)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(dirname != NULL);
 		
-	GB_TRACE(_("creating [%s]"), dirname);
+	GB_TRACE("creating [%s]", dirname);
 
 	gchar *dirs = g_strdup(dirname);
 	GString *dir = g_string_new("");
@@ -120,7 +119,7 @@ gbcommon_mkdir(const gchar* dirname)
 		g_string_append_printf(dir, "/%s", currentdir);
 		if((g_file_test(dir->str, G_FILE_TEST_IS_DIR) == FALSE) && 
 				(mkdir(dir->str, 0775) == -1))
-			g_critical(_("failed to create temp %d"), errno);
+			g_critical("failed to create temp %d", errno);
 
 		currentdir = strtok(NULL, "/");
 	}
@@ -141,7 +140,7 @@ gbcommon_get_file_as_list(const gchar* file)
 	if(g_file_get_contents(file, &contents, NULL, NULL))
 		ret = g_strsplit(contents, "\n", 0);
 	else
-		g_critical(_("Failed to get contents of file [%s]"), file);
+		g_critical("Failed to get contents of file [%s]", file);
 
 	g_free(contents);	
 	return ret;
@@ -417,4 +416,39 @@ gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel, cons
 	gbcommon_append_menu_item(menu, menuitemlabel, image, activated, userdata);	
 	g_free(fullfilename);
 	g_object_unref(pixbuf);
+}
+
+gchar*
+gbcommon_show_iso_dlg()
+{
+	GB_LOG_FUNC
+	gchar* file = NULL;
+	
+	GtkWidget *filesel = gtk_file_chooser_dialog_new(
+	    _("Please select an iso file..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
+	    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+	
+	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
+	GtkFileFilter *imagefilter = gtk_file_filter_new();
+	gtk_file_filter_add_pattern (imagefilter, "*.iso");
+	gtk_file_filter_add_pattern (imagefilter, "*.bin");
+	gtk_file_filter_add_pattern (imagefilter, "*.cue");
+	gtk_file_filter_set_name(imagefilter,_("CD Image files"));
+	GtkFileFilter *allfilter = gtk_file_filter_new();
+	gtk_file_filter_add_pattern (allfilter, "*");
+	gtk_file_filter_set_name(allfilter,_("All files"));
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), imagefilter);
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), allfilter);
+	
+	const gint result = gtk_dialog_run(GTK_DIALOG(filesel));
+	file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
+
+	gtk_widget_destroy(filesel);
+	
+	if(result != GTK_RESPONSE_OK)
+	{
+		file = NULL;
+	}
+	return file;
+	
 }

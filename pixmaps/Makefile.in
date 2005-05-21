@@ -196,7 +196,9 @@ gnomebaker_pixmaps_DATA = \
 	gnomebaker-48.png\
 	splash_2.png\
 	baker-import-session.png\
-	baker-blank-dvdrw.png
+	baker-blank-dvdrw.png\
+    baker-dvd-iso.png\
+    baker-cd-iso.png
 
 EXTRA_DIST = $(gnomebaker_pixmaps_DATA)
 all: all-am

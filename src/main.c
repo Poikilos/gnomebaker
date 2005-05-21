@@ -30,6 +30,7 @@
 #include "gbcommon.h"
 #include <libintl.h>
 #include <locale.h>
+#include "gst/gst.h"
 
 const gchar* glade_file;
 gboolean showtrace = FALSE;
@@ -58,11 +59,26 @@ main(gint argc, gchar *argv[])
 	#endif
 	
 	/*gnome_init(PACKAGE, VERSION, argc, argv);*/
-	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+/*	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
                       argc, argv,
                       GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR,
                       NULL);
+*/
+	 struct poptOption options[] = {
+    {NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL},
+    POPT_TABLEEND
+  };
 
+  /* init GStreamer and GNOME using the GStreamer popt tables */
+  options[0].arg = (void *) gst_init_get_popt_table ();
+	
+  gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+                      argc, argv,
+                      GNOME_PARAM_POPT_TABLE, options,
+  					  GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR,
+                      NULL);
+
+	
 
 	glade_gnome_init();
 	

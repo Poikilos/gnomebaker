@@ -32,14 +32,16 @@
 
 gboolean burn_init ();
 gboolean burn_cd_image_file(const gchar* file);
+gboolean burn_iso (const gchar * const file);
+gboolean burn_dvd_iso(const gchar * const file);
 gboolean burn_create_data_cd (GtkTreeModel* datamodel);
-gboolean burn_create_audio_cd (GtkTreeModel* audiomodel);
 gboolean burn_copy_data_cd ();
 gboolean burn_copy_audio_cd ();
 gboolean burn_blank_cdrw ();
 gboolean burn_end_process ();
 gboolean burn_create_data_dvd (GtkTreeModel* datamodel);
 gboolean burn_format_dvdrw();
+gboolean burn_create_audio_cd(GtkTreeModel* audiomodel);
 
 typedef enum 
 {
@@ -47,6 +49,7 @@ typedef enum
 	copy_data_cd,
 	copy_audio_cd,
 	burn_cd_image,
+	burn_dvd_image,
 	create_data_cd,
 	create_audio_cd,
 	create_mixed_cd,
@@ -62,6 +65,7 @@ static const gchar* const BurnTypeText[BurnTypeCount] =
 	N_("Copy Data CD"),
 	N_("Copy Audio CD"),
 	N_("Burn CD Image"),
+	N_("Burn DVD Image"),
 	N_("Create Data CD"),
 	N_("Create Audio CD"),
 	N_("Create Mixed CD"),

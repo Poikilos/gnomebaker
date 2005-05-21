@@ -36,12 +36,12 @@ void cdrecord_add_blank_args (ExecCmd * const cdBurn);
 void cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles);
 void dvdformat_add_args(ExecCmd * const dvdFormat);
 void growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel);
+void growisofs_add_iso_args(ExecCmd * const growisofs,const gchar *iso);
 gboolean mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso);
-void mpg123_add_mp3_args(ExecCmd* cmd, gchar* file, gchar** convertedfile);
-void oggdec_add_args(ExecCmd* cmd, gchar* file, gchar** convertedfile);
 void readcd_add_copy_args (ExecCmd * e, const gchar* iso);
-void sox_add_wav_args(ExecCmd* cmd, gchar* file, gchar** convertedfile);
 void cdrdao_add_bin_args(ExecCmd* cmd, const gchar* const bin);
 void generic_read_proc(void *ex, void *buffer);
+void media_convert_add_args(ExecCmd * cmd, GSList* _elements);
+void media_next_element();
 
 #endif	/*_EXECFUNCTIONS_H_*/

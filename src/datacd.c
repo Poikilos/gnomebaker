@@ -256,7 +256,7 @@ datacd_add_selection(GtkSelectionData* selection)
 	
 	gnomebaker_show_busy_cursor(TRUE);	    	
 
-	GB_TRACE( _("received sel %s"), selection->data);	
+	GB_TRACE("received sel %s", selection->data);	
 	const gchar* file = strtok((gchar*)selection->data,"\n");
 	while(file != NULL)
 	{
@@ -586,7 +586,7 @@ datacd_get_msinfo(gchar** msinfo)
 	else
 	{
 		*msinfo = g_strdup_printf("%d,%d", start, end);
-		GB_TRACE(_("datacd next session is [%s]"), *msinfo);		
+		GB_TRACE("datacd next session is [%s]", *msinfo);		
 		ok = TRUE;
 	}
 	
@@ -617,11 +617,11 @@ datacd_import_session()
 	gchar* msinfo = NULL;
 	if(!datacd_get_msinfo(&msinfo))
 	{
-		g_critical(_("Error getting msinfo"));
+		g_critical("Error getting msinfo");
 	}
 	else if(!devices_mount_device(GB_WRITER, &mountpoint))
 	{
-		g_critical(_("Error mounting writer device"));
+		g_critical("Error mounting writer device");
 	}
 	else	
 	{							
@@ -657,7 +657,7 @@ datacd_import_session()
 		}				
 		
 		if(!devices_mount_device(GB_WRITER, NULL))
-			g_critical(_("Error unmounting writer device"));	
+			g_critical("Error unmounting writer device");	
 	}
 	
 	g_free(mountpoint);	

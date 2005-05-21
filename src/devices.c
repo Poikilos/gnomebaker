@@ -27,6 +27,11 @@
 #include <glib/gprintf.h>
 #include "preferences.h"
 #include "gnomebaker.h"
+#include <sys/types.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <linux/cdrom.h>
+
 
 gint deviceadditionindex = 0;
 
@@ -71,8 +76,7 @@ devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename,
 	g_free(devicenodekey);
 	g_free(devicemountkey);
 	g_free(devicecapabilitieskey);
-
-	GB_TRACE(_("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"), 
+	GB_TRACE("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]", 
 		devicename, deviceid, devicenode, mountpoint);
 }
 
@@ -98,7 +102,7 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 			gchar node[64], mount[64];
 			if(sscanf(*line, "%s\t%s", node, mount) == 2)
 			{
-				GB_TRACE(_("node [%s] mount [%s]"), node, mount);
+				GB_TRACE("node [%s] mount [%s]", node, mount);
 				if(g_ascii_strcasecmp(node, devicenode) == 0)
 				{
 					mountpoint = g_strdup(mount);
@@ -111,7 +115,7 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 					realpath(node, linktarget);					
 					if(g_ascii_strcasecmp(linktarget, devicenode) == 0)
 					{					
-						GB_TRACE(_("node [%s] is link to [%s]"), node, linktarget);
+						GB_TRACE("node [%s] is link to [%s]", node, linktarget);
 						mountpoint = g_strdup(mount);
 					}
 					g_free(linktarget);
@@ -311,7 +315,37 @@ devices_parse_cdrecord_output(const gchar* buffer, const gchar* busname)
 	
 	return ok;
 }
-
+/*
+gboolean
+devices_parse_cdrecord_max_speed(const gchar* buffer, const gchar* busname)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(buffer != NULL, FALSE);
+	g_return_val_if_fail(busname != NULL, FALSE);
+	gboolean ok = TRUE;		
+		
+	gchar** lines = g_strsplit(buffer, "\n", 0);
+	gchar** line = lines;
+	while(*line != NULL)
+	{
+		
+		const gchar* maxspeed = strstr(buf, "Maximum write speed:");
+		if(maxspeed != NULL)
+		{
+			gint maxwritespeed = 0;
+			if(sscanf(*line, "%*s %d)", &maxwritespeed) == 1) 
+			{
+			
+			}
+		}
+		++line;
+	}
+	
+	g_strfreev (lines);
+	
+	return ok;
+}
+*/
 
 gboolean 
 devices_probe_bus(const gchar* bus)
@@ -329,9 +363,9 @@ devices_probe_bus(const gchar* bus)
 	
 	GString* buffer = exec_run_cmd(command);
 	if(buffer == NULL)
-		g_critical(_("devices_probe_bus - Failed to scan the scsi bus"));
+		g_critical("devices_probe_bus - Failed to scan the scsi bus");
 	else if(!devices_parse_cdrecord_output(buffer->str, bus))	
-		g_critical(_("devices_probe_bus - failed to parse cdrecord output"));
+		g_critical("devices_probe_bus - failed to parse cdrecord output");
 	else
 		ok = TRUE;
 	
@@ -349,8 +383,7 @@ devices_get_ide_device(const gchar* devicenode, const gchar* devicenodepath,
 	g_return_if_fail(devicenode != NULL);	
 	g_return_if_fail(modelname != NULL);
 	g_return_if_fail(deviceid != NULL);
-	GB_TRACE(_("devices_get_ide_device - probing [%s]"), devicenode);
-
+	GB_TRACE("devices_get_ide_device - probing [%s]", devicenode);
 	gchar* contents = NULL;
 	gchar* file = g_strdup_printf("/proc/ide/%s/model", devicenode);
 	if(g_file_get_contents(file, &contents, NULL, NULL))
@@ -362,7 +395,7 @@ devices_get_ide_device(const gchar* devicenode, const gchar* devicenodepath,
 	}
 	else
 	{
-		g_critical(_("Failed to open %s"), file);
+		g_critical("Failed to open %s", file);
 	}
 	g_free(file);
 }
@@ -376,16 +409,16 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 	g_return_if_fail(devicenode != NULL);
 	g_return_if_fail(modelname != NULL);
 	g_return_if_fail(deviceid != NULL);
-	GB_TRACE(_("devices_add_scsi_device - probing [%s]"), devicenode);
+	GB_TRACE("devices_add_scsi_device - probing [%s]", devicenode);
 	
 	gchar **device_strs = NULL, **devices = NULL;	
 	if((devices = gbcommon_get_file_as_list("/proc/scsi/sg/devices")) == NULL)
 	{
-		g_critical(_("Failed to open /proc/scsi/sg/devices"));
+		g_critical("Failed to open /proc/scsi/sg/devices");
 	}
 	else if((device_strs = gbcommon_get_file_as_list("/proc/scsi/sg/device_strs")) == NULL)
 	{
-		g_critical(_("Failed to open /proc/scsi/sg/device_strs"));
+		g_critical("Failed to open /proc/scsi/sg/device_strs");
 	}
 	else
 	{
@@ -401,7 +434,7 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 				if(sscanf(*device, "%d\t%*d\t%d\t%d\t%d", 
 					&scsihost, &scsiid, &scsilun, &scsitype) != 4)
 				{
-					g_critical(_("Error reading scsi information from /proc/scsi/sg/devices"));
+					g_critical("Error reading scsi information from /proc/scsi/sg/devices");
 				}			
 				/* 5 is the magic number according to lib-nautilus-burn */
 				else if(scsitype == 5)
@@ -439,7 +472,7 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 void 
 devices_for_each(gpointer key, gpointer value, gpointer user_data)
 {	
-	GB_TRACE(_("---- key [%s], value [%s]"), (gchar*)key, (gchar*)value);
+	GB_TRACE("---- key [%s], value [%s]", (gchar*)key, (gchar*)value);
 	g_free(key);
 	g_free(value);
 }
@@ -452,8 +485,7 @@ devices_get_cdrominfo(gchar** proccdrominfo, gint deviceindex)
 	g_return_val_if_fail(proccdrominfo != NULL, NULL);
 	g_return_val_if_fail(deviceindex >= 1, NULL);
 	
-	GB_TRACE(_("looking for device [%d]"), deviceindex);
-	
+	GB_TRACE("looking for device [%d]", deviceindex);
 	GHashTable* ret = NULL;
 	gchar** info = proccdrominfo;
 	while(*info != NULL)
@@ -488,8 +520,8 @@ devices_get_cdrominfo(gchar** proccdrominfo, gint deviceindex)
 				 looking for */
 				if(columnindex <= deviceindex)
 				{
-					GB_TRACE(_("Requested device index [%d] is out of bounds. "
-						"All devices have been read."), deviceindex);
+					GB_TRACE("Requested device index [%d] is out of bounds. "
+						"All devices have been read.", deviceindex);
 					g_hash_table_destroy(ret);
 					ret = NULL;
 					break;
@@ -519,7 +551,7 @@ devices_probe_busses()
 	gchar **info = NULL;
 	if((info = gbcommon_get_file_as_list("/proc/sys/dev/cdrom/info")) == NULL)
 	{
-		g_critical(_("Failed to open /proc/sys/dev/cdrom/info"));
+		g_critical("Failed to open /proc/sys/dev/cdrom/info");
 	}
 	else
 	{
@@ -666,3 +698,94 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 	devices_new_devicedata("'ATAPI   ' 'DVD DUAL 8X4X12 ' 'B3IC' Removable CD-ROM", "1,0,0", NULL);
 	'AOPEN   ' 'CD-RW CRW1232PRO' '1.00' Removable CD-ROM
 */
+gboolean
+devices_eject_cd(const gchar* devicekey)
+{
+	/* from http://leapster.org/linux/cdrom/ */
+	gboolean ret = FALSE;
+	gchar *device = devices_get_device_config(devicekey,GB_DEVICE_NODE_LABEL);
+	int cdrom;
+	GB_TRACE("Ejecting media in %s",device);
+	
+	if ((cdrom = open(device,O_RDONLY | O_NONBLOCK)) < 0)
+	{
+        g_warning("Error opening device %s",device);
+		return FALSE;
+   	}
+			
+
+   /* Use ioctl to send the CDROMEJECT command to the device
+   */
+	if (ioctl(cdrom,CDROMEJECT,0)<0)
+	{
+        g_warning("Error ejecting cd from device %s",device);
+		ret = FALSE;
+    }
+	else
+		ret = TRUE;
+	close(cdrom);
+	return ret;
+}
+/*
+gboolean 
+devices_get_max_speed_for_drive(const gchar* drive)
+{
+	GB_LOG_FUNC
+	gboolean ok = FALSE;
+	g_return_val_if_fail(bus != NULL, FALSE);
+		
+	gchar command[32] = "cdrecord -prcap";
+	if(g_ascii_strncasecmp(bus, "SCSI", 4) != 0)
+	{
+		strcat(command, " dev=");
+		strcat(command, bus);
+	}
+	
+	GString* buffer = exec_run_cmd(command);
+	if(buffer == NULL)
+		g_critical("devices_get_max_speed_for_drive - Failed to scan the scsi bus");
+	else if(!devices_parse_cdrecord_output(buffer->str, bus))	
+		g_critical("devices_get_max_speed_for_drive - failed to parse cdrecord output");
+	else
+		ok = TRUE;
+	
+	g_string_free(buffer, TRUE);
+
+	return ok;
+}
+*/
+
+gboolean
+devices_query_cdstatus(const gchar* devicekey)
+{
+	g_return_val_if_fail(devicekey != NULL,FALSE);
+
+	gboolean retval = FALSE;
+	gchar *device = devices_get_device_config(devicekey,GB_DEVICE_NODE_LABEL);
+		
+	int fd = open(device, O_RDONLY | O_NONBLOCK);
+    
+    int ret = ioctl(fd, CDROM_DRIVE_STATUS, CDSL_CURRENT);
+    if (ret == -1)
+	{
+		g_critical("devices_query_cdstatus - ioctl failed");
+           return FALSE;
+    }
+	switch (ret)
+	{
+    	case CDS_NO_DISC:
+			retval = FALSE;
+				break;
+		case CDS_TRAY_OPEN:
+			retval = FALSE;
+				break;
+		case CDS_DRIVE_NOT_READY:
+			retval = FALSE;
+				break;
+		case CDS_DISC_OK:
+			retval = TRUE;
+				break;
+	}
+	return retval;
+	
+}

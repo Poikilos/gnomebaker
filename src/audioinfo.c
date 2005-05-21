@@ -107,7 +107,7 @@ audioinfo_new(const gchar* audiofile)
 		else
 		{			
 			self->mimetype = gbcommon_get_mime_type(audiofile);
-			GB_TRACE( _("audioinfo_new - mime type is %s for %s"), self->mimetype, audiofile);
+			GB_TRACE("audioinfo_new - mime type is %s for %s", self->mimetype, audiofile);
 			if(self->mimetype != NULL)
 			{
 				/* Check that the file extension is one we support */			
