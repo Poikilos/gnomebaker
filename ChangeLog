@@ -1,16 +1,37 @@
 Version 0.3.1
 
-* Fix Bug #1123612 Browsing filenames with a % symbol crashes Gnomebaker.
-* Fix Bug #1118084 Mount point for writing device could not be obtained.
-* Fix Bugs #1146157 and #1119702, Problems with fix sized, static dialogs.
-* Fix Bug # 1150048	Dropping directories on DVD creation.
 * Fix data cd size typo from 600MB to 650MB.
 * Add 800MB and 90min cd sizes.
 * Right click menus now have icons and right click on a CD image gives option to burn it.
+* Right click/double click in filebrowser gives option to open files via their mime type.
+* Right click/double click in audio disc tab gives option to launch audio file in media player.
 * Add cue bin support via cdrdao.
 * Directories can now be added to the audio cd and all audio files within the dir will be added.
 * Add on the fly burning for data cds.
-
+* Options enabled to choose joliet and/or rockridge when burning data cds/dvds.
+* Make sure author and gpl headers are inserted in all files.
+* Upgrade to automake 1.9.
+* Fix Bug #1118084 Mount point for writing device could not be obtained.
+* Fix Bug #1187453	problem w/ " datacd.c " file
+* Fix Bug #1185537	Crash on filenames containing #'s
+* Fix Bug #1183636	There should be an Overburn Option
+* Fix Bug #1178142	gnomebaker 0.3 segfaults with strange file names
+* Fix Bug #1173456	problem in audio.c file
+* Fix Bug #1173357	change [ for %5d
+* Fix Bug #1173216	Directory drag'n drop to audio CD
+* Fix Bug #1173215	Double click in tree view should expand/collapse
+* Fix Bug #1171241	./configure does not set $(gnomemenudir) correctly
+* Fix Bug #1170907	No progress bar shown on burning iso file
+* Fix Bug #1167051	Startup crash
+* Fix Bug #1165628	Data View and Audio view file drag and drop error
+* Fix Bug #1161038	Error with loading file in data and audio view
+* Fix Bug #1150048	Dropping directories on DVD creation
+* Fix Bug #1146157	Problems with fix sized, static dialogs
+* Fix Bug #1145886	Mouse over icons dont show "tips"
+* Fix Bug #1123612	Browsing filenames with a % symbol crashes Gnomebaker
+* Fix Bug #1119702	Can't resize dialogue windows
+* Fix Bug #1118922	Button tooltips
+* Fix Bug #1118255	Transformation of symbols in file-names
 
 
 Version 0.3
