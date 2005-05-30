@@ -29,6 +29,8 @@
 #  include <config.h>
 #endif
 
+#include "gst/gst.h"
+
 typedef GstElement MediaElement;
 
 
@@ -68,6 +70,6 @@ PluginStatus media_query_plugin_status(const gchar* mimetype);
 void media_connect_error_callback(MediaElement* element,void * func);
 void media_connect_eos_callback(MediaElement* element,void * func);
 void media_start_iteration(MediaElement* pipeline);
-
+gint64 media_calculate_track_length(const gchar* filename);
 
 #endif	/* _MEDIA_H_ */

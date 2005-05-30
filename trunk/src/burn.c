@@ -242,7 +242,7 @@ burn_cd_image_file(const gchar* file)
 	else if(g_str_has_suffix(file, ".cue") || g_str_has_suffix(file, ".bin"))
 		ret = burn_cue_or_bin(file);
 	else
-		gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
 		  _("The file you have selected is not a cd image. Please select a cd image to burn."));
 	
 	g_free(mime);	

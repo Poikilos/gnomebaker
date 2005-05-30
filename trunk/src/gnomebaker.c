@@ -149,14 +149,14 @@ gnomebaker_delete(GtkWidget* self)
 
 
 gint
-gnomebaker_show_msg_dlg(GtkMessageType type, GtkButtonsType buttons,
-		  			GtkButtonsType additional, const gchar * message)
+gnomebaker_show_msg_dlg(GtkWindow* parent, GtkMessageType type, 
+    GtkButtonsType buttons, GtkButtonsType additional, const gchar * message)
 {
 	GB_LOG_FUNC
 	GB_TRACE("MessageDialog message [%s]", message);		
 	
 	GtkWidget *dialog = gtk_message_dialog_new(
-		GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker)), 
+		parent == NULL ? GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker)) : parent, 
 		GTK_DIALOG_DESTROY_WITH_PARENT, type, buttons, message);
 	
 	/*if(additional != GTK_BUTTONS_NONE)
@@ -174,7 +174,7 @@ gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	switch(gnomebaker_show_msg_dlg(GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+	switch(gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
 		 _("Are you sure you want to quit?")))
 	{
 	case GTK_RESPONSE_OK:
@@ -249,7 +249,7 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 		}
 		else
 		{
-			gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
 			  _("The file you have selected is not a cd image. Please select a cd image to burn."));
 		}
 		
@@ -278,7 +278,7 @@ gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
 		}
 		else
 		{
-			gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
 			  _("The file you have selected is not a DVD image. Please select a DVD image to burn."));
 		}
 		
@@ -518,7 +518,7 @@ gnomebaker_on_help(gpointer widget, gpointer user_data)
 	gnome_help_display("gnomebaker", NULL, &error);
 	if(error)
 	{
-		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,
+		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,
 			GTK_BUTTONS_NONE, error->message);
 		g_error_free(error);
 	}	

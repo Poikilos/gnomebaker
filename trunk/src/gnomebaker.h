@@ -34,7 +34,7 @@ GtkWidget* gnomebaker_new();
 void gnomebaker_delete(GtkWidget* self);
 
 gint
-gnomebaker_show_msg_dlg(GtkMessageType type, GtkButtonsType buttons,
+gnomebaker_show_msg_dlg(GtkWindow* parent, GtkMessageType type, GtkButtonsType buttons,
 		  			GtkButtonsType additional, const gchar * message);
 
 GladeXML* gnomebaker_getxml();

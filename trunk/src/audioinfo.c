@@ -22,73 +22,13 @@
 #include "audioinfo.h"
 #include "gbcommon.h"
 #include <stdio.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <glib/gprintf.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <vorbis/vorbisfile.h>
-
-/* variables for storing the information about the MP3 */
-gint intBitRate = 0;
-glong lngFileSize = 0;
-gint intFrequency = 0;
-gint intLength = 0;
-
-/* variables used in the process of reading in the MP3 files */
-gulong bithdr = 0;
-gint boolVBitRate = 0;
-gint intVFrames = 0;
-
-
-typedef struct WavHeader
-{
-	gchar title[4];
-	gint totalguchars;
-	gchar format[8];
-	gint pcm1;
-	gshort pcm2;
-	gshort channels; 	
-	gint samplefreq;
-	gint gucharspersecond; 	
-	gshort gucharspercapture;
-	gshort bitspersample; 	
-	gchar data[4];
-	gint gucharsindata;		
-} *pWavHeader  __attribute__ ((packed));
-
+#include "media.h"
 
 void audioinfo_get_wav_info(AudioInfo* self, const gchar* wavfile);
 void audioinfo_get_ogg_info(AudioInfo* info, const gchar *oggfile);
 void audioinfo_get_mp3_info(AudioInfo* info, const gchar *mp3file);
-void audioinfo_load_mp3_header(guchar c[]);
-gboolean audioinfo_load_mp3_vbr_header(guchar inputheader[]);
-gboolean audioinfo_mp3_is_valid_header();
-gint audioinfo_mp3_get_frame_sync();
-gint audioinfo_mp3_get_version_index();  
-gint audioinfo_mp3_get_layer_index();    
-gint audioinfo_mp3_get_protection_bit(); 
-gint audioinfo_mp3_get_bitrate_index();  
-gint audioinfo_mp3_get_frequency_index();
-gint audioinfo_mp3_get_padding_bit();    
-gint audioinfo_mp3_get_private_bit();    
-gint audioinfo_mp3_get_mode_index() ;    
-gint audioinfo_mp3_get_mode_ext_index();  
-gint audioinfo_mp3_get_copyright_bit();   
-gint audioinfo_mp3_get_original_bit();    
-gint audioinfo_mp3_get_emphasis_index(); 
-gdouble audioinfo_mp3_get_version(); 
-gint audioinfo_mp3_get_layer(); 
-gint audioinfo_mp3_get_bitrate(); 
-gint audioinfo_mp3_get_frequency(); 
-const gchar* audioinfo_mp3_get_mode(); 
-gint audioinfo_mp3_get_length(); 
 void audioinfo_set_formatted_length(AudioInfo* info); 
-gint audioinfo_mp3_get_num_frames(); 
 
 
 AudioInfo* 
@@ -118,8 +58,10 @@ audioinfo_new(const gchar* audiofile)
 					audioinfo_get_mp3_info(self, audiofile);
 				else if(g_ascii_strcasecmp(self->mimetype, "application/ogg") == 0)
 					audioinfo_get_ogg_info(self, audiofile);
-				/*else if(g_ascii_strcasecmp(mime, "audio/x-flac") == 0);	*/
-				else
+				else if((g_ascii_strcasecmp(self->mimetype, "audio/x-flac") == 0) ||  
+					(g_ascii_strcasecmp(self->mimetype, "application/x-flac") == 0))
+                    self->duration = media_calculate_track_length(audiofile);
+                else
 				{
 					audioinfo_delete(self);			
 					self = NULL;
@@ -127,7 +69,7 @@ audioinfo_new(const gchar* audiofile)
 				
 				if(self != NULL)
 				{
-					/* This is a bit of a cludge. Add 2 seconds to the duration 
+                    /* This is a bit of a cludge. Add 2 seconds to the duration 
 					to factor in cdrecord -pad times when calculating the size of the cd */
 					self->duration += 2;
 					audioinfo_set_formatted_length(self);
@@ -189,21 +131,6 @@ audioinfo_end(AudioInfo* self)
 void 
 audioinfo_get_wav_info(AudioInfo* self, const gchar* wavfile)
 {
-/* 
-Field 	guchars 	format 	contains
-1 	0...3 	str4 	"RIFF" in ASCII
-2 	4...7 	int4 	Total guchars minus 8
-3 	8...15 	str8 	"WAVEfmt" Eigth character is a space
-4 	16...19 	int4 	16 for PCM format
-5 	20...21 	int2 	1 for PCM format
-6 	22...23 	int2 	channels
-7 	24...27 	int4 	sampling frequency
-8 	28...31 	int4 	guchars per second
-9 	32...33 	int2 	guchars by capture
-10 	34...35 	int2 	bits per sample
-11 	36:39 	str4 	"data"
-12 	40:43 	int4 	guchars in data
-*/		
 	GB_LOG_FUNC
 	g_return_if_fail(NULL != self);
 	g_return_if_fail(NULL != wavfile);
@@ -215,29 +142,11 @@ Field 	guchars 	format 	contains
 	}
 	else
 	{		
-		struct WavHeader wav;
-		static const size_t StructSize = sizeof(struct WavHeader);
-		if(fread(&wav, 1, StructSize, st) == StructSize)
-		{					
-			GB_TRACE("[%d] [%d] [%d]", wav.totalguchars, wav.gucharspersecond,
-				wav.gucharsindata);			
-			self->bitrate = wav.gucharspersecond;
-			
-			fseek(st, 0, SEEK_END);
-        	self->filesize = ftell(st);
-			
-			/* This is a slight approximation as I have seen wavs where
-			   the gucharsindata is incorrect in the header. Therefore I've 
-			   played it safe and assumed the actual sound guchars are filesize
-			   minus header size */
-			self->duration = (self->filesize - StructSize) / wav.gucharspersecond;
-		}
-		else
-		{
-			g_warning(_("Error reading wav header for file [%s]"), wavfile);
-		}	
-		
+		fseek(st, 0, SEEK_END);
+        self->filesize = ftell(st);
 		fclose(st);
+        
+        self->duration = media_calculate_track_length(wavfile);
 	
 		/* Have a look for a .inf file corresponding to the wavfile
 		   so we can display the artist, album and track */
@@ -308,329 +217,32 @@ audioinfo_get_mp3_info(AudioInfo* info, const gchar *FileName)
 	{		
 		/* Set the file size */
 		fseek(st, 0, SEEK_END);
-        lngFileSize = ftell(st);	
-		info->filesize = lngFileSize;
-	
-		guchar bytHeader[4];
-		guchar bytVBitRate[12];
-		gint intPos = 0;
-		
-		/* Keep reading 4 guchars from the header until we know for sure that in 
-		 fact it's an MP3 */
-		do
-		{
-			fseek(st, intPos, SEEK_SET);
-			fread(bytHeader, 1, 4, st);
-			intPos++;
-			audioinfo_load_mp3_header(bytHeader);
-		}
-		while(!audioinfo_mp3_is_valid_header() && (ftell(st) < lngFileSize));
-		
-		if(ftell(st) < lngFileSize)
-		{
-			intPos += 3;
-	
-			if(audioinfo_mp3_get_version_index() == 3) /* MPEG Version 1 */
-			{
-				if(audioinfo_mp3_get_mode_index() == 3) /* Single Channel */
-					intPos += 17;
-				else
-					intPos += 32;
-			}
-			else /* MPEG Version 2.0 or 2.5 */
-			{
-				if(audioinfo_mp3_get_mode_index() == 3)    /* Single Channel */
-					intPos += 9;
-				else
-					intPos += 17;
-			}
-			
-			/* Check to see if the MP3 has a variable bitrate */
-			fseek(st, intPos, SEEK_SET);
-			fread(bytVBitRate, 1, 12, st);
-			boolVBitRate = audioinfo_load_mp3_vbr_header(bytVBitRate);
-	
-			info->bitrate = audioinfo_mp3_get_bitrate();
-			intFrequency = audioinfo_mp3_get_frequency();
-			info->duration = audioinfo_mp3_get_length();
-			
-			/* get tag from the last 128 guchars in an .mp3-file    */
-			gchar tagchars[128];
-	
-			/* get last 128 guchars */
-			fseek(st, lngFileSize - 128, SEEK_SET);
-			fread(tagchars, 1, 128, st);
-			/*tagchars[127] = '\0';*/
-			
-			if(g_ascii_strncasecmp(tagchars, "TAG", 3) == 0)
-			{
-				GB_TRACE("%ld [%s] [%s] [%s]", lngFileSize - 128, 
-					tagchars + 3, tagchars + 33, tagchars + 63);
-					
-				g_string_append_len(info->artist, tagchars + 33, 30);
-				g_strstrip(info->artist->str);
-				g_string_append_len(info->album, tagchars + 63, 30);
-				g_strstrip(info->album->str);
-				g_string_append_len(info->title, tagchars + 3, 30);
-				g_strstrip(info->title->str);
-			}
-		}
+		info->filesize = ftell(st);
+        info->duration = media_calculate_track_length(FileName);
+        
+        /* get tag from the last 128 guchars in an .mp3-file    */
+        gchar tagchars[128];
+
+        /* get last 128 guchars */
+        fseek(st, info->filesize - 128, SEEK_SET);
+        fread(tagchars, 1, 128, st);
+        /*tagchars[127] = '\0';*/
+        
+        if(g_ascii_strncasecmp(tagchars, "TAG", 3) == 0)
+        {
+            GB_TRACE("%ld [%s] [%s] [%s]", info->filesize - 128, 
+                tagchars + 3, tagchars + 33, tagchars + 63);
+                
+            g_string_append_len(info->artist, tagchars + 33, 30);
+            g_strstrip(info->artist->str);
+            g_string_append_len(info->album, tagchars + 63, 30);
+            g_strstrip(info->album->str);
+            g_string_append_len(info->title, tagchars + 3, 30);
+            g_strstrip(info->title->str);
+        }
 
 		fclose(st);
 	}
-}
-
-
-void 
-audioinfo_load_mp3_header(guchar c[])
-{
-	GB_LOG_FUNC
-	bithdr = (gulong)(((c[0] & 255) << 24) | ((c[1] & 255) << 16) | ((c[2] & 255) <<  8) | ((c[3] & 255))); 
-}
-
-
-gboolean 
-audioinfo_load_mp3_vbr_header(guchar inputheader[])
-{
-	GB_LOG_FUNC
-	if(inputheader[0] == 88 && inputheader[1] == 105 && 
-		inputheader[2] == 110 && inputheader[3] == 103)
-	{
-		gint flags = (gint)(((inputheader[4] & 255) << 24) | ((inputheader[5] & 255) << 16) | ((inputheader[6] & 255) <<  8) | ((inputheader[7] & 255)));
-		if((flags & 0x0001) == 1)
-		{
-			intVFrames = (gint)(((inputheader[8] & 255) << 24) | ((inputheader[9] & 255) << 16) | ((inputheader[10] & 255) <<  8) | ((inputheader[11] & 255)));
-			return TRUE;
-		}
-		else
-		{
-			intVFrames = -1;
-			return TRUE;
-		}
-	}
-	return FALSE;
-}
-
-
-gboolean 
-audioinfo_mp3_is_valid_header() 
-{
-	GB_LOG_FUNC
-	return (((audioinfo_mp3_get_frame_sync()      & 2047)==2047) &&
-			((audioinfo_mp3_get_version_index()   &    3)!=   1) &&
-			((audioinfo_mp3_get_layer_index()     &    3)!=   0) && 
-			((audioinfo_mp3_get_bitrate_index()   &   15)!=   0) &&
-			((audioinfo_mp3_get_bitrate_index()   &   15)!=  15) &&
-			((audioinfo_mp3_get_frequency_index() &    3)!=   3) &&
-			((audioinfo_mp3_get_emphasis_index()  &    3)!=   2)    );
-}
-
-
-gint 
-audioinfo_mp3_get_frame_sync()     
-{
-	GB_LOG_FUNC
-	return (gint)((bithdr>>21) & 2047); 
-}
-
-
-gint 
-audioinfo_mp3_get_version_index()  
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>19) & 3);  
-}
-
-
-gint 
-audioinfo_mp3_get_layer_index()    
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>17) & 3);  
-}
-
-
-gint 
-audioinfo_mp3_get_protection_bit() 
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>16) & 1);  
-}
-
-
-gint 
-audioinfo_mp3_get_bitrate_index()  
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>12) & 15); 
-}
-
-
-gint 
-audioinfo_mp3_get_frequency_index()
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>10) & 3);  
-}
-
-
-gint 
-audioinfo_mp3_get_padding_bit()    
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>9) & 1);  
-}
-
-
-gint 
-audioinfo_mp3_get_private_bit()    
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>8) & 1);  
-}
-
-
-gint 
-audioinfo_mp3_get_mode_index()     
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>6) & 3);  
-}
-
-
-gint 
-audioinfo_mp3_get_mode_ext_index()  
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>4) & 3);  
-}
-
-
-gint 
-audioinfo_mp3_get_copyright_bit()   
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>3) & 1);  
-}
-
-
-gint 
-audioinfo_mp3_get_original_bit()    
-{ 
-	GB_LOG_FUNC
-	return (gint)((bithdr>>2) & 1);  
-}
-
-
-gint 
-audioinfo_mp3_get_emphasis_index() 
-{ 
-	GB_LOG_FUNC
-	return (gint)(bithdr & 3);  
-}
-
-
-gdouble 
-audioinfo_mp3_get_version() 
-{
-	GB_LOG_FUNC
-	gdouble table[] = {2.5, 0.0, 2.0, 1.0};
-	return table[audioinfo_mp3_get_version_index()];
-}
-
-
-gint 
-audioinfo_mp3_get_layer() 
-{
-	GB_LOG_FUNC
-	return (gint)(4 - audioinfo_mp3_get_layer_index());
-}
-
-
-gint 
-audioinfo_mp3_get_bitrate() 
-{
-	GB_LOG_FUNC
-	if(boolVBitRate)
-	{
-		gdouble medFrameSize = (gdouble)lngFileSize / (gdouble)audioinfo_mp3_get_num_frames();
-		return (gint)((medFrameSize * (gdouble)audioinfo_mp3_get_frequency()) / (1000.0 * ((audioinfo_mp3_get_layer_index()==3) ? 12.0 : 144.0)));
-	}
-	else
-	{
-		if((audioinfo_mp3_get_version_index() & 1) == 0)
-		{
-			/* MPEG 2 & 2.5 */
-			gint table[3][16] = {
-								{0,  8, 16, 24, 32, 40, 48, 56, 64, 80, 96,112,128,144,160,0}, // Layer III
-								{0,  8, 16, 24, 32, 40, 48, 56, 64, 80, 96,112,128,144,160,0}, // Layer II
-								{0, 32, 48, 56, 64, 80, 96,112,128,144,160,176,192,224,256,0}  // Layer I
-							};
-			return table[audioinfo_mp3_get_layer_index()-1][audioinfo_mp3_get_bitrate_index()];
-		}
-		else
-		{
-			/* MPEG 1 */
-			gint table[3][16] = { 
-								{0, 32, 40, 48, 56, 64, 80, 96,112,128,160,192,224,256,320,0}, // Layer III
-								{0, 32, 48, 56, 64, 80, 96,112,128,160,192,224,256,320,384,0}, // Layer II
-								{0, 32, 64, 96,128,160,192,224,256,288,320,352,384,416,448,0}  // Layer I
-							};			
-			return table[audioinfo_mp3_get_layer_index()-1][audioinfo_mp3_get_bitrate_index()];
-		}
-	}
-}
-
-
-gint 
-audioinfo_mp3_get_frequency() 
-{
-	GB_LOG_FUNC
-	gint table[4][3] =    {    
-						{32000, 16000,  8000}, /* MPEG 2.5 */
-						{    0,     0,     0}, /* reserved */
-						{22050, 24000, 16000}, /* MPEG 2 */
-						{44100, 48000, 32000}  /*  MPEG 1 */
-					};
-	return table[audioinfo_mp3_get_version_index()][audioinfo_mp3_get_frequency_index()];
-}
-
-
-const gchar* 
-audioinfo_mp3_get_mode() 
-{
-	GB_LOG_FUNC
-	switch(audioinfo_mp3_get_mode_index()) 
-	{
-		default:
-		{
-			static const gchar* stereo = N_("Stereo");
-			return stereo;
-		}
-		case 1:
-		{
-			static const gchar* joint_stereo = N_("Joint Stereo");
-			return joint_stereo;
-		}
-		case 2:
-		{
-			static const gchar* dual_channel = N_("Dual Channel");
-			return dual_channel;
-		}
-		case 3:
-		{
-			static const gchar* single_channel = N_("Single Channel");
-			return single_channel;
-		}
-	};
-}
-
-
-gint 
-audioinfo_mp3_get_length() 
-{	
-	GB_LOG_FUNC
-	return (gint)(((gint)((8 * lngFileSize) / 1000))/audioinfo_mp3_get_bitrate());
 }
 
 
@@ -642,20 +254,6 @@ audioinfo_set_formatted_length(AudioInfo* info)
 	gint minutes = (info->duration-seconds) / 60;
 	
 	g_string_printf(info->formattedduration, "%d:%.2d", minutes, seconds);
-}
-
-
-gint 
-audioinfo_mp3_get_num_frames() 
-{
-	GB_LOG_FUNC
-	if (!boolVBitRate) 
-	{
-		gdouble medFrameSize = (gdouble)(((audioinfo_mp3_get_layer_index()==3) ? 12 : 144) *((1000.0 * (gfloat)audioinfo_mp3_get_bitrate())/(gfloat)audioinfo_mp3_get_frequency()));
-		return (gint)(lngFileSize/medFrameSize);
-	}
-	else 
-		return intVFrames;
 }
 
 

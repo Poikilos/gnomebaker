@@ -41,5 +41,6 @@ void progressdlg_pulse_stop();
 void progressdlg_increment_exec_number();
 void progressdlg_reset_fraction(gfloat fraction);
 void progressdlg_dismiss();
+GtkWindow* progressdlg_get_window();
 
 #endif	/*_PROGRESSDLG_H_*/
