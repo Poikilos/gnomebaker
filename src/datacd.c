@@ -173,7 +173,7 @@ datacd_update_progress_bar(gboolean add, guint64 filesize)
 	}
 	else
 	{
-		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
 			_("File or directory is too large to fit in the remaining space on the CD"));
 		ok = FALSE;
 	}
@@ -580,7 +580,7 @@ datacd_get_msinfo(gchar** msinfo)
 	{
 		gchar* message = g_strdup_printf(_("Error getting session information.\n\n%s"), 
 			output != NULL ? output->str : _("unknown error"));
-		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
+		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 		g_free(message);
 	}
 	else
@@ -652,7 +652,7 @@ datacd_import_session()
 		{
 			gchar* message = g_strdup_printf(_("Error importing session from [%s]. "
 				"Please check the device configuration in preferences."), mountpoint);
-			gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
+			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 			g_free(message);			
 		}				
 		

@@ -46,7 +46,7 @@ typedef struct
 	gchar **argv;
 	pid_t pid;
 	gint exitCode;
-	ExecState state;
+	volatile ExecState state;
 	ExecFunc preProc;
 	ExecFunc readProc;
 	ExecFunc postProc;	

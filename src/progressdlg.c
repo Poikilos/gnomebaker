@@ -79,6 +79,15 @@ progressdlg_delete(GtkWidget* self)
 }
 
 
+GtkWindow* 
+progressdlg_get_window()
+{
+    GB_LOG_FUNC
+    g_return_if_fail(progdlg_xml != NULL);
+    return GTK_WINDOW(glade_xml_get_widget(progdlg_xml, widget_progdlg));
+}
+    
+
 void 
 progressdlg_set_fraction(gfloat fraction)
 {

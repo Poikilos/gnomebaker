@@ -45,7 +45,7 @@ DiskSize audiodisksizes[] =
 enum
 {
     TARGET_STRING,
-    TARGET_URL
+    TARGET_URL    
 };
 
 
@@ -113,7 +113,7 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 	}
 	else
 	{
-		gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
 			_("Track is too large to fit in the remaining space on the CD"));
 		ok = FALSE;
 	}
@@ -339,14 +339,14 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
             case NOT_INSTALLED:
             {
                 gchar* buf = g_strdup_printf(_("The plugin to handle a file of type %s is not installed."),gnome_vfs_mime_get_description(info->mimetype));
-                gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
+                gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
                 g_free(buf);
             }
             break;
             default:
             {
                 gchar* buf = g_strdup_printf(_("There is no known plugin to handle a file of type %s."),info->mimetype);
-                gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
+                gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
                 g_free(buf);
             }
         }

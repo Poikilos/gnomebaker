@@ -100,8 +100,8 @@ cdrecord_pre_proc(void *ex, void *buffer)
 	if(!devices_query_cdstatus(GB_WRITER))
 	{
 		gdk_threads_enter();
-		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-				  _("Please insert the CD into the CD writer"));
+		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(),GTK_MESSAGE_INFO, 
+            GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE, _("Please insert the CD into the CD writer"));
 		gdk_flush();
 		gdk_threads_leave();
 		
@@ -124,8 +124,8 @@ cdrecord_blank_pre_proc(void *ex, void *buffer)
 	if(!devices_query_cdstatus(GB_WRITER))
 	{
 		gdk_threads_enter();
-		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			_("Please insert the CD-RW into the CD writer"));
+		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, 
+            GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE, _("Please insert the CD-RW into the CD writer"));
 		gdk_flush();
 		gdk_threads_leave();
 		
@@ -409,7 +409,7 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
 		gdk_threads_enter();
-		response = gnomebaker_show_msg_dlg(GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
+		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
 			_("Audio tracks from a previous sesion already exist on disk, "
 			"do you wish to use the existing tracks?"));
 		gdk_flush();
@@ -425,7 +425,7 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 		g_free(cmd);
 		
 		gdk_threads_enter();
-		response = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
 			_("Please insert the audio CD into the CD reader"));				
 		gdk_flush();
 		gdk_threads_leave();	
@@ -579,7 +579,7 @@ mkisofs_pre_proc(void *ex, void *buffer)
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
 		gdk_threads_enter();
-		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_OK,
+		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_OK,
 			_("A data CD image from a previous session already exists on disk, "
 			"do you wish to use the existing image?"));
 		gdk_flush();
@@ -773,7 +773,7 @@ dvdformat_pre_proc(void *ex, void *buffer)
 	if(!devices_query_cdstatus(GB_WRITER))
 	{
 		gdk_threads_enter();
-		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
 				  _("Please insert a rewritable DVD into the DVD writer"));
 		gdk_threads_leave();
 		
@@ -864,7 +864,7 @@ growisofs_pre_proc(void *ex,void *buffer)
 	{
 	
 		gdk_threads_enter();
-		gint ret = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
 				  _("Please insert a writable DVD into the DVD writer"));
 		gdk_flush();
 		gdk_threads_leave();
@@ -1108,7 +1108,7 @@ readcd_pre_proc(void *ex, void *buffer)
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
 		gdk_threads_enter();
-		response = gnomebaker_show_msg_dlg(GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
+		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
 			"A CD image from a previous session already exists on disk, "
 			"do you wish to use the existing image?");		
 		gdk_flush();
@@ -1120,7 +1120,7 @@ readcd_pre_proc(void *ex, void *buffer)
 	if(response == GTK_RESPONSE_NO)
 	{
 		gdk_threads_enter();
-		response = gnomebaker_show_msg_dlg(GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
 				  "Please insert the source CD into the CD reader");
 		gdk_flush();
 		gdk_threads_leave();
@@ -1305,7 +1305,7 @@ media_setup_element(MediaInfoPtr element)
 	media_start_playing(element->pipeline);
 	media_start_iteration(element->pipeline);
 	media_pause_playing(element->pipeline);
-	media_cleanup(element->pipeline);
+	media_cleanup(element->pipeline);    
 }
 
 
@@ -1345,8 +1345,8 @@ media_convert_pre_proc(void *ex, void *buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
     
-	progressdlg_set_status(_("<b>Converting files to cd audio...</b>"));
-	progressdlg_increment_exec_number();
+	progressdlg_set_status(_("<b>Converting files to cd audio...</b>"));	
+    progressdlg_pulse_start();
 	MediaInfo* mi = (MediaInfo*)g_elements->data;
 	if(!mi) /* why is first element NULL ? */
 	{
@@ -1355,6 +1355,7 @@ media_convert_pre_proc(void *ex, void *buffer)
 	}	
 	current_element = mi;
 	media_setup_element(mi);
+    progressdlg_pulse_stop();
 /*
 	media_connect_eos_callback(mi->pipeline,media_next_element);
 	media_connect_error_callback(mi->pipeline,media_error);

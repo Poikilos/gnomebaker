@@ -37,6 +37,8 @@ Version 0.3.1
 * Add DVD ejection option after burning.
 * Add separate DVD and CD burning speeds.
 * Don't ask for a CD/DVD if it is already in the drive
+* Parent the message dialogs properly so they can't go behind other windows.
+* Use gstreamer to calculate audio track lengths.
 
 Version 0.3
 

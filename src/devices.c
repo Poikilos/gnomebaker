@@ -618,7 +618,7 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 	{
         if(mountpoint != NULL)
         {
-            gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+            gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
                 _("The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
                 "Please check that the writing device has an entry in /etc/fstab and then go "
                 "to preferences and rescan for devices."));
@@ -639,7 +639,7 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 		{
 			gchar* message = g_strdup_printf(_("Error %s %s.\n\n%s"), 
 				mount ? _("mounting") : _("unmounting"), mount, output != NULL ? output->str : _("unknown error"));
-			gnomebaker_show_msg_dlg(GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
+			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 			g_free(message);
 		}
 		else

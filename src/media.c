@@ -22,7 +22,6 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
  
-#include "gst/gst.h"
 #include "gbcommon.h"
 #include "media.h"
 
@@ -79,7 +78,6 @@ media_convert_to_wav(gchar* file,gchar* convertedfile,MediaInfoPtr gstdata)
 	g_object_set (G_OBJECT (src), "location", file, NULL);
 		
 	/* decoder */
-
 	gstdata->decoder = gst_element_factory_make ("decodebin", "decoder");
 	g_assert (gstdata->decoder != NULL);
 	g_signal_connect (gstdata->decoder, "new-decoded-pad", G_CALLBACK (media_cb_newpad), gstdata);
@@ -92,7 +90,6 @@ media_convert_to_wav(gchar* file,gchar* convertedfile,MediaInfoPtr gstdata)
 	gstdata->scale = gst_element_factory_make("audioscale","scale");
 	g_assert (gstdata->scale != NULL);
 	
-
 	GstCaps *filtercaps = gst_caps_new_simple ("audio/x-raw-int",
                                           "channels", G_TYPE_INT, 2,
                                           "rate",     G_TYPE_INT, 44100,
@@ -101,15 +98,12 @@ media_convert_to_wav(gchar* file,gchar* convertedfile,MediaInfoPtr gstdata)
                                           NULL);
     /* and an wav encoder */
 	gstdata->encoder = gst_element_factory_make ("wavenc", "encoder");
-	g_return_if_fail(gstdata->encoder != NULL);
-	
+	g_return_if_fail(gstdata->encoder != NULL);	
 	
 	gst_element_link_filtered (gstdata->scale,gstdata->encoder,filtercaps);
     gst_caps_free (filtercaps);	
 	
-
-	/* finally the output filesink */
-	
+	/* finally the output filesink */	
 	gstdata->dest = gst_element_factory_make("filesink","file-out");
 	g_return_if_fail(gstdata->dest != NULL);
 	gstdata->last_element = gstdata->dest;
@@ -208,6 +202,7 @@ media_query_plugin_status(const gchar* mimetype)
 		if(node->data)
 		{
 			PluginInfoPtr plugininfo = (PluginInfoPtr)node->data;
+			GB_TRACE("plugin mimetype [%s] requested [%s]", plugininfo->mimetype->str, mime->str);
 			if(g_string_equal(plugininfo->mimetype,mime))
 			{
 				status = plugininfo->status;
@@ -231,6 +226,7 @@ media_create_plugin_info(const gchar* mimetype,const gchar* pluginname)
 	PluginInfoPtr info = g_new0(PluginInfo,1);
 	info->mimetype = g_string_new(mimetype);
 	info->gst_plugin_name = g_string_new(pluginname);
+	info->status = NOT_INSTALLED;
 	return info;
 }
 
@@ -254,11 +250,6 @@ media_register_plugins(void)
 		gst_object_unref (GST_OBJECT (element));
 		element = NULL;
 	}
-	else
-	{
-		info->status = NOT_INSTALLED;
-		info2->status = NOT_INSTALLED;
-	}
 	media_registered_plugins = g_slist_append(media_registered_plugins,info);
 	media_registered_plugins = g_slist_append(media_registered_plugins,info2);
 
@@ -271,20 +262,19 @@ media_register_plugins(void)
 		gst_object_unref (GST_OBJECT (element));
 		element = NULL;
 	}
-	else
-		info->status = NOT_INSTALLED;
 	media_registered_plugins = g_slist_append(media_registered_plugins,info);
 	
 	info = media_create_plugin_info("application/x-flac","flacdec");
+    info2 = media_create_plugin_info("audio/x-flac","flacdec");
 	if((element = gst_element_factory_make("flacdec","flacdec")) != NULL)
 	{
 		info->status = INSTALLED;
+        info2->status = INSTALLED;
 		gst_object_unref (GST_OBJECT (element));
 		element = NULL;
 	}
-	else
-		info->status = NOT_INSTALLED;
 	media_registered_plugins = g_slist_append(media_registered_plugins,info);
+    media_registered_plugins = g_slist_append(media_registered_plugins,info2);
 	/*
 	TODO: get info for the monkey plugin
 	if((element = gst_element_factory_make("monkeysaudio","monkeysaudio")) != NULL)
@@ -304,21 +294,20 @@ media_register_plugins(void)
 		gst_object_unref (GST_OBJECT (element));
 		element = NULL;
 	}
-	else
-		info->status = NOT_INSTALLED;
 	media_registered_plugins = g_slist_append(media_registered_plugins,info);
 	
 	info = media_create_plugin_info("application/x-wav","wavparse");
+	info2 = media_create_plugin_info("audio/x-wav","wavparse");
 	if((element = gst_element_factory_make("wavparse","wavparse")) != NULL)
 	{
 		info->status = INSTALLED;
+		info2->status = INSTALLED;
 		gst_object_unref (GST_OBJECT (element));
 		element = NULL;
 	}
-	else
-		info->status = NOT_INSTALLED;
 	media_registered_plugins = g_slist_append(media_registered_plugins,info);
-
+	media_registered_plugins = g_slist_append(media_registered_plugins,info2);
+	
 	info = media_create_plugin_info("video/x-ms-asf","ffdec_wmav1");
 	if((element = gst_element_factory_make("ffdec_wmav1","ffdec_wmav1")) != NULL)
 	{
@@ -328,7 +317,78 @@ media_register_plugins(void)
 		gst_object_unref (GST_OBJECT (element));
 		element = NULL;
 	}
-	else
-		info->status = NOT_INSTALLED;
 	media_registered_plugins = g_slist_append(media_registered_plugins,info);
+}
+
+
+void
+media_fakesink_handoff(GstElement* element, GstBuffer* buffer, GstPad* pad, gboolean* handoff)
+{
+	GB_LOG_FUNC
+    g_return_if_fail(handoff != NULL);
+	*handoff = TRUE;
+}
+
+
+void
+media_fakesink_endofstream(GstElement* element, gboolean* endofstream)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(endofstream != NULL);
+	*endofstream = TRUE;
+}
+
+
+void
+media_fakesink_error(GstElement* element, GstElement* source,
+			  GError* error, gchar* debug, GError** gberror)
+{
+	GB_LOG_FUNC
+    g_return_if_fail(error != NULL);
+    g_return_if_fail(gberror != NULL);    
+    *gberror = g_error_copy(error);
+}
+
+
+gint64
+media_calculate_track_length(const gchar* filename)
+{	
+    GB_LOG_FUNC
+    g_return_val_if_fail(filename != NULL, 0);
+    
+	GstElement *pipeline = gst_pipeline_new ("pipeline");
+	GstElement *spider = gst_element_factory_make ("spider", "spider");
+	g_assert (spider);
+	GstElement *source = gst_element_factory_make ("filesrc", "source");
+	g_assert (source);
+	g_object_set (G_OBJECT (source), "location", filename, NULL);
+	GstElement *wavenc = gst_element_factory_make ("wavenc", "parser");
+	g_assert (wavenc);
+	GstElement *destination = gst_element_factory_make ("fakesink", "fakesink");
+	g_assert (destination);
+	gst_bin_add (GST_BIN (pipeline), source);
+	gst_bin_add (GST_BIN (pipeline), spider);
+	gst_bin_add (GST_BIN (pipeline), wavenc);
+	gst_bin_add (GST_BIN (pipeline), destination);
+	gst_element_link (source, spider);
+	gst_element_link (spider, wavenc);
+	gst_element_link (wavenc, destination);
+    
+    GError* error = NULL;
+    gboolean handoff = FALSE, endofstream = FALSE; 
+    g_signal_connect(pipeline, "error", G_CALLBACK(media_fakesink_error), &error);
+    g_object_set(G_OBJECT(destination), "signal-handoffs", TRUE, NULL);
+	g_signal_connect(destination, "handoff", G_CALLBACK(media_fakesink_handoff), &handoff);
+	g_signal_connect(destination, "eos", G_CALLBACK(media_fakesink_endofstream), &endofstream);
+		
+	gst_element_set_state (pipeline, GST_STATE_PLAYING);
+    /* have to iterate a few times before the total time is set - signalled by handoff */    
+    while(gst_bin_iterate (GST_BIN (pipeline)) && (error == NULL) && !handoff && !endofstream);
+    GstFormat format = GST_FORMAT_TIME;
+    gint64 total = 0;   
+	gst_element_query (destination, GST_QUERY_TOTAL, &format, &total);
+    gst_element_set_state (pipeline, GST_STATE_NULL);
+	GB_TRACE("*** track length [%d]", total / GST_SECOND);    
+	g_object_unref(pipeline);
+	return total / GST_SECOND;	
 }
