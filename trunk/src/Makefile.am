@@ -47,7 +47,8 @@ gnomebaker_SOURCES = \
 	selectdevicedlg.h\
 	execfunctions.c\
 	execfunctions.h\
-	media.c
+	media.c\
+	media.h
 
 gnomebaker_LDFLAGS = 
 
