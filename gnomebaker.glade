@@ -489,7 +489,7 @@
 		<widget class="GtkToolButton" id="toolbutton7">
 		  <property name="visible">True</property>
 		  <property name="tooltip" translatable="yes">Burn DVD Image</property>
-		  <property name="label" translatable="yes">Burn CD Image</property>
+		  <property name="label" translatable="yes">Burn DVD Image</property>
 		  <property name="use_underline">True</property>
 		  <property name="icon">baker-dvd-iso.png</property>
 		  <property name="visible_horizontal">True</property>
