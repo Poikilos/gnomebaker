@@ -207,6 +207,7 @@ startdlg_new(const BurnType burntype)
 			gtk_table_attach(table, checkFinalize, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
             gtk_table_attach(table, checkJoliet, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
 			gtk_table_attach(table, checkRockRidge, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
+            gdvdmode = TRUE;
 			break;
 		default:
 			break;
