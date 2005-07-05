@@ -1018,13 +1018,17 @@ growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
 	g_free(writer);
 	
 	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
-	exec_cmd_add_arg(growisofs,"-speed=%s",speed);
+	exec_cmd_add_arg(growisofs,"-speed=%s", speed);
 	g_free(speed);
 	
 	if(preferences_get_bool(GB_ROCKRIDGE))
 	    exec_cmd_add_arg(growisofs, "%s", "-R"); /* Rock Ridge */
     if(preferences_get_bool(GB_JOLIET))
 	    exec_cmd_add_arg(growisofs, "%s", "-J"); /* Joliet */
+    
+    exec_cmd_add_arg(growisofs, "%s", "-iso-level");
+    exec_cmd_add_arg(growisofs, "%s", "3");
+    exec_cmd_add_arg(growisofs, "%s", "-l"); /* allow 31 character iso9660 filenames */
 	
 	/* -gui makes the output more verbose, so we can 
 	    interpret it easier */
