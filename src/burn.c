@@ -285,7 +285,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 			{
 				gchar* file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));		
 				burnargs = exec_new(1);			
-                mkisofs_add_args(&burnargs->cmds[0], datamodel, file);
+                ok = mkisofs_add_args(&burnargs->cmds[0], datamodel, file);
                 g_free(file);
 			}
 			
@@ -296,18 +296,24 @@ burn_create_data_cd(GtkTreeModel* datamodel)
         else if(preferences_get_bool(GB_ONTHEFLY))
         {
             burnargs = exec_new(2);
-            mkisofs_add_args(&burnargs->cmds[0], datamodel, NULL);			
-            cdrecord_add_iso_args(&burnargs->cmds[1], NULL);
-            ok = burn_start_process(TRUE);
+            ok = mkisofs_add_args(&burnargs->cmds[0], datamodel, NULL);			
+            if(ok)                 
+            {
+                cdrecord_add_iso_args(&burnargs->cmds[1], NULL);
+                ok = burn_start_process(TRUE);
+            }
         }
 		else
 		{
             burnargs = exec_new(2);
 			gchar* file = preferences_get_create_data_cd_image();            
-            mkisofs_add_args(&burnargs->cmds[0], datamodel, file);			
-            cdrecord_add_iso_args(&burnargs->cmds[1], file);
-            g_free(file);
-            ok = burn_start_process(FALSE);
+            ok = mkisofs_add_args(&burnargs->cmds[0], datamodel, file);			
+            if(ok)
+            {
+                cdrecord_add_iso_args(&burnargs->cmds[1], file);            
+                ok = burn_start_process(FALSE);
+            }
+            g_free(file);                
 		}
 	}
 	return ok;
@@ -371,8 +377,7 @@ burn_create_audio_cd(GtkTreeModel* audiomodel)
 		GList *audiofiles = g_list_alloc();
 		GSList *pipelines = g_slist_alloc(); 
 		
-		gtk_tree_model_foreach(audiomodel, burn_foreachaudiotrack_func, &pipelines);
-		/*ExecCmd* cmd = exec_add_cmd(burnargs);*/		
+		gtk_tree_model_foreach(audiomodel, burn_foreachaudiotrack_func, &pipelines);	
 		media_convert_add_args(&burnargs->cmds[0],pipelines);
 		const GSList* pipeline = pipelines;
 		while(pipeline)
@@ -535,8 +540,8 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
 	if(burn_show_start_dlg(create_data_dvd) == GTK_RESPONSE_OK)
 	{	
 		burnargs = exec_new(1);
-		growisofs_add_args(&burnargs->cmds[0],datamodel);
-		ok = burn_start_process(FALSE);
+		if(growisofs_add_args(&burnargs->cmds[0],datamodel))
+		    ok = burn_start_process(FALSE);
 	}
 
 	return ok;

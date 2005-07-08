@@ -39,6 +39,9 @@ Version 0.3.1
 * Don't ask for a CD/DVD if it is already in the drive
 * Parent the message dialogs properly so they can't go behind other windows.
 * Use gstreamer to calculate audio track lengths.
+* Show the iso filesystem dialog for dvds
+* Burn flac files.
+* Update the progress bar when formatting a dvd.
 
 Version 0.3
 
