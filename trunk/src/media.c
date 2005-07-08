@@ -355,7 +355,7 @@ media_calculate_track_length(const gchar* filename)
 {	
     GB_LOG_FUNC
     g_return_val_if_fail(filename != NULL, 0);
-    
+        
 	GstElement *pipeline = gst_pipeline_new ("pipeline");
 	GstElement *spider = gst_element_factory_make ("spider", "spider");
 	g_assert (spider);

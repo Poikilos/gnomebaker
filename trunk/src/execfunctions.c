@@ -265,11 +265,11 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
 	exec_cmd_add_arg(e, "%s", "-pad");
 	exec_cmd_add_arg(e, "%s", "-audio");	
 	
-    if(preferences_get_bool(GB_ONTHEFLY))
+    /*if(preferences_get_bool(GB_ONTHEFLY))
     {
         exec_cmd_add_arg(e, "%s", "-"); 
     }
-    else
+    else*/
     {    
         const GList *audiofile = audiofiles;
         while(audiofile != NULL)
@@ -700,7 +700,8 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 		
         if(preferences_get_bool(GB_ROCKRIDGE))		
         {
-		    exec_cmd_add_arg(e, "%s", "-r");
+		    exec_cmd_add_arg(e, "%s", "-R");
+            exec_cmd_add_arg(e, "%s", "-hide-rr-moved");
         }
 		
         if(preferences_get_bool(GB_JOLIET))
@@ -793,10 +794,14 @@ dvdformat_pre_proc(void *ex, void *buffer)
 void
 dvdformat_read_proc(void *ex, void *buffer)
 {
-	GB_LOG_FUNC
-	
+	GB_LOG_FUNC	
 	g_return_if_fail(buffer != NULL);
 	g_return_if_fail(ex != NULL);		
+    
+    /*  * formatting 24.5% */     
+    gfloat percent = 0.0;
+    sscanf((gchar*)buffer, "%*s %*s %f%%", &percent);
+    progressdlg_set_fraction(percent/100.0);    
 	progressdlg_append_output((gchar*)buffer);
 }
 
@@ -994,64 +999,166 @@ About to execute 'builtin_dd if=/home2/cs/SL-9.3-LiveDVD-i386-1.iso of=/dev/hdc 
 }
 
 
-void 
-growisofs_add_args(ExecCmd * const growisofs,GtkTreeModel* datamodel)
+gboolean
+growisofs_add_args(ExecCmd * const e, GtkTreeModel* datamodel)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(growisofs != NULL);
+	g_return_val_if_fail(e != NULL, FALSE);
 	
-	growisofs->readProc = growisofs_read_proc;
-	growisofs->preProc = growisofs_pre_proc;
-	growisofs->postProc = growisofs_post_proc;
-	exec_cmd_add_arg(growisofs, "%s", "growisofs");
+	//~ growisofs->readProc = growisofs_read_proc;
+	//~ growisofs->preProc = growisofs_pre_proc;
+	//~ growisofs->postProc = growisofs_post_proc;
+	//~ exec_cmd_add_arg(growisofs, "%s", "growisofs");
 	
-	/* merge new session with existing one */
-	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
-	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
-	if(msinfo != NULL)
-		exec_cmd_add_arg(growisofs, "%s", "-M");
-	else
-		exec_cmd_add_arg(growisofs, "%s", "-Z");
+	//~ /* merge new session with existing one */	
+	//~ gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
+	//~ if(msinfo != NULL)
+		//~ exec_cmd_add_arg(growisofs, "%s", "-M");
+	//~ else
+		//~ exec_cmd_add_arg(growisofs, "%s", "-Z");
+	//~ /* We don't own the msinfo gchar datacd does 
+	//~ g_free(msinfo);*/
+    //~ gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
+	//~ exec_cmd_add_arg(growisofs, "%s", writer);
+	//~ g_free(writer);
+	
+	//~ gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
+	//~ exec_cmd_add_arg(growisofs,"-speed=%s", speed);
+	//~ g_free(speed);
+	
+	//~ if(preferences_get_bool(GB_ROCKRIDGE))
+    //~ {
+	    //~ exec_cmd_add_arg(growisofs, "%s", "-R"); /* Rock Ridge */
+        //~ exec_cmd_add_arg(growisofs, "%s", "-hide-rr-moved ");
+    //~ }
+    //~ if(preferences_get_bool(GB_JOLIET))
+    //~ {
+        //~ exec_cmd_add_arg(growisofs, "%s", "-J");
+        //~ exec_cmd_add_arg(growisofs, "%s", "-joliet-long");
+    //~ }
+    
+    //~ exec_cmd_add_arg(growisofs, "%s", "-iso-level");
+    //~ exec_cmd_add_arg(growisofs, "%s", "3");
+    //~ exec_cmd_add_arg(growisofs, "%s", "-l"); /* allow 31 character iso9660 filenames */
+	
+	//~ /* -gui makes the output more verbose, so we can 
+	    //~ interpret it easier */
+	//~ exec_cmd_add_arg(growisofs,"%s","-gui");
+
+	//~ /* stop the reloading of the disc */
+	//~ exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=notray");
+	
+	//~ /* force overwriting existing filesystem */
+    //~ exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=tty");
+	
+	//~ /* TODO: Overburn support */
+	//~ /* preferences_get_int(GB_OVERBURN)
+	//~ if(prefs->overburn)
+		//~ exec_cmd_add_arg(growisofs, "%s", "-overburn"); */
+	//~ /* TODO: where do we get temporary vars from ? */
+	//~ /* we should not store FINALIZE etc in gconf */
+	//~ if(preferences_get_bool(GB_FINALIZE))
+		//~ exec_cmd_add_arg(growisofs, "%s", "-dvd-compat");
+	//~ /* -dvd-compat closes the session on DVD+RW's also 
+	//~ preferences_set_bool(GB_FINALIZE,FALSE);*/	
+	//~ exec_cmd_add_arg(growisofs, "%s", "-graft-points");
+	//~ gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, growisofs);
+    
+    //********************************************************************
+    
+    /* If this is a another session on an existing cd we don't show the 
+	   iso details dialog */	
+	gint ret = GTK_RESPONSE_OK;
+	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);   
+	gchar* volume = NULL;
+	gchar* createdby = NULL;
+	if(msinfo == NULL)
+	{
+		GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);	
+		GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
+		gtk_entry_set_text(created, g_get_real_name());
+		GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
+		ret = gtk_dialog_run(GTK_DIALOG(dlg));
+		volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
+		createdby = g_strdup(gtk_entry_get_text(created));
+		gtk_widget_hide(dlg);
+		gtk_widget_destroy(dlg);
+	}
+	
+	if(ret == GTK_RESPONSE_OK)
+	{
+		exec_cmd_add_arg(e, "%s", "growisofs");		
+		if(volume != NULL && createdby != NULL)
+		{
+			exec_cmd_add_arg(e, "%s",  "-V");			
+			exec_cmd_add_arg(e, "%s", volume);
+			exec_cmd_add_arg(e, "%s", "-p");
+			exec_cmd_add_arg(e, "%s", createdby);
+		}
+        
+        exec_cmd_add_arg(e, "%s", "-iso-level");
+        exec_cmd_add_arg(e, "%s", "3");
+        exec_cmd_add_arg(e, "%s", "-l"); /* allow 31 character iso9660 filenames */
+		
+        if(preferences_get_bool(GB_ROCKRIDGE))		
+        {
+		    exec_cmd_add_arg(e, "%s", "-R");
+            exec_cmd_add_arg(e, "%s", "-hide-rr-moved");
+        }
+		
+        if(preferences_get_bool(GB_JOLIET))
+        {
+		    exec_cmd_add_arg(e, "%s", "-J");
+            exec_cmd_add_arg(e, "%s", "-joliet-long");
+        }
+        
+        /*exec_cmd_add_arg(e, "%s", "-f"); don't follow links */
+		/*exec_cmd_add_arg(e, "%s", "-hfs");*/		
+				
+        /* merge new session with existing one */	
+        gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
+        if(msinfo != NULL)
+            exec_cmd_add_arg(e, "%s", "-M");
+        else
+            exec_cmd_add_arg(e, "%s", "-Z");
+
+        gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
+        exec_cmd_add_arg(e, "%s", writer);
+        g_free(writer);
+        
+        gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
+        exec_cmd_add_arg(e,"-speed=%s", speed);
+        g_free(speed);
+        
+        /* stop the reloading of the disc */
+        exec_cmd_add_arg(e, "%s", "-use-the-force-luke=notray");
+        
+        /* force overwriting existing filesystem */
+        exec_cmd_add_arg(e, "%s", "-use-the-force-luke=tty");
+	
+        /* TODO: Overburn support */
+        /* preferences_get_int(GB_OVERBURN)
+        if(prefs->overburn)
+            exec_cmd_add_arg(growisofs, "%s", "-overburn"); */
+        
+        if(preferences_get_bool(GB_FINALIZE))
+            exec_cmd_add_arg(e, "%s", "-dvd-compat");
+
+        exec_cmd_add_arg(e, "%s", "-gui");	
+        exec_cmd_add_arg(e, "%s", "-graft-points");
+		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
+				
+		e->readProc = growisofs_read_proc;
+        e->preProc = growisofs_pre_proc;
+        e->postProc = growisofs_post_proc;
+	}
+	
 	/* We don't own the msinfo gchar datacd does 
 	g_free(msinfo);*/
-	exec_cmd_add_arg(growisofs, "%s", writer);
-	g_free(writer);
+	g_free(volume);
+	g_free(createdby);
 	
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
-	exec_cmd_add_arg(growisofs,"-speed=%s", speed);
-	g_free(speed);
-	
-	if(preferences_get_bool(GB_ROCKRIDGE))
-	    exec_cmd_add_arg(growisofs, "%s", "-R"); /* Rock Ridge */
-    if(preferences_get_bool(GB_JOLIET))
-	    exec_cmd_add_arg(growisofs, "%s", "-J"); /* Joliet */
-    
-    exec_cmd_add_arg(growisofs, "%s", "-iso-level");
-    exec_cmd_add_arg(growisofs, "%s", "3");
-    exec_cmd_add_arg(growisofs, "%s", "-l"); /* allow 31 character iso9660 filenames */
-	
-	/* -gui makes the output more verbose, so we can 
-	    interpret it easier */
-	exec_cmd_add_arg(growisofs,"%s","-gui");
-
-	/* stop the reloading of the disc */
-	exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=notray");
-	
-	/* force overwriting existing filesystem */
-    exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=tty");
-	
-	/* TODO: Overburn support */
-	/* preferences_get_int(GB_OVERBURN)
-	if(prefs->overburn)
-		exec_cmd_add_arg(growisofs, "%s", "-overburn"); */
-	/* TODO: where do we get temporary vars from ? */
-	/* we should not store FINALIZE etc in gconf */
-	if(preferences_get_bool(GB_FINALIZE))
-		exec_cmd_add_arg(growisofs, "%s", "-dvd-compat");
-	/* -dvd-compat closes the session on DVD+RW's also */	
-	preferences_set_bool(GB_FINALIZE,FALSE);
-	exec_cmd_add_arg(growisofs, "%s", "-graft-points");
-	gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, growisofs);
+	return (ret == GTK_RESPONSE_OK);
 }
 
 void 
