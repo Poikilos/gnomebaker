@@ -204,9 +204,10 @@ startdlg_new(const BurnType burntype)
 			gtk_widget_hide(optmenWriteMode);
 			gtk_widget_hide(optmenReader);
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
-			gtk_table_attach(table, checkFinalize, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-            gtk_table_attach(table, checkJoliet, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkRockRidge, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
+            gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkFinalize, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
+            gtk_table_attach(table, checkJoliet, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkRockRidge, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);
             gdvdmode = TRUE;
 			break;
 		default:
