@@ -453,6 +453,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 	g_return_if_fail(buffer != NULL);
 	
 	gchar* text = (gchar*)buffer;
+    hack_characters((gchar*)buffer);
 	
 	/*GB_TRACE( "cdda2wav_read_proc - read [%s]", text);*/
 	
@@ -604,6 +605,7 @@ mkisofs_read_proc(void *ex, void *buffer)
 	
 	g_return_if_fail(ex != NULL);
 	g_return_if_fail(buffer != NULL);
+    hack_characters((gchar*)buffer);
 	
 	const gchar* percent = strrchr(buffer, '%');
 	if(percent != NULL)
@@ -846,8 +848,12 @@ dvdformat_add_args(ExecCmd * const dvdFormat)
 	}
 	else if(!preferences_get_bool(GB_FAST_FORMAT))
 	{
-		exec_cmd_add_arg(dvdFormat, "%s", "-format=full");
-	}	
+		exec_cmd_add_arg(dvdFormat, "%s", "-blank=full");
+	}
+    else
+    {
+        exec_cmd_add_arg(dvdFormat, "%s", "-blank");
+    }        
 }
 
 
@@ -1035,6 +1041,11 @@ growisofs_add_args(ExecCmd * const e, GtkTreeModel* datamodel)
 			exec_cmd_add_arg(e, "%s", createdby);
 		}
         
+        /* http://www.troubleshooters.com/linux/coasterless_dvd.htm#_Gotchas 
+            states that dao with dvd compat is the best way of burning dvds */
+        exec_cmd_add_arg(e, "%s", "-use-the-force-luke=dao");
+        /*exec_cmd_add_arg(e, "%s", "-dvd-compat");*/
+                
         exec_cmd_add_arg(e, "%s", "-iso-level");
         exec_cmd_add_arg(e, "%s", "3");
         exec_cmd_add_arg(e, "%s", "-l"); /* allow 31 character iso9660 filenames */
@@ -1133,9 +1144,7 @@ growisofs_add_iso_args(ExecCmd * const growisofs,const gchar *iso)
 	
 	gchar* buffer = g_strdup_printf("%s=%s",writer, iso);		
 	exec_cmd_add_arg(growisofs, "%s", buffer);
-	g_free(writer);
-	
-	
+	g_free(writer);		
 }
 
 
@@ -1195,6 +1204,7 @@ readcd_read_proc(void *ex, void *buffer)
 	GB_LOG_FUNC
 	g_return_if_fail(buffer != NULL);
 	g_return_if_fail(ex != NULL);
+    hack_characters((gchar*)buffer);
 		
 	gchar* text = (gchar*)buffer;
 	
@@ -1279,8 +1289,10 @@ cdrdao_read_proc(void *ex, void *buffer)
 	GB_LOG_FUNC
 	g_return_if_fail(buffer != NULL);
 	g_return_if_fail(ex != NULL);	
-	
+    
+    hack_characters((gchar*)buffer);
 	const gchar* output = (gchar*)buffer;		
+    hack_characters((gchar*)buffer);
 	const gchar* length = strstr(output, ", length");
 	if(length != NULL)
 	{
@@ -1328,6 +1340,9 @@ cdrdao_add_bin_args(ExecCmd* cmd, const gchar* const bin)
 
 	if(preferences_get_bool(GB_DUMMY))
 		exec_cmd_add_arg(cmd, "%s", "--simulate");
+    
+    exec_cmd_add_arg(cmd, "%s", "--datafile");
+    exec_cmd_add_arg(cmd, "%s", bin);
 }
 
 
