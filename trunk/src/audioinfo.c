@@ -138,7 +138,7 @@ audioinfo_get_wav_info(AudioInfo* self, const gchar* wavfile)
 	FILE* st = fopen(wavfile, "rb");
 	if (st == NULL)
 	{
-		printf(_("File %s was not opened \n"), wavfile);
+		g_warning("File %s was not opened \n", wavfile);
 	}
 	else
 	{		
@@ -163,7 +163,7 @@ audioinfo_get_wav_info(AudioInfo* self, const gchar* wavfile)
 			{
 				const gint numlabels = 3;
 				const gchar* labels[3] = 
-					{ N_ ("Performer"),N_ ("Albumtitle"),N_ ("Tracktitle") };
+					{ "Performer", "Albumtitle", "Tracktitle" };
 				
 				GString* copyto[3] = 
 					{ self->artist, self->album, self->title };					
@@ -211,7 +211,7 @@ audioinfo_get_mp3_info(AudioInfo* info, const gchar *FileName)
 	FILE* st = fopen(FileName, "rb");
 	if (st == NULL)
 	{
-		g_warning(_("File %s was not opened"), FileName);
+		g_warning("File %s was not opened", FileName);
 	}
 	else
 	{		
@@ -268,7 +268,7 @@ audioinfo_get_ogg_info(AudioInfo* info, const gchar *oggfile)
 	FILE* st = fopen(oggfile, "rb");
 	if (st == NULL)
 	{
-		printf(_("File %s was not opened \n"), oggfile);
+		g_warning("File %s was not opened \n", oggfile);
 	}
 	else if(ov_open(st, &file, NULL, 0) == 0)
 	{
