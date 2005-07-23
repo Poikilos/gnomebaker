@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-02 22:37+0100\n"
+"POT-Creation-Date: 2005-07-15 22:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -134,7 +134,7 @@ msgid ""
 msgstr ""
 "선택한 파일이 CD 이미지가 아닙니다. CD 굽기를 할 이미지를 선택하십시오."
 
-#: src/burn.c:279 src/burn.c:442
+#: src/burn.c:279 src/burn.c:447
 msgid "Please select an iso file to save to..."
 msgstr "저장할 iso 파일을 선택해 주십시오."
 
@@ -444,11 +444,11 @@ msgstr ""
 msgid "Please insert the audio CD into the CD reader"
 msgstr "CD 리더에 오디오 CD를 넣어 주십시오"
 
-#: src/execfunctions.c:575
+#: src/execfunctions.c:576
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>데이터 디스크 이미지 생성중...</b>"
 
-#: src/execfunctions.c:583
+#: src/execfunctions.c:584
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -456,31 +456,31 @@ msgstr ""
 "이미 이전 세션의 데이터 CD 이미지가 디스크에 존재합니다, 기존 이미지를 이용하"
 "시겠습니까?"
 
-#: src/execfunctions.c:770
+#: src/execfunctions.c:773
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>DVD 포맷중...</b>"
 
-#: src/execfunctions.c:777
+#: src/execfunctions.c:780
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "DVD 라이터기에 재기록할 DVD를 넣어주세요."
 
-#: src/execfunctions.c:860
+#: src/execfunctions.c:871
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>DVD를 굽는 중...</b>"
 
-#: src/execfunctions.c:868
+#: src/execfunctions.c:879
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "DVD 라이터기에 기록할 DVD를 넣어주세요."
 
-#: src/execfunctions.c:947 src/execfunctions.c:991
+#: src/execfunctions.c:958 src/execfunctions.c:1002
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1103
+#: src/execfunctions.c:1162
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>CD 이미지 읽는 중...</b>"
 
-#: src/execfunctions.c:1348
+#: src/execfunctions.c:1413
 #, fuzzy
 msgid "<b>Converting files to cd audio...</b>"
 msgstr "<b>wav 를 CD 오디오 변환중...</b>"

@@ -15,7 +15,7 @@
     </date>
     <version identifier="0.2" date="2005-02-03" 
     description="GnomeBaker Manual, first version, program version 0.2"/>
-    <subject category="GNOME|Accessories"/>
+    <subject category="GNOME|Applications|Accessories"/>
     <description>
       User manual for GnomeBaker. 
     </description>
@@ -25,7 +25,7 @@
     <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
     <identifier url="gnomebaker.xml"/>
     <language code="C"/>
-    <relation seriesid="48206048-5ef3-11d7-85db-fe5f992e5b79"/>
+    <relation seriesid="483a807a-fa25-11d9-9a5d-acf56da65536"/>
     <rights type="GNU FDL" license.version="1.1" holder="Milen Dzhumerov"/>
   </resource>
 </omf>

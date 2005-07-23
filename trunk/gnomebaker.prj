@@ -105,7 +105,8 @@ module.source.files=\
 	selectdevicedlg.h\
 	execfunctions.c\
 	execfunctions.h\
-	media.c
+	media.c\
+	media.h
 
 module.pixmap.name=pixmaps
 module.pixmap.type=
@@ -120,7 +121,11 @@ module.pixmap.files=\
 	gnomebaker-48.png\
 	splash_2.png\
 	baker-import-session.png\
-	baker-blank-dvdrw.png
+	baker-blank-dvdrw.png\
+	baker-cd-iso.png\
+	baker-cue-image.png\
+	baker-dvd-iso.png\
+	baker-remove-files.png
 
 module.data.name=data
 module.data.type=

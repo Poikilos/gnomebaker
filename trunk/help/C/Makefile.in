@@ -212,8 +212,8 @@ entities = legal.xml
 # ************* Begin of section some packagers may need to modify  **************
 # This variable (docdir) specifies where the documents should be installed.
 # This default value should work for most packages.
-docdir = $(datadir)/@PACKAGE@/doc/$(docname)/$(lang)
-#docdir = $(datadir)/gnome/help/$(docname)/$(lang)
+#docdir = $(datadir)/@PACKAGE@/doc/$(docname)/$(lang)
+docdir = $(datadir)/gnome/help/$(docname)/$(lang)
 
 # **************  You should not have to edit below this line  *******************
 # ** GSt did ... 

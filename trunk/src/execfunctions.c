@@ -1139,7 +1139,7 @@ growisofs_add_iso_args(ExecCmd * const growisofs,const gchar *iso)
 	/* force overwriting existing filesystem */
     exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=tty");
 	
-	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_ID_LABEL);
+	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_NODE_LABEL);
 	exec_cmd_add_arg(growisofs, "%s", "-Z");
 	
 	gchar* buffer = g_strdup_printf("%s=%s",writer, iso);		

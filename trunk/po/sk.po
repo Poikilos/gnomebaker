@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-02 22:37+0100\n"
+"POT-Creation-Date: 2005-07-15 22:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -134,7 +134,7 @@ msgstr ""
 "Súbor, čo ste vybrali nie je obrazom disku CD. Vyberte prosím obraz disku CD "
 "na napálenie."
 
-#: src/burn.c:279 src/burn.c:442
+#: src/burn.c:279 src/burn.c:447
 msgid "Please select an iso file to save to..."
 msgstr "Vyberte prosím názov súboru na uloženie obrazu disku..."
 
@@ -441,11 +441,11 @@ msgstr ""
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Vložte prosím audio CD do CD mechaniky"
 
-#: src/execfunctions.c:575
+#: src/execfunctions.c:576
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Vytváram obraz disku...</b>"
 
-#: src/execfunctions.c:583
+#: src/execfunctions.c:584
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -453,31 +453,31 @@ msgstr ""
 "Obraz CD predchádzajúcej sekcie existuje na pevnom disku. Chcete použiť "
 "existujúci obraz?"
 
-#: src/execfunctions.c:770
+#: src/execfunctions.c:773
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Formátujem DVD...</b>"
 
-#: src/execfunctions.c:777
+#: src/execfunctions.c:780
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Vložte prosím prepisovateľné DVD do DVD napaľovačky"
 
-#: src/execfunctions.c:860
+#: src/execfunctions.c:871
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Vypaľujem DVD...</b>"
 
-#: src/execfunctions.c:868
+#: src/execfunctions.c:879
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Vložte zapisovateľné DVD do DVD napaľovačky"
 
-#: src/execfunctions.c:947 src/execfunctions.c:991
+#: src/execfunctions.c:958 src/execfunctions.c:1002
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1103
+#: src/execfunctions.c:1162
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>Čítam obraz CD...</b>"
 
-#: src/execfunctions.c:1348
+#: src/execfunctions.c:1413
 #, fuzzy
 msgid "<b>Converting files to cd audio...</b>"
 msgstr "<b>Konvertujem wav na hudobné CD...</b>"

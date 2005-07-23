@@ -50,8 +50,7 @@ gnomebaker_on_show_file_browser(GtkCheckMenuItem *checkmenuitem, gpointer user_d
 	preferences_set_bool(GB_SHOW_FILE_BROWSER, show);
 				
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_menu), show);
-	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_button), show);
-	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_add_button), show);
+	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_button), show);	
 	
 	GtkWidget* hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);	
 	if(show) gtk_widget_show(hpaned3);
@@ -125,13 +124,12 @@ gnomebaker_new()
 	const gint y = preferences_get_int(GB_MAIN_WINDOW_POSITION_Y);
 	const gint width = preferences_get_int(GB_MAIN_WINDOW_WIDTH);
 	const gint height = preferences_get_int(GB_MAIN_WINDOW_HEIGHT);
-	const gboolean maximized = preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED);
 
-	if(x*y != -1)
+	if((x > 0) && (y > 0))
 		gtk_window_move(GTK_WINDOW(main_window), x, y);
-	if(width*height != -1)
+	if((width > 0) && (height > 0))
 		gtk_window_resize(GTK_WINDOW(main_window), width, height);
-	if(maximized)
+	if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED))
 		gtk_window_maximize(GTK_WINDOW(main_window));
 
 	return main_window;
@@ -174,49 +172,54 @@ gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	switch(gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-		 _("Are you sure you want to quit?")))
+	gint response = GTK_RESPONSE_OK;	
+	if(preferences_get_bool(GB_ASK_ON_QUIT))
 	{
-	case GTK_RESPONSE_OK:
-	
-		/* Clean out the temporary files directory if we're told to */		
-		if(preferences_get_bool(GB_CLEANTEMPDIR))
-		{
-			gchar* copydataiso = preferences_get_copy_data_cd_image();
-			gchar* createdataiso = preferences_get_create_data_cd_image();
-			gchar* audiodir = preferences_get_convert_audio_track_dir();
-			
-			gchar* tmp = preferences_get_string(GB_TEMP_DIR);
-			gchar* cmd = g_strdup_printf("rm -fr %s %s %s %s/gbtrack*", 
-				copydataiso, createdataiso, audiodir, tmp);
-			system(cmd);
-			
-			g_free(tmp);
-			g_free(cmd);
-			g_free(copydataiso);
-			g_free(createdataiso);
-			g_free(audiodir);
-		}
-		
-		/* Save main window position and size */
-		GtkWidget* main_window = glade_xml_get_widget(xml, widget_gnomebaker);
+        response = gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+		 _("Are you sure you want to quit?"));
+    }
+    switch(response)
+    {
+    case GTK_RESPONSE_OK:
+    
+        /* Clean out the temporary files directory if we're told to */		
+        if(preferences_get_bool(GB_CLEANTEMPDIR))
+        {
+            gchar* copydataiso = preferences_get_copy_data_cd_image();
+            gchar* createdataiso = preferences_get_create_data_cd_image();
+            gchar* audiodir = preferences_get_convert_audio_track_dir();
+            
+            gchar* tmp = preferences_get_string(GB_TEMP_DIR);
+            gchar* cmd = g_strdup_printf("rm -fr %s %s %s %s/gbtrack*", 
+                copydataiso, createdataiso, audiodir, tmp);
+            system(cmd);
+            
+            g_free(tmp);
+            g_free(cmd);
+            g_free(copydataiso);
+            g_free(createdataiso);
+            g_free(audiodir);
+        }
+        
+        /* Save main window position and size */
+        GtkWidget* main_window = glade_xml_get_widget(xml, widget_gnomebaker);
 
-		gint width, height, x, y;
-		gtk_window_get_size(GTK_WINDOW(main_window), &width, &height);
-		gtk_window_get_position(GTK_WINDOW(main_window), &x, &y);
+        gint width, height, x, y;
+        gtk_window_get_size(GTK_WINDOW(main_window), &width, &height);
+        gtk_window_get_position(GTK_WINDOW(main_window), &x, &y);
 
-		preferences_set_int(GB_MAIN_WINDOW_WIDTH, width);
-		preferences_set_int(GB_MAIN_WINDOW_HEIGHT, height);
-		preferences_set_int(GB_MAIN_WINDOW_POSITION_X, x);
-		preferences_set_int(GB_MAIN_WINDOW_POSITION_Y, y);
-		
-		gtk_main_quit();
-		break;
-	case GTK_RESPONSE_CANCEL:
-		break;
-	default:
-		break;
-	}
+        preferences_set_int(GB_MAIN_WINDOW_WIDTH, width);
+        preferences_set_int(GB_MAIN_WINDOW_HEIGHT, height);
+        preferences_set_int(GB_MAIN_WINDOW_POSITION_X, x);
+        preferences_set_int(GB_MAIN_WINDOW_POSITION_Y, y);
+        
+        gtk_main_quit();
+        break;
+    case GTK_RESPONSE_CANCEL:
+        break;
+    default:
+        break;
+    }	
 }
 
 
@@ -390,21 +393,70 @@ void
 gnomebaker_on_add_files(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-	
-	GtkSelectionData* selection_data = filebrowser_get_selection(FALSE);
-	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);	
-	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
-	{
-		case 0:
-			datacd_add_selection(selection_data);
-			break;
-		case 1:
-			audiocd_add_selection(selection_data);
-			break;
-		default:{}
-	};
-	
-	gtk_selection_data_free(selection_data);
+    
+    GtkSelectionData* selection_data = NULL;
+    
+    /* If we're not showing the file browser we popup an file selector dialog when
+    we press + */
+    if(preferences_get_bool(GB_SHOW_FILE_BROWSER))
+    {
+        selection_data = filebrowser_get_selection(FALSE);        
+    }
+    else
+    {
+        GtkWidget *filesel = gtk_file_chooser_dialog_new(
+	        _("Please select files to add to the disk..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
+	        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+        
+        gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), TRUE);     
+        if(gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)
+        {
+            
+            GSList* files = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(filesel));
+            //gchar** uris = g_malloc0(g_slist_length(files) * sizeof(gchar*));
+            
+            GSList* file = files;
+            int index = 0;
+            GString* text = g_string_new("");
+            while(file)
+            {
+                /* hand ownership of the data to the gchar** which we free later */
+                GB_TRACE("index [%d] file [%s]", index, (gchar*)file->data);
+                g_string_append(text, (gchar*)file->data);
+                g_string_append(text, "\n");
+                g_free((gchar*)file->data);
+                //uris[index++] = (gchar*)file->data;
+                file = file->next;                
+            }
+            
+            //gtk_selection_data_set_uris(selection_data, uris);            
+            selection_data = g_new0(GtkSelectionData, 1);	                 
+            gtk_selection_data_set(selection_data, selection_data->target, 8, 
+                (const guchar*)text->str, strlen(text->str) * sizeof(gchar));
+            GB_TRACE("[%s]", selection_data->data);
+            g_slist_free(files);
+            //g_strfreev(uris);
+            g_string_free(text, TRUE);
+        }
+        gtk_widget_destroy(filesel);
+    }
+    
+    if(selection_data != NULL)
+    {
+        GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);	
+        switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
+        {
+            case 0:
+                datacd_add_selection(selection_data);
+                break;
+            case 1:
+                audiocd_add_selection(selection_data);
+                break;
+            default:{}
+        };
+        
+        gtk_selection_data_free(selection_data);
+    }
 }
 
 

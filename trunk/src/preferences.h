@@ -48,6 +48,7 @@
 #define GB_JOLIET                   GB_BASE_KEY "/Joliet"
 #define GB_ROCKRIDGE                GB_BASE_KEY "/RockRidge"
 #define GB_ONTHEFLY                 GB_BASE_KEY "/OnTheFly"
+#define GB_ASK_ON_QUIT				GB_BASE_KEY "/AskOnQuit"
 
 #define GB_MAIN_WINDOW_HEIGHT		GB_BASE_KEY "/UI/MainWindowHeight"
 #define GB_MAIN_WINDOW_WIDTH		GB_BASE_KEY "/UI/MainWindowWidth"
