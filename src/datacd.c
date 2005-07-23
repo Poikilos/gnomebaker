@@ -231,7 +231,7 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 	}
 	else
 	{
-		g_warning(_("failed to stat file [%s] with ret code [%d] error no [%s]"), 
+		g_warning("failed to stat file [%s] with ret code [%d] error no [%s]", 
 			filename, statret, strerror(errno));
 		
 		ret = FALSE;
@@ -514,7 +514,7 @@ datacd_new()
 
 	/* Third column to display the human size of file/dir */
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Size");
+	gtk_tree_view_column_set_title(col, _("Size"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
 	gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_HUMANSIZE, NULL);

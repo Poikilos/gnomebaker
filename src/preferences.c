@@ -41,7 +41,7 @@ preferences_init()
 	gconf_client = gconf_client_get_default();
 	if(gconf_client == NULL) 
 	{
-		g_critical(_("Failed to initialise gconf"));
+		g_critical("Failed to initialise gconf");
 	}
 	else
 	{

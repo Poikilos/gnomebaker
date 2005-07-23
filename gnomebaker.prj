@@ -39,7 +39,7 @@ project.excluded.modules=intl po
 project.config.extra.modules.before=
 project.config.extra.modules.after=
 project.config.blocked=0
-project.config.disable.overwriting=1 1 0 0 0 0 0 0 1 
+project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
 
 project.menu.entry=gnomebaker Version 0.1
 project.menu.group=Applications

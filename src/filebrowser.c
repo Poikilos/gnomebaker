@@ -64,10 +64,10 @@ static GtkTargetEntry targetentries[] =
 };
 
 
-static const gchar *ROOT_LABEL = "Filesystem";
-static const gchar *HOME_LABEL = "Home";
-static const gchar *EMPTY_LABEL = "(empty)";
-static const gchar *DIRECTORY = "Folder";
+static const gchar *ROOT_LABEL = N_("Filesystem");
+static const gchar *HOME_LABEL = N_("Home");
+static const gchar *EMPTY_LABEL = N_("(empty)");
+static const gchar *DIRECTORY = N_("Folder");
 
 gchar* rightclickselection = NULL;
 
