@@ -190,17 +190,17 @@ gnomebaker_pixmaps_DATA = \
 	baker-add-files.png\
 	baker-audio-copy.png\
 	baker-blank-cdrw.png\
-    baker-blank-dvdrw.png\
 	baker-burn-cd.png\
-    baker-cd-iso.png\
 	baker-cd.png\
-    baker-cue-image.png\
 	baker-data-copy.png\
-    baker-dvd-iso.png\
-    baker-import-session.png\
-    baker-remove-files.png\
 	gnomebaker-48.png\
-	splash_2.png
+	splash_2.png\
+	baker-import-session.png\
+	baker-blank-dvdrw.png\
+	baker-cd-iso.png\
+	baker-cue-image.png\
+	baker-dvd-iso.png\
+	baker-remove-files.png
 
 EXTRA_DIST = $(gnomebaker_pixmaps_DATA)
 all: all-am

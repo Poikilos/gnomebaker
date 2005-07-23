@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-02 22:37+0100\n"
+"POT-Creation-Date: 2005-07-15 22:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Dutch (Netherlands) <nl_NL@li.org>\n"
@@ -133,7 +133,7 @@ msgstr ""
 "Het geselecteerde bestand is geen cd image. Selecteer een cd image om te "
 "schrijven."
 
-#: src/burn.c:279 src/burn.c:442
+#: src/burn.c:279 src/burn.c:447
 msgid "Please select an iso file to save to..."
 msgstr "Selecteer een iso bestand om te bewaren..."
 
@@ -436,11 +436,11 @@ msgstr ""
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Plaats de audio CD in de CD-speler"
 
-#: src/execfunctions.c:575
+#: src/execfunctions.c:576
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Data disk image aanmaken...</b>"
 
-#: src/execfunctions.c:583
+#: src/execfunctions.c:584
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -448,31 +448,31 @@ msgstr ""
 "Er bestaat al een data CD image op de schijf. Wilt u de bestaande image "
 "gebruiken?"
 
-#: src/execfunctions.c:770
+#: src/execfunctions.c:773
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Formatteren van DVD...</b>"
 
-#: src/execfunctions.c:777
+#: src/execfunctions.c:780
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Plaats en herschrijfbare DVD in de DVD schrijver"
 
-#: src/execfunctions.c:860
+#: src/execfunctions.c:871
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Beschijven van DVD...</b>"
 
-#: src/execfunctions.c:868
+#: src/execfunctions.c:879
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Plaats en beschrijfbare DVD in de DVD schrijver"
 
-#: src/execfunctions.c:947 src/execfunctions.c:991
+#: src/execfunctions.c:958 src/execfunctions.c:1002
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1103
+#: src/execfunctions.c:1162
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>CD image aan het lezen...</b>"
 
-#: src/execfunctions.c:1348
+#: src/execfunctions.c:1413
 #, fuzzy
 msgid "<b>Converting files to cd audio...</b>"
 msgstr "<b>Converteren van wav naar cd audio...</b>"
