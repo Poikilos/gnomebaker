@@ -129,10 +129,7 @@ gboolean
 burn_start_process(gboolean onthefly)
 {
 	GB_LOG_FUNC
-	gboolean ok = TRUE;
-	
-	/* this will umount the writer if it is mounted */
-	devices_mount_device(GB_WRITER, NULL);
+	gboolean ok = TRUE;		  
 	
 	/* Wire up the function that gets called at the end of the burning process. 
 	   This finalises the text in the progress dialog.*/
@@ -144,7 +141,9 @@ burn_start_process(gboolean onthefly)
      * there is only ever _1_ command to tell the progress bar about.
 	 */
 	GtkWidget *dlg = progressdlg_new(onthefly ? 1 : burnargs->cmdCount);
-	
+    
+	/*g_usleep(2000000);*/
+    
 	if(exec_go(burnargs, onthefly) == 0)
 	{
 		gtk_dialog_run(GTK_DIALOG(dlg));		

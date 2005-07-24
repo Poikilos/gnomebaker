@@ -111,6 +111,7 @@ cdrecord_pre_proc(void *ex, void *buffer)
 			e->state = CANCELLED;
 		}
 	}
+    devices_mount_device(GB_WRITER, NULL);
 }
 
 
@@ -139,6 +140,7 @@ cdrecord_blank_pre_proc(void *ex, void *buffer)
     {
         progressdlg_pulse_start();
 	}
+    devices_mount_device(GB_WRITER, NULL);
 }
 
 
@@ -443,7 +445,7 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 		ExecCmd* e = (ExecCmd*)ex;
 		e->state = SKIP;
 	}
-	
+	devices_mount_device(GB_READER, NULL);
 	g_free(tmp);
 }
 
@@ -787,6 +789,7 @@ dvdformat_pre_proc(void *ex, void *buffer)
         ExecCmd* e = (ExecCmd*)ex;
         e->state = CANCELLED;
     }
+    devices_mount_device(GB_WRITER, NULL);
 }
 
 
@@ -881,6 +884,7 @@ growisofs_pre_proc(void *ex,void *buffer)
 			e->state = CANCELLED;
 		}
 	}
+    devices_mount_device(GB_WRITER, NULL);
 }
 
 
@@ -1193,6 +1197,7 @@ readcd_pre_proc(void *ex, void *buffer)
 		ExecCmd* e = (ExecCmd*)ex;
 		e->state = SKIP;
 	}
+    devices_mount_device(GB_READER, NULL);
 }
 
 
