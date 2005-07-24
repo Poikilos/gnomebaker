@@ -354,11 +354,15 @@ exec_cancel(const Exec * const e)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
+    
+    const pid_t us = getpid();
+    const pid_t parent = getppid();
+    GB_TRACE("exec_cancel - us [%d] parent [%d]", us, parent);
 
 	gint j = 0;
 	for(; j < e->cmdCount; j++)
 	{
-		if(e->cmds[j].pid > 0)
+		if((e->cmds[j].pid > 0) && (e->cmds[j].pid != us) && (e->cmds[j].pid != parent))
 		{
 			GB_TRACE("exec_cancel - killing %d", e->cmds[j].pid);
 			kill(e->cmds[j].pid, SIGKILL);

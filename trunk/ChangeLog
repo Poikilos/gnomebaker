@@ -3,6 +3,9 @@ Version 0.4.1
 * Apply Milen's patch so we can determine if we ask to quit
 * Marco Meyerhofer patches (Nearly complete translation in german,  install help-files under /usr/share/gnome/help/, make help appear in yelp under Application/Accessories
 * Fix stupid bug with window sizing and not checking arguments.
+* Check pids are not us or our parent when killing processes.
+* Apply patch so that the progress dialogs show output button says hide when the output is showing.
+
 
 Version 0.4
 
