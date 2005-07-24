@@ -112,6 +112,7 @@ static const gchar* const widget_progdlg_output = "textview1";
 static const gchar* const widget_progdlg_output_scroll = "textviewScroll";
 static const gchar* const widget_progdlg_stop = "buttonStop";
 static const gchar* const widget_progdlg_close = "buttonClose";
+static const gchar* const widget_progdlg_toggleoutputlabel = "label249";
 
 /* ISOfs dialog glade widget names */
 static const gchar* const widget_isofsdlg = "isofsDlg";

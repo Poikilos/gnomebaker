@@ -30,8 +30,10 @@
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
+#ifdef __linux__	
 #include <linux/cdrom.h>
-
+#endif
+#include <stdlib.h>
 
 gint deviceadditionindex = 0;
 

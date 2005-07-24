@@ -206,11 +206,13 @@ progressdlg_on_output(GtkButton * button, gpointer user_data)
 	
 	static gboolean showing = TRUE;
 	showing = !showing;
-
+    GtkWidget* outputbuttonlabel = glade_xml_get_widget(progdlg_xml,widget_progdlg_toggleoutputlabel);
+    
 	if(!showing)
 	{
 		gtk_widget_show(GTK_WIDGET(textview));
 		gtk_widget_show(textviewScroll);
+	    gtk_label_set_label(GTK_LABEL(outputbuttonlabel),_("Hide Output"));
 	}
 	else
 	{
@@ -218,6 +220,7 @@ progressdlg_on_output(GtkButton * button, gpointer user_data)
 		gtk_widget_hide(textviewScroll);		
 		gtk_window_resize(GTK_WINDOW(
 			glade_xml_get_widget(progdlg_xml, widget_progdlg)), x, y);
+		gtk_label_set_label(GTK_LABEL(outputbuttonlabel),_("View Output"));
 	}	
 }
 
