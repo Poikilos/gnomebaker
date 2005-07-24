@@ -423,12 +423,14 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 		gchar* cmd = g_strdup_printf("rm -fr %s/gbtrack*", tmp);
 		system(cmd);
 		g_free(cmd);
-		
-		gdk_threads_enter();
-		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-			_("Please insert the audio CD into the CD reader"));				
-		gdk_flush();
-		gdk_threads_leave();	
+	    if(!devices_query_cdstatus(GB_READER))	
+        {
+            gdk_threads_enter();
+            response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+                _("Please insert the audio CD into the CD reader"));				
+            gdk_flush();
+            gdk_threads_leave();	
+        }
 	}
 	
 	if(response == GTK_RESPONSE_CANCEL)
@@ -772,24 +774,19 @@ dvdformat_pre_proc(void *ex, void *buffer)
 	
 	progressdlg_set_status(_("<b>Formatting DVD...</b>"));
 	progressdlg_increment_exec_number();
-	
+	gint ret = GTK_RESPONSE_OK;
 	if(!devices_query_cdstatus(GB_WRITER))
 	{
 		gdk_threads_enter();
-		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+		ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
 				  _("Please insert a rewritable DVD into the DVD writer"));
 		gdk_threads_leave();
-		
-		if(ret == GTK_RESPONSE_CANCEL)
-		{
-			ExecCmd* e = (ExecCmd*)ex;
-			e->state = CANCELLED;
-		}
-		else
-		{
-			progressdlg_pulse_start();
-		}
-	}
+    }
+    if(ret == GTK_RESPONSE_CANCEL)
+    {
+        ExecCmd* e = (ExecCmd*)ex;
+        e->state = CANCELLED;
+    }
 }
 
 
@@ -812,7 +809,6 @@ void
 dvdformat_post_proc(void *ex, void *buffer)
 {
 	GB_LOG_FUNC
-	progressdlg_pulse_stop();
 	if(preferences_get_bool(GB_EJECT))
 	{
 		devices_eject_cd(GB_WRITER);
@@ -872,8 +868,7 @@ growisofs_pre_proc(void *ex,void *buffer)
 	progressdlg_increment_exec_number();
 	
 	if(!devices_query_cdstatus(GB_WRITER))
-	{
-	
+	{	
 		gdk_threads_enter();
 		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
 				  _("Please insert a writable DVD into the DVD writer"));
@@ -1178,11 +1173,14 @@ readcd_pre_proc(void *ex, void *buffer)
 	
 	if(response == GTK_RESPONSE_NO)
 	{
-		gdk_threads_enter();
-		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-				  "Please insert the source CD into the CD reader");
-		gdk_flush();
-		gdk_threads_leave();
+        if(!devices_query_cdstatus(GB_READER)) 
+        {
+            gdk_threads_enter();
+            response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
+                      "Please insert the source CD into the CD reader");
+            gdk_flush();
+            gdk_threads_leave();
+        }
 	}
 	
 	if(response == GTK_RESPONSE_CANCEL)
