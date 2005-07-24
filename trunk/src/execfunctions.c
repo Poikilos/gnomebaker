@@ -120,24 +120,24 @@ cdrecord_blank_pre_proc(void *ex, void *buffer)
 	GB_LOG_FUNC
 	progressdlg_set_status(_("<b>Blanking disk...</b>"));
 	progressdlg_set_text("");
-	
+	gint ret = GTK_RESPONSE_OK;
 	if(!devices_query_cdstatus(GB_WRITER))
 	{
 		gdk_threads_enter();
-		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, 
+		ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, 
             GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE, _("Please insert the CD-RW into the CD writer"));
 		gdk_flush();
 		gdk_threads_leave();
-		
-		if(ret == GTK_RESPONSE_CANCEL)
-		{
-			ExecCmd* e = (ExecCmd*)ex;
-			e->state = CANCELLED;
-		}
-		else
-		{
-			progressdlg_pulse_start();
-		}
+    }
+    
+    if(ret == GTK_RESPONSE_CANCEL)
+    {
+        ExecCmd* e = (ExecCmd*)ex;
+        e->state = CANCELLED;
+    }
+    else
+    {
+        progressdlg_pulse_start();
 	}
 }
 

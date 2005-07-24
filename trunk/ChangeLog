@@ -1,11 +1,22 @@
 Version 0.4.1
 
-* Apply Milen's patch so we can determine if we ask to quit
+* Apply Milen's patch so we can determine if we ask on quit
 * Marco Meyerhofer patches (Nearly complete translation in german,  install help-files under /usr/share/gnome/help/, make help appear in yelp under Application/Accessories
 * Fix stupid bug with window sizing and not checking arguments.
 * Check pids are not us or our parent when killing processes.
 * Apply patch so that the progress dialogs show output button says hide when the output is showing.
-
+* Use the device node rather than scsi id for burning dvd isos so growisofs works with external burners.
+* Fix silly bug where progress dialog does not pulse if media is already inserted.
+* Fix Bug #1146159 wrong named button
+* Fix Bug #1219474 "View output" does not change to "Hide output
+* Fix Bug #1152328 audio-CD: High CPU usage
+* Fix Bug #1223590 Burning 48kHz MP3s fails
+* Fix Bug #1243633 judging mp3 size via id tag length?
+* Fix Bug #1146164 glitches in the german translation.
+* Fix Bug #1161911 File sizes are wrong (regular files)
+* Fix RFE #1162569 Support for long filenames (backups)
+* Fix RFE #1206531 Volume label for DVD
+* Fix REF #1144905 DVD iso flags
 
 Version 0.4
 
