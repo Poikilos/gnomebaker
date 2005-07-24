@@ -7,6 +7,8 @@ Version 0.4.1
 * Apply patch so that the progress dialogs show output button says hide when the output is showing.
 * Use the device node rather than scsi id for burning dvd isos so growisofs works with external burners.
 * Fix silly bug where progress dialog does not pulse if media is already inserted.
+* Don't prompt for a disk when copying data/audio cds if the disk is already inserted.
+* Make sure we unmount read devices and not just writers.
 * Fix Bug #1146159 wrong named button
 * Fix Bug #1219474 "View output" does not change to "Hide output
 * Fix Bug #1152328 audio-CD: High CPU usage
