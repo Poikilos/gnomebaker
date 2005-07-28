@@ -65,8 +65,7 @@ burn_show_start_dlg(const BurnType burntype)
 
 	GtkWidget *dlg = startdlg_new(burntype);	
 	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));	
-	startdlg_delete(dlg);
-		
+	startdlg_delete(dlg);		
 	return ret;
 }
 
@@ -75,11 +74,8 @@ gboolean
 burn_end_process()
 {
 	GB_LOG_FUNC
-	gboolean ok = TRUE;
-
 	exec_cancel(burnargs);
-
-	return ok;
+	return TRUE;
 }
 
 
@@ -97,18 +93,21 @@ burn_end_proc(void *ex, void *data)
 	gint i = 0;
 	for(; i < e->cmdCount; i++)
 	{
-		if(e->cmds[i].state == CANCELLED)
+        exec_cmd_lock(&e->cmds[i]);
+        const ExecState state = e->cmds[i].state;
+        exec_cmd_unlock(&e->cmds[i]);
+		if(state == CANCELLED)
 		{			
 			/*progressdlg_set_text("Cancelled");*/
 			outcome = CANCELLED;
 			progressdlg_dismiss();
 			break;
 		}
-		else if(e->cmds[i].state == COMPLETE)
+		else if(state == COMPLETE)
 		{
 			progressdlg_set_text(_("Completed"));
 		}
-		else if(e->cmds[i].state == FAILED)
+		else if(state == FAILED)
 		{
 			progressdlg_set_text(_("Failed"));
 			outcome = FAILED;
@@ -141,8 +140,8 @@ burn_start_process(gboolean onthefly)
      * there is only ever _1_ command to tell the progress bar about.
 	 */
 	GtkWidget *dlg = progressdlg_new(onthefly ? 1 : burnargs->cmdCount);
-    
-	/*g_usleep(2000000);*/
+    gtk_widget_show(dlg);    
+    gtk_main_iteration();
     
 	if(exec_go(burnargs, onthefly) == 0)
 	{
@@ -154,12 +153,7 @@ burn_start_process(gboolean onthefly)
 		ok = FALSE;
 	}
 	
-	if(burnargs != NULL)
-		exec_delete(burnargs);
-	burnargs = NULL;
-
-	progressdlg_delete(dlg);
-	
+	progressdlg_delete(dlg);	
 	return ok;
 }
 

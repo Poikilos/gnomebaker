@@ -44,12 +44,13 @@ typedef struct
 {
 	gint argc;
 	gchar **argv;
-	pid_t pid;
-	gint exitCode;
+	volatile pid_t pid;
+	volatile gint exitCode;
 	volatile ExecState state;
 	ExecFunc preProc;
 	ExecFunc readProc;
 	ExecFunc postProc;	
+    GMutex* mutex;
 }ExecCmd;
 
 typedef struct
@@ -58,7 +59,7 @@ typedef struct
 	ExecCmd* cmds;
 	ExecFunc startProc;
 	ExecFunc endProc;
-	gint child_child_pipe[2];
+	volatile gint child_child_pipe[2];
 	GError *err;
 } Exec;
 
@@ -70,5 +71,7 @@ gint exec_go (Exec * const e, gboolean onthefly);
 void exec_cmd_add_arg (ExecCmd * const e, const gchar * const format, const gchar* const value);
 void exec_cancel (const Exec * const e);
 GString* exec_run_cmd(const gchar* cmd);
+void exec_cmd_lock(ExecCmd* e);
+void exec_cmd_unlock(ExecCmd* e);
 
 #endif	/*_EXEC_H_*/
