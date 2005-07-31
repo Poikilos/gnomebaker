@@ -44,13 +44,14 @@ typedef struct
 {
 	gint argc;
 	gchar **argv;
-	volatile pid_t pid;
-	volatile gint exitCode;
-	volatile ExecState state;
+	pid_t pid;
+	gint exitCode;
+	ExecState state;
 	ExecFunc preProc;
 	ExecFunc readProc;
 	ExecFunc postProc;	
     GMutex* mutex;
+    GCond* cond;
 }ExecCmd;
 
 typedef struct
@@ -59,7 +60,7 @@ typedef struct
 	ExecCmd* cmds;
 	ExecFunc startProc;
 	ExecFunc endProc;
-	volatile gint child_child_pipe[2];
+	gint child_child_pipe[2];
 	GError *err;
 } Exec;
 
