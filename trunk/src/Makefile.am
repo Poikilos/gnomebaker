@@ -10,7 +10,7 @@ INCLUDES = \
 AM_CFLAGS =\
 	 -Wall\
 	 -g
-
+     
 bin_PROGRAMS = gnomebaker
 
 gnomebaker_SOURCES = \
@@ -53,6 +53,4 @@ gnomebaker_SOURCES = \
 gnomebaker_LDFLAGS = 
 
 gnomebaker_LDADD =  \
-	$(GNOME_LIBS)\
-	 -lvorbisfile
-
+	$(GNOME_LIBS)

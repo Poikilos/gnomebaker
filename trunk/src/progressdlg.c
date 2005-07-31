@@ -100,11 +100,10 @@ progressdlg_set_fraction(gfloat fraction)
 	fraction += ((gfloat)currentexec *(1.0/(gfloat)numberofexecs));
 	
 	gchar* percnt = g_strdup_printf("%d%%",(gint)(fraction * 100));
-	
 	gdk_threads_enter();
 	gtk_progress_bar_set_fraction(progbar, fraction);
 	gtk_progress_bar_set_text(progbar, percnt);	
-	gdk_flush();
+	/*gdk_flush();*/
 	gdk_threads_leave();		
 	
 	g_free(percnt);
@@ -119,7 +118,7 @@ progressdlg_set_text(const gchar* text)
 	
 	gdk_threads_enter();
 	gtk_progress_bar_set_text(progbar, text);	
-	gdk_flush();
+	/*gdk_flush();*/
 	gdk_threads_leave();
 }
 
@@ -138,7 +137,7 @@ progressdlg_append_output(const gchar* output)
 	gtk_text_buffer_insert(textBuffer, &textIter, output, strlen(output));	
 	gtk_text_iter_set_line(&textIter, gtk_text_buffer_get_line_count(textBuffer));
 	gtk_text_view_scroll_to_iter(textview, &textIter, 0.0, TRUE, 0.0, 0.0);	
-	gdk_flush();
+	/*gdk_flush();*/
 	gdk_threads_leave();
 }
 
@@ -191,7 +190,7 @@ progressdlg_set_status(const gchar* status)
 	gdk_threads_enter();
 	gtk_label_set_text(GTK_LABEL(statuslabel), status);
 	gtk_label_set_use_markup(GTK_LABEL(statuslabel), TRUE);
-	gdk_flush();
+	/*gdk_flush();*/
 	gdk_threads_leave();		
 }
 
@@ -243,7 +242,7 @@ progressdlg_pulse_ontimer(gpointer userdata)
 	
 	gdk_threads_enter();
 	gtk_progress_bar_pulse(progbar);	
-	gdk_flush();
+	/*gdk_flush();*/
 	gdk_threads_leave();	
 	
 	return TRUE;
@@ -288,7 +287,7 @@ progressdlg_increment_exec_number()
 	gtk_text_buffer_get_end_iter(textBuffer, &endIter);		
 	gtk_text_buffer_get_start_iter(textBuffer, &startIter);	
 	gtk_text_buffer_delete(textBuffer, &startIter, &endIter);	
-	gdk_flush();
+	/*gdk_flush();*/
 	gdk_threads_leave();
 }
 
@@ -301,7 +300,7 @@ progressdlg_reset_fraction(gfloat fraction)
 	
 	gdk_threads_enter();
 	gtk_progress_bar_set_fraction(progbar, fraction);
-	gdk_flush();
+	/*gdk_flush();*/
 	gdk_threads_leave();	
 }
 
@@ -311,7 +310,10 @@ progressdlg_dismiss()
 {
 	GB_LOG_FUNC
 	g_return_if_fail(progdlg_xml != NULL);	
+
 	GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg);	
 	g_return_if_fail(widget != NULL);	
+	gdk_threads_enter();
 	gtk_dialog_response(GTK_DIALOG(widget), GTK_RESPONSE_CLOSE);
+	gdk_threads_leave();
 }

@@ -63,6 +63,7 @@ exec_cmd_init(ExecCmd * e)
 	e->readProc = NULL;
 	e->postProc = NULL;
     e->mutex = g_mutex_new();
+    e->cond = g_cond_new();
 }
 
 
@@ -89,7 +90,7 @@ exec_cmd_end(ExecCmd * e)
 	for(; i < e->argc; i++)
 		g_free(e->argv[i]);
     g_mutex_free(e->mutex);
-
+	g_cond_free(e->cond);
 	g_free(e->argv);
 }
 
@@ -136,6 +137,163 @@ exec_print_cmd(const ExecCmd* e)
 	}
 }
 
+#define EXEC_READ exec_read
+
+void 
+exec_read1(ExecCmd* e, gint fd)
+{
+    static const gint BUFF_SIZE = 1024;
+    gchar buffer[BUFF_SIZE];
+    memset(buffer, 0, BUFF_SIZE);
+    
+    while(read(fd, buffer, BUFF_SIZE - 1) > 0)
+    {
+        /* g_message( "Exec stdin pipe - %s", buffer); */
+        if(e->readProc)
+            e->readProc(e, buffer);
+        memset(buffer, 0, BUFF_SIZE);
+    }
+    
+    exec_cmd_lock(e);
+    GB_TRACE("about to wait");
+	waitpid(e->pid, &e->exitCode, 0);
+    GB_TRACE("exec_read1 - child exited with code [%d]\n", e->exitCode);
+    exec_cmd_unlock(e);
+}
+
+gboolean 
+exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data)
+{	
+    GB_LOG_FUNC
+	ExecCmd* cmd = (ExecCmd*)data;
+	if (condition == G_IO_HUP || condition == G_IO_ERR || condition == G_IO_NVAL) 
+	{
+		exec_cmd_lock(cmd);
+		g_cond_broadcast(cmd->cond);
+		exec_cmd_unlock(cmd);
+		return FALSE;
+	}
+    
+	static const gint BUFF_SIZE = 1024;
+	gchar buffer[BUFF_SIZE];
+	memset(buffer, 0, BUFF_SIZE);
+	
+	const GIOStatus status = g_io_channel_read_chars(channel, buffer, BUFF_SIZE - 1, NULL, NULL);  
+	if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_AGAIN)
+	{
+		exec_cmd_lock(cmd);
+		g_cond_broadcast(cmd->cond);
+		exec_cmd_unlock(cmd);
+		return FALSE;
+	}
+
+	if(cmd->readProc)
+		cmd->readProc(cmd, buffer);
+	return TRUE;
+}
+
+gpointer
+exec_thread_gspawn(gpointer data)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(data != NULL, NULL); 	
+
+	Exec* ex = (Exec*)data;
+
+	if(ex->startProc) ex->startProc(ex, NULL);
+
+	gboolean cont = TRUE;
+	gint j = 0;
+	for(; j < ex->cmdCount && cont; j++)
+	{
+		ExecCmd* e = &ex->cmds[j];		
+		exec_print_cmd(e);
+		
+		if(e->preProc) e->preProc(e, NULL);					
+		
+		exec_cmd_lock(e);
+        const ExecState state = e->state;
+        exec_cmd_unlock(e);        
+        if(state == SKIP) continue;
+        else if(state == CANCELLED) break;				
+			
+		gint stdout = 0, stderr = 0;		
+		exec_cmd_lock(e);
+		gboolean running = g_spawn_async_with_pipes(NULL, e->argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD , 
+            NULL, NULL, &e->pid, NULL, &stdout, &stderr, &ex->err);	
+        exec_cmd_unlock(e);
+		if(running)
+		{
+			GB_TRACE("exec_thread_gspawn - spawed process with pid [%d]", e->pid);
+			
+			GIOChannel* chanout = g_io_channel_unix_new(stdout);			
+			g_io_channel_set_encoding(chanout, NULL, NULL);
+			g_io_channel_set_buffered(chanout, FALSE);
+			g_io_channel_set_flags(chanout, G_IO_FLAG_NONBLOCK, NULL );
+			guint chanoutid = g_io_add_watch(chanout, G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_PRI | G_IO_NVAL,
+				exec_channel_callback, (gpointer)e);
+		  
+			GIOChannel* chanerr = g_io_channel_unix_new(stderr);
+			g_io_channel_set_encoding(chanerr, NULL, NULL);			
+			g_io_channel_set_buffered(chanerr, FALSE);			
+			g_io_channel_set_flags( chanerr, G_IO_FLAG_NONBLOCK, NULL );
+			guint chanerrid = g_io_add_watch(chanerr, G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_PRI | G_IO_NVAL ,
+				exec_channel_callback, (gpointer)e);
+
+			/* wait until we're told that the process is complete or cancelled */	
+			exec_cmd_lock(e);
+			g_cond_wait(e->cond, e->mutex);
+			/* If the process was cancelled then we kill of the child */
+			if(e->state == CANCELLED)
+				kill(e->pid, SIGKILL);			
+			exec_cmd_unlock(e);
+			
+			/* Reap the child so we don't get a zombie */
+			int retcode = 0;
+            waitpid(e->pid, &retcode, 0);
+            
+            exec_cmd_lock(e);
+            e->exitCode = retcode;
+            exec_cmd_unlock(e);
+		
+			g_source_remove(chanoutid);
+			g_source_remove(chanerrid);	
+			g_io_channel_shutdown(chanout, FALSE, NULL);
+			g_io_channel_unref(chanout);  
+			g_io_channel_shutdown(chanerr, FALSE, NULL);
+			g_io_channel_unref(chanerr);
+			g_spawn_close_pid(e->pid);
+			close(stdout);
+			close(stderr);	
+			
+			GB_TRACE("exec_thread_gspawn - child exitcode [%d]", e->exitCode);
+		}
+		else
+		{
+			exec_cmd_lock(e);
+			g_critical("exec_thread_gspawn - failed to spawn process [%d] [%s]",
+				ex->err->code, ex->err->message);			
+			e->state = FAILED;
+			exec_cmd_unlock(e);
+			break;
+		}
+
+		if(e->postProc) e->postProc(e, NULL);
+		
+		exec_cmd_lock(e);
+		cont = (e->exitCode == 0);		
+		if(e->state != CANCELLED)
+			e->state = (e->exitCode == 0) ? COMPLETE : FAILED;
+		exec_cmd_unlock(e);
+	}
+
+	if(ex->endProc) ex->endProc(ex, NULL);
+
+	GB_TRACE("exec_thread_gspawn - exiting");
+
+	return NULL;
+}
+
 
 void 
 exec_read(ExecCmd* e, gint fd)
@@ -148,18 +306,22 @@ exec_read(ExecCmd* e, gint fd)
         memset(buffer, 0x0, BUFFER_SIZE);
 		gint res = 0;
         fd_set set;
-	    GB_DECLARE_STRUCT(struct timeval, tval);
+	    struct timeval tval;
         FD_ZERO (&set);
         FD_SET (fd, &set);
         tval.tv_sec = 2;
         tval.tv_usec = 0;	
-		while((res = select(FD_SETSIZE, &set, NULL, NULL, &tval)) != -1)
+        
+		while((res = select(FD_SETSIZE, &set, NULL, NULL, &tval)) != -1)        
+        //while(read(fd, buffer, BUFFER_SIZE - 4) > 0)
 		{
+            g_message("select %d", res);
 			GB_TRACE( "exec_read - select returned [%d] errno [%d]", res, errno);
             /* leave four null bytes on the end as i think that's the size of 
                a wide char on unix */
-            if((res > 0) && (read(fd, buffer, BUFFER_SIZE - 4) > 0))
+            if(FD_ISSET (fd, &set) && (read(fd, buffer, BUFFER_SIZE - 4) > 0))
             {
+                g_message("reading");    
                 e->readProc(e, buffer);		
                 memset(buffer, 0, BUFFER_SIZE);
             }
@@ -173,16 +335,122 @@ exec_read(ExecCmd* e, gint fd)
             /* this is a bit of a hack but it stops gb from hard looping and
                using up lots of cpu reading little fragments of data from the pipe.
                This way we wait until there's more data in the pipe and read less times. */
-            g_usleep(500000);
+            g_usleep(500000);                       
 		}	
 		GB_TRACE( "exec_read - final select returned [%d] errno [%d]", res, errno);
         g_free(buffer);
 	}
     exec_cmd_lock(e);
 	waitpid(e->pid, &e->exitCode, 0);
-    exec_cmd_unlock(e);
-	GB_TRACE("exec_read - child exited with code [%d]\n", e->exitCode);
+    GB_TRACE("exec_read - child exited with code [%d]\n", e->exitCode);
+    exec_cmd_unlock(e);	
 }
+
+
+gpointer
+exec_thread_three(gpointer data)
+{
+	GB_LOG_FUNC
+	g_return_val_if_fail(data != NULL, NULL); 	
+
+	Exec* ex = (Exec*)data;
+
+	if(ex->startProc) ex->startProc(ex, NULL);
+
+	gboolean cont = TRUE;
+	gint j = 0;
+	for(; j < ex->cmdCount && cont; j++)
+	{
+		ExecCmd* e = &ex->cmds[j];
+		
+		gint i = 0;
+		for(; i < e->argc; i++)
+			g_print("%s ", e->argv[i]);
+		g_print("\n");
+
+		if(e->preProc) e->preProc(e, NULL);		
+			
+		if(e->state == SKIP) continue;
+		else if(e->state == CANCELLED) break;
+				
+		gint stdin_pipe[2];		
+		pipe(stdin_pipe);
+
+		pid_t pid = fork();
+		if(pid)
+		{
+			/* Parent */
+			e->pid = pid;
+			g_message(_("exec_thread_three - parent created child with pid %d"), e->pid);
+
+			/* Connect to the downstream end of the stdin pipe and close
+			 * the other end */
+			dup2(stdin_pipe[0], 0);
+			close(stdin_pipe[1]);
+
+			static const gint BUFF_SIZE = 1024;
+			gchar buffer[BUFF_SIZE];
+			memset(buffer, 0, BUFF_SIZE);
+
+			/* Give the process time to write to the pipe 
+			fd_set set;
+			GB_DECLARE_STRUCT(struct timeval, timeout);
+			FD_ZERO (&set);
+			FD_SET (stdin_pipe[0], &set);
+			timeout.tv_sec = 4;
+			timeout.tv_usec = 0;
+			
+			select(FD_SETSIZE, &set, NULL, NULL, &timeout);
+			g_message( "Select returned - [%d]", selectresult);*/
+
+			while(read(stdin_pipe[0], buffer, BUFF_SIZE) > 0)
+			{				
+				/*g_message( "Exec stdin pipe - %s", buffer);*/
+				if(e->readProc)	e->readProc(e, buffer);
+				memset(buffer, 0, BUFF_SIZE);
+			}
+		}
+		else
+		{
+			/* Child */
+			g_message(_("exec_thread_three - created child"));
+
+			/* Connect child stdout to the upstream end of the stdin pipe,
+			 * Connect child std err to the upstream end of the stdin pipe
+			 * and close the other end */
+			dup2(stdin_pipe[1], 0);
+			dup2(stdin_pipe[1], 1);
+			dup2(stdin_pipe[1], 2);
+			close(stdin_pipe[0]);
+
+			execvp(e->argv[0], e->argv);
+
+			/* If it didn't take over the Exec call failed.*/
+			g_message(_("exec_thread_three - Exec failed"));
+		}
+
+		wait(&e->exitCode);
+		
+		g_message(_("exec_thread_three - child exited with code [%d]\n"), e->exitCode);
+
+		close(stdin_pipe[0]);
+		close(stdin_pipe[1]);
+	
+		if(e->postProc) e->postProc(e, NULL);
+
+		cont = (e->exitCode == 0);
+		
+		if(e->state != CANCELLED)
+			e->state = (e->exitCode == 0) ? COMPLETE : FAILED;
+	}
+
+	if(ex->endProc) ex->endProc(ex, NULL);
+
+	g_message( _("exec_thread_three - exiting"));
+
+	return NULL;
+}
+
 
 
 gpointer
@@ -222,9 +490,10 @@ exec_thread(gpointer data)
 			/* Connect child stdout to the upstream end of the stdin pipe,
 			 * Connect child std err to the upstream end of the stdin pipe
 			 * and close the other end */
-			dup2(stdin_pipe[1], STDIN_FILENO);
+			//dup2(stdin_pipe[1], STDIN_FILENO);
 			dup2(stdin_pipe[1], STDOUT_FILENO);
 			dup2(stdin_pipe[1], STDERR_FILENO);
+            //close(stdin_pipe[1]);
 			close(stdin_pipe[0]);
 
 			execvp(e->argv[0], e->argv);
@@ -236,10 +505,29 @@ exec_thread(gpointer data)
         {
             /* Parent */
             GB_TRACE("exec_thread - parent created child with pid %d", e->pid);
-            exec_read(e, stdin_pipe[0]);
-    
-            close(stdin_pipe[0]);
-            close(stdin_pipe[1]);
+            
+			/* Connect to the downstream end of the stdin pipe and close
+			 * the other end */			
+			close(stdin_pipe[1]);
+            
+            EXEC_READ(e, stdin_pipe[0]);
+
+            /*
+			static const gint BUFF_SIZE = 1024;
+			gchar buffer[BUFF_SIZE];
+			memset(buffer, 0, BUFF_SIZE);
+			
+            while(read(stdin_pipe[0], buffer, BUFF_SIZE - 1) > 0)
+			{
+				if(e->readProc)
+					e->readProc(e, buffer);
+				memset(buffer, 0, BUFF_SIZE);
+			}*/
+            
+            close(stdin_pipe[0]);            
+            exec_cmd_lock(e);
+            waitpid(e->pid, &e->exitCode, 0);
+            exec_cmd_unlock(e);
         
             if(e->postProc) e->postProc(e, NULL);		
             exec_cmd_lock(e);
@@ -281,6 +569,7 @@ exec_run_remainder(gpointer data)
 			dup2(ex->child_child_pipe[1], STDOUT_FILENO);
 			/*dup2(ex->child_child_pipe[1], STDERR_FILENO); don't want stderr */
 			close(ex->child_child_pipe[0]);	
+            //close(ex->child_child_pipe[1]);	
 			
 			execvp(e->argv[0], e->argv);
 
@@ -303,6 +592,7 @@ exec_run_remainder(gpointer data)
             exec_cmd_unlock(e);            
             
             close(ex->child_child_pipe[1]);	
+            close(ex->child_child_pipe[0]);	
             
             if(exitCode != 0)
                 break;		   
@@ -352,11 +642,13 @@ exec_thread_on_the_fly(gpointer data)
 		GB_TRACE("exec_thread_on_the_fly - root child select returned [%d] errno [%d]", res, errno);*/
 				
 		dup2(ex->child_child_pipe[0], STDIN_FILENO);
+        //close(ex->child_child_pipe[0]);
 		close(ex->child_child_pipe[1]);
 		
 		dup2(parent_child_pipe[1], STDOUT_FILENO);		
 		dup2(parent_child_pipe[1], STDERR_FILENO);
 		close(parent_child_pipe[0]);
+        //close(parent_child_pipe[1]);
 					
 		execvp(e->argv[0], e->argv);
 
@@ -371,12 +663,17 @@ exec_thread_on_the_fly(gpointer data)
         g_thread_create(exec_run_remainder, data, TRUE, NULL);
                 
         GB_TRACE("exec_thread_on_the_fly - parent created root child with pid %d", e->pid);		
-        exec_read(e, parent_child_pipe[0]);
+        /* Connect to the downstream end of the stdin pipe and close
+         * the other end */
+        //dup2(parent_child_pipe[0], 0);
+        close(parent_child_pipe[1]);
+        
+        /* now read everything in */
+        EXEC_READ(e, parent_child_pipe[0]);
         
         close(parent_child_pipe[0]);
-        close(parent_child_pipe[1]);
         close(ex->child_child_pipe[0]);
-        close(ex->child_child_pipe[1]);	
+        close(ex->child_child_pipe[1]);
         
         if(e->postProc) e->postProc(e, NULL);
         exec_cmd_lock(e);
@@ -401,7 +698,7 @@ exec_go(Exec * const e, gboolean onthefly)
 	g_return_val_if_fail(e != NULL, -1);
 	
 	gint ret = 0;
-	g_thread_create(onthefly ? exec_thread_on_the_fly: exec_thread,
+	g_thread_create(onthefly ? exec_thread_on_the_fly: exec_thread_gspawn,
 		(gpointer) e, TRUE, &e->err);
 	if(e->err != NULL)
 	{
@@ -419,24 +716,15 @@ exec_cancel(const Exec * const e)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
-    
-    const pid_t us = getpid();
-    const pid_t parent = getppid();
-    GB_TRACE("exec_cancel - us [%d] parent [%d]", us, parent);
 
 	gint j = 0;
 	for(; j < e->cmdCount; j++)
 	{
-        exec_cmd_lock(&e->cmds[j]);
-		if((e->cmds[j].pid > 0) && (e->cmds[j].pid != us) && (e->cmds[j].pid != parent))
-		{
-			GB_TRACE("exec_cancel - killing %d", e->cmds[j].pid);
-			kill(e->cmds[j].pid, SIGKILL);
-			e->cmds[j].state = CANCELLED;
-		}
-        exec_cmd_unlock(&e->cmds[j]);
+		exec_cmd_lock(&e->cmds[j]);
+		e->cmds[j].state = CANCELLED;
+		g_cond_broadcast(e->cmds[j].cond);
+		exec_cmd_unlock(&e->cmds[j]);
 	}
-	
 	GB_TRACE("exec_cancel - complete");
 }
 
