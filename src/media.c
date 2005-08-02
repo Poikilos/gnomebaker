@@ -242,16 +242,19 @@ media_register_plugins(void)
 	media_registered_plugins = g_slist_alloc();
 	PluginInfoPtr info = media_create_plugin_info("application/x-id3","mad");
 	PluginInfoPtr info2 = media_create_plugin_info("audio/mpeg","mad");
+	PluginInfoPtr info3 = media_create_plugin_info("audio/x-mp3","mad");
 	GstElement* element;		
 	if((element = gst_element_factory_make("mad","mad")) != NULL)
 	{
 		info->status = INSTALLED;
 		info2->status = INSTALLED;
+		info3->status = INSTALLED;
 		gst_object_unref (GST_OBJECT (element));
 		element = NULL;
 	}
 	media_registered_plugins = g_slist_append(media_registered_plugins,info);
 	media_registered_plugins = g_slist_append(media_registered_plugins,info2);
+	media_registered_plugins = g_slist_append(media_registered_plugins,info3);
 
 	info = media_create_plugin_info("application/ogg","vorbisdec");
 	
