@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome baker 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-15 22:59+0100\n"
+"POT-Creation-Date: 2005-07-31 23:50+0100\n"
 "PO-Revision-Date: 2005-03-30 16:35+0300\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -80,28 +80,6 @@ msgstr "Албум"
 msgid "Title"
 msgstr "Заглавие"
 
-#: src/audioinfo.c:141 src/audioinfo.c:271
-#, c-format
-msgid "File %s was not opened \n"
-msgstr "Файлът %s не беше отворен \n"
-
-#: src/audioinfo.c:166
-msgid "Performer"
-msgstr "Изпълнител"
-
-#: src/audioinfo.c:166
-msgid "Albumtitle"
-msgstr "Заглавие на албум"
-
-#: src/audioinfo.c:166
-msgid "Tracktitle"
-msgstr "Заглавие на песен"
-
-#: src/audioinfo.c:214
-#, c-format
-msgid "File %s was not opened"
-msgstr "Файлът %s не беше отворен"
-
 #: src/audioinfo.c:288
 msgid "TITLE="
 msgstr "ЗАГЛАВИЕ="
@@ -114,21 +92,21 @@ msgstr "АРТИСТ="
 msgid "ALBUM="
 msgstr "АЛБУМ="
 
-#: src/burn.c:109
+#: src/burn.c:108
 msgid "Completed"
 msgstr "Готово"
 
-#: src/burn.c:113
+#: src/burn.c:112
 msgid "Failed"
 msgstr "Неуспех"
 
-#: src/burn.c:246 src/gnomebaker.c:253
+#: src/burn.c:239 src/gnomebaker.c:256
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr ""
 
-#: src/burn.c:279 src/burn.c:447
+#: src/burn.c:272 src/burn.c:440
 msgid "Please select an iso file to save to..."
 msgstr "Изберете iso файл за записване..."
 
@@ -138,11 +116,6 @@ msgstr ""
 "Файл или папка са твърде големи за да се поберат в оставащото свободно място "
 "на CD-то"
 
-#: src/datacd.c:234
-#, c-format
-msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
-msgstr ""
-
 #: src/datacd.c:453
 msgid "Clear"
 msgstr "Изчистване"
@@ -151,7 +124,7 @@ msgstr "Изчистване"
 msgid "Contents"
 msgstr "Потребителско ръководство"
 
-#: src/datacd.c:508 src/filebrowser.c:834
+#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:834
 msgid "Size"
 msgstr "Размер"
 
@@ -174,7 +147,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/datacd.c:582 src/devices.c:641
+#: src/datacd.c:582 src/devices.c:643
 msgid "unknown error"
 msgstr "неизвестна грешка"
 
@@ -185,14 +158,14 @@ msgid ""
 "preferences."
 msgstr ""
 
-#: src/devices.c:622
+#: src/devices.c:624
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
 
-#: src/devices.c:640
+#: src/devices.c:642
 #, c-format
 msgid ""
 "Error %s %s.\n"
@@ -203,13 +176,30 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/devices.c:641
+#: src/devices.c:643
 msgid "mounting"
 msgstr "монтиране"
 
-#: src/devices.c:641
+#: src/devices.c:643
 msgid "unmounting"
 msgstr "от-монтиране"
+
+#: src/filebrowser.c:67 src/filebrowser.c:721
+msgid "Filesystem"
+msgstr "Файлова система"
+
+#: src/filebrowser.c:68
+msgid "Home"
+msgstr ""
+
+#: src/filebrowser.c:69
+msgid "(empty)"
+msgstr ""
+
+#: src/filebrowser.c:70
+#, fuzzy
+msgid "Folder"
+msgstr "Режим"
 
 #: src/filebrowser.c:610
 #, fuzzy
@@ -228,10 +218,6 @@ msgstr "_Запис на изображение"
 #, fuzzy
 msgid "_Burn DVD Image"
 msgstr "_Запис на изображение"
-
-#: src/filebrowser.c:721
-msgid "Filesystem"
-msgstr "Файлова система"
 
 #: src/filebrowser.c:752
 #, c-format
@@ -263,47 +249,48 @@ msgstr "Файлове-образи на CD-та"
 msgid "All files"
 msgstr "Всички файлове"
 
-#: src/gnomebaker.c:86
+#: src/gnomebaker.c:85
 msgid "Loading preferences..."
 msgstr "Зареждане на настройките..."
 
-#: src/gnomebaker.c:89
+#: src/gnomebaker.c:88
 msgid "Detecting devices..."
 msgstr "Засичане на устройства..."
 
-#: src/gnomebaker.c:92
+#: src/gnomebaker.c:91
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: src/gnomebaker.c:95
+#: src/gnomebaker.c:94
 msgid "Loading GUI..."
 msgstr "Зареждане на ГПИ..."
 
-#: src/gnomebaker.c:178
+#: src/gnomebaker.c:179
 msgid "Are you sure you want to quit?"
 msgstr "Наистина ли искате да спрете програмата?"
 
-#: src/gnomebaker.c:282
+#: src/gnomebaker.c:285
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
 "burn."
 msgstr ""
 
-#: src/gnomebaker.c:339 gnomebaker.glade:12
+#: src/gnomebaker.c:342 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: src/gnomebaker.c:340
+#: src/gnomebaker.c:343
 msgid "Simple CD Burning for Gnome"
 msgstr "Лесен запис на CD към GNOME"
 
-#: src/gnomebaker.c:340 gnomebaker.glade:1701
+#: src/gnomebaker.c:343 gnomebaker.glade:1701
 msgid "translator_credits"
 msgstr "Владимир \"Kaladan\" Петков <vpetkov@i-space.org>"
 
-#: src/preferences.c:44
-msgid "Failed to initialise gconf"
-msgstr "Грешка при инициализиране на gconf"
+#: src/gnomebaker.c:408
+#, fuzzy
+msgid "Please select files to add to the disk..."
+msgstr "Изберете iso файл за записване..."
 
 #: src/prefsdlg.c:131
 msgid "Name"
@@ -381,79 +368,79 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:98
+#: src/execfunctions.c:99
 msgid "<b>Burning disk...</b>"
 msgstr "<b>Запис на диск...</b>"
 
-#: src/execfunctions.c:104
+#: src/execfunctions.c:105
 msgid "Please insert the CD into the CD writer"
 msgstr "Поставете CD-то в записвачката"
 
-#: src/execfunctions.c:121
+#: src/execfunctions.c:123
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Изчистване на диск...</b>"
 
-#: src/execfunctions.c:128
+#: src/execfunctions.c:130
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Поставете CD-RW в записвачката"
 
-#: src/execfunctions.c:206
+#: src/execfunctions.c:209
 msgid "Fixating"
 msgstr "Фиксиране"
 
-#: src/execfunctions.c:246 gnomebaker.glade:2763
+#: src/execfunctions.c:249 gnomebaker.glade:2814
 msgid "default"
 msgstr "стандартно"
 
-#: src/execfunctions.c:401
+#: src/execfunctions.c:404
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Изваждане на песни...</b>"
 
-#: src/execfunctions.c:413
+#: src/execfunctions.c:416
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
 
-#: src/execfunctions.c:429
+#: src/execfunctions.c:433
 msgid "Please insert the audio CD into the CD reader"
 msgstr ""
 
-#: src/execfunctions.c:576
+#: src/execfunctions.c:581
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Създаване на изображение за диск с данни...</b>"
 
-#: src/execfunctions.c:584
+#: src/execfunctions.c:589
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
 
-#: src/execfunctions.c:773
+#: src/execfunctions.c:782
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Форматиране на DVD...</b>"
 
-#: src/execfunctions.c:780
+#: src/execfunctions.c:789
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:871
+#: src/execfunctions.c:875
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Запис на DVD...</b>"
 
-#: src/execfunctions.c:879
+#: src/execfunctions.c:882
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:958 src/execfunctions.c:1002
+#: src/execfunctions.c:962 src/execfunctions.c:1006
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1162
+#: src/execfunctions.c:1166
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>Четене на изображение на CD...</b>"
 
-#: src/execfunctions.c:1413
+#: src/execfunctions.c:1421
 #, fuzzy
 msgid "<b>Converting files to cd audio...</b>"
 msgstr "<b>Конвертиране на wav в аудио cd...</b>"
@@ -684,143 +671,170 @@ msgstr "Показване на скритите файлове"
 msgid "Show humanreadable filesizes"
 msgstr "Използване на мерни единици разбираеми от хора"
 
-#: gnomebaker.glade:2010
+#: gnomebaker.glade:2004
+#, fuzzy
+msgid "<b>GnomeBaker</b>"
+msgstr "GnomeBaker"
+
+#: gnomebaker.glade:2033
+msgid "Ask on quit"
+msgstr ""
+
+#: gnomebaker.glade:2061
 msgid "General"
 msgstr "Основни"
 
-#: gnomebaker.glade:2043
+#: gnomebaker.glade:2094
 msgid "<b>Detected devices</b>"
 msgstr "<b>Засечени устройства</b>"
 
-#: gnomebaker.glade:2104
+#: gnomebaker.glade:2155
 msgid "Always scan for devices on startup"
 msgstr "При стартиране винаги да се сканира за нови устройства"
 
-#: gnomebaker.glade:2176
+#: gnomebaker.glade:2227
 msgid "_Add device"
 msgstr "_Добавяне на устройство"
 
-#: gnomebaker.glade:2251 gnomebaker.glade:2635
+#: gnomebaker.glade:2302 gnomebaker.glade:2686
 msgid "Sc_an for devices"
 msgstr "Ск_аниране за устройства"
 
-#: gnomebaker.glade:2298
+#: gnomebaker.glade:2349
 msgid "Devices"
 msgstr "Устройства"
 
-#: gnomebaker.glade:2330
+#: gnomebaker.glade:2381
 msgid "Start burning..."
 msgstr "Стартиране на записването..."
 
-#: gnomebaker.glade:2417
+#: gnomebaker.glade:2468
 msgid "_Start"
 msgstr "_Старт"
 
-#: gnomebaker.glade:2466
+#: gnomebaker.glade:2517
 msgid "Reader"
 msgstr "Четец"
 
-#: gnomebaker.glade:2495 gnomebaker.glade:3437
+#: gnomebaker.glade:2546 gnomebaker.glade:3488
 msgid "Writer"
 msgstr "Записвачка"
 
-#: gnomebaker.glade:2558
+#: gnomebaker.glade:2609
 msgid "<b>Options</b>"
 msgstr "<b>Опции</b>"
 
-#: gnomebaker.glade:2676
+#: gnomebaker.glade:2727
 msgid "Speed"
 msgstr "Скорост"
 
-#: gnomebaker.glade:2726
+#: gnomebaker.glade:2777
 msgid "Mode"
 msgstr "Режим"
 
-#: gnomebaker.glade:2771
+#: gnomebaker.glade:2822
 msgid "tao"
 msgstr "tao"
 
-#: gnomebaker.glade:2779
+#: gnomebaker.glade:2830
 msgid "dao"
 msgstr "dao"
 
-#: gnomebaker.glade:2787
+#: gnomebaker.glade:2838
 msgid "raw96p"
 msgstr "raw96p"
 
-#: gnomebaker.glade:2795
+#: gnomebaker.glade:2846
 msgid "raw16"
 msgstr "raw16"
 
-#: gnomebaker.glade:2815
+#: gnomebaker.glade:2866
 msgid "<b>Devices</b>"
 msgstr "<b>Устройства</b>"
 
-#: gnomebaker.glade:2853
+#: gnomebaker.glade:2904
 msgid "ISO filesystem details"
 msgstr ""
 
-#: gnomebaker.glade:2926
+#: gnomebaker.glade:2977
 msgid "<b>Volume label</b>"
 msgstr "<b>Етикет на носителя</b>"
 
-#: gnomebaker.glade:2958
+#: gnomebaker.glade:3009
 msgid "GnomeBaker data cd"
 msgstr "Диск с данни"
 
-#: gnomebaker.glade:2976
+#: gnomebaker.glade:3027
 msgid "<b>Created by</b>"
 msgstr "<b>Създадено от</b>"
 
-#: gnomebaker.glade:3008
+#: gnomebaker.glade:3059
 msgid "Created by username"
 msgstr "Създадено от потребител"
 
-#: gnomebaker.glade:3026
+#: gnomebaker.glade:3077
 msgid "<b>Boot options</b>"
 msgstr "<b>Опции при стартиране</b>"
 
-#: gnomebaker.glade:3056
+#: gnomebaker.glade:3107
 msgid "Not bootable"
 msgstr "Не е стартируем"
 
-#: gnomebaker.glade:3080
+#: gnomebaker.glade:3131
 msgid "PC bootable"
 msgstr "Стартируем от PC"
 
-#: gnomebaker.glade:3113
+#: gnomebaker.glade:3164
 msgid "Floppy disk image"
 msgstr ""
 
-#: gnomebaker.glade:3134
+#: gnomebaker.glade:3185
 msgid "Hard disk image"
 msgstr ""
 
-#: gnomebaker.glade:3165
+#: gnomebaker.glade:3216
 msgid "Boot catalog"
 msgstr ""
 
-#: gnomebaker.glade:3194
+#: gnomebaker.glade:3245
 msgid "Boot Image"
 msgstr ""
 
-#: gnomebaker.glade:3258
+#: gnomebaker.glade:3309
 msgid "Sun workstation bootable"
 msgstr ""
 
-#: gnomebaker.glade:3281
+#: gnomebaker.glade:3332
 msgid "Boot Image list"
 msgstr ""
 
-#: gnomebaker.glade:3363
+#: gnomebaker.glade:3414
 msgid "Select writer..."
 msgstr "Избор на записвачка..."
 
-#: gnomebaker.glade:3481
+#: gnomebaker.glade:3532
 msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"
 msgstr ""
+
+#~ msgid "File %s was not opened \n"
+#~ msgstr "Файлът %s не беше отворен \n"
+
+#~ msgid "Performer"
+#~ msgstr "Изпълнител"
+
+#~ msgid "Albumtitle"
+#~ msgstr "Заглавие на албум"
+
+#~ msgid "Tracktitle"
+#~ msgstr "Заглавие на песен"
+
+#~ msgid "File %s was not opened"
+#~ msgstr "Файлът %s не беше отворен"
+
+#~ msgid "Failed to initialise gconf"
+#~ msgstr "Грешка при инициализиране на gconf"
 
 #~ msgid "audioinfo_new - mime type is %s for %s"
 #~ msgstr "audioinfo_new - типът mime на 2%s е 1%s"

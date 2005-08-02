@@ -36,7 +36,7 @@ gint y = 0;
 gint timertag = 0;
 gint numberofexecs = 0;
 gint currentexec = -1;
-
+gboolean showing = FALSE;
 
 GtkWidget* 
 progressdlg_new(gint numberofoperations)
@@ -44,6 +44,7 @@ progressdlg_new(gint numberofoperations)
 	GB_LOG_FUNC
 	numberofexecs = numberofoperations;
 	currentexec = -1;
+	showing = FALSE;
 	progdlg_xml = glade_xml_new(glade_file, widget_progdlg, NULL);
 	glade_xml_signal_autoconnect(progdlg_xml);		
 	progressdlg_enable_close(FALSE);	
@@ -102,8 +103,7 @@ progressdlg_set_fraction(gfloat fraction)
 	gchar* percnt = g_strdup_printf("%d%%",(gint)(fraction * 100));
 	gdk_threads_enter();
 	gtk_progress_bar_set_fraction(progbar, fraction);
-	gtk_progress_bar_set_text(progbar, percnt);	
-	/*gdk_flush();*/
+	gtk_progress_bar_set_text(progbar, percnt);		
 	gdk_threads_leave();		
 	
 	g_free(percnt);
@@ -117,8 +117,7 @@ progressdlg_set_text(const gchar* text)
 	g_return_if_fail(progbar != NULL);
 	
 	gdk_threads_enter();
-	gtk_progress_bar_set_text(progbar, text);	
-	/*gdk_flush();*/
+	gtk_progress_bar_set_text(progbar, text);		
 	gdk_threads_leave();
 }
 
@@ -136,8 +135,7 @@ progressdlg_append_output(const gchar* output)
 	gtk_text_buffer_get_end_iter(textBuffer, &textIter);
 	gtk_text_buffer_insert(textBuffer, &textIter, output, strlen(output));	
 	gtk_text_iter_set_line(&textIter, gtk_text_buffer_get_line_count(textBuffer));
-	gtk_text_view_scroll_to_iter(textview, &textIter, 0.0, TRUE, 0.0, 0.0);	
-	/*gdk_flush();*/
+	gtk_text_view_scroll_to_iter(textview, &textIter, 0.0, TRUE, 0.0, 0.0);		
 	gdk_threads_leave();
 }
 
@@ -189,8 +187,7 @@ progressdlg_set_status(const gchar* status)
 	
 	gdk_threads_enter();
 	gtk_label_set_text(GTK_LABEL(statuslabel), status);
-	gtk_label_set_use_markup(GTK_LABEL(statuslabel), TRUE);
-	/*gdk_flush();*/
+	gtk_label_set_use_markup(GTK_LABEL(statuslabel), TRUE);	
 	gdk_threads_leave();		
 }
 
@@ -202,8 +199,7 @@ progressdlg_on_output(GtkButton * button, gpointer user_data)
 	g_return_if_fail(progdlg_xml != NULL);
 	g_return_if_fail(textview != NULL);
 	g_return_if_fail(textviewScroll != NULL);
-	
-	static gboolean showing = TRUE;
+		
 	showing = !showing;
     GtkWidget* outputbuttonlabel = glade_xml_get_widget(progdlg_xml,widget_progdlg_toggleoutputlabel);
     
@@ -241,8 +237,7 @@ progressdlg_pulse_ontimer(gpointer userdata)
 	g_return_val_if_fail(progbar != NULL, TRUE);
 	
 	gdk_threads_enter();
-	gtk_progress_bar_pulse(progbar);	
-	/*gdk_flush();*/
+	gtk_progress_bar_pulse(progbar);		
 	gdk_threads_leave();	
 	
 	return TRUE;
@@ -286,8 +281,7 @@ progressdlg_increment_exec_number()
 	gdk_threads_enter();			
 	gtk_text_buffer_get_end_iter(textBuffer, &endIter);		
 	gtk_text_buffer_get_start_iter(textBuffer, &startIter);	
-	gtk_text_buffer_delete(textBuffer, &startIter, &endIter);	
-	/*gdk_flush();*/
+	gtk_text_buffer_delete(textBuffer, &startIter, &endIter);		
 	gdk_threads_leave();
 }
 
@@ -299,8 +293,7 @@ progressdlg_reset_fraction(gfloat fraction)
 	g_return_if_fail(progbar != NULL);
 	
 	gdk_threads_enter();
-	gtk_progress_bar_set_fraction(progbar, fraction);
-	/*gdk_flush();*/
+	gtk_progress_bar_set_fraction(progbar, fraction);	
 	gdk_threads_leave();	
 }
 
