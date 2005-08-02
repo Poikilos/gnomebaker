@@ -36,7 +36,7 @@ gint y = 0;
 gint timertag = 0;
 gint numberofexecs = 0;
 gint currentexec = -1;
-gboolean showing = FALSE;
+gboolean showing = TRUE;
 
 GtkWidget* 
 progressdlg_new(gint numberofoperations)
@@ -44,7 +44,7 @@ progressdlg_new(gint numberofoperations)
 	GB_LOG_FUNC
 	numberofexecs = numberofoperations;
 	currentexec = -1;
-	showing = FALSE;
+	showing = TRUE;
 	progdlg_xml = glade_xml_new(glade_file, widget_progdlg, NULL);
 	glade_xml_signal_autoconnect(progdlg_xml);		
 	progressdlg_enable_close(FALSE);	
