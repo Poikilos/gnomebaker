@@ -1,0 +1,8 @@
+autom4te.cache
+libtool
+.cdtproject
+.project
+config.h
+config.status
+Makefile
+stamp-h1
