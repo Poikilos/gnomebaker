@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-15 22:59+0100\n"
+"POT-Creation-Date: 2005-07-31 23:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Dutch (Netherlands) <nl_NL@li.org>\n"
@@ -83,28 +83,6 @@ msgstr "Album"
 msgid "Title"
 msgstr "Titel"
 
-#: src/audioinfo.c:141 src/audioinfo.c:271
-#, c-format
-msgid "File %s was not opened \n"
-msgstr "Bestand %s is niet geopend \n"
-
-#: src/audioinfo.c:166
-msgid "Performer"
-msgstr "Uitvoerende"
-
-#: src/audioinfo.c:166
-msgid "Albumtitle"
-msgstr "Albumtitel"
-
-#: src/audioinfo.c:166
-msgid "Tracktitle"
-msgstr "Spoortitel"
-
-#: src/audioinfo.c:214
-#, c-format
-msgid "File %s was not opened"
-msgstr "Bestand %s is niet geopend"
-
 #: src/audioinfo.c:288
 msgid "TITLE="
 msgstr "TITEL="
@@ -117,15 +95,15 @@ msgstr "ARTIEST="
 msgid "ALBUM="
 msgstr "ALBUM="
 
-#: src/burn.c:109
+#: src/burn.c:108
 msgid "Completed"
 msgstr "Voltooid"
 
-#: src/burn.c:113
+#: src/burn.c:112
 msgid "Failed"
 msgstr "Mislukt"
 
-#: src/burn.c:246 src/gnomebaker.c:253
+#: src/burn.c:239 src/gnomebaker.c:256
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
@@ -133,18 +111,13 @@ msgstr ""
 "Het geselecteerde bestand is geen cd image. Selecteer een cd image om te "
 "schrijven."
 
-#: src/burn.c:279 src/burn.c:447
+#: src/burn.c:272 src/burn.c:440
 msgid "Please select an iso file to save to..."
 msgstr "Selecteer een iso bestand om te bewaren..."
 
 #: src/datacd.c:177
 msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr "Bestand of map is te groot voor de resterende ruimte op de CD"
-
-#: src/datacd.c:234
-#, c-format
-msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
-msgstr ""
 
 #: src/datacd.c:453
 msgid "Clear"
@@ -154,7 +127,7 @@ msgstr "Wis"
 msgid "Contents"
 msgstr "Inhoud"
 
-#: src/datacd.c:508 src/filebrowser.c:834
+#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:834
 msgid "Size"
 msgstr "Grootte"
 
@@ -175,7 +148,7 @@ msgid ""
 "%s"
 msgstr "Fout bij lezen van de sessie informatie"
 
-#: src/datacd.c:582 src/devices.c:641
+#: src/datacd.c:582 src/devices.c:643
 msgid "unknown error"
 msgstr "Onbekende fout"
 
@@ -188,7 +161,7 @@ msgstr ""
 "Fout bij het importeren van sessie van [%s]. Controleer de instellingen van "
 "het apparaat in de voorkeuren."
 
-#: src/devices.c:622
+#: src/devices.c:624
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
@@ -198,7 +171,7 @@ msgstr ""
 "Controleer of het apparaat in /etc/fstab staat en scan daarna opnieuw vanuit "
 "voorkeuren voor apparaten."
 
-#: src/devices.c:640
+#: src/devices.c:642
 #, c-format
 msgid ""
 "Error %s %s.\n"
@@ -209,13 +182,30 @@ msgstr ""
 "↵\n"
 "%s"
 
-#: src/devices.c:641
+#: src/devices.c:643
 msgid "mounting"
 msgstr "koppelen"
 
-#: src/devices.c:641
+#: src/devices.c:643
 msgid "unmounting"
 msgstr "ontkoppelen"
+
+#: src/filebrowser.c:67 src/filebrowser.c:721
+msgid "Filesystem"
+msgstr "Bestandssysteem"
+
+#: src/filebrowser.c:68
+msgid "Home"
+msgstr ""
+
+#: src/filebrowser.c:69
+msgid "(empty)"
+msgstr ""
+
+#: src/filebrowser.c:70
+#, fuzzy
+msgid "Folder"
+msgstr "Modus"
 
 #: src/filebrowser.c:610
 #, fuzzy
@@ -235,10 +225,6 @@ msgstr "Schrijf CD Image"
 #, fuzzy
 msgid "_Burn DVD Image"
 msgstr "Schrijf CD Image"
-
-#: src/filebrowser.c:721
-msgid "Filesystem"
-msgstr "Bestandssysteem"
 
 #: src/filebrowser.c:752
 #, c-format
@@ -272,27 +258,27 @@ msgstr "Opstart image lijst"
 msgid "All files"
 msgstr "Bestand(en) toevoegen"
 
-#: src/gnomebaker.c:86
+#: src/gnomebaker.c:85
 msgid "Loading preferences..."
 msgstr "Voorkeuren inlezen"
 
-#: src/gnomebaker.c:89
+#: src/gnomebaker.c:88
 msgid "Detecting devices..."
 msgstr "Apparaten detecteren..."
 
-#: src/gnomebaker.c:92
+#: src/gnomebaker.c:91
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: src/gnomebaker.c:95
+#: src/gnomebaker.c:94
 msgid "Loading GUI..."
 msgstr "GUI laden"
 
-#: src/gnomebaker.c:178
+#: src/gnomebaker.c:179
 msgid "Are you sure you want to quit?"
 msgstr "Applicatie verlaten?"
 
-#: src/gnomebaker.c:282
+#: src/gnomebaker.c:285
 #, fuzzy
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
@@ -301,21 +287,22 @@ msgstr ""
 "Het geselecteerde bestand is geen cd image. Selecteer een cd image om te "
 "schrijven."
 
-#: src/gnomebaker.c:339 gnomebaker.glade:12
+#: src/gnomebaker.c:342 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: src/gnomebaker.c:340
+#: src/gnomebaker.c:343
 msgid "Simple CD Burning for Gnome"
 msgstr "Eenvoudig CD's beschrijven in Gnome"
 
-#: src/gnomebaker.c:340 gnomebaker.glade:1701
+#: src/gnomebaker.c:343 gnomebaker.glade:1701
 msgid "translator_credits"
 msgstr ""
 
-#: src/preferences.c:44
-msgid "Failed to initialise gconf"
-msgstr "Niet in staat om gconf te initialiseren"
+#: src/gnomebaker.c:408
+#, fuzzy
+msgid "Please select files to add to the disk..."
+msgstr "Selecteer een iso bestand om te bewaren..."
 
 #: src/prefsdlg.c:131
 msgid "Name"
@@ -395,36 +382,36 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:98
+#: src/execfunctions.c:99
 msgid "<b>Burning disk...</b>"
 msgstr "Schijf aan het branden..."
 
-#: src/execfunctions.c:104
+#: src/execfunctions.c:105
 #, fuzzy
 msgid "Please insert the CD into the CD writer"
 msgstr "Plaats de CD-RW in de CD-brander"
 
-#: src/execfunctions.c:121
+#: src/execfunctions.c:123
 msgid "<b>Blanking disk...</b>"
 msgstr "Disk aan het leegmaken"
 
-#: src/execfunctions.c:128
+#: src/execfunctions.c:130
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Plaats de CD-RW in de CD-brander"
 
-#: src/execfunctions.c:206
+#: src/execfunctions.c:209
 msgid "Fixating"
 msgstr "Fixeren"
 
-#: src/execfunctions.c:246 gnomebaker.glade:2763
+#: src/execfunctions.c:249 gnomebaker.glade:2814
 msgid "default"
 msgstr "standaard"
 
-#: src/execfunctions.c:401
+#: src/execfunctions.c:404
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Geluidssporen extraheren...</b>"
 
-#: src/execfunctions.c:413
+#: src/execfunctions.c:416
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -432,15 +419,15 @@ msgstr ""
 "Bestaande geluidssporen van een vorige sessie gevonden. Wilt U deze "
 "gebruiken?"
 
-#: src/execfunctions.c:429
+#: src/execfunctions.c:433
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Plaats de audio CD in de CD-speler"
 
-#: src/execfunctions.c:576
+#: src/execfunctions.c:581
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Data disk image aanmaken...</b>"
 
-#: src/execfunctions.c:584
+#: src/execfunctions.c:589
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -448,31 +435,31 @@ msgstr ""
 "Er bestaat al een data CD image op de schijf. Wilt u de bestaande image "
 "gebruiken?"
 
-#: src/execfunctions.c:773
+#: src/execfunctions.c:782
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Formatteren van DVD...</b>"
 
-#: src/execfunctions.c:780
+#: src/execfunctions.c:789
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Plaats en herschrijfbare DVD in de DVD schrijver"
 
-#: src/execfunctions.c:871
+#: src/execfunctions.c:875
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Beschijven van DVD...</b>"
 
-#: src/execfunctions.c:879
+#: src/execfunctions.c:882
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Plaats en beschrijfbare DVD in de DVD schrijver"
 
-#: src/execfunctions.c:958 src/execfunctions.c:1002
+#: src/execfunctions.c:962 src/execfunctions.c:1006
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1162
+#: src/execfunctions.c:1166
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>CD image aan het lezen...</b>"
 
-#: src/execfunctions.c:1413
+#: src/execfunctions.c:1421
 #, fuzzy
 msgid "<b>Converting files to cd audio...</b>"
 msgstr "<b>Converteren van wav naar cd audio...</b>"
@@ -707,143 +694,170 @@ msgstr "Toon verborgen bestanden"
 msgid "Show humanreadable filesizes"
 msgstr "Toon verborgen bestanden"
 
-#: gnomebaker.glade:2010
+#: gnomebaker.glade:2004
+#, fuzzy
+msgid "<b>GnomeBaker</b>"
+msgstr "GnomeBaker"
+
+#: gnomebaker.glade:2033
+msgid "Ask on quit"
+msgstr ""
+
+#: gnomebaker.glade:2061
 msgid "General"
 msgstr "Algemeen"
 
-#: gnomebaker.glade:2043
+#: gnomebaker.glade:2094
 msgid "<b>Detected devices</b>"
 msgstr "<b>Gedetecteerde apparaten</b>"
 
-#: gnomebaker.glade:2104
+#: gnomebaker.glade:2155
 msgid "Always scan for devices on startup"
 msgstr "Altijd zoeken naar apparaten bij opstarten"
 
-#: gnomebaker.glade:2176
+#: gnomebaker.glade:2227
 msgid "_Add device"
 msgstr "_Apparaat toevoegen"
 
-#: gnomebaker.glade:2251 gnomebaker.glade:2635
+#: gnomebaker.glade:2302 gnomebaker.glade:2686
 msgid "Sc_an for devices"
 msgstr "Zoek naar _apparaten"
 
-#: gnomebaker.glade:2298
+#: gnomebaker.glade:2349
 msgid "Devices"
 msgstr "Apparaten"
 
-#: gnomebaker.glade:2330
+#: gnomebaker.glade:2381
 msgid "Start burning..."
 msgstr "Start schrijven..."
 
-#: gnomebaker.glade:2417
+#: gnomebaker.glade:2468
 msgid "_Start"
 msgstr "_Start"
 
-#: gnomebaker.glade:2466
+#: gnomebaker.glade:2517
 msgid "Reader"
 msgstr "Lezer"
 
-#: gnomebaker.glade:2495 gnomebaker.glade:3437
+#: gnomebaker.glade:2546 gnomebaker.glade:3488
 msgid "Writer"
 msgstr "Schrijver"
 
-#: gnomebaker.glade:2558
+#: gnomebaker.glade:2609
 msgid "<b>Options</b>"
 msgstr "<b>Opties</b>"
 
-#: gnomebaker.glade:2676
+#: gnomebaker.glade:2727
 msgid "Speed"
 msgstr "Snelheid"
 
-#: gnomebaker.glade:2726
+#: gnomebaker.glade:2777
 msgid "Mode"
 msgstr "Modus"
 
-#: gnomebaker.glade:2771
+#: gnomebaker.glade:2822
 msgid "tao"
 msgstr "tao"
 
-#: gnomebaker.glade:2779
+#: gnomebaker.glade:2830
 msgid "dao"
 msgstr "dao"
 
-#: gnomebaker.glade:2787
+#: gnomebaker.glade:2838
 msgid "raw96p"
 msgstr "raw96p"
 
-#: gnomebaker.glade:2795
+#: gnomebaker.glade:2846
 msgid "raw16"
 msgstr "raw16"
 
-#: gnomebaker.glade:2815
+#: gnomebaker.glade:2866
 msgid "<b>Devices</b>"
 msgstr "<b>Apparaten</b>"
 
-#: gnomebaker.glade:2853
+#: gnomebaker.glade:2904
 msgid "ISO filesystem details"
 msgstr "Details ISO bestandssysteem"
 
-#: gnomebaker.glade:2926
+#: gnomebaker.glade:2977
 msgid "<b>Volume label</b>"
 msgstr "<b>Schijftitel</b>"
 
-#: gnomebaker.glade:2958
+#: gnomebaker.glade:3009
 msgid "GnomeBaker data cd"
 msgstr "GnomeBaker data cd"
 
-#: gnomebaker.glade:2976
+#: gnomebaker.glade:3027
 msgid "<b>Created by</b>"
 msgstr "<b>Aangemaakt door</b>"
 
-#: gnomebaker.glade:3008
+#: gnomebaker.glade:3059
 msgid "Created by username"
 msgstr "Aangemaakt door gebruikersnaam"
 
-#: gnomebaker.glade:3026
+#: gnomebaker.glade:3077
 msgid "<b>Boot options</b>"
 msgstr "<b>Opstart opties</b>"
 
-#: gnomebaker.glade:3056
+#: gnomebaker.glade:3107
 msgid "Not bootable"
 msgstr "Niet op te starten"
 
-#: gnomebaker.glade:3080
+#: gnomebaker.glade:3131
 msgid "PC bootable"
 msgstr "Op te starten op PC"
 
-#: gnomebaker.glade:3113
+#: gnomebaker.glade:3164
 msgid "Floppy disk image"
 msgstr "Diskette image"
 
-#: gnomebaker.glade:3134
+#: gnomebaker.glade:3185
 msgid "Hard disk image"
 msgstr "Harde schijf image"
 
-#: gnomebaker.glade:3165
+#: gnomebaker.glade:3216
 msgid "Boot catalog"
 msgstr ""
 
-#: gnomebaker.glade:3194
+#: gnomebaker.glade:3245
 msgid "Boot Image"
 msgstr "Opstart image"
 
-#: gnomebaker.glade:3258
+#: gnomebaker.glade:3309
 msgid "Sun workstation bootable"
 msgstr "Op te starten op Sun werkstation"
 
-#: gnomebaker.glade:3281
+#: gnomebaker.glade:3332
 msgid "Boot Image list"
 msgstr "Opstart image lijst"
 
-#: gnomebaker.glade:3363
+#: gnomebaker.glade:3414
 msgid "Select writer..."
 msgstr ""
 
-#: gnomebaker.glade:3481
+#: gnomebaker.glade:3532
 msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"
 msgstr ""
+
+#~ msgid "File %s was not opened \n"
+#~ msgstr "Bestand %s is niet geopend \n"
+
+#~ msgid "Performer"
+#~ msgstr "Uitvoerende"
+
+#~ msgid "Albumtitle"
+#~ msgstr "Albumtitel"
+
+#~ msgid "Tracktitle"
+#~ msgstr "Spoortitel"
+
+#~ msgid "File %s was not opened"
+#~ msgstr "Bestand %s is niet geopend"
+
+#~ msgid "Failed to initialise gconf"
+#~ msgstr "Niet in staat om gconf te initialiseren"
 
 #~ msgid "Error reading wav header for file [%s]"
 #~ msgstr "Fout bij het lezen van de wav titel van bestand [%s]"

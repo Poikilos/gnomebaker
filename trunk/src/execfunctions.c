@@ -669,6 +669,7 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 	GB_LOG_FUNC
 	g_return_val_if_fail(e != NULL, FALSE);
 	g_return_val_if_fail(datamodel != NULL, FALSE);
+	cdrecord_totaldiskbytes = 0.0;
 	
 	/* If this is a another session on an existing cd we don't show the 
 	   iso details dialog */	
@@ -746,6 +747,9 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
         }
 		exec_cmd_add_arg(e, "%s", "-graft-points");
 		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
+		
+		/* rough approximation here but an iso is %20 bigger than the total file sizes */
+		cdrecord_totaldiskbytes *= 1.2;
 				
 		e->preProc = mkisofs_pre_proc;
 		e->readProc = mkisofs_read_proc;

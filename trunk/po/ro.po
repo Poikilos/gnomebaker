@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-15 22:59+0100\n"
+"POT-Creation-Date: 2005-07-31 23:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -83,28 +83,6 @@ msgstr "Album"
 msgid "Title"
 msgstr "Titlu"
 
-#: src/audioinfo.c:141 src/audioinfo.c:271
-#, c-format
-msgid "File %s was not opened \n"
-msgstr "Fişierul %s nu a fost deschis \n"
-
-#: src/audioinfo.c:166
-msgid "Performer"
-msgstr "Interpret"
-
-#: src/audioinfo.c:166
-msgid "Albumtitle"
-msgstr "Titlu album"
-
-#: src/audioinfo.c:166
-msgid "Tracktitle"
-msgstr "Titlu piesa"
-
-#: src/audioinfo.c:214
-#, c-format
-msgid "File %s was not opened"
-msgstr "Fişierul %s nu a fost deschis"
-
 #: src/audioinfo.c:288
 msgid "TITLE="
 msgstr "TITLU="
@@ -117,15 +95,15 @@ msgstr "ARTIST="
 msgid "ALBUM="
 msgstr "ALBUM="
 
-#: src/burn.c:109
+#: src/burn.c:108
 msgid "Completed"
 msgstr "Terminat"
 
-#: src/burn.c:113
+#: src/burn.c:112
 msgid "Failed"
 msgstr "Eşuat"
 
-#: src/burn.c:246 src/gnomebaker.c:253
+#: src/burn.c:239 src/gnomebaker.c:256
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
@@ -133,7 +111,7 @@ msgstr ""
 "Fişierul pe care l-aţi selectat nu este o imagine a unui CD. Va rog "
 "selectaţi o imagine CD pentru a o arde."
 
-#: src/burn.c:279 src/burn.c:447
+#: src/burn.c:272 src/burn.c:440
 msgid "Please select an iso file to save to..."
 msgstr "Vă rog selectaţi un fişier iso pentru a salva în..."
 
@@ -141,13 +119,6 @@ msgstr "Vă rog selectaţi un fişier iso pentru a salva în..."
 msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr ""
 "Fişierul sau directorul este prea mare pentru a încape în spaţiul rămas pe CD"
-
-#: src/datacd.c:234
-#, c-format
-msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
-msgstr ""
-"eşuare la stat pentru fişierul [%s] cu condul returnat [%d] şi codul erorii "
-"[%s]"
 
 #: src/datacd.c:453
 msgid "Clear"
@@ -157,7 +128,7 @@ msgstr "Şterge"
 msgid "Contents"
 msgstr "Conţinut"
 
-#: src/datacd.c:508 src/filebrowser.c:834
+#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:834
 msgid "Size"
 msgstr "Dimensiune"
 
@@ -181,7 +152,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/datacd.c:582 src/devices.c:641
+#: src/datacd.c:582 src/devices.c:643
 msgid "unknown error"
 msgstr "eroarea necunoscută"
 
@@ -194,7 +165,7 @@ msgstr ""
 "Eroare în importarea sesiunii din [%s]. Vă rog verificaţi configurarea "
 "dispozitivului din preferinţele aplicaţiei."
 
-#: src/devices.c:622
+#: src/devices.c:624
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
@@ -204,7 +175,7 @@ msgstr ""
 "a putut fi obţinut. Vă rog verificaţi dacă dispozitivul este trecut în /etc/"
 "fstab şi mergeţi la preferinţe pentru a recăuta dispozitivele."
 
-#: src/devices.c:640
+#: src/devices.c:642
 #, c-format
 msgid ""
 "Error %s %s.\n"
@@ -215,13 +186,30 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/devices.c:641
+#: src/devices.c:643
 msgid "mounting"
 msgstr "montez"
 
-#: src/devices.c:641
+#: src/devices.c:643
 msgid "unmounting"
 msgstr "de-montez"
+
+#: src/filebrowser.c:67 src/filebrowser.c:721
+msgid "Filesystem"
+msgstr "Sistem de fişiere"
+
+#: src/filebrowser.c:68
+msgid "Home"
+msgstr ""
+
+#: src/filebrowser.c:69
+msgid "(empty)"
+msgstr ""
+
+#: src/filebrowser.c:70
+#, fuzzy
+msgid "Folder"
+msgstr "Mod"
 
 #: src/filebrowser.c:610
 #, fuzzy
@@ -241,10 +229,6 @@ msgstr "Arde imagine CD"
 #, fuzzy
 msgid "_Burn DVD Image"
 msgstr "Arde imagine CD"
-
-#: src/filebrowser.c:721
-msgid "Filesystem"
-msgstr "Sistem de fişiere"
 
 #: src/filebrowser.c:752
 #, c-format
@@ -278,27 +262,27 @@ msgstr "Lista cu imagini bootabile"
 msgid "All files"
 msgstr "Adaugă fişier(e)"
 
-#: src/gnomebaker.c:86
+#: src/gnomebaker.c:85
 msgid "Loading preferences..."
 msgstr "Încărcare preferinţe..."
 
-#: src/gnomebaker.c:89
+#: src/gnomebaker.c:88
 msgid "Detecting devices..."
 msgstr "Detectare dispozitive..."
 
-#: src/gnomebaker.c:92
+#: src/gnomebaker.c:91
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: src/gnomebaker.c:95
+#: src/gnomebaker.c:94
 msgid "Loading GUI..."
 msgstr "Încărcare interfaţa grafică"
 
-#: src/gnomebaker.c:178
+#: src/gnomebaker.c:179
 msgid "Are you sure you want to quit?"
 msgstr "Doriţi să părăsiţi aplicaţia?"
 
-#: src/gnomebaker.c:282
+#: src/gnomebaker.c:285
 #, fuzzy
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
@@ -307,21 +291,22 @@ msgstr ""
 "Fişierul pe care l-aţi selectat nu este o imagine a unui CD. Va rog "
 "selectaţi o imagine CD pentru a o arde."
 
-#: src/gnomebaker.c:339 gnomebaker.glade:12
+#: src/gnomebaker.c:342 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: src/gnomebaker.c:340
+#: src/gnomebaker.c:343
 msgid "Simple CD Burning for Gnome"
 msgstr "O aplicaţie de ars CD-uri pentru Gnome"
 
-#: src/gnomebaker.c:340 gnomebaker.glade:1701
+#: src/gnomebaker.c:343 gnomebaker.glade:1701
 msgid "translator_credits"
 msgstr "merite_traducător"
 
-#: src/preferences.c:44
-msgid "Failed to initialise gconf"
-msgstr "Eşuare în iniţializarea gconf-ului"
+#: src/gnomebaker.c:408
+#, fuzzy
+msgid "Please select files to add to the disk..."
+msgstr "Vă rog selectaţi un fişier iso pentru a salva în..."
 
 #: src/prefsdlg.c:131
 msgid "Name"
@@ -401,36 +386,36 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:98
+#: src/execfunctions.c:99
 msgid "<b>Burning disk...</b>"
 msgstr "<b>Ardere disc...</b>"
 
-#: src/execfunctions.c:104
+#: src/execfunctions.c:105
 #, fuzzy
 msgid "Please insert the CD into the CD writer"
 msgstr "Vă rog să introduceţi un CD-RW în unitatea de scris CD-uri"
 
-#: src/execfunctions.c:121
+#: src/execfunctions.c:123
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Ştergere disc...<b>"
 
-#: src/execfunctions.c:128
+#: src/execfunctions.c:130
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Vă rog să introduceţi un CD-RW în unitatea de scris CD-uri"
 
-#: src/execfunctions.c:206
+#: src/execfunctions.c:209
 msgid "Fixating"
 msgstr "Fixare"
 
-#: src/execfunctions.c:246 gnomebaker.glade:2763
+#: src/execfunctions.c:249 gnomebaker.glade:2814
 msgid "default"
 msgstr "implicit"
 
-#: src/execfunctions.c:401
+#: src/execfunctions.c:404
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Extragere piese audio...</b>"
 
-#: src/execfunctions.c:413
+#: src/execfunctions.c:416
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -438,15 +423,15 @@ msgstr ""
 "Piese audio de la o sesiune precedentă există deja pe disc, doriţi să "
 "folosiţi piesele existente?"
 
-#: src/execfunctions.c:429
+#: src/execfunctions.c:433
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Vă rag să introduceţi un CD audio în unitatea de citit CD-uri"
 
-#: src/execfunctions.c:576
+#: src/execfunctions.c:581
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Creez o imagine Data CD...</b>"
 
-#: src/execfunctions.c:584
+#: src/execfunctions.c:589
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -454,31 +439,31 @@ msgstr ""
 "O imagine Data CD dintr-o sesiune precedenta există deja pe disc, doriţi să "
 "folosiţi imaginea existentă?"
 
-#: src/execfunctions.c:773
+#: src/execfunctions.c:782
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Formatare DVD...</b>"
 
-#: src/execfunctions.c:780
+#: src/execfunctions.c:789
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Vă rog introduceţi un DVD reinscriptibil în unitatea de scris DVD-uri"
 
-#: src/execfunctions.c:871
+#: src/execfunctions.c:875
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Ardere DVD...</b>"
 
-#: src/execfunctions.c:879
+#: src/execfunctions.c:882
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Vă rog introduceţi un DVD reinscriptibil în unitatea de scris DVD-uri"
 
-#: src/execfunctions.c:958 src/execfunctions.c:1002
+#: src/execfunctions.c:962 src/execfunctions.c:1006
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1162
+#: src/execfunctions.c:1166
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>Citire imagine CD...</b>"
 
-#: src/execfunctions.c:1413
+#: src/execfunctions.c:1421
 #, fuzzy
 msgid "<b>Converting files to cd audio...</b>"
 msgstr "<b>Convertire wav în CD audio...</b>"
@@ -714,143 +699,175 @@ msgstr "Arată fişierele ascunse"
 msgid "Show humanreadable filesizes"
 msgstr "Arată fişierele ascunse"
 
-#: gnomebaker.glade:2010
+#: gnomebaker.glade:2004
+#, fuzzy
+msgid "<b>GnomeBaker</b>"
+msgstr "GnomeBaker"
+
+#: gnomebaker.glade:2033
+msgid "Ask on quit"
+msgstr ""
+
+#: gnomebaker.glade:2061
 msgid "General"
 msgstr "General"
 
-#: gnomebaker.glade:2043
+#: gnomebaker.glade:2094
 msgid "<b>Detected devices</b>"
 msgstr "<b>Dispozitive detectate</b>"
 
-#: gnomebaker.glade:2104
+#: gnomebaker.glade:2155
 msgid "Always scan for devices on startup"
 msgstr "Scanează totdeauna după dispozitive la start"
 
-#: gnomebaker.glade:2176
+#: gnomebaker.glade:2227
 msgid "_Add device"
 msgstr "_Adaugă dispozitiv"
 
-#: gnomebaker.glade:2251 gnomebaker.glade:2635
+#: gnomebaker.glade:2302 gnomebaker.glade:2686
 msgid "Sc_an for devices"
 msgstr "Sc_anează după dispozitive"
 
-#: gnomebaker.glade:2298
+#: gnomebaker.glade:2349
 msgid "Devices"
 msgstr "Dispozitive"
 
-#: gnomebaker.glade:2330
+#: gnomebaker.glade:2381
 msgid "Start burning..."
 msgstr "Porneşte arderea..."
 
-#: gnomebaker.glade:2417
+#: gnomebaker.glade:2468
 msgid "_Start"
 msgstr "_Start"
 
-#: gnomebaker.glade:2466
+#: gnomebaker.glade:2517
 msgid "Reader"
 msgstr "Cititor"
 
-#: gnomebaker.glade:2495 gnomebaker.glade:3437
+#: gnomebaker.glade:2546 gnomebaker.glade:3488
 msgid "Writer"
 msgstr "Scriitor"
 
-#: gnomebaker.glade:2558
+#: gnomebaker.glade:2609
 msgid "<b>Options</b>"
 msgstr "<b>Opţiuni</b>"
 
-#: gnomebaker.glade:2676
+#: gnomebaker.glade:2727
 msgid "Speed"
 msgstr "Viteză"
 
-#: gnomebaker.glade:2726
+#: gnomebaker.glade:2777
 msgid "Mode"
 msgstr "Mod"
 
-#: gnomebaker.glade:2771
+#: gnomebaker.glade:2822
 msgid "tao"
 msgstr "tao"
 
-#: gnomebaker.glade:2779
+#: gnomebaker.glade:2830
 msgid "dao"
 msgstr "dao"
 
-#: gnomebaker.glade:2787
+#: gnomebaker.glade:2838
 msgid "raw96p"
 msgstr "raw96p"
 
-#: gnomebaker.glade:2795
+#: gnomebaker.glade:2846
 msgid "raw16"
 msgstr "raw16"
 
-#: gnomebaker.glade:2815
+#: gnomebaker.glade:2866
 msgid "<b>Devices</b>"
 msgstr "<b>Dispozitive</b>"
 
-#: gnomebaker.glade:2853
+#: gnomebaker.glade:2904
 msgid "ISO filesystem details"
 msgstr "Detalii ale sistemului de fişiere ISO "
 
-#: gnomebaker.glade:2926
+#: gnomebaker.glade:2977
 msgid "<b>Volume label</b>"
 msgstr "<b>Eticheta volumului</b>"
 
-#: gnomebaker.glade:2958
+#: gnomebaker.glade:3009
 msgid "GnomeBaker data cd"
 msgstr "GnomeBaker data cd"
 
-#: gnomebaker.glade:2976
+#: gnomebaker.glade:3027
 msgid "<b>Created by</b>"
 msgstr "<b>Creat de către</b>"
 
-#: gnomebaker.glade:3008
+#: gnomebaker.glade:3059
 msgid "Created by username"
 msgstr "Creat de către utilizatorul"
 
-#: gnomebaker.glade:3026
+#: gnomebaker.glade:3077
 msgid "<b>Boot options</b>"
 msgstr "<b>Opţiuni de bootare</b>"
 
-#: gnomebaker.glade:3056
+#: gnomebaker.glade:3107
 msgid "Not bootable"
 msgstr "Nu este bootabil"
 
-#: gnomebaker.glade:3080
+#: gnomebaker.glade:3131
 msgid "PC bootable"
 msgstr "Bootabil de către PC"
 
-#: gnomebaker.glade:3113
+#: gnomebaker.glade:3164
 msgid "Floppy disk image"
 msgstr "Imaginea dischetă"
 
-#: gnomebaker.glade:3134
+#: gnomebaker.glade:3185
 msgid "Hard disk image"
 msgstr "Imagine hard disk"
 
-#: gnomebaker.glade:3165
+#: gnomebaker.glade:3216
 msgid "Boot catalog"
 msgstr "Catalog de boot"
 
-#: gnomebaker.glade:3194
+#: gnomebaker.glade:3245
 msgid "Boot Image"
 msgstr "Imagine de boot"
 
-#: gnomebaker.glade:3258
+#: gnomebaker.glade:3309
 msgid "Sun workstation bootable"
 msgstr "Bootabil de către staţii de lucru Sun"
 
-#: gnomebaker.glade:3281
+#: gnomebaker.glade:3332
 msgid "Boot Image list"
 msgstr "Lista cu imagini bootabile"
 
-#: gnomebaker.glade:3363
+#: gnomebaker.glade:3414
 msgid "Select writer..."
 msgstr ""
 
-#: gnomebaker.glade:3481
+#: gnomebaker.glade:3532
 msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"
 msgstr ""
+
+#~ msgid "File %s was not opened \n"
+#~ msgstr "Fişierul %s nu a fost deschis \n"
+
+#~ msgid "Performer"
+#~ msgstr "Interpret"
+
+#~ msgid "Albumtitle"
+#~ msgstr "Titlu album"
+
+#~ msgid "Tracktitle"
+#~ msgstr "Titlu piesa"
+
+#~ msgid "File %s was not opened"
+#~ msgstr "Fişierul %s nu a fost deschis"
+
+#~ msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
+#~ msgstr ""
+#~ "eşuare la stat pentru fişierul [%s] cu condul returnat [%d] şi codul "
+#~ "erorii [%s]"
+
+#~ msgid "Failed to initialise gconf"
+#~ msgstr "Eşuare în iniţializarea gconf-ului"
 
 #, fuzzy
 #~ msgid "audioinfo_new - mime type is %s for %s"
