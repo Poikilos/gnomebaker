@@ -297,20 +297,20 @@ exec_thread_gspawn(gpointer data)
 
 
 void
-stdout_setup_func (gpointer data)
+exec_stdout_setup_func(gpointer data)
 {
 	GB_LOG_FUNC
-	int* pipe = (int*) data;
+	int* pipe = (int*)data;
 	dup2(pipe[1], 1);
 	close(pipe[0]);
 }
 
 
 void
-stdin_setup_func (gpointer data)
+exec_stdin_setup_func(gpointer data)
 {
 	GB_LOG_FUNC	
-	int* pipe = (int*) data;
+	int* pipe = (int*)data;
 	dup2(pipe[0], 0);
 	close(pipe[1]);
 }
@@ -326,7 +326,7 @@ exec_run_remainder(gpointer data)
 	gint j = 0;
 	for(; j < ex->cmdCount - 1; j++)
 	{
-		if(!exec_spawn_process(ex, &ex->cmds[j], stdout_setup_func, FALSE, NULL))
+		if(!exec_spawn_process(ex, &ex->cmds[j], exec_stdout_setup_func, FALSE, NULL))
 			break;								
 	}	
 	close(ex->child_child_pipe[1]);			
@@ -352,7 +352,7 @@ exec_thread_gspawn_otf(gpointer data)
 	if((state != SKIP) && (state != CANCELLED))
 	{
 		pipe(ex->child_child_pipe);	
-		if(exec_spawn_process(ex, e, stdin_setup_func, TRUE, exec_run_remainder))
+		if(exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder))
 		{
 			if(e->postProc) e->postProc(e, NULL);	
 		}

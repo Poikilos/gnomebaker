@@ -315,6 +315,41 @@ cdrecord_add_iso_args(ExecCmd * const cdBurn, const gchar * const iso)
 }
 
 
+void
+cdrecord_copy_audio_cd_pre_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+    
+    cdrecord_pre_proc(ex, buffer);
+    
+    GError *err = NULL; 
+    gchar* tmp = preferences_get_string(GB_TEMP_DIR);
+    GDir *dir = g_dir_open(tmp, 0, &err);
+    if(dir != NULL)
+    {
+        cdrecord_totaltrackstowrite = 0;
+        /* loop around reading the files in the directory */
+        const gchar *name = g_dir_read_name(dir); 
+        while(name != NULL)
+        {
+            if(g_str_has_suffix(name, ".wav"))
+            {
+                GB_TRACE("adding [%s]", name);
+                gchar* fullpath = g_build_filename(tmp, name, NULL);
+                exec_cmd_add_arg(ex, "%s", fullpath);
+                cdrecord_totaltrackstowrite++;
+                g_free(fullpath);
+            }
+            
+            name = g_dir_read_name(dir);
+        }
+        g_dir_close(dir);
+    }
+    g_free(tmp);    
+}
+
+
 void 
 cdrecord_add_audio_args(ExecCmd * const cdBurn)
 {
@@ -325,32 +360,8 @@ cdrecord_add_audio_args(ExecCmd * const cdBurn)
 	exec_cmd_add_arg(cdBurn, "%s", "-audio");
 	exec_cmd_add_arg(cdBurn, "%s", "-pad");
 	  
-    GError *err = NULL;	
-    gchar* tmp = preferences_get_string(GB_TEMP_DIR);
-    GDir *dir = g_dir_open(tmp, 0, &err);
-    if(dir != NULL)
-    {
-        cdrecord_totaltrackstowrite = 0;
-        /* loop around reading the files in the directory */
-        const gchar *name = g_dir_read_name(dir);	
-        while(name != NULL)
-        {
-            if(g_str_has_suffix(name, ".wav"))
-            {
-                GB_TRACE("adding [%s]", name);
-                gchar* fullpath = g_build_filename(tmp, name, NULL);
-                exec_cmd_add_arg(cdBurn, "%s", fullpath);
-                cdrecord_totaltrackstowrite++;
-                g_free(fullpath);
-            }
-            
-            name = g_dir_read_name(dir);
-        }
-        g_dir_close(dir);
-    }
-    g_free(tmp);
 	cdBurn->readProc = cdrecord_read_proc;
-	cdBurn->preProc = cdrecord_pre_proc;	
+	cdBurn->preProc = cdrecord_copy_audio_cd_pre_proc;	
 }
 
 
@@ -532,6 +543,7 @@ cdda2wav_add_copy_args(ExecCmd * e)
 	exec_cmd_add_arg(e, "%s", "cdda2wav");
 	exec_cmd_add_arg(e, "%s", "-x");
 	exec_cmd_add_arg(e, "%s", "cddb=1");
+    exec_cmd_add_arg(e, "%s", "speed=52");
 	exec_cmd_add_arg(e, "%s", "-B");
 	exec_cmd_add_arg(e, "%s", "-g");
 	exec_cmd_add_arg(e, "%s", "-Q");
