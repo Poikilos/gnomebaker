@@ -1,6 +1,6 @@
 Version 0.4.1
 
-* Apply Milen's patch so we can determine if we ask on quit
+* Apply Milen's patch so we have a preference setting which determines if we ask on quit.
 * Marco Meyerhofer patches (Nearly complete translation in german,  install help-files under /usr/share/gnome/help/, make help appear in yelp under Application/Accessories
 * Fix stupid bug with window sizing and not checking arguments.
 * Check pids are not us or our parent when killing processes.
@@ -19,6 +19,9 @@ Version 0.4.1
 * Fix RFE #1162569 Support for long filenames (backups)
 * Fix RFE #1206531 Volume label for DVD
 * Fix REF #1144905 DVD iso flags
+* Start using glib g_spawn code as it's better than the exec code I wrote.
+* Fix threading problem which would crash GB on some machines.
+* Fix regression is audio cd copying.
 
 Version 0.4
 
