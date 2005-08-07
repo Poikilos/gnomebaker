@@ -431,7 +431,7 @@ gbcommon_show_iso_dlg()
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
 	GtkFileFilter *imagefilter = gtk_file_filter_new();
 	gtk_file_filter_add_pattern (imagefilter, "*.iso");
-	gtk_file_filter_add_pattern (imagefilter, "*.bin");
+	gtk_file_filter_add_pattern (imagefilter, "*.toc");
 	gtk_file_filter_add_pattern (imagefilter, "*.cue");
 	gtk_file_filter_set_name(imagefilter,_("CD Image files"));
 	GtkFileFilter *allfilter = gtk_file_filter_new();

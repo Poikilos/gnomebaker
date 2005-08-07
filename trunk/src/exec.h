@@ -52,6 +52,8 @@ typedef struct
 	ExecFunc postProc;	
     GMutex* mutex;
     GCond* cond;
+    gchar* workingdir;
+    gint* pipe;
 }ExecCmd;
 
 typedef struct

@@ -64,6 +64,8 @@ exec_cmd_init(ExecCmd * e)
 	e->postProc = NULL;
     e->mutex = g_mutex_new();
     e->cond = g_cond_new();
+    e->workingdir = NULL;
+    e->pipe = NULL;
 }
 
 
@@ -92,6 +94,7 @@ exec_cmd_end(ExecCmd * e)
 	g_cond_free(e->cond);
     g_mutex_free(e->mutex);
 	g_free(e->argv);
+    g_free(e->workingdir);
 }
 
 
@@ -182,7 +185,7 @@ exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gbool
 	gint stdout = 0, stderr = 0;		
 	exec_cmd_lock(e);
 	gboolean ok = g_spawn_async_with_pipes(NULL, e->argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_DO_NOT_REAP_CHILD , 
-        child_setup, ex->child_child_pipe, &e->pid, NULL, &stdout, &stderr, &ex->err);	
+        child_setup, e, &e->pid, NULL, &stdout, &stderr, &ex->err);	
     exec_cmd_unlock(e);
 	if(ok)
 	{
@@ -266,33 +269,14 @@ exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gbool
 }
 
 
-gpointer
-exec_thread_gspawn(gpointer data)
+void
+exec_working_dir_setup_func(gpointer data)
 {
-	GB_LOG_FUNC
-	g_return_val_if_fail(data != NULL, NULL); 	
-
-	Exec* ex = (Exec*)data;
-
-	if(ex->startProc) ex->startProc(ex, NULL);
-
-	gint j = 0;
-	for(; j < ex->cmdCount; j++)
-	{
-		ExecCmd* e = &ex->cmds[j];				
-		if(e->preProc) e->preProc(e, NULL);					
-		
-		exec_cmd_lock(e);
-        const ExecState state = e->state;
-        exec_cmd_unlock(e);        
-        if(state == SKIP) continue;
-        else if(state == CANCELLED) break;					
-		else if(!exec_spawn_process(ex, e, NULL, TRUE, NULL)) break;
-		else if(e->postProc) e->postProc(e, NULL);		
-	}
-	if(ex->endProc) ex->endProc(ex, NULL);
-	GB_TRACE("exec_thread_gspawn - exiting");
-	return NULL;
+    GB_LOG_FUNC
+    g_return_if_fail(data != NULL);
+    ExecCmd* ex = (ExecCmd*)data;
+    if(ex->workingdir != NULL)
+        g_return_if_fail(chdir(ex->workingdir) == 0);
 }
 
 
@@ -300,9 +284,11 @@ void
 exec_stdout_setup_func(gpointer data)
 {
 	GB_LOG_FUNC
-	int* pipe = (int*)data;
-	dup2(pipe[1], 1);
-	close(pipe[0]);
+    g_return_if_fail(data != NULL);
+    exec_working_dir_setup_func(data);
+	ExecCmd* ex = (ExecCmd*)data;
+	dup2(ex->pipe[1], 1);
+	close(ex->pipe[0]);
 }
 
 
@@ -310,9 +296,11 @@ void
 exec_stdin_setup_func(gpointer data)
 {
 	GB_LOG_FUNC	
-	int* pipe = (int*)data;
-	dup2(pipe[0], 0);
-	close(pipe[1]);
+    g_return_if_fail(data != NULL);
+    exec_working_dir_setup_func(data);
+    ExecCmd* ex = (ExecCmd*)data;
+	dup2(ex->pipe[0], 0);
+	close(ex->pipe[1]);
 }
 
 
@@ -351,7 +339,12 @@ exec_thread_gspawn_otf(gpointer data)
     exec_cmd_unlock(e);    
 	if((state != SKIP) && (state != CANCELLED))
 	{
+        /* Create the child child pipe and let the children know about it */
 		pipe(ex->child_child_pipe);	
+        gint j = 0;
+        for(; j < ex->cmdCount - 1; j++)
+            ex->cmds[j].pipe = ex->child_child_pipe;
+        
 		if(exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder))
 		{
 			if(e->postProc) e->postProc(e, NULL);	
@@ -362,6 +355,36 @@ exec_thread_gspawn_otf(gpointer data)
 	if(ex->endProc) ex->endProc(ex, NULL);	
 	GB_TRACE("exec_thread_gspawn_otf - exiting");
 	return NULL;
+}
+
+
+gpointer
+exec_thread_gspawn(gpointer data)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(data != NULL, NULL);   
+
+    Exec* ex = (Exec*)data;
+
+    if(ex->startProc) ex->startProc(ex, NULL);
+
+    gint j = 0;
+    for(; j < ex->cmdCount; j++)
+    {
+        ExecCmd* e = &ex->cmds[j];              
+        if(e->preProc) e->preProc(e, NULL);                 
+        
+        exec_cmd_lock(e);
+        const ExecState state = e->state;
+        exec_cmd_unlock(e);        
+        if(state == SKIP) continue;
+        else if(state == CANCELLED) break;                  
+        else if(!exec_spawn_process(ex, e, exec_working_dir_setup_func, TRUE, NULL)) break;
+        else if(e->postProc) e->postProc(e, NULL);      
+    }
+    if(ex->endProc) ex->endProc(ex, NULL);
+    GB_TRACE("exec_thread_gspawn - exiting");
+    return NULL;
 }
 
 

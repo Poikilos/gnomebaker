@@ -239,24 +239,8 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 	const gchar* file = gbcommon_show_iso_dlg();
 	if(file != NULL)
 	{
-		GB_TRACE("file is %s", file);
-		
-		gchar* mime = gnome_vfs_get_mime_type(file);
-		g_return_if_fail(mime != NULL);
-		GB_TRACE("mime type is %s for %s", mime, file);
-		
-		/* Check that the mime type is iso */
-		if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
-		{
-			burn_iso(file);
-		}
-		else
-		{
-			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
-			  _("The file you have selected is not a cd image. Please select a cd image to burn."));
-		}
-		
-		g_free(mime);
+		GB_TRACE("file is %s", file);		
+		burn_cd_image_file(file);
 	}
 }
 
