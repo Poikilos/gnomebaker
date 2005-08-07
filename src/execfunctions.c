@@ -1304,7 +1304,7 @@ readcd_add_copy_args(ExecCmd * e, const gchar* iso)
  ******************************************************************************/
 
 void
-cdrdao_read_proc(void *ex, void *buffer)
+cdrdao_extract_read_proc(void *ex, void *buffer)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(buffer != NULL);
@@ -1331,16 +1331,46 @@ cdrdao_read_proc(void *ex, void *buffer)
 	progressdlg_append_output(output);
 }
 
+/* cdrdao copy --source-device 1,0,0 --source-driver generic-mmc --device
+0,6,0 --speed 4 --on-the-fly --buffers 64 
+
+sudo cdrdao write --device $CDR_DEVICE video.cue
+
+Wrote 536 of 536 MB (Buffers 100%  96%)
+
+*/
+void
+cdrdao_write_image_read_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(buffer != NULL);
+    g_return_if_fail(ex != NULL);   
+    
+    hack_characters((gchar*)buffer);
+    const gchar* output = (gchar*)buffer;       
+    hack_characters((gchar*)buffer);
+    const gchar* wrote = strstr(output, ", Wrote");
+    if(wrote != NULL)
+    {
+        gint current = 0, total = 0;
+        if(sscanf(wrote, "Wrote %d of %d", &current, &total) == 2)
+            progressdlg_set_fraction((gfloat)current/(gfloat)total);
+    }
+    progressdlg_append_output(output);
+}
+
 
 void
-cdrdao_add_bin_args(ExecCmd* cmd, const gchar* const bin)
+cdrdao_add_image_args(ExecCmd* cmd, const gchar* const toc_or_cue)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cmd != NULL);
-	g_return_if_fail(bin != NULL);	
+	g_return_if_fail(toc_or_cue != NULL);	
+    
+    cmd->workingdir = g_path_get_dirname(toc_or_cue);
 	
 	cmd->preProc = cdrecord_pre_proc;	
-	cmd->readProc = cdrdao_read_proc;
+	cmd->readProc = cdrdao_write_image_read_proc;
 	
 	exec_cmd_add_arg(cmd, "%s", "cdrdao");
 	exec_cmd_add_arg(cmd, "%s", "write");
@@ -1354,6 +1384,10 @@ cdrdao_add_bin_args(ExecCmd* cmd, const gchar* const bin)
 	exec_cmd_add_arg(cmd, "%s", "--speed");
 	exec_cmd_add_arg(cmd, "%s", speed);
 	g_free(speed);
+    
+    exec_cmd_add_arg(cmd, "%s", "--buffers");
+    exec_cmd_add_arg(cmd, "%s", "64");
+    exec_cmd_add_arg(cmd, "%s", "-n"); /* turn off the 10 second pause */
 	
 	if(preferences_get_bool(GB_EJECT))
 		exec_cmd_add_arg(cmd, "%s", "--eject");
@@ -1361,8 +1395,7 @@ cdrdao_add_bin_args(ExecCmd* cmd, const gchar* const bin)
 	if(preferences_get_bool(GB_DUMMY))
 		exec_cmd_add_arg(cmd, "%s", "--simulate");
     
-    exec_cmd_add_arg(cmd, "%s", "--datafile");
-    exec_cmd_add_arg(cmd, "%s", bin);
+    exec_cmd_add_arg(cmd, "%s", toc_or_cue);
 }
 
 
