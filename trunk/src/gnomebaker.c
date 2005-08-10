@@ -81,6 +81,8 @@ GtkWidget*
 gnomebaker_new()
 {
 	GB_LOG_FUNC	
+    
+    gbcommon_init();
 	
 	splashdlg_set_text(_("Loading preferences..."));
 	preferences_init();
