@@ -53,7 +53,6 @@ typedef struct
     GMutex* mutex;
     GCond* cond;
     gchar* workingdir;
-    gint* pipe;
 }ExecCmd;
 
 typedef struct
@@ -62,7 +61,6 @@ typedef struct
 	ExecCmd* cmds;
 	ExecFunc startProc;
 	ExecFunc endProc;
-	gint child_child_pipe[2];
 	GError *err;
 } Exec;
 

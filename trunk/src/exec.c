@@ -31,6 +31,9 @@
 #include "gbcommon.h"
 
 
+gint child_child_pipe[2];
+
+
 gboolean
 exec_init(Exec * self, const gint cmds)
 {
@@ -65,7 +68,6 @@ exec_cmd_init(ExecCmd * e)
     e->mutex = g_mutex_new();
     e->cond = g_cond_new();
     e->workingdir = NULL;
-    e->pipe = NULL;
 }
 
 
@@ -284,9 +286,8 @@ exec_stdout_setup_func(gpointer data)
 	GB_LOG_FUNC
     g_return_if_fail(data != NULL);
     exec_working_dir_setup_func(data);
-	ExecCmd* ex = (ExecCmd*)data;
-	dup2(ex->pipe[1], 1);
-	close(ex->pipe[0]);
+	dup2(child_child_pipe[1], 1);
+	close(child_child_pipe[0]);
 }
 
 
@@ -296,9 +297,8 @@ exec_stdin_setup_func(gpointer data)
 	GB_LOG_FUNC	
     g_return_if_fail(data != NULL);
     exec_working_dir_setup_func(data);
-    ExecCmd* ex = (ExecCmd*)data;
-	dup2(ex->pipe[0], 0);
-	close(ex->pipe[1]);
+	dup2(child_child_pipe[0], 0);
+	close(child_child_pipe[1]);
 }
 
 
@@ -315,7 +315,7 @@ exec_run_remainder(gpointer data)
 		if(!exec_spawn_process(ex, &ex->cmds[j], exec_stdout_setup_func, FALSE, NULL))
 			break;								
 	}	
-	close(ex->child_child_pipe[1]);			
+	close(child_child_pipe[1]);			
 	GB_TRACE("exec_run_remainder - thread exiting");
 	return NULL;
 }
@@ -337,18 +337,13 @@ exec_thread_gspawn_otf(gpointer data)
     exec_cmd_unlock(e);    
 	if((state != SKIP) && (state != CANCELLED))
 	{
-        /* Create the child child pipe and let the children know about it */
-		pipe(ex->child_child_pipe);	
-        gint j = 0;
-        for(; j < ex->cmdCount - 1; j++)
-            ex->cmds[j].pipe = ex->child_child_pipe;
-        
+		pipe(child_child_pipe);	
 		if(exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder))
 		{
 			if(e->postProc) e->postProc(e, NULL);	
 		}
-		close(ex->child_child_pipe[0]);	
-		close(ex->child_child_pipe[1]);
+		close(child_child_pipe[0]);	
+		close(child_child_pipe[1]);
 	}	
 	if(ex->endProc) ex->endProc(ex, NULL);	
 	GB_TRACE("exec_thread_gspawn_otf - exiting");
