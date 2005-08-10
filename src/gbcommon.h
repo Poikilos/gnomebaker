@@ -63,6 +63,8 @@ void gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel
 					const gchar* stockid, GCallback activated, gpointer userdata);
 
 gchar* gbcommon_show_iso_dlg();
+gboolean gbcommon_init();
+void gbcommon_memset(void* memory, gsize size);
 
 /* defined in main.c */
 extern const gchar* glade_file;
@@ -147,6 +149,6 @@ static const gchar* const widget_select_device_dlg = "selectDeviceDlg";
 	if(showtrace) g_message	\
 
 #define GB_DECLARE_STRUCT(STRUCT, INSTANCE)			\
-	STRUCT INSTANCE; memset(&INSTANCE, 0x0, sizeof(STRUCT));	\
+	STRUCT INSTANCE; gbcommon_memset(&INSTANCE, sizeof(STRUCT));	\
 
 #endif /* _GBCOMMON_H */

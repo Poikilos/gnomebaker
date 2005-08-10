@@ -479,7 +479,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 		if(tracksstart != NULL)
 		{
 			gchar tmpbuf[4];
-			memset(tmpbuf, 0x0, 4);
+			gbcommon_memset(tmpbuf, 4);
 			g_strlcpy(tmpbuf, tracksstart + 7, 3);
 			g_strstrip(tmpbuf);
 			cdda2wav_totaltracks = atoi(tmpbuf);			
@@ -499,7 +499,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
 					
 			const gint bufsize = pcnt - tmp + 2;
 			gchar* tmpbuf = g_malloc(bufsize * sizeof(gchar));
-			memset(tmpbuf, 0x0, bufsize * sizeof(gchar));
+			gbcommon_memset(tmpbuf, bufsize * sizeof(gchar));
 			g_strlcpy(tmpbuf, tmp, bufsize - 1);
 						
 			gfloat fraction = atof(tmpbuf)/100.0;
@@ -634,9 +634,8 @@ mkisofs_read_proc(void *ex, void *buffer)
 		ptr++;
 		
 		gchar* pct = g_malloc((percent - ptr + 1) * sizeof(gchar));
-		memset(pct, 0x0, (percent - ptr + 1) * sizeof(gchar));
+		gbcommon_memset(pct, (percent - ptr + 1) * sizeof(gchar));
 		strncpy(pct, ptr, percent - ptr);
-		g_message(pct);
 		progressdlg_set_fraction(atof(pct)/100.0);
 		g_free(pct);
 	}
