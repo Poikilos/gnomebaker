@@ -34,8 +34,6 @@
 #include "gbcommon.h"
 #include "audiocd.h"
 #include "devices.h"
-#include "gst/gst.h"
-#include "audioinfo.h"
 #include "media.h"
 
 Exec *burnargs = NULL;
@@ -335,7 +333,7 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 		gchar* filename = g_path_get_basename(file);
 		gchar* convertedfile = g_build_filename(trackdir, filename, NULL);
 		gchar* fullfilename = g_strdup_printf("%s.wav",convertedfile);
-		MediaInfoPtr mediainfo = g_new0(MediaInfo, 1);
+		MediaPipeline* mediainfo = g_new0(MediaPipeline, 1);
 		GB_TRACE("convertedfile is %s", fullfilename);
 		GB_TRACE("file is %s",file);
 		media_convert_to_wav(file,fullfilename, mediainfo);
@@ -372,7 +370,7 @@ burn_create_audio_cd(GtkTreeModel* audiomodel)
 		const GSList* pipeline = pipelines;
 		while(pipeline)
 		{
-			MediaInfoPtr mip = (MediaInfoPtr)pipeline->data;
+			MediaPipeline* mip = (MediaPipeline*)pipeline->data;
 			if(mip)
 				audiofiles = g_list_append(audiofiles,mip->convertedfile);
 			pipeline = pipeline->next;
@@ -393,7 +391,7 @@ burn_create_audio_cd(GtkTreeModel* audiomodel)
 		const GSList* pipeline_clean = pipelines;
 		while(pipeline_clean != NULL)
 		{
-			MediaInfoPtr mip = (MediaInfoPtr)pipeline_clean;
+			MediaPipeline* mip = (MediaPipeline*)pipeline_clean;
 			if(mip && mip->pipeline)
 			{
 				GB_TRACE("burn.c: pipeline %x",mip->pipeline);

@@ -25,7 +25,7 @@
 #include "gbcommon.h"
 #include "media.h"
 
-/*MediaElement *pipeline, *decoder, *converter,*encoder,*scale,*dest;*/
+/*GstElement *pipeline, *decoder, *converter,*encoder,*scale,*dest;*/
 
 GSList *media_registered_plugins = NULL;
 
@@ -34,7 +34,7 @@ static void
 media_cb_newpad (GstElement *element,
 	   GstPad     *pad,
 	   gboolean last,
-	   MediaInfoPtr  mip)
+	   MediaPipeline*  mip)
 {
 	GB_LOG_FUNC
 	
@@ -61,7 +61,7 @@ media_cb_newpad (GstElement *element,
 
 
 void
-media_convert_to_wav(gchar* file,gchar* convertedfile,MediaInfoPtr gstdata)
+media_convert_to_wav(gchar* file,gchar* convertedfile,MediaPipeline* gstdata)
 {
 	GB_LOG_FUNC	
 	g_return_if_fail(file != NULL);
@@ -119,7 +119,7 @@ media_convert_to_wav(gchar* file,gchar* convertedfile,MediaInfoPtr gstdata)
 
 
 void 
-media_connect_eos_callback(MediaElement* element,void * func)
+media_connect_eos_callback(GstElement* element,void * func)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(element != NULL);
@@ -128,7 +128,7 @@ media_connect_eos_callback(MediaElement* element,void * func)
 
 
 void 
-media_connect_error_callback(MediaElement* element,void * func)
+media_connect_error_callback(GstElement* element,void * func)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(element != NULL);
@@ -137,7 +137,7 @@ media_connect_error_callback(MediaElement* element,void * func)
 
 
 void 
-media_query_progress_bytes(MediaElement* element,gint64* pos,gint64* len)
+media_query_progress_bytes(GstElement* element,gint64* pos,gint64* len)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(element != NULL);
@@ -151,7 +151,7 @@ media_query_progress_bytes(MediaElement* element,gint64* pos,gint64* len)
 
 
 void
-media_start_iteration(MediaElement* pipeline)
+media_start_iteration(GstElement* pipeline)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(pipeline != NULL);
@@ -160,7 +160,7 @@ media_start_iteration(MediaElement* pipeline)
 
 
 void
-media_start_playing(MediaElement* element)
+media_start_playing(GstElement* element)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(element != NULL);
@@ -169,7 +169,7 @@ media_start_playing(MediaElement* element)
 
 
 void
-media_pause_playing(MediaElement* element)
+media_pause_playing(GstElement* element)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(element != NULL);
@@ -178,7 +178,7 @@ media_pause_playing(MediaElement* element)
 
 
 void
-media_cleanup(MediaElement* element)
+media_cleanup(GstElement* element)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(element != NULL);
@@ -187,43 +187,14 @@ media_cleanup(MediaElement* element)
 }
 
 
-PluginStatus 
-media_query_plugin_status(const gchar* mimetype)
-{
-	GB_LOG_FUNC	
-	g_return_val_if_fail(mimetype != NULL,NOT_INSTALLED);
-
-	PluginStatus status = NOT_INSTALLED;
-	GString* mime = g_string_new(mimetype);
-	gboolean found = FALSE;
- 	GSList* node = media_registered_plugins;
-	while(node && !found)
-	{
-		if(node->data)
-		{
-			PluginInfoPtr plugininfo = (PluginInfoPtr)node->data;
-			GB_TRACE("plugin mimetype [%s] requested [%s]", plugininfo->mimetype->str, mime->str);
-			if(g_string_equal(plugininfo->mimetype,mime))
-			{
-				status = plugininfo->status;
-				found = TRUE;
-			}
-		}
-		node = node->next;
-	}
-	g_string_free(mime,FALSE);
-	return status;
-}
-
-
-PluginInfoPtr 
+PluginInfo* 
 media_create_plugin_info(const gchar* mimetype,const gchar* pluginname)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(mimetype != NULL,NULL);
 	g_return_val_if_fail(pluginname != NULL,NULL);
 	
-	PluginInfoPtr info = g_new0(PluginInfo,1);
+	PluginInfo* info = g_new0(PluginInfo,1);
 	info->mimetype = g_string_new(mimetype);
 	info->gst_plugin_name = g_string_new(pluginname);
 	info->status = NOT_INSTALLED;
@@ -240,9 +211,9 @@ media_register_plugins(void)
 		g_slist_free(media_registered_plugins);
 	
 	media_registered_plugins = g_slist_alloc();
-	PluginInfoPtr info = media_create_plugin_info("application/x-id3","mad");
-	PluginInfoPtr info2 = media_create_plugin_info("audio/mpeg","mad");
-	PluginInfoPtr info3 = media_create_plugin_info("audio/x-mp3","mad");
+	PluginInfo* info = media_create_plugin_info("application/x-id3","mad");
+	PluginInfo* info2 = media_create_plugin_info("audio/mpeg","mad");
+	PluginInfo* info3 = media_create_plugin_info("audio/x-mp3","mad");
 	GstElement* element;		
 	if((element = gst_element_factory_make("mad","mad")) != NULL)
 	{
@@ -324,74 +295,284 @@ media_register_plugins(void)
 }
 
 
-void
-media_fakesink_handoff(GstElement* element, GstBuffer* buffer, GstPad* pad, gboolean* handoff)
+void 
+media_info_get_wav_info(MediaInfo* self, const gchar* wavfile)
 {
-	GB_LOG_FUNC
-    g_return_if_fail(handoff != NULL);
-	*handoff = TRUE;
+    GB_LOG_FUNC
+    g_return_if_fail(NULL != self);
+    g_return_if_fail(NULL != wavfile);
+    
+    /* Have a look for a .inf file corresponding to the wavfile
+       so we can display the artist, album and track */
+    gchar* inffile = g_strdup(wavfile);
+    gchar* extension = strstr(inffile, ".wav");
+    if(extension != NULL)
+    {
+        strcpy(extension, ".inf");
+        gchar* infcontents = NULL;
+        gsize length = 0;
+        
+        /* read in the entire inf file */
+        if(g_file_get_contents(inffile, &infcontents, &length, NULL))
+        {
+            const gint numlabels = 3;
+            const gchar* labels[3] = 
+                { "Performer", "Albumtitle", "Tracktitle" };
+            
+            GString* copyto[3] = 
+                { self->artist, self->album, self->title };                 
+                
+            gint i = 0;
+            for(; i < numlabels; i++)
+            {
+                const gchar* label = strstr(infcontents, labels[i]);
+                if(label != NULL)
+                {
+                    const gchar* ptr = label;
+                    gboolean reading = FALSE;
+                    while(*ptr != '\n')
+                    {
+                        if(*ptr == '\'')
+                        {
+                            reading = !reading;                         
+                            if(reading)
+                                ptr++;
+                            else
+                                break;
+                        }
+                        
+                        if(reading)
+                            g_string_append_c(copyto[i], *ptr);
+                        
+                        ptr++;
+                    }
+                }               
+            }
+        }       
+        g_free(infcontents);            
+    }
 }
 
 
-void
+void 
+media_info_set_formatted_length(MediaInfo* info) 
+{
+    GB_LOG_FUNC
+    gint seconds = info->duration % 60;
+    gint minutes = (info->duration-seconds) / 60;
+    g_string_printf(info->formattedduration, "%d:%.2d", minutes, seconds);
+}
+
+
+static void
+media_fakesink_handoff(GstElement* element, GstBuffer* buffer, GstPad* pad, gboolean* handoff)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(handoff != NULL);
+    *handoff = TRUE;
+}
+
+
+static void
 media_fakesink_endofstream(GstElement* element, gboolean* endofstream)
 {
     GB_LOG_FUNC
     g_return_if_fail(endofstream != NULL);
-	*endofstream = TRUE;
+    *endofstream = TRUE;
 }
 
 
-void
+static void
 media_fakesink_error(GstElement* element, GstElement* source,
-			  GError* error, gchar* debug, GError** gberror)
+             GError* error, gchar* debug, GError** gberror)
 {
-	GB_LOG_FUNC
+   GB_LOG_FUNC
     g_return_if_fail(error != NULL);
     g_return_if_fail(gberror != NULL);    
     *gberror = g_error_copy(error);
 }
 
 
-gint64
-media_calculate_track_length(const gchar* filename)
-{	
+static void
+media_tags_foreach(const GstTagList *list, const gchar *tag, MediaInfo* self)
+{
+   GB_LOG_FUNC
+   int count = gst_tag_list_get_tag_size(list, tag);
+   if (count < 1)
+       return;
+
+   const GValue *val  = gst_tag_list_get_value_index (list, tag, 0);
+   if (g_ascii_strcasecmp (tag, GST_TAG_TITLE) == 0)
+       g_string_assign(self->title, g_value_get_string (val));
+   else if (g_ascii_strcasecmp (tag, GST_TAG_ARTIST) == 0)
+       g_string_assign(self->artist, g_value_get_string (val));
+   else if (g_ascii_strcasecmp (tag, GST_TAG_DURATION) == 0)
+       self->duration = g_value_get_uint64 (val) / GST_SECOND;
+   else if (g_ascii_strcasecmp (tag, GST_TAG_ALBUM) == 0)
+       g_string_assign(self->album, g_value_get_string (val));
+   else if (g_ascii_strcasecmp (tag, GST_TAG_BITRATE) == 0)
+       self->bitrate = g_value_get_uint (val);
+}
+
+
+static void
+media_fakesink_tag(GObject *pipeline, GstElement *source, GstTagList *tags, MediaInfo* self)
+{
+    gst_tag_list_foreach (tags, (GstTagForeachFunc) media_tags_foreach, self); 
+}
+
+
+void
+media_info_get_mediafile_info(MediaInfo* self, const gchar* mediafile)
+{
     GB_LOG_FUNC
-    g_return_val_if_fail(filename != NULL, 0);
-        
-	GstElement *pipeline = gst_pipeline_new ("pipeline");
-	GstElement *spider = gst_element_factory_make ("spider", "spider");
-	g_assert (spider);
-	GstElement *source = gst_element_factory_make ("filesrc", "source");
-	g_assert (source);
-	g_object_set (G_OBJECT (source), "location", filename, NULL);
-	GstElement *wavenc = gst_element_factory_make ("wavenc", "parser");
-	g_assert (wavenc);
-	GstElement *destination = gst_element_factory_make ("fakesink", "fakesink");
-	g_assert (destination);
-	gst_bin_add (GST_BIN (pipeline), source);
-	gst_bin_add (GST_BIN (pipeline), spider);
-	gst_bin_add (GST_BIN (pipeline), wavenc);
-	gst_bin_add (GST_BIN (pipeline), destination);
-	gst_element_link (source, spider);
-	gst_element_link (spider, wavenc);
-	gst_element_link (wavenc, destination);
+    g_return_if_fail(NULL != self);
+    g_return_if_fail(NULL != mediafile);
+   
+    GstElement *pipeline = gst_pipeline_new ("pipeline");
+    GstElement *spider = gst_element_factory_make ("spider", "spider");
+    g_assert (spider);
+    GstElement *source = gst_element_factory_make ("filesrc", "source");
+    g_assert (source);
+    GstElement *typefind = gst_element_factory_make ("typefind", "typefind");
+    g_assert (typefind);
+    g_object_set (G_OBJECT (source), "location", mediafile, NULL);
+    GstElement *wavenc = gst_element_factory_make ("wavenc", "parser");
+    g_assert (wavenc);
+    GstElement *destination = gst_element_factory_make ("fakesink", "fakesink");
+    g_assert (destination);
+    gst_bin_add (GST_BIN (pipeline), source);
+    gst_bin_add (GST_BIN (pipeline), typefind);
+    gst_bin_add (GST_BIN (pipeline), spider);
+    gst_bin_add (GST_BIN (pipeline), wavenc);
+    gst_bin_add (GST_BIN (pipeline), destination);
+    gst_element_link (source, typefind);
+    gst_element_link (typefind, spider);
+    gst_element_link (spider, wavenc);
+    gst_element_link (wavenc, destination);
     
     GError* error = NULL;
+    g_signal_connect(pipeline, "found-tag", G_CALLBACK(media_fakesink_tag), self);
     gboolean handoff = FALSE, endofstream = FALSE; 
     g_signal_connect(pipeline, "error", G_CALLBACK(media_fakesink_error), &error);
     g_object_set(G_OBJECT(destination), "signal-handoffs", TRUE, NULL);
-	g_signal_connect(destination, "handoff", G_CALLBACK(media_fakesink_handoff), &handoff);
-	g_signal_connect(destination, "eos", G_CALLBACK(media_fakesink_endofstream), &endofstream);
-		
-	gst_element_set_state (pipeline, GST_STATE_PLAYING);
+    g_signal_connect(destination, "handoff", G_CALLBACK(media_fakesink_handoff), &handoff);
+    g_signal_connect(destination, "eos", G_CALLBACK(media_fakesink_endofstream), &endofstream);
+       
+    gst_element_set_state (pipeline, GST_STATE_PLAYING);
     /* have to iterate a few times before the total time is set - signalled by handoff */    
     while(gst_bin_iterate (GST_BIN (pipeline)) && (error == NULL) && !handoff && !endofstream);
-    GstFormat format = GST_FORMAT_TIME;
-    gint64 total = 0;   
-	gst_element_query (destination, GST_QUERY_TOTAL, &format, &total);
-    gst_element_set_state (pipeline, GST_STATE_NULL);
-	GB_TRACE("*** track length [%d]", total / GST_SECOND);    
-	g_object_unref(pipeline);
-	return total / GST_SECOND;	
+    if(self->duration == 0)
+    {
+        GstFormat format = GST_FORMAT_TIME;
+        gint64 total = 0;
+        gst_element_query (destination, GST_QUERY_TOTAL, &format, &total);
+        gst_element_set_state (pipeline, GST_STATE_NULL);
+        GB_TRACE("*** track length [%ld]", (long int)(total / GST_SECOND));    
+        self->duration = total / GST_SECOND;
+    }
+    
+    if(g_ascii_strcasecmp(self->mimetype, "audio/x-wav") == 0)
+        media_info_get_wav_info(self, mediafile);
+    
+    /* This is a bit of a cludge. Add 2 seconds to the duration 
+     to factor in cdrecord -pad times when calculating the size of the cd */
+    self->duration += 2;
+    media_info_set_formatted_length(self);
+    g_object_unref(pipeline);
+}
+
+gboolean 
+media_info_init(MediaInfo* self)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(NULL != self, FALSE);
+    
+    self->status = NOT_INSTALLED;
+    self->mimetype = NULL;
+    self->artist = g_string_new("");
+    self->album = g_string_new("");
+    self->title = g_string_new("");
+    self->duration = 0;
+    self->filesize = 0;
+    self->bitrate = 0;
+    self->formattedduration = g_string_new("");
+    
+    return TRUE;
+}
+
+
+MediaInfo* 
+media_info_new()
+{
+    GB_LOG_FUNC
+    
+    MediaInfo* self = g_new0(MediaInfo, 1);
+    if(NULL != self)
+    {
+        if(!media_info_init(self))
+        {
+            g_free(self);
+            self = NULL;
+        }
+    }
+    return self;
+}
+
+
+void 
+media_info_end(MediaInfo* self)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(NULL != self);
+    
+    g_free(self->mimetype);
+    g_string_free(self->artist, TRUE);
+    g_string_free(self->album, TRUE);
+    g_string_free(self->title, TRUE);
+    self->duration = 0;
+    self->filesize = 0;
+    self->bitrate = 0;
+    g_string_free(self->formattedduration, TRUE);
+}
+
+
+void 
+media_info_delete(MediaInfo* self)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(NULL != self);
+    
+    media_info_end(self);
+    g_free(self);
+}
+
+
+MediaInfo*  
+media_get_info(const gchar* mediafile)
+{
+    GB_LOG_FUNC 
+    g_return_val_if_fail(mediafile != NULL, NULL);
+    
+    MediaInfo* info = media_info_new();
+    info->mimetype = gbcommon_get_mime_type(mediafile);
+    gboolean found = FALSE;    
+    GSList* node = media_registered_plugins;
+    while(node && !found)
+    {
+        if(node->data)
+        {
+            PluginInfo* plugininfo = (PluginInfo*)node->data;
+            GB_TRACE("plugin mimetype [%s] requested [%s]", plugininfo->mimetype->str, info->mimetype);
+            if(g_ascii_strcasecmp(plugininfo->mimetype->str, info->mimetype))
+            {
+                info->status = plugininfo->status;
+                if(info->status == INSTALLED) 
+                    media_info_get_mediafile_info(info, mediafile);
+                found = TRUE;
+            }
+        }
+        node = node->next;
+    }
+    return info;
 }

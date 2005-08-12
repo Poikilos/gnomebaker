@@ -19,9 +19,13 @@ Version 0.4.1
 * Fix RFE #1162569 Support for long filenames (backups)
 * Fix RFE #1206531 Volume label for DVD
 * Fix REF #1144905 DVD iso flags
+* Fix Bug #1243700 Exit with "Killed" error when burning to CD
+* Fix Bug #1241361 Segfault when burning data DVD
+* Fix Bug #1214261 GnomeBaker reports an error and core dumps
 * Start using glib g_spawn code as it's better than the exec code I wrote.
 * Fix threading problem which would crash GB on some machines.
-* Fix regression is audio cd copying.
+* Fix regression in audio cd copying.
+* Apply patch from Jens Georg so that we use gstreamer to read tags.
 
 Version 0.4
 

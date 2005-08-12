@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-31 23:50+0100\n"
+"POT-Creation-Date: 2005-08-10 22:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -103,7 +103,7 @@ msgstr "Terminé"
 msgid "Failed"
 msgstr "Échoué"
 
-#: src/burn.c:239 src/gnomebaker.c:256
+#: src/burn.c:236
 #, fuzzy
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
@@ -112,7 +112,7 @@ msgstr ""
 "Le fichier que vous avez sélectionné n'est pas une image de CD. Veuillez "
 "sélectionner une image CD à graver."
 
-#: src/burn.c:272 src/burn.c:440
+#: src/burn.c:269 src/burn.c:437
 msgid "Please select an iso file to save to..."
 msgstr "Veuillez sélectionner un fichier iso pour sauvegarder ..."
 
@@ -250,44 +250,44 @@ msgstr "Type"
 msgid "Mime"
 msgstr ""
 
-#: src/gbcommon.c:428
+#: src/gbcommon.c:441
 #, fuzzy
 msgid "Please select an iso file..."
 msgstr "Veuillez sélectionner un fichier iso pour sauvegarder ..."
 
-#: src/gbcommon.c:436
+#: src/gbcommon.c:449
 #, fuzzy
 msgid "CD Image files"
 msgstr "Liste d'images de boot"
 
-#: src/gbcommon.c:439
+#: src/gbcommon.c:452
 #, fuzzy
 msgid "All files"
 msgstr "Ajouter un(des) fichier(s)"
 
-#: src/gnomebaker.c:85
+#: src/gnomebaker.c:87
 msgid "Loading preferences..."
 msgstr "Chargement des préférences..."
 
-#: src/gnomebaker.c:88
+#: src/gnomebaker.c:90
 #, fuzzy
 msgid "Detecting devices..."
 msgstr "Détection des périphériques..."
 
-#: src/gnomebaker.c:91
+#: src/gnomebaker.c:93
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: src/gnomebaker.c:94
+#: src/gnomebaker.c:96
 #, fuzzy
 msgid "Loading GUI..."
 msgstr "Chargement de l'interface graphique..."
 
-#: src/gnomebaker.c:179
+#: src/gnomebaker.c:181
 msgid "Are you sure you want to quit?"
 msgstr "Êtes-vous sûr de vouloir quitter?"
 
-#: src/gnomebaker.c:285
+#: src/gnomebaker.c:271
 #, fuzzy
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
@@ -296,20 +296,20 @@ msgstr ""
 "Le fichier que vous avez sélectionné n'est pas une image de CD. Veuillez "
 "sélectionner une image CD à graver."
 
-#: src/gnomebaker.c:342 gnomebaker.glade:12
+#: src/gnomebaker.c:328 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: src/gnomebaker.c:343
+#: src/gnomebaker.c:329
 msgid "Simple CD Burning for Gnome"
 msgstr "La gravure de CD facile pour Gnome"
 
-#: src/gnomebaker.c:343 gnomebaker.glade:1701
+#: src/gnomebaker.c:329 gnomebaker.glade:1701
 #, fuzzy
 msgid "translator_credits"
 msgstr "translator_credits"
 
-#: src/gnomebaker.c:408
+#: src/gnomebaker.c:394
 #, fuzzy
 msgid "Please select files to add to the disk..."
 msgstr "Veuillez sélectionner un fichier iso pour sauvegarder ..."
@@ -418,11 +418,11 @@ msgstr "Fixation en cours"
 msgid "default"
 msgstr "par défaut"
 
-#: src/execfunctions.c:404
+#: src/execfunctions.c:415
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Extraction des pistes audio...</b>"
 
-#: src/execfunctions.c:416
+#: src/execfunctions.c:427
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -430,15 +430,15 @@ msgstr ""
 "Des pistes audio d'une session précédente existent sur le disque, voulez- "
 "vous utiliser les pistes existantes ?"
 
-#: src/execfunctions.c:433
+#: src/execfunctions.c:444
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Veuillez insérer le CD audio dans le lecteur"
 
-#: src/execfunctions.c:581
+#: src/execfunctions.c:593
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Création de l'image du disque de données...</b>"
 
-#: src/execfunctions.c:589
+#: src/execfunctions.c:601
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -446,31 +446,31 @@ msgstr ""
 "Une image de disque de données provenant d'une session précédente existe "
 "déjà sur le disque, souhaitez-vous l'utiliser ?"
 
-#: src/execfunctions.c:782
+#: src/execfunctions.c:793
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Formatage du  DVD...</b>"
 
-#: src/execfunctions.c:789
+#: src/execfunctions.c:800
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Veuillez insérer un DVD réinscriptible dans le graveur de DVD"
 
-#: src/execfunctions.c:875
+#: src/execfunctions.c:886
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Gravure du  DVD...</b>"
 
-#: src/execfunctions.c:882
+#: src/execfunctions.c:893
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Veuillez insérer un DVD inscriptible dans le graveur de DVD"
 
-#: src/execfunctions.c:962 src/execfunctions.c:1006
+#: src/execfunctions.c:973 src/execfunctions.c:1017
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1166
+#: src/execfunctions.c:1177
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>Lecture de l'image CD...</b>"
 
-#: src/execfunctions.c:1421
+#: src/execfunctions.c:1465
 #, fuzzy
 msgid "<b>Converting files to cd audio...</b>"
 msgstr "<b>Conversion des fichiers wev en cd audio...</b>"

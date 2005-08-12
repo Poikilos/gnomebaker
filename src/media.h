@@ -31,45 +31,57 @@
 
 #include "gst/gst.h"
 
-typedef GstElement MediaElement;
-
-
 typedef struct 
 {
-	MediaElement* pipeline;
-	MediaElement* decoder;
-	MediaElement* converter;
-	MediaElement* scale;
-	MediaElement* encoder;
-	MediaElement* dest;
-	MediaElement* last_element;
+	GstElement* pipeline;
+	GstElement* decoder;
+	GstElement* converter;
+	GstElement* scale;
+	GstElement* encoder;
+	GstElement* dest;
+	GstElement* last_element;
 	gchar* convertedfile;
-} MediaInfo, *MediaInfoPtr;
+} MediaPipeline;
 
 typedef enum
 {
 	INSTALLED = 0,
 	NOT_INSTALLED
-}PluginStatus;
+} PluginStatus;
 
 typedef struct
 {
 	GString *mimetype;
 	GString *gst_plugin_name;
 	PluginStatus status;	
-} PluginInfo, *PluginInfoPtr;
+} PluginInfo;
 
  
-void media_convert_to_wav(gchar* file,gchar* convertedfile,MediaInfoPtr gstdata);
-void media_query_progress_bytes(MediaElement* element,gint64* pos,gint64* len);
-void media_start_playing(MediaElement* element);
-void media_pause_playing(MediaElement* element);
-void media_cleanup(MediaElement* element);
+typedef struct 
+{
+    PluginStatus status;
+    gchar* mimetype;
+    GString* artist;
+    GString* album;
+    GString* title; 
+    gulong duration;
+    size_t filesize;
+    gulong bitrate;
+    GString* formattedduration;
+} MediaInfo;
+ 
+ 
+void media_convert_to_wav(gchar* file,gchar* convertedfile,MediaPipeline* gstdata);
+void media_query_progress_bytes(GstElement* element,gint64* pos,gint64* len);
+void media_start_playing(GstElement* element);
+void media_pause_playing(GstElement* element);
+void media_cleanup(GstElement* element);
 void media_register_plugins(void);
-PluginStatus media_query_plugin_status(const gchar* mimetype);
-void media_connect_error_callback(MediaElement* element,void * func);
-void media_connect_eos_callback(MediaElement* element,void * func);
-void media_start_iteration(MediaElement* pipeline);
+MediaInfo* media_get_info(const gchar* mediafile);
+void media_connect_error_callback(GstElement* element,void * func);
+void media_connect_eos_callback(GstElement* element,void * func);
+void media_start_iteration(GstElement* pipeline);
 gint64 media_calculate_track_length(const gchar* filename);
+void media_info_delete(MediaInfo* self);
 
 #endif	/* _MEDIA_H_ */
