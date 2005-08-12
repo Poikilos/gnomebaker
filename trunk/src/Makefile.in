@@ -57,9 +57,8 @@ am_gnomebaker_OBJECTS = main.$(OBJEXT) progressdlg.$(OBJEXT) \
 	filebrowser.$(OBJEXT) preferences.$(OBJEXT) \
 	gnomebaker.$(OBJEXT) startdlg.$(OBJEXT) prefsdlg.$(OBJEXT) \
 	splashdlg.$(OBJEXT) audiocd.$(OBJEXT) datacd.$(OBJEXT) \
-	gbcommon.$(OBJEXT) audioinfo.$(OBJEXT) \
-	selectdevicedlg.$(OBJEXT) execfunctions.$(OBJEXT) \
-	media.$(OBJEXT)
+	gbcommon.$(OBJEXT) selectdevicedlg.$(OBJEXT) \
+	execfunctions.$(OBJEXT) media.$(OBJEXT)
 gnomebaker_OBJECTS = $(am_gnomebaker_OBJECTS)
 am__DEPENDENCIES_1 =
 gnomebaker_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -240,8 +239,6 @@ gnomebaker_SOURCES = \
 	datacd.h\
 	gbcommon.h\
 	gbcommon.c\
-	audioinfo.c\
-	audioinfo.h\
 	selectdevicedlg.c\
 	selectdevicedlg.h\
 	execfunctions.c\
@@ -325,7 +322,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audiocd.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audioinfo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/burn.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/datacd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/devices.Po@am__quote@

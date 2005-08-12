@@ -41,8 +41,6 @@ gnomebaker_SOURCES = \
 	datacd.h\
 	gbcommon.h\
 	gbcommon.c\
-	audioinfo.c\
-	audioinfo.h\
 	selectdevicedlg.c\
 	selectdevicedlg.h\
 	execfunctions.c\

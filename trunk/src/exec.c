@@ -160,7 +160,8 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
 	static const gint BUFF_SIZE = 1024;
 	gchar buffer[BUFF_SIZE];
 	gbcommon_memset(buffer, BUFF_SIZE * sizeof(gchar));
-	const GIOStatus status = g_io_channel_read_chars(channel, buffer, (BUFF_SIZE - 1) * sizeof(gchar), NULL, NULL);  
+    gint bytes = 0;
+	const GIOStatus status = g_io_channel_read_chars(channel, buffer, (BUFF_SIZE - 1) * sizeof(gchar), &bytes, NULL);  
 	if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_AGAIN)
 	{
 		GB_TRACE("exec_channel_callback - read error [%d]", status);
@@ -169,7 +170,22 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
 		exec_cmd_unlock(cmd);		
 		return FALSE;
 	}
-	if(cmd->readProc) cmd->readProc(cmd, buffer);
+    
+	if(cmd->readProc) 
+    {
+        GError* error = NULL;        
+        gchar* converted = g_convert(buffer, bytes, "UTF-8", "ISO-8859-1", NULL, NULL, &error);
+        if(converted != NULL)
+        {
+            cmd->readProc(cmd, converted);
+        }
+        else 
+        {
+            g_warning("exec_channel_callback - conversion error [%s]", error->message);
+            g_error_free (error);
+            cmd->readProc(cmd, buffer); 
+        }
+    }
 	return TRUE;
 }
 

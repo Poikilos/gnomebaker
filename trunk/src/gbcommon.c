@@ -470,7 +470,7 @@ gbcommon_show_iso_dlg()
 void 
 gbcommon_memset(void* memory, gsize size)
 {
-    GB_LOG_FUNC
+    /*GB_LOG_FUNC*/
     g_return_if_fail(memory != NULL);
     g_mutex_lock(memsetlock);
     memset(memory, 0x0, size);

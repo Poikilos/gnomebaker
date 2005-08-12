@@ -22,13 +22,9 @@
 #include "audiocd.h"
 #include "gnomebaker.h"
 #include "gbcommon.h"
-#include "audioinfo.h"
 #include "burn.h"
 #include <stdio.h>
-#include "gst/gst.h"
 #include "media.h"
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
-#include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 
 gdouble audiocdsize = 0.0;
@@ -305,10 +301,10 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
 	/* ret is set to true as we want to ignore non audio files. We get a NULL
 	   AudioInfo if the file is not audio */
 	gboolean ret = TRUE;
-	AudioInfo* info = audioinfo_new(filename);
+	MediaInfo* info = media_get_info(filename);
 	if(info != NULL)
 	{     
-		switch(media_query_plugin_status(info->mimetype))
+		switch(info->status)
         {
             case INSTALLED:
             {
@@ -338,7 +334,7 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
             break;
             case NOT_INSTALLED:
             {
-                gchar* buf = g_strdup_printf(_("The plugin to handle a file of type %s is not installed."),gnome_vfs_mime_get_description(info->mimetype));
+                gchar* buf = g_strdup_printf(_("The plugin to handle a file of type %s is not installed."), gbcommon_get_mime_description(info->mimetype));
                 gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
                 g_free(buf);
             }
@@ -350,7 +346,7 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
                 g_free(buf);
             }
         }
-		audioinfo_delete(info);
+		media_info_delete(info);
 	}
 	return ret;
 }

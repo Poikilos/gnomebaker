@@ -42,31 +42,12 @@ gint cdda2wav_totaltracksread = 0;
 gint readcd_totalguchars = -1;
 gint cdrdao_cdminutes = -1;
 
-MediaInfoPtr current_element = NULL;
+MediaPipeline* current_element = NULL;
 ExecCmd* g_ex = NULL;
 
 GSList* g_elements = NULL;
 guint media_totalelements = 0;
 guint media_current_element = 0;
-
-
-/* 	This is a hack for the moment until I figure out what's 
-    going on with the charset. */
-void 
-hack_characters(gchar* buf)
-{
-    gint len = strlen(buf);
-    len = len < 1020 ? len : 1020;
-	gint i = 0;
-	for(; i < len; i++)
-	{
-		if(!g_ascii_isalnum(buf[i]) && !g_ascii_iscntrl(buf[i])
-			&& !g_ascii_ispunct(buf[i]) && !g_ascii_isspace(buf[i]))
-		{
-			buf[i] = ' ';
-		}
-	}
-}
 
 
 void 
@@ -75,7 +56,6 @@ generic_read_proc(void *ex, void *buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	gchar *buf = (gchar*)buffer;
-	hack_characters(buf);
 	/*GB_TRACE((gchar*)buffer);*/
 	progressdlg_append_output(buf);
 }
@@ -161,8 +141,6 @@ cdrecord_read_proc(void *ex, void *buffer)
 	g_return_if_fail(ex != NULL);
 
 	gchar *buf = (gchar*)buffer;
-	hack_characters(buf);
-	
 	const gchar* track = strstr(buf, "Track");
 	if(track != NULL)
 	{
@@ -469,10 +447,6 @@ cdda2wav_read_proc(void *ex, void *buffer)
 	g_return_if_fail(buffer != NULL);
 	
 	gchar* text = (gchar*)buffer;
-    hack_characters((gchar*)buffer);
-	
-	/*GB_TRACE( "cdda2wav_read_proc - read [%s]", text);*/
-	
 	if(cdda2wav_totaltracks == -1)
 	{
 		const gchar* tracksstart = strstr(text, "Tracks:");		
@@ -618,12 +592,10 @@ mkisofs_pre_proc(void *ex, void *buffer)
 void
 mkisofs_read_proc(void *ex, void *buffer)
 {
-	GB_LOG_FUNC
-	
+	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	g_return_if_fail(buffer != NULL);
-    hack_characters((gchar*)buffer);
-	
+    
 	const gchar* percent = strrchr(buffer, '%');
 	if(percent != NULL)
 	{
@@ -919,6 +891,8 @@ void
 growisofs_read_proc(void *ex, void *buffer)
 {
 	GB_LOG_FUNC
+    g_return_if_fail(buffer != NULL);
+    g_return_if_fail(ex != NULL);
 	/*
 	WARNING: /dev/hdc already carries isofs!
 About to execute 'mkisofs -R -J -gui A Song is born.ogg Connected.ogg Daybreak.ogg Dearest.ogg Endlerss Sorrow (Gone With The Wind).ogg Evolution.ogg M.ogg Naturally.ogg Never Ever.ogg No More Words.ogg Opening Run.ogg Still Alone.ogg Taskinlude.ogg Unite.ogg | builtin_dd of=/dev/hdc obs=32k seek=0'
@@ -941,17 +915,9 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 /dev/hdc: flushing cache
 /dev/hdc: stopping de-icing
 /dev/hdc: writing lead-out
-
 	*/
-	
-	
-	g_return_if_fail(buffer != NULL);
-	g_return_if_fail(ex != NULL);
-		/* 	This is a hack for the moment until I figure out what's 
-		going on with the charset. */
+
 	gchar *buf = (gchar*)buffer;
-    hack_characters(buf);
-	
 	const gchar* progressstr = strstr(buf, "done");
 	if(progressstr != NULL)
 	{
@@ -979,6 +945,8 @@ void
 growisofs_read_iso_proc(void *ex, void *buffer)
 {
 	GB_LOG_FUNC
+    g_return_if_fail(buffer != NULL);
+    g_return_if_fail(ex != NULL);
 /*
 WARNING: /dev/hdc already carries isofs!
 About to execute 'builtin_dd if=/home2/cs/SL-9.3-LiveDVD-i386-1.iso of=/dev/hdc obs=32k seek=0'
@@ -991,12 +959,7 @@ About to execute 'builtin_dd if=/home2/cs/SL-9.3-LiveDVD-i386-1.iso of=/dev/hdc 
 
 	*/
 	
-	g_return_if_fail(buffer != NULL);
-	g_return_if_fail(ex != NULL);
-		/* 	This is a hack for the moment until I figure out what's 
-		going on with the charset. */
 	gchar *buf = (gchar*)buffer;
-    hack_characters(buf);	
 	const gchar* progressstr = strstr(buf, "remaining");
 	if(progressstr != NULL)
 	{
@@ -1223,10 +1186,8 @@ readcd_read_proc(void *ex, void *buffer)
 	GB_LOG_FUNC
 	g_return_if_fail(buffer != NULL);
 	g_return_if_fail(ex != NULL);
-    hack_characters((gchar*)buffer);
 		
 	gchar* text = (gchar*)buffer;
-	
 	if(readcd_totalguchars == -1)		
 	{
 		gchar* end = strstr(text, "end:");	
@@ -1309,9 +1270,7 @@ cdrdao_extract_read_proc(void *ex, void *buffer)
 	g_return_if_fail(buffer != NULL);
 	g_return_if_fail(ex != NULL);	
     
-    hack_characters((gchar*)buffer);
 	const gchar* output = (gchar*)buffer;		
-    hack_characters((gchar*)buffer);
 	const gchar* length = strstr(output, ", length");
 	if(length != NULL)
 	{
@@ -1345,9 +1304,7 @@ cdrdao_write_image_read_proc(void *ex, void *buffer)
     g_return_if_fail(buffer != NULL);
     g_return_if_fail(ex != NULL);   
     
-    hack_characters((gchar*)buffer);
     const gchar* output = (gchar*)buffer;       
-    hack_characters((gchar*)buffer);
     const gchar* wrote = strstr(output, ", Wrote");
     if(wrote != NULL)
     {
@@ -1412,7 +1369,7 @@ media_error()
 
 
 void
-media_setup_element(MediaInfoPtr element)
+media_setup_element(MediaPipeline* element)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(element != NULL);
@@ -1436,7 +1393,7 @@ media_next_element()
 	if(g_elements)
 	{
 		media_current_element++;
-		MediaInfo* mi = (MediaInfo*)g_elements->data;
+		MediaPipeline* mi = (MediaPipeline*)g_elements->data;
 		current_element = mi;
 		media_setup_element(mi);
 /*
@@ -1464,11 +1421,11 @@ media_convert_pre_proc(void *ex, void *buffer)
     
 	progressdlg_set_status(_("<b>Converting files to cd audio...</b>"));	
     progressdlg_pulse_start();
-	MediaInfo* mi = (MediaInfo*)g_elements->data;
+	MediaPipeline* mi = (MediaPipeline*)g_elements->data;
 	if(!mi) /* why is first element NULL ? */
 	{
 		g_elements = g_elements->next;
-		mi = (MediaInfo*)g_elements->data;
+		mi = (MediaPipeline*)g_elements->data;
 	}	
 	current_element = mi;
 	media_setup_element(mi);
