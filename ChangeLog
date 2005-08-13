@@ -28,6 +28,7 @@ Version 0.4.1
 * Apply patch from Jens Georg so that we use gstreamer to read tags.
 * Apply patch #1258427 from domg to correct disk ejection on FreeBSD
 * Updated russian translation from Alexandre Prokoudine
+* Update french translation from Nicolas Boos
 
 Version 0.4
 
