@@ -30,10 +30,20 @@
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
-#ifdef __linux__	
+#include <stdlib.h>
+
+#ifdef __FreeBSD__
+#include <sys/cdio.h>
+#define CDROM_DRIVE_STATUS     0x5326
+#define CDS_NO_DISC        1
+#define CDS_TRAY_OPEN      2
+#define CDS_DRIVE_NOT_READY    3
+#define CDS_DISC_OK        4
+#define CDSL_CURRENT       ((int) (~0U>>1))
+#else
 #include <linux/cdrom.h>
 #endif
-#include <stdlib.h>
+
 
 gint deviceadditionindex = 0;
 
@@ -659,47 +669,7 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 	return ok;
 }
 
-
-	/* Get the kernel version so that we can figure out what to scan 
-	gfloat version = 0.0;
-	FILE* file = fopen("/proc/sys/kernel/osrelease", "r");
-	if(file == NULL || fscanf(file, "%f.%*d-%*d-%*d", &version) != 1) 
-	{
-		version = 0.0;
-		g_critical("Error getting the kernel version, we will now scan everything.");
-	}
-	fclose(file);
 	
-	GB_TRACE("kernel version is [%f]", version);
-		
-	if(version > 2.4 || version == 0.0)
-	{	
-		const gchar deviceletters[] = "abcdefghijklmnopqrstuvwxyz";
-		gint i = 0;
-		for(; i < strlen(deviceletters); i++)
-		{
-			gchar* devlabel = g_strdup_printf("/dev/hd%c", deviceletters[i]);
-			ok = devices_probe_bus(devlabel);
-			g_free(devlabel);
-		}
-		
-		i = 0;
-		for(; i <= 16; i++)
-		{
-			gchar* devlabel = g_strdup_printf("/dev/sg%d", i);
-			ok = devices_probe_bus(devlabel);
-			g_free(devlabel);
-		}
-	}*/
-	
-/*	
-	devices_new_devicedata("'SAMSUNG ' 'CD-ROM SC-152L  ' 'C100' Removable CD-ROM", "1,0,0", "ATA");	
-	devices_new_devicedata("'YAMAHA  ' 'CRW6416S        ' '1.0c' Removable CD-ROM", "0,0,0", NULL);
-	devices_new_devicedata("'_NEC    ' 'DVD_RW ND-3500AG' '2.16' Removable CD-ROM", "1,1,0", "/dev/hdd");
-	devices_new_devicedata("'SONY    ' 'CD-RW  CRX215E1 ' 'SYS2' Removable CD-ROM", "0,1,0", NULL);
-	devices_new_devicedata("'ATAPI   ' 'DVD DUAL 8X4X12 ' 'B3IC' Removable CD-ROM", "1,0,0", NULL);
-	'AOPEN   ' 'CD-RW CRW1232PRO' '1.00' Removable CD-ROM
-*/
 gboolean
 devices_eject_cd(const gchar* devicekey)
 {
@@ -716,12 +686,20 @@ devices_eject_cd(const gchar* devicekey)
    	}
 			
 
-   /* Use ioctl to send the CDROMEJECT command to the device
-   */
-	if (ioctl(cdrom,CDROMEJECT,0)<0)
+    /* Use ioctl to send the CDROMEJECT (CDIOCEJECT on FreeBSD) command to the device */
+#ifdef __FreeBSD__
+	if (ioctl(cdrom,CDIOCEJECT,0)<0)
+#else 
+    if (ioctl(cdrom,CDROMEJECT,0)<0)    
+#endif    
 	{
-        g_warning("Error ejecting cd from device %s",device);
-		ret = FALSE;
+#ifdef __FreeBSD__
+        return TRUE;
+#else
+        g_critical("devices_query_cdstatus - ioctl failed");
+        return FALSE;
+#endif
+
     }
 	else
 		ret = TRUE;

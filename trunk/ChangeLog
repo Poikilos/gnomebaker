@@ -26,6 +26,7 @@ Version 0.4.1
 * Fix threading problem which would crash GB on some machines.
 * Fix regression in audio cd copying.
 * Apply patch from Jens Georg so that we use gstreamer to read tags.
+* Apply patch #1258427 from domg to correct disk ejection on FreeBSD
 
 Version 0.4
 
