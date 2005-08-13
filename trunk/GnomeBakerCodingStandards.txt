@@ -238,3 +238,12 @@ file to a locale file, eg. pt_BR.po. In this file he can translate the strings.
 
 As far as I am concerned, compiler warnings are errors. Please do not commit
 anything until it compiles without warnings unless there's a good reason.
+
+
+10. Adding translation files
+--------------------------------------------------------------------------------
+
+* po file goes into po directory in cvs HEAD (eg fr.po)
+* update configure.in and add the language code (ie fr) the the ALL_LINGUAS variable.
+* make sure the translator has added their name to the translator_credits string in the po file.
+* run 'make update-po' in the po directory to make sure that the po file does not contain errors.
