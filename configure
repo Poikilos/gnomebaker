@@ -21000,7 +21000,7 @@ echo "${ECHO_T}yes" >&6
 fi
 
 
-ALL_LINGUAS="af  de     es     he  ko  nl_NL  pt  sk     tr cs  en_US  fr_FR  hr  lv  pl     ro  sv     zh_CN da  es_ES  fr     ja  ms  pt_BR  ru  sv_SE eu no bg"
+ALL_LINGUAS="af  de     es     he  ko  nl_NL  pt  sk     tr cs  en_US  hr  lv  pl     ro  sv     zh_CN da  es_ES  fr     ja  ms  pt_BR  ru  sv_SE eu no bg"
 
 
 for ac_header in locale.h

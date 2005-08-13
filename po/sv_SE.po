@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-10 22:33+0100\n"
+"POT-Creation-Date: 2005-08-13 23:09+0100\n"
 "PO-Revision-Date: 2005-01-18 22:52+0100\n"
 "Last-Translator:  <>\n"
 "Language-Team: Swedish (Sweden) <sv_SE@li.org>\n"
@@ -19,20 +19,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 
-#: src/audiocd.c:98 src/audiocd.c:228 gnomebaker.glade:1036
+#: src/audiocd.c:94 src/audiocd.c:224 gnomebaker.glade:1036
 msgid "0 mins 0 secs"
 msgstr "0 min 0 sek"
 
-#: src/audiocd.c:109
+#: src/audiocd.c:105
 #, c-format
 msgid "%d mins %d secs"
 msgstr "%d min %d sek"
 
-#: src/audiocd.c:117
+#: src/audiocd.c:113
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "Spåret är för stort för att få plats på kvarvarande utrymme på CDn"
 
-#: src/audiocd.c:277 src/filebrowser.c:619
+#: src/audiocd.c:273 src/filebrowser.c:619
 msgid "_Open"
 msgstr ""
 
@@ -44,73 +44,61 @@ msgstr ""
 #. gbcommon_append_menu_item_stock(menu, _("_Edit name"), GTK_STOCK_DND,
 #. (GCallback)datacd_on_edit, view);
 #. }
-#: src/audiocd.c:281 src/datacd.c:451
+#: src/audiocd.c:277 src/datacd.c:451
 #, fuzzy
 msgid "_Remove selected"
 msgstr "Ta bort markerad"
 
-#: src/audiocd.c:283
+#: src/audiocd.c:279
 #, fuzzy
 msgid "_Clear"
 msgstr "Rensa"
 
-#: src/audiocd.c:341
+#: src/audiocd.c:337
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr ""
 
-#: src/audiocd.c:348
+#: src/audiocd.c:344
 #, c-format
 msgid "There is no known plugin to handle a file of type %s."
 msgstr ""
 
-#: src/audiocd.c:466
+#: src/audiocd.c:462
 msgid "Track"
 msgstr "Spår"
 
-#: src/audiocd.c:478
+#: src/audiocd.c:474
 msgid "Duration"
 msgstr "Varaktighet"
 
-#: src/audiocd.c:494
+#: src/audiocd.c:490
 msgid "Artist"
 msgstr "Artist"
 
-#: src/audiocd.c:502
+#: src/audiocd.c:498
 msgid "Album"
 msgstr "Album"
 
-#: src/audiocd.c:510
+#: src/audiocd.c:506
 msgid "Title"
 msgstr "Titel"
 
-#: src/audioinfo.c:288
-msgid "TITLE="
-msgstr "TITEL="
-
-#: src/audioinfo.c:290
-msgid "ARTIST="
-msgstr "ARTIST="
-
-#: src/audioinfo.c:292
-msgid "ALBUM="
-msgstr "ALBUM="
-
-#: src/burn.c:108
+#: src/burn.c:106
 msgid "Completed"
 msgstr "Färdigställd"
 
-#: src/burn.c:112
+#: src/burn.c:110
 msgid "Failed"
 msgstr "Misslyckades"
 
-#: src/burn.c:236
+#: src/burn.c:234
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr "Filen du valt är inte en cd-avbild. Välj en cd-avbild att bränna."
 
-#: src/burn.c:269 src/burn.c:437
+#: src/burn.c:267 src/burn.c:435
 msgid "Please select an iso file to save to..."
 msgstr "Välj en isofil att spara till..."
 
@@ -148,7 +136,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/datacd.c:582 src/devices.c:643
+#: src/datacd.c:582 src/devices.c:653
 msgid "unknown error"
 msgstr "okännt fel"
 
@@ -159,14 +147,14 @@ msgid ""
 "preferences."
 msgstr ""
 
-#: src/devices.c:624
+#: src/devices.c:634
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
 
-#: src/devices.c:642
+#: src/devices.c:652
 #, c-format
 msgid ""
 "Error %s %s.\n"
@@ -177,11 +165,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/devices.c:643
+#: src/devices.c:653
 msgid "mounting"
 msgstr "monterar"
 
-#: src/devices.c:643
+#: src/devices.c:653
 msgid "unmounting"
 msgstr "avmonterar"
 
@@ -375,80 +363,80 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:99
+#: src/execfunctions.c:79
 msgid "<b>Burning disk...</b>"
 msgstr "<b>Bränner skiva...</b>"
 
-#: src/execfunctions.c:105
+#: src/execfunctions.c:85
 #, fuzzy
 msgid "Please insert the CD into the CD writer"
 msgstr "Mata in en tom CD i CD-brännaren"
 
-#: src/execfunctions.c:123
+#: src/execfunctions.c:103
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Tömmer skiva...</b>"
 
-#: src/execfunctions.c:130
+#: src/execfunctions.c:110
 msgid "Please insert the CD-RW into the CD writer"
 msgstr ""
 
-#: src/execfunctions.c:209
+#: src/execfunctions.c:187
 msgid "Fixating"
 msgstr ""
 
-#: src/execfunctions.c:249 gnomebaker.glade:2814
+#: src/execfunctions.c:227 gnomebaker.glade:2814
 msgid "default"
 msgstr ""
 
-#: src/execfunctions.c:415
+#: src/execfunctions.c:393
 msgid "<b>Extracting audio tracks...</b>"
 msgstr ""
 
-#: src/execfunctions.c:427
+#: src/execfunctions.c:405
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
 
-#: src/execfunctions.c:444
+#: src/execfunctions.c:422
 msgid "Please insert the audio CD into the CD reader"
 msgstr ""
 
-#: src/execfunctions.c:593
+#: src/execfunctions.c:567
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Skapar datadiskavbild...<b>"
 
-#: src/execfunctions.c:601
+#: src/execfunctions.c:575
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
 
-#: src/execfunctions.c:793
+#: src/execfunctions.c:765
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Formaterar DVD...</b>"
 
-#: src/execfunctions.c:800
+#: src/execfunctions.c:772
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:886
+#: src/execfunctions.c:858
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Bränner DVD...</b>"
 
-#: src/execfunctions.c:893
+#: src/execfunctions.c:865
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:973 src/execfunctions.c:1017
+#: src/execfunctions.c:939 src/execfunctions.c:980
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1177
+#: src/execfunctions.c:1140
 msgid "<b>Reading CD image...</b>"
 msgstr ""
 
-#: src/execfunctions.c:1465
+#: src/execfunctions.c:1422
 #, fuzzy
 msgid "<b>Converting files to cd audio...</b>"
 msgstr "<b>Skapar datadiskavbild...<b>"
@@ -830,6 +818,15 @@ msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"
 msgstr ""
+
+#~ msgid "TITLE="
+#~ msgstr "TITEL="
+
+#~ msgid "ARTIST="
+#~ msgstr "ARTIST="
+
+#~ msgid "ALBUM="
+#~ msgstr "ALBUM="
 
 #~ msgid "File %s was not opened \n"
 #~ msgstr "File %s was not opened \n"

@@ -1,6 +1,5 @@
 #source files 
 src/audiocd.c
-src/audioinfo.c
 src/burn.c
 src/datacd.c
 src/devices.c

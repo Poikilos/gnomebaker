@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-10 22:33+0100\n"
+"POT-Creation-Date: 2005-08-13 23:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Croatian <hr@li.org>\n"
@@ -19,21 +19,21 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 
-#: src/audiocd.c:98 src/audiocd.c:228 gnomebaker.glade:1036
+#: src/audiocd.c:94 src/audiocd.c:224 gnomebaker.glade:1036
 msgid "0 mins 0 secs"
 msgstr "0 minuta 0 sekundi"
 
-#: src/audiocd.c:109
+#: src/audiocd.c:105
 #, c-format
 msgid "%d mins %d secs"
 msgstr ""
 
-#: src/audiocd.c:117
+#: src/audiocd.c:113
 #, fuzzy
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "Zapis je prevelik da bi stao na preostalom prostoru na CD-u"
 
-#: src/audiocd.c:277 src/filebrowser.c:619
+#: src/audiocd.c:273 src/filebrowser.c:619
 msgid "_Open"
 msgstr ""
 
@@ -45,75 +45,63 @@ msgstr ""
 #. gbcommon_append_menu_item_stock(menu, _("_Edit name"), GTK_STOCK_DND,
 #. (GCallback)datacd_on_edit, view);
 #. }
-#: src/audiocd.c:281 src/datacd.c:451
+#: src/audiocd.c:277 src/datacd.c:451
 #, fuzzy
 msgid "_Remove selected"
 msgstr "Odstrani označeno"
 
-#: src/audiocd.c:283
+#: src/audiocd.c:279
 msgid "_Clear"
 msgstr ""
 
-#: src/audiocd.c:341
+#: src/audiocd.c:337
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr ""
 
-#: src/audiocd.c:348
+#: src/audiocd.c:344
 #, c-format
 msgid "There is no known plugin to handle a file of type %s."
 msgstr ""
 
-#: src/audiocd.c:466
+#: src/audiocd.c:462
 #, fuzzy
 msgid "Track"
 msgstr "Zapis"
 
-#: src/audiocd.c:478
+#: src/audiocd.c:474
 msgid "Duration"
 msgstr "Trajanje"
 
-#: src/audiocd.c:494
+#: src/audiocd.c:490
 msgid "Artist"
 msgstr "Umjetnik/ca"
 
-#: src/audiocd.c:502
+#: src/audiocd.c:498
 msgid "Album"
 msgstr "Album"
 
-#: src/audiocd.c:510
+#: src/audiocd.c:506
 msgid "Title"
 msgstr "Naslov"
 
-#: src/audioinfo.c:288
-msgid "TITLE="
-msgstr "NASLOV="
-
-#: src/audioinfo.c:290
-msgid "ARTIST="
-msgstr "UMJETNIK/CA="
-
-#: src/audioinfo.c:292
-msgid "ALBUM="
-msgstr "ALBUM="
-
-#: src/burn.c:108
+#: src/burn.c:106
 #, fuzzy
 msgid "Completed"
 msgstr "Zgotovljeno"
 
-#: src/burn.c:112
+#: src/burn.c:110
 #, fuzzy
 msgid "Failed"
 msgstr "Nije uspjelo"
 
-#: src/burn.c:236
+#: src/burn.c:234
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr ""
 
-#: src/burn.c:269 src/burn.c:437
+#: src/burn.c:267 src/burn.c:435
 #, fuzzy
 msgid "Please select an iso file to save to..."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
@@ -155,7 +143,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/datacd.c:582 src/devices.c:643
+#: src/datacd.c:582 src/devices.c:653
 msgid "unknown error"
 msgstr "nepoznata greška"
 
@@ -166,14 +154,14 @@ msgid ""
 "preferences."
 msgstr ""
 
-#: src/devices.c:624
+#: src/devices.c:634
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
 
-#: src/devices.c:642
+#: src/devices.c:652
 #, c-format
 msgid ""
 "Error %s %s.\n"
@@ -181,11 +169,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/devices.c:643
+#: src/devices.c:653
 msgid "mounting"
 msgstr ""
 
-#: src/devices.c:643
+#: src/devices.c:653
 msgid "unmounting"
 msgstr ""
 
@@ -371,39 +359,39 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:99
+#: src/execfunctions.c:79
 #, fuzzy
 msgid "<b>Burning disk...</b>"
 msgstr "<b>Pržim disk...</b>"
 
-#: src/execfunctions.c:105
+#: src/execfunctions.c:85
 #, fuzzy
 msgid "Please insert the CD into the CD writer"
 msgstr "Molim Vas umetnite CD-RW u CD pisač"
 
-#: src/execfunctions.c:123
+#: src/execfunctions.c:103
 #, fuzzy
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Praznim disk...</b>"
 
-#: src/execfunctions.c:130
+#: src/execfunctions.c:110
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Molim Vas umetnite CD-RW u CD pisač"
 
-#: src/execfunctions.c:209
+#: src/execfunctions.c:187
 #, fuzzy
 msgid "Fixating"
 msgstr "Fiksiram"
 
-#: src/execfunctions.c:249 gnomebaker.glade:2814
+#: src/execfunctions.c:227 gnomebaker.glade:2814
 msgid "default"
 msgstr ""
 
-#: src/execfunctions.c:415
+#: src/execfunctions.c:393
 msgid "<b>Extracting audio tracks...</b>"
 msgstr ""
 
-#: src/execfunctions.c:427
+#: src/execfunctions.c:405
 #, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
@@ -412,45 +400,45 @@ msgstr ""
 "Audio zapisi od prijašnje sesije već posotje na disku, da li želite "
 "iskoristiti postoječe zapise?"
 
-#: src/execfunctions.c:444
+#: src/execfunctions.c:422
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Molim Vas umetnite audio CD u CD čitač"
 
-#: src/execfunctions.c:593
+#: src/execfunctions.c:567
 msgid "<b>Creating data disk image...</b>"
 msgstr ""
 
-#: src/execfunctions.c:601
+#: src/execfunctions.c:575
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
 
-#: src/execfunctions.c:793
+#: src/execfunctions.c:765
 msgid "<b>Formatting DVD...</b>"
 msgstr ""
 
-#: src/execfunctions.c:800
+#: src/execfunctions.c:772
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:886
+#: src/execfunctions.c:858
 msgid "<b>Burning DVD...</b>"
 msgstr ""
 
-#: src/execfunctions.c:893
+#: src/execfunctions.c:865
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:973 src/execfunctions.c:1017
+#: src/execfunctions.c:939 src/execfunctions.c:980
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1177
+#: src/execfunctions.c:1140
 msgid "<b>Reading CD image...</b>"
 msgstr ""
 
-#: src/execfunctions.c:1465
+#: src/execfunctions.c:1422
 msgid "<b>Converting files to cd audio...</b>"
 msgstr ""
 
@@ -833,6 +821,15 @@ msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"
 msgstr ""
+
+#~ msgid "TITLE="
+#~ msgstr "NASLOV="
+
+#~ msgid "ARTIST="
+#~ msgstr "UMJETNIK/CA="
+
+#~ msgid "ALBUM="
+#~ msgstr "ALBUM="
 
 #~ msgid "File %s was not opened \n"
 #~ msgstr "Datoteka %s nije otvorena \n"
