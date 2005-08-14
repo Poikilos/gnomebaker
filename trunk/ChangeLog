@@ -21,6 +21,8 @@ Version 0.4.1
 * Fix Bug #1243700 Exit with "Killed" error when burning to CD
 * Fix Bug #1241361 Segfault when burning data DVD
 * Fix Bug #1214261 GnomeBaker reports an error and core dumps
+* Fix Bug #1259001 gnomebaker.desktop menu item has wrong category
+* Fix Bug #1247337 s/view/hide/
 * Start using glib g_spawn code as it's better than the exec code I wrote.
 * Fix threading problem which would crash GB on some machines.
 * Fix regression in audio cd copying.
@@ -28,6 +30,7 @@ Version 0.4.1
 * Apply patch #1258427 from domg to correct disk ejection on FreeBSD
 * Updated russian translation from Alexandre Prokoudine
 * Update french translation from Nicolas Boos
+
 
 Version 0.4
 
