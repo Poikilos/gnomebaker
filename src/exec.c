@@ -354,10 +354,8 @@ exec_thread_gspawn_otf(gpointer data)
 	if((state != SKIP) && (state != CANCELLED))
 	{
 		pipe(child_child_pipe);	
-		if(exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder))
-		{
-			if(e->postProc) e->postProc(e, NULL);	
-		}
+		exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder);
+	    if(e->postProc) e->postProc(e, NULL);	
 		close(child_child_pipe[0]);	
 		close(child_child_pipe[1]);
 	}	
@@ -378,7 +376,8 @@ exec_thread_gspawn(gpointer data)
     if(ex->startProc) ex->startProc(ex, NULL);
 
     gint j = 0;
-    for(; j < ex->cmdCount; j++)
+    gboolean cont = TRUE;
+    for(; j < ex->cmdCount && cont; j++)
     {
         ExecCmd* e = &ex->cmds[j];              
         if(e->preProc) e->preProc(e, NULL);                 
@@ -388,8 +387,8 @@ exec_thread_gspawn(gpointer data)
         exec_cmd_unlock(e);        
         if(state == SKIP) continue;
         else if(state == CANCELLED) break;                  
-        else if(!exec_spawn_process(ex, e, exec_working_dir_setup_func, TRUE, NULL)) break;
-        else if(e->postProc) e->postProc(e, NULL);      
+        cont = exec_spawn_process(ex, e, exec_working_dir_setup_func, TRUE, NULL);
+        if(e->postProc) e->postProc(e, NULL);
     }
     if(ex->endProc) ex->endProc(ex, NULL);
     GB_TRACE("exec_thread_gspawn - exiting");
