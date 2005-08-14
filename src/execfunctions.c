@@ -1305,7 +1305,7 @@ cdrdao_write_image_read_proc(void *ex, void *buffer)
     g_return_if_fail(ex != NULL);   
     
     const gchar* output = (gchar*)buffer;       
-    const gchar* wrote = strstr(output, ", Wrote");
+    const gchar* wrote = strstr(output, "Wrote");
     if(wrote != NULL)
     {
         gint current = 0, total = 0;
