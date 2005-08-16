@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-13 23:09+0100\n"
+"POT-Creation-Date: 2005-08-16 22:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 
-#: src/audiocd.c:94 src/audiocd.c:224 gnomebaker.glade:1036
+#: src/audiocd.c:94 src/audiocd.c:224 gnomebaker.glade:1037
 msgid "0 mins 0 secs"
 msgstr "0 m 0 s"
 
@@ -112,7 +112,7 @@ msgstr "Súbor alebo adresár je príliš veľký na to, aby sa zmestil na CD"
 msgid "Clear"
 msgstr "Odobrať všetky zo zoznamu"
 
-#: src/datacd.c:485 gnomebaker.glade:317
+#: src/datacd.c:485 gnomebaker.glade:318
 msgid "Contents"
 msgstr "Súbor"
 
@@ -209,7 +209,7 @@ msgstr "Pridaj adresár"
 msgid "_Add file(s)"
 msgstr "Pridaj súbor(y)"
 
-#: src/filebrowser.c:639 gnomebaker.glade:189
+#: src/filebrowser.c:639 gnomebaker.glade:190
 msgid "_Burn CD Image"
 msgstr "_Napáliť obraz disku"
 
@@ -270,7 +270,7 @@ msgstr "Načítavam užívateľské rozhranie..."
 msgid "Are you sure you want to quit?"
 msgstr "Naozaj chcete skončiť?"
 
-#: src/gnomebaker.c:271
+#: src/gnomebaker.c:274
 #, fuzzy
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
@@ -279,20 +279,20 @@ msgstr ""
 "Súbor, čo ste vybrali nie je obrazom disku CD. Vyberte prosím obraz disku CD "
 "na napálenie."
 
-#: src/gnomebaker.c:328 gnomebaker.glade:12
+#: src/gnomebaker.c:347 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: src/gnomebaker.c:329
+#: src/gnomebaker.c:348
 msgid "Simple CD Burning for Gnome"
 msgstr "Jednoduchá aplikácia na napaľovanie pre prostredie GNOME"
 
-#: src/gnomebaker.c:329 gnomebaker.glade:1701
+#: src/gnomebaker.c:348 gnomebaker.glade:1702
 #, fuzzy
 msgid "translator_credits"
 msgstr "translator_credits"
 
-#: src/gnomebaker.c:394
+#: src/gnomebaker.c:413
 #, fuzzy
 msgid "Please select files to add to the disk..."
 msgstr "Vyberte prosím názov súboru na uloženie obrazu disku..."
@@ -396,7 +396,7 @@ msgstr "Vložte prosím CD-RW do CD napalovačky"
 msgid "Fixating"
 msgstr "Prebieha fixácia"
 
-#: src/execfunctions.c:227 gnomebaker.glade:2814
+#: src/execfunctions.c:227 gnomebaker.glade:2815
 msgid "default"
 msgstr "predvolený"
 
@@ -457,23 +457,23 @@ msgstr "<b>Čítam obraz CD...</b>"
 msgid "<b>Converting files to cd audio...</b>"
 msgstr "<b>Konvertujem wav na hudobné CD...</b>"
 
-#: src/burn.h:64 gnomebaker.glade:375 gnomebaker.glade:376
+#: src/burn.h:64 gnomebaker.glade:376 gnomebaker.glade:377
 msgid "Blank CDRW"
 msgstr "Vymazať CD-RW"
 
-#: src/burn.h:65 gnomebaker.glade:424 gnomebaker.glade:425
+#: src/burn.h:65 gnomebaker.glade:425 gnomebaker.glade:426
 msgid "Copy Data CD"
 msgstr "Kopírovať dátové CD"
 
-#: src/burn.h:66 gnomebaker.glade:442 gnomebaker.glade:443
+#: src/burn.h:66 gnomebaker.glade:443 gnomebaker.glade:444
 msgid "Copy Audio CD"
 msgstr "Kopírovať audio CD"
 
-#: src/burn.h:67 gnomebaker.glade:473 gnomebaker.glade:474
+#: src/burn.h:67 gnomebaker.glade:474 gnomebaker.glade:475
 msgid "Burn CD Image"
 msgstr "Vypáliť obraz CD zo súboru"
 
-#: src/burn.h:68 gnomebaker.glade:491 gnomebaker.glade:492
+#: src/burn.h:68 gnomebaker.glade:492 gnomebaker.glade:493
 #, fuzzy
 msgid "Burn DVD Image"
 msgstr "Vypáliť obraz CD zo súboru"
@@ -502,334 +502,334 @@ msgstr "Naformátovať DVD+RW"
 msgid "Create Data DVD"
 msgstr "Vytvoriť dátové DVD"
 
-#: gnomebaker.glade:88
+#: gnomebaker.glade:89
 msgid "_Actions"
 msgstr "_Akcie"
 
-#: gnomebaker.glade:97
+#: gnomebaker.glade:98
 msgid "Bl_ank CDRW"
 msgstr "_Vymazať CD-RW"
 
-#: gnomebaker.glade:117
+#: gnomebaker.glade:118
 msgid "_Format DVDRW"
 msgstr "_Formátovať DVD RW"
 
-#: gnomebaker.glade:143
+#: gnomebaker.glade:144
 msgid "C_opy Data CD"
 msgstr "Kopírovať _dátové CD"
 
-#: gnomebaker.glade:163
+#: gnomebaker.glade:164
 msgid "Co_py Audio CD"
 msgstr "Kopírovať _hudobné CD"
 
-#: gnomebaker.glade:209
+#: gnomebaker.glade:210
 #, fuzzy
 msgid "Burn _DVD Image"
 msgstr "Vypáliť obraz CD zo súboru"
 
-#: gnomebaker.glade:235
+#: gnomebaker.glade:236
 msgid "_Import Session"
 msgstr "_Importovať sekciu"
 
-#: gnomebaker.glade:259
+#: gnomebaker.glade:260
 msgid "_View"
 msgstr "_Pohľad"
 
-#: gnomebaker.glade:268
+#: gnomebaker.glade:269
 msgid "_Refresh"
 msgstr "_Obnoviť"
 
-#: gnomebaker.glade:295
+#: gnomebaker.glade:296
 #, fuzzy
 msgid "_Show File Browser"
 msgstr "<b>Prehliadač súborov</b>"
 
-#: gnomebaker.glade:393 gnomebaker.glade:394
+#: gnomebaker.glade:394 gnomebaker.glade:395
 #, fuzzy
 msgid "Format DVDRW"
 msgstr "_Formátovať DVD RW"
 
-#: gnomebaker.glade:522
+#: gnomebaker.glade:523
 msgid "Edit GnomeBaker's preferences"
 msgstr "Upraviť predvoľby pre GnomeBaker"
 
-#: gnomebaker.glade:555
+#: gnomebaker.glade:556
 msgid "Refresh the file browser file list"
 msgstr "Obnoviť zoznam súborov"
 
-#: gnomebaker.glade:678
+#: gnomebaker.glade:679
 msgid "Add the current directory to the CD"
 msgstr "Pridať aktuálny priečinok na CD"
 
-#: gnomebaker.glade:679
+#: gnomebaker.glade:680
 msgid "Add directory"
 msgstr "Pridaj adresár"
 
-#: gnomebaker.glade:696
+#: gnomebaker.glade:697
 msgid "Add the selected files to the CD"
 msgstr "Pridať vybrané súbory na CD"
 
-#: gnomebaker.glade:697
+#: gnomebaker.glade:698
 msgid "Add file(s)"
 msgstr "Pridaj súbor(y)"
 
-#: gnomebaker.glade:714
+#: gnomebaker.glade:715
 msgid "Remove the selected files from the CD"
 msgstr "Odobrať vybrané súbory z CD"
 
-#: gnomebaker.glade:715
+#: gnomebaker.glade:716
 msgid "Remove selected"
 msgstr "Odobrať vybrané zo zoznamu"
 
-#: gnomebaker.glade:732
+#: gnomebaker.glade:733
 msgid "Clear the contents of the CD"
 msgstr "Zmazať obsah CD"
 
-#: gnomebaker.glade:761
+#: gnomebaker.glade:762
 msgid "Import existing session"
 msgstr "Naimportovať existujúcu sekciu"
 
-#: gnomebaker.glade:762
+#: gnomebaker.glade:763
 msgid "Import"
 msgstr "Import"
 
-#: gnomebaker.glade:842 gnomebaker.glade:1230 gnomebaker.glade:1490
+#: gnomebaker.glade:843 gnomebaker.glade:1231 gnomebaker.glade:1491
 msgid "0%"
 msgstr "0 %"
 
-#: gnomebaker.glade:875
+#: gnomebaker.glade:876
 msgid "Click to begin the process of creating a data disk."
 msgstr "Kliknutím spustíte vytváranie dátového disku."
 
-#: gnomebaker.glade:918
+#: gnomebaker.glade:919
 msgid "Create Data Disk"
 msgstr "Vytvoríť dátový disk"
 
-#: gnomebaker.glade:967
+#: gnomebaker.glade:968
 msgid "<b>Data Disk</b>"
 msgstr "b>Dátový disk</b>"
 
-#: gnomebaker.glade:1069
+#: gnomebaker.glade:1070
 msgid "Click to begin the process of creating an audio cd"
 msgstr "Kliknutím spustíte vytváranie hudobného CD."
 
-#: gnomebaker.glade:1112
+#: gnomebaker.glade:1113
 msgid "Create Audio Disk"
 msgstr "Vytvoriť hudobný disk"
 
-#: gnomebaker.glade:1161
+#: gnomebaker.glade:1162
 msgid "<b>Audio Disk</b>"
 msgstr "<b>Hudobný disk</b>"
 
-#: gnomebaker.glade:1303
+#: gnomebaker.glade:1304
 #, fuzzy
 msgid "Create Video Disk"
 msgstr "Vytvoriť video CD"
 
-#: gnomebaker.glade:1352
+#: gnomebaker.glade:1353
 msgid "<b>Video CD</b>"
 msgstr "<b>Video CD</b>"
 
-#: gnomebaker.glade:1417
+#: gnomebaker.glade:1418
 msgid "Baking CD"
 msgstr "Pálim CD"
 
-#: gnomebaker.glade:1462
+#: gnomebaker.glade:1463
 msgid "<b>Burning</b>"
 msgstr "<b>Vypaľujem</b>"
 
-#: gnomebaker.glade:1594
+#: gnomebaker.glade:1595
 msgid "View output"
 msgstr "Zobraziť podrobnosti"
 
-#: gnomebaker.glade:1698
+#: gnomebaker.glade:1699
 msgid "GPL"
 msgstr "GPL"
 
-#: gnomebaker.glade:1699
+#: gnomebaker.glade:1700
 msgid "Simple CD burning for Gnome."
 msgstr "Jednoduchá napaľovacia aplikácie pre prostredie GNOME."
 
-#: gnomebaker.glade:1706
+#: gnomebaker.glade:1707
 msgid "Splash window"
 msgstr "Úvodná obrazovka"
 
-#: gnomebaker.glade:1745
+#: gnomebaker.glade:1746
 msgid "Starting GnomeBaker..."
 msgstr "Spúšťam GnomeBaker..."
 
-#: gnomebaker.glade:1774
+#: gnomebaker.glade:1775
 #, fuzzy
 msgid "GnomeBaker Preferences"
 msgstr "Upraviť predvoľby pre GnomeBaker"
 
-#: gnomebaker.glade:1846
+#: gnomebaker.glade:1847
 msgid "<b>Temporary Directory</b>"
 msgstr "<b>Priečinok pre dočasné súbory</b>"
 
-#: gnomebaker.glade:1887
+#: gnomebaker.glade:1888
 msgid "/tmp"
 msgstr "/tmp"
 
-#: gnomebaker.glade:1908
+#: gnomebaker.glade:1909
 msgid "Clean temporary directory on exit"
 msgstr "Pri skončení vyčistiť priečinok pre dočasné súbory"
 
-#: gnomebaker.glade:1930
+#: gnomebaker.glade:1931
 msgid "<b>File Browser</b>"
 msgstr "<b>Prehliadač súborov</b>"
 
-#: gnomebaker.glade:1959
+#: gnomebaker.glade:1960
 msgid "Show hidden files"
 msgstr "Zobraziť skryté súbory"
 
-#: gnomebaker.glade:1982
+#: gnomebaker.glade:1983
 #, fuzzy
 msgid "Show humanreadable filesizes"
 msgstr "Zobraziť skryté súbory"
 
-#: gnomebaker.glade:2004
+#: gnomebaker.glade:2005
 #, fuzzy
 msgid "<b>GnomeBaker</b>"
 msgstr "GnomeBaker"
 
-#: gnomebaker.glade:2033
+#: gnomebaker.glade:2034
 msgid "Ask on quit"
 msgstr ""
 
-#: gnomebaker.glade:2061
+#: gnomebaker.glade:2062
 msgid "General"
 msgstr "Všeobecné"
 
-#: gnomebaker.glade:2094
+#: gnomebaker.glade:2095
 msgid "<b>Detected devices</b>"
 msgstr "<b>Nájdené zariadenia</b>"
 
-#: gnomebaker.glade:2155
+#: gnomebaker.glade:2156
 msgid "Always scan for devices on startup"
 msgstr "Pri štarte vždy hľadaj nové zariadenia"
 
-#: gnomebaker.glade:2227
+#: gnomebaker.glade:2228
 msgid "_Add device"
 msgstr "_Pridaj zariadenie"
 
-#: gnomebaker.glade:2302 gnomebaker.glade:2686
+#: gnomebaker.glade:2303 gnomebaker.glade:2687
 msgid "Sc_an for devices"
 msgstr "Nájdi _zariadenia"
 
-#: gnomebaker.glade:2349
+#: gnomebaker.glade:2350
 msgid "Devices"
 msgstr "Zariadenia"
 
-#: gnomebaker.glade:2381
+#: gnomebaker.glade:2382
 msgid "Start burning..."
 msgstr "Začínam napaľovať..."
 
-#: gnomebaker.glade:2468
+#: gnomebaker.glade:2469
 msgid "_Start"
 msgstr "Štar_t"
 
-#: gnomebaker.glade:2517
+#: gnomebaker.glade:2518
 msgid "Reader"
 msgstr "Čítaj z"
 
-#: gnomebaker.glade:2546 gnomebaker.glade:3488
+#: gnomebaker.glade:2547 gnomebaker.glade:3489
 msgid "Writer"
 msgstr "Zapisuj na"
 
-#: gnomebaker.glade:2609
+#: gnomebaker.glade:2610
 msgid "<b>Options</b>"
 msgstr "<b>Nastavenia</b>"
 
-#: gnomebaker.glade:2727
+#: gnomebaker.glade:2728
 msgid "Speed"
 msgstr "Rýchlosť"
 
-#: gnomebaker.glade:2777
+#: gnomebaker.glade:2778
 msgid "Mode"
 msgstr "Mód"
 
-#: gnomebaker.glade:2822
+#: gnomebaker.glade:2823
 msgid "tao"
 msgstr "TAO"
 
-#: gnomebaker.glade:2830
+#: gnomebaker.glade:2831
 msgid "dao"
 msgstr "DAO"
 
-#: gnomebaker.glade:2838
+#: gnomebaker.glade:2839
 msgid "raw96p"
 msgstr "raw96p"
 
-#: gnomebaker.glade:2846
+#: gnomebaker.glade:2847
 msgid "raw16"
 msgstr "raw16"
 
-#: gnomebaker.glade:2866
+#: gnomebaker.glade:2867
 msgid "<b>Devices</b>"
 msgstr "<b>Zariadenia</b>"
 
-#: gnomebaker.glade:2904
+#: gnomebaker.glade:2905
 msgid "ISO filesystem details"
 msgstr "Podrobnosti ISO súboru"
 
-#: gnomebaker.glade:2977
+#: gnomebaker.glade:2978
 msgid "<b>Volume label</b>"
 msgstr "<b>Názov disku</b>"
 
-#: gnomebaker.glade:3009
+#: gnomebaker.glade:3010
 msgid "GnomeBaker data cd"
 msgstr "Dátové CD GnomeBaker"
 
-#: gnomebaker.glade:3027
+#: gnomebaker.glade:3028
 msgid "<b>Created by</b>"
 msgstr "<b>Vytvorené</b>"
 
-#: gnomebaker.glade:3059
+#: gnomebaker.glade:3060
 msgid "Created by username"
 msgstr "Vytvorené užívateľom"
 
-#: gnomebaker.glade:3077
+#: gnomebaker.glade:3078
 msgid "<b>Boot options</b>"
 msgstr "<b>Bootovacie voľby</b>"
 
-#: gnomebaker.glade:3107
+#: gnomebaker.glade:3108
 msgid "Not bootable"
 msgstr "Nebootovateľné"
 
-#: gnomebaker.glade:3131
+#: gnomebaker.glade:3132
 msgid "PC bootable"
 msgstr "PC bootovateľné"
 
-#: gnomebaker.glade:3164
+#: gnomebaker.glade:3165
 msgid "Floppy disk image"
 msgstr "Obraz bootovacej diskety"
 
-#: gnomebaker.glade:3185
+#: gnomebaker.glade:3186
 msgid "Hard disk image"
 msgstr "Obraz pevného disku"
 
-#: gnomebaker.glade:3216
+#: gnomebaker.glade:3217
 msgid "Boot catalog"
 msgstr "Boot catalog"
 
-#: gnomebaker.glade:3245
+#: gnomebaker.glade:3246
 msgid "Boot Image"
 msgstr "Bootovací obraz"
 
-#: gnomebaker.glade:3309
+#: gnomebaker.glade:3310
 msgid "Sun workstation bootable"
 msgstr "Bootovateľné na pracovných staniciach Sun"
 
-#: gnomebaker.glade:3332
+#: gnomebaker.glade:3333
 msgid "Boot Image list"
 msgstr "Zoznam bootovacích obrazov"
 
-#: gnomebaker.glade:3414
+#: gnomebaker.glade:3415
 msgid "Select writer..."
 msgstr ""
 
-#: gnomebaker.glade:3532
+#: gnomebaker.glade:3533
 msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"

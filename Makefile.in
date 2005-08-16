@@ -231,7 +231,7 @@ gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@
 gnomemenu_DATA = gnomebaker.desktop
 gnomebaker_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/@PACKAGE@
 gnomebaker_glade_file_DATA = gnomebaker.glade
-EXTRA_DIST = $(gnomebakerdoc_DATA) $(gnomebaker_glade_file_DATA) $(gnomemenu_DATA)
+EXTRA_DIST = $(gnomebakerdoc_DATA) $(gnomebaker_glade_file_DATA) $(gnomemenu_DATA) autogen.sh
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

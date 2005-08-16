@@ -109,17 +109,6 @@ gnomebaker_new()
 	preferences_register_notify(GNOME_TOOLBAR_STYLE, gnomebaker_on_toolbar_style_changed);
 	preferences_register_notify(GNOME_TOOLBAR_DETACHABLE, gnomebaker_on_toolbar_style_changed);
 	
-	g_main_context_iteration(NULL, TRUE);
-	
-	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
-	if(notebook != NULL)
-		gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
-	
-	GtkWidget* checkmenuitem = glade_xml_get_widget(xml, widget_show_browser_menu);
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(checkmenuitem),
-		preferences_get_bool(GB_SHOW_FILE_BROWSER));
-	g_signal_emit_by_name(checkmenuitem, "toggled", checkmenuitem, NULL);	
-	
 	/* Resize and move the window to saved settings */
 	GtkWidget* main_window = glade_xml_get_widget(xml, widget_gnomebaker);
 	const gint x = preferences_get_int(GB_MAIN_WINDOW_POSITION_X);
@@ -131,8 +120,19 @@ gnomebaker_new()
 		gtk_window_move(GTK_WINDOW(main_window), x, y);
 	if((width > 0) && (height > 0))
 		gtk_window_resize(GTK_WINDOW(main_window), width, height);
-	if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED))
+	if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED) == TRUE)
 		gtk_window_maximize(GTK_WINDOW(main_window));
+
+	g_main_context_iteration(NULL, TRUE);
+	
+	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+	if(notebook != NULL)
+		gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
+	
+	GtkWidget* checkmenuitem = glade_xml_get_widget(xml, widget_show_browser_menu);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(checkmenuitem),
+		preferences_get_bool(GB_SHOW_FILE_BROWSER));
+	g_signal_emit_by_name(checkmenuitem, "toggled", checkmenuitem, NULL);	
 
 	return main_window;
 }
@@ -203,17 +203,20 @@ gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data)
             g_free(audiodir);
         }
         
-        /* Save main window position and size */
-        GtkWidget* main_window = glade_xml_get_widget(xml, widget_gnomebaker);
-
-        gint width, height, x, y;
-        gtk_window_get_size(GTK_WINDOW(main_window), &width, &height);
-        gtk_window_get_position(GTK_WINDOW(main_window), &x, &y);
-
-        preferences_set_int(GB_MAIN_WINDOW_WIDTH, width);
-        preferences_set_int(GB_MAIN_WINDOW_HEIGHT, height);
-        preferences_set_int(GB_MAIN_WINDOW_POSITION_X, x);
-        preferences_set_int(GB_MAIN_WINDOW_POSITION_Y, y);
+        /* Save main window position and size if not maximized */
+    	if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED) != TRUE)
+    	{
+            GtkWidget* main_window = glade_xml_get_widget(xml, widget_gnomebaker);
+    
+        	gint width, height, x, y;
+            gtk_window_get_size(GTK_WINDOW(main_window), &width, &height);
+            gtk_window_get_position(GTK_WINDOW(main_window), &x, &y);
+    
+            preferences_set_int(GB_MAIN_WINDOW_WIDTH, width);
+            preferences_set_int(GB_MAIN_WINDOW_HEIGHT, height);
+            preferences_set_int(GB_MAIN_WINDOW_POSITION_X, x);
+            preferences_set_int(GB_MAIN_WINDOW_POSITION_Y, y);
+    	}
         
         gtk_main_quit();
         break;
@@ -310,6 +313,22 @@ gnomebaker_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data)
 	gnomebaker_on_quit(NULL, NULL);
 	return TRUE;
 }
+
+
+gboolean
+gnomebaker_window_state_event(GtkWidget* widget, GdkEvent* event, gpointer user_data)
+{
+	GB_LOG_FUNC
+	if((event->type) == (GDK_WINDOW_STATE))
+	{
+		if((((GdkEventWindowState*)event)->new_window_state) & GDK_WINDOW_STATE_MAXIMIZED)
+		    preferences_set_bool(GB_MAIN_WINDOW_MAXIMIZED, TRUE);
+		else
+		    preferences_set_bool(GB_MAIN_WINDOW_MAXIMIZED, FALSE);
+	}
+	return FALSE;
+}
+
 
 
 void

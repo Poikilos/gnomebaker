@@ -27,6 +27,7 @@
   <property name="focus_on_map">True</property>
   <property name="enable_layout_config">True</property>
   <signal name="delete_event" handler="gnomebaker_on_delete" last_modification_time="Sat, 10 Apr 2004 22:33:28 GMT"/>
+  <signal name="window_state_event" handler="gnomebaker_window_state_event" last_modification_time="Mon, 15 Aug 2005 22:41:45 GMT"/>
 
   <child internal-child="dock">
     <widget class="BonoboDock" id="bonobodock1">

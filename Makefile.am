@@ -25,7 +25,7 @@ gnomemenu_DATA = gnomebaker.desktop
 gnomebaker_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/@PACKAGE@
 gnomebaker_glade_file_DATA = gnomebaker.glade
 
-EXTRA_DIST = $(gnomebakerdoc_DATA) $(gnomebaker_glade_file_DATA) $(gnomemenu_DATA)
+EXTRA_DIST = $(gnomebakerdoc_DATA) $(gnomebaker_glade_file_DATA) $(gnomemenu_DATA) autogen.sh
 
 
 # Copy all the spec files. Of cource, only one is actually used.
