@@ -1,3 +1,8 @@
+Version 0.4.2
+
+* Apply patch #1260533 Save Maximized state from Marc Deslauriers
+
+
 Version 0.4.1
 
 * Apply Milen's patch so we have a preference setting which determines if we ask on quit.
