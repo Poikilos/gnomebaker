@@ -188,7 +188,7 @@ gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection
 	
 	GList* items = GTK_MENU_SHELL(gtk_option_menu_get_menu(optmen))->children;	
 	gint index = 0;
-	while(items)
+	for(; items != NULL; items = items->next)
 	{
 		if(GTK_BIN(items->data)->child)
 		{
@@ -204,7 +204,6 @@ gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection
 				}
 			}
 		}
-		items = items->next;
 		++index;
 	}
 }

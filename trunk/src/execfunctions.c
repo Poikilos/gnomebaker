@@ -253,7 +253,7 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
     else*/
     {    
         const GList *audiofile = audiofiles;
-        while(audiofile != NULL)
+        for (; audiofile != NULL ; audiofile = audiofile->next)
         {
             if(audiofile->data)	
             {
@@ -261,7 +261,7 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
                 GB_TRACE("cdrecord - adding create audio data [%s]", (gchar*)audiofile->data);
                 cdrecord_totaltrackstowrite++;
             }
-            audiofile = audiofile->next;
+
         }		
     }	
 	e->readProc = cdrecord_read_proc;

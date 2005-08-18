@@ -49,6 +49,6 @@ void audiocd_remove();
 void audiocd_add_selection(GtkSelectionData* selection);
 void audiocd_import_session();
 void audiocd_move_selected_up();
-							  
+void audiocd_move_selected_down();
 							  
 #endif	/*_AUDIOCD_H_*/
