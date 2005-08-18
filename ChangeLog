@@ -1,7 +1,8 @@
 Version 0.4.2
 
 * Apply patch #1260533 Save Maximized state from Marc Deslauriers
-
+* Character set fix from Jean-François Wauthy
+* Fix Bug #1174339 audio cd: confused by files with identical basenames
 
 Version 0.4.1
 

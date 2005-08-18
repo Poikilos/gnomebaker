@@ -40,7 +40,6 @@ typedef struct
 	GstElement* encoder;
 	GstElement* dest;
 	GstElement* last_element;
-	gchar* convertedfile;
 } MediaPipeline;
 
 typedef enum
@@ -71,7 +70,7 @@ typedef struct
 } MediaInfo;
  
  
-void media_convert_to_wav(gchar* file,gchar* convertedfile,MediaPipeline* gstdata);
+void media_convert_to_wav(MediaPipeline* gstdata, gchar* file, gchar* convertedfile);
 void media_query_progress_bytes(GstElement* element,gint64* pos,gint64* len);
 void media_start_playing(GstElement* element);
 void media_pause_playing(GstElement* element);

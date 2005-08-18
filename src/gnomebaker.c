@@ -126,8 +126,7 @@ gnomebaker_new()
 	g_main_context_iteration(NULL, TRUE);
 	
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
-	if(notebook != NULL)
-		gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
+	gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
 	
 	GtkWidget* checkmenuitem = glade_xml_get_widget(xml, widget_show_browser_menu);
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(checkmenuitem),
@@ -579,4 +578,67 @@ gnomebaker_on_help(gpointer widget, gpointer user_data)
 			GTK_BUTTONS_NONE, error->message);
 		g_error_free(error);
 	}	
+}
+
+void
+gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
+                                   GtkNotebookPage *page,
+                                   gint page_num,
+                                   gpointer user_data)
+{
+    GB_LOG_FUNC
+    GtkWidget* import = glade_xml_get_widget(xml, widget_import);
+    GtkWidget* up = glade_xml_get_widget(xml, widget_up);
+    GtkWidget* down = glade_xml_get_widget(xml, widget_down);
+    switch(page_num) 
+    {
+        case 0:
+            gtk_widget_set_sensitive(import, TRUE);
+            gtk_widget_set_sensitive(up, FALSE);
+            gtk_widget_set_sensitive(down, FALSE);
+            break;
+        case 1:
+            gtk_widget_set_sensitive(import, FALSE);
+            gtk_widget_set_sensitive(up, TRUE);
+            gtk_widget_set_sensitive(down, TRUE);
+            break;
+        default:{}
+    };
+}
+
+void 
+gnomebaker_on_up(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC
+    
+    GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+    g_return_if_fail(notebook != NULL);     
+    switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
+    {
+        case 0:         
+            break;
+        case 1:
+            audiocd_move_selected_up();
+            break;
+        default:{}  
+    };
+}
+
+
+void 
+gnomebaker_on_down(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC
+    
+    GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+    g_return_if_fail(notebook != NULL);     
+    switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
+    {
+        case 0:         
+            break;
+        case 1:
+            audiocd_move_selected_up();
+            break;
+        default:{}  
+    };
 }

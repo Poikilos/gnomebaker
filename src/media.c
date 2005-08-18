@@ -61,13 +61,13 @@ media_cb_newpad (GstElement *element,
 
 
 void
-media_convert_to_wav(gchar* file,gchar* convertedfile,MediaPipeline* gstdata)
+media_convert_to_wav(MediaPipeline* gstdata, gchar* file, gchar* convertedfile)
 {
 	GB_LOG_FUNC	
 	g_return_if_fail(file != NULL);
 	g_return_if_fail(convertedfile != NULL);
 	g_return_if_fail(gstdata != NULL);
-		
+    		
 	/* create a new pipeline to hold the elements */
 	gstdata->pipeline = gst_pipeline_new ("media-convert-to-wav-pipeline");
 	g_return_if_fail(gstdata->pipeline != NULL);
