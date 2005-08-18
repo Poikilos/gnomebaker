@@ -318,7 +318,7 @@ datacd_remove()
 	gtk_tree_selection_selected_foreach(selection, datacd_foreach_fileselection, &rr_list);		
 	
 	GList *node = rr_list;
-	while(node != NULL)
+	for (; node != NULL ; node = node->next)
 	{
 		if(node->data)
 		{
@@ -346,7 +346,6 @@ datacd_remove()
 				/* FIXME/CHECK: Do we need to free the path here? */
 			}
 		}
-		node = node->next;
 	}
 	
 	g_list_foreach(rr_list, (GFunc)gtk_tree_row_reference_free, NULL);

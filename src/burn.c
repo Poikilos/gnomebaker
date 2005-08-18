@@ -364,7 +364,7 @@ burn_create_audio_cd(GtkTreeModel* audiomodel)
 		gtk_tree_model_foreach(audiomodel, burn_foreachaudiotrack_func, &pipelines);	
 		media_convert_add_args(&burnargs->cmds[0],pipelines);
 		const GSList* pipeline = pipelines;
-		while(pipeline)
+		for(; pipeline != NULL; pipeline = pipeline->next)
 		{
 			MediaPipeline* mip = (MediaPipeline*)pipeline->data;
 			if(mip)
@@ -374,20 +374,13 @@ burn_create_audio_cd(GtkTreeModel* audiomodel)
 				audiofiles = g_list_append(audiofiles, convertedfile);
                 /* g_free(convertedfile); list owns the memory */
             }
-			pipeline = pipeline->next;
-				
 		}
 		cdrecord_add_create_audio_cd_args(&burnargs->cmds[1], audiofiles);
 		
 		ok = burn_start_process(FALSE);
 		
-		
-		const GList *audiofile = audiofiles;
-		while(audiofile != NULL)
-		{
-			g_free(audiofile->data);
-			audiofile = audiofile->next;
-		}
+        for(; audiofiles != NULL; audiofiles = audiofiles->next)
+			g_free(audiofiles->data);
 		/*
 		const GSList* pipeline_clean = pipelines;
 		while(pipeline_clean != NULL)

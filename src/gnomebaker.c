@@ -637,7 +637,7 @@ gnomebaker_on_down(gpointer widget, gpointer user_data)
         case 0:         
             break;
         case 1:
-            audiocd_move_selected_up();
+            audiocd_move_selected_down();
             break;
         default:{}  
     };
