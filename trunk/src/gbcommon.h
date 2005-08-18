@@ -82,6 +82,10 @@ static const gchar* const widget_datacd_progressbar = "progressbar2";
 static const gchar* const widget_datacd_create = "createDataCDBtn";
 static const gchar* const widget_datacd_notebook = "notebook1";
 
+static const gchar* const widget_import = "toolbutton5";
+static const gchar* const widget_up = "toolbutton8";
+static const gchar* const widget_down = "toolbutton9";
+
 static const gchar* const widget_audiocd_tree = "treeview8";
 static const gchar* const widget_audiocd_size = "optionmenu2";
 static const gchar* const widget_audiocd_progressbar = "progressbar3";

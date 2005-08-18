@@ -330,18 +330,14 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 	if(mime != NULL)
 	{
 		gchar* trackdir = preferences_get_convert_audio_track_dir();
-		gchar* filename = g_path_get_basename(file);
+		gchar* filename = g_strdup_printf("gbtrack_%d.wav", g_slist_length(*pipelines));
 		gchar* convertedfile = g_build_filename(trackdir, filename, NULL);
-		gchar* fullfilename = g_strdup_printf("%s.wav",convertedfile);
-		MediaPipeline* mediainfo = g_new0(MediaPipeline, 1);
-		GB_TRACE("convertedfile is %s", fullfilename);
-		GB_TRACE("file is %s",file);
-		media_convert_to_wav(file,fullfilename, mediainfo);
-		mediainfo->convertedfile = fullfilename;
-		*pipelines = g_slist_append(*pipelines, mediainfo);	
+		MediaPipeline* pipeline = g_new0(MediaPipeline, 1);
+		media_convert_to_wav(pipeline, file, convertedfile);
+		*pipelines = g_slist_append(*pipelines, pipeline);	
         g_free(convertedfile);
-        g_free(trackdir);
         g_free(filename);
+        g_free(trackdir);
 	}
 
 	g_free(file);
@@ -372,7 +368,12 @@ burn_create_audio_cd(GtkTreeModel* audiomodel)
 		{
 			MediaPipeline* mip = (MediaPipeline*)pipeline->data;
 			if(mip)
-				audiofiles = g_list_append(audiofiles,mip->convertedfile);
+            {
+                gchar* convertedfile = NULL;
+                g_object_get (G_OBJECT (mip->dest), "location", &convertedfile, NULL);
+				audiofiles = g_list_append(audiofiles, convertedfile);
+                /* g_free(convertedfile); list owns the memory */
+            }
 			pipeline = pipeline->next;
 				
 		}

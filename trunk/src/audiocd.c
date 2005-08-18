@@ -572,3 +572,72 @@ audiocd_import_session()
 {
 	GB_LOG_FUNC
 }
+
+void
+audiocd_foreach_reorder(GtkTreeModel *model,
+                       GtkTreePath *path,
+                       GtkTreeIter *iter,
+                       gpointer userdata)
+{
+    GB_LOG_FUNC
+            
+    GtkTreeIter tmp_iter;
+    GtkTreePath *tmp_path;
+    gint item, tmp_item;
+    const gboolean up = *(gboolean*)userdata;
+
+    if (up) {
+        GtkTreeIter prev;
+        if(gtk_tree_model_iter_next(model, &prev))
+            gtk_list_store_move_after(GTK_LIST_STORE(model), iter, &prev);
+//        tmp_iter = *iter;
+//        if (!gtk_tree_model_iter_next(model, &tmp_iter))
+//            return;
+//        tmp_path = gtk_tree_model_get_path(model, &tmp_iter);
+    } else {
+//        GtkTreeIter next;
+//        gtk_tree_model_iter_prev(model, &prev);
+//        gtk_list_store_move_before(GTK_LIST_STORE(model), iter, &prev);
+//        tmp_path = gtk_tree_model_get_path(model, iter);
+//        if (!gtk_tree_path_prev(tmp_path)) {
+//            gtk_tree_path_free(tmp_path);
+//            return;
+//        }
+//        gtk_tree_model_get_iter(model, &tmp_iter, tmp_path);
+    }
+//
+//    gtk_tree_model_get(model, iter, AUDIOCD_COL_ICON, &item, -1);
+//    gtk_tree_model_get(model, &tmp_iter, AUDIOCD_COL_ICON, &tmp_item, -1);
+    
+    
+//    tp_store_set(GTK_LIST_STORE(model), &tmp_iter, item);
+//    tp_store_set(GTK_LIST_STORE(model), &iter, tmp_item);
+
+//    gtk_tree_selection_select_path(selection, tmp_path);
+//    gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(tree),
+//                                 tmp_path, NULL, FALSE, 0, 0);
+//    gtk_tree_path_free(tmp_path);
+
+//    tp_page_refresh_preview(page);
+    
+}
+
+
+void 
+audiocd_move_selected(const gboolean up)
+{
+    GB_LOG_FUNC
+    
+    GtkWidget* tree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
+    g_return_if_fail(tree != NULL);    
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(tree));        
+    gtk_tree_selection_selected_foreach(selection, audiocd_foreach_reorder, (gpointer)&up);
+        
+}
+
+void 
+audiocd_move_selected_up()
+{
+    GB_LOG_FUNC
+    audiocd_move_selected(TRUE);
+}
