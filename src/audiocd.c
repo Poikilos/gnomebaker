@@ -53,6 +53,37 @@ static GtkTargetEntry targetentries[] =
 };
 
 
+void 
+audiocd_move_selected(const gboolean up)
+{
+    GB_LOG_FUNC
+    
+    GtkWidget* tree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(tree));        
+    GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(tree));
+    GList* list = gtk_tree_selection_get_selected_rows(selection, &model);    
+    GList* current = NULL; 
+    for((up ? (current = list) : (current = g_list_last(list))); 
+        current != NULL; 
+        (up ? (current = current->next) : (current = current->prev)))
+    {
+        GtkTreeIter from, to;
+        GtkTreePath* path = (GtkTreePath*)current->data;
+        gtk_tree_model_get_iter(model, &from, path);
+        
+        if(up) gtk_tree_path_prev(path);
+        else gtk_tree_path_next(path);
+            
+        if(gtk_tree_model_get_iter(model, &to, path))
+            gtk_list_store_swap(GTK_LIST_STORE(model), &from, &to);
+            
+        gtk_tree_path_free(path);     
+    }
+    
+    g_list_free (list);        
+}
+
+
 gint 
 audiocd_get_audiocd_size()
 {
@@ -254,6 +285,22 @@ audiocd_on_open(gpointer widget, gpointer user_data)
 }
 
 
+void 
+audiocd_on_move_up(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC
+    audiocd_move_selected(TRUE);
+}
+
+
+void 
+audiocd_on_move_down(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC
+    audiocd_move_selected(FALSE);
+}
+
+
 gboolean
 audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 {
@@ -271,12 +318,19 @@ audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer use
 		{
 			gbcommon_append_menu_item_stock(menu, _("_Open"), GTK_STOCK_OPEN, 
 				(GCallback)audiocd_on_open, view);
+            gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 		}
-		
+        
+        gbcommon_append_menu_item_stock(menu, _("Move selected _up"), GTK_STOCK_GO_UP, 
+            (GCallback)audiocd_on_move_up, widget);
+        gbcommon_append_menu_item_stock(menu, _("Move selected _down"), GTK_STOCK_GO_DOWN,
+            (GCallback)audiocd_on_move_down, widget);   
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());        
 		gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
 			(GCallback)audiocd_on_remove_clicked, widget);	
 		gbcommon_append_menu_item_stock(menu, _("_Clear"), GTK_STOCK_CLEAR,
 			(GCallback)audiocd_on_clear_clicked, widget);	
+            
 		gtk_widget_show_all(menu);
 	
 		/* Note: event can be NULL here when called. However,
@@ -570,37 +624,6 @@ void
 audiocd_import_session()
 {
 	GB_LOG_FUNC
-}
-
-
-void 
-audiocd_move_selected(const gboolean up)
-{
-    GB_LOG_FUNC
-    
-    GtkWidget* tree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(tree));        
-    GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(tree));
-    GList* list = gtk_tree_selection_get_selected_rows(selection, &model);    
-    GList* current = NULL; 
-    for((up ? (current = list) : (current = g_list_last(list))); 
-        current != NULL; 
-        (up ? (current = current->next) : (current = current->prev)))
-    {
-        GtkTreeIter from, to;
-        GtkTreePath* path = (GtkTreePath*)current->data;
-        gtk_tree_model_get_iter(model, &from, path);
-        
-        if(up) gtk_tree_path_prev(path);
-        else gtk_tree_path_next(path);
-            
-        if(gtk_tree_model_get_iter(model, &to, path))
-            gtk_list_store_swap(GTK_LIST_STORE(model), &from, &to);
-            
-        gtk_tree_path_free(path);     
-    }
-    
-    g_list_free (list);        
 }
 
 
