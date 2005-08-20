@@ -579,35 +579,30 @@ audiocd_move_selected(const gboolean up)
     GB_LOG_FUNC
     
     GtkWidget* tree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
-    g_return_if_fail(tree != NULL);    
     GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(tree));        
     GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(tree));
-    GList* list = gtk_tree_selection_get_selected_rows(selection, &model);
-    if(!up)
-        g_list_reverse(list);
-    GList* current = list;
-    for (; current != NULL ; current = current->next)
+    GList* list = gtk_tree_selection_get_selected_rows(selection, &model);    
+    GList* current = NULL; 
+    for((up ? (current = list) : (current = g_list_last(list))); 
+        current != NULL; 
+        (up ? (current = current->next) : (current = current->prev)))
     {
-        GtkTreeIter prev, iter;
+        GtkTreeIter from, to;
         GtkTreePath* path = (GtkTreePath*)current->data;
-        gtk_tree_model_get_iter(model, &iter, path);
+        gtk_tree_model_get_iter(model, &from, path);
         
-        gboolean canmove = TRUE;
-        if(up)
-            canmove = gtk_tree_path_prev(path);
-        else 
-            gtk_tree_path_next(path);
-        if(canmove)
-        {
-            gtk_tree_model_get_iter(model, &prev, path);        
-            gtk_list_store_swap(GTK_LIST_STORE(model), &iter, &prev);
-        }
-//        gtk_tree_path_free((GtkTreePath*)current->data);    
-        gtk_tree_path_free(path);
+        if(up) gtk_tree_path_prev(path);
+        else gtk_tree_path_next(path);
+            
+        if(gtk_tree_model_get_iter(model, &to, path))
+            gtk_list_store_swap(GTK_LIST_STORE(model), &from, &to);
+            
+        gtk_tree_path_free(path);     
     }
     
     g_list_free (list);        
 }
+
 
 void 
 audiocd_move_selected_up()

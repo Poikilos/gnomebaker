@@ -3,6 +3,17 @@ Version 0.4.2
 * Apply patch #1260533 Save Maximized state from Marc Deslauriers
 * Character set fix from Jean-François Wauthy
 * Fix Bug #1174339 audio cd: confused by files with identical basenames
+* Fix Bug #1220712 .bin and .iso burning error/crash
+* Fix Bug #1239606 Problems recording bin/cue files in version 0.4
+* Fix Bug #1165614 Don't convert correctly Upcase filename
+* Fix several memory leak when creating audio cds.
+* Fix memory leak when reading from a child process.
+* Improve the way we read from GIOChannels.
+* Fix 4 identical RFEs 
+		#1162821 Reorder Audio Tracks, 
+		#1174159 audio cd tracks cannot be ordered, 
+		#1219345 NEED to be able to reorder songs on audio CD, 
+		#1259112 Feature request: compilation order rearrangement
 
 Version 0.4.1
 

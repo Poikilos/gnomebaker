@@ -1483,3 +1483,26 @@ media_convert_add_args(ExecCmd * cmd, GSList* orgelements)
 	cmd->postProc = media_convert_post_proc;
 	g_ex = cmd;
 }
+
+
+/*******************************************************************************
+ * GSTREAMER
+ ******************************************************************************/
+void 
+gstreamer_lib_proc(void* ex, void* pipe)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);  
+
+}
+
+void 
+gstreamer_add_args(ExecCmd* cmd, GtkTreeModel *model)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(cmd != NULL);  
+    g_return_if_fail(model != NULL);    
+    
+    
+}
+

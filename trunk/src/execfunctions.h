@@ -44,4 +44,6 @@ void generic_read_proc(void *ex, void *buffer);
 void media_convert_add_args(ExecCmd * cmd, GSList* _elements);
 void media_next_element();
 
+void gstreamer_add_args(ExecCmd* cmd, GtkTreeModel *model);
+
 #endif	/*_EXECFUNCTIONS_H_*/
