@@ -31,6 +31,8 @@
 
 
 typedef void (*ExecFunc) (void *, void*);
+/*typedef gboolean (*ExecLibFunc) (void *, gint*);*/
+
 typedef enum
 {
 	RUNNABLE = 0,
@@ -47,6 +49,7 @@ typedef struct
 	pid_t pid;
 	gint exitCode;
 	ExecState state;
+    ExecFunc libProc;
 	ExecFunc preProc;
 	ExecFunc readProc;
 	ExecFunc postProc;	

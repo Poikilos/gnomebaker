@@ -319,31 +319,40 @@ burn_foreachaudiotrack_func(GtkTreeModel *model, GtkTreePath  *path,
 	g_return_val_if_fail(path != NULL, FALSE);
 
 	GSList** pipelines = (GSList**)user_data;
-	
 	gchar *file = NULL;
-			
 	gtk_tree_model_get (model, iter, AUDIOCD_COL_FILE, &file, -1);
-	
-	GB_TRACE( "%s", file);
-	
-	gchar* mime = gbcommon_get_mime_type(file);
-	if(mime != NULL)
-	{
-		gchar* trackdir = preferences_get_convert_audio_track_dir();
-		gchar* filename = g_strdup_printf("gbtrack_%d.wav", g_slist_length(*pipelines));
-		gchar* convertedfile = g_build_filename(trackdir, filename, NULL);
-		MediaPipeline* pipeline = g_new0(MediaPipeline, 1);
-		media_convert_to_wav(pipeline, file, convertedfile);
-		*pipelines = g_slist_append(*pipelines, pipeline);	
-        g_free(convertedfile);
-        g_free(filename);
-        g_free(trackdir);
-	}
-
+	gchar* trackdir = preferences_get_convert_audio_track_dir();
+	gchar* filename = g_strdup_printf("gbtrack_%d.wav", g_slist_length(*pipelines));
+	gchar* convertedfile = g_build_filename(trackdir, filename, NULL);
+	MediaPipeline* pipeline = g_new0(MediaPipeline, 1);
+	media_convert_to_wav(pipeline, file, convertedfile);
+	*pipelines = g_slist_append(*pipelines, pipeline);	
+    g_free(convertedfile);
+    g_free(filename);
+    g_free(trackdir);
 	g_free(file);
-	file = NULL;
-
 	return FALSE;
+}
+
+
+gboolean 
+burn_create_audio_cd1(GtkTreeModel* audiomodel)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(audiomodel != NULL, FALSE);
+    gboolean ok = FALSE;
+    
+    if(burn_show_start_dlg(create_audio_cd) == GTK_RESPONSE_OK)
+    {
+        const gint rows = gtk_tree_model_iter_n_children(audiomodel, NULL);
+        burnargs = exec_new(rows + 1);
+        
+        cdrecord_add_create_audio_cd_args(&burnargs->cmds[rows], NULL);
+        
+        ok = burn_start_process(FALSE);
+    }
+
+    return ok;
 }
 
 

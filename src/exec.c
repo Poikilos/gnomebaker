@@ -62,6 +62,7 @@ exec_cmd_init(ExecCmd * e)
 	e->pid = 0;
 	e->exitCode = 0;
 	e->state = RUNNABLE;
+    e->libProc = NULL;
 	e->preProc = NULL;
 	e->readProc = NULL;
 	e->postProc = NULL;
@@ -145,49 +146,53 @@ exec_print_cmd(const ExecCmd* e)
 
 gboolean 
 exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data)
-{	
+{   
     GB_LOG_FUNC
-	ExecCmd* cmd = (ExecCmd*)data;
-	if (condition == G_IO_HUP || condition == G_IO_ERR || condition == G_IO_NVAL) 
-	{
-		GB_TRACE("exec_channel_callback - condition [%d]", condition);
-		exec_cmd_lock(cmd);
-		g_cond_broadcast(cmd->cond);
-		exec_cmd_unlock(cmd);
-		return FALSE;
-	}
+    ExecCmd* cmd = (ExecCmd*)data;
+    gboolean cont = TRUE;
     
-	static const gint BUFF_SIZE = 1024;
-	gchar buffer[BUFF_SIZE];
-	gbcommon_memset(buffer, BUFF_SIZE * sizeof(gchar));
-    guint bytes = 0;
-	const GIOStatus status = g_io_channel_read_chars(channel, buffer, (BUFF_SIZE - 1) * sizeof(gchar), &bytes, NULL);  
-	if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_AGAIN)
-	{
-		GB_TRACE("exec_channel_callback - read error [%d]", status);
-		exec_cmd_lock(cmd);
-		g_cond_broadcast(cmd->cond);
-		exec_cmd_unlock(cmd);		
-		return FALSE;
-	}
-    
-	if(cmd->readProc) 
+    if(condition & G_IO_IN || condition & G_IO_PRI) /* there's data to be read */
     {
-        GError* error = NULL;        
-        gchar* converted = g_convert(buffer, bytes, "UTF-8", "ISO-8859-1", NULL, NULL, &error);
-        if(converted != NULL)
+        static const gint BUFF_SIZE = 1024;
+        gchar buffer[BUFF_SIZE];
+        gbcommon_memset(buffer, BUFF_SIZE * sizeof(gchar));
+        guint bytes = 0;
+        const GIOStatus status = g_io_channel_read_chars(channel, buffer, (BUFF_SIZE - 1) * sizeof(gchar), &bytes, NULL);  
+        if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_AGAIN) /* need to check what to do for again */
         {
-            cmd->readProc(cmd, converted);
-        }
-        else 
+            GB_TRACE("exec_channel_callback - read error [%d]", status);
+            cont = FALSE;
+        }        
+        else if(cmd->readProc) 
         {
-            g_warning("exec_channel_callback - conversion error [%s]", error->message);
-            g_error_free (error);
-            cmd->readProc(cmd, buffer); 
+            GError* error = NULL;        
+            gchar* converted = g_convert(buffer, bytes, "UTF-8", "ISO-8859-1", NULL, NULL, &error);
+            if(converted != NULL)
+            {
+                cmd->readProc(cmd, converted);
+                g_free(converted);
+            }
+            else 
+            {
+                g_warning("exec_channel_callback - conversion error [%s]", error->message);
+                g_error_free (error);
+                cmd->readProc(cmd, buffer); 
+            }
         }
     }
-	return TRUE;
+    
+    if (cont == FALSE || condition & G_IO_HUP || condition & G_IO_ERR || condition & G_IO_NVAL) 
+    {
+        GB_TRACE("exec_channel_callback - condition [%d]", condition);
+        exec_cmd_lock(cmd);
+        g_cond_broadcast(cmd->cond);
+        exec_cmd_unlock(cmd);
+        cont = FALSE;
+    }
+    
+    return cont;
 }
+
 
 
 gboolean
@@ -328,7 +333,10 @@ exec_run_remainder(gpointer data)
 	gint j = 0;
 	for(; j < ex->cmdCount - 1; j++)
 	{
-		if(!exec_spawn_process(ex, &ex->cmds[j], exec_stdout_setup_func, FALSE, NULL))
+        ExecCmd* e = &ex->cmds[j];
+        if(e->libProc != NULL)
+            e->libProc(e, child_child_pipe);
+		else if(!exec_spawn_process(ex, e, exec_stdout_setup_func, FALSE, NULL))
 			break;								
 	}	
 	close(child_child_pipe[1]);			
@@ -386,8 +394,12 @@ exec_thread_gspawn(gpointer data)
         const ExecState state = e->state;
         exec_cmd_unlock(e);        
         if(state == SKIP) continue;
-        else if(state == CANCELLED) break;                  
-        cont = exec_spawn_process(ex, e, exec_working_dir_setup_func, TRUE, NULL);
+        else if(state == CANCELLED) break;    
+        
+        if(e->libProc != NULL)
+            e->libProc(e, NULL);
+        else                       
+            cont = exec_spawn_process(ex, e, exec_working_dir_setup_func, TRUE, NULL);
         if(e->postProc) e->postProc(e, NULL);
     }
     if(ex->endProc) ex->endProc(ex, NULL);
