@@ -351,8 +351,7 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
 	g_return_val_if_fail(filename != NULL, FALSE);
 	g_return_val_if_fail(model != NULL, FALSE);
 	
-	/* ret is set to true as we want to ignore non audio files. We get a NULL
-	   AudioInfo if the file is not audio */
+	/* ret is set to true as we want to ignore non audio files. */
 	gboolean ret = TRUE;
 	MediaInfo* info = media_get_info(filename);
 	if(info != NULL)
@@ -378,20 +377,21 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
                         AUDIOCD_COL_TITLE, info->title->str, -1);
                 
                     g_object_unref(icon);
+                    
                 }
                 else
                 {
                     ret = FALSE;
-                }       
+                }
+                break;
             }
-            break;
             case NOT_INSTALLED:
             {
                 gchar* buf = g_strdup_printf(_("The plugin to handle a file of type %s is not installed."), gbcommon_get_mime_description(info->mimetype));
                 gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
                 g_free(buf);
+                break;
             }
-            break;
             default:
             {
                 gchar* buf = g_strdup_printf(_("There is no known plugin to handle a file of type %s."),info->mimetype);

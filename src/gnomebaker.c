@@ -422,7 +422,7 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
             GSList* file = files;
             int index = 0;
             GString* text = g_string_new("");
-            while(file)
+            for(; file != NULL; file = file->next)
             {
                 /* hand ownership of the data to the gchar** which we free later */
                 GB_TRACE("index [%d] file [%s]", index, (gchar*)file->data);
@@ -430,7 +430,6 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
                 g_string_append(text, "\n");
                 g_free((gchar*)file->data);
                 //uris[index++] = (gchar*)file->data;
-                file = file->next;                
             }
             
             //gtk_selection_data_set_uris(selection_data, uris);            

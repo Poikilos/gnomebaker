@@ -556,23 +556,21 @@ media_get_info(const gchar* mediafile)
     
     MediaInfo* info = media_info_new();
     info->mimetype = gbcommon_get_mime_type(mediafile);
-    gboolean found = FALSE;    
     GSList* node = media_registered_plugins;
-    while(node && !found)
+    for(; node != NULL; node = node->next)
     {
         if(node->data)
         {
             PluginInfo* plugininfo = (PluginInfo*)node->data;
             GB_TRACE("plugin mimetype [%s] requested [%s]", plugininfo->mimetype->str, info->mimetype);
-            if(g_ascii_strcasecmp(plugininfo->mimetype->str, info->mimetype))
+            if(g_ascii_strcasecmp(plugininfo->mimetype->str, info->mimetype) == 0)
             {
                 info->status = plugininfo->status;
                 if(info->status == INSTALLED) 
                     media_info_get_mediafile_info(info, mediafile);
-                found = TRUE;
+                break;
             }
         }
-        node = node->next;
     }
     return info;
 }
