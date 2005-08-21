@@ -298,7 +298,7 @@ prefsdlg_populate_device_list()
 
 	GSList* devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
 	GSList* item = devices;	
-	while(item)
+	for(; item != NULL; item = item->next)
 	{
 		gchar* devicekey = (gchar*)item->data;				
 		gchar* devicenamekey = g_strconcat(devicekey, GB_DEVICE_NAME_LABEL, NULL);
@@ -340,7 +340,6 @@ prefsdlg_populate_device_list()
 		g_free(devicename);		
 		g_free(devicenode);
 		g_free(devicemount);
-		item = item->next;
 	}
 	
 	g_slist_free(devices);			

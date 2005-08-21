@@ -439,14 +439,15 @@ datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user
 	if(event->button == 3)
 	{
 		GtkWidget* menu = gtk_menu_new();			
-        /*GtkTreeView* view = (GtkTreeView*)widget;
+        GtkTreeView* view = (GtkTreeView*)widget;
 		GtkTreeSelection* selection = gtk_tree_view_get_selection(view);
 		const gint count = gtk_tree_selection_count_selected_rows(selection);
 		if(count == 1)
 		{
 			gbcommon_append_menu_item_stock(menu, _("_Edit name"), GTK_STOCK_DND, 
 				(GCallback)datacd_on_edit, view);
-		}*/
+            gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+		}
 		gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
 			(GCallback)datacd_on_remove_clicked, widget);	
 		gbcommon_append_menu_item_stock(menu, _("Clear"), GTK_STOCK_CLEAR, 

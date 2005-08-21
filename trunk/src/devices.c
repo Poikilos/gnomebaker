@@ -188,7 +188,7 @@ devices_populate_optionmenu(GtkWidget* option_menu, const gchar* devicekey)
 	gint index = 0, history = 0;
 	GSList* devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
 	GSList* item = devices;	
-	while(item)
+	for(; item != NULL; item = item->next)
 	{
 		gchar* devicekey = (gchar*)item->data;		
 		gchar* devicenamekey = g_strconcat(devicekey, GB_DEVICE_NAME_LABEL, NULL);
@@ -210,9 +210,7 @@ devices_populate_optionmenu(GtkWidget* option_menu, const gchar* devicekey)
 		
 		g_free(devicekey);
 		g_free(devicenamekey);		
-		
 		++index;
-		item = item->next;
 	}
 	
 	g_slist_free(devices);
@@ -247,7 +245,7 @@ devices_clear_devicedata()
 
 	GSList* devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
 	GSList* item = devices;	
-	while(item)
+	for(;item != NULL; item = item->next)
 	{
 		gchar* devicekey = (gchar*)item->data;				
 		gchar* devicenamekey = g_strconcat(devicekey, GB_DEVICE_NAME_LABEL, NULL);
@@ -268,8 +266,7 @@ devices_clear_devicedata()
 		g_free(devicenodekey);
 		g_free(devicemountkey);
 		g_free(devicecapabilitieskey);
-		g_free(devicekey);
-		item = item->next;
+		g_free(devicekey);		
 	}
 	
 	g_slist_free(devices);		
