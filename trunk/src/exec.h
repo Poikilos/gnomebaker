@@ -31,7 +31,6 @@
 
 
 typedef void (*ExecFunc) (void *, void*);
-/*typedef gboolean (*ExecLibFunc) (void *, gint*);*/
 
 typedef enum
 {
@@ -71,11 +70,14 @@ typedef struct
 Exec* exec_new(const gint cmds);
 void exec_delete(Exec* self);
 ExecCmd* exec_add_cmd(Exec* self);
-gint exec_go (Exec * const e, gboolean onthefly);
+GThread* exec_go (Exec * const e, gboolean onthefly);
 void exec_cmd_add_arg (ExecCmd * const e, const gchar * const format, const gchar* const value);
 void exec_cancel (const Exec * const e);
 GString* exec_run_cmd(const gchar* cmd);
 void exec_cmd_lock(ExecCmd* e);
 void exec_cmd_unlock(ExecCmd* e);
+gboolean exec_cmd_wait_for_signal(ExecCmd* e, guint timeinseconds);
+ExecState exec_cmd_get_state(ExecCmd* e);
+ExecState exec_cmd_set_state(ExecCmd* e, ExecState state, gboolean signal);
 
 #endif	/*_EXEC_H_*/

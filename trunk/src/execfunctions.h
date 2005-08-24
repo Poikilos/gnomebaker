@@ -41,9 +41,6 @@ gboolean mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 void readcd_add_copy_args (ExecCmd * e, const gchar* iso);
 void cdrdao_add_image_args(ExecCmd* cmd, const gchar* const toc_or_cue);
 void generic_read_proc(void *ex, void *buffer);
-void media_convert_add_args(ExecCmd * cmd, GSList* _elements);
-void media_next_element();
-
-void gstreamer_add_args(ExecCmd* cmd, GtkTreeModel *model);
+void gstreamer_add_args(ExecCmd* cmd, gchar* from, gchar* to);
 
 #endif	/*_EXECFUNCTIONS_H_*/
