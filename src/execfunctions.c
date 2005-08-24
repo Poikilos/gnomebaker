@@ -1445,9 +1445,6 @@ gstreamer_lib_proc(void* ex, void* data)
         g_object_set (G_OBJECT (gstdata->dest), "location", cmd->argv[1], NULL);
     }
     
-    // TODO what is think last element crap
-    gstdata->last_element = gstdata->dest;
-    
     gst_bin_add_many (GST_BIN (gstdata->pipeline), src, gstdata->decoder, NULL);
     
     gst_element_link(gstdata->converter,gstdata->scale);

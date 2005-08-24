@@ -39,7 +39,6 @@ typedef struct
 	GstElement* scale;
 	GstElement* encoder;
 	GstElement* dest;
-	GstElement* last_element;
 } MediaPipeline;
 
 typedef enum
@@ -70,17 +69,8 @@ typedef struct
 } MediaInfo;
  
  
-void media_convert_to_wav(MediaPipeline* gstdata, gchar* file, gchar* convertedfile);
-void media_query_progress_bytes(GstElement* element,gint64* pos,gint64* len);
-void media_start_playing(GstElement* element);
-void media_pause_playing(GstElement* element);
-void media_cleanup(GstElement* element);
 void media_register_plugins(void);
 MediaInfo* media_get_info(const gchar* mediafile);
-void media_connect_error_callback(GstElement* element,void * func);
-void media_connect_eos_callback(GstElement* element,void * func);
-void media_start_iteration(GstElement* pipeline);
-gint64 media_calculate_track_length(const gchar* filename);
 void media_info_delete(MediaInfo* self);
 
 #endif	/* _MEDIA_H_ */
