@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-21 23:23+0100\n"
+"POT-Creation-Date: 2005-08-25 00:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -87,11 +87,11 @@ msgstr "Album"
 msgid "Title"
 msgstr "Titel"
 
-#: src/burn.c:106
+#: src/burn.c:104
 msgid "Completed"
 msgstr "Färdig"
 
-#: src/burn.c:110
+#: src/burn.c:108
 msgid "Failed"
 msgstr "Misslyckades"
 
@@ -103,7 +103,7 @@ msgstr ""
 "Filen du har valt är inte en cd-avbild. Var vänlig välj en cd-avbild att "
 "bränna."
 
-#: src/burn.c:267 src/burn.c:438
+#: src/burn.c:267 src/burn.c:373
 msgid "Please select an iso file to save to..."
 msgstr "Var vänlig välj en iso fil att spara till..."
 
@@ -379,36 +379,36 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:79
+#: src/execfunctions.c:72
 msgid "<b>Burning disk...</b>"
 msgstr "<b>Bränner CD...</b>"
 
-#: src/execfunctions.c:85
+#: src/execfunctions.c:78
 #, fuzzy
 msgid "Please insert the CD into the CD writer"
 msgstr "Var snäll och sätt i CDRW-skivan i CD-brännaren"
 
-#: src/execfunctions.c:103
+#: src/execfunctions.c:93
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Tömmer CD...</b>"
 
-#: src/execfunctions.c:110
+#: src/execfunctions.c:100
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Var snäll och sätt i CDRW-skivan i CD-brännaren"
 
-#: src/execfunctions.c:187
+#: src/execfunctions.c:172
 msgid "Fixating"
 msgstr "Fixerar"
 
-#: src/execfunctions.c:227 gnomebaker.glade:2863
+#: src/execfunctions.c:212 gnomebaker.glade:2863
 msgid "default"
 msgstr "förval"
 
-#: src/execfunctions.c:393
+#: src/execfunctions.c:378
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Packar upp ljudspår...</b>"
 
-#: src/execfunctions.c:405
+#: src/execfunctions.c:390
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -416,15 +416,15 @@ msgstr ""
 "Ljudspår från en tidigare session finns redan på disken, vill du använda de "
 "existerande spåren?"
 
-#: src/execfunctions.c:422
+#: src/execfunctions.c:407
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Var snäll att sätta in ljud-skivan i CD-läsaren"
 
-#: src/execfunctions.c:567
+#: src/execfunctions.c:547
 msgid "<b>Creating data disk image...</b>"
 msgstr ""
 
-#: src/execfunctions.c:575
+#: src/execfunctions.c:555
 #, fuzzy
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
@@ -433,33 +433,33 @@ msgstr ""
 "En data-CD-avbild från en tidigare session existerar redan på disken, vill "
 "du använda den existerande avbilden?"
 
-#: src/execfunctions.c:765
+#: src/execfunctions.c:743
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Formaterar DVD...</b>"
 
-#: src/execfunctions.c:772
+#: src/execfunctions.c:750
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Var vänlig att sätta i en återskrivningsbar DVD i DVD-brännaren"
 
-#: src/execfunctions.c:858
+#: src/execfunctions.c:834
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Bränner DVD...</b>"
 
-#: src/execfunctions.c:865
+#: src/execfunctions.c:841
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Var vänlig sätt i en skrivbar DVD i DVD-brännaren"
 
-#: src/execfunctions.c:939 src/execfunctions.c:980
+#: src/execfunctions.c:912 src/execfunctions.c:953
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1140
+#: src/execfunctions.c:1113
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>Läser CD-avbild...</b>"
 
-#: src/execfunctions.c:1422
-#, fuzzy
-msgid "<b>Converting files to cd audio...</b>"
+#: src/execfunctions.c:1390
+#, fuzzy, c-format
+msgid "<b>Converting %s to cd audio...</b>"
 msgstr "<b>Konverterar wav till ljud-spår...</b>"
 
 #: src/burn.h:64 gnomebaker.glade:376 gnomebaker.glade:377

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-21 23:23+0100\n"
+"POT-Creation-Date: 2005-08-25 00:14+0100\n"
 "PO-Revision-Date: 2005-01-20 03:03:03.358888\n"
 "Last-Translator: Li Qing <qingl@bluebottle.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -85,11 +85,11 @@ msgstr "专辑"
 msgid "Title"
 msgstr "曲名"
 
-#: src/burn.c:106
+#: src/burn.c:104
 msgid "Completed"
 msgstr "完成"
 
-#: src/burn.c:110
+#: src/burn.c:108
 msgid "Failed"
 msgstr "失败"
 
@@ -99,7 +99,7 @@ msgid ""
 "burn."
 msgstr "您选择的文件不是一个 CD 映像，请选择一个 CD 映像来刻录。"
 
-#: src/burn.c:267 src/burn.c:438
+#: src/burn.c:267 src/burn.c:373
 msgid "Please select an iso file to save to..."
 msgstr "请选择要保存的 ISO 文件..."
 
@@ -374,82 +374,82 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:79
+#: src/execfunctions.c:72
 msgid "<b>Burning disk...</b>"
 msgstr "<b>正在刻录光盘...</b>"
 
-#: src/execfunctions.c:85
+#: src/execfunctions.c:78
 #, fuzzy
 msgid "Please insert the CD into the CD writer"
 msgstr "请在刻录机中插入一张 CD-RW"
 
-#: src/execfunctions.c:103
+#: src/execfunctions.c:93
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>正在擦除光盘...</b>"
 
-#: src/execfunctions.c:110
+#: src/execfunctions.c:100
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "请在刻录机中插入一张 CD-RW"
 
-#: src/execfunctions.c:187
+#: src/execfunctions.c:172
 msgid "Fixating"
 msgstr "准备中"
 
-#: src/execfunctions.c:227 gnomebaker.glade:2863
+#: src/execfunctions.c:212 gnomebaker.glade:2863
 msgid "default"
 msgstr "默认"
 
-#: src/execfunctions.c:393
+#: src/execfunctions.c:378
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>正在抓取频道...</b>"
 
-#: src/execfunctions.c:405
+#: src/execfunctions.c:390
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr "硬盘里已经存在上次对话保存的一些音轨，你希望使用这些已存在的音轨吗？"
 
-#: src/execfunctions.c:422
+#: src/execfunctions.c:407
 msgid "Please insert the audio CD into the CD reader"
 msgstr "请在光驱中插入一张音乐 CD"
 
-#: src/execfunctions.c:567
+#: src/execfunctions.c:547
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>正在创建数据盘映像...</b>"
 
-#: src/execfunctions.c:575
+#: src/execfunctions.c:555
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr "发现上次对话保存的一个数据 CD 映像，希望使用已经存在的映像吗？"
 
-#: src/execfunctions.c:765
+#: src/execfunctions.c:743
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>正在格式化 DVD...</b>"
 
-#: src/execfunctions.c:772
+#: src/execfunctions.c:750
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "请在 DVD 刻录机中插入一张可反复擦写的 DVD"
 
-#: src/execfunctions.c:858
+#: src/execfunctions.c:834
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>正在刻录 DVD...</b>"
 
-#: src/execfunctions.c:865
+#: src/execfunctions.c:841
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "请在 DVD 刻录机中插入一张可写的 DVD"
 
-#: src/execfunctions.c:939 src/execfunctions.c:980
+#: src/execfunctions.c:912 src/execfunctions.c:953
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1140
+#: src/execfunctions.c:1113
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>正在读取 CD 映像...</b>"
 
-#: src/execfunctions.c:1422
-#, fuzzy
-msgid "<b>Converting files to cd audio...</b>"
+#: src/execfunctions.c:1390
+#, fuzzy, c-format
+msgid "<b>Converting %s to cd audio...</b>"
 msgstr "<b>正在转换 wav 文件为 CD 音频...</b>"
 
 #: src/burn.h:64 gnomebaker.glade:376 gnomebaker.glade:377

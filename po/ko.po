@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-21 23:23+0100\n"
+"POT-Creation-Date: 2005-08-25 00:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -86,11 +86,11 @@ msgstr "앨범"
 msgid "Title"
 msgstr "제목"
 
-#: src/burn.c:106
+#: src/burn.c:104
 msgid "Completed"
 msgstr "완료"
 
-#: src/burn.c:110
+#: src/burn.c:108
 msgid "Failed"
 msgstr "실패"
 
@@ -101,7 +101,7 @@ msgid ""
 msgstr ""
 "선택한 파일이 CD 이미지가 아닙니다. CD 굽기를 할 이미지를 선택하십시오."
 
-#: src/burn.c:267 src/burn.c:438
+#: src/burn.c:267 src/burn.c:373
 msgid "Please select an iso file to save to..."
 msgstr "저장할 iso 파일을 선택해 주십시오."
 
@@ -381,38 +381,38 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:79
+#: src/execfunctions.c:72
 msgid "<b>Burning disk...</b>"
 msgstr "<b>디스크 굽는중...</b>"
 
-#: src/execfunctions.c:85
+#: src/execfunctions.c:78
 #, fuzzy
 msgid "Please insert the CD into the CD writer"
 msgstr "CD 라이터에 CD-RW를 넣어 주십시오"
 
-#: src/execfunctions.c:103
+#: src/execfunctions.c:93
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>디스크 비우는 중...</b>"
 
-#: src/execfunctions.c:110
+#: src/execfunctions.c:100
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "CD 라이터에 CD-RW를 넣어 주십시오"
 
-#: src/execfunctions.c:187
+#: src/execfunctions.c:172
 #, fuzzy
 msgid "Fixating"
 msgstr "고정중"
 
-#: src/execfunctions.c:227 gnomebaker.glade:2863
+#: src/execfunctions.c:212 gnomebaker.glade:2863
 #, fuzzy
 msgid "default"
 msgstr "기본"
 
-#: src/execfunctions.c:393
+#: src/execfunctions.c:378
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>오디오 트랙 추출중...</>"
 
-#: src/execfunctions.c:405
+#: src/execfunctions.c:390
 #, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
@@ -420,15 +420,15 @@ msgid ""
 msgstr ""
 "이미 이전 세션의 오디오 트랙이 디스크에 존재합니다. 기존 트랙을 사용할까요?"
 
-#: src/execfunctions.c:422
+#: src/execfunctions.c:407
 msgid "Please insert the audio CD into the CD reader"
 msgstr "CD 리더에 오디오 CD를 넣어 주십시오"
 
-#: src/execfunctions.c:567
+#: src/execfunctions.c:547
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>데이터 디스크 이미지 생성중...</b>"
 
-#: src/execfunctions.c:575
+#: src/execfunctions.c:555
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -436,33 +436,33 @@ msgstr ""
 "이미 이전 세션의 데이터 CD 이미지가 디스크에 존재합니다, 기존 이미지를 이용하"
 "시겠습니까?"
 
-#: src/execfunctions.c:765
+#: src/execfunctions.c:743
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>DVD 포맷중...</b>"
 
-#: src/execfunctions.c:772
+#: src/execfunctions.c:750
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "DVD 라이터기에 재기록할 DVD를 넣어주세요."
 
-#: src/execfunctions.c:858
+#: src/execfunctions.c:834
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>DVD를 굽는 중...</b>"
 
-#: src/execfunctions.c:865
+#: src/execfunctions.c:841
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "DVD 라이터기에 기록할 DVD를 넣어주세요."
 
-#: src/execfunctions.c:939 src/execfunctions.c:980
+#: src/execfunctions.c:912 src/execfunctions.c:953
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1140
+#: src/execfunctions.c:1113
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>CD 이미지 읽는 중...</b>"
 
-#: src/execfunctions.c:1422
-#, fuzzy
-msgid "<b>Converting files to cd audio...</b>"
+#: src/execfunctions.c:1390
+#, fuzzy, c-format
+msgid "<b>Converting %s to cd audio...</b>"
 msgstr "<b>wav 를 CD 오디오 변환중...</b>"
 
 #: src/burn.h:64 gnomebaker.glade:376 gnomebaker.glade:377
