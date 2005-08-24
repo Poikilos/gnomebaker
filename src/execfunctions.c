@@ -42,13 +42,6 @@ gint cdda2wav_totaltracksread = 0;
 gint readcd_totalguchars = -1;
 gint cdrdao_cdminutes = -1;
 
-MediaPipeline* current_element = NULL;
-ExecCmd* g_ex = NULL;
-
-GSList* g_elements = NULL;
-guint media_totalelements = 0;
-guint media_current_element = 0;
-
 
 void 
 generic_read_proc(void *ex, void *buffer)
@@ -87,10 +80,7 @@ cdrecord_pre_proc(void *ex, void *buffer)
 		gdk_threads_leave();
 		
 		if(ret == GTK_RESPONSE_CANCEL)
-		{
-			ExecCmd* e = (ExecCmd*)ex;
-			e->state = CANCELLED;
-		}
+			exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
 	}
     devices_mount_device(GB_WRITER, NULL);
 }
@@ -113,14 +103,9 @@ cdrecord_blank_pre_proc(void *ex, void *buffer)
     }
     
     if(ret == GTK_RESPONSE_CANCEL)
-    {
-        ExecCmd* e = (ExecCmd*)ex;
-        e->state = CANCELLED;
-    }
+        exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
     else
-    {
         progressdlg_pulse_start();
-	}
     devices_mount_device(GB_WRITER, NULL);
 }
 
@@ -426,15 +411,10 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 	}
 	
 	if(response == GTK_RESPONSE_CANCEL)
-	{
-		ExecCmd* e = (ExecCmd*)ex;
-		e->state = CANCELLED;
-	}
+		exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
 	else if(response == GTK_RESPONSE_YES)
-	{
-		ExecCmd* e = (ExecCmd*)ex;
-		e->state = SKIP;
-	}
+		exec_cmd_set_state((ExecCmd*)ex, SKIP, FALSE);
+        
 	devices_mount_device(GB_READER, NULL);
 	g_free(tmp);
 }
@@ -577,12 +557,10 @@ mkisofs_pre_proc(void *ex, void *buffer)
 		/*gdk_flush();*/
 		gdk_threads_leave();
 		
-		ExecCmd* e = (ExecCmd*)ex;
-		
 		if(ret  == GTK_RESPONSE_YES)		
-			e->state = SKIP;
+			exec_cmd_set_state((ExecCmd*)ex, SKIP, FALSE);
 		else if(ret == GTK_RESPONSE_CANCEL)
-			e->state = CANCELLED;
+			exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
 	}
 	
 	g_free(file);
@@ -773,10 +751,8 @@ dvdformat_pre_proc(void *ex, void *buffer)
 		gdk_threads_leave();
     }
     if(ret == GTK_RESPONSE_CANCEL)
-    {
-        ExecCmd* e = (ExecCmd*)ex;
-        e->state = CANCELLED;
-    }
+        exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
+        
     devices_mount_device(GB_WRITER, NULL);
 }
 
@@ -867,10 +843,7 @@ growisofs_pre_proc(void *ex,void *buffer)
 		gdk_threads_leave();
 		
 		if(ret == GTK_RESPONSE_CANCEL)
-		{
-			ExecCmd* e = (ExecCmd*)ex;
-			e->state = CANCELLED;
-		}
+			exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
 	}
     devices_mount_device(GB_WRITER, NULL);
 }
@@ -1167,15 +1140,10 @@ readcd_pre_proc(void *ex, void *buffer)
 	}
 	
 	if(response == GTK_RESPONSE_CANCEL)
-	{
-		ExecCmd* e = (ExecCmd*)ex;
-		e->state = CANCELLED;
-	}
+		exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
 	else if(response == GTK_RESPONSE_YES)
-	{
-		ExecCmd* e = (ExecCmd*)ex;
-		e->state = SKIP;
-	}
+		exec_cmd_set_state((ExecCmd*)ex, SKIP, FALSE);
+        
     devices_mount_device(GB_READER, NULL);
 }
 
@@ -1356,153 +1324,169 @@ cdrdao_add_image_args(ExecCmd* cmd, const gchar* const toc_or_cue)
 
 
 /*******************************************************************************
- * GSTREAMER / MEDIA
- ******************************************************************************/
-
-void
-media_error()
-{
-	GB_LOG_FUNC
-	g_return_if_fail(g_ex != NULL);
-	g_ex->state = FAILED;
-}
-
-
-void
-media_setup_element(MediaPipeline* element)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(element != NULL);
-	
-	media_connect_eos_callback(element->pipeline,media_next_element);
-	media_connect_error_callback(element->pipeline,media_error);
-	media_start_playing(element->pipeline);
-	media_start_iteration(element->pipeline);
-	media_pause_playing(element->pipeline);
-	media_cleanup(element->pipeline);    
-}
-
-
-void
-media_next_element()
-{
-	GB_LOG_FUNC
-	g_return_if_fail(g_ex != NULL);
-	
-	g_elements = g_elements->next;
-	if(g_elements)
-	{
-		media_current_element++;
-		MediaPipeline* mi = (MediaPipeline*)g_elements->data;
-		current_element = mi;
-		media_setup_element(mi);
-/*
-		media_connect_eos_callback(mi->pipeline,media_next_element);
-		media_connect_error_callback(mi->pipeline,media_error);
-		media_start_playing(current_element->pipeline);
-		media_start_iteration(current_element->pipeline);
-		media_pause_playing(mi->pipeline);
-		media_cleanup(mi->pipeline);
-*/
-	}
-	else
-	{
-		/* no more elements, signal complete */
-		g_ex->state = SKIP;	
-	}
-}
-
-
-void
-media_convert_pre_proc(void *ex, void *buffer)
-{	
-	GB_LOG_FUNC	
-	g_return_if_fail(ex != NULL);
-    
-	progressdlg_set_status(_("<b>Converting files to cd audio...</b>"));	
-    progressdlg_pulse_start();
-	MediaPipeline* mi = (MediaPipeline*)g_elements->data;
-	if(!mi) /* why is first element NULL ? */
-	{
-		g_elements = g_elements->next;
-		mi = (MediaPipeline*)g_elements->data;
-	}	
-	current_element = mi;
-	media_setup_element(mi);
-    progressdlg_pulse_stop();
-/*
-	media_connect_eos_callback(mi->pipeline,media_next_element);
-	media_connect_error_callback(mi->pipeline,media_error);
-	media_start_playing(mi->pipeline);
-	media_start_iteration(mi->pipeline);
-	media_pause_playing(mi->pipeline);
-	media_cleanup(mi->pipeline);
-*/
-	/* callbacks will used to signal end-of-stream
-	   and we iterate to the next pipeline if any */
-	
-}
-
-
-void
-media_convert_read_proc(void *ex, void *buffer)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(ex != NULL);
-	g_return_if_fail(buffer != NULL);
-	
-    gint64 pos = 0, len = 0;
-	media_query_progress_bytes(current_element->last_element,&pos,&len);
-	gfloat progress = 0.5*(gfloat)pos/((gfloat)len*(gfloat)media_totalelements);
-	progressdlg_set_fraction(progress);	
-	progressdlg_append_output(buffer);
-}
-
-
-void
-media_convert_post_proc(void *ex, void *buffer)
-{
-	GB_LOG_FUNC
-	media_current_element = 0;
-	media_totalelements = 0;
-}
-
-
-void
-media_convert_add_args(ExecCmd * cmd, GSList* orgelements)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(cmd != NULL);
-	g_return_if_fail(orgelements != NULL);
-	
-	g_elements = orgelements;
-	media_totalelements = g_slist_length(orgelements);
-	
-	cmd->preProc = media_convert_pre_proc; 
-	cmd->readProc = media_convert_read_proc;
-	cmd->postProc = media_convert_post_proc;
-	g_ex = cmd;
-}
-
-
-/*******************************************************************************
  * GSTREAMER
  ******************************************************************************/
+void
+gstreamer_pipeline_eos(GstElement *gstelement,
+                            gpointer user_data)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(user_data != NULL);
+    exec_cmd_set_state((ExecCmd*)user_data, COMPLETE, TRUE);
+}
+
+
+void
+gstreamer_pipeline_error(GstElement *gstelement,
+                        GstElement *element,
+                        gpointer *error /* should be GstError* but I can't get it to compile */,
+                        gchar *message,
+                        gpointer user_data)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(user_data != NULL);
+    exec_cmd_set_state((ExecCmd*)user_data, FAILED, TRUE);
+}
+ 
+
+void
+gstreamer_new_decoded_pad(GstElement *element,
+                           GstPad     *pad,
+                           gboolean last,
+                           MediaPipeline*  mip)
+{
+    GB_LOG_FUNC
+    
+    g_return_if_fail(mip != NULL);
+    g_return_if_fail(element != NULL);
+    g_return_if_fail(pad != NULL);
+    
+    GstCaps *caps = gst_pad_get_caps (pad);
+    GstStructure *str = gst_caps_get_structure (caps, 0);
+    if (!g_strrstr (gst_structure_get_name (str), "audio"))
+        return;
+    
+    GstPad* decodepad = gst_element_get_pad (mip->converter, "src"); 
+    gst_pad_link (pad, decodepad);
+    gst_element_link(mip->decoder,mip->converter);
+    
+    gst_bin_add_many (GST_BIN (mip->pipeline), mip->converter,mip->scale,mip->encoder,mip->dest, NULL);
+    
+
+  /* This function synchronizes a bins state on all of its
+   * contained children. */
+    gst_bin_sync_children_state (GST_BIN (mip->pipeline));
+}
+ 
+ 
+void
+gstreamer_pre_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+    ExecCmd* cmd = (ExecCmd*)ex;
+    
+    gchar* filename = g_path_get_basename(cmd->argv[0]);
+    gchar* text = g_strdup_printf(_("<b>Converting %s to cd audio...</b>"), filename);
+    progressdlg_set_status(text);
+    g_free(filename);
+    g_free(text);
+    progressdlg_increment_exec_number();
+}
+
+
 void 
-gstreamer_lib_proc(void* ex, void* pipe)
+gstreamer_lib_proc(void* ex, void* data)
 {
     GB_LOG_FUNC
     g_return_if_fail(ex != NULL);  
-
+    ExecCmd* cmd = (ExecCmd*)ex;
+    gint* pipe = (gint*)data;
+    
+    GB_TRACE("Converting [%s] to [%s]", cmd->argv[0], cmd->argv[1]);
+    
+    MediaPipeline* gstdata = g_new0(MediaPipeline, 1);
+    
+    /* create a new pipeline to hold the elements */
+    gstdata->pipeline = gst_thread_new ("media-convert-to-wav-pipeline");
+    GstElement *src = gst_element_factory_make("filesrc","file-source");
+    g_object_set (G_OBJECT (src), "location", cmd->argv[0], NULL);
+        
+    /* decoder */
+    gstdata->decoder = gst_element_factory_make ("decodebin", "decoder");
+    g_signal_connect (gstdata->decoder, "new-decoded-pad", G_CALLBACK (gstreamer_new_decoded_pad), gstdata);
+    
+    /* create an audio converter */
+    gstdata->converter = gst_element_factory_make ("audioconvert", "converter");
+    
+    /* audioscale resamples audio */
+    gstdata->scale = gst_element_factory_make("audioscale","scale");
+    
+    GstCaps *filtercaps = gst_caps_new_simple ("audio/x-raw-int",
+                                          "channels", G_TYPE_INT, 2,
+                                          "rate",     G_TYPE_INT, 44100,
+                                          "width",    G_TYPE_INT, 16,
+                                          "depth",    G_TYPE_INT, 16,
+                                          NULL);
+    /* and an wav encoder */
+    gstdata->encoder = gst_element_factory_make ("wavenc", "encoder");
+    gst_element_link_filtered (gstdata->scale,gstdata->encoder,filtercaps);
+    gst_caps_free (filtercaps); 
+    
+    /* finally the output filesink */   
+    if(pipe != NULL)
+    {   
+         gstdata->dest = gst_element_factory_make("fdsink","file-out");
+         g_object_set (G_OBJECT (gstdata->dest), "location", pipe[1], NULL);
+    }
+    else
+    {
+        gstdata->dest = gst_element_factory_make("filesink","file-out");
+        g_object_set (G_OBJECT (gstdata->dest), "location", cmd->argv[1], NULL);
+    }
+    
+    // TODO what is think last element crap
+    gstdata->last_element = gstdata->dest;
+    
+    gst_bin_add_many (GST_BIN (gstdata->pipeline), src, gstdata->decoder, NULL);
+    
+    gst_element_link(gstdata->converter,gstdata->scale);
+    gst_element_link(gstdata->encoder,gstdata->dest);
+    gst_element_link(src,gstdata->decoder);
+    
+    g_signal_connect (gstdata->pipeline, "error", G_CALLBACK(gstreamer_pipeline_error), cmd);
+    g_signal_connect (gstdata->pipeline, "eos", G_CALLBACK (gstreamer_pipeline_eos), cmd);
+    
+    gst_element_set_state (gstdata->pipeline, GST_STATE_PLAYING);
+    while(!exec_cmd_wait_for_signal(cmd, 1))
+    {
+        GstFormat fmt = GST_FORMAT_BYTES;
+        gint64 pos = 0, total = 0;
+        if(gst_element_query (gstdata->dest, GST_QUERY_POSITION, &fmt, &pos) && 
+            gst_element_query (gstdata->dest, GST_QUERY_TOTAL, &fmt, &total))
+        {
+            progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
+        }
+    }
+    
+    gst_element_set_state (gstdata->pipeline, GST_STATE_NULL);
+    gst_object_unref (GST_OBJECT (gstdata->pipeline));
+    g_free(gstdata);
 }
 
+
 void 
-gstreamer_add_args(ExecCmd* cmd, GtkTreeModel *model)
+gstreamer_add_args(ExecCmd* cmd, gchar* from, gchar* to)
 {
     GB_LOG_FUNC
     g_return_if_fail(cmd != NULL);  
-    g_return_if_fail(model != NULL);    
+    g_return_if_fail(from != NULL);        
+    g_return_if_fail(to != NULL);
     
+    exec_cmd_add_arg(cmd, "%s", from);
+    exec_cmd_add_arg(cmd, "%s", to);
     
+    cmd->libProc = gstreamer_lib_proc;
+    cmd->preProc = gstreamer_pre_proc;   
 }
 
