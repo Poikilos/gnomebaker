@@ -32,26 +32,15 @@
 #include "media.h"
 
 
-gint cdrecord_totaltrackstowrite = 1;
-gint cdrecord_firsttrack = -1;
-gdouble cdrecord_totaldiskbytes = 0.0;
+static gint cdrecord_totaltrackstowrite = 1;
+static gint cdrecord_firsttrack = -1;
+static gdouble cdrecord_totaldiskbytes = 0.0;
 
-gint cdda2wav_totaltracks = -1;
-gint cdda2wav_totaltracksread = 0;
+static gint cdda2wav_totaltracks = -1;
+static gint cdda2wav_totaltracksread = 0;
 
-gint readcd_totalguchars = -1;
-gint cdrdao_cdminutes = -1;
-
-
-void 
-generic_read_proc(void *ex, void *buffer)
-{
-	GB_LOG_FUNC	
-	g_return_if_fail(ex != NULL);
-	gchar *buf = (gchar*)buffer;
-	/*GB_TRACE((gchar*)buffer);*/
-	progressdlg_append_output(buf);
-}
+static gint readcd_totalguchars = -1;
+static gint cdrdao_cdminutes = -1;
 
 
 /*******************************************************************************
@@ -62,9 +51,9 @@ generic_read_proc(void *ex, void *buffer)
  * We pass a pointer to this function to Exec which will call us when it has
  * read from it pipe. We get the data and stuff the text into our text entry
  * for the user to read.
-m */
-void
-cdrecord_pre_proc(void *ex, void *buffer)
+ */
+static void
+cdrecord_pre_proc(void* ex, void* buffer)
 {	
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
@@ -86,8 +75,8 @@ cdrecord_pre_proc(void *ex, void *buffer)
 }
 
 
-void
-cdrecord_blank_pre_proc(void *ex, void *buffer)
+static void
+cdrecord_blank_pre_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	progressdlg_set_status(_("<b>Blanking disk...</b>"));
@@ -110,16 +99,16 @@ cdrecord_blank_pre_proc(void *ex, void *buffer)
 }
 
 
-void
-cdrecord_blank_post_proc(void *ex, void *buffer)
+static void
+cdrecord_blank_post_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	progressdlg_pulse_stop();
 }
 
 
-void
-cdrecord_read_proc(void *ex, void *buffer)
+static void
+cdrecord_read_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(buffer != NULL);
@@ -179,8 +168,8 @@ cdrecord_read_proc(void *ex, void *buffer)
 /*
  *  Populates the common information required to burn a cd
  */
-void
-cdrecord_add_common_args(ExecCmd * const cdBurn)
+static void
+cdrecord_add_common_args(ExecCmd* cdBurn)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);	
@@ -258,7 +247,7 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
  *  ISO
  */
 void
-cdrecord_add_iso_args(ExecCmd * const cdBurn, const gchar * const iso)
+cdrecord_add_iso_args(ExecCmd* cdBurn, const gchar* iso)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);
@@ -278,8 +267,8 @@ cdrecord_add_iso_args(ExecCmd * const cdBurn, const gchar * const iso)
 }
 
 
-void
-cdrecord_copy_audio_cd_pre_proc(void *ex, void *buffer)
+static void
+cdrecord_copy_audio_cd_pre_proc(void* ex, void* buffer)
 {
     GB_LOG_FUNC
     g_return_if_fail(ex != NULL);
@@ -314,7 +303,7 @@ cdrecord_copy_audio_cd_pre_proc(void *ex, void *buffer)
 
 
 void 
-cdrecord_add_audio_args(ExecCmd * const cdBurn)
+cdrecord_add_audio_args(ExecCmd* cdBurn)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);
@@ -329,7 +318,7 @@ cdrecord_add_audio_args(ExecCmd * const cdBurn)
 
 
 void 
-cdrecord_add_blank_args(ExecCmd * const cdBurn)
+cdrecord_add_blank_args(ExecCmd* cdBurn)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);	
@@ -368,8 +357,8 @@ cdrecord_add_blank_args(ExecCmd * const cdBurn)
  ******************************************************************************/
 
 
-void
-cdda2wav_pre_proc(void *ex, void *buffer)
+static void
+cdda2wav_pre_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	cdda2wav_totaltracks = -1;
@@ -420,8 +409,8 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 }
 
 
-void
-cdda2wav_read_proc(void *ex, void *buffer)
+static void
+cdda2wav_read_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(buffer != NULL);
@@ -489,7 +478,7 @@ cdda2wav_read_proc(void *ex, void *buffer)
  * audio cd
  */
 void
-cdda2wav_add_copy_args(ExecCmd * e)
+cdda2wav_add_copy_args(ExecCmd* e)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
@@ -537,8 +526,8 @@ shell> mkisofs -R -o cd_image2 -C $NEXT_TRACK -M /dev/scd5 private_collection/
 */
 
 
-void
-mkisofs_pre_proc(void *ex, void *buffer)
+static void
+mkisofs_pre_proc(void* ex, void* buffer)
 {	
 	GB_LOG_FUNC
 	
@@ -567,8 +556,8 @@ mkisofs_pre_proc(void *ex, void *buffer)
 }
 
 
-void
-mkisofs_read_proc(void *ex, void *buffer)
+static void
+mkisofs_read_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
@@ -594,11 +583,11 @@ mkisofs_read_proc(void *ex, void *buffer)
 }
 
 
-gboolean
-mkisofs_foreach_func(GtkTreeModel *model,
-                GtkTreePath  *path,
-                GtkTreeIter  *iter,
-                gpointer      user_data)
+static gboolean
+mkisofs_foreach_func(GtkTreeModel* model,
+                GtkTreePath* path,
+                GtkTreeIter* iter,
+                gpointer user_data)
 {
 	GB_LOG_FUNC
 	gchar *file = NULL, *filepath = NULL;
@@ -734,8 +723,8 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
  * read from it pipe. We get the data and stuff the text into our text entry
  * for the user to read.
  */
-void
-dvdformat_pre_proc(void *ex, void *buffer)
+static void
+dvdformat_pre_proc(void* ex, void* buffer)
 {	
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
@@ -757,8 +746,8 @@ dvdformat_pre_proc(void *ex, void *buffer)
 }
 
 
-void
-dvdformat_read_proc(void *ex, void *buffer)
+static void
+dvdformat_read_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC	
 	g_return_if_fail(buffer != NULL);
@@ -772,8 +761,8 @@ dvdformat_read_proc(void *ex, void *buffer)
 }
 
 
-void
-dvdformat_post_proc(void *ex, void *buffer)
+static void
+dvdformat_post_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	if(preferences_get_bool(GB_EJECT))
@@ -784,7 +773,7 @@ dvdformat_post_proc(void *ex, void *buffer)
 
 
 void 
-dvdformat_add_args(ExecCmd * const dvdFormat)
+dvdformat_add_args(ExecCmd* dvdFormat)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(dvdFormat != NULL);
@@ -825,8 +814,8 @@ dvdformat_add_args(ExecCmd * const dvdFormat)
  ******************************************************************************/
 
 
-void 
-growisofs_pre_proc(void *ex,void *buffer)
+static void 
+growisofs_pre_proc(void* ex,void* buffer)
 {		
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
@@ -849,8 +838,8 @@ growisofs_pre_proc(void *ex,void *buffer)
 }
 
 
-void 
-growisofs_post_proc(void *ex,void *buffer)
+static void 
+growisofs_post_proc(void* ex,void* buffer)
 {
 	GB_LOG_FUNC
 	if(preferences_get_bool(GB_EJECT))
@@ -860,8 +849,8 @@ growisofs_post_proc(void *ex,void *buffer)
 }
 
 
-void
-growisofs_read_proc(void *ex, void *buffer)
+static void
+growisofs_read_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
     g_return_if_fail(buffer != NULL);
@@ -914,8 +903,8 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 	progressdlg_append_output(buf);
 }
 
-void
-growisofs_read_iso_proc(void *ex, void *buffer)
+static void
+growisofs_read_iso_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
     g_return_if_fail(buffer != NULL);
@@ -957,7 +946,7 @@ About to execute 'builtin_dd if=/home2/cs/SL-9.3-LiveDVD-i386-1.iso of=/dev/hdc 
 
 
 gboolean
-growisofs_add_args(ExecCmd * const e, GtkTreeModel* datamodel)
+growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(e != NULL, FALSE);
@@ -1063,7 +1052,7 @@ growisofs_add_args(ExecCmd * const e, GtkTreeModel* datamodel)
 }
 
 void 
-growisofs_add_iso_args(ExecCmd * const growisofs,const gchar *iso)
+growisofs_add_iso_args(ExecCmd* growisofs, const gchar *iso)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(growisofs != NULL);
@@ -1104,8 +1093,8 @@ growisofs_add_iso_args(ExecCmd * const growisofs,const gchar *iso)
  ******************************************************************************/
 
 
-void
-readcd_pre_proc(void *ex, void *buffer)
+static void
+readcd_pre_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	readcd_totalguchars = -1;
@@ -1148,8 +1137,8 @@ readcd_pre_proc(void *ex, void *buffer)
 }
 
 
-void
-readcd_read_proc(void *ex, void *buffer)
+static void
+readcd_read_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(buffer != NULL);
@@ -1187,8 +1176,8 @@ readcd_read_proc(void *ex, void *buffer)
 }
 
 
-void
-readcd_post_proc(void *ex, void *buffer)
+static void
+readcd_post_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(ex != NULL);
@@ -1205,7 +1194,7 @@ readcd_post_proc(void *ex, void *buffer)
  *  Populates the information required to make an iso from an existing data cd
  */
 void
-readcd_add_copy_args(ExecCmd * e, const gchar* iso)
+readcd_add_copy_args(ExecCmd* e, const gchar* iso)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
@@ -1224,15 +1213,15 @@ readcd_add_copy_args(ExecCmd * e, const gchar* iso)
 
 	e->preProc = readcd_pre_proc;	
 	e->readProc = readcd_read_proc;
-	e->postProc = readcd_post_proc;
+	//e->postProc = readcd_post_proc;
 }
 
 /*******************************************************************************
  * CDRDAO
  ******************************************************************************/
 
-void
-cdrdao_extract_read_proc(void *ex, void *buffer)
+static void
+cdrdao_extract_read_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(buffer != NULL);
@@ -1265,8 +1254,8 @@ sudo cdrdao write --device $CDR_DEVICE video.cue
 Wrote 536 of 536 MB (Buffers 100%  96%)
 
 */
-void
-cdrdao_write_image_read_proc(void *ex, void *buffer)
+static void
+cdrdao_write_image_read_proc(void* ex, void* buffer)
 {
     GB_LOG_FUNC
     g_return_if_fail(buffer != NULL);
@@ -1285,7 +1274,7 @@ cdrdao_write_image_read_proc(void *ex, void *buffer)
 
 
 void
-cdrdao_add_image_args(ExecCmd* cmd, const gchar* const toc_or_cue)
+cdrdao_add_image_args(ExecCmd* cmd, const gchar* toc_or_cue)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cmd != NULL);
@@ -1326,9 +1315,8 @@ cdrdao_add_image_args(ExecCmd* cmd, const gchar* const toc_or_cue)
 /*******************************************************************************
  * GSTREAMER
  ******************************************************************************/
-void
-gstreamer_pipeline_eos(GstElement *gstelement,
-                            gpointer user_data)
+static void
+gstreamer_pipeline_eos(GstElement* gstelement, gpointer user_data)
 {
     GB_LOG_FUNC
     g_return_if_fail(user_data != NULL);
@@ -1336,11 +1324,11 @@ gstreamer_pipeline_eos(GstElement *gstelement,
 }
 
 
-void
-gstreamer_pipeline_error(GstElement *gstelement,
-                        GstElement *element,
-                        gpointer *error /* should be GstError* but I can't get it to compile */,
-                        gchar *message,
+static void
+gstreamer_pipeline_error(GstElement* gstelement,
+                        GstElement* element,
+                        gpointer* error /* should be GstError* but I can't get it to compile */,
+                        gchar* message,
                         gpointer user_data)
 {
     GB_LOG_FUNC
@@ -1349,14 +1337,13 @@ gstreamer_pipeline_error(GstElement *gstelement,
 }
  
 
-void
-gstreamer_new_decoded_pad(GstElement *element,
-                           GstPad     *pad,
+static void
+gstreamer_new_decoded_pad(GstElement* element,
+                           GstPad* pad,
                            gboolean last,
                            MediaPipeline*  mip)
 {
     GB_LOG_FUNC
-    
     g_return_if_fail(mip != NULL);
     g_return_if_fail(element != NULL);
     g_return_if_fail(pad != NULL);
@@ -1379,8 +1366,8 @@ gstreamer_new_decoded_pad(GstElement *element,
 }
  
  
-void
-gstreamer_pre_proc(void *ex, void *buffer)
+static void
+gstreamer_pre_proc(void* ex, void* buffer)
 {
     GB_LOG_FUNC
     g_return_if_fail(ex != NULL);
@@ -1395,7 +1382,7 @@ gstreamer_pre_proc(void *ex, void *buffer)
 }
 
 
-void 
+static void 
 gstreamer_lib_proc(void* ex, void* data)
 {
     GB_LOG_FUNC
@@ -1473,7 +1460,7 @@ gstreamer_lib_proc(void* ex, void* data)
 
 
 void 
-gstreamer_add_args(ExecCmd* cmd, gchar* from, gchar* to)
+gstreamer_add_args(ExecCmd* cmd, const gchar* from, const gchar* to)
 {
     GB_LOG_FUNC
     g_return_if_fail(cmd != NULL);  

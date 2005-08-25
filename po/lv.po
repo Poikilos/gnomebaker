@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-25 00:14+0100\n"
+"POT-Creation-Date: 2005-08-26 00:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Latvian <lv@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Rosetta-Version: 0.1\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2\n"
 
-#: src/audiocd.c:125 src/audiocd.c:254 gnomebaker.glade:1085
+#: src/audiocd.c:125 src/audiocd.c:547 gnomebaker.glade:1085
 msgid "0 mins 0 secs"
 msgstr "0 minūtes 0 sekundes"
 
@@ -31,75 +31,75 @@ msgstr "%d minūtes %d sekundes"
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "Celiņš ir pārāk liels, lai ietilptu uz CD palikušajā vietā"
 
-#: src/audiocd.c:319 src/filebrowser.c:619
+#: src/audiocd.c:235 src/filebrowser.c:578
 msgid "_Open"
 msgstr ""
 
-#: src/audiocd.c:324
+#: src/audiocd.c:240
 #, fuzzy
 msgid "Move selected _up"
 msgstr "Izņemt iezīmēto"
 
-#: src/audiocd.c:326
+#: src/audiocd.c:242
 #, fuzzy
 msgid "Move selected _down"
 msgstr "Izņemt iezīmēto"
 
-#: src/audiocd.c:329 src/datacd.c:451
+#: src/audiocd.c:245 src/datacd.c:451
 #, fuzzy
 msgid "_Remove selected"
 msgstr "Izņemt iezīmēto"
 
-#: src/audiocd.c:331
+#: src/audiocd.c:247
 #, fuzzy
 msgid "_Clear"
 msgstr "Attīrīt"
 
-#: src/audiocd.c:390
+#: src/audiocd.c:306
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr ""
 
-#: src/audiocd.c:397
+#: src/audiocd.c:313
 #, c-format
 msgid "There is no known plugin to handle a file of type %s."
 msgstr ""
 
-#: src/audiocd.c:515
+#: src/audiocd.c:572
 msgid "Track"
 msgstr "Celiņš"
 
-#: src/audiocd.c:527
+#: src/audiocd.c:584
 msgid "Duration"
 msgstr "Ilgums"
 
-#: src/audiocd.c:543
+#: src/audiocd.c:600
 msgid "Artist"
 msgstr "Izpildītājs"
 
-#: src/audiocd.c:551
+#: src/audiocd.c:608
 msgid "Album"
 msgstr "Albūms"
 
-#: src/audiocd.c:559
+#: src/audiocd.c:616
 msgid "Title"
 msgstr "Nosaukums"
 
-#: src/burn.c:104
+#: src/burn.c:85
 msgid "Completed"
 msgstr "Pabeigts"
 
-#: src/burn.c:108
+#: src/burn.c:89
 msgid "Failed"
 msgstr "Neizdevās"
 
-#: src/burn.c:234
+#: src/burn.c:215
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr ""
 
-#: src/burn.c:267 src/burn.c:373
+#: src/burn.c:234 src/burn.c:341
 msgid "Please select an iso file to save to..."
 msgstr "Lūdzu izvēlieties, kur noglabāt iso failu ..."
 
@@ -119,7 +119,7 @@ msgstr "Attīrīt"
 msgid "Contents"
 msgstr ""
 
-#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:834
+#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:790
 msgid "Size"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgstr ""
 msgid "unmounting"
 msgstr ""
 
-#: src/filebrowser.c:67 src/filebrowser.c:721
+#: src/filebrowser.c:67 src/filebrowser.c:678
 msgid "Filesystem"
 msgstr ""
 
@@ -189,36 +189,36 @@ msgstr ""
 msgid "Folder"
 msgstr ""
 
-#: src/filebrowser.c:610
+#: src/filebrowser.c:569
 msgid "_Add directory"
 msgstr ""
 
-#: src/filebrowser.c:623
+#: src/filebrowser.c:582
 msgid "_Add file(s)"
 msgstr ""
 
-#: src/filebrowser.c:639 gnomebaker.glade:190
+#: src/filebrowser.c:598 gnomebaker.glade:190
 msgid "_Burn CD Image"
 msgstr ""
 
-#: src/filebrowser.c:641
+#: src/filebrowser.c:600
 msgid "_Burn DVD Image"
 msgstr ""
 
-#: src/filebrowser.c:752
+#: src/filebrowser.c:709
 #, c-format
 msgid "%s's home"
 msgstr ""
 
-#: src/filebrowser.c:820
+#: src/filebrowser.c:776
 msgid "File"
 msgstr ""
 
-#: src/filebrowser.c:852
+#: src/filebrowser.c:808
 msgid "Type"
 msgstr ""
 
-#: src/filebrowser.c:860
+#: src/filebrowser.c:816
 msgid "Mime"
 msgstr ""
 
@@ -354,79 +354,79 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:72
+#: src/execfunctions.c:61
 msgid "<b>Burning disk...</b>"
 msgstr ""
 
-#: src/execfunctions.c:78
+#: src/execfunctions.c:67
 msgid "Please insert the CD into the CD writer"
 msgstr ""
 
-#: src/execfunctions.c:93
+#: src/execfunctions.c:82
 msgid "<b>Blanking disk...</b>"
 msgstr ""
 
-#: src/execfunctions.c:100
+#: src/execfunctions.c:89
 msgid "Please insert the CD-RW into the CD writer"
 msgstr ""
 
-#: src/execfunctions.c:172
+#: src/execfunctions.c:161
 msgid "Fixating"
 msgstr ""
 
-#: src/execfunctions.c:212 gnomebaker.glade:2863
+#: src/execfunctions.c:201 gnomebaker.glade:2863
 msgid "default"
 msgstr ""
 
-#: src/execfunctions.c:378
+#: src/execfunctions.c:367
 msgid "<b>Extracting audio tracks...</b>"
 msgstr ""
 
-#: src/execfunctions.c:390
+#: src/execfunctions.c:379
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
 
-#: src/execfunctions.c:407
+#: src/execfunctions.c:396
 msgid "Please insert the audio CD into the CD reader"
 msgstr ""
 
-#: src/execfunctions.c:547
+#: src/execfunctions.c:536
 msgid "<b>Creating data disk image...</b>"
 msgstr ""
 
-#: src/execfunctions.c:555
+#: src/execfunctions.c:544
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
 
-#: src/execfunctions.c:743
+#: src/execfunctions.c:732
 msgid "<b>Formatting DVD...</b>"
 msgstr ""
 
-#: src/execfunctions.c:750
+#: src/execfunctions.c:739
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:834
+#: src/execfunctions.c:823
 msgid "<b>Burning DVD...</b>"
 msgstr ""
 
-#: src/execfunctions.c:841
+#: src/execfunctions.c:830
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:912 src/execfunctions.c:953
+#: src/execfunctions.c:901 src/execfunctions.c:942
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1113
+#: src/execfunctions.c:1102
 msgid "<b>Reading CD image...</b>"
 msgstr ""
 
-#: src/execfunctions.c:1390
+#: src/execfunctions.c:1377
 #, c-format
 msgid "<b>Converting %s to cd audio...</b>"
 msgstr ""

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-25 00:14+0100\n"
+"POT-Creation-Date: 2005-08-26 00:10+0100\n"
 "PO-Revision-Date: 2005-04-30 14:39+0100\n"
 "Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
 "Language-Team: \n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/audiocd.c:125 src/audiocd.c:254 gnomebaker.glade:1085
+#: src/audiocd.c:125 src/audiocd.c:547 gnomebaker.glade:1085
 msgid "0 mins 0 secs"
 msgstr "0 min. 0 sek."
 
@@ -41,67 +41,67 @@ msgstr "%d min. %d sek."
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "Spor er for stort til at være på det resterende plads på CD'en"
 
-#: src/audiocd.c:319 src/filebrowser.c:619
+#: src/audiocd.c:235 src/filebrowser.c:578
 msgid "_Open"
 msgstr "_Åbn"
 
-#: src/audiocd.c:324
+#: src/audiocd.c:240
 #, fuzzy
 msgid "Move selected _up"
 msgstr "Fjern valgte"
 
-#: src/audiocd.c:326
+#: src/audiocd.c:242
 #, fuzzy
 msgid "Move selected _down"
 msgstr "Fjern valgte"
 
-#: src/audiocd.c:329 src/datacd.c:451
+#: src/audiocd.c:245 src/datacd.c:451
 msgid "_Remove selected"
 msgstr "_Fjern valgte"
 
-#: src/audiocd.c:331
+#: src/audiocd.c:247
 msgid "_Clear"
 msgstr "_Ryd"
 
-#: src/audiocd.c:390
+#: src/audiocd.c:306
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr ""
 
-#: src/audiocd.c:397
+#: src/audiocd.c:313
 #, c-format
 msgid "There is no known plugin to handle a file of type %s."
 msgstr ""
 
-#: src/audiocd.c:515
+#: src/audiocd.c:572
 msgid "Track"
 msgstr "Spor"
 
-#: src/audiocd.c:527
+#: src/audiocd.c:584
 msgid "Duration"
 msgstr "Varighed"
 
-#: src/audiocd.c:543
+#: src/audiocd.c:600
 msgid "Artist"
 msgstr "Kunstner"
 
-#: src/audiocd.c:551
+#: src/audiocd.c:608
 msgid "Album"
 msgstr "Album"
 
-#: src/audiocd.c:559
+#: src/audiocd.c:616
 msgid "Title"
 msgstr "Titel"
 
-#: src/burn.c:104
+#: src/burn.c:85
 msgid "Completed"
 msgstr "Færdig"
 
-#: src/burn.c:108
+#: src/burn.c:89
 msgid "Failed"
 msgstr "Fejlet"
 
-#: src/burn.c:234
+#: src/burn.c:215
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
@@ -109,7 +109,7 @@ msgstr ""
 "Filen du har valgt er ikke et CD-aftryk. Vælg venligst et CD-aftryk at "
 "brænde."
 
-#: src/burn.c:267 src/burn.c:373
+#: src/burn.c:234 src/burn.c:341
 msgid "Please select an iso file to save to..."
 msgstr "Vælg venligst en ISO-fil at gemme til..."
 
@@ -130,7 +130,7 @@ msgstr "Ryd"
 msgid "Contents"
 msgstr "Indhold"
 
-#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:834
+#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:790
 msgid "Size"
 msgstr "Størrelse"
 
@@ -195,7 +195,7 @@ msgstr "monterer"
 msgid "unmounting"
 msgstr "afmonterer"
 
-#: src/filebrowser.c:67 src/filebrowser.c:721
+#: src/filebrowser.c:67 src/filebrowser.c:678
 msgid "Filesystem"
 msgstr "Filsystem"
 
@@ -212,37 +212,37 @@ msgstr ""
 msgid "Folder"
 msgstr "Tilstand"
 
-#: src/filebrowser.c:610
+#: src/filebrowser.c:569
 msgid "_Add directory"
 msgstr "_Tilføj mappe"
 
-#: src/filebrowser.c:623
+#: src/filebrowser.c:582
 msgid "_Add file(s)"
 msgstr "_Tilføj fil(er)"
 
-#: src/filebrowser.c:639 gnomebaker.glade:190
+#: src/filebrowser.c:598 gnomebaker.glade:190
 msgid "_Burn CD Image"
 msgstr "_Brænd CD-aftryk"
 
-#: src/filebrowser.c:641
+#: src/filebrowser.c:600
 #, fuzzy
 msgid "_Burn DVD Image"
 msgstr "_Brænd CD-aftryk"
 
-#: src/filebrowser.c:752
+#: src/filebrowser.c:709
 #, c-format
 msgid "%s's home"
 msgstr "%s's hjem"
 
-#: src/filebrowser.c:820
+#: src/filebrowser.c:776
 msgid "File"
 msgstr "Fil"
 
-#: src/filebrowser.c:852
+#: src/filebrowser.c:808
 msgid "Type"
 msgstr "Type"
 
-#: src/filebrowser.c:860
+#: src/filebrowser.c:816
 msgid "Mime"
 msgstr "Mime"
 
@@ -383,35 +383,35 @@ msgstr "Rock Ridge"
 msgid "On The Fly"
 msgstr "Løbende (on the fly)"
 
-#: src/execfunctions.c:72
+#: src/execfunctions.c:61
 msgid "<b>Burning disk...</b>"
 msgstr "<b>Brænder disk...</b>"
 
-#: src/execfunctions.c:78
+#: src/execfunctions.c:67
 msgid "Please insert the CD into the CD writer"
 msgstr "Indsæt venligst CD'en i CD-brænderen"
 
-#: src/execfunctions.c:93
+#: src/execfunctions.c:82
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Sletter disk...</b>"
 
-#: src/execfunctions.c:100
+#: src/execfunctions.c:89
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Indsæt venligst CD-RW'en i CD-brænderen"
 
-#: src/execfunctions.c:172
+#: src/execfunctions.c:161
 msgid "Fixating"
 msgstr "Fikserer"
 
-#: src/execfunctions.c:212 gnomebaker.glade:2863
+#: src/execfunctions.c:201 gnomebaker.glade:2863
 msgid "default"
 msgstr "standard"
 
-#: src/execfunctions.c:378
+#: src/execfunctions.c:367
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Udtrækker lydspor...</b>"
 
-#: src/execfunctions.c:390
+#: src/execfunctions.c:379
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -419,15 +419,15 @@ msgstr ""
 "Lydspor fra en tidligere session findes allerede på disken. Vil du bruge de "
 "eksisterende spor?"
 
-#: src/execfunctions.c:407
+#: src/execfunctions.c:396
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Indsæt venligst lyd-CD'en i CD-læseren"
 
-#: src/execfunctions.c:547
+#: src/execfunctions.c:536
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Opretter datadisk-aftryk...</b>"
 
-#: src/execfunctions.c:555
+#: src/execfunctions.c:544
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -435,31 +435,31 @@ msgstr ""
 "Et data-CD aftryk fra en tidligere session findes allerede på disken. Vil du "
 "bruge det eksisterende aftryk?"
 
-#: src/execfunctions.c:743
+#: src/execfunctions.c:732
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Sletter DVD...</b>"
 
-#: src/execfunctions.c:750
+#: src/execfunctions.c:739
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Indsæt venligst en genskrivbar DVD i DVD-brænderen"
 
-#: src/execfunctions.c:834
+#: src/execfunctions.c:823
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Brænder DVD...</b>"
 
-#: src/execfunctions.c:841
+#: src/execfunctions.c:830
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Indsæt venligst en brændbar DVD i DVD-brænderen"
 
-#: src/execfunctions.c:912 src/execfunctions.c:953
+#: src/execfunctions.c:901 src/execfunctions.c:942
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1113
+#: src/execfunctions.c:1102
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>Læser CD-aftryk...</b>"
 
-#: src/execfunctions.c:1390
+#: src/execfunctions.c:1377
 #, fuzzy, c-format
 msgid "<b>Converting %s to cd audio...</b>"
 msgstr "<b>Konverterer WAV til CD-lyd...</b>"

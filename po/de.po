@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-25 00:14+0100\n"
+"POT-Creation-Date: 2005-08-26 00:10+0100\n"
 "PO-Revision-Date: 2005-07-20 00:03+0100\n"
 "Last-Translator: Marco Meyerhofer <marco_meyerhofer@freesurf.ch>\n"
 "Language-Team: German <de@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Rosetta-Version: 0.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 
-#: src/audiocd.c:125 src/audiocd.c:254 gnomebaker.glade:1085
+#: src/audiocd.c:125 src/audiocd.c:547 gnomebaker.glade:1085
 msgid "0 mins 0 secs"
 msgstr "0 Minuten und 0 Sekunden"
 
@@ -32,68 +32,68 @@ msgstr ""
 "Der Titel ist zu lang um in den verbleibenden Speicherplatz auf der CD zu "
 "passen."
 
-#: src/audiocd.c:319 src/filebrowser.c:619
+#: src/audiocd.c:235 src/filebrowser.c:578
 msgid "_Open"
 msgstr "Ö_ffnen"
 
-#: src/audiocd.c:324
+#: src/audiocd.c:240
 #, fuzzy
 msgid "Move selected _up"
 msgstr "Auswahl entfernen"
 
-#: src/audiocd.c:326
+#: src/audiocd.c:242
 #, fuzzy
 msgid "Move selected _down"
 msgstr "Auswahl entfernen"
 
-#: src/audiocd.c:329 src/datacd.c:451
+#: src/audiocd.c:245 src/datacd.c:451
 msgid "_Remove selected"
 msgstr "Auswahl entfernen"
 
-#: src/audiocd.c:331
+#: src/audiocd.c:247
 msgid "_Clear"
 msgstr "_Leeren"
 
-#: src/audiocd.c:390
+#: src/audiocd.c:306
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr ""
 "Das Plugin um eine Datei vom Typ %s zu bearbeiten ist nicht installiert."
 
-#: src/audiocd.c:397
+#: src/audiocd.c:313
 #, c-format
 msgid "There is no known plugin to handle a file of type %s."
 msgstr "Es ist kein Plugin bekannt um eine Datei vom Typ %s zu bearbeiten."
 
-#: src/audiocd.c:515
+#: src/audiocd.c:572
 msgid "Track"
 msgstr "Track"
 
-#: src/audiocd.c:527
+#: src/audiocd.c:584
 msgid "Duration"
 msgstr "Dauer"
 
-#: src/audiocd.c:543
+#: src/audiocd.c:600
 msgid "Artist"
 msgstr "Künstler"
 
-#: src/audiocd.c:551
+#: src/audiocd.c:608
 msgid "Album"
 msgstr "Album"
 
-#: src/audiocd.c:559
+#: src/audiocd.c:616
 msgid "Title"
 msgstr "Titel"
 
-#: src/burn.c:104
+#: src/burn.c:85
 msgid "Completed"
 msgstr "Abgeschlossen"
 
-#: src/burn.c:108
+#: src/burn.c:89
 msgid "Failed"
 msgstr "Fehlgeschlagen"
 
-#: src/burn.c:234
+#: src/burn.c:215
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
@@ -101,7 +101,7 @@ msgstr ""
 "Die Datei, die Sie ausgewählt haben, ist kein CD-Image. Bitte wählen Sie ein "
 "CD-Image zum brennen aus."
 
-#: src/burn.c:267 src/burn.c:373
+#: src/burn.c:234 src/burn.c:341
 msgid "Please select an iso file to save to..."
 msgstr "Wählen Sie eine ISO-Datei zum Speichern unter..."
 
@@ -123,7 +123,7 @@ msgstr "Leeren"
 msgid "Contents"
 msgstr "Inhalte"
 
-#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:834
+#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:790
 msgid "Size"
 msgstr "Größe"
 
@@ -188,7 +188,7 @@ msgstr "mounten"
 msgid "unmounting"
 msgstr "unmounten"
 
-#: src/filebrowser.c:67 src/filebrowser.c:721
+#: src/filebrowser.c:67 src/filebrowser.c:678
 msgid "Filesystem"
 msgstr "Dateisystem"
 
@@ -205,36 +205,36 @@ msgstr ""
 msgid "Folder"
 msgstr "Modus"
 
-#: src/filebrowser.c:610
+#: src/filebrowser.c:569
 msgid "_Add directory"
 msgstr "Verzeichnis hinzufügen"
 
-#: src/filebrowser.c:623
+#: src/filebrowser.c:582
 msgid "_Add file(s)"
 msgstr "Datei(en) hinzufügen"
 
-#: src/filebrowser.c:639 gnomebaker.glade:190
+#: src/filebrowser.c:598 gnomebaker.glade:190
 msgid "_Burn CD Image"
 msgstr "_CD-Image brennen"
 
-#: src/filebrowser.c:641
+#: src/filebrowser.c:600
 msgid "_Burn DVD Image"
 msgstr "_DVD-Image brennen"
 
-#: src/filebrowser.c:752
+#: src/filebrowser.c:709
 #, c-format
 msgid "%s's home"
 msgstr "Persönlicher Ordner"
 
-#: src/filebrowser.c:820
+#: src/filebrowser.c:776
 msgid "File"
 msgstr "Datei"
 
-#: src/filebrowser.c:852
+#: src/filebrowser.c:808
 msgid "Type"
 msgstr "Typ"
 
-#: src/filebrowser.c:860
+#: src/filebrowser.c:816
 msgid "Mime"
 msgstr "Mime"
 
@@ -371,35 +371,35 @@ msgstr ""
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:72
+#: src/execfunctions.c:61
 msgid "<b>Burning disk...</b>"
 msgstr "<b>Brenne Medium...</b>"
 
-#: src/execfunctions.c:78
+#: src/execfunctions.c:67
 msgid "Please insert the CD into the CD writer"
 msgstr "Legen Sie bitte die CD in den CD-Brenner"
 
-#: src/execfunctions.c:93
+#: src/execfunctions.c:82
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Lösche den Inhalt des Mediums...</b>"
 
-#: src/execfunctions.c:100
+#: src/execfunctions.c:89
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Legen Sie bitte die CD-RW in den CD-Brenner"
 
-#: src/execfunctions.c:172
+#: src/execfunctions.c:161
 msgid "Fixating"
 msgstr "Fixiere"
 
-#: src/execfunctions.c:212 gnomebaker.glade:2863
+#: src/execfunctions.c:201 gnomebaker.glade:2863
 msgid "default"
 msgstr "Standard"
 
-#: src/execfunctions.c:378
+#: src/execfunctions.c:367
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Entpacke Audiotracks...</b>"
 
-#: src/execfunctions.c:390
+#: src/execfunctions.c:379
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -407,15 +407,15 @@ msgstr ""
 "Audio-Dateien von einer vorhergehenden Sitzung existieren bereits, sollen "
 "diese benutzt werden?"
 
-#: src/execfunctions.c:407
+#: src/execfunctions.c:396
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Legen Sie bitte die Audio-CD ins CD-Laufwerk"
 
-#: src/execfunctions.c:547
+#: src/execfunctions.c:536
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Daten-Image erstellen...</b>"
 
-#: src/execfunctions.c:555
+#: src/execfunctions.c:544
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -423,31 +423,31 @@ msgstr ""
 "Ein Daten-Image der CD existiert bereits aus einer vorhergehenden Sitzung. "
 "Soll dieses benutzt werden?"
 
-#: src/execfunctions.c:743
+#: src/execfunctions.c:732
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>DVD formatieren...</b>"
 
-#: src/execfunctions.c:750
+#: src/execfunctions.c:739
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Bitte legen sie eine wiederbeschreibbare DVD ein"
 
-#: src/execfunctions.c:834
+#: src/execfunctions.c:823
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>DVD brennen...</b>"
 
-#: src/execfunctions.c:841
+#: src/execfunctions.c:830
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Bitte legen sie eine beschreibbare DVD ein"
 
-#: src/execfunctions.c:912 src/execfunctions.c:953
+#: src/execfunctions.c:901 src/execfunctions.c:942
 msgid "Writing lead-out"
 msgstr "Schreibe lead-out"
 
-#: src/execfunctions.c:1113
+#: src/execfunctions.c:1102
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>CD-Image wird eingelesen...</b>"
 
-#: src/execfunctions.c:1390
+#: src/execfunctions.c:1377
 #, fuzzy, c-format
 msgid "<b>Converting %s to cd audio...</b>"
 msgstr "<b>Wandle Dateien in CD-Audio um...</b>"

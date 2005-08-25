@@ -1,7 +1,8 @@
 Version 0.4.3
 
 * We don't need libvorbis anymore as we use gstreamer to get tag info.
-
+* Refactor all of the gstreamer code so it's easier to use.
+* General code cleanup in the exec layer.
 
 Version 0.4.2
 

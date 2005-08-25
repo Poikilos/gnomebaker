@@ -69,8 +69,8 @@ typedef struct
 } MediaInfo;
  
  
-void media_register_plugins(void);
-MediaInfo* media_get_info(const gchar* mediafile);
+void media_register_plugins();
+MediaInfo* media_info_new(const gchar* mediafile);
 void media_info_delete(MediaInfo* self);
 
 #endif	/* _MEDIA_H_ */

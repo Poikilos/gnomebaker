@@ -27,9 +27,9 @@
 #include "media.h"
 
 
-gdouble audiocdsize = 0.0;
+static gdouble audiocdsize = 0.0;
 
-DiskSize audiodisksizes[] = 
+static DiskSize audiodisksizes[] = 
 {
 	{22, "22 min. CD"},
 	{74, "74 min. CD"},
@@ -53,7 +53,7 @@ static GtkTargetEntry targetentries[] =
 };
 
 
-void 
+static void 
 audiocd_move_selected(const gboolean up)
 {
     GB_LOG_FUNC
@@ -84,7 +84,7 @@ audiocd_move_selected(const gboolean up)
 }
 
 
-gint 
+static gint 
 audiocd_get_audiocd_size()
 {
 	GB_LOG_FUNC
@@ -95,7 +95,7 @@ audiocd_get_audiocd_size()
 }
 
 
-gboolean 
+static gboolean 
 audiocd_update_progress_bar(gboolean add, gdouble seconds)
 {
 	GB_LOG_FUNC
@@ -149,7 +149,7 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 }
 
 
-void
+static void
 audiocd_foreach_fileselection(GtkTreeModel *filemodel,
 								  GtkTreePath *path,
 								  GtkTreeIter *iter,
@@ -166,70 +166,7 @@ audiocd_foreach_fileselection(GtkTreeModel *filemodel,
 }
 
 
-void 
-audiocd_remove()
-{
-	GB_LOG_FUNC
-	gnomebaker_show_busy_cursor(TRUE);
-	
-	GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
-	GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));	
-	
-	GList *rr_list = g_list_alloc();    /* list of GtkTreeRowReferences to remove */    
-	
-	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(audiotree));
-	gtk_tree_selection_selected_foreach(selection, audiocd_foreach_fileselection, &rr_list);		
-	
-	GList *node = rr_list;
-	for (; node != NULL ; node = node->next)
-	{
-		if(node->data)
-		{
-			GtkTreePath* path = gtk_tree_row_reference_get_path((GtkTreeRowReference*)node->data);
-			
-			if (path)
-			{
-				GB_DECLARE_STRUCT(GtkTreeIter, iter);
-				if (gtk_tree_model_get_iter(filemodel, &iter, path))
-				{
-					GValue value = { 0 };
-					gtk_tree_model_get_value(filemodel, &iter, AUDIOCD_COL_DURATION, &value);
-					
-					/* Naff bit to turn our formatted duration back into
-					   seconds. Probably should store the AudioInfo structure
-					   against the row in the list and use that to get the 
-						duration. */
-					gint duration = 0;
-					static const gint multipliers[2] = {60, 1};
-					int index = 0;
-					gchar* time = g_strdup(g_value_get_string(&value));
-					const gchar* part = strtok(time, ":");
-					while(part != NULL)
-					{
-						duration += multipliers[index] * atoi(part);					
-						part = strtok(NULL, ":");
-						index++;
-					}
-					
-					audiocd_update_progress_bar(FALSE, (gdouble)duration);					
-					
-					g_free(time);
-					g_value_unset(&value);
-					gtk_list_store_remove(GTK_LIST_STORE(filemodel), &iter);
-				}			
-				/* FIXME/CHECK: Do we need to free the path here? */
-			}
-		}
-	}
-	
-	g_list_foreach(rr_list, (GFunc)gtk_tree_row_reference_free, NULL);
-	g_list_free(rr_list);		
-	
-	gnomebaker_show_busy_cursor(FALSE);
-}
-
-
-void 
+static void 
 audiocd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
 {
 	GB_LOG_FUNC	
@@ -237,28 +174,7 @@ audiocd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
 }
 
 
-void
-audiocd_clear()
-{
-	GB_LOG_FUNC
-	
-	gnomebaker_show_busy_cursor(TRUE);
-	
-	GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
-	GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));	
-	gtk_list_store_clear(GTK_LIST_STORE(filemodel));
-	
-	GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
-	
-	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), _("0 mins 0 secs"));
-	gnomebaker_enable_widget(widget_audiocd_create, FALSE);
-	
-	gnomebaker_show_busy_cursor(FALSE);	
-}
-
-
-void 
+static void 
 audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 {
 	GB_LOG_FUNC
@@ -266,7 +182,7 @@ audiocd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 }
 
 
-void 
+static void 
 audiocd_on_open(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -285,7 +201,7 @@ audiocd_on_open(gpointer widget, gpointer user_data)
 }
 
 
-void 
+static void 
 audiocd_on_move_up(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
@@ -293,7 +209,7 @@ audiocd_on_move_up(gpointer widget, gpointer user_data)
 }
 
 
-void 
+static void 
 audiocd_on_move_down(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
@@ -301,7 +217,7 @@ audiocd_on_move_down(gpointer widget, gpointer user_data)
 }
 
 
-gboolean
+static gboolean
 audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -344,7 +260,7 @@ audiocd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer use
 }
 
 
-gboolean
+static gboolean
 audiocd_add_file(const gchar* filename, GtkTreeModel* model)
 {
 	GB_LOG_FUNC
@@ -353,7 +269,7 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
 	
 	/* ret is set to true as we want to ignore non audio files. */
 	gboolean ret = TRUE;
-	MediaInfo* info = media_get_info(filename);
+	MediaInfo* info = media_info_new(filename);
 	if(info != NULL)
 	{     
 		switch(info->status)
@@ -405,59 +321,7 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
 }
 
 
-void 
-audiocd_add_selection(GtkSelectionData* selection)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(selection != NULL);
-	g_return_if_fail(selection->data != NULL);
-	
-	GtkTreeView* view = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree));
-	g_return_if_fail(view != NULL);							
-	GtkTreeModel *model = gtk_tree_view_get_model(view);
-	g_return_if_fail(model != NULL);
-	
-	gnomebaker_show_busy_cursor(TRUE);
-
-	gboolean cont = TRUE;
-	const gchar* file = strtok((gchar*)selection->data, "\n");
-	while((file != NULL) && cont)
-	{
-		/* Get the file name that's been dropped and if there's a 
-	   	   file url at the start then strip it off */	
-		gchar* filename = gbcommon_get_local_path(file);		
-		
-		/* if the file is really a directory then we open it
-		and attempt to add any audio files in the directory */
-		if(g_file_test(filename, G_FILE_TEST_IS_DIR))
-		{
-            GDir* dir = g_dir_open(filename, 0, NULL);
-            const gchar *name = g_dir_read_name(dir);
-            while((name != NULL) && cont)
-            {
-                gchar* fullname = g_build_filename(filename, name, NULL);
-                if(!g_file_test(fullname, G_FILE_TEST_IS_DIR))
-                    cont = audiocd_add_file(fullname, model);
-                g_free(fullname);
-                name = g_dir_read_name(dir);					
-            }
-            g_dir_close(dir);
-        }
-		else
-		{
-			cont = audiocd_add_file(filename, model);
-		}
-		
-		g_free(filename);		
-		file = strtok(NULL, "\n");
-	}
-	
-	gnomebaker_show_busy_cursor(FALSE);
-		
-}
-
-
-void
+static void
 audiocd_on_drag_data_received(
     GtkWidget * widget,
     GdkDragContext * context,
@@ -473,7 +337,7 @@ audiocd_on_drag_data_received(
 }
 
 
-void 
+static void 
 audiocd_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
                        	GtkTreeViewColumn* col, gpointer userdata)
 {
@@ -494,99 +358,7 @@ audiocd_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 }
 
 
-void
-audiocd_new()
-{
-	GB_LOG_FUNC
-	
-	GtkTreeView *filelist = 
-		GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree));
-	g_return_if_fail(filelist != NULL);
-	
-	/* Create the list store for the file list */
-    GtkListStore *store = gtk_list_store_new(AUDIOCD_NUM_COLS, 
-		GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, /*G_TYPE_ULONG,*/
-		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
-    gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
-    g_object_unref(store);
-
-	/* One column which has an icon renderer and text renderer packed in */
-    GtkTreeViewColumn *col = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(col, _("Track"));
-    GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
-    gtk_tree_view_column_pack_start(col, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", AUDIOCD_COL_ICON, NULL);
-	
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_FILE, NULL);
-    gtk_tree_view_append_column(filelist, col);
-
-	/* Second column to display the duration*/
-	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, _("Duration"));
-	renderer = gtk_cell_renderer_text_new();
-	gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_DURATION, NULL);
-	gtk_tree_view_append_column(filelist, col);
-	
-	/* Third column to display the size 
-	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, "Size");
-	renderer = gtk_cell_renderer_text_new();
-	gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_SIZE, NULL);
-	gtk_tree_view_append_column(filelist, col);*/
-		
-	/* column to display the artist */
-	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, _("Artist"));
-	renderer = gtk_cell_renderer_text_new();
-	gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ARTIST, NULL);
-	gtk_tree_view_append_column(filelist, col);
-	
-	/* column to display the album */
-	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, _("Album"));
-	renderer = gtk_cell_renderer_text_new();
-	gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ALBUM, NULL);
-	gtk_tree_view_append_column(filelist, col);
-	
-	/* column to display the title */
-	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_title(col, _("Title"));
-	renderer = gtk_cell_renderer_text_new();
-	gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_TITLE, NULL);
-	gtk_tree_view_append_column(filelist, col);
-	
-	/* Set the selection mode of the file list */
-    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist), GTK_SELECTION_MULTIPLE);
-
-    /* Enable the file list as a drag destination */	
-	gtk_drag_dest_set(GTK_WIDGET(filelist), GTK_DEST_DEFAULT_ALL,
-		targetentries, 3, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
-
-	/* Connect the function to handle the drag data */
-    g_signal_connect(filelist, "drag_data_received",
-	G_CALLBACK(audiocd_on_drag_data_received), store);
-	
-	/* connect the signal to handle right click */
-	g_signal_connect (G_OBJECT(filelist), "button-press-event",
-        G_CALLBACK(audiocd_on_button_pressed), NULL);
-		
-	g_signal_connect(G_OBJECT(filelist), "row-activated", 
-		G_CALLBACK(audiocd_on_list_dbl_click), NULL);
-		
-	GtkWidget* optmenu = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_size);
-	gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(optmenu), audiodisksizes, 
-		(sizeof(audiodisksizes)/sizeof(DiskSize)), 2);
-}
-
-
-void 
+void /* libglade callback */
 audiocd_on_audiocd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -603,7 +375,7 @@ audiocd_on_audiocd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 }
 
 
-void
+void /* libglade callback */
 audiocd_on_create_audiocd(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -641,3 +413,232 @@ audiocd_move_selected_down()
     GB_LOG_FUNC
     audiocd_move_selected(FALSE);
 }
+
+
+void 
+audiocd_add_selection(GtkSelectionData* selection)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(selection != NULL);
+    g_return_if_fail(selection->data != NULL);
+    
+    GtkTreeView* view = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree));
+    g_return_if_fail(view != NULL);                         
+    GtkTreeModel *model = gtk_tree_view_get_model(view);
+    g_return_if_fail(model != NULL);
+    
+    gnomebaker_show_busy_cursor(TRUE);
+
+    gboolean cont = TRUE;
+    const gchar* file = strtok((gchar*)selection->data, "\n");
+    while((file != NULL) && cont)
+    {
+        /* Get the file name that's been dropped and if there's a 
+           file url at the start then strip it off */   
+        gchar* filename = gbcommon_get_local_path(file);        
+        
+        /* if the file is really a directory then we open it
+        and attempt to add any audio files in the directory */
+        if(g_file_test(filename, G_FILE_TEST_IS_DIR))
+        {
+            GDir* dir = g_dir_open(filename, 0, NULL);
+            const gchar *name = g_dir_read_name(dir);
+            while((name != NULL) && cont)
+            {
+                gchar* fullname = g_build_filename(filename, name, NULL);
+                if(!g_file_test(fullname, G_FILE_TEST_IS_DIR))
+                    cont = audiocd_add_file(fullname, model);
+                g_free(fullname);
+                name = g_dir_read_name(dir);                    
+            }
+            g_dir_close(dir);
+        }
+        else
+        {
+            cont = audiocd_add_file(filename, model);
+        }
+        
+        g_free(filename);       
+        file = strtok(NULL, "\n");
+    }
+    
+    gnomebaker_show_busy_cursor(FALSE);
+        
+}
+
+
+void 
+audiocd_remove()
+{
+    GB_LOG_FUNC
+    gnomebaker_show_busy_cursor(TRUE);
+    
+    GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
+    GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));    
+    
+    GList *rr_list = g_list_alloc();    /* list of GtkTreeRowReferences to remove */    
+    
+    GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(audiotree));
+    gtk_tree_selection_selected_foreach(selection, audiocd_foreach_fileselection, &rr_list);        
+    
+    GList *node = rr_list;
+    for (; node != NULL ; node = node->next)
+    {
+        if(node->data)
+        {
+            GtkTreePath* path = gtk_tree_row_reference_get_path((GtkTreeRowReference*)node->data);
+            
+            if (path)
+            {
+                GB_DECLARE_STRUCT(GtkTreeIter, iter);
+                if (gtk_tree_model_get_iter(filemodel, &iter, path))
+                {
+                    GValue value = { 0 };
+                    gtk_tree_model_get_value(filemodel, &iter, AUDIOCD_COL_DURATION, &value);
+                    
+                    /* Naff bit to turn our formatted duration back into
+                       seconds. Probably should store the AudioInfo structure
+                       against the row in the list and use that to get the 
+                        duration. */
+                    gint duration = 0;
+                    static const gint multipliers[2] = {60, 1};
+                    int index = 0;
+                    gchar* time = g_strdup(g_value_get_string(&value));
+                    const gchar* part = strtok(time, ":");
+                    while(part != NULL)
+                    {
+                        duration += multipliers[index] * atoi(part);                    
+                        part = strtok(NULL, ":");
+                        index++;
+                    }
+                    
+                    audiocd_update_progress_bar(FALSE, (gdouble)duration);                  
+                    
+                    g_free(time);
+                    g_value_unset(&value);
+                    gtk_list_store_remove(GTK_LIST_STORE(filemodel), &iter);
+                }           
+                /* FIXME/CHECK: Do we need to free the path here? */
+            }
+        }
+    }
+    
+    g_list_foreach(rr_list, (GFunc)gtk_tree_row_reference_free, NULL);
+    g_list_free(rr_list);       
+    
+    gnomebaker_show_busy_cursor(FALSE);
+}
+
+
+void
+audiocd_clear()
+{
+    GB_LOG_FUNC
+    
+    gnomebaker_show_busy_cursor(TRUE);
+    
+    GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
+    GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));    
+    gtk_list_store_clear(GTK_LIST_STORE(filemodel));
+    
+    GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
+    
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), _("0 mins 0 secs"));
+    gnomebaker_enable_widget(widget_audiocd_create, FALSE);
+    
+    gnomebaker_show_busy_cursor(FALSE); 
+}
+
+
+void
+audiocd_new()
+{
+    GB_LOG_FUNC
+    
+    GtkTreeView *filelist = 
+        GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree));
+    g_return_if_fail(filelist != NULL);
+    
+    /* Create the list store for the file list */
+    GtkListStore *store = gtk_list_store_new(AUDIOCD_NUM_COLS, 
+        GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, /*G_TYPE_ULONG,*/
+        G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+    gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
+    g_object_unref(store);
+
+    /* One column which has an icon renderer and text renderer packed in */
+    GtkTreeViewColumn *col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(col, _("Track"));
+    GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_tree_view_column_pack_start(col, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", AUDIOCD_COL_ICON, NULL);
+    
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_FILE, NULL);
+    gtk_tree_view_append_column(filelist, col);
+
+    /* Second column to display the duration*/
+    col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(col, _("Duration"));
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_DURATION, NULL);
+    gtk_tree_view_append_column(filelist, col);
+    
+    /* Third column to display the size 
+    col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(col, "Size");
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_SIZE, NULL);
+    gtk_tree_view_append_column(filelist, col);*/
+        
+    /* column to display the artist */
+    col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(col, _("Artist"));
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ARTIST, NULL);
+    gtk_tree_view_append_column(filelist, col);
+    
+    /* column to display the album */
+    col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(col, _("Album"));
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ALBUM, NULL);
+    gtk_tree_view_append_column(filelist, col);
+    
+    /* column to display the title */
+    col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(col, _("Title"));
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_TITLE, NULL);
+    gtk_tree_view_append_column(filelist, col);
+    
+    /* Set the selection mode of the file list */
+    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist), GTK_SELECTION_MULTIPLE);
+
+    /* Enable the file list as a drag destination */    
+    gtk_drag_dest_set(GTK_WIDGET(filelist), GTK_DEST_DEFAULT_ALL,
+        targetentries, 3, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+
+    /* Connect the function to handle the drag data */
+    g_signal_connect(filelist, "drag_data_received",
+    G_CALLBACK(audiocd_on_drag_data_received), store);
+    
+    /* connect the signal to handle right click */
+    g_signal_connect (G_OBJECT(filelist), "button-press-event",
+        G_CALLBACK(audiocd_on_button_pressed), NULL);
+        
+    g_signal_connect(G_OBJECT(filelist), "row-activated", 
+        G_CALLBACK(audiocd_on_list_dbl_click), NULL);
+        
+    GtkWidget* optmenu = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_size);
+    gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(optmenu), audiodisksizes, 
+        (sizeof(audiodisksizes)/sizeof(DiskSize)), 2);
+}
+
