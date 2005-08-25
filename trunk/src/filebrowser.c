@@ -69,11 +69,11 @@ static const gchar *HOME_LABEL = N_("Home");
 static const gchar *EMPTY_LABEL = N_("(empty)");
 static const gchar *DIRECTORY = N_("Folder");
 
-gchar* rightclickselection = NULL;
+static gchar* rightclickselection = NULL;
 
 
 
-void 
+static void 
 filebrowser_burn_cd_image(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -81,7 +81,7 @@ filebrowser_burn_cd_image(gpointer widget, gpointer user_data)
 }
 
 
-void 
+static void 
 filebrowser_burn_dvd_image(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -89,10 +89,10 @@ filebrowser_burn_dvd_image(gpointer widget, gpointer user_data)
 }
 
 
-void 
-filebrowser_on_show_hidden_changed(GConfClient *client,
+static void 
+filebrowser_on_show_hidden_changed(GConfClient* client,
                                    guint cnxn_id,
-                                   GConfEntry *entry,
+                                   GConfEntry* entry,
                                    gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -100,10 +100,10 @@ filebrowser_on_show_hidden_changed(GConfClient *client,
 }
 
 
-void
-filebrowser_on_show_humansize_changed(GConfClient *client,
+static void
+filebrowser_on_show_humansize_changed(GConfClient* client,
                                    guint cnxn_id,
-								   GConfEntry *entry,
+								   GConfEntry* entry,
 								   gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -126,7 +126,7 @@ filebrowser_on_show_humansize_changed(GConfClient *client,
 }
 
 
-GString* 
+static GString* 
 filebrowser_build_path(GtkTreeModel* model, GtkTreeIter* iter)
 {
 	GB_LOG_FUNC
@@ -181,9 +181,9 @@ filebrowser_build_path(GtkTreeModel* model, GtkTreeIter* iter)
 }
 
 
-gint
-filebrowser_list_sortfunc(GtkTreeModel *model, GtkTreeIter *a,
-                           GtkTreeIter *b, gpointer user_data)
+static gint
+filebrowser_list_sortfunc(GtkTreeModel* model, GtkTreeIter* a,
+                           GtkTreeIter* b, gpointer user_data)
 {
 	gchar *aname = NULL, *amime = NULL, *bname = NULL, *bmime = NULL;
 	gtk_tree_model_get (model, a, FL_COL_NAME, &aname, FL_COL_TYPE, &amime, -1);
@@ -209,7 +209,7 @@ filebrowser_list_sortfunc(GtkTreeModel *model, GtkTreeIter *a,
 }
 
 
-void 
+static void 
 filebrowser_populate(GtkTreeModel* treemodel,
 					GtkTreeIter* iter, 
 					GtkTreeView* treeview,
@@ -371,10 +371,8 @@ filebrowser_populate(GtkTreeModel* treemodel,
 }
 
 
-void
-filebrowser_sel_changed(
-    GtkTreeSelection * selection,
-    gpointer userdata)
+static void
+filebrowser_sel_changed(GtkTreeSelection* selection, gpointer userdata)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(selection != NULL);
@@ -405,11 +403,9 @@ filebrowser_sel_changed(
 }
 
 
-void        
-filebrowser_on_tree_expanding(GtkTreeView *treeview,
-				GtkTreeIter *iter,
-				GtkTreePath *path,
-				gpointer user_data)
+static void        
+filebrowser_on_tree_expanding(GtkTreeView* treeview, GtkTreeIter* iter,
+				            GtkTreePath* path, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(treeview != NULL);
@@ -422,8 +418,8 @@ filebrowser_on_tree_expanding(GtkTreeView *treeview,
 }
 
 
-gchar* 
-filebrowser_build_filename(GtkTreeModel *filemodel, GtkTreeIter *iter)
+static gchar* 
+filebrowser_build_filename(GtkTreeModel* filemodel, GtkTreeIter* iter)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(filemodel != NULL, NULL);
@@ -449,11 +445,9 @@ filebrowser_build_filename(GtkTreeModel *filemodel, GtkTreeIter *iter)
 }
 
 
-void
-filebrowser_foreach_fileselection(GtkTreeModel *filemodel,
-			  GtkTreePath *path,
-			  GtkTreeIter *iter,
-			  gpointer userdata)
+static void
+filebrowser_foreach_fileselection(GtkTreeModel* filemodel, GtkTreePath* path,
+			                     GtkTreeIter* iter, gpointer userdata)
 {
 	GB_LOG_FUNC	
 	g_return_if_fail(userdata != NULL);
@@ -468,28 +462,10 @@ filebrowser_foreach_fileselection(GtkTreeModel *filemodel,
 }
 
 
-void 
-filebrowser_refresh (void)
-{
-	GB_LOG_FUNC
-	GladeXML *xml = gnomebaker_getxml();
-	g_return_if_fail(xml != NULL);
-	GtkWidget *dirtree = glade_xml_get_widget(xml, widget_browser_dirtree);
-	g_return_if_fail(dirtree != NULL);
-	GtkWidget *filelist =  glade_xml_get_widget(xml, widget_browser_filelist);
-	g_return_if_fail(filelist != NULL);
-	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(dirtree));
-	g_return_if_fail(sel != NULL);
-	
-	g_signal_emit_by_name (sel, "changed", sel, filelist);
-}
-
-
-void
-filebrowser_on_drag_data_get (GtkWidget * widget,
-			      GdkDragContext * context,
-			      GtkSelectionData * selection_data,
-			      guint info, guint time, gpointer data)
+static void
+filebrowser_on_drag_data_get(GtkWidget* widget, GdkDragContext* context,
+			                 GtkSelectionData* selection_data,
+			                 guint info, guint time, gpointer data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(widget != NULL);
@@ -527,24 +503,7 @@ filebrowser_on_drag_data_get (GtkWidget * widget,
 }
 
 
-GtkSelectionData* 
-filebrowser_get_selection(gboolean fromtree)
-{
-	GB_LOG_FUNC
-	
-	GtkWidget* tree = NULL;
-	if(fromtree)
-		tree = glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree);
-	else
-		tree = glade_xml_get_widget(gnomebaker_getxml(), widget_browser_filelist);
-	
-	GtkSelectionData* selection_data = g_new0(GtkSelectionData, 1);	
-	filebrowser_on_drag_data_get(tree, NULL, selection_data, 0, 0, NULL);
-	return selection_data;
-}
-
-
-void 
+static void 
 filebrowser_select_directory(const gchar* directory)
 {
 	GtkTreeView* dirtree = 
@@ -582,7 +541,7 @@ filebrowser_select_directory(const gchar* directory)
 }
 
 
-void 
+static void 
 filebrowser_on_open(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC	
@@ -593,8 +552,8 @@ filebrowser_on_open(gpointer widget, gpointer user_data)
 }
 
 
-gboolean
-filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+static gboolean
+filebrowser_on_button_pressed(GtkWidget* widget, GdkEventButton* event, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(widget != NULL, FALSE);	
@@ -659,7 +618,7 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 }
 
 
-void 
+static void 
 filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
                        	      GtkTreeViewColumn* col, gpointer userdata)
 {
@@ -685,7 +644,7 @@ filebrowser_on_list_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 }
 
 
-void 
+static void 
 filebrowser_on_tree_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
                        	      GtkTreeViewColumn* col, gpointer userdata)
 {
@@ -700,10 +659,8 @@ filebrowser_on_tree_dbl_click(GtkTreeView* treeview, GtkTreePath* path,
 }
 
 
-void
-filebrowser_setup_tree(
-    GtkTreeView * dirtree,
-    GtkTreeView * filelist)
+static void
+filebrowser_setup_tree(GtkTreeView* dirtree, GtkTreeView* filelist)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(dirtree != NULL);
@@ -764,7 +721,7 @@ filebrowser_setup_tree(
 
 	/* Connect up the changed signal so we can populate the file list according
 	   to the selection in the dir tree */
-	sel_changed_id =g_signal_connect((gpointer) selection, "changed",
+	sel_changed_id = g_signal_connect((gpointer) selection, "changed",
 		G_CALLBACK(filebrowser_sel_changed), filelist);
 				
 	g_signal_connect((gpointer) dirtree, "row-expanded",
@@ -794,9 +751,8 @@ filebrowser_setup_tree(
 }
 
 
-void
-filebrowser_setup_list(
-    GtkTreeView * filelist)
+static void
+filebrowser_setup_list(GtkTreeView* filelist)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(filelist != NULL);
@@ -883,6 +839,40 @@ filebrowser_setup_list(
 		
 	g_signal_connect(G_OBJECT(filelist), "row-activated", 
 		G_CALLBACK(filebrowser_on_list_dbl_click), NULL);
+}
+
+
+void 
+filebrowser_refresh()
+{
+    GB_LOG_FUNC
+    GladeXML *xml = gnomebaker_getxml();
+    g_return_if_fail(xml != NULL);
+    GtkWidget *dirtree = glade_xml_get_widget(xml, widget_browser_dirtree);
+    g_return_if_fail(dirtree != NULL);
+    GtkWidget *filelist =  glade_xml_get_widget(xml, widget_browser_filelist);
+    g_return_if_fail(filelist != NULL);
+    GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(dirtree));
+    g_return_if_fail(sel != NULL);
+    
+    g_signal_emit_by_name (sel, "changed", sel, filelist);
+}
+
+
+GtkSelectionData* 
+filebrowser_get_selection(gboolean fromtree)
+{
+    GB_LOG_FUNC
+    
+    GtkWidget* tree = NULL;
+    if(fromtree)
+        tree = glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree);
+    else
+        tree = glade_xml_get_widget(gnomebaker_getxml(), widget_browser_filelist);
+    
+    GtkSelectionData* selection_data = g_new0(GtkSelectionData, 1); 
+    filebrowser_on_drag_data_get(tree, NULL, selection_data, 0, 0, NULL);
+    return selection_data;
 }
 
 

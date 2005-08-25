@@ -38,10 +38,10 @@ static const gint DEVICELIST_WRITE_DVDRAM = 8;
 static const gint DEVICELIST_NUM_COLS = 9;
 
 
-GladeXML* prefsdlg_xml = NULL;
+static GladeXML* prefsdlg_xml = NULL;
 
 
-void
+static void
 prefsdlg_device_cell_edited(GtkCellRendererText *cell,
 							gchar* path_string,
 							gchar* new_text,
@@ -76,7 +76,7 @@ prefsdlg_device_cell_edited(GtkCellRendererText *cell,
 }
 
 
-void
+static void
 prefsdlg_device_capability_edited(GtkCellRendererToggle *cell,
                                    gchar *path, gpointer user_data)
 {
@@ -108,7 +108,7 @@ prefsdlg_device_capability_edited(GtkCellRendererToggle *cell,
 }
 
 
-void 
+static void 
 prefsdlg_create_device_list()
 {
 	GB_LOG_FUNC
@@ -208,7 +208,7 @@ prefsdlg_create_device_list()
 }
 
 
-gboolean
+static gboolean
 prefsdlg_foreach_device(GtkTreeModel *devicemodel,
 					  GtkTreePath *path,
 					  GtkTreeIter *iter,
@@ -250,7 +250,7 @@ prefsdlg_foreach_device(GtkTreeModel *devicemodel,
 }
 
 	
-void 
+static void 
 prefsdlg_on_ok(GtkButton* button, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -285,7 +285,7 @@ prefsdlg_on_ok(GtkButton* button, gpointer user_data)
 }
 
 
-void 
+static void 
 prefsdlg_populate_device_list()
 {	
 	GB_LOG_FUNC
@@ -346,7 +346,7 @@ prefsdlg_populate_device_list()
 }
 
 
-void
+static void
 prefsdlg_clear_device_list()
 {
 	GB_LOG_FUNC
@@ -360,7 +360,7 @@ prefsdlg_clear_device_list()
 }
 
 
-void 
+void /* libglade callback */
 prefsdlg_on_scan(GtkButton * button, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -375,7 +375,7 @@ prefsdlg_on_scan(GtkButton * button, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 prefsdlg_on_add(GtkButton * button, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -396,7 +396,7 @@ prefsdlg_on_add(GtkButton * button, gpointer user_data)
 }
 
 
-gboolean
+gboolean /* libglade callback */
 prefsdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data)
 {
 	GB_LOG_FUNC

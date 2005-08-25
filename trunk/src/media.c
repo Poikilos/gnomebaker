@@ -28,7 +28,7 @@
 GSList *media_registered_plugins = NULL;
 
 
-PluginInfo* 
+static PluginInfo* 
 media_create_plugin_info(const gchar* mimetype,const gchar* pluginname)
 {
 	GB_LOG_FUNC
@@ -43,100 +43,7 @@ media_create_plugin_info(const gchar* mimetype,const gchar* pluginname)
 }
 
 
-void 
-media_register_plugins(void)
-{
-	GB_LOG_FUNC
-	
-	if(media_registered_plugins)
-		g_slist_free(media_registered_plugins);
-	
-	media_registered_plugins = g_slist_alloc();
-	PluginInfo* info = media_create_plugin_info("application/x-id3","mad");
-	PluginInfo* info2 = media_create_plugin_info("audio/mpeg","mad");
-	PluginInfo* info3 = media_create_plugin_info("audio/x-mp3","mad");
-	GstElement* element;		
-	if((element = gst_element_factory_make("mad","mad")) != NULL)
-	{
-		info->status = INSTALLED;
-		info2->status = INSTALLED;
-		info3->status = INSTALLED;
-		gst_object_unref (GST_OBJECT (element));
-		element = NULL;
-	}
-	media_registered_plugins = g_slist_append(media_registered_plugins,info);
-	media_registered_plugins = g_slist_append(media_registered_plugins,info2);
-	media_registered_plugins = g_slist_append(media_registered_plugins,info3);
-
-	info = media_create_plugin_info("application/ogg","vorbisdec");
-	
-	if((element = gst_element_factory_make("vorbisdec","vorbisdec")) != NULL)
-	{
-		/*TODO: do we need to check for oggdemux/parse? */
-		info->status = INSTALLED;
-		gst_object_unref (GST_OBJECT (element));
-		element = NULL;
-	}
-	media_registered_plugins = g_slist_append(media_registered_plugins,info);
-	
-	info = media_create_plugin_info("application/x-flac","flacdec");
-    info2 = media_create_plugin_info("audio/x-flac","flacdec");
-	if((element = gst_element_factory_make("flacdec","flacdec")) != NULL)
-	{
-		info->status = INSTALLED;
-        info2->status = INSTALLED;
-		gst_object_unref (GST_OBJECT (element));
-		element = NULL;
-	}
-	media_registered_plugins = g_slist_append(media_registered_plugins,info);
-    media_registered_plugins = g_slist_append(media_registered_plugins,info2);
-	/*
-	TODO: get info for the monkey plugin
-	if((element = gst_element_factory_make("monkeysaudio","monkeysaudio")) != NULL)
-	{
-		PluginInfo* info = g_new (PluginInfo,1);
-		info->mimetype = g_string_new("application/x-ape");
-		info->gst_plugin_name = g_string_new("monkeysaudio");
-		g_slist_append(media_registered_plugins,info);
-		gst_object_unref (GST_OBJECT (element));
-		element = NULL;
-	}
-	*/
-	info = media_create_plugin_info("application/x-mod","modplug");
-	if((element = gst_element_factory_make("modplug","modplug")) != NULL)
-	{
-		info->status = INSTALLED;
-		gst_object_unref (GST_OBJECT (element));
-		element = NULL;
-	}
-	media_registered_plugins = g_slist_append(media_registered_plugins,info);
-	
-	info = media_create_plugin_info("application/x-wav","wavparse");
-	info2 = media_create_plugin_info("audio/x-wav","wavparse");
-	if((element = gst_element_factory_make("wavparse","wavparse")) != NULL)
-	{
-		info->status = INSTALLED;
-		info2->status = INSTALLED;
-		gst_object_unref (GST_OBJECT (element));
-		element = NULL;
-	}
-	media_registered_plugins = g_slist_append(media_registered_plugins,info);
-	media_registered_plugins = g_slist_append(media_registered_plugins,info2);
-	
-	info = media_create_plugin_info("video/x-ms-asf","ffdec_wmav1");
-	if((element = gst_element_factory_make("ffdec_wmav1","ffdec_wmav1")) != NULL)
-	{
-		/* yes, indeed a weird mimetype */
-		info->status = INSTALLED;
-		/*TODO: what about ffdec_wmav2?*/
-		gst_object_unref (GST_OBJECT (element));
-		element = NULL;
-	}
-	media_registered_plugins = g_slist_append(media_registered_plugins,info);
-}
-
-
-void 
+static void 
 media_info_get_wav_info(MediaInfo* self, const gchar* wavfile)
 {
     GB_LOG_FUNC
@@ -195,7 +102,7 @@ media_info_get_wav_info(MediaInfo* self, const gchar* wavfile)
 }
 
 
-void 
+static void 
 media_info_set_formatted_length(MediaInfo* info) 
 {
     GB_LOG_FUNC
@@ -263,7 +170,7 @@ media_fakesink_tag(GObject *pipeline, GstElement *source, GstTagList *tags, Medi
 }
 
 
-void
+static void
 media_info_get_mediafile_info(MediaInfo* self, const gchar* mediafile)
 {
     GB_LOG_FUNC
@@ -323,46 +230,102 @@ media_info_get_mediafile_info(MediaInfo* self, const gchar* mediafile)
     g_object_unref(pipeline);
 }
 
-gboolean 
-media_info_init(MediaInfo* self)
-{
-    GB_LOG_FUNC
-    g_return_val_if_fail(NULL != self, FALSE);
-    
-    self->status = NOT_INSTALLED;
-    self->mimetype = NULL;
-    self->artist = g_string_new("");
-    self->album = g_string_new("");
-    self->title = g_string_new("");
-    self->duration = 0;
-    self->filesize = 0;
-    self->bitrate = 0;
-    self->formattedduration = g_string_new("");
-    
-    return TRUE;
-}
 
-
-MediaInfo* 
-media_info_new()
+void 
+media_register_plugins()
 {
     GB_LOG_FUNC
     
-    MediaInfo* self = g_new0(MediaInfo, 1);
-    if(NULL != self)
+    if(media_registered_plugins)
+        g_slist_free(media_registered_plugins);
+    
+    media_registered_plugins = g_slist_alloc();
+    PluginInfo* info = media_create_plugin_info("application/x-id3","mad");
+    PluginInfo* info2 = media_create_plugin_info("audio/mpeg","mad");
+    PluginInfo* info3 = media_create_plugin_info("audio/x-mp3","mad");
+    GstElement* element;        
+    if((element = gst_element_factory_make("mad","mad")) != NULL)
     {
-        if(!media_info_init(self))
-        {
-            g_free(self);
-            self = NULL;
-        }
+        info->status = INSTALLED;
+        info2->status = INSTALLED;
+        info3->status = INSTALLED;
+        gst_object_unref (GST_OBJECT (element));
+        element = NULL;
     }
-    return self;
+    media_registered_plugins = g_slist_append(media_registered_plugins,info);
+    media_registered_plugins = g_slist_append(media_registered_plugins,info2);
+    media_registered_plugins = g_slist_append(media_registered_plugins,info3);
+
+    info = media_create_plugin_info("application/ogg","vorbisdec");
+    
+    if((element = gst_element_factory_make("vorbisdec","vorbisdec")) != NULL)
+    {
+        /*TODO: do we need to check for oggdemux/parse? */
+        info->status = INSTALLED;
+        gst_object_unref (GST_OBJECT (element));
+        element = NULL;
+    }
+    media_registered_plugins = g_slist_append(media_registered_plugins,info);
+    
+    info = media_create_plugin_info("application/x-flac","flacdec");
+    info2 = media_create_plugin_info("audio/x-flac","flacdec");
+    if((element = gst_element_factory_make("flacdec","flacdec")) != NULL)
+    {
+        info->status = INSTALLED;
+        info2->status = INSTALLED;
+        gst_object_unref (GST_OBJECT (element));
+        element = NULL;
+    }
+    media_registered_plugins = g_slist_append(media_registered_plugins,info);
+    media_registered_plugins = g_slist_append(media_registered_plugins,info2);
+    /*
+    TODO: get info for the monkey plugin
+    if((element = gst_element_factory_make("monkeysaudio","monkeysaudio")) != NULL)
+    {
+        PluginInfo* info = g_new (PluginInfo,1);
+        info->mimetype = g_string_new("application/x-ape");
+        info->gst_plugin_name = g_string_new("monkeysaudio");
+        g_slist_append(media_registered_plugins,info);
+        gst_object_unref (GST_OBJECT (element));
+        element = NULL;
+    }
+    */
+    info = media_create_plugin_info("application/x-mod","modplug");
+    if((element = gst_element_factory_make("modplug","modplug")) != NULL)
+    {
+        info->status = INSTALLED;
+        gst_object_unref (GST_OBJECT (element));
+        element = NULL;
+    }
+    media_registered_plugins = g_slist_append(media_registered_plugins,info);
+    
+    info = media_create_plugin_info("application/x-wav","wavparse");
+    info2 = media_create_plugin_info("audio/x-wav","wavparse");
+    if((element = gst_element_factory_make("wavparse","wavparse")) != NULL)
+    {
+        info->status = INSTALLED;
+        info2->status = INSTALLED;
+        gst_object_unref (GST_OBJECT (element));
+        element = NULL;
+    }
+    media_registered_plugins = g_slist_append(media_registered_plugins,info);
+    media_registered_plugins = g_slist_append(media_registered_plugins,info2);
+    
+    info = media_create_plugin_info("video/x-ms-asf","ffdec_wmav1");
+    if((element = gst_element_factory_make("ffdec_wmav1","ffdec_wmav1")) != NULL)
+    {
+        /* yes, indeed a weird mimetype */
+        info->status = INSTALLED;
+        /*TODO: what about ffdec_wmav2?*/
+        gst_object_unref (GST_OBJECT (element));
+        element = NULL;
+    }
+    media_registered_plugins = g_slist_append(media_registered_plugins,info);
 }
 
 
 void 
-media_info_end(MediaInfo* self)
+media_info_delete(MediaInfo* self)
 {
     GB_LOG_FUNC
     g_return_if_fail(NULL != self);
@@ -375,28 +338,27 @@ media_info_end(MediaInfo* self)
     self->filesize = 0;
     self->bitrate = 0;
     g_string_free(self->formattedduration, TRUE);
-}
-
-
-void 
-media_info_delete(MediaInfo* self)
-{
-    GB_LOG_FUNC
-    g_return_if_fail(NULL != self);
-    
-    media_info_end(self);
     g_free(self);
 }
 
 
 MediaInfo*  
-media_get_info(const gchar* mediafile)
+media_info_new(const gchar* mediafile)
 {
     GB_LOG_FUNC 
     g_return_val_if_fail(mediafile != NULL, NULL);
     
-    MediaInfo* info = media_info_new();
+    MediaInfo* info = g_new0(MediaInfo, 1);
+    info->status = NOT_INSTALLED;
+    info->artist = g_string_new("");
+    info->album = g_string_new("");
+    info->title = g_string_new("");
+    info->duration = 0;
+    info->filesize = 0;
+    info->bitrate = 0;
+    info->formattedduration = g_string_new("");    
     info->mimetype = gbcommon_get_mime_type(mediafile);
+    
     GSList* node = media_registered_plugins;
     for(; node != NULL; node = node->next)
     {

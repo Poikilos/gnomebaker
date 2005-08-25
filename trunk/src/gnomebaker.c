@@ -40,7 +40,7 @@
 GladeXML *xml = NULL;
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_show_file_browser(GtkCheckMenuItem *checkmenuitem, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -58,7 +58,7 @@ gnomebaker_on_show_file_browser(GtkCheckMenuItem *checkmenuitem, gpointer user_d
 }
 
 
-void 
+static void 
 gnomebaker_on_toolbar_style_changed(GConfClient *client,
                                    guint cnxn_id,
                                    GConfEntry *entry,
@@ -604,6 +604,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
         default:{}
     };
 }
+
 
 void 
 gnomebaker_on_up(gpointer widget, gpointer user_data)

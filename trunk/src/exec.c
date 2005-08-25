@@ -31,149 +31,10 @@
 #include "gbcommon.h"
 
 
-gint child_child_pipe[2];
+static gint child_child_pipe[2];
 
 
-gboolean
-exec_init(Exec * self, const gint cmds)
-{
-	GB_LOG_FUNC
-	g_return_val_if_fail(self != NULL, FALSE);
-	
-	gbcommon_memset(self, sizeof(Exec));
-	
-	gint i = 0;
-	for(; i < cmds; i++)
-		exec_add_cmd(self);
-
-	return TRUE;
-}
-
-
-void
-exec_cmd_init(ExecCmd * e)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(e != NULL);
-	
-	e->argc = 1;
-	e->argv = g_malloc(sizeof(gchar*));
-	e->argv[0] = NULL;
-	e->pid = 0;
-	e->exitCode = 0;
-	e->state = RUNNABLE;
-    e->libProc = NULL;
-	e->preProc = NULL;
-	e->readProc = NULL;
-	e->postProc = NULL;
-    e->mutex = g_mutex_new();
-    e->cond = g_cond_new();
-    e->workingdir = NULL;
-}
-
-
-ExecCmd* 
-exec_add_cmd(Exec* self)
-{
-	GB_LOG_FUNC	
-	g_return_val_if_fail(self != NULL, NULL);
-	
-	self->cmds = g_realloc(self->cmds, (++self->cmdCount) * sizeof(ExecCmd));
-	ExecCmd* execcmd = &(self->cmds[self->cmdCount - 1]);
-	exec_cmd_init(execcmd);
-	return execcmd;
-}
-
-
-void
-exec_cmd_end(ExecCmd * e)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(e != NULL);
-	
-	gint i = 0;
-	for(; i < e->argc; i++)
-		g_free(e->argv[i]);
-	g_cond_free(e->cond);
-    g_mutex_free(e->mutex);
-	g_free(e->argv);
-    g_free(e->workingdir);
-}
-
-
-void
-exec_cmd_add_arg(ExecCmd * const e, const gchar * const format,
-		  		 const gchar * const value)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(e != NULL);
-	g_return_if_fail(format != NULL);
-	g_return_if_fail(value != NULL);
-
-	e->argv = g_realloc(e->argv, (++e->argc) * sizeof(gchar*));	
-	e->argv[e->argc - 2] = g_strdup_printf(format, value);
-	e->argv[e->argc - 1] = NULL;
-}
-
-
-void 
-exec_cmd_lock(ExecCmd* e)
-{
-    GB_LOG_FUNC 
-    g_mutex_lock(e->mutex);
-}
-
-
-void 
-exec_cmd_unlock(ExecCmd* e)
-{
-    GB_LOG_FUNC
-    g_mutex_unlock(e->mutex);
-}
-
-
-gboolean 
-exec_cmd_wait_for_signal(ExecCmd* e, guint timeinseconds)
-{
-    GB_LOG_FUNC
-    
-    GB_DECLARE_STRUCT(GTimeVal, time);
-    exec_cmd_lock(e);    
-    g_get_current_time(&time);
-    g_time_val_add(&time, timeinseconds * G_USEC_PER_SEC);
-    gboolean signalled = g_cond_timed_wait(e->cond, e->mutex, &time);
-    exec_cmd_unlock(e);    
-    return signalled;
-}
-
-
-ExecState 
-exec_cmd_get_state(ExecCmd* e) 
-{
-    GB_LOG_FUNC
-    exec_cmd_lock(e);
-    ExecState ret = e->state;
-    exec_cmd_unlock(e);
-    return ret;
-}
-
-
-ExecState 
-exec_cmd_set_state(ExecCmd* e, ExecState state, gboolean signal) 
-{
-    GB_LOG_FUNC
-    exec_cmd_lock(e);
-    if(e->state != CANCELLED)
-        e->state = state;
-    ExecState ret = e->state;
-    if(signal)
-        g_cond_broadcast(e->cond);
-    exec_cmd_unlock(e);
-    return ret;
-}
-
-
-void
+static void
 exec_print_cmd(const ExecCmd* e)
 {
 	if(showtrace)
@@ -186,7 +47,7 @@ exec_print_cmd(const ExecCmd* e)
 }
 
 
-gboolean 
+static gboolean 
 exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data)
 {   
     GB_LOG_FUNC
@@ -226,9 +87,9 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
     if (cont == FALSE || condition & G_IO_HUP || condition & G_IO_ERR || condition & G_IO_NVAL) 
     {
         GB_TRACE("exec_channel_callback - condition [%d]", condition);
-        exec_cmd_lock(cmd);
+        g_mutex_lock(cmd->mutex);
         g_cond_broadcast(cmd->cond);
-        exec_cmd_unlock(cmd);
+        g_mutex_unlock(cmd->mutex);
         cont = FALSE;
     }
     
@@ -236,7 +97,7 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
 }
 
 
-void
+static void
 exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gboolean read, GThreadFunc func)
 {
 	GB_LOG_FUNC
@@ -245,10 +106,10 @@ exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gbool
 	
 	exec_print_cmd(e);
 	gint stdout = 0, stderr = 0;		
-	exec_cmd_lock(e);
+	g_mutex_lock(e->mutex);
 	gboolean ok = g_spawn_async_with_pipes(NULL, e->argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_DO_NOT_REAP_CHILD , 
         child_setup, e, &e->pid, NULL, &stdout, &stderr, &ex->err);	
-    exec_cmd_unlock(e);
+    g_mutex_unlock(e->mutex);
 	if(ok)
 	{
 		GB_TRACE("exec_spawn_process - spawed process with pid [%d]", e->pid);
@@ -278,7 +139,7 @@ exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gbool
 		
 		/* wait until we're told that the process is complete or cancelled */	
 		int retcode = 0;
-		exec_cmd_lock(e);
+		g_mutex_lock(e->mutex);
 		while((waitpid(e->pid, &retcode, WNOHANG)) != -1)
 		{
             GB_DECLARE_STRUCT(GTimeVal, time);
@@ -290,14 +151,14 @@ exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gbool
 		/* If the process was cancelled then we kill of the child */
 		if(e->state == CANCELLED)
 			kill(e->pid, SIGKILL);			
-		exec_cmd_unlock(e);
+		g_mutex_unlock(e->mutex);
 		
 		/* Reap the child so we don't get a zombie */
         waitpid(e->pid, &retcode, 0);
         
-        exec_cmd_lock(e);
+        g_mutex_lock(e->mutex);
         e->exitCode = retcode;
-        exec_cmd_unlock(e);
+        g_mutex_unlock(e->mutex);
 	
 		if(read)
 		{
@@ -317,7 +178,6 @@ exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gbool
 	}
 	else
 	{
-
 		g_critical("exec_spawn_process - failed to spawn process [%d] [%s]",
 			ex->err->code, ex->err->message);			
         exec_cmd_set_state(e, FAILED, FALSE);
@@ -325,7 +185,7 @@ exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gbool
 }
 
 
-void
+static void
 exec_working_dir_setup_func(gpointer data)
 {
     GB_LOG_FUNC
@@ -336,7 +196,7 @@ exec_working_dir_setup_func(gpointer data)
 }
 
 
-void
+static void
 exec_stdout_setup_func(gpointer data)
 {
 	GB_LOG_FUNC
@@ -347,7 +207,7 @@ exec_stdout_setup_func(gpointer data)
 }
 
 
-void
+static void
 exec_stdin_setup_func(gpointer data)
 {
 	GB_LOG_FUNC	
@@ -358,7 +218,7 @@ exec_stdin_setup_func(gpointer data)
 }
 
 
-gpointer
+static gpointer
 exec_run_remainder(gpointer data)
 {
 	GB_LOG_FUNC
@@ -384,7 +244,7 @@ exec_run_remainder(gpointer data)
 }
 
 
-gpointer
+static gpointer
 exec_thread_gspawn_otf(gpointer data)
 {
 	GB_LOG_FUNC
@@ -411,7 +271,7 @@ exec_thread_gspawn_otf(gpointer data)
 }
 
 
-gpointer
+static gpointer
 exec_thread_gspawn(gpointer data)
 {
     GB_LOG_FUNC
@@ -448,95 +308,56 @@ exec_thread_gspawn(gpointer data)
 }
 
 
-GThread*
-exec_go(Exec * const e, gboolean onthefly)
+static void
+exec_cmd_delete(ExecCmd * e)
 {
-	GB_LOG_FUNC
-	g_return_val_if_fail(e != NULL, NULL);
-	
-	GThread* thread = g_thread_create(onthefly ? exec_thread_gspawn_otf: exec_thread_gspawn, (gpointer) e, TRUE, &e->err);
-	if(e->err != NULL)
-	{
-		g_critical("exec_go - failed to create thread [%d] [%s]",
-			   e->err->code, e->err->message);                              
-	}
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);
 
-	return thread;
+    g_strfreev(e->argv);
+    g_cond_free(e->cond);
+    g_mutex_free(e->mutex);    
+    g_free(e->workingdir);
 }
 
 
-void
-exec_cancel(const Exec * const e)
+static ExecCmd* 
+exec_cmd_new(Exec* self)
 {
-	GB_LOG_FUNC
-	g_return_if_fail(e != NULL);
-
-	gint j = 0;
-	for(; j < e->cmdCount; j++)
-        exec_cmd_set_state(&e->cmds[j], CANCELLED, TRUE);
-	GB_TRACE("exec_cancel - complete");
-}
-
-
-GString* 
-exec_run_cmd(const gchar* cmd)
-{
-	GB_LOG_FUNC
-	GB_TRACE("exec_run_cmd - %s", cmd);
-	g_return_val_if_fail(cmd != NULL, NULL);
-	
-	GString* ret = NULL;	
-	gchar* stdout = NULL;
-	gchar* stderr = NULL;
-	gint status = 0;
-	GError* error = NULL;
-	
-	if(g_spawn_command_line_sync(cmd, &stdout, &stderr, &status, &error))
-	{
-		ret = g_string_new(stdout);	
-		g_string_append(ret, stderr);
-		
-		g_free(stdout);
-		g_free(stderr);		
-		/*GB_TRACE(ret->str);*/
-	}
-	else if(error != NULL)
-	{		
-		g_critical("error [%s] spawning command [%s]", error->message, cmd);		
-		g_error_free(error);
-	}
-	else
-	{
-		g_critical("Unknown error spawning command [%s]", cmd);		
-	}
-	
-	return ret;
-}
-
-
-void
-exec_end(Exec * self)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(self != NULL);
-	
-	gint j = 0;
-	for(; j < self->cmdCount; j++)
-		exec_cmd_end(&self->cmds[j]);
-
-	g_free(self->cmds);
-	if(self->err != NULL)
-		g_error_free(self->err);
+    GB_LOG_FUNC 
+    g_return_val_if_fail(self != NULL, NULL);
+    
+    self->cmds = g_realloc(self->cmds, (++self->cmdCount) * sizeof(ExecCmd));
+    ExecCmd* e = &(self->cmds[self->cmdCount - 1]);
+    e->argc = 1;
+    e->argv = g_malloc(sizeof(gchar*));
+    e->argv[0] = NULL;
+    e->pid = 0;
+    e->exitCode = 0;
+    e->state = RUNNABLE;
+    e->libProc = NULL;
+    e->preProc = NULL;
+    e->readProc = NULL;
+    e->postProc = NULL;
+    e->mutex = g_mutex_new();
+    e->cond = g_cond_new();
+    e->workingdir = NULL;
+    return e;
 }
 
 
 void
 exec_delete(Exec * self)
 {
-	GB_LOG_FUNC
-	g_return_if_fail(NULL != self);
-	exec_end(self);
-	g_free(self);
+    GB_LOG_FUNC
+    g_return_if_fail(NULL != self);
+    gint j = 0;
+    for(; j < self->cmdCount; j++)
+        exec_cmd_delete(&self->cmds[j]);
+    g_free(self->cmds);
+    if(self->err != NULL)
+        g_error_free(self->err);
+    g_free(self);
 }
 
 
@@ -545,16 +366,132 @@ exec_new(const gint cmds)
 {
 	GB_LOG_FUNC
 	
-	Exec* self = g_new(Exec, 1);
-	g_return_val_if_fail(self != NULL, NULL);
-
-	if(!exec_init(self, cmds))
-	{
-		g_free(self->cmds);
-		g_free(self);
-		self = NULL;
-	}
-	
+	Exec* self = g_new0(Exec, 1);
+	g_return_val_if_fail(self != NULL, NULL);    
+    gint i = 0;
+    for(; i < cmds; i++)
+        exec_cmd_new(self);	
+    self->onthefly = FALSE;
 	return self;
 }
 
+
+void
+exec_cmd_add_arg(ExecCmd* e, const gchar* format, const gchar* value)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);
+    g_return_if_fail(format != NULL);
+    g_return_if_fail(value != NULL);
+
+    e->argv = g_realloc(e->argv, (++e->argc) * sizeof(gchar*)); 
+    e->argv[e->argc - 2] = g_strdup_printf(format, value);
+    e->argv[e->argc - 1] = NULL;
+}
+
+
+gboolean 
+exec_cmd_wait_for_signal(ExecCmd* e, guint timeinseconds)
+{
+    GB_LOG_FUNC
+    
+    GB_DECLARE_STRUCT(GTimeVal, time);
+    g_mutex_lock(e->mutex);    
+    g_get_current_time(&time);
+    g_time_val_add(&time, timeinseconds * G_USEC_PER_SEC);
+    gboolean signalled = g_cond_timed_wait(e->cond, e->mutex, &time);
+    g_mutex_unlock(e->mutex);    
+    return signalled;
+}
+
+
+ExecState 
+exec_cmd_get_state(ExecCmd* e) 
+{
+    GB_LOG_FUNC
+    g_mutex_lock(e->mutex);
+    ExecState ret = e->state;
+    g_mutex_unlock(e->mutex);
+    return ret;
+}
+
+
+ExecState 
+exec_cmd_set_state(ExecCmd* e, ExecState state, gboolean signal) 
+{
+    GB_LOG_FUNC
+    g_mutex_lock(e->mutex);
+    if(e->state != CANCELLED)
+        e->state = state;
+    ExecState ret = e->state;
+    if(signal)
+        g_cond_broadcast(e->cond);
+    g_mutex_unlock(e->mutex);
+    return ret;
+}
+
+
+GThread*
+exec_go(Exec* e)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(e != NULL, NULL);
+    
+    GThread* thread = g_thread_create(e->onthefly ? exec_thread_gspawn_otf: exec_thread_gspawn, (gpointer) e, TRUE, &e->err);
+    if(e->err != NULL)
+    {
+        g_critical("exec_go - failed to create thread [%d] [%s]",
+               e->err->code, e->err->message);                              
+    }
+    return thread;
+}
+
+
+void
+exec_stop(Exec* e)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);
+    
+    gint j = 0;
+    for(; j < e->cmdCount; j++)
+        exec_cmd_set_state(&e->cmds[j], CANCELLED, TRUE);
+    
+    GB_TRACE("exec_stop - complete");
+}
+
+
+GString* 
+exec_run_cmd(const gchar* cmd)
+{
+    GB_LOG_FUNC
+    GB_TRACE("exec_run_cmd - %s", cmd);
+    g_return_val_if_fail(cmd != NULL, NULL);
+    
+    GString* ret = NULL;    
+    gchar* stdout = NULL;
+    gchar* stderr = NULL;
+    gint status = 0;
+    GError* error = NULL;
+    
+    if(g_spawn_command_line_sync(cmd, &stdout, &stderr, &status, &error))
+    {
+        ret = g_string_new(stdout); 
+        g_string_append(ret, stderr);
+        
+        g_free(stdout);
+        g_free(stderr);     
+        /*GB_TRACE(ret->str);*/
+    }
+    else if(error != NULL)
+    {       
+        g_critical("error [%s] spawning command [%s]", error->message, cmd);        
+        g_error_free(error);
+    }
+    else
+    {
+        g_critical("Unknown error spawning command [%s]", cmd);     
+    }
+    
+    return ret;
+}
