@@ -290,13 +290,16 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
                         /*AUDIOCD_COL_SIZE, info->filesize,*/
                         AUDIOCD_COL_ARTIST, info->artist->str, 
                         AUDIOCD_COL_ALBUM, info->album->str,
-                        AUDIOCD_COL_TITLE, info->title->str, -1);
+                        AUDIOCD_COL_TITLE, info->title->str, 
+                        AUDIOCD_COL_INFO, info,
+                        -1);
                 
                     g_object_unref(icon);
                     
                 }
                 else
                 {
+                    media_info_delete(info);
                     ret = FALSE;
                 }
                 break;
@@ -306,6 +309,7 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
                 gchar* buf = g_strdup_printf(_("The plugin to handle a file of type %s is not installed."), gbcommon_get_mime_description(info->mimetype));
                 gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
                 g_free(buf);
+                media_info_delete(info);
                 break;
             }
             default:
@@ -313,9 +317,9 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
                 gchar* buf = g_strdup_printf(_("There is no known plugin to handle a file of type %s."),info->mimetype);
                 gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
                 g_free(buf);
+                media_info_delete(info);
             }
         }
-		media_info_delete(info);
 	}
 	return ret;
 }
@@ -493,30 +497,11 @@ audiocd_remove()
                 GB_DECLARE_STRUCT(GtkTreeIter, iter);
                 if (gtk_tree_model_get_iter(filemodel, &iter, path))
                 {
-                    GValue value = { 0 };
-                    gtk_tree_model_get_value(filemodel, &iter, AUDIOCD_COL_DURATION, &value);
-                    
-                    /* Naff bit to turn our formatted duration back into
-                       seconds. Probably should store the AudioInfo structure
-                       against the row in the list and use that to get the 
-                        duration. */
-                    gint duration = 0;
-                    static const gint multipliers[2] = {60, 1};
-                    int index = 0;
-                    gchar* time = g_strdup(g_value_get_string(&value));
-                    const gchar* part = strtok(time, ":");
-                    while(part != NULL)
-                    {
-                        duration += multipliers[index] * atoi(part);                    
-                        part = strtok(NULL, ":");
-                        index++;
-                    }
-                    
-                    audiocd_update_progress_bar(FALSE, (gdouble)duration);                  
-                    
-                    g_free(time);
-                    g_value_unset(&value);
+                    MediaInfo* info = NULL;
+                    gtk_tree_model_get (filemodel, &iter, AUDIOCD_COL_INFO, &info, -1);
+                    audiocd_update_progress_bar(FALSE, (gdouble)info->duration);  
                     gtk_list_store_remove(GTK_LIST_STORE(filemodel), &iter);
+                    media_info_delete(info);
                 }           
                 /* FIXME/CHECK: Do we need to free the path here? */
             }
@@ -539,14 +524,24 @@ audiocd_clear()
     
     GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
     GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));    
-    gtk_list_store_clear(GTK_LIST_STORE(filemodel));
-    
     GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
     
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), _("0 mins 0 secs"));
     gnomebaker_enable_widget(widget_audiocd_create, FALSE);
-    
+
+    /* Now get each row and free the MediaInfo* we store in each */    
+    GtkTreeIter iter;
+    if(gtk_tree_model_get_iter_first(filemodel, &iter))
+    {
+        do
+        {
+            MediaInfo* info = NULL;
+            gtk_tree_model_get (filemodel, &iter, AUDIOCD_COL_INFO, &info, -1);
+            media_info_delete(info);
+        } while (gtk_tree_model_iter_next(filemodel, &iter));
+    }    
+    gtk_list_store_clear(GTK_LIST_STORE(filemodel));
     gnomebaker_show_busy_cursor(FALSE); 
 }
 
@@ -563,7 +558,7 @@ audiocd_new()
     /* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(AUDIOCD_NUM_COLS, 
         GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, /*G_TYPE_ULONG,*/
-        G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+        G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
     gtk_tree_view_set_model(filelist, GTK_TREE_MODEL(store));
     g_object_unref(store);
 
@@ -618,6 +613,13 @@ audiocd_new()
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_TITLE, NULL);
     gtk_tree_view_append_column(filelist, col);
+    
+    /* hidden column to store the MediaInfo pointer */
+    col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(col, _("Info"));
+    gtk_tree_view_append_column(filelist, col);
+    gtk_tree_view_column_set_visible(col, FALSE);
+    
     
     /* Set the selection mode of the file list */
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist), GTK_SELECTION_MULTIPLE);

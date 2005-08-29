@@ -223,9 +223,6 @@ media_info_get_mediafile_info(MediaInfo* self, const gchar* mediafile)
     if(g_ascii_strcasecmp(self->mimetype, "audio/x-wav") == 0)
         media_info_get_wav_info(self, mediafile);
     
-    /* This is a bit of a cludge. Add 2 seconds to the duration 
-     to factor in cdrecord -pad times when calculating the size of the cd */
-    self->duration += 2;
     media_info_set_formatted_length(self);
     g_object_unref(pipeline);
 }
@@ -234,12 +231,8 @@ media_info_get_mediafile_info(MediaInfo* self, const gchar* mediafile)
 void 
 media_register_plugins()
 {
-    GB_LOG_FUNC
+    GB_LOG_FUNC    
     
-    if(media_registered_plugins)
-        g_slist_free(media_registered_plugins);
-    
-    media_registered_plugins = g_slist_alloc();
     PluginInfo* info = media_create_plugin_info("application/x-id3","mad");
     PluginInfo* info2 = media_create_plugin_info("audio/mpeg","mad");
     PluginInfo* info3 = media_create_plugin_info("audio/x-mp3","mad");
@@ -329,13 +322,13 @@ media_info_delete(MediaInfo* self)
 {
     GB_LOG_FUNC
     g_return_if_fail(NULL != self);
-    
+        
+    g_free(self->filename);
     g_free(self->mimetype);
     g_string_free(self->artist, TRUE);
     g_string_free(self->album, TRUE);
     g_string_free(self->title, TRUE);
     self->duration = 0;
-    self->filesize = 0;
     self->bitrate = 0;
     g_string_free(self->formattedduration, TRUE);
     g_free(self);
@@ -349,12 +342,12 @@ media_info_new(const gchar* mediafile)
     g_return_val_if_fail(mediafile != NULL, NULL);
     
     MediaInfo* info = g_new0(MediaInfo, 1);
+    info->filename = g_strdup(mediafile);
     info->status = NOT_INSTALLED;
     info->artist = g_string_new("");
     info->album = g_string_new("");
     info->title = g_string_new("");
     info->duration = 0;
-    info->filesize = 0;
     info->bitrate = 0;
     info->formattedduration = g_string_new("");    
     info->mimetype = gbcommon_get_mime_type(mediafile);
@@ -362,18 +355,61 @@ media_info_new(const gchar* mediafile)
     GSList* node = media_registered_plugins;
     for(; node != NULL; node = node->next)
     {
-        if(node->data)
+        PluginInfo* plugininfo = (PluginInfo*)node->data;
+        GB_TRACE("plugin mimetype [%s] requested [%s]", plugininfo->mimetype->str, info->mimetype);
+        if(g_ascii_strcasecmp(plugininfo->mimetype->str, info->mimetype) == 0)
         {
-            PluginInfo* plugininfo = (PluginInfo*)node->data;
-            GB_TRACE("plugin mimetype [%s] requested [%s]", plugininfo->mimetype->str, info->mimetype);
-            if(g_ascii_strcasecmp(plugininfo->mimetype->str, info->mimetype) == 0)
-            {
-                info->status = plugininfo->status;
-                if(info->status == INSTALLED) 
-                    media_info_get_mediafile_info(info, mediafile);
-                break;
-            }
+            info->status = plugininfo->status;
+            if(info->status == INSTALLED) 
+                media_info_get_mediafile_info(info, mediafile);
+            break;
         }
     }
     return info;
 }
+
+
+void 
+media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar* inffile, int* trackstart)
+{
+    GB_LOG_FUNC
+    
+    const gint sectors = info->duration * 75;
+    
+    gchar* contents = g_strdup_printf(
+        "#created by GnomeBaker\n"
+        "#\n"
+//        "CDINDEX_DISCID= 'JGlmiKWbkdhpVbENfKkJNnr37e8-'\n"
+//        "CDDB_DISCID=    0xbd0cb80e\n"
+        "MCN=\n"
+        "ISRC=\n"
+        "#\n"
+        "Albumperformer= '%s'\n"
+        "Performer=      '%s'\n"
+        "Albumtitle=     '%s'\n"
+        "Tracktitle=     '%s'\n"
+        "Tracknumber=    %d\n"
+        "Trackstart=     %d\n"
+        "# track length in sectors (1/75 seconds each), rest samples\n"
+        "Tracklength=    %d, 0\n"
+        "Pre-emphasis=   no\n"
+        "Channels=       2\n"
+        "Copy_permitted= once (copyright protected)\n"
+        "Endianess=      little\n"
+        "# index list\n"
+        "Index=          0\n",
+        info->artist->str, 
+        info->artist->str,
+        info->album->str,
+        info->title->str,
+        trackno,
+        *trackstart,
+        sectors);
+        
+    *trackstart = sectors;
+    g_file_set_contents(inffile, contents, -1, NULL);
+    /* TODO check errors here */
+    g_free(contents);
+}
+
+

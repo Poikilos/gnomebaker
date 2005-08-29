@@ -139,7 +139,7 @@ startdlg_new(const BurnType burntype)
 			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
 			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
 			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
-            /*gtk_table_attach(table, checkOnTheFly, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);*/
+            gtk_table_attach(table, checkOnTheFly, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);
 		case create_mixed_cd:
 			gdvdmode = FALSE;
 			break;
