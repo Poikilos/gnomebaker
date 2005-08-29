@@ -71,7 +71,9 @@ cdrecord_pre_proc(void* ex, void* buffer)
 		if(ret == GTK_RESPONSE_CANCEL)
 			exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
 	}
+    gdk_threads_enter();
     devices_mount_device(GB_WRITER, NULL);
+    gdk_threads_leave();
 }
 
 
@@ -95,7 +97,9 @@ cdrecord_blank_pre_proc(void* ex, void* buffer)
         exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
     else
         progressdlg_pulse_start();
+    gdk_threads_enter();
     devices_mount_device(GB_WRITER, NULL);
+    gdk_threads_leave();
 }
 
 
@@ -209,35 +213,35 @@ cdrecord_add_common_args(ExecCmd* cdBurn)
 
 
 void
-cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
+cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles, const gboolean onthefly)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
-	g_return_if_fail(e != NULL);
 	
 	cdrecord_add_common_args(e);
-	exec_cmd_add_arg(e, "%s", "-useinfo");
-	exec_cmd_add_arg(e, "%s", "-pad");
 	exec_cmd_add_arg(e, "%s", "-audio");	
+    exec_cmd_add_arg(e, "%s", "-useinfo");
+    exec_cmd_add_arg(e, "%s", "-text");
 	
-    /*if(preferences_get_bool(GB_ONTHEFLY))
+    if(onthefly)
     {
-        exec_cmd_add_arg(e, "%s", "-"); 
+//        gchar* trackdir = preferences_get_convert_audio_track_dir();
+//        exec_cmd_add_arg(e, "%s/gbtrack_1.inf", trackdir);
+//        g_free(trackdir);        
+//        exec_cmd_add_arg(e, "%s", "*.inf");
+//        exec_cmd_add_arg(e, "%s", "-"); 
     }
-    else*/
+    else
     {    
-        const GList *audiofile = audiofiles;
-        for (; audiofile != NULL ; audiofile = audiofile->next)
-        {
-            if(audiofile->data)	
-            {
-                exec_cmd_add_arg(e, "%s", audiofile->data);
-                GB_TRACE("cdrecord - adding create audio data [%s]", (gchar*)audiofile->data);
-                cdrecord_totaltrackstowrite++;
-            }
-
-        }		
-    }	
+        exec_cmd_add_arg(e, "%s", "-pad");
+    }
+    const GList *audiofile = audiofiles;
+    for (; audiofile != NULL ; audiofile = audiofile->next)
+    {
+        exec_cmd_add_arg(e, "%s", audiofile->data);
+        GB_TRACE("cdrecord - adding create audio data [%s]", (gchar*)audiofile->data);
+        cdrecord_totaltrackstowrite++;
+    }		
 	e->readProc = cdrecord_read_proc;
 	e->preProc = cdrecord_pre_proc;
 }
@@ -404,7 +408,9 @@ cdda2wav_pre_proc(void* ex, void* buffer)
 	else if(response == GTK_RESPONSE_YES)
 		exec_cmd_set_state((ExecCmd*)ex, SKIP, FALSE);
         
+    gdk_threads_enter();
 	devices_mount_device(GB_READER, NULL);
+    gdk_threads_leave();
 	g_free(tmp);
 }
 
@@ -741,8 +747,9 @@ dvdformat_pre_proc(void* ex, void* buffer)
     }
     if(ret == GTK_RESPONSE_CANCEL)
         exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
-        
+    gdk_threads_enter();    
     devices_mount_device(GB_WRITER, NULL);
+    gdk_threads_leave();
 }
 
 
@@ -834,7 +841,9 @@ growisofs_pre_proc(void* ex,void* buffer)
 		if(ret == GTK_RESPONSE_CANCEL)
 			exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
 	}
+    gdk_threads_enter();
     devices_mount_device(GB_WRITER, NULL);
+    gdk_threads_leave();
 }
 
 
@@ -1132,8 +1141,9 @@ readcd_pre_proc(void* ex, void* buffer)
 		exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
 	else if(response == GTK_RESPONSE_YES)
 		exec_cmd_set_state((ExecCmd*)ex, SKIP, FALSE);
-        
+    gdk_threads_enter();
     devices_mount_device(GB_READER, NULL);
+    gdk_threads_leave();
 }
 
 
@@ -1424,7 +1434,7 @@ gstreamer_lib_proc(void* ex, void* data)
     if(pipe != NULL)
     {   
          gstdata->dest = gst_element_factory_make("fdsink","file-out");
-         g_object_set (G_OBJECT (gstdata->dest), "location", pipe[1], NULL);
+         g_object_set (G_OBJECT (gstdata->dest), "fd", pipe[1], NULL);
     }
     else
     {
@@ -1444,12 +1454,16 @@ gstreamer_lib_proc(void* ex, void* data)
     gst_element_set_state (gstdata->pipeline, GST_STATE_PLAYING);
     while(!exec_cmd_wait_for_signal(cmd, 1))
     {
-        GstFormat fmt = GST_FORMAT_BYTES;
-        gint64 pos = 0, total = 0;
-        if(gst_element_query (gstdata->dest, GST_QUERY_POSITION, &fmt, &pos) && 
-            gst_element_query (gstdata->dest, GST_QUERY_TOTAL, &fmt, &total))
+        /* If we're not writing to someone's pipe we update the progress bar */
+        if(pipe == NULL)
         {
-            progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
+            GstFormat fmt = GST_FORMAT_BYTES;
+            gint64 pos = 0, total = 0;
+            if(gst_element_query (gstdata->dest, GST_QUERY_POSITION, &fmt, &pos) && 
+                gst_element_query (gstdata->dest, GST_QUERY_TOTAL, &fmt, &total))
+            {
+                progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
+            }
         }
     }
     

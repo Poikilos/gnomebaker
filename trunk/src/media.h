@@ -59,11 +59,11 @@ typedef struct
 {
     PluginStatus status;
     gchar* mimetype;
+    gchar* filename;
     GString* artist;
     GString* album;
     GString* title; 
     gulong duration;
-    size_t filesize;
     gulong bitrate;
     GString* formattedduration;
 } MediaInfo;
@@ -72,5 +72,6 @@ typedef struct
 void media_register_plugins();
 MediaInfo* media_info_new(const gchar* mediafile);
 void media_info_delete(MediaInfo* self);
+void media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar* inffile, int* trackstart);
 
 #endif	/* _MEDIA_H_ */

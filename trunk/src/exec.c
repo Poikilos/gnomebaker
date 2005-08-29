@@ -244,6 +244,16 @@ exec_run_remainder(gpointer data)
 }
 
 
+static void
+exec_stop_remainder(Exec* ex)
+{
+    GB_LOG_FUNC
+    gint j = 0;
+    for(; j < ex->cmdCount - 1; j++)
+        exec_cmd_set_state(&ex->cmds[j], FAILED, TRUE);
+}
+
+
 static gpointer
 exec_thread_gspawn_otf(gpointer data)
 {
@@ -261,6 +271,9 @@ exec_thread_gspawn_otf(gpointer data)
 	{
 		pipe(child_child_pipe);	
 		exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder);
+        ExecState state = exec_cmd_get_state(e);
+        if((state == CANCELLED) || (state == FAILED))
+            exec_stop_remainder(ex);
 	    if(e->postProc) e->postProc(e, NULL);	
 		close(child_child_pipe[0]);	
 		close(child_child_pipe[1]);
@@ -394,11 +407,12 @@ gboolean
 exec_cmd_wait_for_signal(ExecCmd* e, guint timeinseconds)
 {
     GB_LOG_FUNC
+    g_return_val_if_fail(e != NULL, FALSE);
     
     GB_DECLARE_STRUCT(GTimeVal, time);
-    g_mutex_lock(e->mutex);    
     g_get_current_time(&time);
     g_time_val_add(&time, timeinseconds * G_USEC_PER_SEC);
+    g_mutex_lock(e->mutex);        
     gboolean signalled = g_cond_timed_wait(e->cond, e->mutex, &time);
     g_mutex_unlock(e->mutex);    
     return signalled;
@@ -409,6 +423,8 @@ ExecState
 exec_cmd_get_state(ExecCmd* e) 
 {
     GB_LOG_FUNC
+    g_return_val_if_fail(e != NULL, FAILED);
+    
     g_mutex_lock(e->mutex);
     ExecState ret = e->state;
     g_mutex_unlock(e->mutex);
@@ -420,6 +436,8 @@ ExecState
 exec_cmd_set_state(ExecCmd* e, ExecState state, gboolean signal) 
 {
     GB_LOG_FUNC
+    g_return_val_if_fail(e != NULL, FAILED);
+    
     g_mutex_lock(e->mutex);
     if(e->state != CANCELLED)
         e->state = state;
