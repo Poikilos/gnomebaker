@@ -373,8 +373,13 @@ void
 media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar* inffile, int* trackstart)
 {
     GB_LOG_FUNC
-    
     const gint sectors = info->duration * 75;
+//    gint alignment = 2352;
+//    const gint originalsectors = info->duration * 75;
+//    gint sectors = ((originalsectors % alignment>0) ? 
+//        ((originalsectors / alignment) + 1) * alignment: originalsectors);
+//    GB_TRACE("Track [%s] original sectors [%d] adjusted sectors [%d]", 
+//        g_basename(info->filename), originalsectors, sectors);
     
     gchar* contents = g_strdup_printf(
         "#created by GnomeBaker\n"
@@ -407,7 +412,13 @@ media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar
         sectors);
         
     *trackstart = sectors;
-    g_file_set_contents(inffile, contents, -1, NULL);
+    /* g_file_set_contents(inffile, contents, -1, NULL); glib 2.8 */
+    FILE* file = fopen(inffile, "w");
+    if(file != NULL)
+    {
+        fwrite(contents, sizeof(gchar), strlen(contents), file);
+        fclose(file);    
+    }
     /* TODO check errors here */
     g_free(contents);
 }
