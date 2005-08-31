@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-26 00:10+0100\n"
+"POT-Creation-Date: 2005-08-31 22:35+0100\n"
 "PO-Revision-Date: 2005-01-20 03:03:03.358888\n"
 "Last-Translator: Li Qing <qingl@bluebottle.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Rosetta-Version: 0.1\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: src/audiocd.c:125 src/audiocd.c:547 gnomebaker.glade:1085
+#: src/audiocd.c:125 src/audiocd.c:520 gnomebaker.glade:1085
 msgid "0 mins 0 secs"
 msgstr "0 分 0 秒"
 
@@ -55,35 +55,29 @@ msgstr "删除被选项"
 msgid "_Clear"
 msgstr "清除"
 
-#: src/audiocd.c:306
-#, c-format
-msgid "The plugin to handle a file of type %s is not installed."
-msgstr ""
-
-#: src/audiocd.c:313
-#, c-format
-msgid "There is no known plugin to handle a file of type %s."
-msgstr ""
-
-#: src/audiocd.c:572
+#: src/audiocd.c:557
 msgid "Track"
 msgstr "音轨"
 
-#: src/audiocd.c:584
+#: src/audiocd.c:569
 msgid "Duration"
 msgstr "时长"
 
-#: src/audiocd.c:600
+#: src/audiocd.c:585
 msgid "Artist"
 msgstr "艺术家"
 
-#: src/audiocd.c:608
+#: src/audiocd.c:593
 msgid "Album"
 msgstr "专辑"
 
-#: src/audiocd.c:616
+#: src/audiocd.c:601
 msgid "Title"
 msgstr "曲名"
+
+#: src/audiocd.c:609
+msgid "Info"
+msgstr ""
 
 #: src/burn.c:85
 msgid "Completed"
@@ -93,13 +87,13 @@ msgstr "完成"
 msgid "Failed"
 msgstr "失败"
 
-#: src/burn.c:215
+#: src/burn.c:218
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr "您选择的文件不是一个 CD 映像，请选择一个 CD 映像来刻录。"
 
-#: src/burn.c:234 src/burn.c:341
+#: src/burn.c:237 src/burn.c:360
 msgid "Please select an iso file to save to..."
 msgstr "请选择要保存的 ISO 文件..."
 
@@ -235,17 +229,17 @@ msgstr "类型"
 msgid "Mime"
 msgstr ""
 
-#: src/gbcommon.c:440
+#: src/gbcommon.c:449
 #, fuzzy
 msgid "Please select an iso file..."
 msgstr "请选择要保存的 ISO 文件..."
 
-#: src/gbcommon.c:448
+#: src/gbcommon.c:457
 #, fuzzy
 msgid "CD Image files"
 msgstr "启动映像列表"
 
-#: src/gbcommon.c:451
+#: src/gbcommon.c:460
 #, fuzzy
 msgid "All files"
 msgstr "加入文件"
@@ -266,32 +260,32 @@ msgstr ""
 msgid "Loading GUI..."
 msgstr "加载图形界面 ...."
 
-#: src/gnomebaker.c:180
+#: src/gnomebaker.c:183
 msgid "Are you sure you want to quit?"
 msgstr "您确定要退出吗？"
 
-#: src/gnomebaker.c:273
+#: src/gnomebaker.c:276
 #, fuzzy
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
 "burn."
 msgstr "您选择的文件不是一个 CD 映像，请选择一个 CD 映像来刻录。"
 
-#: src/gnomebaker.c:346 gnomebaker.glade:12
+#: src/gnomebaker.c:349 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GomeBaker"
 
-#: src/gnomebaker.c:347
+#: src/gnomebaker.c:350
 msgid "Simple CD Burning for Gnome"
 msgstr "GNOME 下的简易 CD 刻录器"
 
-#: src/gnomebaker.c:347 gnomebaker.glade:1750
+#: src/gnomebaker.c:350 gnomebaker.glade:1750
 msgid "translator_credits"
 msgstr ""
 "Li Qing, 2004\n"
 "Carlos Z.F. Liu <carlosliu@users.sourceforge.net>, 2004"
 
-#: src/gnomebaker.c:412
+#: src/gnomebaker.c:415
 #, fuzzy
 msgid "Please select files to add to the disk..."
 msgstr "请选择要保存的 ISO 文件..."
@@ -328,49 +322,49 @@ msgstr "刻录 DVD-R"
 msgid "Write DVD-RAM"
 msgstr "刻录 DVD-RAM"
 
-#: src/startdlg.c:103
+#: src/startdlg.c:102
 msgid "Dummy write"
 msgstr "模拟写入"
 
-#: src/startdlg.c:104
+#: src/startdlg.c:103
 #, fuzzy
 msgid "Eject disk"
 msgstr "弹出 CD"
 
-#: src/startdlg.c:105
+#: src/startdlg.c:104
 msgid "Fast blank"
 msgstr "快速清空"
 
-#: src/startdlg.c:106
+#: src/startdlg.c:105
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: src/startdlg.c:107
+#: src/startdlg.c:106
 #, fuzzy
 msgid "Create ISO only"
 msgstr "仅创建 ISO 文件"
 
-#: src/startdlg.c:109
+#: src/startdlg.c:108
 msgid "Force"
 msgstr "强制"
 
-#: src/startdlg.c:110
+#: src/startdlg.c:109
 msgid "Finalize"
 msgstr "结束"
 
-#: src/startdlg.c:111
+#: src/startdlg.c:110
 msgid "Fast"
 msgstr "快速"
 
-#: src/startdlg.c:112
+#: src/startdlg.c:111
 msgid "Joliet"
 msgstr ""
 
-#: src/startdlg.c:113
+#: src/startdlg.c:112
 msgid "Rock Ridge"
 msgstr ""
 
-#: src/startdlg.c:114
+#: src/startdlg.c:113
 msgid "On The Fly"
 msgstr ""
 
@@ -383,71 +377,71 @@ msgstr "<b>正在刻录光盘...</b>"
 msgid "Please insert the CD into the CD writer"
 msgstr "请在刻录机中插入一张 CD-RW"
 
-#: src/execfunctions.c:82
+#: src/execfunctions.c:84
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>正在擦除光盘...</b>"
 
-#: src/execfunctions.c:89
+#: src/execfunctions.c:91
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "请在刻录机中插入一张 CD-RW"
 
-#: src/execfunctions.c:161
+#: src/execfunctions.c:165
 msgid "Fixating"
 msgstr "准备中"
 
-#: src/execfunctions.c:201 gnomebaker.glade:2863
+#: src/execfunctions.c:205 gnomebaker.glade:2863
 msgid "default"
 msgstr "默认"
 
-#: src/execfunctions.c:367
+#: src/execfunctions.c:362
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>正在抓取频道...</b>"
 
-#: src/execfunctions.c:379
+#: src/execfunctions.c:374
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr "硬盘里已经存在上次对话保存的一些音轨，你希望使用这些已存在的音轨吗？"
 
-#: src/execfunctions.c:396
+#: src/execfunctions.c:391
 msgid "Please insert the audio CD into the CD reader"
 msgstr "请在光驱中插入一张音乐 CD"
 
-#: src/execfunctions.c:536
+#: src/execfunctions.c:533
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>正在创建数据盘映像...</b>"
 
-#: src/execfunctions.c:544
+#: src/execfunctions.c:541
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr "发现上次对话保存的一个数据 CD 映像，希望使用已经存在的映像吗？"
 
-#: src/execfunctions.c:732
+#: src/execfunctions.c:730
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>正在格式化 DVD...</b>"
 
-#: src/execfunctions.c:739
+#: src/execfunctions.c:737
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "请在 DVD 刻录机中插入一张可反复擦写的 DVD"
 
-#: src/execfunctions.c:823
+#: src/execfunctions.c:822
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>正在刻录 DVD...</b>"
 
-#: src/execfunctions.c:830
+#: src/execfunctions.c:829
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "请在 DVD 刻录机中插入一张可写的 DVD"
 
-#: src/execfunctions.c:901 src/execfunctions.c:942
+#: src/execfunctions.c:902 src/execfunctions.c:943
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1102
+#: src/execfunctions.c:1104
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>正在读取 CD 映像...</b>"
 
-#: src/execfunctions.c:1377
+#: src/execfunctions.c:1383
 #, fuzzy, c-format
 msgid "<b>Converting %s to cd audio...</b>"
 msgstr "<b>正在转换 wav 文件为 CD 音频...</b>"
@@ -634,7 +628,8 @@ msgid "<b>Video CD</b>"
 msgstr "<b>视频光盘</b>"
 
 #: gnomebaker.glade:1466
-msgid "Baking CD"
+#, fuzzy
+msgid "Baking"
 msgstr "正在烘焙 CD"
 
 #: gnomebaker.glade:1511

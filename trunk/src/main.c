@@ -35,6 +35,7 @@
 const gchar* glade_file;
 gboolean showtrace = FALSE;
 
+
 gint 
 main(gint argc, gchar *argv[])
 {	
@@ -58,27 +59,20 @@ main(gint argc, gchar *argv[])
 		textdomain (GETTEXT_PACKAGE);
 	#endif
 	
-	/*gnome_init(PACKAGE, VERSION, argc, argv);*/
-/*	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-                      argc, argv,
-                      GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR,
-                      NULL);
-*/
-	 struct poptOption options[] = {
-    {NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL},
-    POPT_TABLEEND
-  };
+    struct poptOption options[] = 
+    {
+        {NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL},
+        POPT_TABLEEND
+    };
 
-  /* init GStreamer and GNOME using the GStreamer popt tables */
-  options[0].arg = (void *) gst_init_get_popt_table ();
+    /* init GStreamer and GNOME using the GStreamer popt tables */
+    options[0].arg = (void *) gst_init_get_popt_table ();
 	
-  gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-                      argc, argv,
-                      GNOME_PARAM_POPT_TABLE, options,
-  					  GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR,
-                      NULL);
-
-	
+    gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+                        argc, argv,
+                        GNOME_PARAM_POPT_TABLE, options,
+  					    GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR,
+                        NULL);
 
 	glade_gnome_init();
 	
@@ -87,10 +81,8 @@ main(gint argc, gchar *argv[])
 		GNOME_FILE_DOMAIN_APP_DATADIR,
 		"gnomebaker/gnomebaker.glade",
 		FALSE,
-		NULL);
-		
-	/*gtk_window_set_auto_startup_notification(TRUE);*/
-
+		NULL);                
+        
 	GtkWidget* dlg = splashdlg_new();
 		
 	while(g_main_context_pending(NULL))
@@ -108,3 +100,6 @@ main(gint argc, gchar *argv[])
 	
 	return 0;
 }
+
+
+

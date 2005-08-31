@@ -213,28 +213,19 @@ cdrecord_add_common_args(ExecCmd* cdBurn)
 
 
 void
-cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles, const gboolean onthefly)
+cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
 	
 	cdrecord_add_common_args(e);
 	exec_cmd_add_arg(e, "%s", "-audio");	
+    exec_cmd_add_arg(e, "%s", "-pad");
     exec_cmd_add_arg(e, "%s", "-useinfo");
     exec_cmd_add_arg(e, "%s", "-text");
-	
-    if(onthefly)
-    {
-//        gchar* trackdir = preferences_get_convert_audio_track_dir();
-//        exec_cmd_add_arg(e, "%s/gbtrack_1.inf", trackdir);
-//        g_free(trackdir);        
-//        exec_cmd_add_arg(e, "%s", "*.inf");
-//        exec_cmd_add_arg(e, "%s", "-"); 
-    }
-    else
-    {    
-        exec_cmd_add_arg(e, "%s", "-pad");
-    }
+    
+	/* if we are on the fly this will be a list of inf files, otherwise
+     * it's the list of wavs to burn */
     const GList *audiofile = audiofiles;
     for (; audiofile != NULL ; audiofile = audiofile->next)
     {
@@ -640,6 +631,7 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 		GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
 		gtk_entry_set_text(created, g_get_real_name());
 		GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
+        gbcommon_centre_window_on_parent(dlg);
 		ret = gtk_dialog_run(GTK_DIALOG(dlg));
 		volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
 		createdby = g_strdup(gtk_entry_get_text(created));
@@ -972,6 +964,7 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
 		GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
 		gtk_entry_set_text(created, g_get_real_name());
 		GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
+        gbcommon_centre_window_on_parent(dlg);
 		ret = gtk_dialog_run(GTK_DIALOG(dlg));
 		volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
 		createdby = g_strdup(gtk_entry_get_text(created));
@@ -1337,12 +1330,15 @@ gstreamer_pipeline_eos(GstElement* gstelement, gpointer user_data)
 static void
 gstreamer_pipeline_error(GstElement* gstelement,
                         GstElement* element,
-                        gpointer* error /* should be GstError* but I can't get it to compile */,
+                        GError* error,
                         gchar* message,
                         gpointer user_data)
 {
     GB_LOG_FUNC
     g_return_if_fail(user_data != NULL);
+    if(error != NULL)
+        progressdlg_append_output(error->message);
+    progressdlg_append_output(message);
     exec_cmd_set_state((ExecCmd*)user_data, FAILED, TRUE);
 }
  
@@ -1405,9 +1401,9 @@ gstreamer_lib_proc(void* ex, void* data)
     MediaPipeline* gstdata = g_new0(MediaPipeline, 1);
     
     /* create a new pipeline to hold the elements */
-    gstdata->pipeline = gst_thread_new ("media-convert-to-wav-pipeline");
-    GstElement *src = gst_element_factory_make("filesrc","file-source");
-    g_object_set (G_OBJECT (src), "location", cmd->argv[0], NULL);
+    gstdata->pipeline = gst_thread_new ("gnomebaker-convert-to-wav-pipeline");
+    gstdata->source = gst_element_factory_make("filesrc","file-source");
+    g_object_set (G_OBJECT (gstdata->source), "location", cmd->argv[0], NULL);
         
     /* decoder */
     gstdata->decoder = gst_element_factory_make ("decodebin", "decoder");
@@ -1442,11 +1438,11 @@ gstreamer_lib_proc(void* ex, void* data)
         g_object_set (G_OBJECT (gstdata->dest), "location", cmd->argv[1], NULL);
     }
     
-    gst_bin_add_many (GST_BIN (gstdata->pipeline), src, gstdata->decoder, NULL);
+    gst_bin_add_many (GST_BIN (gstdata->pipeline), gstdata->source, gstdata->decoder, NULL);
     
-    gst_element_link(gstdata->converter,gstdata->scale);
-    gst_element_link(gstdata->encoder,gstdata->dest);
-    gst_element_link(src,gstdata->decoder);
+    gst_element_link(gstdata->converter, gstdata->scale);
+    gst_element_link(gstdata->encoder, gstdata->dest);
+    gst_element_link(gstdata->source, gstdata->decoder);
     
     g_signal_connect (gstdata->pipeline, "error", G_CALLBACK(gstreamer_pipeline_error), cmd);
     g_signal_connect (gstdata->pipeline, "eos", G_CALLBACK (gstreamer_pipeline_eos), cmd);

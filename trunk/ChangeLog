@@ -1,8 +1,11 @@
 Version 0.4.3
 
-* We don't need libvorbis anymore as we use gstreamer to get tag info.
+* We don't need libvorbis anymore as we use gstreamer to get tag info for oggs.
 * Refactor all of the gstreamer code so it's easier to use.
 * General code cleanup in the exec layer.
+* Cleanup gstreamer plugin handling and improve error reporting.
+* Fix Bug #1245753 Can't Minimize Burning CD/DVD Dialog.
+* Fix Bug #1273910 0.4.2 > Xlib: unexpected async reply.
 
 Version 0.4.2
 

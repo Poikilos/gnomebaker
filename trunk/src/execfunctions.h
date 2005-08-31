@@ -33,7 +33,7 @@ void cdda2wav_add_copy_args(ExecCmd* e);
 void cdrecord_add_iso_args(ExecCmd* cdBurn, const gchar* iso);
 void cdrecord_add_audio_args(ExecCmd* cdBurn);
 void cdrecord_add_blank_args(ExecCmd* cdBurn);
-void cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles, const gboolean onthefly);
+void cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles);
 void dvdformat_add_args(ExecCmd* dvdFormat);
 gboolean growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel);
 void growisofs_add_iso_args(ExecCmd* growisofs, const gchar *iso);

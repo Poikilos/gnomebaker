@@ -439,8 +439,9 @@ prefsdlg_new(void)
 	
 	prefsdlg_create_device_list();
 	prefsdlg_populate_device_list();
-	
-	return glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg);
+	GtkWidget* dlg = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg);
+    gbcommon_centre_window_on_parent(dlg);
+	return dlg;
 }
 
 

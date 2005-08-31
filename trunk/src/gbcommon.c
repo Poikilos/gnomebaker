@@ -20,6 +20,7 @@
  */
  
 #include "gbcommon.h" 
+#include "gnomebaker.h"
 #include <sys/stat.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
@@ -35,6 +36,14 @@ gbcommon_init()
     GB_LOG_FUNC
     memsetlock = g_mutex_new();
     return TRUE;
+}
+
+
+void
+gb_common_finalise()
+{
+    GB_LOG_FUNC   
+    g_mutex_free(memsetlock);
 }
 
 
@@ -475,3 +484,22 @@ gbcommon_memset(void* memory, gsize size)
     memset(memory, 0x0, size);
     g_mutex_unlock(memsetlock);
 }
+
+
+void 
+gbcommon_centre_window_on_parent(GtkWidget* window)
+{
+    GB_LOG_FUNC    
+    g_return_if_fail(window);
+    
+    GtkWidget* mainwindow = glade_xml_get_widget(gnomebaker_getxml(), widget_gnomebaker);    
+    gtk_widget_set_parent_window(window, GDK_WINDOW(mainwindow));
+    gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(mainwindow));
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
+    /* this is sucky but glade has already shown the window before we can parent it 
+     * properly so we have to force a redraw and reposition */
+    gtk_widget_hide(window);
+    gtk_widget_show(window);
+}
+
+
