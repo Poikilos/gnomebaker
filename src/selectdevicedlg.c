@@ -40,7 +40,7 @@ selectdevicedlg_new(void)
 	devices_populate_optionmenu(optmenWriteDev, GB_WRITER);
 	
     GtkWidget* dlg = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_device_dlg); 
-    gbcommon_centre_window_on_parent(dlg);
+    gbcommon_center_window_on_parent(dlg);
 	return dlg;
 }
 

@@ -66,7 +66,7 @@ gchar* gbcommon_show_iso_dlg();
 void gb_common_finalise();
 gboolean gbcommon_init();
 void gbcommon_memset(void* memory, gsize size);
-void gbcommon_centre_window_on_parent(GtkWidget* window);
+void gbcommon_center_window_on_parent(GtkWidget* window);
 
 /* defined in main.c */
 extern const gchar* glade_file;

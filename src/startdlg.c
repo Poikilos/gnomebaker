@@ -219,7 +219,7 @@ startdlg_new(const BurnType burntype)
 	else
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinSpeed), preferences_get_int(GB_CDWRITE_SPEED));
         
-    gbcommon_centre_window_on_parent(dlg);
+    gbcommon_center_window_on_parent(dlg);
 		
 	return dlg;
 }
