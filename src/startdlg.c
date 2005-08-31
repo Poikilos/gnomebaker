@@ -22,7 +22,6 @@
 #include "startdlg.h"
 #include "preferences.h"
 #include "devices.h"
-#include "gnomebaker.h"
 #include "gbcommon.h"
 
 
@@ -219,6 +218,8 @@ startdlg_new(const BurnType burntype)
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinSpeed), preferences_get_int(GB_DVDWRITE_SPEED));
 	else
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinSpeed), preferences_get_int(GB_CDWRITE_SPEED));
+        
+    gbcommon_centre_window_on_parent(dlg);
 		
 	return dlg;
 }

@@ -74,7 +74,8 @@
 #define GNOME_TOOLBAR_STYLE		 "/desktop/gnome/interface/toolbar_style"
 #define GNOME_TOOLBAR_DETACHABLE "/desktop/gnome/interface/toolbar_detachable"
 
-gboolean preferences_init ();
+gboolean preferences_init();
+void preferences_finalise();
 
 gchar* preferences_get_copy_data_cd_image();
 gchar* preferences_get_create_data_cd_image();

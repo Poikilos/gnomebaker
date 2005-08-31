@@ -91,11 +91,11 @@ gnomebaker_new()
 	devices_init();
 
 	splashdlg_set_text(_("Registering gstreamer plugins..."));
-	media_register_plugins();
+	media_init();
 
 	splashdlg_set_text(_("Loading GUI..."));
 	xml = glade_xml_new(glade_file, widget_gnomebaker, NULL);
-
+    
 	/* This is important */
 	glade_xml_signal_autoconnect(xml);			
 
@@ -103,7 +103,7 @@ gnomebaker_new()
 	filebrowser_new();	
 	datacd_new();
 	audiocd_new();
-	
+        
 	/* Get and set the default toolbar style */
 	gnomebaker_on_toolbar_style_changed(NULL, 0, NULL, NULL);
 	preferences_register_notify(GNOME_TOOLBAR_STYLE, gnomebaker_on_toolbar_style_changed);
@@ -141,6 +141,9 @@ void
 gnomebaker_delete(GtkWidget* self)
 {
 	GB_LOG_FUNC
+    media_finalise();
+    preferences_finalise();
+    gb_common_finalise();
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
 	g_free(xml);

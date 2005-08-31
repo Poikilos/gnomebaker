@@ -31,9 +31,18 @@
 
 #include "gst/gst.h"
 
+#define MEDIA_ERROR g_quark_from_static_string("MediaError")
+
+enum
+{
+    MEDIA_ERROR_MISSING_PLUGIN = 0
+};
+
+
 typedef struct 
 {
 	GstElement* pipeline;
+    GstElement* source;
 	GstElement* decoder;
 	GstElement* converter;
 	GstElement* scale;
@@ -66,12 +75,16 @@ typedef struct
     gulong duration;
     gulong bitrate;
     GString* formattedduration;
+    GError* error;
 } MediaInfo;
  
  
-void media_register_plugins();
+void media_init();
+void media_finalise();
 MediaInfo* media_info_new(const gchar* mediafile);
-void media_info_delete(MediaInfo* self);
+void media_info_delete(MediaInfo* info);
 void media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar* inffile, int* trackstart);
+void media_start_playing(const gchar* file);
+void media_stop_playing();
 
 #endif	/* _MEDIA_H_ */

@@ -270,13 +270,14 @@ exec_thread_gspawn_otf(gpointer data)
 	if((state != SKIP) && (state != CANCELLED))
 	{
 		pipe(child_child_pipe);	
+        
 		exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder);
         ExecState state = exec_cmd_get_state(e);
         if((state == CANCELLED) || (state == FAILED))
             exec_stop_remainder(ex);
 	    if(e->postProc) e->postProc(e, NULL);	
-		close(child_child_pipe[0]);	
-		close(child_child_pipe[1]);
+        close(child_child_pipe[0]);
+        close(child_child_pipe[1]); 
 	}	
 	if(ex->endProc) ex->endProc(ex, NULL);	
 	GB_TRACE("exec_thread_gspawn_otf - exiting");

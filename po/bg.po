@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome baker 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-26 00:10+0100\n"
+"POT-Creation-Date: 2005-08-31 22:35+0100\n"
 "PO-Revision-Date: 2005-03-30 16:35+0300\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: src/audiocd.c:125 src/audiocd.c:547 gnomebaker.glade:1085
+#: src/audiocd.c:125 src/audiocd.c:520 gnomebaker.glade:1085
 msgid "0 mins 0 secs"
 msgstr "0 мин. и 0 сек."
 
@@ -52,35 +52,29 @@ msgstr "_Премахване на избраните"
 msgid "_Clear"
 msgstr "_Изчистване"
 
-#: src/audiocd.c:306
-#, c-format
-msgid "The plugin to handle a file of type %s is not installed."
-msgstr ""
-
-#: src/audiocd.c:313
-#, c-format
-msgid "There is no known plugin to handle a file of type %s."
-msgstr ""
-
-#: src/audiocd.c:572
+#: src/audiocd.c:557
 msgid "Track"
 msgstr "Песен"
 
-#: src/audiocd.c:584
+#: src/audiocd.c:569
 msgid "Duration"
 msgstr "Продължителност"
 
-#: src/audiocd.c:600
+#: src/audiocd.c:585
 msgid "Artist"
 msgstr "Артист"
 
-#: src/audiocd.c:608
+#: src/audiocd.c:593
 msgid "Album"
 msgstr "Албум"
 
-#: src/audiocd.c:616
+#: src/audiocd.c:601
 msgid "Title"
 msgstr "Заглавие"
+
+#: src/audiocd.c:609
+msgid "Info"
+msgstr ""
 
 #: src/burn.c:85
 msgid "Completed"
@@ -90,13 +84,13 @@ msgstr "Готово"
 msgid "Failed"
 msgstr "Неуспех"
 
-#: src/burn.c:215
+#: src/burn.c:218
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr ""
 
-#: src/burn.c:234 src/burn.c:341
+#: src/burn.c:237 src/burn.c:360
 msgid "Please select an iso file to save to..."
 msgstr "Изберете iso файл за записване..."
 
@@ -230,16 +224,16 @@ msgstr "Тип"
 msgid "Mime"
 msgstr ""
 
-#: src/gbcommon.c:440
+#: src/gbcommon.c:449
 #, fuzzy
 msgid "Please select an iso file..."
 msgstr "Изберете iso файл за записване..."
 
-#: src/gbcommon.c:448
+#: src/gbcommon.c:457
 msgid "CD Image files"
 msgstr "Файлове-образи на CD-та"
 
-#: src/gbcommon.c:451
+#: src/gbcommon.c:460
 msgid "All files"
 msgstr "Всички файлове"
 
@@ -259,29 +253,29 @@ msgstr ""
 msgid "Loading GUI..."
 msgstr "Зареждане на ГПИ..."
 
-#: src/gnomebaker.c:180
+#: src/gnomebaker.c:183
 msgid "Are you sure you want to quit?"
 msgstr "Наистина ли искате да спрете програмата?"
 
-#: src/gnomebaker.c:273
+#: src/gnomebaker.c:276
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
 "burn."
 msgstr ""
 
-#: src/gnomebaker.c:346 gnomebaker.glade:12
+#: src/gnomebaker.c:349 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: src/gnomebaker.c:347
+#: src/gnomebaker.c:350
 msgid "Simple CD Burning for Gnome"
 msgstr "Лесен запис на CD към GNOME"
 
-#: src/gnomebaker.c:347 gnomebaker.glade:1750
+#: src/gnomebaker.c:350 gnomebaker.glade:1750
 msgid "translator_credits"
 msgstr "Владимир \"Kaladan\" Петков <vpetkov@i-space.org>"
 
-#: src/gnomebaker.c:412
+#: src/gnomebaker.c:415
 #, fuzzy
 msgid "Please select files to add to the disk..."
 msgstr "Изберете iso файл за записване..."
@@ -318,47 +312,47 @@ msgstr "Запис на DVD-R"
 msgid "Write DVD-RAM"
 msgstr "Запис на DVD-RAM"
 
-#: src/startdlg.c:103
+#: src/startdlg.c:102
 msgid "Dummy write"
 msgstr ""
 
-#: src/startdlg.c:104
+#: src/startdlg.c:103
 msgid "Eject disk"
 msgstr "Изваждане на диск"
 
-#: src/startdlg.c:105
+#: src/startdlg.c:104
 msgid "Fast blank"
 msgstr ""
 
-#: src/startdlg.c:106
+#: src/startdlg.c:105
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: src/startdlg.c:107
+#: src/startdlg.c:106
 msgid "Create ISO only"
 msgstr "Само ISO"
 
-#: src/startdlg.c:109
+#: src/startdlg.c:108
 msgid "Force"
 msgstr "Насилствено"
 
-#: src/startdlg.c:110
+#: src/startdlg.c:109
 msgid "Finalize"
 msgstr "Приключване"
 
-#: src/startdlg.c:111
+#: src/startdlg.c:110
 msgid "Fast"
 msgstr "Бързо"
 
-#: src/startdlg.c:112
+#: src/startdlg.c:111
 msgid "Joliet"
 msgstr ""
 
-#: src/startdlg.c:113
+#: src/startdlg.c:112
 msgid "Rock Ridge"
 msgstr ""
 
-#: src/startdlg.c:114
+#: src/startdlg.c:113
 msgid "On The Fly"
 msgstr ""
 
@@ -370,71 +364,71 @@ msgstr "<b>Запис на диск...</b>"
 msgid "Please insert the CD into the CD writer"
 msgstr "Поставете CD-то в записвачката"
 
-#: src/execfunctions.c:82
+#: src/execfunctions.c:84
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Изчистване на диск...</b>"
 
-#: src/execfunctions.c:89
+#: src/execfunctions.c:91
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Поставете CD-RW в записвачката"
 
-#: src/execfunctions.c:161
+#: src/execfunctions.c:165
 msgid "Fixating"
 msgstr "Фиксиране"
 
-#: src/execfunctions.c:201 gnomebaker.glade:2863
+#: src/execfunctions.c:205 gnomebaker.glade:2863
 msgid "default"
 msgstr "стандартно"
 
-#: src/execfunctions.c:367
+#: src/execfunctions.c:362
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Изваждане на песни...</b>"
 
-#: src/execfunctions.c:379
+#: src/execfunctions.c:374
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
 
-#: src/execfunctions.c:396
+#: src/execfunctions.c:391
 msgid "Please insert the audio CD into the CD reader"
 msgstr ""
 
-#: src/execfunctions.c:536
+#: src/execfunctions.c:533
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Създаване на изображение за диск с данни...</b>"
 
-#: src/execfunctions.c:544
+#: src/execfunctions.c:541
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
 
-#: src/execfunctions.c:732
+#: src/execfunctions.c:730
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Форматиране на DVD...</b>"
 
-#: src/execfunctions.c:739
+#: src/execfunctions.c:737
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:823
+#: src/execfunctions.c:822
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Запис на DVD...</b>"
 
-#: src/execfunctions.c:830
+#: src/execfunctions.c:829
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr ""
 
-#: src/execfunctions.c:901 src/execfunctions.c:942
+#: src/execfunctions.c:902 src/execfunctions.c:943
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1102
+#: src/execfunctions.c:1104
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>Четене на изображение на CD...</b>"
 
-#: src/execfunctions.c:1377
+#: src/execfunctions.c:1383
 #, fuzzy, c-format
 msgid "<b>Converting %s to cd audio...</b>"
 msgstr "<b>Конвертиране на wav в аудио cd...</b>"
@@ -618,7 +612,7 @@ msgid "<b>Video CD</b>"
 msgstr "<b>Видео CD</b>"
 
 #: gnomebaker.glade:1466
-msgid "Baking CD"
+msgid "Baking"
 msgstr ""
 
 #: gnomebaker.glade:1511

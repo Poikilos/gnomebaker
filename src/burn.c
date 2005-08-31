@@ -91,6 +91,9 @@ burn_end_proc(void *ex, void *data)
 			break;
 		}
 	}
+    
+    if(e->err != NULL)
+        progressdlg_append_output(e->err->message);
 	
 	if(outcome != CANCELLED)
 		progressdlg_enable_close(TRUE);
@@ -284,7 +287,7 @@ burn_create_audio_cd(GtkTreeModel* model)
     gboolean ok = FALSE;
     
     if(burn_show_start_dlg(create_audio_cd) == GTK_RESPONSE_OK)
-    {
+    {       
         const gint rows = gtk_tree_model_iter_n_children(model, NULL);
         burnargs = exec_new(rows + 1);
         burnargs->onthefly = preferences_get_bool(GB_ONTHEFLY);
@@ -300,7 +303,7 @@ burn_create_audio_cd(GtkTreeModel* model)
                 MediaInfo* info = NULL;
                 gtk_tree_model_get (model, &iter, AUDIOCD_COL_INFO, &info, -1);
                 
-                gchar* filename = g_strdup_printf("gbtrack_%d.wav", i + 1);
+                gchar* filename = g_strdup_printf("gbtrack_%.2d.wav", i + 1);
                 gchar* convertedfile = g_build_filename(trackdir, filename, NULL);
                 if(!burnargs->onthefly)                                   
                     audiofiles = g_list_append(audiofiles, convertedfile);  
@@ -308,7 +311,7 @@ burn_create_audio_cd(GtkTreeModel* model)
                     g_free(convertedfile);                    
                 gstreamer_add_args(&burnargs->cmds[i], info->filename, convertedfile);
                 
-                gchar* inffilename = g_strdup_printf("gbtrack_%d.inf", i + 1);
+                gchar* inffilename = g_strdup_printf("gbtrack_%.2d.inf", i + 1);
                 gchar* inffile = g_build_filename(trackdir, inffilename, NULL);
                 media_info_create_inf_file(info, i + 1, inffile, &sectors);
                 if(burnargs->onthefly) 
@@ -322,10 +325,9 @@ burn_create_audio_cd(GtkTreeModel* model)
                 ++i;
             } while (gtk_tree_model_iter_next(model, &iter));
             
-            cdrecord_add_create_audio_cd_args(&burnargs->cmds[rows], 
-                audiofiles, burnargs->onthefly);
+            cdrecord_add_create_audio_cd_args(&burnargs->cmds[rows], audiofiles);
                 
-            burnargs->cmds[rows].workingdir = trackdir; /* ExecCmd now owns the memory */
+            burnargs->cmds[rows].workingdir = trackdir;
             
             for(; audiofiles != NULL; audiofiles = audiofiles->next)
                 g_free(audiofiles->data);
@@ -333,7 +335,6 @@ burn_create_audio_cd(GtkTreeModel* model)
             
             ok = burn_start_process();
         }
-
     }
 
     return ok;

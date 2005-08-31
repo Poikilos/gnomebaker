@@ -304,19 +304,9 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
                 }
                 break;
             }
-            case NOT_INSTALLED:
-            {
-                gchar* buf = g_strdup_printf(_("The plugin to handle a file of type %s is not installed."), gbcommon_get_mime_description(info->mimetype));
-                gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
-                g_free(buf);
-                media_info_delete(info);
-                break;
-            }
             default:
             {
-                gchar* buf = g_strdup_printf(_("There is no known plugin to handle a file of type %s."),info->mimetype);
-                gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, buf);
-                g_free(buf);
+                gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE, info->error->message);
                 media_info_delete(info);
             }
         }

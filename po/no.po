@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-26 00:10+0100\n"
+"POT-Creation-Date: 2005-08-31 22:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jann - Ove Risvik <jann.ove@gmail.com> \n"
 "Language-Team: DunnoMIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Rosetta-Version: 0.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 
-#: src/audiocd.c:125 src/audiocd.c:547 gnomebaker.glade:1085
+#: src/audiocd.c:125 src/audiocd.c:520 gnomebaker.glade:1085
 msgid "0 mins 0 secs"
 msgstr "0 m 0 s"
 
@@ -54,35 +54,29 @@ msgstr "Fjern valgt"
 msgid "_Clear"
 msgstr "Nulstill"
 
-#: src/audiocd.c:306
-#, c-format
-msgid "The plugin to handle a file of type %s is not installed."
-msgstr ""
-
-#: src/audiocd.c:313
-#, c-format
-msgid "There is no known plugin to handle a file of type %s."
-msgstr ""
-
-#: src/audiocd.c:572
+#: src/audiocd.c:557
 msgid "Track"
 msgstr "Spor"
 
-#: src/audiocd.c:584
+#: src/audiocd.c:569
 msgid "Duration"
 msgstr "Lengde"
 
-#: src/audiocd.c:600
+#: src/audiocd.c:585
 msgid "Artist"
 msgstr "Artist"
 
-#: src/audiocd.c:608
+#: src/audiocd.c:593
 msgid "Album"
 msgstr "Album"
 
-#: src/audiocd.c:616
+#: src/audiocd.c:601
 msgid "Title"
 msgstr "Tittel"
+
+#: src/audiocd.c:609
+msgid "Info"
+msgstr ""
 
 #: src/burn.c:85
 msgid "Completed"
@@ -92,7 +86,7 @@ msgstr "Ferdig"
 msgid "Failed"
 msgstr "Myslyktes"
 
-#: src/burn.c:215
+#: src/burn.c:218
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
@@ -100,7 +94,7 @@ msgstr ""
 "Filen du har valgt er ikke en cd image. Venligst velg en cd image for Ã¥ "
 "brenne"
 
-#: src/burn.c:234 src/burn.c:341
+#: src/burn.c:237 src/burn.c:360
 msgid "Please select an iso file to save to..."
 msgstr "Venligst velg en isofil Ã¥ lagre til..."
 
@@ -240,17 +234,17 @@ msgstr "Type"
 msgid "Mime"
 msgstr ""
 
-#: src/gbcommon.c:440
+#: src/gbcommon.c:449
 #, fuzzy
 msgid "Please select an iso file..."
 msgstr "Venligst velg en isofil Ã¥ lagre til..."
 
-#: src/gbcommon.c:448
+#: src/gbcommon.c:457
 #, fuzzy
 msgid "CD Image files"
 msgstr "Oppstartsimage-liste"
 
-#: src/gbcommon.c:451
+#: src/gbcommon.c:460
 msgid "All files"
 msgstr "Alle filer"
 
@@ -270,11 +264,11 @@ msgstr ""
 msgid "Loading GUI..."
 msgstr "Laster grensesnitt"
 
-#: src/gnomebaker.c:180
+#: src/gnomebaker.c:183
 msgid "Are you sure you want to quit?"
 msgstr "Er du sikker pÃ¥ at du vil avslutte?"
 
-#: src/gnomebaker.c:273
+#: src/gnomebaker.c:276
 #, fuzzy
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
@@ -283,15 +277,15 @@ msgstr ""
 "Filen du har valgt er ikke en cd image. Venligst velg en cd image for Ã¥ "
 "brenne"
 
-#: src/gnomebaker.c:346 gnomebaker.glade:12
+#: src/gnomebaker.c:349 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr ""
 
-#: src/gnomebaker.c:347
+#: src/gnomebaker.c:350
 msgid "Simple CD Burning for Gnome"
 msgstr "Enkel CD-brenning for Gnome"
 
-#: src/gnomebaker.c:347 gnomebaker.glade:1750
+#: src/gnomebaker.c:350 gnomebaker.glade:1750
 msgid "translator_credits"
 msgstr ""
 "Jonathan Carter\n"
@@ -333,7 +327,7 @@ msgstr ""
 "Mauricio PeÃ±aloza\n"
 "Petri Pennanen."
 
-#: src/gnomebaker.c:412
+#: src/gnomebaker.c:415
 #, fuzzy
 msgid "Please select files to add to the disk..."
 msgstr "Venligst velg en isofil Ã¥ lagre til..."
@@ -370,47 +364,47 @@ msgstr "Brenn DVD-R"
 msgid "Write DVD-RAM"
 msgstr "Brenn DVD-RAM"
 
-#: src/startdlg.c:103
+#: src/startdlg.c:102
 msgid "Dummy write"
 msgstr "Testskriving"
 
-#: src/startdlg.c:104
+#: src/startdlg.c:103
 msgid "Eject disk"
 msgstr "LÃ¸s ut disk"
 
-#: src/startdlg.c:105
+#: src/startdlg.c:104
 msgid "Fast blank"
 msgstr "Kjapp sletting"
 
-#: src/startdlg.c:106
+#: src/startdlg.c:105
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: src/startdlg.c:107
+#: src/startdlg.c:106
 msgid "Create ISO only"
 msgstr "Bare lag ISO"
 
-#: src/startdlg.c:109
+#: src/startdlg.c:108
 msgid "Force"
 msgstr "Tving"
 
-#: src/startdlg.c:110
+#: src/startdlg.c:109
 msgid "Finalize"
 msgstr "Fikser"
 
-#: src/startdlg.c:111
+#: src/startdlg.c:110
 msgid "Fast"
 msgstr "Kjappt"
 
-#: src/startdlg.c:112
+#: src/startdlg.c:111
 msgid "Joliet"
 msgstr ""
 
-#: src/startdlg.c:113
+#: src/startdlg.c:112
 msgid "Rock Ridge"
 msgstr ""
 
-#: src/startdlg.c:114
+#: src/startdlg.c:113
 msgid "On The Fly"
 msgstr ""
 
@@ -423,27 +417,27 @@ msgstr "<b>Brenner disk...</b>"
 msgid "Please insert the CD into the CD writer"
 msgstr "Sett i CD"
 
-#: src/execfunctions.c:82
+#: src/execfunctions.c:84
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Sletter disk...</b>"
 
-#: src/execfunctions.c:89
+#: src/execfunctions.c:91
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Sett i CD-RW"
 
-#: src/execfunctions.c:161
+#: src/execfunctions.c:165
 msgid "Fixating"
 msgstr "Fikserer"
 
-#: src/execfunctions.c:201 gnomebaker.glade:2863
+#: src/execfunctions.c:205 gnomebaker.glade:2863
 msgid "default"
 msgstr "standard"
 
-#: src/execfunctions.c:367
+#: src/execfunctions.c:362
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Treker ut lydspor...</b>"
 
-#: src/execfunctions.c:379
+#: src/execfunctions.c:374
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -451,15 +445,15 @@ msgstr ""
 "Lydspor fra en tidligere sesjon er allerede tilstede pÃ¥ disken, vil du "
 "bruke de eksisterende sporene?"
 
-#: src/execfunctions.c:396
+#: src/execfunctions.c:391
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Venligst sett inn lyd-cd i cd-leseren"
 
-#: src/execfunctions.c:536
+#: src/execfunctions.c:533
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Lager data disk image...</b>"
 
-#: src/execfunctions.c:544
+#: src/execfunctions.c:541
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -467,31 +461,31 @@ msgstr ""
 "Data fra en tidligere sesjon eksisterer allerede pÃ¥ disken, Ã¸nsker duÃ¥ "
 "bruke de eksisterende filene?"
 
-#: src/execfunctions.c:732
+#: src/execfunctions.c:730
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>Formaterer DVD...</b>"
 
-#: src/execfunctions.c:739
+#: src/execfunctions.c:737
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Venligst sett inn en overskrivbar DVD i DVD-brenneren"
 
-#: src/execfunctions.c:823
+#: src/execfunctions.c:822
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>Brenner DVD...</b>"
 
-#: src/execfunctions.c:830
+#: src/execfunctions.c:829
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Venligst sett inn en skrivbar DVD i DVD-brenneren"
 
-#: src/execfunctions.c:901 src/execfunctions.c:942
+#: src/execfunctions.c:902 src/execfunctions.c:943
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1102
+#: src/execfunctions.c:1104
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>Leser CD image...</b>"
 
-#: src/execfunctions.c:1377
+#: src/execfunctions.c:1383
 #, fuzzy, c-format
 msgid "<b>Converting %s to cd audio...</b>"
 msgstr "<b>Konverterer wav til cd-lydspor...</b>"
@@ -678,7 +672,8 @@ msgid "<b>Video CD</b>"
 msgstr "<b>Video CD</b>"
 
 #: gnomebaker.glade:1466
-msgid "Baking CD"
+#, fuzzy
+msgid "Baking"
 msgstr "Baker CD"
 
 #: gnomebaker.glade:1511

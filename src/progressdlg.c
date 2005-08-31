@@ -56,6 +56,8 @@ progressdlg_new(gint numberofoperations)
 	
 	GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg);		
 	gtk_window_get_size(GTK_WINDOW(widget), &x, &y);
+    /* parent this window with the main window */
+    gbcommon_centre_window_on_parent(widget);
 	return widget;
 }
 

@@ -37,7 +37,7 @@ preferences_init()
 	GB_LOG_FUNC
 	
 	gboolean ok = FALSE;	
-	
+	g_type_init();
 	gconf_client = gconf_client_get_default();
 	if(gconf_client == NULL) 
 	{
@@ -78,6 +78,14 @@ preferences_init()
 	}
 		
 	return ok;
+}
+
+
+void
+preferences_finalise()
+{
+    GB_LOG_FUNC
+    g_object_unref(G_OBJECT(gconf_client));   
 }
 
 
