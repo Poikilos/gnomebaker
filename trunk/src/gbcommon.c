@@ -487,7 +487,7 @@ gbcommon_memset(void* memory, gsize size)
 
 
 void 
-gbcommon_centre_window_on_parent(GtkWidget* window)
+gbcommon_center_window_on_parent(GtkWidget* window)
 {
     GB_LOG_FUNC    
     g_return_if_fail(window);

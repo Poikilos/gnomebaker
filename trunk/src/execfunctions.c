@@ -631,7 +631,7 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 		GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
 		gtk_entry_set_text(created, g_get_real_name());
 		GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
-        gbcommon_centre_window_on_parent(dlg);
+        gbcommon_center_window_on_parent(dlg);
 		ret = gtk_dialog_run(GTK_DIALOG(dlg));
 		volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
 		createdby = g_strdup(gtk_entry_get_text(created));
@@ -964,7 +964,7 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
 		GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
 		gtk_entry_set_text(created, g_get_real_name());
 		GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
-        gbcommon_centre_window_on_parent(dlg);
+        gbcommon_center_window_on_parent(dlg);
 		ret = gtk_dialog_run(GTK_DIALOG(dlg));
 		volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
 		createdby = g_strdup(gtk_entry_get_text(created));
