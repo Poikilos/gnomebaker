@@ -250,7 +250,7 @@ prefsdlg_foreach_device(GtkTreeModel *devicemodel,
 }
 
 	
-static void 
+void /* libglade callback */
 prefsdlg_on_ok(GtkButton* button, gpointer user_data)
 {
 	GB_LOG_FUNC
