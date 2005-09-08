@@ -3,7 +3,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-SUBDIRS = intl po macros src pixmaps help
+SUBDIRS = intl po macros src pixmaps media help
 
 gnomebakerdocdir = ${prefix}/doc/gnomebaker
 gnomebakerdoc_DATA = \

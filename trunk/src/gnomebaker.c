@@ -238,6 +238,7 @@ gnomebaker_on_blank_cdrw(gpointer widget, gpointer user_data)
 	burn_blank_cdrw();	
 }
 
+
 void
 gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 {
@@ -250,6 +251,7 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 		burn_cd_image_file(file);
 	}
 }
+
 
 void
 gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
@@ -279,7 +281,6 @@ gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
 		g_free(mime);
 	}
 }
-
 
 
 void
@@ -332,7 +333,6 @@ gnomebaker_window_state_event(GtkWidget* widget, GdkEvent* event, gpointer user_
 }
 
 
-
 void
 gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
 {
@@ -344,7 +344,7 @@ gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
     }
 	else
 	{
-		const gchar* authors[] = {"Luke Biddell", "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", NULL};
+		const gchar* authors[] = {"Luke Biddell", "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", "Adam Biddell (Sounds)", NULL};
 		const gchar* documenters[] = {"Milen Dzhumerov", NULL};
 		about = gnome_about_new(_("GnomeBaker"), VERSION, "GPL", 
 			_("Simple CD Burning for Gnome"), authors, documenters, _("translator_credits"), 
@@ -412,7 +412,7 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
     else
     {
         GtkWidget *filesel = gtk_file_chooser_dialog_new(
-	        _("Please select files to add to the disk..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
+	        _("Please select files to add to the disk..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN , 
 	        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
         
         gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), TRUE);     
@@ -581,6 +581,7 @@ gnomebaker_on_help(gpointer widget, gpointer user_data)
 		g_error_free(error);
 	}	
 }
+
 
 void
 gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,

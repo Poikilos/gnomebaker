@@ -300,6 +300,27 @@ media_register_plugin(const gchar* mimetype, const gchar* pluginname)
 }
 
 
+static void
+media_player_pipeline_eos(GstElement* gstelement, gpointer user_data)
+{
+    GB_LOG_FUNC
+    media_stop_playing();
+}
+
+
+static void
+media_player_pipeline_error(GstElement* gstelement,
+                        GstElement* element,
+                        GError* error,
+                        gchar* message,
+                        gpointer user_data)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(error != NULL);
+    g_critical("media_player_pipeline_error - [%s] [%s]", error->message, message);
+}
+
+
 void 
 media_init()
 {
@@ -438,21 +459,25 @@ media_start_playing(const gchar* file)
     gchar* mimetype = gbcommon_get_mime_type(file);
     if(media_get_plugin_status(mimetype) == INSTALLED)
     {
-        if(mediaplayer == NULL)
-        {
-            mediaplayer = g_new0(MediaPipeline, 1);
-            mediaplayer->pipeline = gst_thread_new ("mediaplayer");
-            mediaplayer->source = gst_element_factory_make ("filesrc", "source");
-            GstElement* spider = gst_element_factory_make ("spider", "spider");
-            mediaplayer->dest = gst_element_factory_make ("osssink", "destination");
-            gst_bin_add_many(GST_BIN (mediaplayer->pipeline), mediaplayer->source, 
-                spider, mediaplayer->dest, NULL);    
-            gst_element_link_many(mediaplayer->source, spider, mediaplayer->dest, NULL);
+        if(mediaplayer != NULL)
+        {              
+            media_stop_playing();
+            gst_object_unref (GST_OBJECT (mediaplayer->pipeline));
+            g_free(mediaplayer);            
         }
         
-        gst_element_set_state (mediaplayer->pipeline, GST_STATE_NULL); 
-        g_object_set (G_OBJECT (mediaplayer->source), "location", file, NULL);
-        gst_element_set_state (mediaplayer->pipeline, GST_STATE_PLAYING); 
+        mediaplayer = g_new0(MediaPipeline, 1);
+        mediaplayer->pipeline = gst_thread_new ("mediaplayer");
+        mediaplayer->source = gst_element_factory_make ("filesrc", "source");
+        g_object_set(G_OBJECT(mediaplayer->source), "location", file, NULL);
+        GstElement* spider = gst_element_factory_make ("spider", "spider");
+        mediaplayer->dest = gst_element_factory_make ("osssink", "destination");
+        gst_bin_add_many(GST_BIN (mediaplayer->pipeline), mediaplayer->source, 
+            spider, mediaplayer->dest, NULL);    
+        gst_element_link_many(mediaplayer->source, spider, mediaplayer->dest, NULL);
+        g_signal_connect (mediaplayer->pipeline, "error", G_CALLBACK(media_player_pipeline_error), NULL);
+        g_signal_connect (mediaplayer->pipeline, "eos", G_CALLBACK (media_player_pipeline_eos), NULL);
+        gst_element_set_state(mediaplayer->pipeline, GST_STATE_PLAYING); 
     }
 }
 
@@ -461,7 +486,8 @@ void
 media_stop_playing()
 {
     GB_LOG_FUNC
-    gst_element_set_state (mediaplayer->pipeline, GST_STATE_NULL); 
+    if(mediaplayer != NULL)
+        gst_element_set_state (mediaplayer->pipeline, GST_STATE_NULL); 
 }
 
 
