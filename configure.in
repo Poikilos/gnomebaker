@@ -57,9 +57,11 @@ packagedatadir=share
 packagedocdir=doc/${PACKAGE}
 
 dnl Set PACKAGE DIRs in config.h.
-packagepixmapsdir=share/${PACKAGE}
-packagehelpdir=share/gnome/help/${PACKAGE}
-packagemenudir=share/applications
+packagepixmapsdir=${packagedatadir}/${PACKAGE}
+packagehelpdir=${packagedatadir}/gnome/help/${PACKAGE}
+packagemediadir=${packagedatadir}/${PACKAGE}/media
+packagemenudir=${packagedatadir}/applications
+
 
 dnl Subst PACKAGE_DATA_DIR.
 NO_PREFIX_PACKAGE_DATA_DIR="${packagedatadir}"
@@ -92,12 +94,19 @@ AC_SUBST(NO_PREFIX_PACKAGE_MENU_DIR)
 PACKAGE_MENU_DIR="${packageprefix}/${packagemenudir}"
 AC_SUBST(PACKAGE_MENU_DIR)
 
+dnl Subst PACKAGE_MEDIA_DIR.
+NO_PREFIX_PACKAGE_MEDIA_DIR="${packagemediadir}"
+AC_SUBST(NO_PREFIX_PACKAGE_MEDIA_DIR)
+PACKAGE_MENU_DIR="${packageprefix}/${packagemediadir}"
+AC_SUBST(PACKAGE_MEDIA_DIR)
+
 AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${packageprefix}/${packagedatadir}")
 AC_DEFINE_UNQUOTED(PACKAGE_DOC_DIR, "${packageprefix}/${packagedocdir}")
 AC_DEFINE_UNQUOTED(PACKAGE_PIXMAPS_DIR, "${packageprefix}/${packagepixmapsdir}")
 AC_DEFINE_UNQUOTED(PACKAGE_HELP_DIR, "${packageprefix}/${packagehelpdir}")
 AC_DEFINE_UNQUOTED(PACKAGE_MENU_DIR, "${packageprefix}/${packagemenudir}")
 AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}")
+AC_DEFINE_UNQUOTED(PACKAGE_MEDIA_DIR, "${packageprefix}/${packagemediadir}")
 
 AC_OUTPUT([
 Makefile
@@ -105,6 +114,7 @@ intl/Makefile
 macros/Makefile
 src/Makefile
 pixmaps/Makefile
+media/Makefile
 gnomebaker.desktop
 help/Makefile
 help/C/Makefile

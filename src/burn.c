@@ -66,7 +66,6 @@ burn_end_proc(void *ex, void *data)
 	Exec* e = (Exec*)ex;	
 	
 	progressdlg_reset_fraction(1.0);
-	
 	ExecState outcome = COMPLETE;
 
 	gint i = 0;
@@ -97,6 +96,14 @@ burn_end_proc(void *ex, void *data)
 	
 	if(outcome != CANCELLED)
 		progressdlg_enable_close(TRUE);
+        
+    if(preferences_get_bool(GB_PLAY_SOUND))
+    {
+        if(outcome == COMPLETE)
+            media_start_playing(PACKAGE_MEDIA_DIR"/BurnOk.wav");
+        else if(outcome == FAILED)        
+            media_start_playing(PACKAGE_MEDIA_DIR"/BurnFailed.wav");
+    }
 }
 
 

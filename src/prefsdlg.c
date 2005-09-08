@@ -273,8 +273,11 @@ prefsdlg_on_ok(GtkButton* button, gpointer user_data)
 	GtkWidget* checkAlwaysScan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_alwaysscan);
 	preferences_set_bool(GB_ALWAYS_SCAN, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkAlwaysScan)));
 	
-	GtkWidget* checkAskOnQuit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_askonquit);
-	preferences_set_bool(GB_ASK_ON_QUIT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkAskOnQuit)));
+	GtkWidget* checkPlaySound = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_playsound);
+	preferences_set_bool(GB_PLAY_SOUND, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkPlaySound)));
+    
+    GtkWidget* checkAskOnQuit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_askonquit);
+    preferences_set_bool(GB_ASK_ON_QUIT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkAskOnQuit)));
 	
 	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
 	g_return_if_fail(devicelist != NULL);
@@ -433,6 +436,10 @@ prefsdlg_new(void)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkAlwaysScan), 
 		preferences_get_bool(GB_ALWAYS_SCAN));
 		
+    GtkWidget* checkPlaySound = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_playsound);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkPlaySound), 
+        preferences_get_bool(GB_PLAY_SOUND));
+        
 	GtkWidget* checkAskOnQuit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_askonquit);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkAskOnQuit), 
 		preferences_get_bool(GB_ASK_ON_QUIT));

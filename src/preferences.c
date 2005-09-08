@@ -70,6 +70,8 @@ preferences_init()
             preferences_set_bool(GB_JOLIET, TRUE);
             preferences_set_bool(GB_ROCKRIDGE, TRUE);
             preferences_set_bool(GB_ONTHEFLY, TRUE);
+            preferences_set_bool(GB_ASK_ON_QUIT, TRUE);
+            preferences_set_bool(GB_PLAY_SOUND, TRUE);
 		}		
 		
 		gbcommon_mkdir(tempdir);

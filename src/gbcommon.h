@@ -133,6 +133,7 @@ static const gchar* const widget_prefsdlg_tempdir = "tmpDirEntry";
 static const gchar* const widget_prefsdlg_cleantempdir = "checkCleanTmp";
 static const gchar* const widget_prefsdlg_showhidden = "checkHiddenFiles";
 static const gchar* const widget_prefsdlg_askonquit = "checkAskOnQuit";
+static const gchar* const widget_prefsdlg_playsound = "checkPlaySound";
 static const gchar* const widget_prefsdlg_showhumansize = "checkShowHumanSizes";
 static const gchar* const widget_prefsdlg_alwaysscan = "checkAlwaysScan";
 static const gchar* const widget_prefsdlg_devicelist = "treeview12";
