@@ -98,23 +98,21 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
 
 
 static void
-exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gboolean read, GThreadFunc func)
+exec_spawn_process(ExecCmd* e, GSpawnChildSetupFunc child_setup, gboolean read)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(ex != NULL);
 	g_return_if_fail(e != NULL);
 	
 	exec_print_cmd(e);
 	gint stdout = 0, stderr = 0;		
+    GError* err = NULL;
 	g_mutex_lock(e->mutex);
 	gboolean ok = g_spawn_async_with_pipes(NULL, e->argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_DO_NOT_REAP_CHILD , 
-        child_setup, e, &e->pid, NULL, &stdout, &stderr, &ex->err);	
+        child_setup, e, &e->pid, NULL, &stdout, &stderr, &err);	
     g_mutex_unlock(e->mutex);
 	if(ok)
 	{
 		GB_TRACE("exec_spawn_process - spawed process with pid [%d]", e->pid);
-		if(func != NULL)
-			g_thread_create(func, (gpointer) ex, TRUE, &ex->err);
 		GIOChannel* chanout = NULL;
 		GIOChannel* chanerr = NULL;
 		guint chanoutid = 0;
@@ -179,8 +177,9 @@ exec_spawn_process(Exec* ex, ExecCmd* e, GSpawnChildSetupFunc child_setup, gbool
 	else
 	{
 		g_critical("exec_spawn_process - failed to spawn process [%d] [%s]",
-			ex->err->code, ex->err->message);			
+			err->code, err->message);			
         exec_cmd_set_state(e, FAILED, FALSE);
+        g_error_free(err);
 	}
 }
 
@@ -224,15 +223,14 @@ exec_run_remainder(gpointer data)
 	GB_LOG_FUNC
 	g_return_val_if_fail(data != NULL, NULL); 	
 
-	Exec* ex = (Exec*)data;
-	gint j = 0;
-	for(; j < ex->cmdCount - 1; j++)
+	GList* cmd = (GList*)data;
+    for(; cmd != NULL; cmd = cmd->next)
 	{
-        ExecCmd* e = &ex->cmds[j];
+        ExecCmd* e = (ExecCmd*)cmd->data;
         if(e->libProc != NULL)
             e->libProc(e, child_child_pipe);
 		else 
-            exec_spawn_process(ex, e, exec_stdout_setup_func, FALSE, NULL);
+            exec_spawn_process(e, exec_stdout_setup_func, FALSE);
         
         ExecState state = exec_cmd_get_state(e);
         if((state == CANCELLED) || (state == FAILED))
@@ -248,41 +246,41 @@ static void
 exec_stop_remainder(Exec* ex)
 {
     GB_LOG_FUNC
-    gint j = 0;
-    for(; j < ex->cmdCount - 1; j++)
-        exec_cmd_set_state(&ex->cmds[j], FAILED, TRUE);
+    GList* cmd = ex->cmds;
+    for(; cmd != NULL; cmd = cmd->next)
+        exec_cmd_set_state((ExecCmd*)cmd->data, FAILED, TRUE);
 }
 
-
-static gpointer
-exec_thread_gspawn_otf(gpointer data)
-{
-	GB_LOG_FUNC
-	g_return_val_if_fail(data != NULL, NULL); 	
-
-	Exec* ex = (Exec*)data;
-	if(ex->startProc) ex->startProc(ex, NULL);	
-	ExecCmd* e = &ex->cmds[ex->cmdCount - 1];
-	if(e->preProc) e->preProc(e, NULL);				
-        
-    const ExecState state = exec_cmd_get_state(e);
-    // TODO the state here needs sorting
-	if((state != SKIP) && (state != CANCELLED))
-	{
-		pipe(child_child_pipe);	
-        
-		exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder);
-        ExecState state = exec_cmd_get_state(e);
-        if((state == CANCELLED) || (state == FAILED))
-            exec_stop_remainder(ex);
-	    if(e->postProc) e->postProc(e, NULL);	
-        close(child_child_pipe[0]);
-        close(child_child_pipe[1]); 
-	}	
-	if(ex->endProc) ex->endProc(ex, NULL);	
-	GB_TRACE("exec_thread_gspawn_otf - exiting");
-	return NULL;
-}
+//
+//static gpointer
+//exec_thread_gspawn_otf(gpointer data)
+//{
+//	GB_LOG_FUNC
+//	g_return_val_if_fail(data != NULL, NULL); 	
+//
+//	Exec* ex = (Exec*)data;
+//	if(ex->startProc) ex->startProc(ex, NULL);	
+//	ExecCmd* e = &ex->cmds[ex->cmdCount - 1];
+//	if(e->preProc) e->preProc(e, NULL);				
+//        
+//    const ExecState state = exec_cmd_get_state(e);
+//    // TODO the state here needs sorting
+//	if((state != SKIP) && (state != CANCELLED))
+//	{
+//		pipe(child_child_pipe);	
+//        
+//		exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder);
+//        ExecState state = exec_cmd_get_state(e);
+//        if((state == CANCELLED) || (state == FAILED))
+//            exec_stop_remainder(ex);
+//	    if(e->postProc) e->postProc(e, NULL);	
+//        close(child_child_pipe[0]);
+//        close(child_child_pipe[1]); 
+//	}	
+//	if(ex->endProc) ex->endProc(ex, NULL);	
+//	GB_TRACE("exec_thread_gspawn_otf - exiting");
+//	return NULL;
+//}
 
 
 static gpointer
@@ -294,12 +292,18 @@ exec_thread_gspawn(gpointer data)
     Exec* ex = (Exec*)data;
 
     if(ex->startProc) ex->startProc(ex, NULL);
-
-    gint j = 0;
     gboolean cont = TRUE;
-    for(; j < ex->cmdCount && cont; j++)
+    GList* piped = NULL;
+    GList* cmd = ex->cmds;
+    for(; cmd != NULL && cont; cmd = cmd->next)
     {
-        ExecCmd* e = &ex->cmds[j];              
+        ExecCmd* e = (ExecCmd*)cmd->data;
+        if(e->piped) 
+        {
+            piped = g_list_append(piped, e);
+            piped = g_list_first(piped);
+            continue;
+        }
         if(e->preProc) e->preProc(e, NULL);                 
         
         ExecState state = exec_cmd_get_state(e);
@@ -307,14 +311,31 @@ exec_thread_gspawn(gpointer data)
         else if(state == CANCELLED) break;    
         
         if(e->libProc != NULL)
+        {
             e->libProc(e, NULL);
+        }
+        else if(piped != NULL)
+        {
+            pipe(child_child_pipe); 
+            g_thread_create(exec_run_remainder, (gpointer)piped, TRUE, NULL);
+            exec_spawn_process(e, exec_stdin_setup_func, TRUE);
+            close(child_child_pipe[0]);
+            close(child_child_pipe[1]); 
+        }
         else                       
-            exec_spawn_process(ex, e, exec_working_dir_setup_func, TRUE, NULL);
-         
+        {
+            exec_spawn_process(e, exec_working_dir_setup_func, TRUE);
+        }
+            
         state = exec_cmd_get_state(e);
         cont = (state != CANCELLED) && (state != FAILED);
+        if(!cont && piped != NULL)
+            exec_stop_remainder(ex);
          
         if(e->postProc) e->postProc(e, NULL);
+        
+        g_list_free(piped);
+        piped = NULL;
     }
     if(ex->endProc) ex->endProc(ex, NULL);
     GB_TRACE("exec_thread_gspawn - exiting");
@@ -335,14 +356,13 @@ exec_cmd_delete(ExecCmd * e)
 }
 
 
-static ExecCmd* 
+ExecCmd* 
 exec_cmd_new(Exec* self)
 {
     GB_LOG_FUNC 
     g_return_val_if_fail(self != NULL, NULL);
     
-    self->cmds = g_realloc(self->cmds, (++self->cmdCount) * sizeof(ExecCmd));
-    ExecCmd* e = &(self->cmds[self->cmdCount - 1]);
+    ExecCmd* e = g_new0(ExecCmd, 1);
     e->argc = 1;
     e->argv = g_malloc(sizeof(gchar*));
     e->argv[0] = NULL;
@@ -355,7 +375,9 @@ exec_cmd_new(Exec* self)
     e->postProc = NULL;
     e->mutex = g_mutex_new();
     e->cond = g_cond_new();
-    e->workingdir = NULL;
+    e->workingdir = NULL;    
+    self->cmds = g_list_append(self->cmds, e);
+    self->cmds = g_list_first(self->cmds);
     return e;
 }
 
@@ -365,10 +387,10 @@ exec_delete(Exec * self)
 {
     GB_LOG_FUNC
     g_return_if_fail(NULL != self);
-    gint j = 0;
-    for(; j < self->cmdCount; j++)
-        exec_cmd_delete(&self->cmds[j]);
-    g_free(self->cmds);
+    GList* cmd = self->cmds;
+    for(; cmd != NULL; cmd = cmd->next)
+        exec_cmd_delete((ExecCmd*)cmd->data);
+    g_list_free(self->cmds);
     if(self->err != NULL)
         g_error_free(self->err);
     g_free(self);
@@ -376,16 +398,12 @@ exec_delete(Exec * self)
 
 
 Exec*
-exec_new(const gint cmds)
+exec_new()
 {
 	GB_LOG_FUNC
 	
 	Exec* self = g_new0(Exec, 1);
-	g_return_val_if_fail(self != NULL, NULL);    
-    gint i = 0;
-    for(; i < cmds; i++)
-        exec_cmd_new(self);	
-    self->onthefly = FALSE;
+	g_return_val_if_fail(self != NULL, NULL);        
 	return self;
 }
 
@@ -402,6 +420,30 @@ exec_cmd_add_arg(ExecCmd* e, const gchar* format, const gchar* value)
     e->argv[e->argc - 2] = g_strdup_printf(format, value);
     e->argv[e->argc - 1] = NULL;
 }
+
+
+void 
+exec_cmd_update_arg(ExecCmd* e, const gchar* argstart, const gchar* value)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);
+    g_return_if_fail(argstart != NULL);
+    g_return_if_fail(value != NULL);
+    
+    gint size = g_strv_length(e->argv);
+    gint i = 0;
+    for(; i < size; ++i)
+    {
+        if(strstr(e->argv[i], argstart) != NULL)
+        {
+            g_free(e->argv[i]);
+            e->argv[i] = g_strconcat(argstart, value, NULL);
+            GB_TRACE("exec_cmd_update_arg - set to [%s]", e->argv[i]);
+            break;
+        }
+    }
+}
+
 
 
 gboolean 
@@ -456,7 +498,7 @@ exec_go(Exec* e)
     GB_LOG_FUNC
     g_return_val_if_fail(e != NULL, NULL);
     
-    GThread* thread = g_thread_create(e->onthefly ? exec_thread_gspawn_otf: exec_thread_gspawn, (gpointer) e, TRUE, &e->err);
+    GThread* thread = g_thread_create(exec_thread_gspawn, (gpointer) e, TRUE, &e->err);
     if(e->err != NULL)
     {
         g_critical("exec_go - failed to create thread [%d] [%s]",
@@ -472,9 +514,9 @@ exec_stop(Exec* e)
     GB_LOG_FUNC
     g_return_if_fail(e != NULL);
     
-    gint j = 0;
-    for(; j < e->cmdCount; j++)
-        exec_cmd_set_state(&e->cmds[j], CANCELLED, TRUE);
+    GList* cmd = e->cmds;
+    for(; cmd != NULL; cmd = cmd->next)
+        exec_cmd_set_state((ExecCmd*)cmd->data, CANCELLED, TRUE);
     
     GB_TRACE("exec_stop - complete");
 }
@@ -513,4 +555,22 @@ exec_run_cmd(const gchar* cmd)
     }
     
     return ret;
+}
+
+
+gint 
+exec_count_operations(Exec* e)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(e != NULL, 0);   
+    
+    gint count = 0;
+    GList* cmd = e->cmds;
+    for(; cmd != NULL; cmd = cmd->next)
+    {
+        if(!((ExecCmd*)cmd->data)->piped)
+            ++count;
+    }
+    GB_TRACE("exec_count_operations - there are [%d] operations", count);
+    return count;
 }

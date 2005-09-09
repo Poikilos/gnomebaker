@@ -34,7 +34,7 @@
 
 static gint cdrecord_totaltrackstowrite = 1;
 static gint cdrecord_firsttrack = -1;
-static gdouble cdrecord_totaldiskbytes = 0.0;
+static guint64 cdrecord_totaldiskbytes = 0;
 
 static gint cdda2wav_totaltracks = -1;
 static gint cdda2wav_totaltracksread = 0;
@@ -71,6 +71,15 @@ cdrecord_pre_proc(void* ex, void* buffer)
 		if(ret == GTK_RESPONSE_CANCEL)
 			exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
 	}
+    
+    /* If we have the total disk bytes set then let cdrecord know about it */
+    if(cdrecord_totaldiskbytes > 0)
+    {
+        gchar* total = g_strdup_printf("%llus", cdrecord_totaldiskbytes);    
+        exec_cmd_update_arg((ExecCmd*)ex, "tsize=", total);
+        g_free(total);
+    }
+        
     gdk_threads_enter();
     devices_mount_device(GB_WRITER, NULL);
     gdk_threads_leave();
@@ -177,6 +186,7 @@ cdrecord_add_common_args(ExecCmd* cdBurn)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);	
+    cdrecord_totaldiskbytes = 0;
 
 	exec_cmd_add_arg(cdBurn, "%s", "cdrecord");
 	
@@ -251,6 +261,9 @@ cdrecord_add_iso_args(ExecCmd* cdBurn, const gchar* iso)
 	
 	/*if(!prefs->multisession)*/
 		exec_cmd_add_arg(cdBurn, "%s", "-multi");
+        
+    exec_cmd_add_arg(cdBurn, "tsize=%ss", "-1");
+    exec_cmd_add_arg(cdBurn, "%s", "-pad");
 
     if(iso != NULL)
 	    exec_cmd_add_arg(cdBurn, "%s", iso);
@@ -316,7 +329,7 @@ void
 cdrecord_add_blank_args(ExecCmd* cdBurn)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(cdBurn != NULL);	
+	g_return_if_fail(cdBurn != NULL);	   
 	
 	cdBurn->readProc = cdrecord_read_proc;
 	cdBurn->preProc = cdrecord_blank_pre_proc;
@@ -524,10 +537,47 @@ shell> mkisofs -R -o cd_image2 -C $NEXT_TRACK -M /dev/scd5 private_collection/
 
 
 static void
+mkisofs_calc_size_pre_proc(void* ex, void* buffer)
+{   
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+    
+    progressdlg_set_status(_("<b>Calculating data disk image size...</b>"));
+    progressdlg_increment_exec_number();
+    progressdlg_pulse_start();
+}
+
+    
+static void
+mkisofs_calc_size_read_proc(void* ex, void* buffer)
+{
+    GB_LOG_FUNC 
+    g_return_if_fail(ex != NULL);
+    g_return_if_fail(buffer != NULL);
+
+    const gchar* written = strstr(buffer, "written =");
+    if(written != NULL)
+    {
+        if(sscanf(written, "written = %llu\n", &cdrecord_totaldiskbytes) == 1)
+            GB_TRACE("mkisofs_calc_size_read_proc - size is [%llu]", cdrecord_totaldiskbytes);
+    }
+    progressdlg_append_output(buffer);
+}
+
+
+static void
+mkisofs_calc_size_post_proc(void* ex, void* buffer)
+{   
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+    progressdlg_pulse_stop();
+}
+
+
+static void
 mkisofs_pre_proc(void* ex, void* buffer)
 {	
 	GB_LOG_FUNC
-	
 	g_return_if_fail(ex != NULL);
 	
 	progressdlg_set_status(_("<b>Creating data disk image...</b>"));
@@ -600,7 +650,6 @@ mkisofs_foreach_func(GtkTreeModel* model,
 		gchar* buffer = g_strdup_printf("%s=%s", file, filepath);		
 		exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);	
 		g_free(buffer);
-        cdrecord_totaldiskbytes += (gdouble)size;
 	}
 
 	g_free(file);	
@@ -611,12 +660,12 @@ mkisofs_foreach_func(GtkTreeModel* model,
 
 
 gboolean
-mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
+mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gboolean calculatesize)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(e != NULL, FALSE);
 	g_return_val_if_fail(datamodel != NULL, FALSE);
-	cdrecord_totaldiskbytes = 0.0;
+	cdrecord_totaldiskbytes = 0;
 	
 	/* If this is a another session on an existing cd we don't show the 
 	   iso details dialog */	
@@ -625,7 +674,7 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
 	
 	gchar* volume = NULL;
 	gchar* createdby = NULL;
-	if(msinfo == NULL)
+	if(msinfo == NULL && !calculatesize)
 	{
 		GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);	
 		GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
@@ -693,14 +742,22 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso)
             exec_cmd_add_arg(e, "%s", "-o");
             exec_cmd_add_arg(e, "%s", iso);
         }
+        
+        if(calculatesize)
+        {
+            exec_cmd_add_arg(e, "%s", "--print-size");      
+            e->preProc = mkisofs_calc_size_pre_proc;
+            e->readProc = mkisofs_calc_size_read_proc;
+            e->postProc = mkisofs_calc_size_post_proc;
+        }
+        else
+        {
+            e->preProc = mkisofs_pre_proc;
+            e->readProc = mkisofs_read_proc;
+        }
+        
 		exec_cmd_add_arg(e, "%s", "-graft-points");
-		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
-		
-		/* rough approximation here but an iso is %20 bigger than the total file sizes */
-		cdrecord_totaldiskbytes *= 1.2;
-				
-		e->preProc = mkisofs_pre_proc;
-		e->readProc = mkisofs_read_proc;
+		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);			
 	}
 	
 	/* We don't own the msinfo gchar datacd does 
@@ -1380,7 +1437,7 @@ gstreamer_pre_proc(void* ex, void* buffer)
     ExecCmd* cmd = (ExecCmd*)ex;
     
     gchar* filename = g_path_get_basename(cmd->argv[0]);
-    gchar* text = g_strdup_printf(_("<b>Converting %s to cd audio...</b>"), filename);
+    gchar* text = g_strdup_printf(_("<b>Converting [%.32s] to cd audio...</b>"), filename);
     progressdlg_set_status(text);
     g_free(filename);
     g_free(text);

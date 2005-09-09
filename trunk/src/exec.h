@@ -55,27 +55,29 @@ typedef struct
     GMutex* mutex;
     GCond* cond;
     gchar* workingdir;
+    gboolean piped;
 }ExecCmd;
 
 typedef struct
 {
-	gint cmdCount;
-	ExecCmd* cmds;
+	GList* cmds;
 	ExecFunc startProc;
 	ExecFunc endProc;
-    gboolean onthefly;
 	GError *err;
 } Exec;
 
 
-Exec* exec_new(const gint cmds);
+Exec* exec_new();
+ExecCmd* exec_cmd_new(Exec* e);
 void exec_delete(Exec* self);
 GThread* exec_go(Exec* e);
 void exec_cmd_add_arg(ExecCmd* e, const gchar* format, const gchar* value);
+void exec_cmd_update_arg(ExecCmd* e, const gchar* arg, const gchar* value);
 void exec_stop (Exec* e);
 GString* exec_run_cmd(const gchar* cmd);
 gboolean exec_cmd_wait_for_signal(ExecCmd* e, guint timeinseconds);
 ExecState exec_cmd_get_state(ExecCmd* e);
 ExecState exec_cmd_set_state(ExecCmd* e, ExecState state, gboolean signal);
+gint exec_count_operations(Exec* e);
 
 #endif	/*_EXEC_H_*/
