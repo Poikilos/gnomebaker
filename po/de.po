@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-02 22:56+0100\n"
+"POT-Creation-Date: 2005-09-09 23:04+0100\n"
 "PO-Revision-Date: 2005-07-20 00:03+0100\n"
 "Last-Translator: Marco Meyerhofer <marco_meyerhofer@freesurf.ch>\n"
 "Language-Team: German <de@li.org>\n"
@@ -78,15 +78,15 @@ msgstr "Titel"
 msgid "Info"
 msgstr ""
 
-#: src/burn.c:85
+#: src/burn.c:84
 msgid "Completed"
 msgstr "Abgeschlossen"
 
-#: src/burn.c:89
+#: src/burn.c:88
 msgid "Failed"
 msgstr "Fehlgeschlagen"
 
-#: src/burn.c:218
+#: src/burn.c:225
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
@@ -94,7 +94,7 @@ msgstr ""
 "Die Datei, die Sie ausgewählt haben, ist kein CD-Image. Bitte wählen Sie ein "
 "CD-Image zum brennen aus."
 
-#: src/burn.c:237 src/burn.c:360
+#: src/burn.c:246 src/burn.c:369
 msgid "Please select an iso file to save to..."
 msgstr "Wählen Sie eine ISO-Datei zum Speichern unter..."
 
@@ -263,7 +263,7 @@ msgstr "GUI laden..."
 msgid "Are you sure you want to quit?"
 msgstr "Sind Sie sicher, dass Sie das Programm beenden wollen?"
 
-#: src/gnomebaker.c:276
+#: src/gnomebaker.c:278
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
 "burn."
@@ -372,27 +372,27 @@ msgstr "<b>Brenne Medium...</b>"
 msgid "Please insert the CD into the CD writer"
 msgstr "Legen Sie bitte die CD in den CD-Brenner"
 
-#: src/execfunctions.c:84
+#: src/execfunctions.c:93
 msgid "<b>Blanking disk...</b>"
 msgstr "<b>Lösche den Inhalt des Mediums...</b>"
 
-#: src/execfunctions.c:91
+#: src/execfunctions.c:100
 msgid "Please insert the CD-RW into the CD writer"
 msgstr "Legen Sie bitte die CD-RW in den CD-Brenner"
 
-#: src/execfunctions.c:165
+#: src/execfunctions.c:174
 msgid "Fixating"
 msgstr "Fixiere"
 
-#: src/execfunctions.c:205 gnomebaker.glade:2863
+#: src/execfunctions.c:215 gnomebaker.glade:2884
 msgid "default"
 msgstr "Standard"
 
-#: src/execfunctions.c:362
+#: src/execfunctions.c:375
 msgid "<b>Extracting audio tracks...</b>"
 msgstr "<b>Entpacke Audiotracks...</b>"
 
-#: src/execfunctions.c:374
+#: src/execfunctions.c:387
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -400,15 +400,20 @@ msgstr ""
 "Audio-Dateien von einer vorhergehenden Sitzung existieren bereits, sollen "
 "diese benutzt werden?"
 
-#: src/execfunctions.c:391
+#: src/execfunctions.c:404
 msgid "Please insert the audio CD into the CD reader"
 msgstr "Legen Sie bitte die Audio-CD ins CD-Laufwerk"
 
-#: src/execfunctions.c:533
+#: src/execfunctions.c:545
+#, fuzzy
+msgid "<b>Calculating data disk image size...</b>"
+msgstr "<b>Daten-Image erstellen...</b>"
+
+#: src/execfunctions.c:583
 msgid "<b>Creating data disk image...</b>"
 msgstr "<b>Daten-Image erstellen...</b>"
 
-#: src/execfunctions.c:541
+#: src/execfunctions.c:591
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -416,33 +421,33 @@ msgstr ""
 "Ein Daten-Image der CD existiert bereits aus einer vorhergehenden Sitzung. "
 "Soll dieses benutzt werden?"
 
-#: src/execfunctions.c:730
+#: src/execfunctions.c:787
 msgid "<b>Formatting DVD...</b>"
 msgstr "<b>DVD formatieren...</b>"
 
-#: src/execfunctions.c:737
+#: src/execfunctions.c:794
 msgid "Please insert a rewritable DVD into the DVD writer"
 msgstr "Bitte legen sie eine wiederbeschreibbare DVD ein"
 
-#: src/execfunctions.c:822
+#: src/execfunctions.c:879
 msgid "<b>Burning DVD...</b>"
 msgstr "<b>DVD brennen...</b>"
 
-#: src/execfunctions.c:829
+#: src/execfunctions.c:886
 msgid "Please insert a writable DVD into the DVD writer"
 msgstr "Bitte legen sie eine beschreibbare DVD ein"
 
-#: src/execfunctions.c:902 src/execfunctions.c:943
+#: src/execfunctions.c:959 src/execfunctions.c:1000
 msgid "Writing lead-out"
 msgstr "Schreibe lead-out"
 
-#: src/execfunctions.c:1104
+#: src/execfunctions.c:1161
 msgid "<b>Reading CD image...</b>"
 msgstr "<b>CD-Image wird eingelesen...</b>"
 
-#: src/execfunctions.c:1383
+#: src/execfunctions.c:1440
 #, fuzzy, c-format
-msgid "<b>Converting %s to cd audio...</b>"
+msgid "<b>Converting [%.32s] to cd audio...</b>"
 msgstr "<b>Wandle Dateien in CD-Audio um...</b>"
 
 #: src/burn.h:64 gnomebaker.glade:376 gnomebaker.glade:377
@@ -680,152 +685,160 @@ msgstr "Zeige Dateigrössen in menschenlesbarem Format"
 
 #: gnomebaker.glade:2053
 #, fuzzy
-msgid "<b>GnomeBaker</b>"
-msgstr "GnomeBaker"
+msgid "<b>Other</b>"
+msgstr "<b>Optionen</b>"
 
 #: gnomebaker.glade:2082
 msgid "Ask on quit"
 msgstr ""
 
-#: gnomebaker.glade:2110
+#: gnomebaker.glade:2104
+msgid "Play sound when burning is complete"
+msgstr ""
+
+#: gnomebaker.glade:2131
 msgid "General"
 msgstr "Allgemein"
 
-#: gnomebaker.glade:2143
+#: gnomebaker.glade:2164
 msgid "<b>Detected devices</b>"
 msgstr "<b>Gefundene Geräte</b>"
 
-#: gnomebaker.glade:2204
+#: gnomebaker.glade:2225
 msgid "Always scan for devices on startup"
 msgstr "Beim Start immer nach Geräten suchen"
 
-#: gnomebaker.glade:2276
+#: gnomebaker.glade:2297
 msgid "_Add device"
 msgstr "Laufwerk hinzufügen"
 
-#: gnomebaker.glade:2351 gnomebaker.glade:2735
+#: gnomebaker.glade:2372 gnomebaker.glade:2756
 msgid "Sc_an for devices"
 msgstr "N_ach Laufwerk suchen"
 
-#: gnomebaker.glade:2398
+#: gnomebaker.glade:2419
 msgid "Devices"
 msgstr "Geräte"
 
-#: gnomebaker.glade:2430
+#: gnomebaker.glade:2451
 msgid "Start burning..."
 msgstr "Brennvorgang starten..."
 
-#: gnomebaker.glade:2517
+#: gnomebaker.glade:2538
 msgid "_Start"
 msgstr "_Start"
 
-#: gnomebaker.glade:2566
+#: gnomebaker.glade:2587
 msgid "Reader"
 msgstr "Leser"
 
-#: gnomebaker.glade:2595 gnomebaker.glade:3537
+#: gnomebaker.glade:2616 gnomebaker.glade:3558
 msgid "Writer"
 msgstr "Brenner"
 
-#: gnomebaker.glade:2658
+#: gnomebaker.glade:2679
 msgid "<b>Options</b>"
 msgstr "<b>Optionen</b>"
 
-#: gnomebaker.glade:2776
+#: gnomebaker.glade:2797
 msgid "Speed"
 msgstr "Geschwindigkeit"
 
-#: gnomebaker.glade:2826
+#: gnomebaker.glade:2847
 msgid "Mode"
 msgstr "Modus"
 
-#: gnomebaker.glade:2871
+#: gnomebaker.glade:2892
 msgid "tao"
 msgstr "tao"
 
-#: gnomebaker.glade:2879
+#: gnomebaker.glade:2900
 msgid "dao"
 msgstr "dao"
 
-#: gnomebaker.glade:2887
+#: gnomebaker.glade:2908
 msgid "raw96p"
 msgstr "raw96p"
 
-#: gnomebaker.glade:2895
+#: gnomebaker.glade:2916
 msgid "raw16"
 msgstr "raw16"
 
-#: gnomebaker.glade:2915
+#: gnomebaker.glade:2936
 msgid "<b>Devices</b>"
 msgstr "<b>Geräte</b>"
 
-#: gnomebaker.glade:2953
+#: gnomebaker.glade:2974
 msgid "ISO filesystem details"
 msgstr "Details zum ISO Filesystem"
 
-#: gnomebaker.glade:3026
+#: gnomebaker.glade:3047
 msgid "<b>Volume label</b>"
 msgstr "Datenträger Bezeichnung"
 
-#: gnomebaker.glade:3058
+#: gnomebaker.glade:3079
 msgid "GnomeBaker data cd"
 msgstr "GnomeBaker Daten-CD"
 
-#: gnomebaker.glade:3076
+#: gnomebaker.glade:3097
 msgid "<b>Created by</b>"
 msgstr "<b>Erstellt von</b>"
 
-#: gnomebaker.glade:3108
+#: gnomebaker.glade:3129
 msgid "Created by username"
 msgstr "Erstellt von Benutzername"
 
-#: gnomebaker.glade:3126
+#: gnomebaker.glade:3147
 msgid "<b>Boot options</b>"
 msgstr "<b>Boot Optionen</b>"
 
-#: gnomebaker.glade:3156
+#: gnomebaker.glade:3177
 msgid "Not bootable"
 msgstr "Nicht bootbar"
 
-#: gnomebaker.glade:3180
+#: gnomebaker.glade:3201
 msgid "PC bootable"
 msgstr "PC bootbar"
 
-#: gnomebaker.glade:3213
+#: gnomebaker.glade:3234
 msgid "Floppy disk image"
 msgstr "Diskettenimage"
 
-#: gnomebaker.glade:3234
+#: gnomebaker.glade:3255
 msgid "Hard disk image"
 msgstr "Festplattenimage"
 
-#: gnomebaker.glade:3265
+#: gnomebaker.glade:3286
 msgid "Boot catalog"
 msgstr "Boot Auswahl"
 
-#: gnomebaker.glade:3294
+#: gnomebaker.glade:3315
 msgid "Boot Image"
 msgstr "Bootimage"
 
-#: gnomebaker.glade:3358
+#: gnomebaker.glade:3379
 msgid "Sun workstation bootable"
 msgstr "Sun workstation bootbar"
 
-#: gnomebaker.glade:3381
+#: gnomebaker.glade:3402
 msgid "Boot Image list"
 msgstr "Bootimage Liste"
 
-#: gnomebaker.glade:3463
+#: gnomebaker.glade:3484
 msgid "Select writer..."
 msgstr "Brenner auswählen"
 
-#: gnomebaker.glade:3581
+#: gnomebaker.glade:3602
 msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"
 msgstr ""
 "Bitte wählen Sie den Brenner von der Liste und legen Sie ein Medium ein "
 "welches die existierende Session enthält"
+
+#, fuzzy
+#~ msgid "<b>GnomeBaker</b>"
+#~ msgstr "GnomeBaker"
 
 #~ msgid "The plugin to handle a file of type %s is not installed."
 #~ msgstr ""

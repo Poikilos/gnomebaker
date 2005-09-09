@@ -37,7 +37,7 @@ void cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles);
 void dvdformat_add_args(ExecCmd* dvdFormat);
 gboolean growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel);
 void growisofs_add_iso_args(ExecCmd* growisofs, const gchar *iso);
-gboolean mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso);
+gboolean mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gboolean calculatesize);
 void readcd_add_copy_args(ExecCmd* e, const gchar* iso);
 void cdrdao_add_image_args(ExecCmd* cmd, const gchar* toc_or_cue);
 void gstreamer_add_args(ExecCmd* cmd, const gchar* from, const gchar* to);
