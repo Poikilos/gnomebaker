@@ -251,40 +251,9 @@ exec_stop_remainder(Exec* ex)
         exec_cmd_set_state((ExecCmd*)cmd->data, FAILED, TRUE);
 }
 
-//
-//static gpointer
-//exec_thread_gspawn_otf(gpointer data)
-//{
-//	GB_LOG_FUNC
-//	g_return_val_if_fail(data != NULL, NULL); 	
-//
-//	Exec* ex = (Exec*)data;
-//	if(ex->startProc) ex->startProc(ex, NULL);	
-//	ExecCmd* e = &ex->cmds[ex->cmdCount - 1];
-//	if(e->preProc) e->preProc(e, NULL);				
-//        
-//    const ExecState state = exec_cmd_get_state(e);
-//    // TODO the state here needs sorting
-//	if((state != SKIP) && (state != CANCELLED))
-//	{
-//		pipe(child_child_pipe);	
-//        
-//		exec_spawn_process(ex, e, exec_stdin_setup_func, TRUE, exec_run_remainder);
-//        ExecState state = exec_cmd_get_state(e);
-//        if((state == CANCELLED) || (state == FAILED))
-//            exec_stop_remainder(ex);
-//	    if(e->postProc) e->postProc(e, NULL);	
-//        close(child_child_pipe[0]);
-//        close(child_child_pipe[1]); 
-//	}	
-//	if(ex->endProc) ex->endProc(ex, NULL);	
-//	GB_TRACE("exec_thread_gspawn_otf - exiting");
-//	return NULL;
-//}
-
 
 static gpointer
-exec_thread_gspawn(gpointer data)
+exec_thread(gpointer data)
 {
     GB_LOG_FUNC
     g_return_val_if_fail(data != NULL, NULL);   
@@ -338,7 +307,7 @@ exec_thread_gspawn(gpointer data)
         piped = NULL;
     }
     if(ex->endProc) ex->endProc(ex, NULL);
-    GB_TRACE("exec_thread_gspawn - exiting");
+    GB_TRACE("exec_thread - exiting");
     return NULL;
 }
 
@@ -498,7 +467,7 @@ exec_go(Exec* e)
     GB_LOG_FUNC
     g_return_val_if_fail(e != NULL, NULL);
     
-    GThread* thread = g_thread_create(exec_thread_gspawn, (gpointer) e, TRUE, &e->err);
+    GThread* thread = g_thread_create(exec_thread, (gpointer) e, TRUE, &e->err);
     if(e->err != NULL)
     {
         g_critical("exec_go - failed to create thread [%d] [%s]",
