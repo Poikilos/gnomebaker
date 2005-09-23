@@ -25,6 +25,15 @@
 #include <glib/gprintf.h>
 
 
+/* Progress dialog glade widget names */
+static const gchar* const widget_progdlg = "progDlg";
+static const gchar* const widget_progdlg_progbar = "progressbar6";
+static const gchar* const widget_progdlg_output = "textview1";
+static const gchar* const widget_progdlg_output_scroll = "scrolledwindow17";
+static const gchar* const widget_progdlg_toggleoutputlabel = "label249";
+static const gchar* const widget_progdlg_processtitle = "label295";
+static const gchar* const widget_progdlg_processdescription = "label296";
+
 GladeXML* progdlg_xml = NULL;
 GtkProgressBar* progbar = NULL;
 GtkTextView* textview = NULL;
@@ -36,23 +45,29 @@ gint y = 0;
 gint timertag = 0;
 gint numberofexecs = 0;
 gint currentexec = -1;
-gboolean showing = TRUE;
 
 GtkWidget* 
-progressdlg_new(gint numberofoperations)
+progressdlg_new(const Exec* exec)
 {		
 	GB_LOG_FUNC
-	numberofexecs = numberofoperations;
+	numberofexecs = exec_count_operations(exec);
 	currentexec = -1;
-	showing = TRUE;
 	progdlg_xml = glade_xml_new(glade_file, widget_progdlg, NULL);
 	glade_xml_signal_autoconnect(progdlg_xml);		
-	progressdlg_enable_close(FALSE);	
 	
 	progbar = GTK_PROGRESS_BAR(glade_xml_get_widget(progdlg_xml, widget_progdlg_progbar));	
 	textview = GTK_TEXT_VIEW(glade_xml_get_widget(progdlg_xml, widget_progdlg_output));
 	textBuffer = gtk_text_view_get_buffer(textview);	
 	textviewScroll = glade_xml_get_widget(progdlg_xml, widget_progdlg_output_scroll);
+    
+    GtkWidget* processtitle = glade_xml_get_widget(progdlg_xml, widget_progdlg_processtitle);      
+    gchar* markup = g_strdup_printf("<b><big>%s</big></b>", exec->processtitle);
+    gtk_label_set_text(GTK_LABEL(processtitle), markup);
+    gtk_label_set_use_markup(GTK_LABEL(processtitle), TRUE);
+    g_free(markup);
+    
+    GtkWidget* processdesc = glade_xml_get_widget(progdlg_xml, widget_progdlg_processdescription);
+    gtk_label_set_text(GTK_LABEL(processdesc), exec->processdescription);
 	
 	GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg);		
 	gtk_window_get_size(GTK_WINDOW(widget), &x, &y);
@@ -143,38 +158,10 @@ progressdlg_append_output(const gchar* output)
 
 
 void 
-progressdlg_on_stop(GtkButton * button, gpointer user_data)
-{
-	GB_LOG_FUNC
-	burn_end_process();
-}
-
-
-void 
 progressdlg_on_close(GtkButton * button, gpointer user_data)
 {
 	GB_LOG_FUNC
-	gtk_dialog_response(GTK_DIALOG(glade_xml_get_widget(progdlg_xml, widget_progdlg)), 
-		GTK_RESPONSE_CLOSE);
-}
-
-
-void 
-progressdlg_enable_close(gboolean enable)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(progdlg_xml != NULL);
-	
-	GtkWidget* closebutton = glade_xml_get_widget(progdlg_xml, widget_progdlg_close);
-	g_return_if_fail(closebutton != NULL);
-	
-	GtkWidget* stopbutton = glade_xml_get_widget(progdlg_xml, widget_progdlg_stop);
-	g_return_if_fail(stopbutton != NULL);
-	
-	/*gdk_threads_enter();*/
-	gtk_widget_set_sensitive(closebutton, enable);
-	gtk_widget_set_sensitive(stopbutton, !enable);
-	/*gdk_threads_leave();*/	
+	burn_end_process();    
 }
 
 
@@ -184,41 +171,29 @@ progressdlg_set_status(const gchar* status)
 	GB_LOG_FUNC
 	g_return_if_fail(progdlg_xml != NULL);
 	
-	GtkWidget* statuslabel = glade_xml_get_widget(progdlg_xml, "statusLabel");
+	GtkWidget* statuslabel = glade_xml_get_widget(progdlg_xml, "label297");
 	g_return_if_fail(statuslabel != NULL);
-	
+    
+    gchar* markup = g_strdup_printf("<i>%s</i>", status);	
 	gdk_threads_enter();
-	gtk_label_set_text(GTK_LABEL(statuslabel), status);
+	gtk_label_set_text(GTK_LABEL(statuslabel), markup);
 	gtk_label_set_use_markup(GTK_LABEL(statuslabel), TRUE);	
 	gdk_threads_leave();		
+    g_free(markup);
 }
 
 
 void 
-progressdlg_on_output(GtkButton * button, gpointer user_data)
+progressdlg_on_output(GtkExpander* expander, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(progdlg_xml != NULL);
-	g_return_if_fail(textview != NULL);
-	g_return_if_fail(textviewScroll != NULL);
 		
-	showing = !showing;
-    GtkWidget* outputbuttonlabel = glade_xml_get_widget(progdlg_xml,widget_progdlg_toggleoutputlabel);
-    
-	if(!showing)
-	{
-		gtk_widget_show(GTK_WIDGET(textview));
-		gtk_widget_show(textviewScroll);
-	    gtk_label_set_label(GTK_LABEL(outputbuttonlabel),_("Hide Output"));
-	}
-	else
-	{
-		gtk_widget_hide(GTK_WIDGET(textview));
-		gtk_widget_hide(textviewScroll);		
-		gtk_window_resize(GTK_WINDOW(
-			glade_xml_get_widget(progdlg_xml, widget_progdlg)), x, y);
-		gtk_label_set_label(GTK_LABEL(outputbuttonlabel),_("View Output"));
-	}	
+    if(!gtk_expander_get_expanded(expander))
+    {
+        gtk_window_resize(GTK_WINDOW(
+            glade_xml_get_widget(progdlg_xml, widget_progdlg)), x, y);
+    }    
 }
 
 
@@ -226,7 +201,7 @@ gboolean
 progressdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data)
 {	
 	GB_LOG_FUNC
-	progressdlg_on_stop(NULL, user_data);
+//	progressdlg_on_stop(NULL, user_data);
 	progressdlg_on_close(NULL, user_data);
 	return TRUE;
 }
@@ -305,10 +280,10 @@ progressdlg_dismiss()
 {
 	GB_LOG_FUNC
 	g_return_if_fail(progdlg_xml != NULL);	
-
+    
 	GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg);	
 	g_return_if_fail(widget != NULL);	
-	gdk_threads_enter();
+	//gdk_threads_enter();
 	gtk_dialog_response(GTK_DIALOG(widget), GTK_RESPONSE_CLOSE);
-	gdk_threads_leave();
+	//gdk_threads_leave();
 }

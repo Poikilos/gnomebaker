@@ -22,6 +22,12 @@
 #include "splashdlg.h"
 #include "gbcommon.h"
 
+
+/* Splash dialog glade widget names */
+static const gchar* const widget_splashdlg = "splashWnd";
+static const gchar* const widget_splashdlg_label = "splashLabel";
+
+
 GladeXML* splashdlg_xml = NULL;
 
 

@@ -26,6 +26,18 @@
 #include "devices.h"
 
 
+/* Prefs dialog glade widget names */
+static const gchar* const widget_prefsdlg = "prefsDlg";
+static const gchar* const widget_prefsdlg_tempdir = "tmpDirEntry";
+static const gchar* const widget_prefsdlg_cleantempdir = "checkCleanTmp";
+static const gchar* const widget_prefsdlg_showhidden = "checkHiddenFiles";
+static const gchar* const widget_prefsdlg_askonquit = "checkAskOnQuit";
+static const gchar* const widget_prefsdlg_playsound = "checkPlaySound";
+static const gchar* const widget_prefsdlg_showhumansize = "checkShowHumanSizes";
+static const gchar* const widget_prefsdlg_alwaysscan = "checkAlwaysScan";
+static const gchar* const widget_prefsdlg_devicelist = "treeview12";
+
+
 static const gint DEVICELIST_COL_ICON = 0;
 static const gint DEVICELIST_COL_NAME = 1;
 static const gint DEVICELIST_COL_ID = 2;

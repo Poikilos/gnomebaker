@@ -26,6 +26,11 @@
 #include "preferences.h"
 
 
+/* Select device dialog widget names */
+static const gchar* const widget_select_writer = "optmenWriter";
+static const gchar* const widget_select_device_dlg = "selectDeviceDlg";
+
+
 GladeXML* selectdevicedlgdlg_xml = NULL;
 
 

@@ -33,6 +33,13 @@
 #include "selectdevicedlg.h"
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 
+
+static const gchar* const widget_datacd_tree = "treeview7";
+static const gchar* const widget_datacd_size = "optionmenu1";
+static const gchar* const widget_datacd_progressbar = "progressbar2";
+static const gchar* const widget_datacd_create = "createDataCDBtn";
+
+
 gdouble datadisksize = 0.0;
 GtkCellRenderer* contentrenderer = NULL;
 

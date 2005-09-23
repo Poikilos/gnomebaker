@@ -30,6 +30,9 @@
 #include <gnome.h>
 
 
+static const gchar* const widget_gnomebaker = "GnomeBaker";
+
+
 GtkWidget* gnomebaker_new();
 void gnomebaker_delete(GtkWidget* self);
 
