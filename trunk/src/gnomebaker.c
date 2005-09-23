@@ -37,6 +37,21 @@
 #include "gst/gst.h"
 #include "media.h"
 
+
+static const gchar* const widget_project_notebook = "notebook1";
+static const gchar* const widget_appbar = "appbar1";
+static const gchar* const widget_import = "toolbutton5";
+static const gchar* const widget_up = "toolbutton8";
+static const gchar* const widget_down = "toolbutton9";
+static const gchar* const widget_top_toolbar_dock = "bonobodockitem4";
+static const gchar* const widget_top_toolbar = "toolbar3";
+static const gchar* const widget_middle_toolbar = "toolbar4";
+static const gchar* const widget_show_browser_menu = "show_file_browser1";
+static const gchar* const widget_browser_hpane = "hpaned3";
+static const gchar* const widget_add_button = "buttonAddFiles";
+static const gchar* const widget_refresh_menu = "refresh1";
+static const gchar* const widget_refresh_button = "toolbutton4";
+
 GladeXML *xml = NULL;
 
 
@@ -125,7 +140,7 @@ gnomebaker_new()
 
 	g_main_context_iteration(NULL, TRUE);
 	
-	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+	GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
 	
 	GtkWidget* checkmenuitem = glade_xml_get_widget(xml, widget_show_browser_menu);
@@ -380,7 +395,7 @@ gnomebaker_on_add_dir(gpointer widget, gpointer user_data)
 	GB_LOG_FUNC
 	
 	GtkSelectionData* selection_data = filebrowser_get_selection(TRUE);
-	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+	GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
 		case 0:
@@ -449,7 +464,7 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
     
     if(selection_data != NULL)
     {
-        GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);	
+        GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);	
         switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
         {
             case 0:
@@ -471,7 +486,7 @@ gnomebaker_on_remove(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+	GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
 	g_return_if_fail(notebook != NULL);	
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
@@ -491,7 +506,7 @@ gnomebaker_on_clear(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+	GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
 	g_return_if_fail(notebook != NULL);	
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
@@ -545,7 +560,7 @@ gnomebaker_on_import(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+	GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
 	g_return_if_fail(notebook != NULL);		
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
@@ -615,7 +630,7 @@ gnomebaker_on_up(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
     
-    GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+    GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
     g_return_if_fail(notebook != NULL);     
     switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
     {
@@ -634,7 +649,7 @@ gnomebaker_on_down(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
     
-    GtkWidget *notebook = glade_xml_get_widget(xml, widget_datacd_notebook);
+    GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
     g_return_if_fail(notebook != NULL);     
     switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
     {

@@ -27,6 +27,12 @@
 #include "media.h"
 
 
+static const gchar* const widget_audiocd_tree = "treeview8";
+static const gchar* const widget_audiocd_size = "optionmenu2";
+static const gchar* const widget_audiocd_progressbar = "progressbar3";
+static const gchar* const widget_audiocd_create = "button14";
+
+
 static gdouble audiocdsize = 0.0;
 
 static DiskSize audiodisksizes[] = 

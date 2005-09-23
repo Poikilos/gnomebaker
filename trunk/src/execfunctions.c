@@ -32,6 +32,13 @@
 #include "media.h"
 
 
+/* ISOfs dialog glade widget names 
+ These don't really belong here and will be moved when the dialog has it's own file */
+static const gchar* const widget_isofsdlg = "isofsDlg";
+static const gchar* const widget_isofsdlg_createdby = "entryCreated";
+static const gchar* const widget_isofsdlg_volume = "entryVolume";
+
+
 static gint cdrecord_totaltrackstowrite = 1;
 static gint cdrecord_firsttrack = -1;
 static guint64 cdrecord_totaldiskbytes = 0;
@@ -58,7 +65,7 @@ cdrecord_pre_proc(void* ex, void* buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status(_("<b>Burning disk...</b>"));
+	progressdlg_set_status(_("Burning disk..."));
 	progressdlg_increment_exec_number();
 	if(!devices_query_cdstatus(GB_WRITER))
 	{
@@ -90,7 +97,7 @@ static void
 cdrecord_blank_pre_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
-	progressdlg_set_status(_("<b>Blanking disk...</b>"));
+	progressdlg_set_status(_("Blanking disk..."));
 	progressdlg_set_text("");
 	gint ret = GTK_RESPONSE_OK;
 	if(!devices_query_cdstatus(GB_WRITER))
@@ -372,7 +379,7 @@ cdda2wav_pre_proc(void* ex, void* buffer)
 	cdda2wav_totaltracks = -1;
 	cdda2wav_totaltracksread = 0;
 	
-	progressdlg_set_status(_("<b>Extracting audio tracks...</b>"));
+	progressdlg_set_status(_("Extracting audio tracks..."));
 	progressdlg_increment_exec_number();
 
 	gint response = GTK_RESPONSE_NO;
@@ -542,7 +549,7 @@ mkisofs_calc_size_pre_proc(void* ex, void* buffer)
     GB_LOG_FUNC
     g_return_if_fail(ex != NULL);
     
-    progressdlg_set_status(_("<b>Calculating data disk image size...</b>"));
+    progressdlg_set_status(_("Calculating data disk image size..."));
     progressdlg_increment_exec_number();
     progressdlg_pulse_start();
 }
@@ -580,7 +587,7 @@ mkisofs_pre_proc(void* ex, void* buffer)
 	GB_LOG_FUNC
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status(_("<b>Creating data disk image...</b>"));
+	progressdlg_set_status(_("Creating data disk image..."));
 	progressdlg_increment_exec_number();
 	
 	gchar* file = preferences_get_create_data_cd_image();	
@@ -784,7 +791,7 @@ dvdformat_pre_proc(void* ex, void* buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status(_("<b>Formatting DVD...</b>"));
+	progressdlg_set_status(_("Formatting DVD..."));
 	progressdlg_increment_exec_number();
 	gint ret = GTK_RESPONSE_OK;
 	if(!devices_query_cdstatus(GB_WRITER))
@@ -876,7 +883,7 @@ growisofs_pre_proc(void* ex,void* buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status(_("<b>Burning DVD...</b>"));
+	progressdlg_set_status(_("Burning DVD..."));
 	progressdlg_increment_exec_number();
 	
 	if(!devices_query_cdstatus(GB_WRITER))
@@ -1158,7 +1165,7 @@ readcd_pre_proc(void* ex, void* buffer)
 	GB_LOG_FUNC
 	readcd_totalguchars = -1;
 	
-	progressdlg_set_status(_("<b>Reading CD image...</b>"));	
+	progressdlg_set_status(_("Reading CD image..."));	
 	progressdlg_increment_exec_number();
 	
 	gint response = GTK_RESPONSE_NO;
@@ -1437,7 +1444,7 @@ gstreamer_pre_proc(void* ex, void* buffer)
     ExecCmd* cmd = (ExecCmd*)ex;
     
     gchar* filename = g_path_get_basename(cmd->argv[0]);
-    gchar* text = g_strdup_printf(_("<b>Converting [%.32s] to cd audio...</b>"), filename);
+    gchar* text = g_strdup_printf(_("Converting [%.32s] to cd audio..."), filename);
     progressdlg_set_status(text);
     g_free(filename);
     g_free(text);

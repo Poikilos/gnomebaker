@@ -28,8 +28,9 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
+#include "exec.h"
 
-GtkWidget* progressdlg_new(gint numberofexecs);
+GtkWidget* progressdlg_new(const Exec* exec);
 void progressdlg_delete(GtkWidget* self);
 void progressdlg_set_fraction(gfloat fraction);
 void progressdlg_set_text(const gchar* text);

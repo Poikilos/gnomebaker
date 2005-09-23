@@ -60,6 +60,9 @@ typedef struct
 
 typedef struct
 {
+    GThread* thread;
+    gchar* processtitle;
+    gchar* processdescription;
 	GList* cmds;
 	ExecFunc startProc;
 	ExecFunc endProc;
@@ -67,7 +70,7 @@ typedef struct
 } Exec;
 
 
-Exec* exec_new();
+Exec* exec_new(const gchar* processtitle, const gchar* processdescription);
 ExecCmd* exec_cmd_new(Exec* e);
 void exec_delete(Exec* self);
 GThread* exec_go(Exec* e);
@@ -78,6 +81,7 @@ GString* exec_run_cmd(const gchar* cmd);
 gboolean exec_cmd_wait_for_signal(ExecCmd* e, guint timeinseconds);
 ExecState exec_cmd_get_state(ExecCmd* e);
 ExecState exec_cmd_set_state(ExecCmd* e, ExecState state, gboolean signal);
-gint exec_count_operations(Exec* e);
+gint exec_count_operations(const Exec* e);
+ExecState exec_get_outcome(const Exec* e);
 
 #endif	/*_EXEC_H_*/

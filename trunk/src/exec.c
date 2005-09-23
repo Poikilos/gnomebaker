@@ -261,10 +261,10 @@ exec_thread(gpointer data)
     Exec* ex = (Exec*)data;
 
     if(ex->startProc) ex->startProc(ex, NULL);
-    gboolean cont = TRUE;
-    GList* piped = NULL;
+    ExecState state = RUNNABLE;
+    GList* piped = NULL;    
     GList* cmd = ex->cmds;
-    for(; cmd != NULL && cont; cmd = cmd->next)
+    for(; cmd != NULL && ((state != CANCELLED) && (state != FAILED)); cmd = cmd->next)
     {
         ExecCmd* e = (ExecCmd*)cmd->data;
         if(e->piped) 
@@ -275,7 +275,7 @@ exec_thread(gpointer data)
         }
         if(e->preProc) e->preProc(e, NULL);                 
         
-        ExecState state = exec_cmd_get_state(e);
+        state = exec_cmd_get_state(e);
         if(state == SKIP) continue;
         else if(state == CANCELLED) break;    
         
@@ -297,8 +297,7 @@ exec_thread(gpointer data)
         }
             
         state = exec_cmd_get_state(e);
-        cont = (state != CANCELLED) && (state != FAILED);
-        if(!cont && piped != NULL)
+        if(((state == CANCELLED) || (state == FAILED)) && (piped != NULL))
             exec_stop_remainder(ex);
          
         if(e->postProc) e->postProc(e, NULL);
@@ -326,10 +325,10 @@ exec_cmd_delete(ExecCmd * e)
 
 
 ExecCmd* 
-exec_cmd_new(Exec* self)
+exec_cmd_new(Exec* exec)
 {
     GB_LOG_FUNC 
-    g_return_val_if_fail(self != NULL, NULL);
+    g_return_val_if_fail(exec != NULL, NULL);
     
     ExecCmd* e = g_new0(ExecCmd, 1);
     e->argc = 1;
@@ -345,35 +344,39 @@ exec_cmd_new(Exec* self)
     e->mutex = g_mutex_new();
     e->cond = g_cond_new();
     e->workingdir = NULL;    
-    self->cmds = g_list_append(self->cmds, e);
-    self->cmds = g_list_first(self->cmds);
+    exec->cmds = g_list_append(exec->cmds, e);
+    exec->cmds = g_list_first(exec->cmds);
     return e;
 }
 
 
 void
-exec_delete(Exec * self)
+exec_delete(Exec * exec)
 {
     GB_LOG_FUNC
-    g_return_if_fail(NULL != self);
-    GList* cmd = self->cmds;
+    g_return_if_fail(NULL != exec);
+    g_free(exec->processtitle);
+    g_free(exec->processdescription);
+    GList* cmd = exec->cmds;
     for(; cmd != NULL; cmd = cmd->next)
         exec_cmd_delete((ExecCmd*)cmd->data);
-    g_list_free(self->cmds);
-    if(self->err != NULL)
-        g_error_free(self->err);
-    g_free(self);
+    g_list_free(exec->cmds);
+    if(exec->err != NULL)
+        g_error_free(exec->err);
+    g_free(exec);
 }
 
 
 Exec*
-exec_new()
+exec_new(const gchar* processtitle, const gchar* processdescription)
 {
 	GB_LOG_FUNC
 	
-	Exec* self = g_new0(Exec, 1);
-	g_return_val_if_fail(self != NULL, NULL);        
-	return self;
+	Exec* exec = g_new0(Exec, 1);
+	g_return_val_if_fail(exec != NULL, NULL);        
+    exec->processtitle = g_strdup(processtitle);
+    exec->processdescription = g_strdup(processdescription);
+	return exec;
 }
 
 
@@ -467,13 +470,13 @@ exec_go(Exec* e)
     GB_LOG_FUNC
     g_return_val_if_fail(e != NULL, NULL);
     
-    GThread* thread = g_thread_create(exec_thread, (gpointer) e, TRUE, &e->err);
+    e->thread = g_thread_create(exec_thread, (gpointer) e, TRUE, &e->err);
     if(e->err != NULL)
     {
         g_critical("exec_go - failed to create thread [%d] [%s]",
                e->err->code, e->err->message);                              
     }
-    return thread;
+    return e->thread;
 }
 
 
@@ -485,7 +488,8 @@ exec_stop(Exec* e)
     
     GList* cmd = e->cmds;
     for(; cmd != NULL; cmd = cmd->next)
-        exec_cmd_set_state((ExecCmd*)cmd->data, CANCELLED, TRUE);
+        exec_cmd_set_state((ExecCmd*)cmd->data, CANCELLED, TRUE);        
+    g_thread_join(e->thread);
     
     GB_TRACE("exec_stop - complete");
 }
@@ -528,7 +532,7 @@ exec_run_cmd(const gchar* cmd)
 
 
 gint 
-exec_count_operations(Exec* e)
+exec_count_operations(const Exec* e)
 {
     GB_LOG_FUNC
     g_return_val_if_fail(e != NULL, 0);   
@@ -543,3 +547,30 @@ exec_count_operations(Exec* e)
     GB_TRACE("exec_count_operations - there are [%d] operations", count);
     return count;
 }
+
+
+ExecState 
+exec_get_outcome(const Exec* e)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(e != NULL, FAILED);   
+    
+    ExecState outcome = COMPLETE;
+    GList* cmd = e->cmds;
+    for(; cmd != NULL; cmd = cmd->next)
+    {
+        const ExecState state = exec_cmd_get_state((ExecCmd*)cmd->data);
+        if(state == CANCELLED)
+        {           
+            outcome = CANCELLED;
+            break;
+        }
+        else if(state == FAILED)
+        {            
+            outcome = FAILED;
+            break;
+        }
+    }
+    return outcome;
+}
+

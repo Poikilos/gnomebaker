@@ -63,49 +63,30 @@ burn_end_proc(void *ex, void *data)
 {
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
-	Exec* e = (Exec*)ex;	
-	
-	progressdlg_reset_fraction(1.0);
-	ExecState outcome = COMPLETE;
+	Exec* e = (Exec*)ex;			
 
-    GList* cmd = e->cmds;
-    for(; cmd != NULL; cmd = cmd->next)
-	{
-        const ExecState state = exec_cmd_get_state((ExecCmd*)cmd->data);
-		if(state == CANCELLED)
-		{			
-			/*progressdlg_set_text("Cancelled");*/
-			outcome = CANCELLED;
-			progressdlg_dismiss();
-			break;
-		}
-		else if(state == COMPLETE)
-		{
-			progressdlg_set_text(_("Completed"));
-		}
-		else if(state == FAILED)
-		{
-			progressdlg_set_text(_("Failed"));
-			outcome = FAILED;
-			break;
-		}
-	}
-    
-    if(e->err != NULL)
-        progressdlg_append_output(e->err->message);
-	
-	if(outcome != CANCELLED)
-		progressdlg_enable_close(TRUE);
-        
-    if(preferences_get_bool(GB_PLAY_SOUND))
+	ExecState outcome = exec_get_outcome(e);    
+    if(outcome == CANCELLED)
     {
-        if(outcome == COMPLETE)
-            media_start_playing(PACKAGE_MEDIA_DIR"/BurnOk.wav");
-        else if(outcome == FAILED)        
-            media_start_playing(PACKAGE_MEDIA_DIR"/BurnFailed.wav");
+        progressdlg_dismiss();
+    }
+    else if(outcome == COMPLETE)
+    {
+        progressdlg_reset_fraction(1.0);
+        progressdlg_set_text(_("Completed"));
+        if(preferences_get_bool(GB_PLAY_SOUND))
+            media_start_playing(PACKAGE_MEDIA_DIR"/BurnOk.wav");        
+    }
+    else if (outcome == FAILED) 
+    {
+        progressdlg_reset_fraction(1.0);
+        progressdlg_set_text(_("Failed"));
+        if(preferences_get_bool(GB_PLAY_SOUND))
+           media_start_playing(PACKAGE_MEDIA_DIR"/BurnFailed.wav");        
+        if(e->err != NULL)
+            progressdlg_append_output(e->err->message);
     }
 }
-
 
 
 /*
@@ -121,28 +102,15 @@ burn_start_process()
 	   This finalises the text in the progress dialog.*/
 	burnargs->endProc = burn_end_proc;
 
-	/*
-	 * Create the dlg before we start the thread as callbacks from the
-	 * thread may need to use the controls. If we're on the fly then 
-     * there is only ever _1_ command to tell the progress bar about.
-	 */
-	GtkWidget *dlg = progressdlg_new(exec_count_operations(burnargs));
+	/* Create the dlg before we start the thread as callbacks from the
+	 * thread may need to use the controls.*/
+	GtkWidget *dlg = progressdlg_new(burnargs);
     gtk_widget_show(dlg);
     gtk_main_iteration();
     
-    GThread* thread = exec_go(burnargs);
-	if(thread != NULL)
-	{
-		gtk_dialog_run(GTK_DIALOG(dlg));
-        g_thread_join(thread);
-	}
-	else
-	{
-		g_critical("Failed to start child process");
-		ok = FALSE;
-	}
-	
-	progressdlg_delete(dlg);	
+    exec_go(burnargs);
+	gtk_dialog_run(GTK_DIALOG(dlg));     	
+	progressdlg_delete(dlg);	    
 	return ok;
 }
 
@@ -160,7 +128,7 @@ burn_iso(const gchar* file)
 
 	if(burn_show_start_dlg(burn_cd_image) == GTK_RESPONSE_OK)
 	{
-		burnargs = exec_new();
+		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to disk."));
 		cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
 		ok = burn_start_process();
 	}
@@ -177,7 +145,7 @@ burn_dvd_iso(const gchar* file)
 
 	if(burn_show_start_dlg(burn_dvd_image) == GTK_RESPONSE_OK)
 	{
-		burnargs = exec_new();
+		burnargs = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to disk."));
 		growisofs_add_iso_args(exec_cmd_new(burnargs),file);
 		ok = burn_start_process();
 	}
@@ -196,7 +164,7 @@ burn_cue_or_toc(const gchar* file)
 
 	if(burn_show_start_dlg(burn_cd_image) == GTK_RESPONSE_OK)
 	{
-		burnargs = exec_new(1);
+		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to disk."));
 		cdrdao_add_image_args(exec_cmd_new(burnargs), file);
 		ok = burn_start_process(FALSE);
 	}
@@ -237,11 +205,11 @@ burn_create_data_cd(GtkTreeModel* datamodel)
     
 	gboolean ok = FALSE;	
 	if((ok = (burn_show_start_dlg(create_data_cd) == GTK_RESPONSE_OK)))
-	{	             
-        burnargs = exec_new();          
+	{	                     
         mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
+            burnargs = exec_new(_("Creating data CD image"), _("Please wait while the data CD image is created."));
 			GtkWidget *filesel = gtk_file_chooser_dialog_new(
 				_("Please select an iso file to save to..."), NULL, GTK_FILE_CHOOSER_ACTION_SAVE, 
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);			
@@ -261,6 +229,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 		}
         else if(preferences_get_bool(GB_ONTHEFLY))
         {
+            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data CD is burned directly to disk."));
             ExecCmd* cmd = exec_cmd_new(burnargs);
             cmd->piped = TRUE;
             ok = mkisofs_add_args(cmd, datamodel, NULL, FALSE);			
@@ -272,6 +241,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
         }
 		else
 		{
+            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data CD image is created and then burned to disk."));
 			gchar* file = preferences_get_create_data_cd_image();            
             ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);			
             if(ok)
@@ -295,7 +265,7 @@ burn_create_audio_cd(GtkTreeModel* model)
     
     if(burn_show_start_dlg(create_audio_cd) == GTK_RESPONSE_OK)
     {       
-        burnargs = exec_new();
+        burnargs = exec_new(_("Burning audio CD"), _("Please wait while the audio CD is burned to disk."));
         const gboolean onthefly = FALSE;/*preferences_get_bool(GB_ONTHEFLY);*/
         
         GtkTreeIter iter;
@@ -359,12 +329,12 @@ burn_copy_data_cd()
 	gboolean ok = FALSE;
 
 	if(burn_show_start_dlg(copy_data_cd) == GTK_RESPONSE_OK)
-	{
-        burnargs = exec_new();
+	{        
 		ok = TRUE;
 		gchar* file = NULL;		
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
+            burnargs = exec_new(_("Extracting CD image"), _("Please wait while the data CD image is extracted."));
 			GtkWidget *filesel = gtk_file_chooser_dialog_new(
 				_("Please select an iso file to save to..."), NULL, GTK_FILE_CHOOSER_ACTION_SAVE, 
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);			
@@ -380,6 +350,7 @@ burn_copy_data_cd()
 		}
 		else
 		{
+            burnargs = exec_new(_("Copying data CD"), _("Please wait while the data CD image is extracted and then burned to disk."));
 			file = preferences_get_copy_data_cd_image();			
 		}
 
@@ -408,7 +379,7 @@ burn_copy_audio_cd()
 
 	if(burn_show_start_dlg(copy_audio_cd) == GTK_RESPONSE_OK)
 	{
-		burnargs = exec_new();
+		burnargs = exec_new(_("Copying audio CD"), _("Please wait while the audio CD tracks are extracted and then burned to disk."));
 		cdda2wav_add_copy_args(exec_cmd_new(burnargs));
 		cdrecord_add_audio_args(exec_cmd_new(burnargs));
 		ok = burn_start_process();
@@ -426,7 +397,7 @@ burn_blank_cdrw()
 	
 	if(burn_show_start_dlg(blank_cdrw) == GTK_RESPONSE_OK)
 	{		
-		burnargs = exec_new();
+		burnargs = exec_new(_("Blanking CD"), _("Please wait while the CD is blanked."));
 		cdrecord_add_blank_args(exec_cmd_new(burnargs));
 		ok = burn_start_process();
 	}
@@ -443,7 +414,7 @@ burn_format_dvdrw()
 	
 	if(burn_show_start_dlg(format_dvdrw) == GTK_RESPONSE_OK)
 	{		
-		burnargs = exec_new();
+		burnargs = exec_new(_("Formatting DVD-RW"), _("Please wait while the DVD-RW is formatted."));
 		dvdformat_add_args(exec_cmd_new(burnargs));
 		ok = burn_start_process();
 	}
@@ -460,7 +431,7 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
 
 	if(burn_show_start_dlg(create_data_dvd) == GTK_RESPONSE_OK)
 	{	
-		burnargs = exec_new();
+		burnargs = exec_new(_("Burning data DVD"), _("Please wait while the data DVD is burned to disk."));
 		if(growisofs_add_args(exec_cmd_new(burnargs), datamodel))
 		    ok = burn_start_process();
 	}

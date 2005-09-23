@@ -27,6 +27,11 @@
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 #include "burn.h"			   
 
+
+static const gchar* const widget_browser_dirtree = "treeview4";
+static const gchar* const widget_browser_filelist = "treeview5";
+
+
 /* callback id, so we can block it! */
 gulong sel_changed_id;
 

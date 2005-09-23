@@ -25,6 +25,16 @@
 #include "gbcommon.h"
 
 
+/* Start dialog glade widget names */
+static const gchar* const widget_startdlg = "startDlg";
+static const gchar* const widget_startdlg_reader = "optmenReader";
+static const gchar* const widget_startdlg_writer = "optmenWriter";
+static const gchar* const widget_startdlg_speed = "spinSpeed";
+static const gchar* const widget_startdlg_readlabel = "labelReader";
+static const gchar* const widget_startdlg_writemode = "optionmenu7";
+static const gchar* const widget_startdlg_modelabel = "label265";
+
+
 GladeXML* startdlg_xml = NULL;
 
 GtkWidget* checkDummy = NULL;
