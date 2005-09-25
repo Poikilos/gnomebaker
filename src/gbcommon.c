@@ -446,7 +446,7 @@ gbcommon_show_iso_dlg()
 	gchar* file = NULL;
 	
 	GtkWidget *filesel = gtk_file_chooser_dialog_new(
-	    _("Please select an iso file..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
+	    _("Please select an iso file."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
 	    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
 	
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
@@ -494,11 +494,12 @@ gbcommon_center_window_on_parent(GtkWidget* window)
     
     GtkWidget* mainwindow = glade_xml_get_widget(gnomebaker_getxml(), widget_gnomebaker);    
     gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(mainwindow));
-    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
     /* this is sucky but glade has already shown the window before we can parent it 
      * properly so we have to force a redraw and reposition */
     gtk_widget_hide(window);
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_widget_show(window);
 }
+
 
 

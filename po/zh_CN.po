@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-09 23:04+0100\n"
+"POT-Creation-Date: 2005-09-26 00:33+0100\n"
 "PO-Revision-Date: 2005-01-20 03:03:03.358888\n"
 "Last-Translator: Li Qing <qingl@bluebottle.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -18,115 +18,213 @@ msgstr ""
 "X-Rosetta-Version: 0.1\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: src/audiocd.c:125 src/audiocd.c:520 gnomebaker.glade:1085
+#: src/audiocd.c:131 src/audiocd.c:526 gnomebaker.glade:1088
 msgid "0 mins 0 secs"
 msgstr "0 分 0 秒"
 
-#: src/audiocd.c:136
+#: src/audiocd.c:142
 #, c-format
 msgid "%d mins %d secs"
 msgstr "%d 分 %d 秒"
 
-#: src/audiocd.c:144
+#: src/audiocd.c:150
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "音轨太大，无法放入 CD 的剩余空间"
 
-#: src/audiocd.c:235 src/filebrowser.c:578
+#: src/audiocd.c:241 src/filebrowser.c:583
 msgid "_Open"
 msgstr ""
 
-#: src/audiocd.c:240
+#: src/audiocd.c:246
 #, fuzzy
 msgid "Move selected _up"
 msgstr "删除被选项"
 
-#: src/audiocd.c:242
+#: src/audiocd.c:248
 #, fuzzy
 msgid "Move selected _down"
 msgstr "删除被选项"
 
-#: src/audiocd.c:245 src/datacd.c:451
+#: src/audiocd.c:251 src/datacd.c:458
 #, fuzzy
 msgid "_Remove selected"
 msgstr "删除被选项"
 
-#: src/audiocd.c:247
+#: src/audiocd.c:253
 #, fuzzy
 msgid "_Clear"
 msgstr "清除"
 
-#: src/audiocd.c:557
+#: src/audiocd.c:563
 msgid "Track"
 msgstr "音轨"
 
-#: src/audiocd.c:569
+#: src/audiocd.c:575
 msgid "Duration"
 msgstr "时长"
 
-#: src/audiocd.c:585
+#: src/audiocd.c:591
 msgid "Artist"
 msgstr "艺术家"
 
-#: src/audiocd.c:593
+#: src/audiocd.c:599
 msgid "Album"
 msgstr "专辑"
 
-#: src/audiocd.c:601
+#: src/audiocd.c:607
 msgid "Title"
 msgstr "曲名"
 
-#: src/audiocd.c:609
+#: src/audiocd.c:615
 msgid "Info"
 msgstr ""
 
-#: src/burn.c:84
-msgid "Completed"
-msgstr "完成"
+#: src/burn.c:91 src/burn.c:127
+#, fuzzy
+msgid "Burning CD image"
+msgstr "刻录 CD 映像"
 
-#: src/burn.c:88
-msgid "Failed"
-msgstr "失败"
+#: src/burn.c:91 src/burn.c:127
+msgid "Please wait while the CD image you selected is burned to disk."
+msgstr ""
 
-#: src/burn.c:225
+#: src/burn.c:108
+#, fuzzy
+msgid "Burning DVD image"
+msgstr "刻录 CD 映像"
+
+#: src/burn.c:108
+msgid "Please wait while the DVD image you selected is burned to disk."
+msgstr ""
+
+#: src/burn.c:153
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr "您选择的文件不是一个 CD 映像，请选择一个 CD 映像来刻录。"
 
-#: src/burn.c:246 src/burn.c:369
-msgid "Please select an iso file to save to..."
+#: src/burn.c:171
+#, fuzzy
+msgid "Creating data CD image"
+msgstr "<b>正在创建数据盘映像...</b>"
+
+#: src/burn.c:171
+#, fuzzy
+msgid "Please wait while the data CD image is created."
+msgstr "请选择一个 iso 文件"
+
+#: src/burn.c:173 src/burn.c:300
+#, fuzzy
+msgid "Please select an iso file to save to."
 msgstr "请选择要保存的 ISO 文件..."
 
-#: src/datacd.c:177
+#: src/burn.c:191 src/burn.c:204
+msgid "Burning data CD"
+msgstr ""
+
+#: src/burn.c:191
+msgid "Please wait while the data CD is burned directly to disk."
+msgstr ""
+
+#: src/burn.c:204
+msgid "Please wait while the data CD image is created and then burned to disk."
+msgstr ""
+
+#: src/burn.c:229
+msgid "Burning audio CD"
+msgstr ""
+
+#: src/burn.c:229
+#, fuzzy
+msgid "Please wait while the audio CD is burned to disk."
+msgstr "请在光驱中插入一张音乐 CD"
+
+#: src/burn.c:298
+#, fuzzy
+msgid "Extracting CD image"
+msgstr "刻录 CD 映像"
+
+#: src/burn.c:298
+#, fuzzy
+msgid "Please wait while the data CD image is extracted."
+msgstr "请选择一个 iso 文件"
+
+#: src/burn.c:314
+#, fuzzy
+msgid "Copying data CD"
+msgstr "复制数据 CD"
+
+#: src/burn.c:314
+msgid ""
+"Please wait while the data CD image is extracted and then burned to disk."
+msgstr ""
+
+#: src/burn.c:343
+#, fuzzy
+msgid "Copying audio CD"
+msgstr "复制音乐 CD"
+
+#: src/burn.c:343
+msgid ""
+"Please wait while the audio CD tracks are extracted and then burned to disk."
+msgstr ""
+
+#: src/burn.c:361
+#, fuzzy
+msgid "Blanking CD"
+msgstr "空白 CDRW"
+
+#: src/burn.c:361
+msgid "Please wait while the CD is blanked."
+msgstr ""
+
+#: src/burn.c:378
+#, fuzzy
+msgid "Formatting DVD-RW"
+msgstr "格式化 DVDRW(_F)"
+
+#: src/burn.c:378
+msgid "Please wait while the DVD-RW is formatted."
+msgstr ""
+
+#: src/burn.c:395
+msgid "Burning data DVD"
+msgstr ""
+
+#: src/burn.c:395
+msgid "Please wait while the data DVD is burned to disk."
+msgstr ""
+
+#: src/datacd.c:184
 msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr "文件或目录太大，无法放入 CD 剩余的空间"
 
-#: src/datacd.c:447
+#: src/datacd.c:454
 msgid "_Edit name"
 msgstr ""
 
-#: src/datacd.c:453
+#: src/datacd.c:460
 msgid "Clear"
 msgstr "清除"
 
-#: src/datacd.c:485 gnomebaker.glade:318
+#: src/datacd.c:492 gnomebaker.glade:321
 msgid "Contents"
 msgstr "内容"
 
-#: src/datacd.c:508 src/datacd.c:517 src/filebrowser.c:790
+#: src/datacd.c:515 src/datacd.c:524 src/filebrowser.c:795
 msgid "Size"
 msgstr "大小"
 
-#: src/datacd.c:526
+#: src/datacd.c:533
 msgid "Full Path"
 msgstr "完整路径"
 
-#: src/datacd.c:534
+#: src/datacd.c:541
 #, fuzzy
 msgid "Session"
 msgstr "导入对话(_I)"
 
-#: src/datacd.c:581
+#: src/datacd.c:588
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -137,11 +235,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/datacd.c:582 src/devices.c:650
+#: src/datacd.c:589 src/devices.c:650
 msgid "unknown error"
 msgstr "未知错误"
 
-#: src/datacd.c:653
+#: src/datacd.c:660
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -176,62 +274,67 @@ msgstr "正在挂载"
 msgid "unmounting"
 msgstr "正在卸载"
 
-#: src/filebrowser.c:67 src/filebrowser.c:678
+#: src/devices.c:778
+#, fuzzy, c-format
+msgid "Please insert a disk into the %s"
+msgstr "请在刻录机中插入一张空白 CD"
+
+#: src/filebrowser.c:72 src/filebrowser.c:683
 msgid "Filesystem"
 msgstr "文件系统"
 
-#: src/filebrowser.c:68
+#: src/filebrowser.c:73
 msgid "Home"
 msgstr ""
 
-#: src/filebrowser.c:69
+#: src/filebrowser.c:74
 msgid "(empty)"
 msgstr ""
 
-#: src/filebrowser.c:70
+#: src/filebrowser.c:75
 #, fuzzy
 msgid "Folder"
 msgstr "模式"
 
-#: src/filebrowser.c:569
+#: src/filebrowser.c:574
 #, fuzzy
 msgid "_Add directory"
 msgstr "加入目录"
 
-#: src/filebrowser.c:582
+#: src/filebrowser.c:587
 #, fuzzy
 msgid "_Add file(s)"
 msgstr "加入文件"
 
-#: src/filebrowser.c:598 gnomebaker.glade:190
+#: src/filebrowser.c:603 gnomebaker.glade:193
 msgid "_Burn CD Image"
 msgstr "刻录光盘映像(_B)"
 
-#: src/filebrowser.c:600
+#: src/filebrowser.c:605
 #, fuzzy
 msgid "_Burn DVD Image"
 msgstr "刻录光盘映像(_B)"
 
-#: src/filebrowser.c:709
+#: src/filebrowser.c:714
 #, c-format
 msgid "%s's home"
 msgstr "%s 的起始目录"
 
-#: src/filebrowser.c:776
+#: src/filebrowser.c:781
 msgid "File"
 msgstr "文件"
 
-#: src/filebrowser.c:808
+#: src/filebrowser.c:813
 msgid "Type"
 msgstr "类型"
 
-#: src/filebrowser.c:816
+#: src/filebrowser.c:821
 msgid "Mime"
 msgstr ""
 
 #: src/gbcommon.c:449
 #, fuzzy
-msgid "Please select an iso file..."
+msgid "Please select an iso file."
 msgstr "请选择要保存的 ISO 文件..."
 
 #: src/gbcommon.c:457
@@ -244,230 +347,217 @@ msgstr "启动映像列表"
 msgid "All files"
 msgstr "加入文件"
 
-#: src/gnomebaker.c:87
+#: src/gnomebaker.c:102
 msgid "Loading preferences..."
 msgstr "正在加载配置 ..."
 
-#: src/gnomebaker.c:90
+#: src/gnomebaker.c:105
 msgid "Detecting devices..."
 msgstr "正在探测设备 ..."
 
-#: src/gnomebaker.c:93
+#: src/gnomebaker.c:108
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: src/gnomebaker.c:96
+#: src/gnomebaker.c:111
 msgid "Loading GUI..."
 msgstr "加载图形界面 ...."
 
-#: src/gnomebaker.c:183
+#: src/gnomebaker.c:198
 msgid "Are you sure you want to quit?"
 msgstr "您确定要退出吗？"
 
-#: src/gnomebaker.c:278
+#: src/gnomebaker.c:293
 #, fuzzy
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
 "burn."
 msgstr "您选择的文件不是一个 CD 映像，请选择一个 CD 映像来刻录。"
 
-#: src/gnomebaker.c:349 gnomebaker.glade:12
+#: src/gnomebaker.c:364 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GomeBaker"
 
-#: src/gnomebaker.c:350
+#: src/gnomebaker.c:365
 msgid "Simple CD Burning for Gnome"
 msgstr "GNOME 下的简易 CD 刻录器"
 
-#: src/gnomebaker.c:350 gnomebaker.glade:1750
+#: src/gnomebaker.c:365 gnomebaker.glade:1711
 msgid "translator_credits"
 msgstr ""
 "Li Qing, 2004\n"
 "Carlos Z.F. Liu <carlosliu@users.sourceforge.net>, 2004"
 
-#: src/gnomebaker.c:415
+#: src/gnomebaker.c:430
 #, fuzzy
-msgid "Please select files to add to the disk..."
+msgid "Please select files to add to the disk."
 msgstr "请选择要保存的 ISO 文件..."
 
-#: src/prefsdlg.c:131
+#: src/prefsdlg.c:143
 msgid "Name"
 msgstr "名称"
 
-#: src/prefsdlg.c:146
+#: src/prefsdlg.c:158
 msgid "Id"
 msgstr "Id"
 
-#: src/prefsdlg.c:155
+#: src/prefsdlg.c:167
 msgid "Node"
 msgstr "节点"
 
-#: src/prefsdlg.c:164
+#: src/prefsdlg.c:176
 msgid "Mount point"
 msgstr "挂载点"
 
-#: src/prefsdlg.c:173
+#: src/prefsdlg.c:185
 msgid "Write CD-R"
 msgstr "刻录 CD-R"
 
-#: src/prefsdlg.c:182
+#: src/prefsdlg.c:194
 msgid "Write CD-RW"
 msgstr "刻录 CD-RW"
 
-#: src/prefsdlg.c:191
+#: src/prefsdlg.c:203
 msgid "Write DVD-R"
 msgstr "刻录 DVD-R"
 
-#: src/prefsdlg.c:200
+#: src/prefsdlg.c:212
 msgid "Write DVD-RAM"
 msgstr "刻录 DVD-RAM"
 
-#: src/startdlg.c:102
+#: src/startdlg.c:112
 msgid "Dummy write"
 msgstr "模拟写入"
 
-#: src/startdlg.c:103
+#: src/startdlg.c:113
 #, fuzzy
 msgid "Eject disk"
 msgstr "弹出 CD"
 
-#: src/startdlg.c:104
+#: src/startdlg.c:114
 msgid "Fast blank"
 msgstr "快速清空"
 
-#: src/startdlg.c:105
+#: src/startdlg.c:115
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: src/startdlg.c:106
+#: src/startdlg.c:116
 #, fuzzy
 msgid "Create ISO only"
 msgstr "仅创建 ISO 文件"
 
-#: src/startdlg.c:108
+#: src/startdlg.c:118
 msgid "Force"
 msgstr "强制"
 
-#: src/startdlg.c:109
+#: src/startdlg.c:119
 msgid "Finalize"
 msgstr "结束"
 
-#: src/startdlg.c:110
+#: src/startdlg.c:120
 msgid "Fast"
 msgstr "快速"
 
-#: src/startdlg.c:111
+#: src/startdlg.c:121
 msgid "Joliet"
 msgstr ""
 
-#: src/startdlg.c:112
+#: src/startdlg.c:122
 msgid "Rock Ridge"
 msgstr ""
 
-#: src/startdlg.c:113
+#: src/startdlg.c:123
 msgid "On The Fly"
 msgstr ""
 
-#: src/execfunctions.c:61
-msgid "<b>Burning disk...</b>"
-msgstr "<b>正在刻录光盘...</b>"
+#: src/execfunctions.c:82
+msgid "Preparing to blank disk"
+msgstr ""
 
-#: src/execfunctions.c:67
-#, fuzzy
-msgid "Please insert the CD into the CD writer"
-msgstr "请在刻录机中插入一张 CD-RW"
+#: src/execfunctions.c:125
+msgid "Preparing to burn disk"
+msgstr ""
 
-#: src/execfunctions.c:93
-msgid "<b>Blanking disk...</b>"
-msgstr "<b>正在擦除光盘...</b>"
+#. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
+#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
+#: src/execfunctions.c:187
+#, c-format
+msgid "Writing track %d"
+msgstr ""
 
-#: src/execfunctions.c:100
-msgid "Please insert the CD-RW into the CD writer"
-msgstr "请在刻录机中插入一张 CD-RW"
-
-#: src/execfunctions.c:174
-msgid "Fixating"
-msgstr "准备中"
-
-#: src/execfunctions.c:215 gnomebaker.glade:2884
+#: src/execfunctions.c:235 gnomebaker.glade:2848
 msgid "default"
 msgstr "默认"
 
-#: src/execfunctions.c:375
-msgid "<b>Extracting audio tracks...</b>"
+#: src/execfunctions.c:395
+#, fuzzy
+msgid "Extracting audio tracks"
 msgstr "<b>正在抓取频道...</b>"
 
-#: src/execfunctions.c:387
+#: src/execfunctions.c:406
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr "硬盘里已经存在上次对话保存的一些音轨，你希望使用这些已存在的音轨吗？"
 
-#: src/execfunctions.c:404
-msgid "Please insert the audio CD into the CD reader"
-msgstr "请在光驱中插入一张音乐 CD"
-
-#: src/execfunctions.c:545
+#: src/execfunctions.c:553
 #, fuzzy
-msgid "<b>Calculating data disk image size...</b>"
-msgstr "<b>正在创建数据盘映像...</b>"
-
-#: src/execfunctions.c:583
-msgid "<b>Creating data disk image...</b>"
+msgid "Calculating data disk image size"
 msgstr "<b>正在创建数据盘映像...</b>"
 
 #: src/execfunctions.c:591
+#, fuzzy
+msgid "Creating data disk image"
+msgstr "<b>正在创建数据盘映像...</b>"
+
+#: src/execfunctions.c:598
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr "发现上次对话保存的一个数据 CD 映像，希望使用已经存在的映像吗？"
 
-#: src/execfunctions.c:787
-msgid "<b>Formatting DVD...</b>"
-msgstr "<b>正在格式化 DVD...</b>"
+#: src/execfunctions.c:792
+#, fuzzy
+msgid "Formatting DVD"
+msgstr "格式化 DVDRW(_F)"
 
-#: src/execfunctions.c:794
-msgid "Please insert a rewritable DVD into the DVD writer"
-msgstr "请在 DVD 刻录机中插入一张可反复擦写的 DVD"
-
-#: src/execfunctions.c:879
-msgid "<b>Burning DVD...</b>"
+#: src/execfunctions.c:874
+#, fuzzy
+msgid "Burning DVD"
 msgstr "<b>正在刻录 DVD...</b>"
 
-#: src/execfunctions.c:886
-msgid "Please insert a writable DVD into the DVD writer"
-msgstr "请在 DVD 刻录机中插入一张可写的 DVD"
-
-#: src/execfunctions.c:959 src/execfunctions.c:1000
+#: src/execfunctions.c:942 src/execfunctions.c:984
 msgid "Writing lead-out"
 msgstr ""
 
-#: src/execfunctions.c:1161
-msgid "<b>Reading CD image...</b>"
+#: src/execfunctions.c:1145
+#, fuzzy
+msgid "Reading CD image"
 msgstr "<b>正在读取 CD 映像...</b>"
 
-#: src/execfunctions.c:1440
+#: src/execfunctions.c:1432
 #, fuzzy, c-format
-msgid "<b>Converting [%.32s] to cd audio...</b>"
+msgid "Converting [%.32s] to cd audio"
 msgstr "<b>正在转换 wav 文件为 CD 音频...</b>"
 
-#: src/burn.h:64 gnomebaker.glade:376 gnomebaker.glade:377
+#: src/burn.h:64 gnomebaker.glade:379 gnomebaker.glade:380
 msgid "Blank CDRW"
 msgstr "空白 CDRW"
 
-#: src/burn.h:65 gnomebaker.glade:425 gnomebaker.glade:426
+#: src/burn.h:65 gnomebaker.glade:428 gnomebaker.glade:429
 msgid "Copy Data CD"
 msgstr "复制数据 CD"
 
-#: src/burn.h:66 gnomebaker.glade:443 gnomebaker.glade:444
+#: src/burn.h:66 gnomebaker.glade:446 gnomebaker.glade:447
 msgid "Copy Audio CD"
 msgstr "复制音乐 CD"
 
-#: src/burn.h:67 gnomebaker.glade:474 gnomebaker.glade:475
+#: src/burn.h:67 gnomebaker.glade:477 gnomebaker.glade:478
 msgid "Burn CD Image"
 msgstr "刻录 CD 映像"
 
-#: src/burn.h:68 gnomebaker.glade:492 gnomebaker.glade:493
+#: src/burn.h:68 gnomebaker.glade:495 gnomebaker.glade:496
 #, fuzzy
 msgid "Burn DVD Image"
 msgstr "刻录 CD 映像"
@@ -496,351 +586,394 @@ msgstr "格式化 DVD+RW"
 msgid "Create Data DVD"
 msgstr "制作数据 DVD"
 
-#: gnomebaker.glade:89
+#: gnomebaker.glade:92
 msgid "_Actions"
 msgstr "操作(_A)"
 
-#: gnomebaker.glade:98
+#: gnomebaker.glade:101
 msgid "Bl_ank CDRW"
 msgstr "擦除 CDRW(_A)"
 
-#: gnomebaker.glade:118
+#: gnomebaker.glade:121
 msgid "_Format DVDRW"
 msgstr "格式化 DVDRW(_F)"
 
-#: gnomebaker.glade:144
+#: gnomebaker.glade:147
 msgid "C_opy Data CD"
 msgstr "复制数据光盘(_O)"
 
-#: gnomebaker.glade:164
+#: gnomebaker.glade:167
 msgid "Co_py Audio CD"
 msgstr "复制音乐光盘(_P)"
 
-#: gnomebaker.glade:210
+#: gnomebaker.glade:213
 #, fuzzy
 msgid "Burn _DVD Image"
 msgstr "刻录 CD 映像"
 
-#: gnomebaker.glade:236
+#: gnomebaker.glade:239
 msgid "_Import Session"
 msgstr "导入对话(_I)"
 
-#: gnomebaker.glade:260
+#: gnomebaker.glade:263
 msgid "_View"
 msgstr "查看(_V)"
 
-#: gnomebaker.glade:269
+#: gnomebaker.glade:272
 msgid "_Refresh"
 msgstr "刷新(_R)"
 
-#: gnomebaker.glade:296
+#: gnomebaker.glade:299
 #, fuzzy
 msgid "_Show File Browser"
 msgstr "<b>文件浏览器</b>"
 
-#: gnomebaker.glade:394 gnomebaker.glade:395
+#: gnomebaker.glade:397 gnomebaker.glade:398
 #, fuzzy
 msgid "Format DVDRW"
 msgstr "格式化 DVDRW(_F)"
 
-#: gnomebaker.glade:523
+#: gnomebaker.glade:526
 msgid "Edit GnomeBaker's preferences"
 msgstr "编辑 GnomeBaker 的首选项"
 
-#: gnomebaker.glade:556
+#: gnomebaker.glade:559
 msgid "Refresh the file browser file list"
 msgstr "刷新文件浏览器列表"
 
-#: gnomebaker.glade:679
+#: gnomebaker.glade:682
 msgid "Add the current directory to the CD"
 msgstr "将当前目录添加到 CD"
 
-#: gnomebaker.glade:680
+#: gnomebaker.glade:683
 msgid "Add directory"
 msgstr "加入目录"
 
-#: gnomebaker.glade:697
+#: gnomebaker.glade:700
 msgid "Add the selected files to the CD"
 msgstr "将被选文件添加到 CD"
 
-#: gnomebaker.glade:698
+#: gnomebaker.glade:701
 msgid "Add file(s)"
 msgstr "加入文件"
 
-#: gnomebaker.glade:715
+#: gnomebaker.glade:718
 msgid "Remove the selected files from the CD"
 msgstr "将被选文件添从 CD 上删除"
 
-#: gnomebaker.glade:716
+#: gnomebaker.glade:719
 msgid "Remove selected"
 msgstr "删除被选项"
 
-#: gnomebaker.glade:733
+#: gnomebaker.glade:736
 msgid "Clear the contents of the CD"
 msgstr "清空 CD 内容"
 
-#: gnomebaker.glade:762
+#: gnomebaker.glade:765
 msgid "Import existing session"
 msgstr "导入已保存的对话"
 
-#: gnomebaker.glade:763
+#: gnomebaker.glade:766
 msgid "Import"
 msgstr "导入"
 
-#: gnomebaker.glade:794
+#: gnomebaker.glade:797
 msgid "Move audio tracks up"
 msgstr ""
 
-#: gnomebaker.glade:811
+#: gnomebaker.glade:814
 msgid "Move audio tracks down"
 msgstr ""
 
-#: gnomebaker.glade:891 gnomebaker.glade:1279 gnomebaker.glade:1539
+#: gnomebaker.glade:894 gnomebaker.glade:1282 gnomebaker.glade:1582
 msgid "0%"
 msgstr "0%"
 
-#: gnomebaker.glade:924
+#: gnomebaker.glade:927
 msgid "Click to begin the process of creating a data disk."
 msgstr "请点击按钮以开始创建数据光盘"
 
-#: gnomebaker.glade:967
+#: gnomebaker.glade:970
 msgid "Create Data Disk"
 msgstr "创建数据光盘"
 
-#: gnomebaker.glade:1016
+#: gnomebaker.glade:1019
 msgid "<b>Data Disk</b>"
 msgstr "<b>数据光盘</b>"
 
-#: gnomebaker.glade:1118
+#: gnomebaker.glade:1121
 msgid "Click to begin the process of creating an audio cd"
 msgstr "请点击按钮以开始创建音乐 CD"
 
-#: gnomebaker.glade:1161
+#: gnomebaker.glade:1164
 msgid "Create Audio Disk"
 msgstr "创建音乐光盘"
 
-#: gnomebaker.glade:1210
+#: gnomebaker.glade:1213
 msgid "<b>Audio Disk</b>"
 msgstr "<b>音乐光盘</b>"
 
-#: gnomebaker.glade:1352
+#: gnomebaker.glade:1355
 #, fuzzy
 msgid "Create Video Disk"
 msgstr "创建视频 CD"
 
-#: gnomebaker.glade:1401
+#: gnomebaker.glade:1404
 msgid "<b>Video CD</b>"
 msgstr "<b>视频光盘</b>"
 
-#: gnomebaker.glade:1466
+#: gnomebaker.glade:1469
 #, fuzzy
 msgid "Baking"
 msgstr "正在烘焙 CD"
 
-#: gnomebaker.glade:1511
-msgid "<b>Burning</b>"
-msgstr "<b>正在刻录</b>"
+#: gnomebaker.glade:1529
+msgid "<b><big>...</big></b>"
+msgstr ""
 
-#: gnomebaker.glade:1643
-msgid "View output"
+#: gnomebaker.glade:1554
+msgid "..."
+msgstr ""
+
+#: gnomebaker.glade:1595
+msgid "<i>...</i>"
+msgstr ""
+
+#: gnomebaker.glade:1659
+#, fuzzy
+msgid "Show Output"
 msgstr "查看输出"
 
-#: gnomebaker.glade:1747
+#: gnomebaker.glade:1708
 msgid "GPL"
 msgstr "GPL"
 
-#: gnomebaker.glade:1748
+#: gnomebaker.glade:1709
 msgid "Simple CD burning for Gnome."
 msgstr "简易 GNOME 光盘刻录器"
 
-#: gnomebaker.glade:1755
+#: gnomebaker.glade:1716
 msgid "Splash window"
 msgstr "启动画面"
 
-#: gnomebaker.glade:1794
+#: gnomebaker.glade:1756
 msgid "Starting GnomeBaker..."
 msgstr "正在启动 GnomeBaker..."
 
-#: gnomebaker.glade:1823
+#: gnomebaker.glade:1785
 #, fuzzy
 msgid "GnomeBaker Preferences"
 msgstr "编辑 GnomeBaker 的首选项"
 
-#: gnomebaker.glade:1895
+#: gnomebaker.glade:1858
 msgid "<b>Temporary Directory</b>"
 msgstr "<b>临时目录</b>"
 
-#: gnomebaker.glade:1936
+#: gnomebaker.glade:1899
 msgid "/tmp"
 msgstr "/tmp"
 
-#: gnomebaker.glade:1957
+#: gnomebaker.glade:1920
 msgid "Clean temporary directory on exit"
 msgstr "退出时清空临时目录"
 
-#: gnomebaker.glade:1979
+#: gnomebaker.glade:1942
 msgid "<b>File Browser</b>"
 msgstr "<b>文件浏览器</b>"
 
-#: gnomebaker.glade:2008
+#: gnomebaker.glade:1971
 msgid "Show hidden files"
 msgstr "显示隐藏文件"
 
-#: gnomebaker.glade:2031
+#: gnomebaker.glade:1994
 #, fuzzy
 msgid "Show humanreadable filesizes"
 msgstr "显示隐藏文件"
 
-#: gnomebaker.glade:2053
+#: gnomebaker.glade:2016
 #, fuzzy
 msgid "<b>Other</b>"
 msgstr "<b>选项</b>"
 
-#: gnomebaker.glade:2082
+#: gnomebaker.glade:2045
 msgid "Ask on quit"
 msgstr ""
 
-#: gnomebaker.glade:2104
+#: gnomebaker.glade:2067
 msgid "Play sound when burning is complete"
 msgstr ""
 
-#: gnomebaker.glade:2131
+#: gnomebaker.glade:2094
 msgid "General"
 msgstr "常规"
 
-#: gnomebaker.glade:2164
+#: gnomebaker.glade:2127
 msgid "<b>Detected devices</b>"
 msgstr "<b>已探测到的设备</b>"
 
-#: gnomebaker.glade:2225
+#: gnomebaker.glade:2188
 msgid "Always scan for devices on startup"
 msgstr "启动程序时总是扫描设备"
 
-#: gnomebaker.glade:2297
+#: gnomebaker.glade:2260
 msgid "_Add device"
 msgstr "增加设备(_A)"
 
-#: gnomebaker.glade:2372 gnomebaker.glade:2756
+#: gnomebaker.glade:2335 gnomebaker.glade:2720
 msgid "Sc_an for devices"
 msgstr "扫描设备(_A)"
 
-#: gnomebaker.glade:2419
+#: gnomebaker.glade:2382
 msgid "Devices"
 msgstr "设备"
 
-#: gnomebaker.glade:2451
+#: gnomebaker.glade:2414
 msgid "Start burning..."
 msgstr "开始刻录..."
 
-#: gnomebaker.glade:2538
+#: gnomebaker.glade:2502
 msgid "_Start"
 msgstr "开始(_S)"
 
-#: gnomebaker.glade:2587
+#: gnomebaker.glade:2551
 msgid "Reader"
 msgstr "读取器"
 
-#: gnomebaker.glade:2616 gnomebaker.glade:3558
+#: gnomebaker.glade:2580 gnomebaker.glade:3524
 msgid "Writer"
 msgstr "刻录机"
 
-#: gnomebaker.glade:2679
+#: gnomebaker.glade:2643
 msgid "<b>Options</b>"
 msgstr "<b>选项</b>"
 
-#: gnomebaker.glade:2797
+#: gnomebaker.glade:2761
 msgid "Speed"
 msgstr "速度"
 
-#: gnomebaker.glade:2847
+#: gnomebaker.glade:2811
 msgid "Mode"
 msgstr "模式"
 
-#: gnomebaker.glade:2892
+#: gnomebaker.glade:2856
 msgid "tao"
 msgstr "tao"
 
-#: gnomebaker.glade:2900
+#: gnomebaker.glade:2864
 msgid "dao"
 msgstr "dao"
 
-#: gnomebaker.glade:2908
+#: gnomebaker.glade:2872
 msgid "raw96p"
 msgstr "raw96p"
 
-#: gnomebaker.glade:2916
+#: gnomebaker.glade:2880
 msgid "raw16"
 msgstr "raw16"
 
-#: gnomebaker.glade:2936
+#: gnomebaker.glade:2900
 msgid "<b>Devices</b>"
 msgstr "<b>设备</b>"
 
-#: gnomebaker.glade:2974
+#: gnomebaker.glade:2938
 msgid "ISO filesystem details"
 msgstr "ISO 文件系统详情"
 
-#: gnomebaker.glade:3047
+#: gnomebaker.glade:3012
 msgid "<b>Volume label</b>"
 msgstr "<b>卷标</b>"
 
-#: gnomebaker.glade:3079
+#: gnomebaker.glade:3044
 msgid "GnomeBaker data cd"
 msgstr "GnomeBaker data cd"
 
-#: gnomebaker.glade:3097
+#: gnomebaker.glade:3062
 msgid "<b>Created by</b>"
 msgstr "<b>创建者</b>"
 
-#: gnomebaker.glade:3129
+#: gnomebaker.glade:3094
 msgid "Created by username"
 msgstr "Created by username"
 
-#: gnomebaker.glade:3147
+#: gnomebaker.glade:3112
 msgid "<b>Boot options</b>"
 msgstr "<b>启动选项</b>"
 
-#: gnomebaker.glade:3177
+#: gnomebaker.glade:3142
 msgid "Not bootable"
 msgstr "不可启动"
 
-#: gnomebaker.glade:3201
+#: gnomebaker.glade:3166
 msgid "PC bootable"
 msgstr "在 PC 上启动"
 
-#: gnomebaker.glade:3234
+#: gnomebaker.glade:3199
 msgid "Floppy disk image"
 msgstr "软盘映像"
 
-#: gnomebaker.glade:3255
+#: gnomebaker.glade:3220
 msgid "Hard disk image"
 msgstr "硬盘映像"
 
-#: gnomebaker.glade:3286
+#: gnomebaker.glade:3251
 msgid "Boot catalog"
 msgstr "启动类别"
 
-#: gnomebaker.glade:3315
+#: gnomebaker.glade:3280
 msgid "Boot Image"
 msgstr "启动映像"
 
-#: gnomebaker.glade:3379
+#: gnomebaker.glade:3344
 msgid "Sun workstation bootable"
 msgstr "在 Sun 工作站上启动"
 
-#: gnomebaker.glade:3402
+#: gnomebaker.glade:3367
 msgid "Boot Image list"
 msgstr "启动映像列表"
 
-#: gnomebaker.glade:3484
+#: gnomebaker.glade:3449
 msgid "Select writer..."
 msgstr ""
 
-#: gnomebaker.glade:3602
+#: gnomebaker.glade:3568
 msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"
 msgstr ""
+
+#~ msgid "Completed"
+#~ msgstr "完成"
+
+#~ msgid "Failed"
+#~ msgstr "失败"
+
+#~ msgid "<b>Burning disk...</b>"
+#~ msgstr "<b>正在刻录光盘...</b>"
+
+#, fuzzy
+#~ msgid "Please insert the CD into the CD writer"
+#~ msgstr "请在刻录机中插入一张 CD-RW"
+
+#~ msgid "<b>Blanking disk...</b>"
+#~ msgstr "<b>正在擦除光盘...</b>"
+
+#~ msgid "Please insert the CD-RW into the CD writer"
+#~ msgstr "请在刻录机中插入一张 CD-RW"
+
+#~ msgid "Fixating"
+#~ msgstr "准备中"
+
+#~ msgid "<b>Formatting DVD...</b>"
+#~ msgstr "<b>正在格式化 DVD...</b>"
+
+#~ msgid "Please insert a rewritable DVD into the DVD writer"
+#~ msgstr "请在 DVD 刻录机中插入一张可反复擦写的 DVD"
+
+#~ msgid "Please insert a writable DVD into the DVD writer"
+#~ msgstr "请在 DVD 刻录机中插入一张可写的 DVD"
+
+#~ msgid "<b>Burning</b>"
+#~ msgstr "<b>正在刻录</b>"
 
 #, fuzzy
 #~ msgid "<b>GnomeBaker</b>"
@@ -1053,10 +1186,6 @@ msgstr ""
 #~ msgid "MessageDialog message [%s]"
 #~ msgstr "对话框信息 [%s]"
 
-#, fuzzy
-#~ msgid "Please select a CD image file..."
-#~ msgstr "请选择一个 iso 文件"
-
 #~ msgid "toolbar style [%s] [%d]"
 #~ msgstr "工具栏样式 [%s] [%d]"
 
@@ -1129,9 +1258,6 @@ msgstr ""
 
 #~ msgid "Duration %f Fraction is %f"
 #~ msgstr "时长 %f 占用百分比 %f"
-
-#~ msgid "Please insert a blank CD into the CD writer"
-#~ msgstr "请在刻录机中插入一张空白 CD"
 
 #~ msgid "File size %f disksize %f Fraction is %f"
 #~ msgstr "文件大小 %f 光盘大小 %f 占用百分比 %f"

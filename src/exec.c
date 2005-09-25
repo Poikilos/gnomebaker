@@ -47,6 +47,31 @@ exec_print_cmd(const ExecCmd* e)
 }
 
 
+static void 
+exec_set_outcome(Exec* e)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);
+    
+    e->outcome = COMPLETED;    
+    GList* cmd = e->cmds;
+    for(; cmd != NULL; cmd = cmd->next)
+    {
+        const ExecState state = exec_cmd_get_state((ExecCmd*)cmd->data);
+        if(state == CANCELLED)
+        {           
+            e->outcome = CANCELLED;
+            break;
+        }
+        else if(state == FAILED)
+        {            
+            e->outcome = FAILED;
+            break;
+        }
+    }
+}
+
+
 static gboolean 
 exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data)
 {   
@@ -86,10 +111,11 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
     
     if (cont == FALSE || condition & G_IO_HUP || condition & G_IO_ERR || condition & G_IO_NVAL) 
     {
-        GB_TRACE("exec_channel_callback - condition [%d]", condition);
-        g_mutex_lock(cmd->mutex);
-        g_cond_broadcast(cmd->cond);
-        g_mutex_unlock(cmd->mutex);
+        // We assume a failure here (even on G_IO_HUP) as exec_spawn_process will 
+        // check the return code of the child to determine if it actually worked
+        // and set the correct state accordingly.
+        exec_cmd_set_state(cmd, FAILED);
+        GB_TRACE("exec_channel_callback - condition [%d]", condition);        
         cont = FALSE;
     }
     
@@ -98,7 +124,7 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
 
 
 static void
-exec_spawn_process(ExecCmd* e, GSpawnChildSetupFunc child_setup, gboolean read)
+exec_spawn_process(ExecCmd* e, GSpawnChildSetupFunc child_setup)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
@@ -106,19 +132,14 @@ exec_spawn_process(ExecCmd* e, GSpawnChildSetupFunc child_setup, gboolean read)
 	exec_print_cmd(e);
 	gint stdout = 0, stderr = 0;		
     GError* err = NULL;
-	g_mutex_lock(e->mutex);
-	gboolean ok = g_spawn_async_with_pipes(NULL, e->argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_DO_NOT_REAP_CHILD , 
-        child_setup, e, &e->pid, NULL, &stdout, &stderr, &err);	
-    g_mutex_unlock(e->mutex);
-	if(ok)
+	if(g_spawn_async_with_pipes(NULL, e->argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_DO_NOT_REAP_CHILD , 
+        child_setup, e, &e->pid, NULL, &stdout, &stderr, &err))
 	{
 		GB_TRACE("exec_spawn_process - spawed process with pid [%d]", e->pid);
-		GIOChannel* chanout = NULL;
-		GIOChannel* chanerr = NULL;
-		guint chanoutid = 0;
-		guint chanerrid = 0;
+		GIOChannel *chanout = NULL, *chanerr = NULL;
+		guint chanoutid = 0, chanerrid = 0;
 		
-		if(read)
+		if(!e->piped)
 		{
 			chanout = g_io_channel_unix_new(stdout);			
 			g_io_channel_set_encoding(chanout, NULL, NULL);
@@ -133,52 +154,41 @@ exec_spawn_process(ExecCmd* e, GSpawnChildSetupFunc child_setup, gboolean read)
 			g_io_channel_set_flags( chanerr, G_IO_FLAG_NONBLOCK, NULL );
 			chanerrid = g_io_add_watch(chanerr, G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_PRI | G_IO_NVAL ,
 				exec_channel_callback, (gpointer)e);
-		}
-		
-		/* wait until we're told that the process is complete or cancelled */	
-		int retcode = 0;
-		g_mutex_lock(e->mutex);
-		while((waitpid(e->pid, &retcode, WNOHANG)) != -1)
-		{
-            GB_DECLARE_STRUCT(GTimeVal, time);
-            g_get_current_time(&time);
-            g_time_val_add(&time, 1 * G_USEC_PER_SEC);
-            if(g_cond_timed_wait(e->cond, e->mutex, &time))
-                break;
-		}
-		/* If the process was cancelled then we kill of the child */
-		if(e->state == CANCELLED)
-			kill(e->pid, SIGKILL);			
-		g_mutex_unlock(e->mutex);
-		
-		/* Reap the child so we don't get a zombie */
-        waitpid(e->pid, &retcode, 0);
+
+            while(exec_cmd_get_state(e) == RUNNING)
+                gtk_main_iteration();                               
+                
+            g_source_remove(chanoutid);
+            g_source_remove(chanerrid); 
+            g_io_channel_shutdown(chanout, FALSE, NULL);
+            g_io_channel_unref(chanout);  
+            g_io_channel_shutdown(chanerr, FALSE, NULL);
+            g_io_channel_unref(chanerr);                
+        }
+        else
+        {
+            while((waitpid(e->pid, &e->exitCode, WNOHANG) != -1) && (exec_cmd_get_state(e) == RUNNING))
+                g_usleep(500000);
+        }
         
-        g_mutex_lock(e->mutex);
-        e->exitCode = retcode;
-        g_mutex_unlock(e->mutex);
-	
-		if(read)
-		{
-			g_source_remove(chanoutid);
-			g_source_remove(chanerrid);	
-			g_io_channel_shutdown(chanout, FALSE, NULL);
-			g_io_channel_unref(chanout);  
-			g_io_channel_shutdown(chanerr, FALSE, NULL);
-			g_io_channel_unref(chanerr);			
-		}
+        /* If the process was cancelled then we kill off the child */
+        if(exec_cmd_get_state(e) == CANCELLED)
+            kill(e->pid, SIGKILL);
+        
+        /* Reap the child so we don't get a zombie */
+        waitpid(e->pid, &e->exitCode, 0);
 		g_spawn_close_pid(e->pid);
 		close(stdout);
 		close(stderr);	
 		
-        exec_cmd_set_state(e, (e->exitCode == 0) ? COMPLETE : FAILED, FALSE);
-		GB_TRACE("exec_spawn_process - child exitcode [%d]", e->exitCode);
+        exec_cmd_set_state(e, (e->exitCode == 0) ? COMPLETED : FAILED);
+		GB_TRACE("exec_spawn_process - child [%d] exitcode [%d]", e->pid, e->exitCode);
 	}
 	else
 	{
 		g_critical("exec_spawn_process - failed to spawn process [%d] [%s]",
 			err->code, err->message);			
-        exec_cmd_set_state(e, FAILED, FALSE);
+        exec_cmd_set_state(e, FAILED);
         g_error_free(err);
 	}
 }
@@ -230,7 +240,7 @@ exec_run_remainder(gpointer data)
         if(e->libProc != NULL)
             e->libProc(e, child_child_pipe);
 		else 
-            exec_spawn_process(e, exec_stdout_setup_func, FALSE);
+            exec_spawn_process(e, exec_stdout_setup_func);
         
         ExecState state = exec_cmd_get_state(e);
         if((state == CANCELLED) || (state == FAILED))
@@ -243,83 +253,12 @@ exec_run_remainder(gpointer data)
 
 
 static void
-exec_stop_remainder(Exec* ex)
-{
-    GB_LOG_FUNC
-    GList* cmd = ex->cmds;
-    for(; cmd != NULL; cmd = cmd->next)
-        exec_cmd_set_state((ExecCmd*)cmd->data, FAILED, TRUE);
-}
-
-
-static gpointer
-exec_thread(gpointer data)
-{
-    GB_LOG_FUNC
-    g_return_val_if_fail(data != NULL, NULL);   
-
-    Exec* ex = (Exec*)data;
-
-    if(ex->startProc) ex->startProc(ex, NULL);
-    ExecState state = RUNNABLE;
-    GList* piped = NULL;    
-    GList* cmd = ex->cmds;
-    for(; cmd != NULL && ((state != CANCELLED) && (state != FAILED)); cmd = cmd->next)
-    {
-        ExecCmd* e = (ExecCmd*)cmd->data;
-        if(e->piped) 
-        {
-            piped = g_list_append(piped, e);
-            piped = g_list_first(piped);
-            continue;
-        }
-        if(e->preProc) e->preProc(e, NULL);                 
-        
-        state = exec_cmd_get_state(e);
-        if(state == SKIP) continue;
-        else if(state == CANCELLED) break;    
-        
-        if(e->libProc != NULL)
-        {
-            e->libProc(e, NULL);
-        }
-        else if(piped != NULL)
-        {
-            pipe(child_child_pipe); 
-            g_thread_create(exec_run_remainder, (gpointer)piped, TRUE, NULL);
-            exec_spawn_process(e, exec_stdin_setup_func, TRUE);
-            close(child_child_pipe[0]);
-            close(child_child_pipe[1]); 
-        }
-        else                       
-        {
-            exec_spawn_process(e, exec_working_dir_setup_func, TRUE);
-        }
-            
-        state = exec_cmd_get_state(e);
-        if(((state == CANCELLED) || (state == FAILED)) && (piped != NULL))
-            exec_stop_remainder(ex);
-         
-        if(e->postProc) e->postProc(e, NULL);
-        
-        g_list_free(piped);
-        piped = NULL;
-    }
-    if(ex->endProc) ex->endProc(ex, NULL);
-    GB_TRACE("exec_thread - exiting");
-    return NULL;
-}
-
-
-static void
 exec_cmd_delete(ExecCmd * e)
 {
     GB_LOG_FUNC
     g_return_if_fail(e != NULL);
-
+    g_mutex_free(e->statemutex);
     g_strfreev(e->argv);
-    g_cond_free(e->cond);
-    g_mutex_free(e->mutex);    
     g_free(e->workingdir);
 }
 
@@ -336,13 +275,12 @@ exec_cmd_new(Exec* exec)
     e->argv[0] = NULL;
     e->pid = 0;
     e->exitCode = 0;
-    e->state = RUNNABLE;
+    e->state = RUNNING;
+    e->statemutex = g_mutex_new();
     e->libProc = NULL;
     e->preProc = NULL;
     e->readProc = NULL;
     e->postProc = NULL;
-    e->mutex = g_mutex_new();
-    e->cond = g_cond_new();
     e->workingdir = NULL;    
     exec->cmds = g_list_append(exec->cmds, e);
     exec->cmds = g_list_first(exec->cmds);
@@ -376,6 +314,7 @@ exec_new(const gchar* processtitle, const gchar* processdescription)
 	g_return_val_if_fail(exec != NULL, NULL);        
     exec->processtitle = g_strdup(processtitle);
     exec->processdescription = g_strdup(processdescription);
+    exec->outcome = FAILED;
 	return exec;
 }
 
@@ -417,66 +356,83 @@ exec_cmd_update_arg(ExecCmd* e, const gchar* argstart, const gchar* value)
 }
 
 
-
-gboolean 
-exec_cmd_wait_for_signal(ExecCmd* e, guint timeinseconds)
-{
-    GB_LOG_FUNC
-    g_return_val_if_fail(e != NULL, FALSE);
-    
-    GB_DECLARE_STRUCT(GTimeVal, time);
-    g_get_current_time(&time);
-    g_time_val_add(&time, timeinseconds * G_USEC_PER_SEC);
-    g_mutex_lock(e->mutex);        
-    gboolean signalled = g_cond_timed_wait(e->cond, e->mutex, &time);
-    g_mutex_unlock(e->mutex);    
-    return signalled;
-}
-
-
 ExecState 
 exec_cmd_get_state(ExecCmd* e) 
 {
-    GB_LOG_FUNC
+//    GB_LOG_FUNC
     g_return_val_if_fail(e != NULL, FAILED);
-    
-    g_mutex_lock(e->mutex);
+    g_mutex_lock(e->statemutex);
     ExecState ret = e->state;
-    g_mutex_unlock(e->mutex);
+    g_mutex_unlock(e->statemutex);
     return ret;
 }
 
 
 ExecState 
-exec_cmd_set_state(ExecCmd* e, ExecState state, gboolean signal) 
+exec_cmd_set_state(ExecCmd* e, ExecState state)
 {
     GB_LOG_FUNC
     g_return_val_if_fail(e != NULL, FAILED);
-    
-    g_mutex_lock(e->mutex);
+    g_mutex_lock(e->statemutex);
     if(e->state != CANCELLED)
         e->state = state;
     ExecState ret = e->state;
-    if(signal)
-        g_cond_broadcast(e->cond);
-    g_mutex_unlock(e->mutex);
+    g_mutex_unlock(e->statemutex);
     return ret;
 }
 
 
-GThread*
-exec_go(Exec* e)
-{
+void
+exec_run(Exec* ex)
+{    
     GB_LOG_FUNC
-    g_return_val_if_fail(e != NULL, NULL);
-    
-    e->thread = g_thread_create(exec_thread, (gpointer) e, TRUE, &e->err);
-    if(e->err != NULL)
+    g_return_if_fail(ex != NULL);   
+
+    ExecState state = RUNNING;
+    GList* piped = NULL;    
+    GList* cmd = ex->cmds;
+    for(; cmd != NULL && ((state != CANCELLED) && (state != FAILED)); cmd = cmd->next)
     {
-        g_critical("exec_go - failed to create thread [%d] [%s]",
-               e->err->code, e->err->message);                              
+        ExecCmd* e = (ExecCmd*)cmd->data;
+        if(e->piped) 
+        {
+            piped = g_list_append(piped, e);
+            piped = g_list_first(piped);
+            continue;
+        }
+        if(e->preProc) e->preProc(e, NULL);                 
+        
+        state = exec_cmd_get_state(e);
+        if(state == SKIPPED) continue;
+        else if(state == CANCELLED) break;    
+        
+        GThread* thread = NULL;
+        if(e->libProc != NULL) e->libProc(e, NULL);
+        else if(piped != NULL)
+        {
+            pipe(child_child_pipe); 
+            thread = g_thread_create(exec_run_remainder, (gpointer)piped, TRUE, NULL);
+            exec_spawn_process(e, exec_stdin_setup_func);
+            close(child_child_pipe[0]);
+            close(child_child_pipe[1]); 
+        }
+        else exec_spawn_process(e, exec_working_dir_setup_func);
+            
+        state = exec_cmd_get_state(e);  
+        if((/*(state == CANCELLED) || */(state == FAILED)) && (piped != NULL))
+        {
+            GList* cmd = ex->cmds;
+            for(; cmd != NULL; cmd = cmd->next)
+                exec_cmd_set_state((ExecCmd*)cmd->data, FAILED);
+        } 
+         
+        if(e->postProc) e->postProc(e, NULL);
+        if(thread != NULL) g_thread_join(thread);        
+        
+        g_list_free(piped);
+        piped = NULL;
     }
-    return e->thread;
+    exec_set_outcome(ex);
 }
 
 
@@ -488,8 +444,7 @@ exec_stop(Exec* e)
     
     GList* cmd = e->cmds;
     for(; cmd != NULL; cmd = cmd->next)
-        exec_cmd_set_state((ExecCmd*)cmd->data, CANCELLED, TRUE);        
-    g_thread_join(e->thread);
+        exec_cmd_set_state((ExecCmd*)cmd->data, CANCELLED);        
     
     GB_TRACE("exec_stop - complete");
 }
@@ -548,29 +503,4 @@ exec_count_operations(const Exec* e)
     return count;
 }
 
-
-ExecState 
-exec_get_outcome(const Exec* e)
-{
-    GB_LOG_FUNC
-    g_return_val_if_fail(e != NULL, FAILED);   
-    
-    ExecState outcome = COMPLETE;
-    GList* cmd = e->cmds;
-    for(; cmd != NULL; cmd = cmd->next)
-    {
-        const ExecState state = exec_cmd_get_state((ExecCmd*)cmd->data);
-        if(state == CANCELLED)
-        {           
-            outcome = CANCELLED;
-            break;
-        }
-        else if(state == FAILED)
-        {            
-            outcome = FAILED;
-            break;
-        }
-    }
-    return outcome;
-}
 
