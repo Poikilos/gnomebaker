@@ -30,18 +30,15 @@
 #include <glade/glade.h>
 #include "exec.h"
 
-GtkWidget* progressdlg_new(const Exec* exec);
+GtkWidget* progressdlg_new(const Exec* exec, GCallback callonprematureclose);
 void progressdlg_delete(GtkWidget* self);
 void progressdlg_set_fraction(gfloat fraction);
-void progressdlg_set_text(const gchar* text);
 void progressdlg_append_output(const gchar* output);
-void progressdlg_enable_close(gboolean enable);
 void progressdlg_set_status(const gchar* status);
 void progressdlg_pulse_start();
 void progressdlg_pulse_stop();
 void progressdlg_increment_exec_number();
-void progressdlg_reset_fraction(gfloat fraction);
-void progressdlg_dismiss();
+void progressdlg_finish(GtkWidget* self, const Exec* ex);
 GtkWindow* progressdlg_get_window();
 
 #endif	/*_PROGRESSDLG_H_*/

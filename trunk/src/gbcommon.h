@@ -68,13 +68,14 @@ gboolean gbcommon_init();
 void gbcommon_memset(void* memory, gsize size);
 void gbcommon_center_window_on_parent(GtkWidget* window);
 
+
 /* defined in main.c */
 extern const gchar* glade_file;
 extern gboolean showtrace;
 
 
 #define GB_LOG_FUNC											\
-	if(showtrace) g_print("Entering [%s] [%s] [%d]\n", __FUNCTION__, __FILE__, __LINE__);	\
+	if(showtrace) g_print("[%x] [%s] [%s] [%d]\n", (guint)g_thread_self(), __FUNCTION__, __FILE__, __LINE__);	\
 		
 #define GB_TRACE			\
 	if(showtrace) g_message	\

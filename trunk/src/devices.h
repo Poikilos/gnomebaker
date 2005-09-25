@@ -36,7 +36,6 @@ static const gint DC_WRITE_DVDR = 0x4;
 static const gint DC_WRITE_DVDRAM = 0x8;
 
 
-
 gboolean devices_probe_busses();
 gboolean devices_init();
 void devices_populate_optionmenu(GtkWidget* option_menu, const gchar* defaultselect);
@@ -47,6 +46,6 @@ void devices_write_device_to_gconf(const gint devicenumber, const gchar* devicen
 gboolean devices_mount_device(const gchar* devicekey, gchar** mountpoint);
 void devices_save_optionmenu(GtkOptionMenu* optmen, const gchar* devicekey);
 gboolean devices_eject_cd(const gchar* devicekey);
-gboolean devices_query_cdstatus(const gchar* devicekey);
+gint devices_prompt_for_disk(GtkWindow* parent, const gchar* devicekey);
 
 #endif	/*_DEVICES_H_*/

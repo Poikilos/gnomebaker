@@ -427,7 +427,7 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
     else
     {
         GtkWidget *filesel = gtk_file_chooser_dialog_new(
-	        _("Please select files to add to the disk..."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN , 
+	        _("Please select files to add to the disk."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN , 
 	        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
         
         gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), TRUE);     

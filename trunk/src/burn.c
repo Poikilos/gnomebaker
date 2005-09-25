@@ -58,60 +58,20 @@ burn_show_start_dlg(const BurnType burntype)
 }
 
 
-static void
-burn_end_proc(void *ex, void *data)
-{
-	GB_LOG_FUNC	
-	g_return_if_fail(ex != NULL);
-	Exec* e = (Exec*)ex;			
-
-	ExecState outcome = exec_get_outcome(e);    
-    if(outcome == CANCELLED)
-    {
-        progressdlg_dismiss();
-    }
-    else if(outcome == COMPLETE)
-    {
-        progressdlg_reset_fraction(1.0);
-        progressdlg_set_text(_("Completed"));
-        if(preferences_get_bool(GB_PLAY_SOUND))
-            media_start_playing(PACKAGE_MEDIA_DIR"/BurnOk.wav");        
-    }
-    else if (outcome == FAILED) 
-    {
-        progressdlg_reset_fraction(1.0);
-        progressdlg_set_text(_("Failed"));
-        if(preferences_get_bool(GB_PLAY_SOUND))
-           media_start_playing(PACKAGE_MEDIA_DIR"/BurnFailed.wav");        
-        if(e->err != NULL)
-            progressdlg_append_output(e->err->message);
-    }
-}
-
-
 /*
- * This function kicks off the whole writing process on a separate thread.
+ * This function kicks off the whole writing process.
  */
 static gboolean
 burn_start_process()
 {
 	GB_LOG_FUNC
-	gboolean ok = TRUE;		  
-	
-	/* Wire up the function that gets called at the end of the burning process. 
-	   This finalises the text in the progress dialog.*/
-	burnargs->endProc = burn_end_proc;
-
 	/* Create the dlg before we start the thread as callbacks from the
 	 * thread may need to use the controls.*/
-	GtkWidget *dlg = progressdlg_new(burnargs);
-    gtk_widget_show(dlg);
-    gtk_main_iteration();
-    
-    exec_go(burnargs);
-	gtk_dialog_run(GTK_DIALOG(dlg));     	
-	progressdlg_delete(dlg);	    
-	return ok;
+	GtkWidget *dlg = progressdlg_new(burnargs, G_CALLBACK(burn_end_process));
+    exec_run(burnargs);
+    progressdlg_finish(dlg, burnargs);
+	progressdlg_delete(dlg);
+	return (burnargs->outcome == COMPLETED);
 }
 
 
@@ -206,12 +166,11 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 	gboolean ok = FALSE;	
 	if((ok = (burn_show_start_dlg(create_data_cd) == GTK_RESPONSE_OK)))
 	{	                     
-        mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
             burnargs = exec_new(_("Creating data CD image"), _("Please wait while the data CD image is created."));
 			GtkWidget *filesel = gtk_file_chooser_dialog_new(
-				_("Please select an iso file to save to..."), NULL, GTK_FILE_CHOOSER_ACTION_SAVE, 
+				_("Please select an iso file to save to."), NULL, GTK_FILE_CHOOSER_ACTION_SAVE, 
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);			
 			gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
 			gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filesel), "gnomebaker.iso");
@@ -230,6 +189,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
         else if(preferences_get_bool(GB_ONTHEFLY))
         {
             burnargs = exec_new(_("Burning data CD"), _("Please wait while the data CD is burned directly to disk."));
+            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
             ExecCmd* cmd = exec_cmd_new(burnargs);
             cmd->piped = TRUE;
             ok = mkisofs_add_args(cmd, datamodel, NULL, FALSE);			
@@ -242,6 +202,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 		else
 		{
             burnargs = exec_new(_("Burning data CD"), _("Please wait while the data CD image is created and then burned to disk."));
+            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
 			gchar* file = preferences_get_create_data_cd_image();            
             ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);			
             if(ok)
@@ -336,7 +297,7 @@ burn_copy_data_cd()
 		{
             burnargs = exec_new(_("Extracting CD image"), _("Please wait while the data CD image is extracted."));
 			GtkWidget *filesel = gtk_file_chooser_dialog_new(
-				_("Please select an iso file to save to..."), NULL, GTK_FILE_CHOOSER_ACTION_SAVE, 
+				_("Please select an iso file to save to."), NULL, GTK_FILE_CHOOSER_ACTION_SAVE, 
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);			
 			gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
 			gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filesel), "gnomebaker.iso");

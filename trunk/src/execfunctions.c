@@ -47,75 +47,44 @@ static gint cdda2wav_totaltracks = -1;
 static gint cdda2wav_totaltracksread = 0;
 
 static gint readcd_totalguchars = -1;
-static gint cdrdao_cdminutes = -1;
+/*static gint cdrdao_cdminutes = -1;*/
+
+
+void
+execfunctions_find_line_set_status(const gchar* buffer, const gchar* text, const gchar delimiter)
+{
+    GB_LOG_FUNC    
+    g_return_if_fail(buffer != NULL);
+    g_return_if_fail(text != NULL);
+    
+    const gchar* start = strstr(buffer, text);
+    if(start != NULL)
+    {
+        const gchar* ptr = start;
+        while(*ptr != delimiter)
+            ++ptr;
+        gchar* message = g_strndup(start, (ptr - start) * sizeof(gchar));
+        g_strstrip(message);
+        progressdlg_set_status(message);
+        g_free(message);
+    }    
+}
 
 
 /*******************************************************************************
  * CDRECORD
  ******************************************************************************/
 
-/*
- * We pass a pointer to this function to Exec which will call us when it has
- * read from it pipe. We get the data and stuff the text into our text entry
- * for the user to read.
- */
-static void
-cdrecord_pre_proc(void* ex, void* buffer)
-{	
-	GB_LOG_FUNC	
-	g_return_if_fail(ex != NULL);
-	
-	progressdlg_set_status(_("Burning disk..."));
-	progressdlg_increment_exec_number();
-	if(!devices_query_cdstatus(GB_WRITER))
-	{
-		gdk_threads_enter();
-		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(),GTK_MESSAGE_INFO, 
-            GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE, _("Please insert the CD into the CD writer"));
-		/*gdk_flush();*/
-		gdk_threads_leave();
-		
-		if(ret == GTK_RESPONSE_CANCEL)
-			exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
-	}
-    
-    /* If we have the total disk bytes set then let cdrecord know about it */
-    if(cdrecord_totaldiskbytes > 0)
-    {
-        gchar* total = g_strdup_printf("%llus", cdrecord_totaldiskbytes);    
-        exec_cmd_update_arg((ExecCmd*)ex, "tsize=", total);
-        g_free(total);
-    }
-        
-    gdk_threads_enter();
-    devices_mount_device(GB_WRITER, NULL);
-    gdk_threads_leave();
-}
-
-
 static void
 cdrecord_blank_pre_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
-	progressdlg_set_status(_("Blanking disk..."));
-	progressdlg_set_text("");
-	gint ret = GTK_RESPONSE_OK;
-	if(!devices_query_cdstatus(GB_WRITER))
-	{
-		gdk_threads_enter();
-		ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, 
-            GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE, _("Please insert the CD-RW into the CD writer"));
-		/*gdk_flush();*/
-		gdk_threads_leave();
-    }
-    
-    if(ret == GTK_RESPONSE_CANCEL)
-        exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
+	progressdlg_set_status(_("Preparing to blank disk"));
+    if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
+        exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
     else
         progressdlg_pulse_start();
-    gdk_threads_enter();
     devices_mount_device(GB_WRITER, NULL);
-    gdk_threads_leave();
 }
 
 
@@ -124,6 +93,51 @@ cdrecord_blank_post_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	progressdlg_pulse_stop();
+}
+
+
+static void
+cdrecord_blank_read_proc(void* ex, void* buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(buffer != NULL);
+    g_return_if_fail(ex != NULL);
+
+    gchar *buf = (gchar*)buffer;
+    execfunctions_find_line_set_status(buf, "Last chance", '.');
+    execfunctions_find_line_set_status(buf, "Performing OPC", '.');
+    execfunctions_find_line_set_status(buf, "Blanking", '\r');
+    progressdlg_append_output(buffer);
+}
+
+
+/*
+ * We pass a pointer to this function to Exec which will call us when it has
+ * read from it pipe. We get the data and stuff the text into our text entry
+ * for the user to read.
+ */
+static void
+cdrecord_pre_proc(void* ex, void* buffer)
+{   
+    GB_LOG_FUNC 
+    g_return_if_fail(ex != NULL);
+    
+    progressdlg_set_status(_("Preparing to burn disk"));
+    progressdlg_increment_exec_number();
+    
+    if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
+        exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
+    else 
+    {
+        /* If we have the total disk bytes set then let cdrecord know about it */
+        if(cdrecord_totaldiskbytes > 0)
+        {
+            gchar* total = g_strdup_printf("%llus", cdrecord_totaldiskbytes);    
+            exec_cmd_update_arg((ExecCmd*)ex, "tsize=", total);
+            g_free(total);
+        }
+        devices_mount_device(GB_WRITER, NULL);
+    }
 }
 
 
@@ -169,18 +183,17 @@ cdrecord_read_proc(void* ex, void* buffer)
             /*GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
                 currenttrack, cdrecord_firsttrack, current, total, totalfraction);*/
             
+            
+            gchar* status = g_strdup_printf(_("Writing track %d"), currenttrack);
+            progressdlg_set_status(status);
+            g_free(status);
             progressdlg_set_fraction(totalfraction);
         }
 	}
-	
-	const gchar* fixating = strstr(buf, "Fixating");
-	if(fixating != NULL)
-	{
-		/* Order of these is important as set fraction also sets the text */
-		progressdlg_set_fraction(1.0);		
-		progressdlg_set_text(_("Fixating"));
-	}
-	
+    execfunctions_find_line_set_status(buf, "Performing OPC", '.');
+    execfunctions_find_line_set_status(buf, "Last chance", '.');
+    execfunctions_find_line_set_status(buf, "Writing Leadout", '.');
+    execfunctions_find_line_set_status(buf, "Fixating", '.');
 	progressdlg_append_output(buffer);
 }
 
@@ -201,7 +214,7 @@ cdrecord_add_common_args(ExecCmd* cdBurn)
 	exec_cmd_add_arg(cdBurn, "dev=%s", writer);
 	g_free(writer);
 	
-	exec_cmd_add_arg(cdBurn, "%s", "gracetime=2");
+	exec_cmd_add_arg(cdBurn, "%s", "gracetime=5");
 	
 	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_CDWRITE_SPEED));
 	exec_cmd_add_arg(cdBurn, "speed=%s", speed);
@@ -338,7 +351,7 @@ cdrecord_add_blank_args(ExecCmd* cdBurn)
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);	   
 	
-	cdBurn->readProc = cdrecord_read_proc;
+	cdBurn->readProc = cdrecord_blank_read_proc;
 	cdBurn->preProc = cdrecord_blank_pre_proc;
 	cdBurn->postProc = cdrecord_blank_post_proc;
 
@@ -360,7 +373,7 @@ cdrecord_add_blank_args(ExecCmd* cdBurn)
 	if(preferences_get_bool(GB_EJECT))
 		exec_cmd_add_arg(cdBurn, "%s", "-eject");
 	
-	exec_cmd_add_arg(cdBurn, "%s", "gracetime=2");
+	exec_cmd_add_arg(cdBurn, "%s", "gracetime=5");
 	
 	exec_cmd_add_arg(cdBurn, "%s", preferences_get_bool(GB_FAST_BLANK) 
 		? "blank=fast" : "blank=all");
@@ -379,7 +392,7 @@ cdda2wav_pre_proc(void* ex, void* buffer)
 	cdda2wav_totaltracks = -1;
 	cdda2wav_totaltracksread = 0;
 	
-	progressdlg_set_status(_("Extracting audio tracks..."));
+	progressdlg_set_status(_("Extracting audio tracks"));
 	progressdlg_increment_exec_number();
 
 	gint response = GTK_RESPONSE_NO;
@@ -389,12 +402,9 @@ cdda2wav_pre_proc(void* ex, void* buffer)
 	
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
-		gdk_threads_enter();
 		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
 			_("Audio tracks from a previous sesion already exist on disk, "
 			"do you wish to use the existing tracks?"));
-		/*gdk_flush();*/
-		gdk_threads_leave();
 	}
 	
 	g_free(file);
@@ -404,24 +414,15 @@ cdda2wav_pre_proc(void* ex, void* buffer)
 		gchar* cmd = g_strdup_printf("rm -fr %s/gbtrack*", tmp);
 		system(cmd);
 		g_free(cmd);
-	    if(!devices_query_cdstatus(GB_READER))	
-        {
-            gdk_threads_enter();
-            response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-                _("Please insert the audio CD into the CD reader"));				
-            /*gdk_flush();*/
-            gdk_threads_leave();	
-        }
+	    response = devices_prompt_for_disk(progressdlg_get_window(), GB_READER);
 	}
 	
 	if(response == GTK_RESPONSE_CANCEL)
-		exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
+		exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
 	else if(response == GTK_RESPONSE_YES)
-		exec_cmd_set_state((ExecCmd*)ex, SKIP, FALSE);
+		exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
         
-    gdk_threads_enter();
 	devices_mount_device(GB_READER, NULL);
-    gdk_threads_leave();
 	g_free(tmp);
 }
 
@@ -549,7 +550,7 @@ mkisofs_calc_size_pre_proc(void* ex, void* buffer)
     GB_LOG_FUNC
     g_return_if_fail(ex != NULL);
     
-    progressdlg_set_status(_("Calculating data disk image size..."));
+    progressdlg_set_status(_("Calculating data disk image size"));
     progressdlg_increment_exec_number();
     progressdlg_pulse_start();
 }
@@ -587,23 +588,20 @@ mkisofs_pre_proc(void* ex, void* buffer)
 	GB_LOG_FUNC
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status(_("Creating data disk image..."));
+	progressdlg_set_status(_("Creating data disk image"));
 	progressdlg_increment_exec_number();
 	
 	gchar* file = preferences_get_create_data_cd_image();	
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
-		gdk_threads_enter();
 		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_OK,
 			_("A data CD image from a previous session already exists on disk, "
 			"do you wish to use the existing image?"));
-		/*gdk_flush();*/
-		gdk_threads_leave();
 		
 		if(ret  == GTK_RESPONSE_YES)		
-			exec_cmd_set_state((ExecCmd*)ex, SKIP, FALSE);
+			exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
 		else if(ret == GTK_RESPONSE_CANCEL)
-			exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
+			exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
 	}
 	
 	g_free(file);
@@ -791,21 +789,11 @@ dvdformat_pre_proc(void* ex, void* buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status(_("Formatting DVD..."));
+	progressdlg_set_status(_("Formatting DVD"));
 	progressdlg_increment_exec_number();
-	gint ret = GTK_RESPONSE_OK;
-	if(!devices_query_cdstatus(GB_WRITER))
-	{
-		gdk_threads_enter();
-		ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-				  _("Please insert a rewritable DVD into the DVD writer"));
-		gdk_threads_leave();
-    }
-    if(ret == GTK_RESPONSE_CANCEL)
-        exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
-    gdk_threads_enter();    
+    if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
+        exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
     devices_mount_device(GB_WRITER, NULL);
-    gdk_threads_leave();
 }
 
 
@@ -883,23 +871,11 @@ growisofs_pre_proc(void* ex,void* buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status(_("Burning DVD..."));
+	progressdlg_set_status(_("Burning DVD"));
 	progressdlg_increment_exec_number();
-	
-	if(!devices_query_cdstatus(GB_WRITER))
-	{	
-		gdk_threads_enter();
-		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-				  _("Please insert a writable DVD into the DVD writer"));
-		/*gdk_flush();*/
-		gdk_threads_leave();
-		
-		if(ret == GTK_RESPONSE_CANCEL)
-			exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
-	}
-    gdk_threads_enter();
+	if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
+		exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
     devices_mount_device(GB_WRITER, NULL);
-    gdk_threads_leave();
 }
 
 
@@ -930,7 +906,7 @@ INFO:ingUTF-8 character encoding detected by locale settings.
   1.76% done, estimate finish Sun Dec 26 20:39:08 2004
   3.47% done, estimate finish Sun Dec 26 20:38:40 2004
   5.17% done, estimate finish Sun Dec 26 20:38:50 2004
-	...
+	.
  98.01% done, estimate finish Sun Dec 26 20:38:40 2004
 Total translation table size: 0
 Total rockridge attributes bytes: 1386
@@ -963,7 +939,7 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 	if(leadout != NULL)	
 	{
 		progressdlg_set_fraction(1.0);
-		progressdlg_set_text(_("Writing lead-out"));
+		progressdlg_set_status(_("Writing lead-out"));
 	}		
 	progressdlg_append_output(buf);
 }
@@ -1000,11 +976,12 @@ About to execute 'builtin_dd if=/home2/cs/SL-9.3-LiveDVD-i386-1.iso of=/dev/hdc 
 		}
 	}
 	
+    // TODO use the line reading function. Check the line terminator is \r
 	const gchar* leadout = strstr(buf,"writing lead-out");
 	if(leadout != NULL)	
 	{
 		progressdlg_set_fraction(1.0);
-		progressdlg_set_text(_("Writing lead-out"));
+		progressdlg_set_status(_("Writing lead-out"));
 	}		
 	progressdlg_append_output(buf);
 }
@@ -1165,42 +1142,28 @@ readcd_pre_proc(void* ex, void* buffer)
 	GB_LOG_FUNC
 	readcd_totalguchars = -1;
 	
-	progressdlg_set_status(_("Reading CD image..."));	
+	progressdlg_set_status(_("Reading CD image"));	
 	progressdlg_increment_exec_number();
 	
 	gint response = GTK_RESPONSE_NO;
 	gchar* file = preferences_get_copy_data_cd_image();	
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
-		gdk_threads_enter();
 		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
 			"A CD image from a previous session already exists on disk, "
 			"do you wish to use the existing image?");		
-		/*gdk_flush();*/
-		gdk_threads_leave();
 	}
 	
 	g_free(file);
 	
 	if(response == GTK_RESPONSE_NO)
-	{
-        if(!devices_query_cdstatus(GB_READER)) 
-        {
-            gdk_threads_enter();
-            response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-                      "Please insert the source CD into the CD reader");
-            /*gdk_flush();*/
-            gdk_threads_leave();
-        }
-	}
+        response = devices_prompt_for_disk(progressdlg_get_window(), GB_READER);
 	
 	if(response == GTK_RESPONSE_CANCEL)
-		exec_cmd_set_state((ExecCmd*)ex, CANCELLED, FALSE);
+		exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
 	else if(response == GTK_RESPONSE_YES)
-		exec_cmd_set_state((ExecCmd*)ex, SKIP, FALSE);
-    gdk_threads_enter();
+		exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
     devices_mount_device(GB_READER, NULL);
-    gdk_threads_leave();
 }
 
 
@@ -1242,7 +1205,7 @@ readcd_read_proc(void* ex, void* buffer)
 	}	
 }
 
-
+/*
 static void
 readcd_post_proc(void* ex, void* buffer)
 {
@@ -1254,7 +1217,7 @@ readcd_post_proc(void* ex, void* buffer)
 		progressdlg_set_fraction(1.0);
 		progressdlg_set_text("100%");
 	}
-}
+}*/
 
 
 /*
@@ -1286,7 +1249,7 @@ readcd_add_copy_args(ExecCmd* e, const gchar* iso)
 /*******************************************************************************
  * CDRDAO
  ******************************************************************************/
-
+/*
 static void
 cdrdao_extract_read_proc(void* ex, void* buffer)
 {
@@ -1312,7 +1275,7 @@ cdrdao_extract_read_proc(void* ex, void* buffer)
 	}
 	progressdlg_append_output(output);
 }
-
+*/
 /* cdrdao copy --source-device 1,0,0 --source-driver generic-mmc --device
 0,6,0 --speed 4 --on-the-fly --buffers 64 
 
@@ -1382,12 +1345,34 @@ cdrdao_add_image_args(ExecCmd* cmd, const gchar* toc_or_cue)
 /*******************************************************************************
  * GSTREAMER
  ******************************************************************************/
+static guint gstreamertimer = 0;
+static gboolean running = FALSE;
+
+gboolean
+gstreamer_progress_timer(gpointer data)
+{
+    GB_LOG_FUNC   
+    g_return_val_if_fail(data != NULL, FALSE);
+    if(running)
+    {
+        GstFormat fmt = GST_FORMAT_BYTES;
+        gint64 pos = 0, total = 0;
+        if(gst_element_query (GST_ELEMENT(data), GST_QUERY_POSITION, &fmt, &pos) && 
+            gst_element_query (GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))
+        {
+            progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
+        }
+    }
+    return running;
+}
+ 
+ 
 static void
 gstreamer_pipeline_eos(GstElement* gstelement, gpointer user_data)
 {
     GB_LOG_FUNC
     g_return_if_fail(user_data != NULL);
-    exec_cmd_set_state((ExecCmd*)user_data, COMPLETE, TRUE);
+    exec_cmd_set_state((ExecCmd*)user_data, COMPLETED);
 }
 
 
@@ -1403,7 +1388,7 @@ gstreamer_pipeline_error(GstElement* gstelement,
     if(error != NULL)
         progressdlg_append_output(error->message);
     progressdlg_append_output(message);
-    exec_cmd_set_state((ExecCmd*)user_data, FAILED, TRUE);
+    exec_cmd_set_state((ExecCmd*)user_data, FAILED);
 }
  
 
@@ -1444,7 +1429,7 @@ gstreamer_pre_proc(void* ex, void* buffer)
     ExecCmd* cmd = (ExecCmd*)ex;
     
     gchar* filename = g_path_get_basename(cmd->argv[0]);
-    gchar* text = g_strdup_printf(_("Converting [%.32s] to cd audio..."), filename);
+    gchar* text = g_strdup_printf(_("Converting [%.32s] to cd audio"), filename);
     progressdlg_set_status(text);
     g_free(filename);
     g_free(text);
@@ -1465,7 +1450,7 @@ gstreamer_lib_proc(void* ex, void* data)
     MediaPipeline* gstdata = g_new0(MediaPipeline, 1);
     
     /* create a new pipeline to hold the elements */
-    gstdata->pipeline = gst_thread_new ("gnomebaker-convert-to-wav-pipeline");
+    gstdata->pipeline = gst_pipeline_new ("gnomebaker-convert-to-wav-pipeline");
     gstdata->source = gst_element_factory_make("filesrc","file-source");
     g_object_set (G_OBJECT (gstdata->source), "location", cmd->argv[0], NULL);
         
@@ -1511,22 +1496,21 @@ gstreamer_lib_proc(void* ex, void* data)
     g_signal_connect (gstdata->pipeline, "error", G_CALLBACK(gstreamer_pipeline_error), cmd);
     g_signal_connect (gstdata->pipeline, "eos", G_CALLBACK (gstreamer_pipeline_eos), cmd);
     
+    /* If we're not writing to someone's pipe we update the progress bar */        
+    running = TRUE;
+    if(pipe == NULL)
+        gstreamertimer = g_timeout_add(1000, gstreamer_progress_timer, gstdata->dest);
+    
     gst_element_set_state (gstdata->pipeline, GST_STATE_PLAYING);
-    while(!exec_cmd_wait_for_signal(cmd, 1))
-    {
-        /* If we're not writing to someone's pipe we update the progress bar */
-        if(pipe == NULL)
-        {
-            GstFormat fmt = GST_FORMAT_BYTES;
-            gint64 pos = 0, total = 0;
-            if(gst_element_query (gstdata->dest, GST_QUERY_POSITION, &fmt, &pos) && 
-                gst_element_query (gstdata->dest, GST_QUERY_TOTAL, &fmt, &total))
-            {
-                progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
-            }
-        }
+    while(gst_bin_iterate(GST_BIN(gstdata->pipeline)) && (exec_cmd_get_state(cmd) == RUNNING))
+    {                
+        /* Keep the GUI responsive by pumping all of the events if we're not writing
+         * to a pipe (as someone else will be pumping the event loop) */
+        while(pipe == NULL && gtk_events_pending())
+            gtk_main_iteration();
     }
     
+    running = FALSE;
     gst_element_set_state (gstdata->pipeline, GST_STATE_NULL);
     gst_object_unref (GST_OBJECT (gstdata->pipeline));
     g_free(gstdata);

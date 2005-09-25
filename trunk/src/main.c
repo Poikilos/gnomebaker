@@ -60,18 +60,18 @@ main(gint argc, gchar *argv[])
 		textdomain (GETTEXT_PACKAGE);
 	#endif
 	
-    	struct poptOption options[] = 
-    	{
-        	{NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL},
-        	POPT_TABLEEND
-    	};
+	struct poptOption options[] = 
+	{
+    	{NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL},
+    	POPT_TABLEEND
+	};
 
-    	/* init GStreamer and GNOME using the GStreamer popt tables */
-    	options[0].arg = (void *) gst_init_get_popt_table ();
-	
-    	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-                        argc, argv, GNOME_PARAM_POPT_TABLE, options,
-                        GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR, NULL);
+	/* init GStreamer and GNOME using the GStreamer popt tables */
+	options[0].arg = (void *) gst_init_get_popt_table ();
+
+	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+                    argc, argv, GNOME_PARAM_POPT_TABLE, options,
+                    GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR, NULL);
 
 	glade_gnome_init();
 	
@@ -84,7 +84,7 @@ main(gint argc, gchar *argv[])
 	GtkWidget* app = gnomebaker_new();
 	splashdlg_delete(dlg);
 	
-        gdk_threads_enter();	
+    gdk_threads_enter();	
 	gtk_main();
 	gdk_threads_leave();	
 	gnomebaker_delete(app);

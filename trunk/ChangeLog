@@ -9,6 +9,8 @@ Version 0.4.3
 * Fix Bug #1273910 0.4.2 > Xlib: unexpected async reply.
 * Calculate iso sizes when creating datacds so we can burn using dao and raw96.
 * Option to play sounds when burning is complete.
+* Refactor the exec layer again so we use less threads and require less locking.
+* Make the progress dialog more HIG compliant and improve feedback from cdrecord.
 
 Version 0.4.2
 

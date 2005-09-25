@@ -693,7 +693,7 @@ devices_eject_cd(const gchar* devicekey)
 #ifdef __FreeBSD__
         return TRUE;
 #else
-        g_critical("devices_query_cdstatus - ioctl failed");
+        g_critical("devices_is_disk_inserted - ioctl failed");
         return FALSE;
 #endif
 
@@ -732,8 +732,8 @@ devices_get_max_speed_for_drive(const gchar* drive)
 }
 */
 
-gboolean
-devices_query_cdstatus(const gchar* devicekey)
+static gboolean
+devices_is_disk_inserted(const gchar* devicekey)
 {
 	g_return_val_if_fail(devicekey != NULL,FALSE);
 
@@ -745,7 +745,7 @@ devices_query_cdstatus(const gchar* devicekey)
     int ret = ioctl(fd, CDROM_DRIVE_STATUS, CDSL_CURRENT);
     if (ret == -1)
 	{
-		g_critical("devices_query_cdstatus - ioctl failed");
+		g_critical("devices_is_disk_inserted - ioctl failed");
            return FALSE;
     }
 	switch (ret)
@@ -766,3 +766,25 @@ devices_query_cdstatus(const gchar* devicekey)
 	return retval;
 	
 }
+
+
+gint 
+devices_prompt_for_disk(GtkWindow* parent, const gchar* devicekey)
+{
+    GB_LOG_FUNC    
+    g_return_val_if_fail(devicekey != NULL, GTK_RESPONSE_CANCEL);
+    
+    gchar* devicename = devices_get_device_config(devicekey, GB_DEVICE_NAME_LABEL);
+    gchar* message = g_strdup_printf(_("Please insert a disk into the %s"), devicename);    
+    gint ret = GTK_RESPONSE_OK;
+    while(!devices_is_disk_inserted(devicekey) && (ret == GTK_RESPONSE_OK))
+    {
+        ret = gnomebaker_show_msg_dlg(parent, GTK_MESSAGE_INFO, 
+            GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE, message);
+    }
+    g_free(devicename);
+    g_free(message);
+    return ret;
+}
+
+

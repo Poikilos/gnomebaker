@@ -20,10 +20,10 @@
  */
 
 #include "progressdlg.h"
-#include "burn.h"
 #include "gbcommon.h"
 #include <glib/gprintf.h>
-
+#include "preferences.h"
+#include "media.h"
 
 /* Progress dialog glade widget names */
 static const gchar* const widget_progdlg = "progDlg";
@@ -34,22 +34,25 @@ static const gchar* const widget_progdlg_toggleoutputlabel = "label249";
 static const gchar* const widget_progdlg_processtitle = "label295";
 static const gchar* const widget_progdlg_processdescription = "label296";
 
-GladeXML* progdlg_xml = NULL;
-GtkProgressBar* progbar = NULL;
-GtkTextView* textview = NULL;
-GtkTextBuffer* textBuffer = NULL;
-GtkWidget* textviewScroll = NULL;
+static GladeXML* progdlg_xml = NULL;
+static GtkProgressBar* progbar = NULL;
+static GtkTextView* textview = NULL;
+static GtkTextBuffer* textBuffer = NULL;
+static GtkWidget* textviewScroll = NULL;
 
-gint x = 0;
-gint y = 0;
-gint timertag = 0;
-gint numberofexecs = 0;
-gint currentexec = -1;
+static gint x = 0;
+static gint y = 0;
+static gint timertag = 0;
+static gint numberofexecs = 0;
+static gint currentexec = -1;
+static GCallback closefunction = NULL;
+
 
 GtkWidget* 
-progressdlg_new(const Exec* exec)
+progressdlg_new(const Exec* exec, GCallback callonprematureclose)
 {		
 	GB_LOG_FUNC
+    closefunction = callonprematureclose;
 	numberofexecs = exec_count_operations(exec);
 	currentexec = -1;
 	progdlg_xml = glade_xml_new(glade_file, widget_progdlg, NULL);
@@ -73,6 +76,7 @@ progressdlg_new(const Exec* exec)
 	gtk_window_get_size(GTK_WINDOW(widget), &x, &y);
     /* parent this window with the main window */
     gbcommon_center_window_on_parent(widget);
+    gtk_main_iteration();
 	return widget;
 }
 
@@ -116,26 +120,10 @@ progressdlg_set_fraction(gfloat fraction)
 	   number of operations we are performing */
 	fraction *= (1.0/(gfloat)numberofexecs);			
 	fraction += ((gfloat)currentexec *(1.0/(gfloat)numberofexecs));
-	
 	gchar* percnt = g_strdup_printf("%d%%",(gint)(fraction * 100));
-	gdk_threads_enter();
 	gtk_progress_bar_set_fraction(progbar, fraction);
 	gtk_progress_bar_set_text(progbar, percnt);		
-	gdk_threads_leave();		
-	
 	g_free(percnt);
-}
-
-
-void 
-progressdlg_set_text(const gchar* text)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(progbar != NULL);
-	
-	gdk_threads_enter();
-	gtk_progress_bar_set_text(progbar, text);		
-	gdk_threads_leave();
 }
 
 
@@ -147,13 +135,10 @@ progressdlg_append_output(const gchar* output)
 	g_return_if_fail(textBuffer != NULL);
 	
 	GtkTextIter textIter;
-
-	gdk_threads_enter();		
 	gtk_text_buffer_get_end_iter(textBuffer, &textIter);
 	gtk_text_buffer_insert(textBuffer, &textIter, output, strlen(output));	
 	gtk_text_iter_set_line(&textIter, gtk_text_buffer_get_line_count(textBuffer));
 	gtk_text_view_scroll_to_iter(textview, &textIter, 0.0, TRUE, 0.0, 0.0);		
-	gdk_threads_leave();
 }
 
 
@@ -161,7 +146,8 @@ void
 progressdlg_on_close(GtkButton * button, gpointer user_data)
 {
 	GB_LOG_FUNC
-	burn_end_process();    
+	if(closefunction != NULL)
+        closefunction();
 }
 
 
@@ -173,12 +159,9 @@ progressdlg_set_status(const gchar* status)
 	
 	GtkWidget* statuslabel = glade_xml_get_widget(progdlg_xml, "label297");
 	g_return_if_fail(statuslabel != NULL);
-    
     gchar* markup = g_strdup_printf("<i>%s</i>", status);	
-	gdk_threads_enter();
 	gtk_label_set_text(GTK_LABEL(statuslabel), markup);
 	gtk_label_set_use_markup(GTK_LABEL(statuslabel), TRUE);	
-	gdk_threads_leave();		
     g_free(markup);
 }
 
@@ -201,7 +184,6 @@ gboolean
 progressdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data)
 {	
 	GB_LOG_FUNC
-//	progressdlg_on_stop(NULL, user_data);
 	progressdlg_on_close(NULL, user_data);
 	return TRUE;
 }
@@ -212,11 +194,7 @@ progressdlg_pulse_ontimer(gpointer userdata)
 {
 	/*GB_LOG_FUNC*/
 	g_return_val_if_fail(progbar != NULL, TRUE);
-	
-	gdk_threads_enter();
 	gtk_progress_bar_pulse(progbar);		
-	gdk_threads_leave();	
-	
 	return TRUE;
 }
 
@@ -226,8 +204,8 @@ progressdlg_pulse_start()
 {
 	GB_LOG_FUNC
 	g_return_if_fail(progbar != NULL);
+    gtk_progress_bar_set_text(progbar, "");
 	gtk_progress_bar_set_pulse_step(progbar, 0.01);		
-	
 	timertag = gtk_timeout_add(20, (GtkFunction)progressdlg_pulse_ontimer, NULL);	
 }
 
@@ -254,36 +232,42 @@ progressdlg_increment_exec_number()
 	
 	/* Clear out the text buffer so it only contains the current exec output */
 	GtkTextIter endIter, startIter;
-
-	gdk_threads_enter();			
 	gtk_text_buffer_get_end_iter(textBuffer, &endIter);		
 	gtk_text_buffer_get_start_iter(textBuffer, &startIter);	
 	gtk_text_buffer_delete(textBuffer, &startIter, &endIter);		
-	gdk_threads_leave();
 }
 
 
 void 
-progressdlg_reset_fraction(gfloat fraction)
+progressdlg_finish(GtkWidget* self, const Exec* ex)
 {
-	GB_LOG_FUNC
-	g_return_if_fail(progbar != NULL);
-	
-	gdk_threads_enter();
-	gtk_progress_bar_set_fraction(progbar, fraction);	
-	gdk_threads_leave();	
-}
-
-
-void
-progressdlg_dismiss()
-{
-	GB_LOG_FUNC
-	g_return_if_fail(progdlg_xml != NULL);	
+    GB_LOG_FUNC
+    g_return_if_fail(self != NULL);
     
-	GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg);	
-	g_return_if_fail(widget != NULL);	
-	//gdk_threads_enter();
-	gtk_dialog_response(GTK_DIALOG(widget), GTK_RESPONSE_CLOSE);
-	//gdk_threads_leave();
+    if(ex->outcome != CANCELLED)
+    {
+        gtk_progress_bar_set_fraction(progbar, 1.0);
+        gtk_progress_bar_set_text(progbar, " ");
+        if(ex->outcome == COMPLETED)
+        {
+            progressdlg_set_status(_("Completed."));
+            if(preferences_get_bool(GB_PLAY_SOUND))
+                media_start_playing(PACKAGE_MEDIA_DIR"/BurnOk.wav");        
+        }
+        else if(ex->outcome == FAILED) 
+        {
+            progressdlg_set_status(_("Failed."));
+            if(preferences_get_bool(GB_PLAY_SOUND))
+               media_start_playing(PACKAGE_MEDIA_DIR"/BurnFailed.wav");        
+            if(ex->err != NULL)
+                progressdlg_append_output(ex->err->message);
+        }
+        /* Scrub out he closefunction callback as whatever exec was doing is finished */
+        closefunction = NULL;
+        /* Now we wait for the user to close the dialog */
+        gtk_dialog_run(GTK_DIALOG(self));
+    }
 }
+
+
+
