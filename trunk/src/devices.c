@@ -668,38 +668,36 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 
 	
 gboolean
-devices_eject_cd(const gchar* devicekey)
+devices_eject_disk(const gchar* devicekey)
 {
+    GB_LOG_FUNC
+    g_return_val_if_fail(devicekey != NULL, FALSE);
+    
 	/* from http://leapster.org/linux/cdrom/ */
 	gboolean ret = FALSE;
 	gchar *device = devices_get_device_config(devicekey,GB_DEVICE_NODE_LABEL);
-	int cdrom;
 	GB_TRACE("Ejecting media in %s",device);
-	
-	if ((cdrom = open(device,O_RDONLY | O_NONBLOCK)) < 0)
+    int cdrom = open(device,O_RDONLY | O_NONBLOCK);
+    g_free(device);
+	if(cdrom < 0)
 	{
-        g_warning("Error opening device %s",device);
-		return FALSE;
+        g_critical("Error opening device %s",device);
    	}
-			
-
-    /* Use ioctl to send the CDROMEJECT (CDIOCEJECT on FreeBSD) command to the device */
+    else
+    {			
+        /* Use ioctl to send the CDROMEJECT (CDIOCEJECT on FreeBSD) command to the device */
 #ifdef __FreeBSD__
-	if (ioctl(cdrom,CDIOCEJECT,0)<0)
-#else 
-    if (ioctl(cdrom,CDROMEJECT,0)<0)    
-#endif    
-	{
-#ifdef __FreeBSD__
-        return TRUE;
-#else
-        g_critical("devices_is_disk_inserted - ioctl failed");
-        return FALSE;
-#endif
-
+        if(ioctl(cdrom, CDIOCEJECT, 0) < 0)
+            ret = TRUE;
+        else 
+            g_critical("devices_eject_disk - ioctl failed");
+#else        
+        if(ioctl(cdrom, CDROMEJECT, 0) < 0)
+            g_critical("devices_eject_disk - ioctl failed");
+        else
+            ret = TRUE;
+#endif                
     }
-	else
-		ret = TRUE;
 	close(cdrom);
 	return ret;
 }
@@ -735,36 +733,40 @@ devices_get_max_speed_for_drive(const gchar* drive)
 static gboolean
 devices_is_disk_inserted(const gchar* devicekey)
 {
-	g_return_val_if_fail(devicekey != NULL,FALSE);
-
+    GB_LOG_FUNC
+	g_return_val_if_fail(devicekey != NULL, FALSE);
+    
 	gboolean retval = FALSE;
 	gchar *device = devices_get_device_config(devicekey,GB_DEVICE_NODE_LABEL);
-		
 	int fd = open(device, O_RDONLY | O_NONBLOCK);
-    
-    int ret = ioctl(fd, CDROM_DRIVE_STATUS, CDSL_CURRENT);
+    g_free(device);
+    const int ret = ioctl(fd, CDROM_DRIVE_STATUS, CDSL_CURRENT);
+    close(fd);
     if (ret == -1)
 	{
 		g_critical("devices_is_disk_inserted - ioctl failed");
-           return FALSE;
     }
-	switch (ret)
-	{
-    	case CDS_NO_DISC:
-			retval = FALSE;
-				break;
-		case CDS_TRAY_OPEN:
-			retval = FALSE;
-				break;
-		case CDS_DRIVE_NOT_READY:
-			retval = FALSE;
-				break;
-		case CDS_DISC_OK:
-			retval = TRUE;
-				break;
-	}
+    else 
+    {
+    	switch (ret)
+    	{
+        	case CDS_NO_DISC:
+    			retval = FALSE;
+    				break;
+    		case CDS_TRAY_OPEN:
+    			retval = FALSE;
+    				break;
+    		case CDS_DRIVE_NOT_READY:
+    			retval = FALSE;
+    				break;
+    		case CDS_DISC_OK:
+    			retval = TRUE;
+    				break;
+            default:
+                retval = FALSE;
+    	}
+    }    
 	return retval;
-	
 }
 
 
@@ -779,6 +781,7 @@ devices_prompt_for_disk(GtkWindow* parent, const gchar* devicekey)
     gint ret = GTK_RESPONSE_OK;
     while(!devices_is_disk_inserted(devicekey) && (ret == GTK_RESPONSE_OK))
     {
+        devices_eject_disk(devicekey);
         ret = gnomebaker_show_msg_dlg(parent, GTK_MESSAGE_INFO, 
             GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE, message);
     }
