@@ -433,7 +433,7 @@ datacd_on_edit(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(user_data != NULL);        
-    //g_signal_emit_by_name (contentrenderer, "edited", NULL, NULL);    
+    /*g_signal_emit_by_name (contentrenderer, "edited", NULL, NULL);*/    
 }
 
 
