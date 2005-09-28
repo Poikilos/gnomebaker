@@ -29,7 +29,7 @@
 #  include <config.h>
 #endif
 
-#include "gst/gst.h"
+#include <gst/gst.h>
 
 #define MEDIA_ERROR g_quark_from_static_string("MediaError")
 
