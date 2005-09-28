@@ -172,11 +172,11 @@ progressdlg_on_output(GtkExpander* expander, gpointer user_data)
 	GB_LOG_FUNC
 	g_return_if_fail(progdlg_xml != NULL);
 		
-    if(!gtk_expander_get_expanded(expander))
-    {
-        gtk_window_resize(GTK_WINDOW(
-            glade_xml_get_widget(progdlg_xml, widget_progdlg)), x, y);
-    }    
+    if(gtk_expander_get_expanded(expander))
+        gtk_window_resize(GTK_WINDOW(glade_xml_get_widget(progdlg_xml, widget_progdlg)), 1, 1);
+//    else 
+//        gtk_window_get_size(GTK_WINDOW(glade_xml_get_widget(progdlg_xml, widget_progdlg)), &x, &y);
+    GB_TRACE("Window size is %d %d", x, y);
 }
 
 
