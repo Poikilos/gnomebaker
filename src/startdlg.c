@@ -58,7 +58,7 @@ gboolean gdvdmode = FALSE;
 
 
 
-void 
+static void 
 startdlg_create_iso_toggled(GtkToggleButton* togglebutton, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -71,7 +71,7 @@ startdlg_create_iso_toggled(GtkToggleButton* togglebutton, gpointer user_data)
 }
 
 
-void 
+static void 
 startdlg_populate_device_combos()
 {
 	GB_LOG_FUNC
@@ -85,7 +85,7 @@ startdlg_populate_device_combos()
 }
 
 
-GtkWidget* 
+static GtkWidget* 
 startdlg_create_check_button(const gchar* name, const gchar* key)
 {
 	GB_LOG_FUNC
@@ -259,7 +259,7 @@ startdlg_delete(GtkWidget* self)
 }
 
 
-void 
+void /* libglade callback */
 startdlg_on_ok_clicked(GtkButton * button, gpointer user_data)
 {
 	GB_LOG_FUNC	
