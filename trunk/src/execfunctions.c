@@ -28,7 +28,7 @@
 #include "gbcommon.h"
 #include "devices.h"
 #include "datacd.h"
-#include "gst/gst.h"
+#include <gst/gst.h>
 #include "media.h"
 
 
@@ -63,7 +63,7 @@ execfunctions_find_line_set_status(const gchar* buffer, const gchar* text, const
         const gchar* ptr = start;
         while(*ptr != delimiter)
             ++ptr;
-        gchar* message = g_strndup(start, (ptr - start) * sizeof(gchar));
+        gchar* message = g_strndup(start, (ptr - start) / sizeof(gchar));
         g_strstrip(message);
         progressdlg_set_status(message);
         g_free(message);
@@ -182,7 +182,6 @@ cdrecord_read_proc(void* ex, void* buffer)
             
             /*GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
                 currenttrack, cdrecord_firsttrack, current, total, totalfraction);*/
-            
             
             gchar* status = g_strdup_printf(_("Writing track %d"), currenttrack);
             progressdlg_set_status(status);
@@ -457,14 +456,8 @@ cdda2wav_read_proc(void* ex, void* buffer)
 				tmp--;
 			while(*tmp != '\r');	
 			tmp++;
-					
-			const gint bufsize = pcnt - tmp + 2;
-			gchar* tmpbuf = g_malloc(bufsize * sizeof(gchar));
-			gbcommon_memset(tmpbuf, bufsize * sizeof(gchar));
-			g_strlcpy(tmpbuf, tmp, bufsize - 1);
-						
+            gchar* tmpbuf = g_strndup(tmp, (pcnt - tmp + 1) / sizeof(gchar));
 			gfloat fraction = atof(tmpbuf)/100.0;
-			
 			g_free(tmpbuf);
 						
 			const gchar* hundred = NULL;
@@ -475,11 +468,8 @@ cdda2wav_read_proc(void* ex, void* buffer)
 					fraction = 1.0;
 			}
 			
-			/*GB_TRACE("cdda2wav_read_proc - track fraction %f", fraction);*/
-			
 			fraction *= (1.0/(gfloat)cdda2wav_totaltracks);			
 			fraction += ((gfloat)cdda2wav_totaltracksread *(1.0/(gfloat)cdda2wav_totaltracks));
-								
 			progressdlg_set_fraction(fraction);
 						
 			if(hundred != NULL)
@@ -620,13 +610,9 @@ mkisofs_read_proc(void* ex, void* buffer)
 	{
 		const gchar* ptr = percent;
 		while((!g_ascii_isspace(*ptr)) && (ptr > (gchar*)buffer))
-			--ptr;
-		
-		ptr++;
-		
-		gchar* pct = g_malloc((percent - ptr + 1) * sizeof(gchar));
-		gbcommon_memset(pct, (percent - ptr + 1) * sizeof(gchar));
-		strncpy(pct, ptr, percent - ptr);
+			--ptr;		
+		ptr++;		
+        gchar* pct = g_strndup(pct, (percent - ptr) / sizeof(gchar));
 		progressdlg_set_fraction(atof(pct)/100.0);
 		g_free(pct);
 	}
@@ -817,9 +803,7 @@ dvdformat_post_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
 	if(preferences_get_bool(GB_EJECT))
-	{
-		devices_eject_cd(GB_WRITER);
-	}
+		devices_eject_disk(GB_WRITER);
 }
 
 
@@ -885,7 +869,7 @@ growisofs_post_proc(void* ex,void* buffer)
 	GB_LOG_FUNC
 	if(preferences_get_bool(GB_EJECT))
 	{
-		devices_eject_cd(GB_WRITER);
+		devices_eject_disk(GB_WRITER);
 	}
 }
 
@@ -926,21 +910,10 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 	{
 		gint progress = 0;
 		if(sscanf(buf,"%d.%*d",&progress) >0)
-		{
-			GB_TRACE("growisofs: progress: %d", progress);
-			gfloat fraction = (gfloat)progress / 100.0;
-			GB_TRACE("growisofs: fraction: %f", fraction);
-			
-			progressdlg_set_fraction(fraction);
-		}
+			progressdlg_set_fraction((gfloat)progress / 100.0);
 	}
 	
-	const gchar* leadout = strstr(buf,"writing lead-out");
-	if(leadout != NULL)	
-	{
-		progressdlg_set_fraction(1.0);
-		progressdlg_set_status(_("Writing lead-out"));
-	}		
+    execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
 	progressdlg_append_output(buf);
 }
 
@@ -968,21 +941,10 @@ About to execute 'builtin_dd if=/home2/cs/SL-9.3-LiveDVD-i386-1.iso of=/dev/hdc 
 	{
 		gint progress = 0;
 		if(sscanf(buf,"%*d/%*d ( %d.%*d%%)",&progress) >0)
-		{
-			GB_TRACE("growisofs: progress: %d", progress);
-			gfloat fraction = (gfloat)progress / 100.0;
-			GB_TRACE("growisofs: fraction: %f", fraction);			
-			progressdlg_set_fraction(fraction);
-		}
+			progressdlg_set_fraction((gfloat)progress / 100.0);
 	}
 	
-    // TODO use the line reading function. Check the line terminator is \r
-	const gchar* leadout = strstr(buf,"writing lead-out");
-	if(leadout != NULL)	
-	{
-		progressdlg_set_fraction(1.0);
-		progressdlg_set_status(_("Writing lead-out"));
-	}		
+    execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
 	progressdlg_append_output(buf);
 }
 
@@ -993,8 +955,7 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
 	GB_LOG_FUNC
 	g_return_val_if_fail(e != NULL, FALSE);
 	        
-    /* If this is a another session on an existing cd we don't show the 
-	   iso details dialog */	
+    /* If this is a another session on an existing cd we don't show the iso details dialog */	
 	gint ret = GTK_RESPONSE_OK;
 	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);   
 	gchar* volume = NULL;
@@ -1014,7 +975,7 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
 	}
 	
 	if(ret == GTK_RESPONSE_OK)
-	{
+	{        
 		exec_cmd_add_arg(e, "%s", "growisofs");		
 		if(volume != NULL && createdby != NULL)
 		{
@@ -1063,6 +1024,8 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
         exec_cmd_add_arg(e,"-speed=%s", speed);
         g_free(speed);
         
+        /*http://fy.chalmers.se/~appro/linux/DVD+RW/tools/growisofs.c
+            for the use-the-force options */        
         /* stop the reloading of the disc */
         exec_cmd_add_arg(e, "%s", "-use-the-force-luke=notray");
         
@@ -1192,16 +1155,10 @@ readcd_read_proc(void* ex, void* buffer)
 		{
 			gint readguchars = 0;
 			if(sscanf(start, "%*s %d", &readguchars) > 0)
-			{
-				/*GB_TRACE( "read %d, total %d", readguchars, readcd_totalguchars);*/
-				const gfloat fraction = (gfloat)readguchars/(gfloat)readcd_totalguchars;
-				progressdlg_set_fraction(fraction);
-			}		
+				progressdlg_set_fraction((gfloat)readguchars/(gfloat)readcd_totalguchars);
 		}
 		else
-		{
 			progressdlg_append_output(text);
-		}
 	}	
 }
 
@@ -1243,7 +1200,7 @@ readcd_add_copy_args(ExecCmd* e, const gchar* iso)
 
 	e->preProc = readcd_pre_proc;	
 	e->readProc = readcd_read_proc;
-	//e->postProc = readcd_post_proc;
+	/*e->postProc = readcd_post_proc;*/
 }
 
 /*******************************************************************************
@@ -1412,12 +1369,10 @@ gstreamer_new_decoded_pad(GstElement* element,
     gst_pad_link (pad, decodepad);
     gst_element_link(mip->decoder,mip->converter);
     
-    gst_bin_add_many (GST_BIN (mip->pipeline), mip->converter,mip->scale,mip->encoder,mip->dest, NULL);
-    
+    gst_bin_add_many(GST_BIN(mip->pipeline), mip->converter, mip->scale, mip->encoder, mip->dest, NULL);
 
-  /* This function synchronizes a bins state on all of its
-   * contained children. */
-    gst_bin_sync_children_state (GST_BIN (mip->pipeline));
+    /* This function synchronizes a bins state on all of its contained children. */
+    gst_bin_sync_children_state(GST_BIN(mip->pipeline));
 }
  
  
