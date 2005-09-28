@@ -410,8 +410,8 @@ media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar
     gchar* contents = g_strdup_printf(
         "#created by GnomeBaker\n"
         "#\n"
-//        "CDINDEX_DISCID= 'JGlmiKWbkdhpVbENfKkJNnr37e8-'\n"
-//        "CDDB_DISCID=    0xbd0cb80e\n"
+        /*"CDINDEX_DISCID= 'JGlmiKWbkdhpVbENfKkJNnr37e8-'\n"*/
+        /*"CDDB_DISCID=    0xbd0cb80e\n"*/
         "MCN=\n"
         "ISRC=\n"
         "#\n"

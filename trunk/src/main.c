@@ -30,7 +30,7 @@
 #include "gbcommon.h"
 #include <libintl.h>
 #include <locale.h>
-#include "gst/gst.h"
+#include <gst/gst.h>
 
 const gchar* glade_file;
 gboolean showtrace = FALSE;
