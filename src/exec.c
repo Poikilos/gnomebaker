@@ -111,9 +111,9 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
     
     if (cont == FALSE || condition & G_IO_HUP || condition & G_IO_ERR || condition & G_IO_NVAL) 
     {
-        // We assume a failure here (even on G_IO_HUP) as exec_spawn_process will 
-        // check the return code of the child to determine if it actually worked
-        // and set the correct state accordingly.
+        /* We assume a failure here (even on G_IO_HUP) as exec_spawn_process will 
+         check the return code of the child to determine if it actually worked
+         and set the correct state accordingly.*/
         exec_cmd_set_state(cmd, FAILED);
         GB_TRACE("exec_channel_callback - condition [%d]", condition);        
         cont = FALSE;
@@ -359,7 +359,7 @@ exec_cmd_update_arg(ExecCmd* e, const gchar* argstart, const gchar* value)
 ExecState 
 exec_cmd_get_state(ExecCmd* e) 
 {
-//    GB_LOG_FUNC
+    /*GB_LOG_FUNC*/
     g_return_val_if_fail(e != NULL, FAILED);
     g_mutex_lock(e->statemutex);
     ExecState ret = e->state;

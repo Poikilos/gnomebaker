@@ -34,7 +34,7 @@
 #include "splashdlg.h"
 #include "gbcommon.h"
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
-#include "gst/gst.h"
+#include <gst/gst.h>
 #include "media.h"
 
 
@@ -435,7 +435,7 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
         {
             
             GSList* files = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(filesel));
-            //gchar** uris = g_malloc0(g_slist_length(files) * sizeof(gchar*));
+            /*gchar** uris = g_malloc0(g_slist_length(files) * sizeof(gchar*));*/
             
             GSList* file = files;
             int index = 0;
@@ -447,16 +447,16 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
                 g_string_append(text, (gchar*)file->data);
                 g_string_append(text, "\n");
                 g_free((gchar*)file->data);
-                //uris[index++] = (gchar*)file->data;
+                /*uris[index++] = (gchar*)file->data;*/
             }
             
-            //gtk_selection_data_set_uris(selection_data, uris);            
+            /*gtk_selection_data_set_uris(selection_data, uris);*/
             selection_data = g_new0(GtkSelectionData, 1);	                 
             gtk_selection_data_set(selection_data, selection_data->target, 8, 
                 (const guchar*)text->str, strlen(text->str) * sizeof(gchar));
             GB_TRACE("[%s]", selection_data->data);
             g_slist_free(files);
-            //g_strfreev(uris);
+            /*g_strfreev(uris);*/
             g_string_free(text, TRUE);
         }
         gtk_widget_destroy(filesel);
