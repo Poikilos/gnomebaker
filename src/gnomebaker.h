@@ -30,26 +30,17 @@
 #include <gnome.h>
 
 
-static const gchar* const widget_gnomebaker = "GnomeBaker";
-
-
 GtkWidget* gnomebaker_new();
 void gnomebaker_delete(GtkWidget* self);
-
-gint
-gnomebaker_show_msg_dlg(GtkWindow* parent, GtkMessageType type, GtkButtonsType buttons,
+gint gnomebaker_show_msg_dlg(GtkWindow* parent, GtkMessageType type, GtkButtonsType buttons,
 		  			GtkButtonsType additional, const gchar * message);
-
 GladeXML* gnomebaker_getxml();
 void gnomebaker_show_busy_cursor(gboolean isbusy);
-
-
 void gnomebaker_on_add_dir(gpointer widget, gpointer user_data);
 void gnomebaker_on_add_files(gpointer widget, gpointer user_data);
-
 void gnomebaker_update_status(const gchar* status);
 void gnomebaker_enable_widget(const gchar* widgetname, gboolean enabled);
-
 void gnomebaker_on_help(gpointer widget,gpointer user_data);
+GtkWindow* gnomebaker_get_window();
 
 #endif	/*_GNOMEBAKER_H_*/

@@ -65,7 +65,6 @@ void gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel
 gchar* gbcommon_show_iso_dlg();
 void gb_common_finalise();
 gboolean gbcommon_init();
-void gbcommon_memset(void* memory, gsize size);
 void gbcommon_center_window_on_parent(GtkWidget* window);
 
 
@@ -81,6 +80,6 @@ extern gboolean showtrace;
 	if(showtrace) g_message	\
 
 #define GB_DECLARE_STRUCT(STRUCT, INSTANCE)			\
-	STRUCT INSTANCE; gbcommon_memset(&INSTANCE, sizeof(STRUCT));	\
+	STRUCT INSTANCE; memset(&INSTANCE, 0x0, sizeof(STRUCT));	\
 
 #endif /* _GBCOMMON_H */
