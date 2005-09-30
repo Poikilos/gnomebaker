@@ -615,6 +615,8 @@ datacd_import_session()
 	
 	if(response == GTK_RESPONSE_CANCEL)
 		return;
+    if(devices_prompt_for_disk(NULL, GB_WRITER) == GTK_RESPONSE_CANCEL)
+        return;
 	
 	gnomebaker_show_busy_cursor(TRUE);
 	
