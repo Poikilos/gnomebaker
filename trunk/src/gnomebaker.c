@@ -37,7 +37,7 @@
 #include <gst/gst.h>
 #include "media.h"
 
-
+static const gchar* const widget_gnomebaker = "GnomeBaker";
 static const gchar* const widget_project_notebook = "notebook1";
 static const gchar* const widget_appbar = "appbar1";
 static const gchar* const widget_import = "toolbutton5";
@@ -52,7 +52,7 @@ static const gchar* const widget_add_button = "buttonAddFiles";
 static const gchar* const widget_refresh_menu = "refresh1";
 static const gchar* const widget_refresh_button = "toolbutton4";
 
-GladeXML *xml = NULL;
+static GladeXML *xml = NULL;
 
 
 void /* libglade callback */
@@ -661,3 +661,12 @@ gnomebaker_on_down(gpointer widget, gpointer user_data)
         default:{}  
     };
 }
+
+
+GtkWindow* 
+gnomebaker_get_window()
+{
+    GB_LOG_FUNC
+    return GTK_WINDOW(glade_xml_get_widget(gnomebaker_getxml(), widget_gnomebaker));
+}
+

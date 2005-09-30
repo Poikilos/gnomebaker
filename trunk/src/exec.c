@@ -83,7 +83,7 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
     {
         static const gint BUFF_SIZE = 1024;
         gchar buffer[BUFF_SIZE];
-        gbcommon_memset(buffer, BUFF_SIZE * sizeof(gchar));
+        memset(buffer, 0x0, BUFF_SIZE * sizeof(gchar));
         guint bytes = 0;
         const GIOStatus status = g_io_channel_read_chars(channel, buffer, (BUFF_SIZE - 1) * sizeof(gchar), &bytes, NULL);  
         if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_AGAIN) /* need to check what to do for again */
