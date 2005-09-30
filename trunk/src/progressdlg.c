@@ -173,9 +173,10 @@ progressdlg_on_output(GtkExpander* expander, gpointer user_data)
 	g_return_if_fail(progdlg_xml != NULL);
 		
     if(gtk_expander_get_expanded(expander))
-        gtk_window_resize(GTK_WINDOW(glade_xml_get_widget(progdlg_xml, widget_progdlg)), 1, 1);
-//    else 
-//        gtk_window_get_size(GTK_WINDOW(glade_xml_get_widget(progdlg_xml, widget_progdlg)), &x, &y);
+    {
+        GtkWidget* window = glade_xml_get_widget(progdlg_xml, widget_progdlg);
+        gtk_window_resize(GTK_WINDOW(window), x, y);
+    }
     GB_TRACE("Window size is %d %d", x, y);
 }
 
@@ -250,13 +251,13 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
         gtk_progress_bar_set_text(progbar, " ");
         if(ex->outcome == COMPLETED)
         {
-            progressdlg_set_status(_("Completed."));
+            progressdlg_set_status(_("Completed"));
             if(preferences_get_bool(GB_PLAY_SOUND))
                 media_start_playing(PACKAGE_MEDIA_DIR"/BurnOk.wav");        
         }
         else if(ex->outcome == FAILED) 
         {
-            progressdlg_set_status(_("Failed."));
+            progressdlg_set_status(_("Failed"));
             if(preferences_get_bool(GB_PLAY_SOUND))
                media_start_playing(PACKAGE_MEDIA_DIR"/BurnFailed.wav");        
             if(ex->err != NULL)
