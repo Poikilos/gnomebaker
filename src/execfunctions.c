@@ -391,7 +391,7 @@ cdda2wav_pre_proc(void* ex, void* buffer)
 	cdda2wav_totaltracks = -1;
 	cdda2wav_totaltracksread = 0;
 	
-	progressdlg_set_status(_("Extracting audio tracks"));
+	progressdlg_set_status(_("Preparing to extract audio tracks"));
 	progressdlg_increment_exec_number();
 
 	gint response = GTK_RESPONSE_NO;
@@ -437,43 +437,30 @@ cdda2wav_read_proc(void* ex, void* buffer)
 	{
 		const gchar* tracksstart = strstr(text, "Tracks:");		
 		if(tracksstart != NULL)
-		{
-			gchar tmpbuf[4];
-			gbcommon_memset(tmpbuf, 4);
-			g_strlcpy(tmpbuf, tracksstart + 7, 3);
-			g_strstrip(tmpbuf);
-			cdda2wav_totaltracks = atoi(tmpbuf);			
-			GB_TRACE("cdda2wav_read_proc - total tracks %d", cdda2wav_totaltracks);
-		}
+            sscanf(tracksstart, "Tracks:%d", &cdda2wav_totaltracks);
 	}
 	else if(cdda2wav_totaltracks)
 	{	
-		const gchar* pcnt = strrchr(text, '%');
+		const gchar* pcnt = strchr(text, '%');
 		if(pcnt != NULL)
 		{			
-			const gchar* tmp = pcnt;
 			do
-				tmp--;
-			while(*tmp != '\r');	
-			tmp++;
-            gchar* tmpbuf = g_strndup(tmp, (pcnt - tmp + 1) / sizeof(gchar));
-			gfloat fraction = atof(tmpbuf)/100.0;
-			g_free(tmpbuf);
-						
-			const gchar* hundred = NULL;
-			if(fraction > 0.95 || fraction < 0.05)
-			{
-				hundred = strstr(text, "100%");
-				if(hundred != NULL)
-					fraction = 1.0;
-			}
-			
-			fraction *= (1.0/(gfloat)cdda2wav_totaltracks);			
+				pcnt--;
+            while(!g_ascii_isspace(*pcnt));
+            gfloat fraction = 0.0;
+            sscanf(++pcnt, "%f%%", &fraction);
+            fraction /= 100.0;
+            fraction *= (1.0/(gfloat)cdda2wav_totaltracks);			
 			fraction += ((gfloat)cdda2wav_totaltracksread *(1.0/(gfloat)cdda2wav_totaltracks));
 			progressdlg_set_fraction(fraction);
-						
+
+            const gchar* hundred = strstr(text, "rderr,");
 			if(hundred != NULL)
 				cdda2wav_totaltracksread++;
+    
+            gchar* status = g_strdup_printf(_("Extracting audio track %d"), cdda2wav_totaltracksread + 1);
+            progressdlg_set_status(status);
+            g_free(status);                
 		}
 	}
 		
@@ -608,15 +595,12 @@ mkisofs_read_proc(void* ex, void* buffer)
 	const gchar* percent = strrchr(buffer, '%');
 	if(percent != NULL)
 	{
-		const gchar* ptr = percent;
-		while((!g_ascii_isspace(*ptr)) && (ptr > (gchar*)buffer))
-			--ptr;		
-		ptr++;		
-        gchar* pct = g_strndup(pct, (percent - ptr) / sizeof(gchar));
-		progressdlg_set_fraction(atof(pct)/100.0);
-		g_free(pct);
+		while((!g_ascii_isspace(*percent)) && (percent > (gchar*)buffer))
+			--percent;		
+        gfloat progress = 0.0;
+        if(sscanf(++percent, "%f%%", &progress) == 1)
+		  progressdlg_set_fraction(progress/100.0);
 	}
-	
 	progressdlg_append_output(buffer);
 }
 
@@ -792,8 +776,8 @@ dvdformat_read_proc(void* ex, void* buffer)
     
     /*  * formatting 24.5% */     
     gfloat percent = 0.0;
-    sscanf((gchar*)buffer, "%*s %*s %f%%", &percent);
-    progressdlg_set_fraction(percent/100.0);    
+    if(sscanf((gchar*)buffer, "%*s %*s %f%%", &percent) == 1)
+        progressdlg_set_fraction(percent/100.0);    
 	progressdlg_append_output((gchar*)buffer);
 }
 
@@ -880,30 +864,7 @@ growisofs_read_proc(void* ex, void* buffer)
 	GB_LOG_FUNC
     g_return_if_fail(buffer != NULL);
     g_return_if_fail(ex != NULL);
-	/*
-	WARNING: /dev/hdc already carries isofs!
-About to execute 'mkisofs -R -J -gui A Song is born.ogg Connected.ogg Daybreak.ogg Dearest.ogg Endlerss Sorrow (Gone With The Wind).ogg Evolution.ogg M.ogg Naturally.ogg Never Ever.ogg No More Words.ogg Opening Run.ogg Still Alone.ogg Taskinlude.ogg Unite.ogg | builtin_dd of=/dev/hdc obs=32k seek=0'
-INFO:ingUTF-8 character encoding detected by locale settings.
-        Assuming UTF-8 encoded filenames on source filesystem,
-        use -input-charset to override.
-/dev/hdc: "Current Write Speed" is 4.0x1385KBps.
-  1.76% done, estimate finish Sun Dec 26 20:39:08 2004
-  3.47% done, estimate finish Sun Dec 26 20:38:40 2004
-  5.17% done, estimate finish Sun Dec 26 20:38:50 2004
-	.
- 98.01% done, estimate finish Sun Dec 26 20:38:40 2004
-Total translation table size: 0
-Total rockridge attributes bytes: 1386
-Total directory bytes: 0
-Path table size(bytes): 10
-Max brk space used 21000
-29084 extents written (56 MB)
-builtin_dd: 29088*2KB out @ average 1.5x1385KBps
-/dev/hdc: flushing cache
-/dev/hdc: stopping de-icing
-/dev/hdc: writing lead-out
-	*/
-
+    
 	gchar *buf = (gchar*)buffer;
 	const gchar* progressstr = strstr(buf, "done");
 	if(progressstr != NULL)
@@ -911,11 +872,13 @@ builtin_dd: 29088*2KB out @ average 1.5x1385KBps
 		gint progress = 0;
 		if(sscanf(buf,"%d.%*d",&progress) >0)
 			progressdlg_set_fraction((gfloat)progress / 100.0);
+        progressdlg_set_status(_("Writing DVD"));
 	}
-	
+	execfunctions_find_line_set_status(buf, "restarting DVD+RW format", '.');
     execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
 	progressdlg_append_output(buf);
 }
+
 
 static void
 growisofs_read_iso_proc(void* ex, void* buffer)
@@ -923,17 +886,6 @@ growisofs_read_iso_proc(void* ex, void* buffer)
 	GB_LOG_FUNC
     g_return_if_fail(buffer != NULL);
     g_return_if_fail(ex != NULL);
-/*
-WARNING: /dev/hdc already carries isofs!
-About to execute 'builtin_dd if=/home2/cs/SL-9.3-LiveDVD-i386-1.iso of=/dev/hdc obs=32k seek=0'
-/dev/hdc: "Current Write Speed" is 4.0x1385KBps.
-  14876672/1480370176 ( 1.0%) @1.6x, remaining 9:51
-  22380544/1480370176 ( 1.5%) @1.6x, remaining 10:51
-  29753344/1480370176 ( 2.0%) @1.6x, remaining 10:33
-/dev/hdc: flushing cache
-/dev/hdc: writing lead-out
-
-	*/
 	
 	gchar *buf = (gchar*)buffer;
 	const gchar* progressstr = strstr(buf, "remaining");
@@ -1121,8 +1073,8 @@ readcd_pre_proc(void* ex, void* buffer)
 	
 	if(response == GTK_RESPONSE_NO)
         response = devices_prompt_for_disk(progressdlg_get_window(), GB_READER);
-	
-	if(response == GTK_RESPONSE_CANCEL)
+        
+    if(response == GTK_RESPONSE_CANCEL)
 		exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
 	else if(response == GTK_RESPONSE_YES)
 		exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
