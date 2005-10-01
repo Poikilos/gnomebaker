@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-26 00:33+0100\n"
+"POT-Creation-Date: 2005-10-01 11:10+0100\n"
 "PO-Revision-Date: 2005-08-10 22:22+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -78,25 +78,33 @@ msgstr "Titre"
 msgid "Info"
 msgstr ""
 
-#: src/burn.c:91 src/burn.c:127
+#: src/burn.c:81 src/burn.c:128
 #, fuzzy
 msgid "Burning CD image"
 msgstr "Graver une image CD"
 
-#: src/burn.c:91 src/burn.c:127
+#: src/burn.c:81 src/burn.c:128
 msgid "Please wait while the CD image you selected is burned to disk."
 msgstr ""
 
-#: src/burn.c:108
+#: src/burn.c:103
 #, fuzzy
 msgid "Burning DVD image"
 msgstr "Graver une image DVD"
 
-#: src/burn.c:108
+#: src/burn.c:103
 msgid "Please wait while the DVD image you selected is burned to disk."
 msgstr ""
 
-#: src/burn.c:153
+#: src/burn.c:111
+msgid ""
+"The file you have selected is not a DVD image. Please select a DVD image to "
+"burn."
+msgstr ""
+"Le fichier que vous avez sélectionné n'est pas une image DVD. Veuillez "
+"sélectionner une image DVD à graver."
+
+#: src/burn.c:154
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
@@ -104,95 +112,95 @@ msgstr ""
 "Le fichier que vous avez sélectionné n'est pas une image CD. Veuillez "
 "sélectionner une image CD à graver."
 
-#: src/burn.c:171
+#: src/burn.c:172
 #, fuzzy
 msgid "Creating data CD image"
 msgstr "<b>Création de l'image du disque de données...</b>"
 
-#: src/burn.c:171
+#: src/burn.c:172
 #, fuzzy
 msgid "Please wait while the data CD image is created."
 msgstr "Veuillez sélectionner un fichier ISO..."
 
-#: src/burn.c:173 src/burn.c:300
+#: src/burn.c:174 src/burn.c:298
 #, fuzzy
 msgid "Please select an iso file to save to."
 msgstr "Veuillez sélectionner un fichier iso pour sauvegarder ..."
 
-#: src/burn.c:191 src/burn.c:204
+#: src/burn.c:192 src/burn.c:205
 msgid "Burning data CD"
 msgstr ""
 
-#: src/burn.c:191
+#: src/burn.c:192
 msgid "Please wait while the data CD is burned directly to disk."
 msgstr ""
 
-#: src/burn.c:204
+#: src/burn.c:205
 msgid "Please wait while the data CD image is created and then burned to disk."
 msgstr ""
 
-#: src/burn.c:229
+#: src/burn.c:230
 msgid "Burning audio CD"
 msgstr ""
 
-#: src/burn.c:229
+#: src/burn.c:230
 #, fuzzy
 msgid "Please wait while the audio CD is burned to disk."
 msgstr "Veuillez insérer le CD audio dans le lecteur"
 
-#: src/burn.c:298
+#: src/burn.c:296
 #, fuzzy
 msgid "Extracting CD image"
 msgstr "Graver une image CD"
 
-#: src/burn.c:298
+#: src/burn.c:296
 #, fuzzy
 msgid "Please wait while the data CD image is extracted."
 msgstr "Veuillez sélectionner un fichier ISO..."
 
-#: src/burn.c:314
+#: src/burn.c:312
 #, fuzzy
 msgid "Copying data CD"
 msgstr "Copier un CD de données"
 
-#: src/burn.c:314
+#: src/burn.c:312
 msgid ""
 "Please wait while the data CD image is extracted and then burned to disk."
 msgstr ""
 
-#: src/burn.c:343
+#: src/burn.c:339
 #, fuzzy
 msgid "Copying audio CD"
 msgstr "Copier un CD audio"
 
-#: src/burn.c:343
+#: src/burn.c:339
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to disk."
 msgstr ""
 
-#: src/burn.c:361
+#: src/burn.c:357
 #, fuzzy
 msgid "Blanking CD"
 msgstr "Effacer un CDRW"
 
-#: src/burn.c:361
+#: src/burn.c:357
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: src/burn.c:378
+#: src/burn.c:374
 #, fuzzy
 msgid "Formatting DVD-RW"
 msgstr "Effacer un DVDRW"
 
-#: src/burn.c:378
+#: src/burn.c:374
 msgid "Please wait while the DVD-RW is formatted."
 msgstr ""
 
-#: src/burn.c:395
+#: src/burn.c:391
 msgid "Burning data DVD"
 msgstr ""
 
-#: src/burn.c:395
+#: src/burn.c:391
 msgid "Please wait while the data DVD is burned to disk."
 msgstr ""
 
@@ -214,7 +222,7 @@ msgstr "Effacer"
 msgid "Contents"
 msgstr "Contenu"
 
-#: src/datacd.c:515 src/datacd.c:524 src/filebrowser.c:795
+#: src/datacd.c:515 src/datacd.c:524 src/filebrowser.c:794
 msgid "Size"
 msgstr "Taille"
 
@@ -241,7 +249,7 @@ msgstr ""
 msgid "unknown error"
 msgstr "erreur inconnue"
 
-#: src/datacd.c:660
+#: src/datacd.c:662
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -280,12 +288,12 @@ msgstr "montage"
 msgid "unmounting"
 msgstr "démontage"
 
-#: src/devices.c:778
+#: src/devices.c:780
 #, fuzzy, c-format
 msgid "Please insert a disk into the %s"
 msgstr "Veuillez insérer un CD vierge dans le graveur"
 
-#: src/filebrowser.c:72 src/filebrowser.c:683
+#: src/filebrowser.c:72 src/filebrowser.c:682
 msgid "Filesystem"
 msgstr "Système de fichiers"
 
@@ -310,7 +318,7 @@ msgstr "_Ajouter un dossier"
 msgid "_Add file(s)"
 msgstr "_Ajouter un ou plusieurs fichiers"
 
-#: src/filebrowser.c:603 gnomebaker.glade:193
+#: src/filebrowser.c:602 gnomebaker.glade:193
 msgid "_Burn CD Image"
 msgstr "_Graver une image CD"
 
@@ -318,33 +326,24 @@ msgstr "_Graver une image CD"
 msgid "_Burn DVD Image"
 msgstr "_Graver une image DVD"
 
-#: src/filebrowser.c:714
+#: src/filebrowser.c:713
 #, c-format
 msgid "%s's home"
 msgstr "Dossier personnel de %s"
 
-#: src/filebrowser.c:781
+#: src/filebrowser.c:780
 msgid "File"
 msgstr "Fichier"
 
-#: src/filebrowser.c:813
+#: src/filebrowser.c:812
 msgid "Type"
 msgstr "Type"
 
-#: src/filebrowser.c:821
+#: src/filebrowser.c:820
 msgid "Mime"
 msgstr "Mime"
 
-#: src/gbcommon.c:449
-#, fuzzy
-msgid "Please select an iso file."
-msgstr "Veuillez sélectionner un fichier iso..."
-
-#: src/gbcommon.c:457
-msgid "CD Image files"
-msgstr "Fichiers image CD"
-
-#: src/gbcommon.c:460
+#: src/gbcommon.c:450
 msgid "All files"
 msgstr "Tous les fichiers"
 
@@ -368,27 +367,38 @@ msgstr "Chargement de l'interface graphique..."
 msgid "Are you sure you want to quit?"
 msgstr "Êtes-vous sûr de vouloir quitter?"
 
-#: src/gnomebaker.c:293
-msgid ""
-"The file you have selected is not a DVD image. Please select a DVD image to "
-"burn."
-msgstr ""
-"Le fichier que vous avez sélectionné n'est pas une image DVD. Veuillez "
-"sélectionner une image DVD à graver."
+#: src/gnomebaker.c:275
+msgid "CD Image files"
+msgstr "Fichiers image CD"
 
-#: src/gnomebaker.c:364 gnomebaker.glade:12
+#: src/gnomebaker.c:276
+#, fuzzy
+msgid "Please select a CD image file."
+msgstr "Veuillez sélectionner un fichier iso..."
+
+#: src/gnomebaker.c:299
+#, fuzzy
+msgid "DVD Image files"
+msgstr "Fichiers image CD"
+
+#: src/gnomebaker.c:300
+#, fuzzy
+msgid "Please select a DVD image file."
+msgstr "Veuillez sélectionner un fichier iso..."
+
+#: src/gnomebaker.c:369 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: src/gnomebaker.c:365
+#: src/gnomebaker.c:370
 msgid "Simple CD Burning for Gnome"
 msgstr "La gravure de CD facile pour Gnome"
 
-#: src/gnomebaker.c:365 gnomebaker.glade:1711
+#: src/gnomebaker.c:370 gnomebaker.glade:1711
 msgid "translator_credits"
 msgstr "translator_credits"
 
-#: src/gnomebaker.c:430
+#: src/gnomebaker.c:435
 #, fuzzy
 msgid "Please select files to add to the disk."
 msgstr "Veuillez sélectionner un fichier iso pour sauvegarder ..."
@@ -479,21 +489,21 @@ msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: src/execfunctions.c:187
+#: src/execfunctions.c:186
 #, fuzzy, c-format
 msgid "Writing track %d"
 msgstr "Finalisation de la gravure"
 
-#: src/execfunctions.c:235 gnomebaker.glade:2848
+#: src/execfunctions.c:234 gnomebaker.glade:2848
 msgid "default"
 msgstr "par défaut"
 
-#: src/execfunctions.c:395
+#: src/execfunctions.c:394
 #, fuzzy
-msgid "Extracting audio tracks"
+msgid "Preparing to extract audio tracks"
 msgstr "<b>Extraction des pistes audio...</b>"
 
-#: src/execfunctions.c:406
+#: src/execfunctions.c:405
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -501,17 +511,22 @@ msgstr ""
 "Des pistes audio d'une session précédente existent sur le disque, voulez- "
 "vous utiliser les pistes existantes ?"
 
-#: src/execfunctions.c:553
+#: src/execfunctions.c:461
+#, fuzzy, c-format
+msgid "Extracting audio track %d"
+msgstr "<b>Extraction des pistes audio...</b>"
+
+#: src/execfunctions.c:530
 #, fuzzy
 msgid "Calculating data disk image size"
 msgstr "<b>Création de l'image du disque de données...</b>"
 
-#: src/execfunctions.c:591
+#: src/execfunctions.c:568
 #, fuzzy
 msgid "Creating data disk image"
 msgstr "<b>Création de l'image du disque de données...</b>"
 
-#: src/execfunctions.c:598
+#: src/execfunctions.c:575
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -519,26 +534,27 @@ msgstr ""
 "Une image de disque de données provenant d'une session précédente existe "
 "déjà sur le disque, souhaitez-vous l'utiliser ?"
 
-#: src/execfunctions.c:792
+#: src/execfunctions.c:762
 #, fuzzy
 msgid "Formatting DVD"
 msgstr "Effacer un DVDRW"
 
-#: src/execfunctions.c:874
+#: src/execfunctions.c:842
 #, fuzzy
 msgid "Burning DVD"
 msgstr "<b>Gravure du  DVD...</b>"
 
-#: src/execfunctions.c:942 src/execfunctions.c:984
-msgid "Writing lead-out"
-msgstr "Finalisation de la gravure"
+#: src/execfunctions.c:875
+#, fuzzy
+msgid "Writing DVD"
+msgstr "Graver un DVD-R"
 
-#: src/execfunctions.c:1145
+#: src/execfunctions.c:1060
 #, fuzzy
 msgid "Reading CD image"
 msgstr "<b>Lecture de l'image CD...</b>"
 
-#: src/execfunctions.c:1432
+#: src/execfunctions.c:1339
 #, fuzzy, c-format
 msgid "Converting [%.32s] to cd audio"
 msgstr "<b>Conversion des fichiers en CD audio...</b>"
@@ -719,7 +735,7 @@ msgstr "Créer un CD vidéo"
 msgid "<b>Video CD</b>"
 msgstr "<b>Vidéo CD</b>"
 
-#: gnomebaker.glade:1469
+#: gnomebaker.glade:1470
 #, fuzzy
 msgid "Baking"
 msgstr "Gravure du CD"
@@ -937,6 +953,9 @@ msgid ""
 msgstr ""
 "<b>Choisissez le périphérique de gravure dans la liste ci-dessous et insérez "
 "le disque contenant la session existante.</b>"
+
+#~ msgid "Writing lead-out"
+#~ msgstr "Finalisation de la gravure"
 
 #~ msgid "Completed"
 #~ msgstr "Terminé"

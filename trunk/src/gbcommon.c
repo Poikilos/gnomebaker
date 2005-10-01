@@ -435,38 +435,27 @@ gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel, cons
 }
 
 gchar*
-gbcommon_show_iso_dlg()
+gbcommon_show_file_chooser(const gchar* title, GtkFileFilter* imagefilter)
 {
 	GB_LOG_FUNC
+    g_return_val_if_fail(title != NULL, NULL);
+    g_return_val_if_fail(imagefilter != NULL, NULL);
+    
 	gchar* file = NULL;
-	
-	GtkWidget *filesel = gtk_file_chooser_dialog_new(
-	    _("Please select an iso file."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
+	GtkWidget *filesel = gtk_file_chooser_dialog_new( title , NULL, GTK_FILE_CHOOSER_ACTION_OPEN, 
 	    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
-	
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
-	GtkFileFilter *imagefilter = gtk_file_filter_new();
-	gtk_file_filter_add_pattern (imagefilter, "*.iso");
-	gtk_file_filter_add_pattern (imagefilter, "*.toc");
-	gtk_file_filter_add_pattern (imagefilter, "*.cue");
-	gtk_file_filter_set_name(imagefilter,_("CD Image files"));
 	GtkFileFilter *allfilter = gtk_file_filter_new();
 	gtk_file_filter_add_pattern (allfilter, "*");
 	gtk_file_filter_set_name(allfilter,_("All files"));
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), imagefilter);
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), allfilter);
-	
 	const gint result = gtk_dialog_run(GTK_DIALOG(filesel));
 	file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
-
 	gtk_widget_destroy(filesel);
-	
 	if(result != GTK_RESPONSE_OK)
-	{
 		file = NULL;
-	}
 	return file;
-	
 }
 
 
@@ -474,7 +463,7 @@ void
 gbcommon_center_window_on_parent(GtkWidget* window)
 {
     GB_LOG_FUNC    
-    g_return_if_fail(window);
+    g_return_if_fail(window != NULL);
     
     GtkWindow* mainwindow = gnomebaker_get_window();
     gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(mainwindow));
@@ -484,4 +473,16 @@ gbcommon_center_window_on_parent(GtkWidget* window)
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_widget_show(window);
 }
+
+
+gboolean 
+gbcommon_str_has_suffix(const gchar* str, const gchar* suffix)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(str != NULL, FALSE);
+    g_return_val_if_fail(suffix != NULL, FALSE);
+    return (g_ascii_strcasecmp(str + strlen(str) - strlen(suffix), suffix) == 0);
+}
+
+
 

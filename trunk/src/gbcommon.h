@@ -62,11 +62,11 @@ void gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel,
 void gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel, 
 					const gchar* stockid, GCallback activated, gpointer userdata);
 
-gchar* gbcommon_show_iso_dlg();
+gchar* gbcommon_show_file_chooser(const gchar* title, GtkFileFilter* imagefilter);
 void gb_common_finalise();
 gboolean gbcommon_init();
 void gbcommon_center_window_on_parent(GtkWidget* window);
-
+gboolean gbcommon_str_has_suffix(const gchar* str, const gchar* suffix);
 
 /* defined in main.c */
 extern const gchar* glade_file;

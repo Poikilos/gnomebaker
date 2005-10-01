@@ -249,8 +249,19 @@ void
 gnomebaker_on_blank_cdrw(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-
 	burn_blank_cdrw();	
+}
+
+
+static gboolean
+gnomebaker_cd_image_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
+{
+    GB_LOG_FUNC
+    if(gbcommon_str_has_suffix(filter_info->filename, ".cue") || 
+            gbcommon_str_has_suffix(filter_info->filename, ".toc") || 
+            (g_ascii_strcasecmp(filter_info->mime_type, "application/x-cd-image") == 0))
+        return TRUE;
+    return FALSE;
 }
 
 
@@ -258,13 +269,23 @@ void
 gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-		
-	const gchar* file = gbcommon_show_iso_dlg();
+    GtkFileFilter *imagefilter = gtk_file_filter_new();
+    gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
+        gnomebaker_cd_image_file_filter, NULL, NULL);
+    gtk_file_filter_set_name(imagefilter,_("CD Image files"));
+	const gchar* file = gbcommon_show_file_chooser(_("Please select a CD image file."), imagefilter);
 	if(file != NULL)
-	{
-		GB_TRACE("file is %s", file);		
 		burn_cd_image_file(file);
-	}
+}
+
+
+static gboolean
+gnomebaker_dvd_image_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
+{
+    GB_LOG_FUNC
+    if(g_ascii_strcasecmp(filter_info->mime_type, "application/x-cd-image") == 0)
+        return TRUE;
+    return FALSE;
 }
 
 
@@ -272,29 +293,13 @@ void
 gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-		
-	const gchar* file = gbcommon_show_iso_dlg();
+    GtkFileFilter *imagefilter = gtk_file_filter_new();
+    gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_MIME_TYPE,
+        gnomebaker_dvd_image_file_filter, NULL, NULL);
+    gtk_file_filter_set_name(imagefilter,_("DVD Image files"));
+	const gchar* file = gbcommon_show_file_chooser(_("Please select a DVD image file."), imagefilter);
 	if(file != NULL)
-	{
-		GB_TRACE("file is %s", file);
-		
-		gchar* mime = gnome_vfs_get_mime_type(file);
-		g_return_if_fail(mime != NULL);
-		GB_TRACE("mime type is %s for %s", mime, file);
-		
-		/* Check that the mime type is iso */
-		if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
-		{
-			burn_dvd_iso(file);
-		}
-		else
-		{
-			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
-			  _("The file you have selected is not a DVD image. Please select a DVD image to burn."));
-		}
-		
-		g_free(mime);
-	}
+        burn_dvd_iso(file);
 }
 
 

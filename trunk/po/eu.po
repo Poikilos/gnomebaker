@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-26 00:33+0100\n"
+"POT-Creation-Date: 2005-10-01 11:10+0100\n"
 "PO-Revision-Date: 2005-02-09 23:46+0100\n"
 "Last-Translator: Mikel Olasagasti <hey_neken@mundurat.net>\n"
 "Language-Team: Basque <gnome@euskalgnu.org>\n"
@@ -78,25 +78,34 @@ msgstr "Titulua"
 msgid "Info"
 msgstr ""
 
-#: src/burn.c:91 src/burn.c:127
+#: src/burn.c:81 src/burn.c:128
 #, fuzzy
 msgid "Burning CD image"
 msgstr "Idatzi CD irudia"
 
-#: src/burn.c:91 src/burn.c:127
+#: src/burn.c:81 src/burn.c:128
 msgid "Please wait while the CD image you selected is burned to disk."
 msgstr ""
 
-#: src/burn.c:108
+#: src/burn.c:103
 #, fuzzy
 msgid "Burning DVD image"
 msgstr "Idatzi CD irudia"
 
-#: src/burn.c:108
+#: src/burn.c:103
 msgid "Please wait while the DVD image you selected is burned to disk."
 msgstr ""
 
-#: src/burn.c:153
+#: src/burn.c:111
+#, fuzzy
+msgid ""
+"The file you have selected is not a DVD image. Please select a DVD image to "
+"burn."
+msgstr ""
+"Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
+"kopiatzeko."
+
+#: src/burn.c:154
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
@@ -104,95 +113,95 @@ msgstr ""
 "Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
 "kopiatzeko."
 
-#: src/burn.c:171
+#: src/burn.c:172
 #, fuzzy
 msgid "Creating data CD image"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: src/burn.c:171
+#: src/burn.c:172
 #, fuzzy
 msgid "Please wait while the data CD image is created."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: src/burn.c:173 src/burn.c:300
+#: src/burn.c:174 src/burn.c:298
 #, fuzzy
 msgid "Please select an iso file to save to."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: src/burn.c:191 src/burn.c:204
+#: src/burn.c:192 src/burn.c:205
 msgid "Burning data CD"
 msgstr ""
 
-#: src/burn.c:191
+#: src/burn.c:192
 msgid "Please wait while the data CD is burned directly to disk."
 msgstr ""
 
-#: src/burn.c:204
+#: src/burn.c:205
 msgid "Please wait while the data CD image is created and then burned to disk."
 msgstr ""
 
-#: src/burn.c:229
+#: src/burn.c:230
 msgid "Burning audio CD"
 msgstr ""
 
-#: src/burn.c:229
+#: src/burn.c:230
 #, fuzzy
 msgid "Please wait while the audio CD is burned to disk."
 msgstr "Mesedez, sartu audio CD bat CD irakurgailuan"
 
-#: src/burn.c:298
+#: src/burn.c:296
 #, fuzzy
 msgid "Extracting CD image"
 msgstr "Idatzi CD irudia"
 
-#: src/burn.c:298
+#: src/burn.c:296
 #, fuzzy
 msgid "Please wait while the data CD image is extracted."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: src/burn.c:314
+#: src/burn.c:312
 #, fuzzy
 msgid "Copying data CD"
 msgstr "Kopiatu datu CDa"
 
-#: src/burn.c:314
+#: src/burn.c:312
 msgid ""
 "Please wait while the data CD image is extracted and then burned to disk."
 msgstr ""
 
-#: src/burn.c:343
+#: src/burn.c:339
 #, fuzzy
 msgid "Copying audio CD"
 msgstr "Kopiatu audio CDa"
 
-#: src/burn.c:343
+#: src/burn.c:339
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to disk."
 msgstr ""
 
-#: src/burn.c:361
+#: src/burn.c:357
 #, fuzzy
 msgid "Blanking CD"
 msgstr "Garbitu CDRWa"
 
-#: src/burn.c:361
+#: src/burn.c:357
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: src/burn.c:378
+#: src/burn.c:374
 #, fuzzy
 msgid "Formatting DVD-RW"
 msgstr "Formateatu DVDRWa"
 
-#: src/burn.c:378
+#: src/burn.c:374
 msgid "Please wait while the DVD-RW is formatted."
 msgstr ""
 
-#: src/burn.c:395
+#: src/burn.c:391
 msgid "Burning data DVD"
 msgstr ""
 
-#: src/burn.c:395
+#: src/burn.c:391
 msgid "Please wait while the data DVD is burned to disk."
 msgstr ""
 
@@ -213,7 +222,7 @@ msgstr "Garbitu"
 msgid "Contents"
 msgstr "Edukiak"
 
-#: src/datacd.c:515 src/datacd.c:524 src/filebrowser.c:795
+#: src/datacd.c:515 src/datacd.c:524 src/filebrowser.c:794
 msgid "Size"
 msgstr "Tamainua"
 
@@ -240,7 +249,7 @@ msgstr ""
 msgid "unknown error"
 msgstr "errore ezezaguna"
 
-#: src/datacd.c:660
+#: src/datacd.c:662
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -278,12 +287,12 @@ msgstr "muntatzen"
 msgid "unmounting"
 msgstr "desmuntatzen"
 
-#: src/devices.c:778
+#: src/devices.c:780
 #, fuzzy, c-format
 msgid "Please insert a disk into the %s"
 msgstr "Mesedez, sartu CDa CD idazgailuan"
 
-#: src/filebrowser.c:72 src/filebrowser.c:683
+#: src/filebrowser.c:72 src/filebrowser.c:682
 msgid "Filesystem"
 msgstr "Fitxategi sistema"
 
@@ -310,7 +319,7 @@ msgstr "Gehitu direktorioa"
 msgid "_Add file(s)"
 msgstr "Gehitu fitxategia(k)"
 
-#: src/filebrowser.c:603 gnomebaker.glade:193
+#: src/filebrowser.c:602 gnomebaker.glade:193
 msgid "_Burn CD Image"
 msgstr "_Idatzi CD irudia"
 
@@ -319,34 +328,24 @@ msgstr "_Idatzi CD irudia"
 msgid "_Burn DVD Image"
 msgstr "_Idatzi CD irudia"
 
-#: src/filebrowser.c:714
+#: src/filebrowser.c:713
 #, c-format
 msgid "%s's home"
 msgstr "%s-(r)en etxea"
 
-#: src/filebrowser.c:781
+#: src/filebrowser.c:780
 msgid "File"
 msgstr "Fitxategia"
 
-#: src/filebrowser.c:813
+#: src/filebrowser.c:812
 msgid "Type"
 msgstr "Moeta"
 
-#: src/filebrowser.c:821
+#: src/filebrowser.c:820
 msgid "Mime"
 msgstr ""
 
-#: src/gbcommon.c:449
-#, fuzzy
-msgid "Please select an iso file."
-msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
-
-#: src/gbcommon.c:457
-#, fuzzy
-msgid "CD Image files"
-msgstr "Abio irudien zerrenda"
-
-#: src/gbcommon.c:460
+#: src/gbcommon.c:450
 msgid "All files"
 msgstr "Fitxategi guztiak"
 
@@ -370,28 +369,39 @@ msgstr "GUIa kargatzen..."
 msgid "Are you sure you want to quit?"
 msgstr "Ziur zaude irten nahi duzula?"
 
-#: src/gnomebaker.c:293
+#: src/gnomebaker.c:275
 #, fuzzy
-msgid ""
-"The file you have selected is not a DVD image. Please select a DVD image to "
-"burn."
-msgstr ""
-"Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
-"kopiatzeko."
+msgid "CD Image files"
+msgstr "Abio irudien zerrenda"
 
-#: src/gnomebaker.c:364 gnomebaker.glade:12
+#: src/gnomebaker.c:276
+#, fuzzy
+msgid "Please select a CD image file."
+msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
+
+#: src/gnomebaker.c:299
+#, fuzzy
+msgid "DVD Image files"
+msgstr "Abio irudien zerrenda"
+
+#: src/gnomebaker.c:300
+#, fuzzy
+msgid "Please select a DVD image file."
+msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
+
+#: src/gnomebaker.c:369 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: src/gnomebaker.c:365
+#: src/gnomebaker.c:370
 msgid "Simple CD Burning for Gnome"
 msgstr "CDak grabatzeko programa erraza Gnomerentzat"
 
-#: src/gnomebaker.c:365 gnomebaker.glade:1711
+#: src/gnomebaker.c:370 gnomebaker.glade:1711
 msgid "translator_credits"
 msgstr "Mikel Olasagasti <hey_neken@mundurat.net>"
 
-#: src/gnomebaker.c:430
+#: src/gnomebaker.c:435
 #, fuzzy
 msgid "Please select files to add to the disk."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
@@ -482,21 +492,21 @@ msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: src/execfunctions.c:187
+#: src/execfunctions.c:186
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: src/execfunctions.c:235 gnomebaker.glade:2848
+#: src/execfunctions.c:234 gnomebaker.glade:2848
 msgid "default"
 msgstr "lehenetsia"
 
-#: src/execfunctions.c:395
+#: src/execfunctions.c:394
 #, fuzzy
-msgid "Extracting audio tracks"
+msgid "Preparing to extract audio tracks"
 msgstr "<b>Audio pistak ateratzen...</b>"
 
-#: src/execfunctions.c:406
+#: src/execfunctions.c:405
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -504,17 +514,22 @@ msgstr ""
 "Audio CD irudi bat exisititzen da aurreko saiotik, irudi hau erabili nahi "
 "duzu?"
 
-#: src/execfunctions.c:553
+#: src/execfunctions.c:461
+#, fuzzy, c-format
+msgid "Extracting audio track %d"
+msgstr "<b>Audio pistak ateratzen...</b>"
+
+#: src/execfunctions.c:530
 #, fuzzy
 msgid "Calculating data disk image size"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: src/execfunctions.c:591
+#: src/execfunctions.c:568
 #, fuzzy
 msgid "Creating data disk image"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: src/execfunctions.c:598
+#: src/execfunctions.c:575
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -522,26 +537,27 @@ msgstr ""
 "Datu CD irudi bat exisititzen da aurreko saiotik, irudi hau erabili nahi "
 "duzu?"
 
-#: src/execfunctions.c:792
+#: src/execfunctions.c:762
 #, fuzzy
 msgid "Formatting DVD"
 msgstr "Formateatu DVDRWa"
 
-#: src/execfunctions.c:874
+#: src/execfunctions.c:842
 #, fuzzy
 msgid "Burning DVD"
 msgstr "<b>DVDa idazten...</b>"
 
-#: src/execfunctions.c:942 src/execfunctions.c:984
-msgid "Writing lead-out"
-msgstr ""
+#: src/execfunctions.c:875
+#, fuzzy
+msgid "Writing DVD"
+msgstr "Idatzi DVD-Ra"
 
-#: src/execfunctions.c:1145
+#: src/execfunctions.c:1060
 #, fuzzy
 msgid "Reading CD image"
 msgstr "<b>CD irudia irakurtzen...</b>"
 
-#: src/execfunctions.c:1432
+#: src/execfunctions.c:1339
 #, fuzzy, c-format
 msgid "Converting [%.32s] to cd audio"
 msgstr "<b>wav-ak audio cd-ra bihurtzen...</b>"
@@ -725,7 +741,7 @@ msgstr "Sortu bideo CDa"
 msgid "<b>Video CD</b>"
 msgstr "<b>Bideo CDa</b>"
 
-#: gnomebaker.glade:1469
+#: gnomebaker.glade:1470
 #, fuzzy
 msgid "Baking"
 msgstr "CDa idazten"

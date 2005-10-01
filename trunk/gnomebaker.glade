@@ -1465,12 +1465,12 @@
 </widget>
 
 <widget class="GtkDialog" id="progDlg">
+  <property name="width_request">450</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Baking</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
   <property name="modal">True</property>
-  <property name="default_width">400</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
   <property name="icon">gnomebaker-48.png</property>
@@ -1568,8 +1568,8 @@
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
-	      <property name="expand">False</property>
-	      <property name="fill">False</property>
+	      <property name="expand">True</property>
+	      <property name="fill">True</property>
 	    </packing>
 	  </child>
 
@@ -1618,8 +1618,8 @@
 	    <widget class="GtkExpander" id="expander1">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="expanded">False</property>
-	      <property name="spacing">0</property>
+	      <property name="expanded">True</property>
+	      <property name="spacing">10</property>
 	      <signal name="activate" handler="progressdlg_on_output" last_modification_time="Fri, 09 Sep 2005 22:47:06 GMT"/>
 
 	      <child>
@@ -1685,7 +1685,7 @@
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
-	  <property name="expand">True</property>
+	  <property name="expand">False</property>
 	  <property name="fill">True</property>
 	</packing>
       </child>
