@@ -40,9 +40,6 @@
 static Exec *burnargs = NULL;
 
 
-/*
- *
- */
 static gint
 burn_show_start_dlg(const BurnType burntype)
 {
@@ -58,9 +55,6 @@ burn_show_start_dlg(const BurnType burntype)
 }
 
 
-/*
- * This function kicks off the whole writing process.
- */
 static gboolean
 burn_start_process()
 {
@@ -75,10 +69,6 @@ burn_start_process()
 }
 
 
-
-/*
- *
- */
 gboolean
 burn_iso(const gchar* file)
 {
@@ -96,23 +86,34 @@ burn_iso(const gchar* file)
 	return ok;
 }
 
+
 gboolean
 burn_dvd_iso(const gchar* file)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(file != NULL, FALSE);
-	gboolean ok = FALSE;
-
-	if(burn_show_start_dlg(burn_dvd_image) == GTK_RESPONSE_OK)
-	{
-		burnargs = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to disk."));
-		growisofs_add_iso_args(exec_cmd_new(burnargs),file);
-		ok = burn_start_process();
-	}
-
+	
+    gboolean ok = FALSE;        
+    gchar* mime = gbcommon_get_mime_type(file);
+    /* Check that the mime type is iso */
+    if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
+    {
+        if(burn_show_start_dlg(burn_dvd_image) == GTK_RESPONSE_OK)
+        {
+            burnargs = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to disk."));
+            growisofs_add_iso_args(exec_cmd_new(burnargs),file);
+            ok = burn_start_process();
+        }
+    }
+    else
+    {
+        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+          _("The file you have selected is not a DVD image. Please select a DVD image to burn."));
+    }
+    
+    g_free(mime);
 	return ok;
 }
-
 
 
 gboolean
@@ -146,7 +147,7 @@ burn_cd_image_file(const gchar* file)
 	/* Check that the mime type is iso */
 	if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
 		ret = burn_iso(file);
-	else if(g_str_has_suffix(file, ".cue") || g_str_has_suffix(file, ".toc"))
+	else if(gbcommon_str_has_suffix(file, ".cue") || gbcommon_str_has_suffix(file, ".toc"))
 		ret = burn_cue_or_toc(file);
 	else
 		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
@@ -280,9 +281,6 @@ burn_create_audio_cd(GtkTreeModel* model)
 }
 
 
-/*
- * Creates the information required to copy an existing data cd.
- */
 gboolean
 burn_copy_data_cd()
 {
@@ -329,9 +327,7 @@ burn_copy_data_cd()
 	return ok;
 }
 
-/*
- *  Creates the information required to copy an audio cd to a blank cd.
- */
+
 gboolean
 burn_copy_audio_cd()
 {
@@ -410,9 +406,6 @@ burn_end_process()
 }
 
 
-/*
- * Initialises the burn functions and controls.
- */
 gboolean
 burn_init()
 {

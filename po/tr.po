@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-26 00:33+0100\n"
+"POT-Creation-Date: 2005-10-01 11:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -79,115 +79,121 @@ msgstr "Başlık"
 msgid "Info"
 msgstr ""
 
-#: src/burn.c:91 src/burn.c:127
+#: src/burn.c:81 src/burn.c:128
 #, fuzzy
 msgid "Burning CD image"
 msgstr "İmge Dosyasını Yaz"
 
-#: src/burn.c:91 src/burn.c:127
+#: src/burn.c:81 src/burn.c:128
 msgid "Please wait while the CD image you selected is burned to disk."
 msgstr ""
 
-#: src/burn.c:108
+#: src/burn.c:103
 #, fuzzy
 msgid "Burning DVD image"
 msgstr "İmge Dosyasını Yaz"
 
-#: src/burn.c:108
+#: src/burn.c:103
 msgid "Please wait while the DVD image you selected is burned to disk."
 msgstr ""
 
-#: src/burn.c:153
+#: src/burn.c:111
+msgid ""
+"The file you have selected is not a DVD image. Please select a DVD image to "
+"burn."
+msgstr ""
+
+#: src/burn.c:154
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr ""
 
-#: src/burn.c:171
+#: src/burn.c:172
 #, fuzzy
 msgid "Creating data CD image"
 msgstr "Veri CD'si Oluştur"
 
-#: src/burn.c:171
+#: src/burn.c:172
 msgid "Please wait while the data CD image is created."
 msgstr ""
 
-#: src/burn.c:173 src/burn.c:300
+#: src/burn.c:174 src/burn.c:298
 msgid "Please select an iso file to save to."
 msgstr ""
 
-#: src/burn.c:191 src/burn.c:204
+#: src/burn.c:192 src/burn.c:205
 msgid "Burning data CD"
 msgstr ""
 
-#: src/burn.c:191
+#: src/burn.c:192
 msgid "Please wait while the data CD is burned directly to disk."
 msgstr ""
 
-#: src/burn.c:204
+#: src/burn.c:205
 msgid "Please wait while the data CD image is created and then burned to disk."
 msgstr ""
 
-#: src/burn.c:229
+#: src/burn.c:230
 msgid "Burning audio CD"
 msgstr ""
 
-#: src/burn.c:229
+#: src/burn.c:230
 msgid "Please wait while the audio CD is burned to disk."
 msgstr ""
 
-#: src/burn.c:298
+#: src/burn.c:296
 #, fuzzy
 msgid "Extracting CD image"
 msgstr "İmge Dosyasını Yaz"
 
-#: src/burn.c:298
+#: src/burn.c:296
 msgid "Please wait while the data CD image is extracted."
 msgstr ""
 
-#: src/burn.c:314
+#: src/burn.c:312
 #, fuzzy
 msgid "Copying data CD"
 msgstr "Veri CD'si Kopyala"
 
-#: src/burn.c:314
+#: src/burn.c:312
 msgid ""
 "Please wait while the data CD image is extracted and then burned to disk."
 msgstr ""
 
-#: src/burn.c:343
+#: src/burn.c:339
 #, fuzzy
 msgid "Copying audio CD"
 msgstr "Ses CD'si Kopyala"
 
-#: src/burn.c:343
+#: src/burn.c:339
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to disk."
 msgstr ""
 
-#: src/burn.c:361
+#: src/burn.c:357
 #, fuzzy
 msgid "Blanking CD"
 msgstr "Boş CDRW"
 
-#: src/burn.c:361
+#: src/burn.c:357
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: src/burn.c:378
+#: src/burn.c:374
 #, fuzzy
 msgid "Formatting DVD-RW"
 msgstr "<b> DVD Biçimleniyor...</b>"
 
-#: src/burn.c:378
+#: src/burn.c:374
 msgid "Please wait while the DVD-RW is formatted."
 msgstr ""
 
-#: src/burn.c:395
+#: src/burn.c:391
 msgid "Burning data DVD"
 msgstr ""
 
-#: src/burn.c:395
+#: src/burn.c:391
 msgid "Please wait while the data DVD is burned to disk."
 msgstr ""
 
@@ -207,7 +213,7 @@ msgstr "Temizle"
 msgid "Contents"
 msgstr "İçerik"
 
-#: src/datacd.c:515 src/datacd.c:524 src/filebrowser.c:795
+#: src/datacd.c:515 src/datacd.c:524 src/filebrowser.c:794
 msgid "Size"
 msgstr "Boyut"
 
@@ -231,7 +237,7 @@ msgstr ""
 msgid "unknown error"
 msgstr "Bilinmeyen hata"
 
-#: src/datacd.c:660
+#: src/datacd.c:662
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -264,12 +270,12 @@ msgstr "Bağlanıyor"
 msgid "unmounting"
 msgstr "Ayrılıyor"
 
-#: src/devices.c:778
+#: src/devices.c:780
 #, fuzzy, c-format
 msgid "Please insert a disk into the %s"
 msgstr "Lütfen CD-Yazıcıya boş bir CD yerleştirin"
 
-#: src/filebrowser.c:72 src/filebrowser.c:683
+#: src/filebrowser.c:72 src/filebrowser.c:682
 msgid "Filesystem"
 msgstr ""
 
@@ -296,7 +302,7 @@ msgstr "Dizin ekle"
 msgid "_Add file(s)"
 msgstr "Dosya(lar) ekle"
 
-#: src/filebrowser.c:603 gnomebaker.glade:193
+#: src/filebrowser.c:602 gnomebaker.glade:193
 msgid "_Burn CD Image"
 msgstr ""
 
@@ -305,33 +311,24 @@ msgstr ""
 msgid "_Burn DVD Image"
 msgstr "İmge Dosyasını Yaz"
 
-#: src/filebrowser.c:714
+#: src/filebrowser.c:713
 #, c-format
 msgid "%s's home"
 msgstr ""
 
-#: src/filebrowser.c:781
+#: src/filebrowser.c:780
 msgid "File"
 msgstr ""
 
-#: src/filebrowser.c:813
+#: src/filebrowser.c:812
 msgid "Type"
 msgstr ""
 
-#: src/filebrowser.c:821
+#: src/filebrowser.c:820
 msgid "Mime"
 msgstr ""
 
-#: src/gbcommon.c:449
-msgid "Please select an iso file."
-msgstr ""
-
-#: src/gbcommon.c:457
-#, fuzzy
-msgid "CD Image files"
-msgstr "Önyükleyici imge listesi"
-
-#: src/gbcommon.c:460
+#: src/gbcommon.c:450
 #, fuzzy
 msgid "All files"
 msgstr "Dosya(lar) ekle"
@@ -356,25 +353,37 @@ msgstr ""
 msgid "Are you sure you want to quit?"
 msgstr ""
 
-#: src/gnomebaker.c:293
-msgid ""
-"The file you have selected is not a DVD image. Please select a DVD image to "
-"burn."
+#: src/gnomebaker.c:275
+#, fuzzy
+msgid "CD Image files"
+msgstr "Önyükleyici imge listesi"
+
+#: src/gnomebaker.c:276
+msgid "Please select a CD image file."
 msgstr ""
 
-#: src/gnomebaker.c:364 gnomebaker.glade:12
+#: src/gnomebaker.c:299
+#, fuzzy
+msgid "DVD Image files"
+msgstr "Önyükleyici imge listesi"
+
+#: src/gnomebaker.c:300
+msgid "Please select a DVD image file."
+msgstr ""
+
+#: src/gnomebaker.c:369 gnomebaker.glade:12
 msgid "GnomeBaker"
 msgstr ""
 
-#: src/gnomebaker.c:365
+#: src/gnomebaker.c:370
 msgid "Simple CD Burning for Gnome"
 msgstr ""
 
-#: src/gnomebaker.c:365 gnomebaker.glade:1711
+#: src/gnomebaker.c:370 gnomebaker.glade:1711
 msgid "translator_credits"
 msgstr ""
 
-#: src/gnomebaker.c:430
+#: src/gnomebaker.c:435
 msgid "Please select files to add to the disk."
 msgstr ""
 
@@ -466,60 +475,66 @@ msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: src/execfunctions.c:187
+#: src/execfunctions.c:186
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: src/execfunctions.c:235 gnomebaker.glade:2848
+#: src/execfunctions.c:234 gnomebaker.glade:2848
 msgid "default"
 msgstr "Öntanımlı"
 
-#: src/execfunctions.c:395
-msgid "Extracting audio tracks"
+#: src/execfunctions.c:394
+msgid "Preparing to extract audio tracks"
 msgstr ""
 
-#: src/execfunctions.c:406
+#: src/execfunctions.c:405
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
 
-#: src/execfunctions.c:553
+#: src/execfunctions.c:461
+#, c-format
+msgid "Extracting audio track %d"
+msgstr ""
+
+#: src/execfunctions.c:530
 msgid "Calculating data disk image size"
 msgstr ""
 
-#: src/execfunctions.c:591
+#: src/execfunctions.c:568
 #, fuzzy
 msgid "Creating data disk image"
 msgstr "Sabit Disk imgesi"
 
-#: src/execfunctions.c:598
+#: src/execfunctions.c:575
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
 
-#: src/execfunctions.c:792
+#: src/execfunctions.c:762
 #, fuzzy
 msgid "Formatting DVD"
 msgstr "<b> DVD Biçimleniyor...</b>"
 
-#: src/execfunctions.c:874
+#: src/execfunctions.c:842
 #, fuzzy
 msgid "Burning DVD"
 msgstr "<b> DVD Yazılıyor...</b>"
 
-#: src/execfunctions.c:942 src/execfunctions.c:984
-msgid "Writing lead-out"
-msgstr ""
+#: src/execfunctions.c:875
+#, fuzzy
+msgid "Writing DVD"
+msgstr "<b> DVD Yazılıyor...</b>"
 
-#: src/execfunctions.c:1145
+#: src/execfunctions.c:1060
 #, fuzzy
 msgid "Reading CD image"
 msgstr "İmge Dosyasını Yaz"
 
-#: src/execfunctions.c:1432
+#: src/execfunctions.c:1339
 #, c-format
 msgid "Converting [%.32s] to cd audio"
 msgstr ""
@@ -703,7 +718,7 @@ msgstr "Video CD'si Oluştur"
 msgid "<b>Video CD</b>"
 msgstr ""
 
-#: gnomebaker.glade:1469
+#: gnomebaker.glade:1470
 msgid "Baking"
 msgstr ""
 

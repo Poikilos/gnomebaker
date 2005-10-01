@@ -10,7 +10,11 @@ Version 0.4.3
 * Calculate iso sizes when creating datacds so we can burn using dao and raw96.
 * Option to play sounds when burning is complete.
 * Refactor the exec layer again so we use less threads and require less locking.
-* Make the progress dialog more HIG compliant and improve feedback from cdrecord.
+* Make the progress dialog more HIG compliant and improve feedback from all external applications.
+* Make the prompt for disk insert more intelligent so it won't let you proceed until you insert one.
+* Fix resource leaks in device eject and disk detection routines.
+* Fix Bug #1295889 should recognize file extensions regardless of case (when burning cd/dvd images).
+
 
 Version 0.4.2
 

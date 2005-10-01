@@ -598,13 +598,12 @@ filebrowser_on_button_pressed(GtkWidget* widget, GdkEventButton* event, gpointer
 				g_free(rightclickselection);
 					rightclickselection = filebrowser_build_filename(model, &iter);
 				
-				if(g_str_has_suffix(name, ".cue") || g_str_has_suffix(name, ".toc") || (g_ascii_strcasecmp(mime, "application/x-cd-image") == 0))
-				{	
+				if(gbcommon_str_has_suffix(name, ".cue") || gbcommon_str_has_suffix(name, ".toc") || (g_ascii_strcasecmp(mime, "application/x-cd-image") == 0))
 					gbcommon_append_menu_item_file(menu, _("_Burn CD Image"), 
-						"baker-cd-iso.png", (GCallback)filebrowser_burn_cd_image, view);	
+                        "baker-cd-iso.png", (GCallback)filebrowser_burn_cd_image, view);	
+                if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
                     gbcommon_append_menu_item_file(menu, _("_Burn DVD Image"), 
 						"baker-dvd-iso.png", (GCallback)filebrowser_burn_dvd_image, view);	
-				}				
 				g_free(name);
 				g_free(mime);
 			}							
