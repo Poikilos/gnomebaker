@@ -8,7 +8,6 @@
 <widget class="GnomeApp" id="GnomeBaker">
   <property name="width_request">750</property>
   <property name="height_request">550</property>
-  <property name="visible">False</property>
   <property name="title" translatable="yes">GnomeBaker</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -678,20 +677,7 @@
 		      <property name="show_arrow">True</property>
 
 		      <child>
-			<widget class="GtkToolButton" id="buttonAdd">
-			  <property name="tooltip" translatable="yes">Add the current directory to the CD</property>
-			  <property name="label" translatable="yes">Add directory</property>
-			  <property name="use_underline">True</property>
-			  <property name="icon">baker-add-dir.png</property>
-			  <property name="visible_horizontal">True</property>
-			  <property name="visible_vertical">True</property>
-			  <property name="is_important">True</property>
-			  <signal name="clicked" handler="gnomebaker_on_add_dir" last_modification_time="Mon, 05 Jul 2004 22:25:13 GMT"/>
-			</widget>
-			<packing>
-			  <property name="expand">False</property>
-			  <property name="homogeneous">True</property>
-			</packing>
+			<placeholder/>
 		      </child>
 
 		      <child>
@@ -1468,7 +1454,7 @@
   <property name="width_request">450</property>
   <property name="title" translatable="yes">Baking</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">True</property>
   <property name="default_width">450</property>
   <property name="resizable">False</property>
@@ -1784,7 +1770,7 @@
   <property name="height_request">400</property>
   <property name="title" translatable="yes">GnomeBaker Preferences</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">True</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
@@ -2412,7 +2398,7 @@
 <widget class="GtkDialog" id="startDlg">
   <property name="title" translatable="yes">Start burning...</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">True</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
@@ -2935,7 +2921,7 @@
 <widget class="GtkDialog" id="isofsDlg">
   <property name="title" translatable="yes">ISO filesystem details</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">True</property>
   <property name="resizable">False</property>
   <property name="destroy_with_parent">False</property>
@@ -3445,7 +3431,7 @@
 <widget class="GtkDialog" id="selectDeviceDlg">
   <property name="title" translatable="yes">Select writer...</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">True</property>
   <property name="resizable">False</property>
   <property name="destroy_with_parent">False</property>

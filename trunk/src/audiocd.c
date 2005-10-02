@@ -272,7 +272,8 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
 	GB_LOG_FUNC
 	g_return_val_if_fail(filename != NULL, FALSE);
 	g_return_val_if_fail(model != NULL, FALSE);
-	
+    
+    GB_TRACE("audiocd_add_file - [%s]", filename);
 	/* ret is set to true as we want to ignore non audio files. */
 	gboolean ret = TRUE;
 	MediaInfo* info = media_info_new(filename);
@@ -318,6 +319,43 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
         }
 	}
 	return ret;
+}
+
+
+static gboolean
+audiocd_import_m3u_playlist(const gchar* m3ufile, GtkTreeModel* model)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(m3ufile != NULL, FALSE);
+    g_return_val_if_fail(model != NULL, FALSE);
+    
+    gboolean ret = TRUE;
+    gchar* m3udir = g_path_get_dirname(m3ufile);
+    gchar** lines = gbcommon_get_file_as_list(m3ufile);
+    gchar** line = lines;
+    while((line != NULL) && (*line != NULL) && (ret == TRUE))
+    {
+        gchar* file = *line;
+        g_strstrip(file);
+        GB_TRACE("audiocd_import_m3u_playlist - [%s]", file);
+        if((strlen(file) > 0) && (file[0] != '#') && !g_ascii_isspace(file[0]))
+        {
+            /* TODO need to figure out what to do with files which don't exist */
+            if(g_path_is_absolute(file))
+                ret = audiocd_add_file(file, model);
+            else
+            {
+                /* This is a relative file, relative to the m3u file */
+                gchar* filename = g_build_filename(m3udir, file, NULL);
+                ret = audiocd_add_file(filename, model);
+                g_free(filename);
+            }
+        }
+        ++line;
+    }
+    g_free(m3udir);
+    g_strfreev(lines);
+    return ret;
 }
 
 
@@ -453,7 +491,11 @@ audiocd_add_selection(GtkSelectionData* selection)
             }
             g_dir_close(dir);
         }
-        else
+        else if(gbcommon_str_has_suffix(filename, ".m3u"))
+        {
+            cont = audiocd_import_m3u_playlist(filename, model);
+        }
+        else 
         {
             cont = audiocd_add_file(filename, model);
         }
