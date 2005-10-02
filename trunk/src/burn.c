@@ -202,7 +202,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
         }
 		else
 		{
-            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data CD image is created and then burned to disk."));
+            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data CD image is created and then burned to disk. Depending on the speed of your CD writer, this may take some time. "));
             mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
 			gchar* file = preferences_get_create_data_cd_image();            
             ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);			
@@ -227,7 +227,7 @@ burn_create_audio_cd(GtkTreeModel* model)
     
     if(burn_show_start_dlg(create_audio_cd) == GTK_RESPONSE_OK)
     {       
-        burnargs = exec_new(_("Burning audio CD"), _("Please wait while the audio CD is burned to disk."));
+        burnargs = exec_new(_("Burning audio CD"), _("Please wait while the selected tracks are converted to CD audio and then burned to disk."));
         const gboolean onthefly = FALSE;/*preferences_get_bool(GB_ONTHEFLY);*/
         
         GtkTreeIter iter;

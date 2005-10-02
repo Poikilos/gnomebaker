@@ -40,8 +40,6 @@ static GtkTextView* textview = NULL;
 static GtkTextBuffer* textBuffer = NULL;
 static GtkWidget* textviewScroll = NULL;
 
-static gint x = 0;
-static gint y = 0;
 static gint timertag = 0;
 static gint numberofexecs = 0;
 static gint currentexec = -1;
@@ -73,8 +71,6 @@ progressdlg_new(const Exec* exec, GCallback callonprematureclose)
     gtk_label_set_text(GTK_LABEL(processdesc), exec->processdescription);
 	
 	GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg);		
-	gtk_window_get_size(GTK_WINDOW(widget), &x, &y);
-    /* parent this window with the main window */
     gbcommon_center_window_on_parent(widget);
     gtk_main_iteration();
 	return widget;
@@ -171,13 +167,9 @@ progressdlg_on_output(GtkExpander* expander, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(progdlg_xml != NULL);
-		
-    if(gtk_expander_get_expanded(expander))
-    {
-        GtkWidget* window = glade_xml_get_widget(progdlg_xml, widget_progdlg);
-        gtk_window_resize(GTK_WINDOW(window), x, y);
-    }
-    GB_TRACE("Window size is %d %d", x, y);
+    GtkWidget* label = gtk_expander_get_label_widget(expander);
+    gtk_label_set_text(GTK_LABEL(label), 
+        gtk_expander_get_expanded(expander) ? _("Show output"): _("Hide output"));
 }
 
 

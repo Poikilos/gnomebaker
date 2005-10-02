@@ -276,8 +276,7 @@ gbcommon_launch_app_for_file(const gchar* file)
 		if(app != NULL)
 		{			
 			gchar* uri = gnome_vfs_get_uri_from_local_path(file);
-			GList* uris = NULL;
-			uris = g_list_append(uris, uri);
+			GList* uris = g_list_append(uris, uri);
 			gnome_vfs_mime_application_launch(app, uris);
 			g_free(uri);
 			g_list_free(uris);
@@ -433,6 +432,7 @@ gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel, cons
 	g_free(fullfilename);
 	g_object_unref(pixbuf);
 }
+
 
 gchar*
 gbcommon_show_file_chooser(const gchar* title, GtkFileFilter* imagefilter)
