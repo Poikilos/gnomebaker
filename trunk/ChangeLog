@@ -14,6 +14,7 @@ Version 0.4.3
 * Make the prompt for disk insert more intelligent so it won't let you proceed until you insert one.
 * Fix resource leaks in device eject and disk detection routines.
 * Fix Bug #1295889 should recognize file extensions regardless of case (when burning cd/dvd images).
+* Apply patch #1311145 Flickering window position restoring.
 
 
 Version 0.4.2

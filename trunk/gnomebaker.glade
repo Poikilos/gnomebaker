@@ -8,10 +8,10 @@
 <widget class="GnomeApp" id="GnomeBaker">
   <property name="width_request">750</property>
   <property name="height_request">550</property>
-  <property name="visible">True</property>
+  <property name="visible">False</property>
   <property name="title" translatable="yes">GnomeBaker</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_CENTER_ALWAYS</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
   <property name="default_width">750</property>
   <property name="default_height">550</property>

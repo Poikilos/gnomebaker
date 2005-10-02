@@ -148,6 +148,8 @@ gnomebaker_new()
 		preferences_get_bool(GB_SHOW_FILE_BROWSER));
 	g_signal_emit_by_name(checkmenuitem, "toggled", checkmenuitem, NULL);	
 
+	gtk_widget_show_all (main_window);
+
 	return main_window;
 }
 
