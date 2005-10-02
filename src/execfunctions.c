@@ -205,7 +205,10 @@ cdrecord_add_common_args(ExecCmd* cdBurn)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);	
+    
     cdrecord_totaldiskbytes = 0;
+    cdrecord_totaltrackstowrite = 1;
+    cdrecord_firsttrack = -1;
 
 	exec_cmd_add_arg(cdBurn, "%s", "cdrecord");
 	
@@ -233,11 +236,7 @@ cdrecord_add_common_args(ExecCmd* cdBurn)
 	gchar* mode = preferences_get_string(GB_WRITE_MODE);
 	if(g_ascii_strcasecmp(mode, _("default")) != 0)
 		exec_cmd_add_arg(cdBurn, "-%s", mode);
-
-	g_free(mode);
-	
-	cdrecord_totaltrackstowrite = 1;
-	cdrecord_firsttrack = -1;
+	g_free(mode);	
 }
 
 

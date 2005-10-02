@@ -1,4 +1,4 @@
-Version 0.4.3
+Version 0.5.0
 
 * We don't need libvorbis anymore as we use gstreamer to get tag info.
 * Refactor all of the gstreamer code so it's easier to use.
@@ -15,7 +15,7 @@ Version 0.4.3
 * Fix resource leaks in device eject and disk detection routines.
 * Fix Bug #1295889 should recognize file extensions regardless of case (when burning cd/dvd images).
 * Apply patch #1311145 Flickering window position restoring.
-
+* Apply patch #1311058 audiocd.c and #1311024 'm3u capable' patch for audiocd.c. GB now imports m3u playlists.
 
 Version 0.4.2
 
