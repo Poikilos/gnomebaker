@@ -744,6 +744,21 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gb
 }
 
 
+void 
+mkisofs_add_calc_iso_size_args(ExecCmd* e, const gchar* iso)
+{
+    g_return_if_fail(e != NULL);
+    g_return_if_fail(iso != NULL);    
+    
+    exec_cmd_add_arg(e, "%s", "mkisofs");       
+    exec_cmd_add_arg(e, "%s", "--print-size");
+    exec_cmd_add_arg(e, "%s", iso);
+    e->preProc = mkisofs_calc_size_pre_proc;
+    e->readProc = mkisofs_calc_size_read_proc;
+    e->postProc = mkisofs_calc_size_post_proc;
+}
+
+
 /*******************************************************************************
  * DVD+RW TOOLS
  ******************************************************************************/

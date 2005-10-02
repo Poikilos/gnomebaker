@@ -56,6 +56,15 @@ burn_show_start_dlg(const BurnType burntype)
 
 
 static gboolean
+burn_end_process()
+{
+    GB_LOG_FUNC
+    exec_stop(burnargs);
+    return TRUE;
+}
+
+
+static gboolean
 burn_start_process()
 {
 	GB_LOG_FUNC
@@ -69,8 +78,8 @@ burn_start_process()
 }
 
 
-gboolean
-burn_iso(const gchar* file)
+static gboolean
+burn_cd_iso(const gchar* file)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(file != NULL, FALSE);
@@ -79,6 +88,7 @@ burn_iso(const gchar* file)
 	if(burn_show_start_dlg(burn_cd_image) == GTK_RESPONSE_OK)
 	{
 		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to disk."));
+        mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);
 		cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
 		ok = burn_start_process();
 	}
@@ -146,7 +156,7 @@ burn_cd_image_file(const gchar* file)
 	
 	/* Check that the mime type is iso */
 	if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
-		ret = burn_iso(file);
+		ret = burn_cd_iso(file);
 	else if(gbcommon_str_has_suffix(file, ".cue") || gbcommon_str_has_suffix(file, ".toc"))
 		ret = burn_cue_or_toc(file);
 	else
@@ -394,15 +404,6 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
 	}
 
 	return ok;
-}
-
-
-gboolean
-burn_end_process()
-{
-    GB_LOG_FUNC
-    exec_stop(burnargs);
-    return TRUE;
 }
 
 

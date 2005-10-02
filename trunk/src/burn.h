@@ -32,13 +32,11 @@
 
 gboolean burn_init ();
 gboolean burn_cd_image_file(const gchar* file);
-gboolean burn_iso (const gchar* file);
 gboolean burn_dvd_iso(const gchar* file);
 gboolean burn_create_data_cd (GtkTreeModel* datamodel);
 gboolean burn_copy_data_cd ();
 gboolean burn_copy_audio_cd ();
 gboolean burn_blank_cdrw ();
-gboolean burn_end_process ();
 gboolean burn_create_data_dvd (GtkTreeModel* datamodel);
 gboolean burn_format_dvdrw();
 gboolean burn_create_audio_cd(GtkTreeModel* audiomodel);
