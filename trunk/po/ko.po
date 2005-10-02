@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-01 11:10+0100\n"
+"POT-Creation-Date: 2005-10-02 17:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -137,7 +137,9 @@ msgid "Please wait while the data CD is burned directly to disk."
 msgstr ""
 
 #: src/burn.c:205
-msgid "Please wait while the data CD image is created and then burned to disk."
+msgid ""
+"Please wait while the data CD image is created and then burned to disk. "
+"Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
 #: src/burn.c:230
@@ -146,7 +148,9 @@ msgstr ""
 
 #: src/burn.c:230
 #, fuzzy
-msgid "Please wait while the audio CD is burned to disk."
+msgid ""
+"Please wait while the selected tracks are converted to CD audio and then "
+"burned to disk."
 msgstr "CD 리더에 오디오 CD를 넣어 주십시오"
 
 #: src/burn.c:296
@@ -395,10 +399,11 @@ msgid "GnomeBaker"
 msgstr "그놈베이커"
 
 #: src/gnomebaker.c:370
-msgid "Simple CD Burning for Gnome"
+#, fuzzy
+msgid "Simple CD/DVD Burning for Gnome"
 msgstr "그놈용 간단한 CD 굽기 프로그램"
 
-#: src/gnomebaker.c:370 gnomebaker.glade:1711
+#: src/gnomebaker.c:370 gnomebaker.glade:1712
 msgid "translator_credits"
 msgstr "oseb\\n엄주관 <zugwan at gmail.com>"
 
@@ -503,7 +508,7 @@ msgstr ""
 msgid "Writing track %d"
 msgstr ""
 
-#: src/execfunctions.c:234 gnomebaker.glade:2848
+#: src/execfunctions.c:234 gnomebaker.glade:2847
 #, fuzzy
 msgid "default"
 msgstr "기본"
@@ -751,7 +756,7 @@ msgstr "비디오 CD 만들기"
 msgid "<b>Video CD</b>"
 msgstr "<b> 비디오 CD</b>"
 
-#: gnomebaker.glade:1470
+#: gnomebaker.glade:1469
 msgid "Baking"
 msgstr ""
 
@@ -767,24 +772,24 @@ msgstr ""
 msgid "<i>...</i>"
 msgstr ""
 
-#: gnomebaker.glade:1659
+#: gnomebaker.glade:1660
 #, fuzzy
-msgid "Show Output"
+msgid "Show output"
 msgstr "출력 보기"
 
-#: gnomebaker.glade:1708
+#: gnomebaker.glade:1709
 msgid "GPL"
 msgstr "GPL"
 
-#: gnomebaker.glade:1709
+#: gnomebaker.glade:1710
 msgid "Simple CD burning for Gnome."
 msgstr "그놈용 간단한 CD 굽기 프로그램"
 
-#: gnomebaker.glade:1716
+#: gnomebaker.glade:1717
 msgid "Splash window"
 msgstr ""
 
-#: gnomebaker.glade:1756
+#: gnomebaker.glade:1757
 msgid "Starting GnomeBaker..."
 msgstr "그놈베이커 시작중..."
 
@@ -848,7 +853,7 @@ msgstr "시작할때 항상 장치 검색하기"
 msgid "_Add device"
 msgstr "장치 더하기(_A)"
 
-#: gnomebaker.glade:2335 gnomebaker.glade:2720
+#: gnomebaker.glade:2335 gnomebaker.glade:2719
 msgid "Sc_an for devices"
 msgstr "장치 검색(_A)"
 
@@ -857,116 +862,116 @@ msgstr "장치 검색(_A)"
 msgid "Devices"
 msgstr "장치"
 
-#: gnomebaker.glade:2414
+#: gnomebaker.glade:2413
 msgid "Start burning..."
 msgstr "굽기 시작..."
 
-#: gnomebaker.glade:2502
+#: gnomebaker.glade:2501
 msgid "_Start"
 msgstr "시작(_S)"
 
-#: gnomebaker.glade:2551
+#: gnomebaker.glade:2550
 msgid "Reader"
 msgstr ""
 
-#: gnomebaker.glade:2580 gnomebaker.glade:3524
+#: gnomebaker.glade:2579 gnomebaker.glade:3521
 msgid "Writer"
 msgstr ""
 
-#: gnomebaker.glade:2643
+#: gnomebaker.glade:2642
 msgid "<b>Options</b>"
 msgstr "<b>옵션</b>"
 
-#: gnomebaker.glade:2761
+#: gnomebaker.glade:2760
 msgid "Speed"
 msgstr "속도"
 
-#: gnomebaker.glade:2811
+#: gnomebaker.glade:2810
 msgid "Mode"
 msgstr "모드"
 
-#: gnomebaker.glade:2856
+#: gnomebaker.glade:2855
 msgid "tao"
 msgstr "tao"
 
-#: gnomebaker.glade:2864
+#: gnomebaker.glade:2863
 msgid "dao"
 msgstr "dao"
 
-#: gnomebaker.glade:2872
+#: gnomebaker.glade:2871
 msgid "raw96p"
 msgstr "raw96p"
 
-#: gnomebaker.glade:2880
+#: gnomebaker.glade:2879
 msgid "raw16"
 msgstr "raw16"
 
-#: gnomebaker.glade:2900
+#: gnomebaker.glade:2899
 msgid "<b>Devices</b>"
 msgstr "<b>장치</b>"
 
-#: gnomebaker.glade:2938
+#: gnomebaker.glade:2936
 #, fuzzy
 msgid "ISO filesystem details"
 msgstr "ISO 파일시스템 세부"
 
-#: gnomebaker.glade:3012
+#: gnomebaker.glade:3010
 msgid "<b>Volume label</b>"
 msgstr "<b>볼륨 레이블</b>"
 
-#: gnomebaker.glade:3044
+#: gnomebaker.glade:3042
 msgid "GnomeBaker data cd"
 msgstr "그놈베이커 데이터 CD"
 
-#: gnomebaker.glade:3062
+#: gnomebaker.glade:3060
 msgid "<b>Created by</b>"
 msgstr ""
 
-#: gnomebaker.glade:3094
+#: gnomebaker.glade:3092
 msgid "Created by username"
 msgstr ""
 
-#: gnomebaker.glade:3112
+#: gnomebaker.glade:3110
 msgid "<b>Boot options</b>"
 msgstr "<b>부트 옵션</b>"
 
-#: gnomebaker.glade:3142
+#: gnomebaker.glade:3140
 msgid "Not bootable"
 msgstr "부팅 불가능"
 
-#: gnomebaker.glade:3166
+#: gnomebaker.glade:3164
 msgid "PC bootable"
 msgstr "PC 부팅 가능"
 
-#: gnomebaker.glade:3199
+#: gnomebaker.glade:3197
 msgid "Floppy disk image"
 msgstr "플로피 디스크 이미지"
 
-#: gnomebaker.glade:3220
+#: gnomebaker.glade:3218
 msgid "Hard disk image"
 msgstr "하드 디스크 이미지"
 
-#: gnomebaker.glade:3251
+#: gnomebaker.glade:3249
 msgid "Boot catalog"
 msgstr ""
 
-#: gnomebaker.glade:3280
+#: gnomebaker.glade:3278
 msgid "Boot Image"
 msgstr "부트 이미지"
 
-#: gnomebaker.glade:3344
+#: gnomebaker.glade:3342
 msgid "Sun workstation bootable"
 msgstr "Sun 워크스테이션 부팅 가능"
 
-#: gnomebaker.glade:3367
+#: gnomebaker.glade:3365
 msgid "Boot Image list"
 msgstr "부트 이미지 목록"
 
-#: gnomebaker.glade:3449
+#: gnomebaker.glade:3446
 msgid "Select writer..."
 msgstr ""
 
-#: gnomebaker.glade:3568
+#: gnomebaker.glade:3565
 msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"

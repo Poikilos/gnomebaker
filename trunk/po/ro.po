@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-01 11:10+0100\n"
+"POT-Creation-Date: 2005-10-02 17:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -138,7 +138,9 @@ msgid "Please wait while the data CD is burned directly to disk."
 msgstr ""
 
 #: src/burn.c:205
-msgid "Please wait while the data CD image is created and then burned to disk."
+msgid ""
+"Please wait while the data CD image is created and then burned to disk. "
+"Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
 #: src/burn.c:230
@@ -147,7 +149,9 @@ msgstr ""
 
 #: src/burn.c:230
 #, fuzzy
-msgid "Please wait while the audio CD is burned to disk."
+msgid ""
+"Please wait while the selected tracks are converted to CD audio and then "
+"burned to disk."
 msgstr "Vă rag să introduceţi un CD audio în unitatea de citit CD-uri"
 
 #: src/burn.c:296
@@ -397,10 +401,11 @@ msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
 #: src/gnomebaker.c:370
-msgid "Simple CD Burning for Gnome"
+#, fuzzy
+msgid "Simple CD/DVD Burning for Gnome"
 msgstr "O aplicaţie de ars CD-uri pentru Gnome"
 
-#: src/gnomebaker.c:370 gnomebaker.glade:1711
+#: src/gnomebaker.c:370 gnomebaker.glade:1712
 msgid "translator_credits"
 msgstr "merite_traducător"
 
@@ -502,7 +507,7 @@ msgstr ""
 msgid "Writing track %d"
 msgstr ""
 
-#: src/execfunctions.c:234 gnomebaker.glade:2848
+#: src/execfunctions.c:234 gnomebaker.glade:2847
 msgid "default"
 msgstr "implicit"
 
@@ -748,7 +753,7 @@ msgstr "Crează Video CD"
 msgid "<b>Video CD</b>"
 msgstr "<b>Video CD</b>"
 
-#: gnomebaker.glade:1470
+#: gnomebaker.glade:1469
 #, fuzzy
 msgid "Baking"
 msgstr "Ştergere CD"
@@ -765,24 +770,24 @@ msgstr ""
 msgid "<i>...</i>"
 msgstr ""
 
-#: gnomebaker.glade:1659
+#: gnomebaker.glade:1660
 #, fuzzy
-msgid "Show Output"
+msgid "Show output"
 msgstr "Vezi rezultatul"
 
-#: gnomebaker.glade:1708
+#: gnomebaker.glade:1709
 msgid "GPL"
 msgstr "GPL"
 
-#: gnomebaker.glade:1709
+#: gnomebaker.glade:1710
 msgid "Simple CD burning for Gnome."
 msgstr "Aplicaţie de ars CD-uri pentru Gnome"
 
-#: gnomebaker.glade:1716
+#: gnomebaker.glade:1717
 msgid "Splash window"
 msgstr "Fereastră de început"
 
-#: gnomebaker.glade:1756
+#: gnomebaker.glade:1757
 msgid "Starting GnomeBaker..."
 msgstr "GnomeBaker porneşte..."
 
@@ -845,7 +850,7 @@ msgstr "Scanează totdeauna după dispozitive la start"
 msgid "_Add device"
 msgstr "_Adaugă dispozitiv"
 
-#: gnomebaker.glade:2335 gnomebaker.glade:2720
+#: gnomebaker.glade:2335 gnomebaker.glade:2719
 msgid "Sc_an for devices"
 msgstr "Sc_anează după dispozitive"
 
@@ -853,115 +858,115 @@ msgstr "Sc_anează după dispozitive"
 msgid "Devices"
 msgstr "Dispozitive"
 
-#: gnomebaker.glade:2414
+#: gnomebaker.glade:2413
 msgid "Start burning..."
 msgstr "Porneşte arderea..."
 
-#: gnomebaker.glade:2502
+#: gnomebaker.glade:2501
 msgid "_Start"
 msgstr "_Start"
 
-#: gnomebaker.glade:2551
+#: gnomebaker.glade:2550
 msgid "Reader"
 msgstr "Cititor"
 
-#: gnomebaker.glade:2580 gnomebaker.glade:3524
+#: gnomebaker.glade:2579 gnomebaker.glade:3521
 msgid "Writer"
 msgstr "Scriitor"
 
-#: gnomebaker.glade:2643
+#: gnomebaker.glade:2642
 msgid "<b>Options</b>"
 msgstr "<b>Opţiuni</b>"
 
-#: gnomebaker.glade:2761
+#: gnomebaker.glade:2760
 msgid "Speed"
 msgstr "Viteză"
 
-#: gnomebaker.glade:2811
+#: gnomebaker.glade:2810
 msgid "Mode"
 msgstr "Mod"
 
-#: gnomebaker.glade:2856
+#: gnomebaker.glade:2855
 msgid "tao"
 msgstr "tao"
 
-#: gnomebaker.glade:2864
+#: gnomebaker.glade:2863
 msgid "dao"
 msgstr "dao"
 
-#: gnomebaker.glade:2872
+#: gnomebaker.glade:2871
 msgid "raw96p"
 msgstr "raw96p"
 
-#: gnomebaker.glade:2880
+#: gnomebaker.glade:2879
 msgid "raw16"
 msgstr "raw16"
 
-#: gnomebaker.glade:2900
+#: gnomebaker.glade:2899
 msgid "<b>Devices</b>"
 msgstr "<b>Dispozitive</b>"
 
-#: gnomebaker.glade:2938
+#: gnomebaker.glade:2936
 msgid "ISO filesystem details"
 msgstr "Detalii ale sistemului de fişiere ISO "
 
-#: gnomebaker.glade:3012
+#: gnomebaker.glade:3010
 msgid "<b>Volume label</b>"
 msgstr "<b>Eticheta volumului</b>"
 
-#: gnomebaker.glade:3044
+#: gnomebaker.glade:3042
 msgid "GnomeBaker data cd"
 msgstr "GnomeBaker data cd"
 
-#: gnomebaker.glade:3062
+#: gnomebaker.glade:3060
 msgid "<b>Created by</b>"
 msgstr "<b>Creat de către</b>"
 
-#: gnomebaker.glade:3094
+#: gnomebaker.glade:3092
 msgid "Created by username"
 msgstr "Creat de către utilizatorul"
 
-#: gnomebaker.glade:3112
+#: gnomebaker.glade:3110
 msgid "<b>Boot options</b>"
 msgstr "<b>Opţiuni de bootare</b>"
 
-#: gnomebaker.glade:3142
+#: gnomebaker.glade:3140
 msgid "Not bootable"
 msgstr "Nu este bootabil"
 
-#: gnomebaker.glade:3166
+#: gnomebaker.glade:3164
 msgid "PC bootable"
 msgstr "Bootabil de către PC"
 
-#: gnomebaker.glade:3199
+#: gnomebaker.glade:3197
 msgid "Floppy disk image"
 msgstr "Imaginea dischetă"
 
-#: gnomebaker.glade:3220
+#: gnomebaker.glade:3218
 msgid "Hard disk image"
 msgstr "Imagine hard disk"
 
-#: gnomebaker.glade:3251
+#: gnomebaker.glade:3249
 msgid "Boot catalog"
 msgstr "Catalog de boot"
 
-#: gnomebaker.glade:3280
+#: gnomebaker.glade:3278
 msgid "Boot Image"
 msgstr "Imagine de boot"
 
-#: gnomebaker.glade:3344
+#: gnomebaker.glade:3342
 msgid "Sun workstation bootable"
 msgstr "Bootabil de către staţii de lucru Sun"
 
-#: gnomebaker.glade:3367
+#: gnomebaker.glade:3365
 msgid "Boot Image list"
 msgstr "Lista cu imagini bootabile"
 
-#: gnomebaker.glade:3449
+#: gnomebaker.glade:3446
 msgid "Select writer..."
 msgstr ""
 
-#: gnomebaker.glade:3568
+#: gnomebaker.glade:3565
 msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"

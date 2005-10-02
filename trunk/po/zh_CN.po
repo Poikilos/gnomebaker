@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-01 11:10+0100\n"
+"POT-Creation-Date: 2005-10-02 17:16+0100\n"
 "PO-Revision-Date: 2005-01-20 03:03:03.358888\n"
 "Last-Translator: Li Qing <qingl@bluebottle.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -134,7 +134,9 @@ msgid "Please wait while the data CD is burned directly to disk."
 msgstr ""
 
 #: src/burn.c:205
-msgid "Please wait while the data CD image is created and then burned to disk."
+msgid ""
+"Please wait while the data CD image is created and then burned to disk. "
+"Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
 #: src/burn.c:230
@@ -143,7 +145,9 @@ msgstr ""
 
 #: src/burn.c:230
 #, fuzzy
-msgid "Please wait while the audio CD is burned to disk."
+msgid ""
+"Please wait while the selected tracks are converted to CD audio and then "
+"burned to disk."
 msgstr "请在光驱中插入一张音乐 CD"
 
 #: src/burn.c:296
@@ -389,10 +393,11 @@ msgid "GnomeBaker"
 msgstr "GomeBaker"
 
 #: src/gnomebaker.c:370
-msgid "Simple CD Burning for Gnome"
+#, fuzzy
+msgid "Simple CD/DVD Burning for Gnome"
 msgstr "GNOME 下的简易 CD 刻录器"
 
-#: src/gnomebaker.c:370 gnomebaker.glade:1711
+#: src/gnomebaker.c:370 gnomebaker.glade:1712
 msgid "translator_credits"
 msgstr ""
 "Li Qing, 2004\n"
@@ -496,7 +501,7 @@ msgstr ""
 msgid "Writing track %d"
 msgstr ""
 
-#: src/execfunctions.c:234 gnomebaker.glade:2848
+#: src/execfunctions.c:234 gnomebaker.glade:2847
 msgid "default"
 msgstr "默认"
 
@@ -738,7 +743,7 @@ msgstr "创建视频 CD"
 msgid "<b>Video CD</b>"
 msgstr "<b>视频光盘</b>"
 
-#: gnomebaker.glade:1470
+#: gnomebaker.glade:1469
 #, fuzzy
 msgid "Baking"
 msgstr "正在烘焙 CD"
@@ -755,24 +760,24 @@ msgstr ""
 msgid "<i>...</i>"
 msgstr ""
 
-#: gnomebaker.glade:1659
+#: gnomebaker.glade:1660
 #, fuzzy
-msgid "Show Output"
+msgid "Show output"
 msgstr "查看输出"
 
-#: gnomebaker.glade:1708
+#: gnomebaker.glade:1709
 msgid "GPL"
 msgstr "GPL"
 
-#: gnomebaker.glade:1709
+#: gnomebaker.glade:1710
 msgid "Simple CD burning for Gnome."
 msgstr "简易 GNOME 光盘刻录器"
 
-#: gnomebaker.glade:1716
+#: gnomebaker.glade:1717
 msgid "Splash window"
 msgstr "启动画面"
 
-#: gnomebaker.glade:1756
+#: gnomebaker.glade:1757
 msgid "Starting GnomeBaker..."
 msgstr "正在启动 GnomeBaker..."
 
@@ -835,7 +840,7 @@ msgstr "启动程序时总是扫描设备"
 msgid "_Add device"
 msgstr "增加设备(_A)"
 
-#: gnomebaker.glade:2335 gnomebaker.glade:2720
+#: gnomebaker.glade:2335 gnomebaker.glade:2719
 msgid "Sc_an for devices"
 msgstr "扫描设备(_A)"
 
@@ -843,115 +848,115 @@ msgstr "扫描设备(_A)"
 msgid "Devices"
 msgstr "设备"
 
-#: gnomebaker.glade:2414
+#: gnomebaker.glade:2413
 msgid "Start burning..."
 msgstr "开始刻录..."
 
-#: gnomebaker.glade:2502
+#: gnomebaker.glade:2501
 msgid "_Start"
 msgstr "开始(_S)"
 
-#: gnomebaker.glade:2551
+#: gnomebaker.glade:2550
 msgid "Reader"
 msgstr "读取器"
 
-#: gnomebaker.glade:2580 gnomebaker.glade:3524
+#: gnomebaker.glade:2579 gnomebaker.glade:3521
 msgid "Writer"
 msgstr "刻录机"
 
-#: gnomebaker.glade:2643
+#: gnomebaker.glade:2642
 msgid "<b>Options</b>"
 msgstr "<b>选项</b>"
 
-#: gnomebaker.glade:2761
+#: gnomebaker.glade:2760
 msgid "Speed"
 msgstr "速度"
 
-#: gnomebaker.glade:2811
+#: gnomebaker.glade:2810
 msgid "Mode"
 msgstr "模式"
 
-#: gnomebaker.glade:2856
+#: gnomebaker.glade:2855
 msgid "tao"
 msgstr "tao"
 
-#: gnomebaker.glade:2864
+#: gnomebaker.glade:2863
 msgid "dao"
 msgstr "dao"
 
-#: gnomebaker.glade:2872
+#: gnomebaker.glade:2871
 msgid "raw96p"
 msgstr "raw96p"
 
-#: gnomebaker.glade:2880
+#: gnomebaker.glade:2879
 msgid "raw16"
 msgstr "raw16"
 
-#: gnomebaker.glade:2900
+#: gnomebaker.glade:2899
 msgid "<b>Devices</b>"
 msgstr "<b>设备</b>"
 
-#: gnomebaker.glade:2938
+#: gnomebaker.glade:2936
 msgid "ISO filesystem details"
 msgstr "ISO 文件系统详情"
 
-#: gnomebaker.glade:3012
+#: gnomebaker.glade:3010
 msgid "<b>Volume label</b>"
 msgstr "<b>卷标</b>"
 
-#: gnomebaker.glade:3044
+#: gnomebaker.glade:3042
 msgid "GnomeBaker data cd"
 msgstr "GnomeBaker data cd"
 
-#: gnomebaker.glade:3062
+#: gnomebaker.glade:3060
 msgid "<b>Created by</b>"
 msgstr "<b>创建者</b>"
 
-#: gnomebaker.glade:3094
+#: gnomebaker.glade:3092
 msgid "Created by username"
 msgstr "Created by username"
 
-#: gnomebaker.glade:3112
+#: gnomebaker.glade:3110
 msgid "<b>Boot options</b>"
 msgstr "<b>启动选项</b>"
 
-#: gnomebaker.glade:3142
+#: gnomebaker.glade:3140
 msgid "Not bootable"
 msgstr "不可启动"
 
-#: gnomebaker.glade:3166
+#: gnomebaker.glade:3164
 msgid "PC bootable"
 msgstr "在 PC 上启动"
 
-#: gnomebaker.glade:3199
+#: gnomebaker.glade:3197
 msgid "Floppy disk image"
 msgstr "软盘映像"
 
-#: gnomebaker.glade:3220
+#: gnomebaker.glade:3218
 msgid "Hard disk image"
 msgstr "硬盘映像"
 
-#: gnomebaker.glade:3251
+#: gnomebaker.glade:3249
 msgid "Boot catalog"
 msgstr "启动类别"
 
-#: gnomebaker.glade:3280
+#: gnomebaker.glade:3278
 msgid "Boot Image"
 msgstr "启动映像"
 
-#: gnomebaker.glade:3344
+#: gnomebaker.glade:3342
 msgid "Sun workstation bootable"
 msgstr "在 Sun 工作站上启动"
 
-#: gnomebaker.glade:3367
+#: gnomebaker.glade:3365
 msgid "Boot Image list"
 msgstr "启动映像列表"
 
-#: gnomebaker.glade:3449
+#: gnomebaker.glade:3446
 msgid "Select writer..."
 msgstr ""
 
-#: gnomebaker.glade:3568
+#: gnomebaker.glade:3565
 msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"
