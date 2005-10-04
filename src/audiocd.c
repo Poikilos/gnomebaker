@@ -323,6 +323,29 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
 
 
 static gboolean
+audiocd_import_playlist_file(const gchar* playlistdir, const gchar* file, GtkTreeModel* model)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(file != NULL, FALSE);
+    g_return_val_if_fail(model != NULL, FALSE);
+    
+    gboolean ret = TRUE;
+    gchar* filename = NULL;
+    if(!g_path_is_absolute(file)) /* This is a relative file, relative to the playlist */
+        filename = g_build_filename(playlistdir, file, NULL);
+    else 
+        filename = g_strdup(file);
+    
+    if(g_file_test(filename, G_FILE_TEST_EXISTS))
+        ret = audiocd_add_file(filename, model);
+    else 
+        /* TODO need to figure out what to do with files which don't exist, ignore them for now */
+    g_free(filename);
+    return ret;
+}
+
+
+static gboolean
 audiocd_import_m3u_playlist(const gchar* m3ufile, GtkTreeModel* model)
 {
     GB_LOG_FUNC
@@ -339,21 +362,47 @@ audiocd_import_m3u_playlist(const gchar* m3ufile, GtkTreeModel* model)
         g_strstrip(file);
         GB_TRACE("audiocd_import_m3u_playlist - [%s]", file);
         if((strlen(file) > 0) && (file[0] != '#') && !g_ascii_isspace(file[0]))
+            ret = audiocd_import_playlist_file(m3udir, file, model);
+        ++line;
+    }
+    g_free(m3udir);
+    g_strfreev(lines);
+    return ret;
+}
+
+
+static gboolean 
+audiocd_import_pls_playlist(const gchar* plsfile, GtkTreeModel* model)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(plsfile != NULL, FALSE);
+    g_return_val_if_fail(model != NULL, FALSE);
+    
+    gboolean ret = TRUE;
+    gchar* plsdir = g_path_get_dirname(plsfile);
+    gchar** lines = gbcommon_get_file_as_list(plsfile);
+    gchar** line = lines;
+    while((line != NULL) && (*line != NULL) && (ret == TRUE))
+    {
+        gchar* entry = *line;
+        g_strstrip(entry);        
+        if((entry[0] != '[') && (strstr(entry, "File") != NULL))
         {
-            /* TODO need to figure out what to do with files which don't exist */
-            if(g_path_is_absolute(file))
-                ret = audiocd_add_file(file, model);
+            const gchar* file = strchr(entry, '=');
+            if(file != NULL)
+            {
+                ++file;            
+                GB_TRACE("audiocd_import_pls_playlist - [%s]", file);
+                ret = audiocd_import_playlist_file(plsdir, file, model);
+            }
             else
             {
-                /* This is a relative file, relative to the m3u file */
-                gchar* filename = g_build_filename(m3udir, file, NULL);
-                ret = audiocd_add_file(filename, model);
-                g_free(filename);
+                g_critical("audiocd_import_pls_playlist - file [%s] contains invalid line [%s]", plsfile, entry);   
             }
         }
         ++line;
     }
-    g_free(m3udir);
+    g_free(plsdir);
     g_strfreev(lines);
     return ret;
 }
@@ -491,21 +540,23 @@ audiocd_add_selection(GtkSelectionData* selection)
             }
             g_dir_close(dir);
         }
-        else if(gbcommon_str_has_suffix(filename, ".m3u"))
-        {
-            cont = audiocd_import_m3u_playlist(filename, model);
-        }
         else 
         {
-            cont = audiocd_add_file(filename, model);
+            /* Now try and find any playlist types and add them */
+            gchar* mime = gbcommon_get_mime_type(filename);
+            if(g_ascii_strcasecmp(mime, "audio/x-mpegurl") == 0)
+                cont = audiocd_import_m3u_playlist(filename, model);
+            else if(g_ascii_strcasecmp(mime, "audio/x-scpls") == 0)
+                cont = audiocd_import_pls_playlist(filename, model);
+            else 
+                cont = audiocd_add_file(filename, model);
+            g_free(mime);
         }
-        
         g_free(filename);       
         file = strtok(NULL, "\n");
     }
     
     gnomebaker_show_busy_cursor(FALSE);
-        
 }
 
 

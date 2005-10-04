@@ -16,6 +16,7 @@ Version 0.5.0
 * Fix Bug #1295889 should recognize file extensions regardless of case (when burning cd/dvd images).
 * Apply patch #1311145 Flickering window position restoring.
 * Apply patch #1311058 audiocd.c and #1311024 'm3u capable' patch for audiocd.c. GB now imports m3u playlists.
+* Apply patch #1313211 .m3u & .pls support - gnomebaker-0.4.2/src/audiocd.c. GB now imports pls playlists.
 
 Version 0.4.2
 

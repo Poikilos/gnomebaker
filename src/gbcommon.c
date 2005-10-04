@@ -47,10 +47,13 @@ gbcommon_start_busy_cursor(GtkWidget* window)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(window != NULL);
-	GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
-	gdk_window_set_cursor(GDK_WINDOW(window->window), cursor);
-	gdk_cursor_destroy(cursor);/* safe because cursor is just a handle */
-	gdk_flush();
+    if(GTK_WIDGET_REALIZED(window))
+    {
+    	GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
+    	gdk_window_set_cursor(GDK_WINDOW(window->window), cursor);
+    	gdk_cursor_destroy(cursor);/* safe because cursor is just a handle */
+    	gdk_flush();
+    }
 }
 
 
@@ -69,8 +72,11 @@ gbcommon_end_busy_cursor(GtkWidget* window)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(window != NULL);
-	gdk_window_set_cursor(GDK_WINDOW(window->window), NULL); /* set back to default cursor */
-	gdk_flush();
+    if(GTK_WIDGET_REALIZED(window))
+    {
+    	gdk_window_set_cursor(GDK_WINDOW(window->window), NULL); /* set back to default cursor */
+    	gdk_flush();
+    }
 }
 
 
