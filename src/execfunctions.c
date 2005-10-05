@@ -131,11 +131,7 @@ cdrecord_pre_proc(void* ex, void* buffer)
     {
         /* If we have the total disk bytes set then let cdrecord know about it */
         if(cdrecord_totaldiskbytes > 0)
-        {
-            gchar* total = g_strdup_printf("%llus", cdrecord_totaldiskbytes);    
-            exec_cmd_update_arg((ExecCmd*)ex, "tsize=", total);
-            g_free(total);
-        }
+            exec_cmd_update_arg((ExecCmd*)ex, "tsize=", "tsize=%ds", cdrecord_totaldiskbytes);
         devices_mount_device(GB_WRITER, NULL);
     }
 }
@@ -210,32 +206,27 @@ cdrecord_add_common_args(ExecCmd* cdBurn)
     cdrecord_totaltrackstowrite = 1;
     cdrecord_firsttrack = -1;
 
-	exec_cmd_add_arg(cdBurn, "%s", "cdrecord");
-	
+	exec_cmd_add_arg(cdBurn, "cdrecord");
 	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
 	exec_cmd_add_arg(cdBurn, "dev=%s", writer);
 	g_free(writer);
 	
-	exec_cmd_add_arg(cdBurn, "%s", "gracetime=5");
-	
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_CDWRITE_SPEED));
-	exec_cmd_add_arg(cdBurn, "speed=%s", speed);
-	g_free(speed);
-	
-	exec_cmd_add_arg(cdBurn, "%s", "-v");	
+	exec_cmd_add_arg(cdBurn, "gracetime=5");
+	exec_cmd_add_arg(cdBurn, "speed=%d", preferences_get_int(GB_CDWRITE_SPEED));
+	exec_cmd_add_arg(cdBurn, "-v");	
 
 	if(preferences_get_bool(GB_EJECT))
-		exec_cmd_add_arg(cdBurn, "%s", "-eject");
+		exec_cmd_add_arg(cdBurn, "-eject");
 
 	if(preferences_get_bool(GB_DUMMY))
-		exec_cmd_add_arg(cdBurn, "%s", "-dummy");
+		exec_cmd_add_arg(cdBurn, "-dummy");
 	
 	if(preferences_get_bool(GB_BURNFREE))
-		exec_cmd_add_arg(cdBurn, "%s", "driveropts=burnfree");
+		exec_cmd_add_arg(cdBurn, "driveropts=burnfree");
 	
 	gchar* mode = preferences_get_string(GB_WRITE_MODE);
 	if(g_ascii_strcasecmp(mode, _("default")) != 0)
-		exec_cmd_add_arg(cdBurn, "-%s", mode);
+		exec_cmd_add_arg(cdBurn, mode);
 	g_free(mode);	
 }
 
@@ -247,17 +238,17 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
 	g_return_if_fail(e != NULL);
 	
 	cdrecord_add_common_args(e);
-	exec_cmd_add_arg(e, "%s", "-audio");	
-    exec_cmd_add_arg(e, "%s", "-pad");
-    exec_cmd_add_arg(e, "%s", "-useinfo");
-    exec_cmd_add_arg(e, "%s", "-text");
+	exec_cmd_add_arg(e, "-audio");	
+    exec_cmd_add_arg(e, "-pad");
+    exec_cmd_add_arg(e, "-useinfo");
+    exec_cmd_add_arg(e, "-text");
     
 	/* if we are on the fly this will be a list of inf files, otherwise
      * it's the list of wavs to burn */
     const GList *audiofile = audiofiles;
     for (; audiofile != NULL ; audiofile = audiofile->next)
     {
-        exec_cmd_add_arg(e, "%s", audiofile->data);
+        exec_cmd_add_arg(e, audiofile->data);
         GB_TRACE("cdrecord - adding create audio data [%s]", (gchar*)audiofile->data);
         cdrecord_totaltrackstowrite++;
     }		
@@ -278,15 +269,15 @@ cdrecord_add_iso_args(ExecCmd* cdBurn, const gchar* iso)
 	cdrecord_add_common_args(cdBurn);
 	
 	/*if(!prefs->multisession)*/
-		exec_cmd_add_arg(cdBurn, "%s", "-multi");
+		exec_cmd_add_arg(cdBurn, "-multi");
         
-    exec_cmd_add_arg(cdBurn, "tsize=%ss", "-1");
-    exec_cmd_add_arg(cdBurn, "%s", "-pad");
+    exec_cmd_add_arg(cdBurn, "tsize=%ds", -1);
+    exec_cmd_add_arg(cdBurn, "-pad");
 
     if(iso != NULL)
-	    exec_cmd_add_arg(cdBurn, "%s", iso);
+	    exec_cmd_add_arg(cdBurn, iso);
 	else 
-	    exec_cmd_add_arg(cdBurn, "%s", "-"); /* no filename so we're on the fly */
+	    exec_cmd_add_arg(cdBurn, "-"); /* no filename so we're on the fly */
 	
 	cdBurn->readProc = cdrecord_read_proc;
 	cdBurn->preProc = cdrecord_pre_proc;
@@ -315,7 +306,7 @@ cdrecord_copy_audio_cd_pre_proc(void* ex, void* buffer)
             {
                 GB_TRACE("adding [%s]", name);
                 gchar* fullpath = g_build_filename(tmp, name, NULL);
-                exec_cmd_add_arg(ex, "%s", fullpath);
+                exec_cmd_add_arg(ex, fullpath);
                 cdrecord_totaltrackstowrite++;
                 g_free(fullpath);
             }
@@ -334,9 +325,9 @@ cdrecord_add_audio_args(ExecCmd* cdBurn)
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);
 	cdrecord_add_common_args(cdBurn);
-	exec_cmd_add_arg(cdBurn, "%s", "-useinfo");
-	exec_cmd_add_arg(cdBurn, "%s", "-audio");
-	exec_cmd_add_arg(cdBurn, "%s", "-pad");
+	exec_cmd_add_arg(cdBurn, "-useinfo");
+	exec_cmd_add_arg(cdBurn, "-audio");
+	exec_cmd_add_arg(cdBurn, "-pad");
 	  
 	cdBurn->readProc = cdrecord_read_proc;
 	cdBurn->preProc = cdrecord_copy_audio_cd_pre_proc;	
@@ -353,28 +344,21 @@ cdrecord_add_blank_args(ExecCmd* cdBurn)
 	cdBurn->preProc = cdrecord_blank_pre_proc;
 	cdBurn->postProc = cdrecord_blank_post_proc;
 
-	/*exec_add_arg(cdBurn, "%s",
-	 * "/home/luke/projects/cddummy/src/cddummy"); */
-	exec_cmd_add_arg(cdBurn, "%s", "cdrecord");
+	exec_cmd_add_arg(cdBurn, "cdrecord");
 	
 	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
 	exec_cmd_add_arg(cdBurn, "dev=%s", writer);
 	g_free(writer);
 
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_CDWRITE_SPEED));
-	exec_cmd_add_arg(cdBurn, "speed=%s", speed);
-	g_free(speed);
-	
-	exec_cmd_add_arg(cdBurn, "%s", "-v");
-	/*exec_cmd_add_arg(cdBurn, "%s", "-format");*/
+	exec_cmd_add_arg(cdBurn, "speed=%d", preferences_get_int(GB_CDWRITE_SPEED));
+	exec_cmd_add_arg(cdBurn, "-v");
+	/*exec_cmd_add_arg(cdBurn, "-format");*/
 
 	if(preferences_get_bool(GB_EJECT))
-		exec_cmd_add_arg(cdBurn, "%s", "-eject");
+		exec_cmd_add_arg(cdBurn, "-eject");
 	
-	exec_cmd_add_arg(cdBurn, "%s", "gracetime=5");
-	
-	exec_cmd_add_arg(cdBurn, "%s", preferences_get_bool(GB_FAST_BLANK) 
-		? "blank=fast" : "blank=all");
+	exec_cmd_add_arg(cdBurn, "gracetime=5");
+	exec_cmd_add_arg(cdBurn, "blank=%s", preferences_get_bool(GB_FAST_BLANK) ? "fast" : "all");
 }
 
 
@@ -477,20 +461,20 @@ cdda2wav_add_copy_args(ExecCmd* e)
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
 	
-	exec_cmd_add_arg(e, "%s", "cdda2wav");
-	exec_cmd_add_arg(e, "%s", "-x");
-	exec_cmd_add_arg(e, "%s", "cddb=1");
-    exec_cmd_add_arg(e, "%s", "speed=52");
-	exec_cmd_add_arg(e, "%s", "-B");
-	exec_cmd_add_arg(e, "%s", "-g");
-	exec_cmd_add_arg(e, "%s", "-Q");
-	exec_cmd_add_arg(e, "%s", "-paranoia");
+	exec_cmd_add_arg(e, "cdda2wav");
+	exec_cmd_add_arg(e, "-x");
+	exec_cmd_add_arg(e, "cddb=1");
+    exec_cmd_add_arg(e, "speed=52");
+	exec_cmd_add_arg(e, "-B");
+	exec_cmd_add_arg(e, "-g");
+	exec_cmd_add_arg(e, "-Q");
+	exec_cmd_add_arg(e, "-paranoia");
 	
 	gchar* reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
 	exec_cmd_add_arg(e, "-D%s", reader);
 	g_free(reader);
 	
-	exec_cmd_add_arg(e, "%s", "-Owav");
+	exec_cmd_add_arg(e, "-Owav");
 	
 	gchar* tmp = preferences_get_string(GB_TEMP_DIR);
 	exec_cmd_add_arg(e, "%s/gbtrack", tmp);
@@ -620,11 +604,7 @@ mkisofs_foreach_func(GtkTreeModel* model,
 	
 	/* Only add files that are not part of an existing session */
 	if(!existingsession)
-	{
-		gchar* buffer = g_strdup_printf("%s=%s", file, filepath);		
-		exec_cmd_add_arg((ExecCmd*)user_data, "%s", buffer);	
-		g_free(buffer);
-	}
+		exec_cmd_add_arg((ExecCmd*)user_data, "%s=%s", file, filepath); 
 
 	g_free(file);	
 	g_free(filepath);
@@ -664,42 +644,42 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gb
 	
 	if(ret == GTK_RESPONSE_OK)
 	{
-		exec_cmd_add_arg(e, "%s", "mkisofs");		
+		exec_cmd_add_arg(e, "mkisofs");		
 		if(volume != NULL && createdby != NULL)
 		{
-			exec_cmd_add_arg(e, "%s",  "-V");			
-			exec_cmd_add_arg(e, "%s", volume);
-			exec_cmd_add_arg(e, "%s", "-p");
-			exec_cmd_add_arg(e, "%s", createdby);
+			exec_cmd_add_arg(e, "-V");			
+			exec_cmd_add_arg(e, volume);
+			exec_cmd_add_arg(e, "-p");
+			exec_cmd_add_arg(e, createdby);
 		}
         
-        exec_cmd_add_arg(e, "%s", "-iso-level");
-        exec_cmd_add_arg(e, "%s", "3");
-        exec_cmd_add_arg(e, "%s", "-l"); /* allow 31 character iso9660 filenames */
+        exec_cmd_add_arg(e, "-iso-level");
+        exec_cmd_add_arg(e, "3");
+        exec_cmd_add_arg(e, "-l"); /* allow 31 character iso9660 filenames */
 		
         if(preferences_get_bool(GB_ROCKRIDGE))		
         {
-		    exec_cmd_add_arg(e, "%s", "-R");
-            exec_cmd_add_arg(e, "%s", "-hide-rr-moved");
+		    exec_cmd_add_arg(e, "-R");
+            exec_cmd_add_arg(e, "-hide-rr-moved");
         }
 		
         if(preferences_get_bool(GB_JOLIET))
         {
-		    exec_cmd_add_arg(e, "%s", "-J");
-            exec_cmd_add_arg(e, "%s", "-joliet-long");
+		    exec_cmd_add_arg(e, "-J");
+            exec_cmd_add_arg(e, "-joliet-long");
         }
         
-        /*exec_cmd_add_arg(e, "%s", "-f"); don't follow links */
-		/*exec_cmd_add_arg(e, "%s", "-hfs");*/		
+        /*exec_cmd_add_arg(e, "-f"); don't follow links */
+		/*exec_cmd_add_arg(e, "-hfs");*/		
 				
 		if(msinfo != NULL)
 		{
-			exec_cmd_add_arg(e, "%s", "-C");
-			exec_cmd_add_arg(e, "%s", msinfo);
+			exec_cmd_add_arg(e, "-C");
+			exec_cmd_add_arg(e, msinfo);
 			
 			gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
-			exec_cmd_add_arg(e, "%s", "-M");
-			exec_cmd_add_arg(e, "%s", writer);
+			exec_cmd_add_arg(e, "-M");
+			exec_cmd_add_arg(e, writer);
 			g_free(writer);			
 			
 			/* This is a cludge so that we don't ask the user if they want to use the existing iso */
@@ -712,14 +692,14 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gb
 		
         if(iso != NULL) /* no filename means we're on the fly */
         {            
-            exec_cmd_add_arg(e, "%s", "-gui");	
-            exec_cmd_add_arg(e, "%s", "-o");
-            exec_cmd_add_arg(e, "%s", iso);
+            exec_cmd_add_arg(e, "-gui");	
+            exec_cmd_add_arg(e, "-o");
+            exec_cmd_add_arg(e, iso);
         }
         
         if(calculatesize)
         {
-            exec_cmd_add_arg(e, "%s", "--print-size");      
+            exec_cmd_add_arg(e, "--print-size");      
             e->preProc = mkisofs_calc_size_pre_proc;
             e->readProc = mkisofs_calc_size_read_proc;
             e->postProc = mkisofs_calc_size_post_proc;
@@ -730,7 +710,7 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gb
             e->readProc = mkisofs_read_proc;
         }
         
-		exec_cmd_add_arg(e, "%s", "-graft-points");
+		exec_cmd_add_arg(e, "-graft-points");
 		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);			
 	}
 	
@@ -749,9 +729,9 @@ mkisofs_add_calc_iso_size_args(ExecCmd* e, const gchar* iso)
     g_return_if_fail(e != NULL);
     g_return_if_fail(iso != NULL);    
     
-    exec_cmd_add_arg(e, "%s", "mkisofs");       
-    exec_cmd_add_arg(e, "%s", "--print-size");
-    exec_cmd_add_arg(e, "%s", iso);
+    exec_cmd_add_arg(e, "mkisofs");       
+    exec_cmd_add_arg(e, "--print-size");
+    exec_cmd_add_arg(e, iso);
     e->preProc = mkisofs_calc_size_pre_proc;
     e->readProc = mkisofs_calc_size_read_proc;
     e->postProc = mkisofs_calc_size_post_proc;
@@ -815,29 +795,29 @@ dvdformat_add_args(ExecCmd* dvdFormat)
 	dvdFormat->preProc = dvdformat_pre_proc;
 	dvdFormat->postProc = dvdformat_post_proc;
 	
-	exec_cmd_add_arg(dvdFormat, "%s", "dvd+rw-format");
+	exec_cmd_add_arg(dvdFormat, "dvd+rw-format");
 	
 	gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
-	exec_cmd_add_arg(dvdFormat, "%s", writer);
+	exec_cmd_add_arg(dvdFormat, writer);
 	g_free(writer);
 	
 	/* make the output gui friendly */
-	exec_cmd_add_arg(dvdFormat, "%s", "-gui");
+	exec_cmd_add_arg(dvdFormat, "-gui");
 		
 	if(preferences_get_bool(GB_FORCE))
 	{
 		if(!preferences_get_bool(GB_FAST_FORMAT))
-			exec_cmd_add_arg(dvdFormat, "%s","-force=full");
+			exec_cmd_add_arg(dvdFormat, "-force=full");
 		else
-			exec_cmd_add_arg(dvdFormat, "%s","-force");
+			exec_cmd_add_arg(dvdFormat, "-force");
 	}
 	else if(!preferences_get_bool(GB_FAST_FORMAT))
 	{
-		exec_cmd_add_arg(dvdFormat, "%s", "-blank=full");
+		exec_cmd_add_arg(dvdFormat, "-blank=full");
 	}
     else
     {
-        exec_cmd_add_arg(dvdFormat, "%s", "-blank");
+        exec_cmd_add_arg(dvdFormat, "-blank");
     }        
 }
 
@@ -942,72 +922,68 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
 	
 	if(ret == GTK_RESPONSE_OK)
 	{        
-		exec_cmd_add_arg(e, "%s", "growisofs");		
+		exec_cmd_add_arg(e, "growisofs");		
 		if(volume != NULL && createdby != NULL)
 		{
-			exec_cmd_add_arg(e, "%s",  "-V");			
-			exec_cmd_add_arg(e, "%s", volume);
-			exec_cmd_add_arg(e, "%s", "-p");
-			exec_cmd_add_arg(e, "%s", createdby);
+			exec_cmd_add_arg(e,  "-V");			
+			exec_cmd_add_arg(e, volume);
+			exec_cmd_add_arg(e, "-p");
+			exec_cmd_add_arg(e, createdby);
 		}
         
         /* http://www.troubleshooters.com/linux/coasterless_dvd.htm#_Gotchas 
             states that dao with dvd compat is the best way of burning dvds */
-        exec_cmd_add_arg(e, "%s", "-use-the-force-luke=dao");
-        /*exec_cmd_add_arg(e, "%s", "-dvd-compat");*/
+        exec_cmd_add_arg(e, "-use-the-force-luke=dao");
                 
-        exec_cmd_add_arg(e, "%s", "-iso-level");
-        exec_cmd_add_arg(e, "%s", "3");
-        exec_cmd_add_arg(e, "%s", "-l"); /* allow 31 character iso9660 filenames */
+        exec_cmd_add_arg(e, "-iso-level");
+        exec_cmd_add_arg(e, "3");
+        exec_cmd_add_arg(e, "-l"); /* allow 31 character iso9660 filenames */
 		
         if(preferences_get_bool(GB_ROCKRIDGE))		
         {
-		    exec_cmd_add_arg(e, "%s", "-R");
-            exec_cmd_add_arg(e, "%s", "-hide-rr-moved");
+		    exec_cmd_add_arg(e, "-R");
+            exec_cmd_add_arg(e, "-hide-rr-moved");
         }
 		
         if(preferences_get_bool(GB_JOLIET))
         {
-		    exec_cmd_add_arg(e, "%s", "-J");
-            exec_cmd_add_arg(e, "%s", "-joliet-long");
+		    exec_cmd_add_arg(e, "-J");
+            exec_cmd_add_arg(e, "-joliet-long");
         }
         
-        /*exec_cmd_add_arg(e, "%s", "-f"); don't follow links */
-		/*exec_cmd_add_arg(e, "%s", "-hfs");*/		
+        /*exec_cmd_add_arg(e, "-f"); don't follow links */
+		/*exec_cmd_add_arg(e, "-hfs");*/		
 				
         /* merge new session with existing one */	
         gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
         if(msinfo != NULL)
-            exec_cmd_add_arg(e, "%s", "-M");
+            exec_cmd_add_arg(e, "-M");
         else
-            exec_cmd_add_arg(e, "%s", "-Z");
+            exec_cmd_add_arg(e, "-Z");
 
         gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
-        exec_cmd_add_arg(e, "%s", writer);
+        exec_cmd_add_arg(e, writer);
         g_free(writer);
         
-        gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
-        exec_cmd_add_arg(e,"-speed=%s", speed);
-        g_free(speed);
-        
+        exec_cmd_add_arg(e,"-speed=%d", preferences_get_int(GB_DVDWRITE_SPEED));
         /*http://fy.chalmers.se/~appro/linux/DVD+RW/tools/growisofs.c
             for the use-the-force options */        
         /* stop the reloading of the disc */
-        exec_cmd_add_arg(e, "%s", "-use-the-force-luke=notray");
+        exec_cmd_add_arg(e, "-use-the-force-luke=notray");
         
         /* force overwriting existing filesystem */
-        exec_cmd_add_arg(e, "%s", "-use-the-force-luke=tty");
+        exec_cmd_add_arg(e, "-use-the-force-luke=tty");
 	
         /* TODO: Overburn support */
         /* preferences_get_int(GB_OVERBURN)
         if(prefs->overburn)
-            exec_cmd_add_arg(growisofs, "%s", "-overburn"); */
+            exec_cmd_add_arg(growisofs, "-overburn"); */
         
         if(preferences_get_bool(GB_FINALIZE))
-            exec_cmd_add_arg(e, "%s", "-dvd-compat");
+            exec_cmd_add_arg(e, "-dvd-compat");
 
-        exec_cmd_add_arg(e, "%s", "-gui");	
-        exec_cmd_add_arg(e, "%s", "-graft-points");
+        exec_cmd_add_arg(e, "-gui");	
+        exec_cmd_add_arg(e, "-graft-points");
 		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
 				
 		e->readProc = growisofs_read_proc;
@@ -1033,29 +1009,25 @@ growisofs_add_iso_args(ExecCmd* growisofs, const gchar *iso)
 	growisofs->readProc = growisofs_read_iso_proc;
 	growisofs->preProc = growisofs_pre_proc;
 	growisofs->postProc = growisofs_post_proc;
-	exec_cmd_add_arg(growisofs, "%s", "growisofs");
-	exec_cmd_add_arg(growisofs,"%s","-dvd-compat");
+	exec_cmd_add_arg(growisofs, "growisofs");
+	exec_cmd_add_arg(growisofs, "-dvd-compat");
 	
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_DVDWRITE_SPEED));
-	exec_cmd_add_arg(growisofs,"-speed=%s",speed);
-	g_free(speed);
+	exec_cmd_add_arg(growisofs, "-speed=%d", preferences_get_int(GB_DVDWRITE_SPEED));
 	
 	/* -gui makes the output more verbose, so we can 
 	    interpret it easier */
-    /*	exec_cmd_add_arg(growisofs,"%s","-gui"); */
+    /*	exec_cmd_add_arg(growisofs, "-gui"); */
 	/* -gui does not work with iso's, argh! */
 
 	/* stop the reloading of the disc */
-	exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=notray");
+	exec_cmd_add_arg(growisofs, "-use-the-force-luke=notray");
 	
 	/* force overwriting existing filesystem */
-    exec_cmd_add_arg(growisofs,"%s","-use-the-force-luke=tty");
+    exec_cmd_add_arg(growisofs, "-use-the-force-luke=tty");
 	
+    exec_cmd_add_arg(growisofs, "-Z");
 	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_NODE_LABEL);
-	exec_cmd_add_arg(growisofs, "%s", "-Z");
-	
-	gchar* buffer = g_strdup_printf("%s=%s",writer, iso);		
-	exec_cmd_add_arg(growisofs, "%s", buffer);
+	exec_cmd_add_arg(growisofs, "%s=%s", writer, iso);      
 	g_free(writer);		
 }
 
@@ -1153,16 +1125,16 @@ readcd_add_copy_args(ExecCmd* e, const gchar* iso)
 	g_return_if_fail(e != NULL);
 	g_return_if_fail(iso != NULL);	
 
-	exec_cmd_add_arg(e, "%s", "readcd");
+	exec_cmd_add_arg(e, "readcd");
 	
 	gchar* reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
 	exec_cmd_add_arg(e, "dev=%s", reader);	
 	g_free(reader);
 	
 	exec_cmd_add_arg(e, "f=%s", iso);	
-	/*exec_cmd_add_arg(e, "%s", "-notrunc");
-	exec_cmd_add_arg(e, "%s", "-clone");
-	exec_cmd_add_arg(e, "%s", "-silent");*/
+	/*exec_cmd_add_arg(e, "-notrunc");
+	exec_cmd_add_arg(e, "-clone");
+	exec_cmd_add_arg(e, "-silent");*/
 
 	e->preProc = readcd_pre_proc;	
 	e->readProc = readcd_read_proc;
@@ -1238,30 +1210,27 @@ cdrdao_add_image_args(ExecCmd* cmd, const gchar* toc_or_cue)
 	cmd->preProc = cdrecord_pre_proc;	
 	cmd->readProc = cdrdao_write_image_read_proc;
 	
-	exec_cmd_add_arg(cmd, "%s", "cdrdao");
-	exec_cmd_add_arg(cmd, "%s", "write");
+	exec_cmd_add_arg(cmd, "cdrdao");
+	exec_cmd_add_arg(cmd, "write");
 	
 	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
-	exec_cmd_add_arg(cmd, "%s", "--device");
-	exec_cmd_add_arg(cmd, "%s", writer);
+	exec_cmd_add_arg(cmd, "--device");
+	exec_cmd_add_arg(cmd, writer);
 	g_free(writer);	
 	
-	gchar* speed = g_strdup_printf("%d", preferences_get_int(GB_CDWRITE_SPEED));
-	exec_cmd_add_arg(cmd, "%s", "--speed");
-	exec_cmd_add_arg(cmd, "%s", speed);
-	g_free(speed);
-    
-    exec_cmd_add_arg(cmd, "%s", "--buffers");
-    exec_cmd_add_arg(cmd, "%s", "64");
-    exec_cmd_add_arg(cmd, "%s", "-n"); /* turn off the 10 second pause */
+	exec_cmd_add_arg(cmd, "--speed");
+	exec_cmd_add_arg(cmd, "%d", preferences_get_int(GB_CDWRITE_SPEED));
+    exec_cmd_add_arg(cmd, "--buffers");
+    exec_cmd_add_arg(cmd, "64");
+    exec_cmd_add_arg(cmd, "-n"); /* turn off the 10 second pause */
 	
 	if(preferences_get_bool(GB_EJECT))
-		exec_cmd_add_arg(cmd, "%s", "--eject");
+		exec_cmd_add_arg(cmd, "--eject");
 
 	if(preferences_get_bool(GB_DUMMY))
-		exec_cmd_add_arg(cmd, "%s", "--simulate");
+		exec_cmd_add_arg(cmd, "--simulate");
     
-    exec_cmd_add_arg(cmd, "%s", toc_or_cue);
+    exec_cmd_add_arg(cmd, toc_or_cue);
 }
 
 
@@ -1269,24 +1238,21 @@ cdrdao_add_image_args(ExecCmd* cmd, const gchar* toc_or_cue)
  * GSTREAMER
  ******************************************************************************/
 static guint gstreamertimer = 0;
-static gboolean running = FALSE;
 
-gboolean
+static gboolean
 gstreamer_progress_timer(gpointer data)
 {
     GB_LOG_FUNC   
     g_return_val_if_fail(data != NULL, FALSE);
-    if(running)
+    
+    GstFormat fmt = GST_FORMAT_BYTES;
+    gint64 pos = 0, total = 0;
+    if(gst_element_query (GST_ELEMENT(data), GST_QUERY_POSITION, &fmt, &pos) && 
+        gst_element_query (GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))
     {
-        GstFormat fmt = GST_FORMAT_BYTES;
-        gint64 pos = 0, total = 0;
-        if(gst_element_query (GST_ELEMENT(data), GST_QUERY_POSITION, &fmt, &pos) && 
-            gst_element_query (GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))
-        {
-            progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
-        }
+        progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
     }
-    return running;
+    return TRUE;
 }
  
  
@@ -1349,7 +1315,7 @@ gstreamer_pre_proc(void* ex, void* buffer)
     g_return_if_fail(ex != NULL);
     ExecCmd* cmd = (ExecCmd*)ex;
     
-    gchar* filename = g_path_get_basename(cmd->argv[0]);
+    gchar* filename = g_path_get_basename((gchar*)g_ptr_array_index(cmd->args, 0));
     gchar* text = g_strdup_printf(_("Converting [%.32s] to cd audio"), filename);
     progressdlg_set_status(text);
     g_free(filename);
@@ -1366,14 +1332,15 @@ gstreamer_lib_proc(void* ex, void* data)
     ExecCmd* cmd = (ExecCmd*)ex;
     gint* pipe = (gint*)data;
     
-    GB_TRACE("Converting [%s] to [%s]", cmd->argv[0], cmd->argv[1]);
+    GB_TRACE("Converting [%s] to [%s]", (gchar*)g_ptr_array_index(cmd->args, 0), 
+        (gchar*)g_ptr_array_index(cmd->args, 1));
     
     MediaPipeline* gstdata = g_new0(MediaPipeline, 1);
     
     /* create a new pipeline to hold the elements */
     gstdata->pipeline = gst_pipeline_new ("gnomebaker-convert-to-wav-pipeline");
     gstdata->source = gst_element_factory_make("filesrc","file-source");
-    g_object_set (G_OBJECT (gstdata->source), "location", cmd->argv[0], NULL);
+    g_object_set (G_OBJECT (gstdata->source), "location", g_ptr_array_index(cmd->args, 0), NULL);
         
     /* decoder */
     gstdata->decoder = gst_element_factory_make ("decodebin", "decoder");
@@ -1405,7 +1372,7 @@ gstreamer_lib_proc(void* ex, void* data)
     else
     {
         gstdata->dest = gst_element_factory_make("filesink","file-out");
-        g_object_set (G_OBJECT (gstdata->dest), "location", cmd->argv[1], NULL);
+        g_object_set (G_OBJECT (gstdata->dest), "location", g_ptr_array_index(cmd->args, 1), NULL);
     }
     
     gst_bin_add_many (GST_BIN (gstdata->pipeline), gstdata->source, gstdata->decoder, NULL);
@@ -1418,7 +1385,6 @@ gstreamer_lib_proc(void* ex, void* data)
     g_signal_connect (gstdata->pipeline, "eos", G_CALLBACK (gstreamer_pipeline_eos), cmd);
     
     /* If we're not writing to someone's pipe we update the progress bar */        
-    running = TRUE;
     if(pipe == NULL)
         gstreamertimer = g_timeout_add(1000, gstreamer_progress_timer, gstdata->dest);
     
@@ -1431,7 +1397,8 @@ gstreamer_lib_proc(void* ex, void* data)
             gtk_main_iteration();
     }
     
-    running = FALSE;
+    if(pipe == NULL)
+        g_source_remove(gstreamertimer);
     gst_element_set_state (gstdata->pipeline, GST_STATE_NULL);
     gst_object_unref (GST_OBJECT (gstdata->pipeline));
     g_free(gstdata);
@@ -1446,8 +1413,8 @@ gstreamer_add_args(ExecCmd* cmd, const gchar* from, const gchar* to)
     g_return_if_fail(from != NULL);        
     g_return_if_fail(to != NULL);
     
-    exec_cmd_add_arg(cmd, "%s", from);
-    exec_cmd_add_arg(cmd, "%s", to);
+    exec_cmd_add_arg(cmd, from);
+    exec_cmd_add_arg(cmd, to);
     
     cmd->libProc = gstreamer_lib_proc;
     cmd->preProc = gstreamer_pre_proc;   

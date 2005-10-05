@@ -43,8 +43,7 @@ typedef enum
 
 typedef struct
 {
-	gint argc;
-	gchar **argv;
+	GPtrArray* args;
 	pid_t pid;
 	gint exitCode;    
 	ExecState state;
@@ -55,7 +54,7 @@ typedef struct
 	ExecFunc postProc;	
     gchar* workingdir;
     gboolean piped;
-}ExecCmd;
+} ExecCmd;
 
 typedef struct
 {
@@ -72,8 +71,8 @@ ExecCmd* exec_cmd_new(Exec* e);
 void exec_delete(Exec* self);
 void exec_run(Exec* e);
 void exec_stop(Exec* e);
-void exec_cmd_add_arg(ExecCmd* e, const gchar* format, const gchar* value);
-void exec_cmd_update_arg(ExecCmd* e, const gchar* arg, const gchar* value);
+void exec_cmd_add_arg(ExecCmd* e, const gchar* format, ...);
+void exec_cmd_update_arg(ExecCmd* e, const gchar* argstart, const gchar* format, ...);
 GString* exec_run_cmd(const gchar* cmd);
 ExecState exec_cmd_get_state(ExecCmd* e);
 ExecState exec_cmd_set_state(ExecCmd* e, ExecState state);
