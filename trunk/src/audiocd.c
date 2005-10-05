@@ -653,6 +653,7 @@ audiocd_new()
 
     /* One column which has an icon renderer and text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_title(col, _("Track"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
@@ -665,6 +666,7 @@ audiocd_new()
 
     /* Second column to display the duration*/
     col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_title(col, _("Duration"));
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -681,6 +683,7 @@ audiocd_new()
         
     /* column to display the artist */
     col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_title(col, _("Artist"));
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -689,6 +692,7 @@ audiocd_new()
     
     /* column to display the album */
     col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_title(col, _("Album"));
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -697,6 +701,7 @@ audiocd_new()
     
     /* column to display the title */
     col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_title(col, _("Title"));
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -705,10 +710,10 @@ audiocd_new()
     
     /* hidden column to store the MediaInfo pointer */
     col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_title(col, _("Info"));
     gtk_tree_view_append_column(filelist, col);
     gtk_tree_view_column_set_visible(col, FALSE);
-    
     
     /* Set the selection mode of the file list */
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist), GTK_SELECTION_MULTIPLE);

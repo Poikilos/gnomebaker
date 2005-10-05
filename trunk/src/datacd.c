@@ -489,6 +489,7 @@ datacd_new()
 
 	/* First column which has an icon renderer and a text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_title(col, _("Contents"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
@@ -512,6 +513,7 @@ datacd_new()
 	
 	/* Second column to display the file/dir size */
 	col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
 	gtk_tree_view_column_set_title(col, _("Size"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -521,6 +523,7 @@ datacd_new()
 
 	/* Third column to display the human size of file/dir */
 	col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
 	gtk_tree_view_column_set_title(col, _("Size"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -530,6 +533,7 @@ datacd_new()
 	
 	/* Fourth column for the full path of the file/dir */
 	col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
 	gtk_tree_view_column_set_title(col, _("Full Path"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -538,13 +542,13 @@ datacd_new()
 	
 	/* Fifth column for the session bool */
 	col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
 	gtk_tree_view_column_set_title(col, _("Session"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_SESSION, NULL);
 	gtk_tree_view_column_set_visible(col, FALSE);
 	gtk_tree_view_append_column(filelist, col);
-
 
 	/* Set the selection mode of the file list */
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist),
