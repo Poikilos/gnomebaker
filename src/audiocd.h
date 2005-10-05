@@ -49,6 +49,8 @@ void audiocd_clear();
 void audiocd_remove();
 void audiocd_add_selection(GtkSelectionData* selection);
 void audiocd_import_session();
+gboolean audiocd_import_playlist(const gchar* playlist);
+gboolean audiocd_is_supported_playlist(const gchar* mime);
 void audiocd_move_selected_up();
 void audiocd_move_selected_down();
 							  

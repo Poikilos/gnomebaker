@@ -188,7 +188,7 @@ gnomebaker_show_msg_dlg(GtkWindow* parent, GtkMessageType type,
 }
 
 
-void
+void /* libglade callback */
 gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -247,7 +247,7 @@ gnomebaker_on_quit(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 
-void
+void /* libglade callback */
 gnomebaker_on_blank_cdrw(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -267,7 +267,7 @@ gnomebaker_cd_image_file_filter(const GtkFileFilterInfo *filter_info, gpointer d
 }
 
 
-void
+void /* libglade callback */
 gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -291,7 +291,7 @@ gnomebaker_dvd_image_file_filter(const GtkFileFilterInfo *filter_info, gpointer 
 }
 
 
-void
+void /* libglade callback */
 gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -305,7 +305,7 @@ gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
 }
 
 
-void
+void /* libglade callback */
 gnomebaker_on_preferences(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -315,7 +315,7 @@ gnomebaker_on_preferences(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_copy_datacd(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -323,7 +323,7 @@ gnomebaker_on_copy_datacd(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_copy_audiocd(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -355,7 +355,7 @@ gnomebaker_window_state_event(GtkWidget* widget, GdkEvent* event, gpointer user_
 }
 
 
-void
+void /* libglade callback */
 gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -396,7 +396,7 @@ gnomebaker_show_busy_cursor(gboolean isbusy)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_add_dir(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -418,7 +418,7 @@ gnomebaker_on_add_dir(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_add_files(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -488,7 +488,7 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_remove(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -508,7 +508,7 @@ gnomebaker_on_remove(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_clear(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -554,7 +554,7 @@ gnomebaker_enable_widget(const gchar* widgetname, gboolean enabled)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_refresh(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -562,7 +562,7 @@ gnomebaker_on_refresh(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_import(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -582,7 +582,7 @@ gnomebaker_on_import(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_format_dvdrw(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -590,7 +590,7 @@ gnomebaker_on_format_dvdrw(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_help(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -632,7 +632,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_up(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
@@ -651,7 +651,7 @@ gnomebaker_on_up(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void /* libglade callback */
 gnomebaker_on_down(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
@@ -676,4 +676,34 @@ gnomebaker_get_window()
     GB_LOG_FUNC
     return GTK_WINDOW(glade_xml_get_widget(gnomebaker_getxml(), widget_gnomebaker));
 }
+
+
+static gboolean
+gnomebaker_playlist_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
+{
+    GB_LOG_FUNC
+    return audiocd_is_supported_playlist(filter_info->mime_type);
+}
+
+
+void /* libglade callback */
+gnomebaker_on_import_playlist(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC
+        
+    GtkFileFilter *imagefilter = gtk_file_filter_new();
+    gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
+        gnomebaker_playlist_file_filter, NULL, NULL);
+    gtk_file_filter_set_name(imagefilter,_("Playlist files"));
+    const gchar* file = gbcommon_show_file_chooser(_("Please select a playlist."), imagefilter);
+    if(file != NULL)
+    {
+        if(audiocd_import_playlist(file))
+        {
+            GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
+            gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 1);
+        }
+    }
+}
+
 
