@@ -408,6 +408,24 @@ audiocd_import_pls_playlist(const gchar* plsfile, GtkTreeModel* model)
 }
 
 
+static gboolean 
+audiocd_import_supported_playlist(const gchar* mime, const gchar* playlist)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(mime != NULL, FALSE);
+    g_return_val_if_fail(playlist != NULL, FALSE);
+        
+    GtkTreeView* view = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree));
+    GtkTreeModel *model = gtk_tree_view_get_model(view);    
+    gboolean ret = FALSE;
+    if(g_ascii_strcasecmp(mime, "audio/x-mpegurl") == 0)
+        ret = audiocd_import_m3u_playlist(playlist, model);
+    else if(g_ascii_strcasecmp(mime, "audio/x-scpls") == 0)      
+        ret = audiocd_import_pls_playlist(playlist, model);
+    return ret;
+}
+
+
 static void
 audiocd_on_drag_data_received(
     GtkWidget * widget,
@@ -544,10 +562,8 @@ audiocd_add_selection(GtkSelectionData* selection)
         {
             /* Now try and find any playlist types and add them */
             gchar* mime = gbcommon_get_mime_type(filename);
-            if(g_ascii_strcasecmp(mime, "audio/x-mpegurl") == 0)
-                cont = audiocd_import_m3u_playlist(filename, model);
-            else if(g_ascii_strcasecmp(mime, "audio/x-scpls") == 0)
-                cont = audiocd_import_pls_playlist(filename, model);
+            if(audiocd_is_supported_playlist(mime))
+                cont = audiocd_import_supported_playlist(mime, filename);
             else 
                 cont = audiocd_add_file(filename, model);
             g_free(mime);
@@ -632,6 +648,37 @@ audiocd_clear()
     }    
     gtk_list_store_clear(GTK_LIST_STORE(filemodel));
     gnomebaker_show_busy_cursor(FALSE); 
+}
+
+
+gboolean 
+audiocd_is_supported_playlist(const gchar* mime)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(mime != NULL, FALSE);           
+    
+    if((g_ascii_strcasecmp(mime, "audio/x-mpegurl") == 0) || 
+            (g_ascii_strcasecmp(mime, "audio/x-scpls") == 0))
+        return TRUE;
+    return FALSE;
+}
+
+
+gboolean 
+audiocd_import_playlist(const gchar* playlist)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(playlist != NULL);
+    
+    gboolean ret = FALSE;
+    gchar* mime = gbcommon_get_mime_type(playlist);
+    if(audiocd_is_supported_playlist(mime))
+        ret = audiocd_import_supported_playlist(mime, playlist);
+    else
+        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+          _("The file you have selected is not a supported playlist. Please select a pls or m3u file."));
+    g_free(mime);
+    return ret;
 }
 
 
