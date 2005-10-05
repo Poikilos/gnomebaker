@@ -777,6 +777,7 @@ filebrowser_setup_list(GtkTreeView* filelist)
 
 	/* 1st column which has an icon renderer and a text renderer packed in */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
     gtk_tree_view_column_set_title(col, _("File"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
@@ -791,6 +792,7 @@ filebrowser_setup_list(GtkTreeView* filelist)
 
 	/* 2nd column to add the size to */
 	col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
 	gtk_tree_view_column_set_title(col, _("Size"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -800,6 +802,7 @@ filebrowser_setup_list(GtkTreeView* filelist)
 
 	/* 3rd column to add the human readeable size to */
 	col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
 	gtk_tree_view_column_set_title(col, "Size");
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -809,6 +812,7 @@ filebrowser_setup_list(GtkTreeView* filelist)
 
 	/* 4th column to add the mime type description to */
 	col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
 	gtk_tree_view_column_set_title(col, _("Type"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -817,13 +821,13 @@ filebrowser_setup_list(GtkTreeView* filelist)
 	
 	/* 5th hidden column to add the mime type to */
 	col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
 	gtk_tree_view_column_set_title(col, _("Mime"));
 	gtk_tree_view_column_set_visible(col, FALSE);
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_MIME, NULL);
     gtk_tree_view_append_column(filelist, col);
-	
 
 	/* Set the selection mode of the file list */
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist),
