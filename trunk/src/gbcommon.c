@@ -474,7 +474,7 @@ gbcommon_center_window_on_parent(GtkWidget* window)
     GtkWindow* mainwindow = gnomebaker_get_window();
     gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(mainwindow));
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
-    gtk_widget_show_all(window);
+    gtk_widget_show(window);
 }
 
 

@@ -37,11 +37,12 @@ static gint child_child_pipe[2];
 static void
 exec_print_cmd(const ExecCmd* e)
 {
+    g_return_if_fail(e != NULL);
 	if(showtrace)
 	{
 		gint i = 0;
-		for(; i < e->argc; i++)
-			g_print("%s ", e->argv[i]);
+		for(; i < e->args->len; i++)
+			g_print("%s ", (gchar*)g_ptr_array_index(e->args, i));
 		g_print("\n");		
 	}
 }
@@ -129,10 +130,12 @@ exec_spawn_process(ExecCmd* e, GSpawnChildSetupFunc child_setup)
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
 	
+    /* Make sure that the args are null terminated */
+    g_ptr_array_add(e->args, NULL);
 	exec_print_cmd(e);
 	gint stdout = 0, stderr = 0;		
     GError* err = NULL;
-	if(g_spawn_async_with_pipes(NULL, e->argv, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_DO_NOT_REAP_CHILD , 
+	if(g_spawn_async_with_pipes(NULL, (gchar**)e->args->pdata, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_DO_NOT_REAP_CHILD , 
         child_setup, e, &e->pid, NULL, &stdout, &stderr, &err))
 	{
 		GB_TRACE("exec_spawn_process - spawed process with pid [%d]", e->pid);
@@ -258,7 +261,7 @@ exec_cmd_delete(ExecCmd * e)
     GB_LOG_FUNC
     g_return_if_fail(e != NULL);
     g_mutex_free(e->statemutex);
-    g_strfreev(e->argv);
+    g_ptr_array_free(e->args, TRUE);
     g_free(e->workingdir);
 }
 
@@ -270,18 +273,9 @@ exec_cmd_new(Exec* exec)
     g_return_val_if_fail(exec != NULL, NULL);
     
     ExecCmd* e = g_new0(ExecCmd, 1);
-    e->argc = 1;
-    e->argv = g_malloc(sizeof(gchar*));
-    e->argv[0] = NULL;
-    e->pid = 0;
-    e->exitCode = 0;
+    e->args = g_ptr_array_new();
     e->state = RUNNING;
     e->statemutex = g_mutex_new();
-    e->libProc = NULL;
-    e->preProc = NULL;
-    e->readProc = NULL;
-    e->postProc = NULL;
-    e->workingdir = NULL;    
     exec->cmds = g_list_append(exec->cmds, e);
     exec->cmds = g_list_first(exec->cmds);
     return e;
@@ -292,7 +286,7 @@ void
 exec_delete(Exec * exec)
 {
     GB_LOG_FUNC
-    g_return_if_fail(NULL != exec);
+    g_return_if_fail(exec != NULL);
     g_free(exec->processtitle);
     g_free(exec->processdescription);
     GList* cmd = exec->cmds;
@@ -309,7 +303,9 @@ Exec*
 exec_new(const gchar* processtitle, const gchar* processdescription)
 {
 	GB_LOG_FUNC
-	
+    g_return_val_if_fail(processtitle != NULL, NULL);
+    g_return_val_if_fail(processdescription != NULL, NULL);
+    
 	Exec* exec = g_new0(Exec, 1);
 	g_return_val_if_fail(exec != NULL, NULL);        
     exec->processtitle = g_strdup(processtitle);
@@ -320,36 +316,43 @@ exec_new(const gchar* processtitle, const gchar* processdescription)
 
 
 void
-exec_cmd_add_arg(ExecCmd* e, const gchar* format, const gchar* value)
+exec_cmd_add_arg(ExecCmd* e, const gchar* format, ...)
 {
     GB_LOG_FUNC
     g_return_if_fail(e != NULL);
     g_return_if_fail(format != NULL);
-    g_return_if_fail(value != NULL);
 
-    e->argv = g_realloc(e->argv, (++e->argc) * sizeof(gchar*)); 
-    e->argv[e->argc - 2] = g_strdup_printf(format, value);
-    e->argv[e->argc - 1] = NULL;
+    va_list va; 
+    va_start(va, format);
+    gchar* arg = NULL;
+    g_vasprintf(&arg, format, va);
+    va_end(va);    
+    g_ptr_array_add(e->args, arg);
 }
 
 
 void 
-exec_cmd_update_arg(ExecCmd* e, const gchar* argstart, const gchar* value)
+exec_cmd_update_arg(ExecCmd* e, const gchar* argstart, const gchar* format, ...)
 {
     GB_LOG_FUNC
     g_return_if_fail(e != NULL);
     g_return_if_fail(argstart != NULL);
-    g_return_if_fail(value != NULL);
-    
-    gint size = g_strv_length(e->argv);
-    gint i = 0;
-    for(; i < size; ++i)
+    g_return_if_fail(format != NULL);
+
+    gint i = 0;    
+    for(; i < e->args->len; ++i)
     {
-        if(strstr(e->argv[i], argstart) != NULL)
+        gchar* arg = g_ptr_array_index(e->args, i);
+        if(strstr(arg, argstart) != NULL)
         {
-            g_free(e->argv[i]);
-            e->argv[i] = g_strconcat(argstart, value, NULL);
-            GB_TRACE("exec_cmd_update_arg - set to [%s]", e->argv[i]);
+            g_free(arg);
+            va_list va; 
+            gchar* newarg = NULL;
+            va_start(va, format);
+            g_vasprintf(&newarg, format, va);
+            va_end(va);    
+            e->args->pdata[i] = newarg;
+            GB_TRACE("exec_cmd_update_arg - set to [%s]", (gchar*)g_ptr_array_index(e->args, i));
             break;
         }
     }
@@ -407,7 +410,8 @@ exec_run(Exec* ex)
         else if(state == CANCELLED) break;    
         
         GThread* thread = NULL;
-        if(e->libProc != NULL) e->libProc(e, NULL);
+        if(e->libProc != NULL) 
+            e->libProc(e, NULL);
         else if(piped != NULL)
         {
             pipe(child_child_pipe); 
@@ -416,7 +420,8 @@ exec_run(Exec* ex)
             close(child_child_pipe[0]);
             close(child_child_pipe[1]); 
         }
-        else exec_spawn_process(e, exec_working_dir_setup_func);
+        else 
+            exec_spawn_process(e, exec_working_dir_setup_func);
             
         state = exec_cmd_get_state(e);  
         if((/*(state == CANCELLED) || */(state == FAILED)) && (piped != NULL))
@@ -453,10 +458,10 @@ exec_stop(Exec* e)
 GString* 
 exec_run_cmd(const gchar* cmd)
 {
-    GB_LOG_FUNC
-    GB_TRACE("exec_run_cmd - %s", cmd);
+    GB_LOG_FUNC    
     g_return_val_if_fail(cmd != NULL, NULL);
     
+    GB_TRACE("exec_run_cmd - %s", cmd);
     GString* ret = NULL;    
     gchar* stdout = NULL;
     gchar* stderr = NULL;
