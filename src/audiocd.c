@@ -339,7 +339,11 @@ audiocd_import_playlist_file(const gchar* playlistdir, const gchar* file, GtkTre
     if(g_file_test(filename, G_FILE_TEST_EXISTS))
         ret = audiocd_add_file(filename, model);
     else 
-        /* TODO need to figure out what to do with files which don't exist, ignore them for now */
+    {
+        gchar* message = g_strdup_printf(_("The file [%s] referred to in the playlist could not be imported as it does not exist."), filename);
+        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
+        g_free(message);                
+    }
     g_free(filename);
     return ret;
 }
