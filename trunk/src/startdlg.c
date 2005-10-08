@@ -40,23 +40,29 @@ GladeXML* startdlg_xml = NULL;
 GtkWidget* checkDummy = NULL;
 GtkWidget* checkEject = NULL;
 GtkWidget* checkFastErase = NULL;
-GtkWidget* checkBurnFree = NULL;	
-GtkWidget* checkISOOnly = NULL;	
+GtkWidget* checkBurnFree = NULL;
+GtkWidget* radioBurnDisk = NULL;	
+GtkWidget* radioISOOnly = NULL;	
 GtkWidget* checkForce = NULL;	
 GtkWidget* checkFinalize = NULL;
 GtkWidget* checkFastFormat = NULL;
 GtkWidget* checkJoliet = NULL;
 GtkWidget* checkRockRidge = NULL;
 GtkWidget* checkOnTheFly = NULL;
+GtkWidget* labelFileSystem = NULL;
 
-static const guint xpad = 10;
+static const guint xpad = 12;
 static const guint ypad = 0;
 gboolean gdvdmode = FALSE;
 
-#define TABLE_ATTACH_OPTIONS 			\
-	GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, xpad, ypad	\
+#define TABLE_ATTACH_OPTIONS_1 			\
+	GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, ypad	\
+    
+#define TABLE_ATTACH_OPTIONS_2            \
+    GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, xpad, ypad    \
 
-
+#define TABLE_ATTACH_OPTIONS_3            \
+    GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, xpad + xpad, ypad    \
 
 static void 
 startdlg_create_iso_toggled(GtkToggleButton* togglebutton, gpointer user_data)
@@ -68,6 +74,7 @@ startdlg_create_iso_toggled(GtkToggleButton* togglebutton, gpointer user_data)
 	gtk_widget_set_sensitive(checkEject, !state);
 	gtk_widget_set_sensitive(checkBurnFree, !state);
     gtk_widget_set_sensitive(checkOnTheFly, !state);
+    gtk_widget_set_sensitive(checkFinalize, !state);
 }
 
 
@@ -97,6 +104,18 @@ startdlg_create_check_button(const gchar* name, const gchar* key)
 }
 
 
+static GtkWidget* 
+startdlg_create_radio_button(const gchar* name, GtkRadioButton* group, gboolean active)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(name != NULL, NULL);
+    GtkWidget* radio = gtk_radio_button_new_with_label_from_widget(group, name);        
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(radio), active);
+    gtk_widget_show(radio);
+    return radio;   
+}
+
+
 GtkWidget* 
 startdlg_new(const BurnType burntype)
 {	
@@ -113,8 +132,11 @@ startdlg_new(const BurnType burntype)
 	checkEject = startdlg_create_check_button(_("Eject disk"), GB_EJECT);	
 	checkFastErase = startdlg_create_check_button(_("Fast blank"), GB_FAST_BLANK);		
 	checkBurnFree = startdlg_create_check_button(_("BurnFree"), GB_BURNFREE);	
-	checkISOOnly = startdlg_create_check_button(_("Create ISO only"), GB_CREATEISOONLY);	
-	g_signal_connect(G_OBJECT(checkISOOnly), "toggled", (GCallback)startdlg_create_iso_toggled, NULL);
+    radioBurnDisk = startdlg_create_radio_button(_("Burn the disk"), 
+        NULL, !preferences_get_bool(GB_CREATEISOONLY)); 
+	radioISOOnly = startdlg_create_radio_button(_("Create ISO only"), 
+        GTK_RADIO_BUTTON(radioBurnDisk), preferences_get_bool(GB_CREATEISOONLY));	
+	g_signal_connect(G_OBJECT(radioISOOnly), "toggled", (GCallback)startdlg_create_iso_toggled, NULL);
 	checkForce = startdlg_create_check_button(_("Force"), GB_FORCE);		
 	checkFinalize = startdlg_create_check_button(_("Finalize"), GB_FINALIZE);	
 	checkFastFormat = startdlg_create_check_button(_("Fast"), GB_FAST_FORMAT);
@@ -128,6 +150,11 @@ startdlg_new(const BurnType burntype)
 	gchar* mode = preferences_get_string(GB_WRITE_MODE);
 	gbcommon_set_option_menu_selection(GTK_OPTION_MENU(optmenWriteMode), mode);	
 	g_free(mode);
+    
+    labelFileSystem = gtk_label_new(_("<b>File system</b>"));
+    gtk_label_set_use_markup(GTK_LABEL(labelFileSystem), TRUE);
+    gtk_widget_show(labelFileSystem);
+    gtk_misc_set_alignment(GTK_MISC(labelFileSystem), 0, 0);
 	
 	GtkTable* table = GTK_TABLE(glade_xml_get_widget(startdlg_xml, "table3"));
 		
@@ -138,16 +165,16 @@ startdlg_new(const BurnType burntype)
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));
 			gtk_widget_hide(optmenWriteMode);
-			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkFastErase, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkFastErase, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);
 			gdvdmode = FALSE;
 			break;				
 		case create_audio_cd:
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_reader));
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
-			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_2);
             /*gtk_table_attach(table, checkOnTheFly, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);*/
 		case create_mixed_cd:
 			gdvdmode = FALSE;
@@ -155,9 +182,9 @@ startdlg_new(const BurnType burntype)
 		case burn_cd_image:			
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_reader));
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
-			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_2);
 			gdvdmode = FALSE;
 			break;
 		case burn_dvd_image:			
@@ -165,7 +192,7 @@ startdlg_new(const BurnType burntype)
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));
 			gtk_widget_hide(optmenWriteMode);
-			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS_2);
 			gdvdmode = TRUE;
 			break;
 		case create_video_cd:			
@@ -174,28 +201,31 @@ startdlg_new(const BurnType burntype)
 		case create_data_cd:		
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_reader));
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
-			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);		
-			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkISOOnly, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);
-            gtk_table_attach(table, checkJoliet, 0, 2, 8, 9, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkRockRidge, 2, 4, 8, 9, TABLE_ATTACH_OPTIONS);
-            gtk_table_attach(table, checkOnTheFly, 0, 2, 9, 10, TABLE_ATTACH_OPTIONS);
-			g_signal_emit_by_name(checkISOOnly, "toggled", checkISOOnly, NULL);
+            gtk_table_attach(table, radioBurnDisk, 0, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkEject, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_3);
+			gtk_table_attach(table, checkDummy, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS_3);		
+			gtk_table_attach(table, checkBurnFree, 0, 2, 8, 9, TABLE_ATTACH_OPTIONS_3);
+            gtk_table_attach(table, checkOnTheFly, 2, 4, 8, 9, TABLE_ATTACH_OPTIONS_3);
+			gtk_table_attach(table, radioISOOnly, 0, 4, 9, 10, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, labelFileSystem, 0, 4, 10, 11, TABLE_ATTACH_OPTIONS_1);            
+            gtk_table_attach(table, checkJoliet, 0, 2, 11, 12, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkRockRidge, 2, 4, 11, 12, TABLE_ATTACH_OPTIONS_2);
+			g_signal_emit_by_name(radioISOOnly, "toggled", radioISOOnly, NULL);
 			gdvdmode = FALSE;
 			break;
 		case copy_audio_cd:
-			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);	
-			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);		
+			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);	
+			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_2);		
 			gdvdmode = FALSE;
 			break;
 		case copy_data_cd:		
-			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkDummy, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);		
-			gtk_table_attach(table, checkBurnFree, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkISOOnly, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);		
-			g_signal_emit_by_name(checkISOOnly, "toggled", checkISOOnly, NULL);
+            gtk_table_attach(table, radioBurnDisk, 0, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, checkEject, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_3);
+            gtk_table_attach(table, checkDummy, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS_3);        
+            gtk_table_attach(table, checkBurnFree, 0, 2, 8, 9, TABLE_ATTACH_OPTIONS_3);
+            gtk_table_attach(table, radioISOOnly, 0, 4, 9, 10, TABLE_ATTACH_OPTIONS_2);
+			g_signal_emit_by_name(radioISOOnly, "toggled", radioISOOnly, NULL);
 			gdvdmode = FALSE;
 			break;
 		case format_dvdrw:
@@ -203,9 +233,9 @@ startdlg_new(const BurnType burntype)
 			gtk_widget_hide(optmenWriteMode);
 			gtk_widget_hide(optmenReader);
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
-			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkForce, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkFastFormat, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
+			gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkForce, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkFastFormat, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_2);
 			gdvdmode = TRUE;
 			break;
 		case create_data_dvd:
@@ -213,10 +243,15 @@ startdlg_new(const BurnType burntype)
 			gtk_widget_hide(optmenWriteMode);
 			gtk_widget_hide(optmenReader);
 			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
-            gtk_table_attach(table, checkEject, 0, 2, 6, 7, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkFinalize, 2, 4, 6, 7, TABLE_ATTACH_OPTIONS);
-            gtk_table_attach(table, checkJoliet, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS);
-			gtk_table_attach(table, checkRockRidge, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS);
+            gtk_table_attach(table, radioBurnDisk, 0, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, checkEject, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_3);
+            gtk_table_attach(table, checkDummy, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS_3);        
+            gtk_table_attach(table, checkFinalize, 0, 2, 8, 9, TABLE_ATTACH_OPTIONS_3);
+            gtk_table_attach(table, radioISOOnly, 0, 4, 9, 10, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, labelFileSystem, 0, 4, 10, 11, TABLE_ATTACH_OPTIONS_1);            
+            gtk_table_attach(table, checkJoliet, 0, 2, 11, 12, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, checkRockRidge, 2, 4, 11, 12, TABLE_ATTACH_OPTIONS_2);
+            g_signal_emit_by_name(radioISOOnly, "toggled", radioISOOnly, NULL);
             gdvdmode = TRUE;
 			break;
 		default:
@@ -224,13 +259,10 @@ startdlg_new(const BurnType burntype)
 	};
 
 	GtkWidget* spinSpeed = glade_xml_get_widget(startdlg_xml, widget_startdlg_speed);
-	if(gdvdmode)
-		gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinSpeed), preferences_get_int(GB_DVDWRITE_SPEED));
-	else
-		gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinSpeed), preferences_get_int(GB_CDWRITE_SPEED));
-        
-    gbcommon_center_window_on_parent(dlg);
-		
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinSpeed), 
+        preferences_get_int(gdvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED));
+    
+    gbcommon_center_window_on_parent(dlg);		
 	return dlg;
 }
 
@@ -244,13 +276,15 @@ startdlg_delete(GtkWidget* self)
 	gtk_widget_destroy(checkEject); checkEject = NULL;
 	gtk_widget_destroy(checkFastErase); checkFastErase = NULL;
 	gtk_widget_destroy(checkBurnFree); checkBurnFree = NULL;
-	gtk_widget_destroy(checkISOOnly); checkISOOnly = NULL;
+    gtk_widget_destroy(radioBurnDisk); radioBurnDisk = NULL;
+	gtk_widget_destroy(radioISOOnly); radioISOOnly = NULL;
 	gtk_widget_destroy(checkForce); checkForce = NULL;
 	gtk_widget_destroy(checkFinalize); checkFinalize = NULL;
 	gtk_widget_destroy(checkFastFormat); checkFastFormat = NULL;
     gtk_widget_destroy(checkJoliet); checkJoliet = NULL;
 	gtk_widget_destroy(checkRockRidge); checkRockRidge = NULL;
     gtk_widget_destroy(checkOnTheFly); checkOnTheFly = NULL;
+    gtk_widget_destroy(labelFileSystem); labelFileSystem = NULL;
 	
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
@@ -267,35 +301,24 @@ startdlg_on_ok_clicked(GtkButton * button, gpointer user_data)
 	
 	GtkWidget* optmenReadDev = glade_xml_get_widget(startdlg_xml, widget_startdlg_reader);
 	devices_save_optionmenu(GTK_OPTION_MENU(optmenReadDev), GB_READER);
-
 	GtkWidget* optmenWriteDev = glade_xml_get_widget(startdlg_xml, widget_startdlg_writer);
 	devices_save_optionmenu(GTK_OPTION_MENU(optmenWriteDev), GB_WRITER);
-
-	if(gdvdmode)
-	{
-		preferences_set_int(GB_DVDWRITE_SPEED, gtk_spin_button_get_value(
-			GTK_SPIN_BUTTON(glade_xml_get_widget(startdlg_xml, widget_startdlg_speed))));
-		preferences_set_bool(GB_FINALIZE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFinalize)));
-		preferences_set_bool(GB_FAST_FORMAT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFastFormat)));
-		preferences_set_bool(GB_FORCE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkForce)));	
-	}
-	else
-	{	
-		preferences_set_int(GB_CDWRITE_SPEED, gtk_spin_button_get_value(
-			GTK_SPIN_BUTTON(glade_xml_get_widget(startdlg_xml, widget_startdlg_speed))));
-		preferences_set_bool(GB_DUMMY, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkDummy)));	
-		preferences_set_bool(GB_BURNFREE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkBurnFree)));	
-		preferences_set_bool(GB_CREATEISOONLY, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkISOOnly)));	
-		preferences_set_bool(GB_FAST_BLANK, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFastErase)));
-		
-		GtkWidget* optmenWriteMode = glade_xml_get_widget(startdlg_xml, widget_startdlg_writemode);
-		gchar* text = gbcommon_get_option_menu_selection(GTK_OPTION_MENU(optmenWriteMode));
-		preferences_set_string(GB_WRITE_MODE, text);
-		g_free(text);
-	}	
+    preferences_set_int(gdvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED, gtk_spin_button_get_value(
+            GTK_SPIN_BUTTON(glade_xml_get_widget(startdlg_xml, widget_startdlg_speed))));
+    preferences_set_bool(GB_BURNFREE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkBurnFree)));          
+    preferences_set_bool(GB_FAST_BLANK, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFastErase)));
+    GtkWidget* optmenWriteMode = glade_xml_get_widget(startdlg_xml, widget_startdlg_writemode);
+    gchar* text = gbcommon_get_option_menu_selection(GTK_OPTION_MENU(optmenWriteMode));
+    preferences_set_string(GB_WRITE_MODE, text);
+    g_free(text);
+    preferences_set_bool(GB_FINALIZE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFinalize)));
+    preferences_set_bool(GB_FAST_FORMAT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkFastFormat)));
+    preferences_set_bool(GB_FORCE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkForce)));    
+    preferences_set_bool(GB_DUMMY, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkDummy)));    
 	preferences_set_bool(GB_EJECT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkEject)));	
 	preferences_set_bool(GB_JOLIET, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkJoliet)));
     preferences_set_bool(GB_ROCKRIDGE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkRockRidge)));
+    preferences_set_bool(GB_CREATEISOONLY, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(radioISOOnly)));  
     preferences_set_bool(GB_ONTHEFLY, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkOnTheFly)));	
 }
 

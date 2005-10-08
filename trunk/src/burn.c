@@ -186,14 +186,12 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 			gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
 			gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filesel), "gnomebaker.iso");
 		
-			if((ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)))
-			{
-				gchar* file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));		
+            ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK);
+            gchar* file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));       
+            gtk_widget_destroy(filesel);
+			if(ok)
                 ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);
-                g_free(file);
-			}
-			
-			gtk_widget_destroy(filesel);            
+            g_free(file);
             if(ok)
                 ok = burn_start_process();
 		}
@@ -311,9 +309,7 @@ burn_copy_data_cd()
 			gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filesel), "gnomebaker.iso");
 		
 			if((ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)))
-			{				
 				file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));
-			}
 			
 			gtk_widget_destroy(filesel);
 		}
@@ -327,7 +323,10 @@ burn_copy_data_cd()
 		{
 			readcd_add_copy_args(exec_cmd_new(burnargs), file);
 			if(!preferences_get_bool(GB_CREATEISOONLY))
+            {
+                mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);
 				cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
+            }
 			ok = burn_start_process();
 		}
 		
@@ -397,10 +396,31 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
 	gboolean ok = FALSE;
 
 	if(burn_show_start_dlg(create_data_dvd) == GTK_RESPONSE_OK)
-	{	
-		burnargs = exec_new(_("Burning data DVD"), _("Please wait while the data DVD is burned to disk."));
-		if(growisofs_add_args(exec_cmd_new(burnargs), datamodel))
-		    ok = burn_start_process();
+	{	            
+        if(preferences_get_bool(GB_CREATEISOONLY))
+        {
+            burnargs = exec_new(_("Creating data DVD image"), _("Please wait while the data DVD image is created."));
+            GtkWidget *filesel = gtk_file_chooser_dialog_new(
+                _("Please select an iso file to save to."), NULL, GTK_FILE_CHOOSER_ACTION_SAVE, 
+                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);            
+            gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
+            gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filesel), "gnomebaker.iso");
+        
+            ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK);
+            gchar* file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));       
+            gtk_widget_destroy(filesel);
+            if(ok)
+                ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);
+            g_free(file);
+        }
+        else
+        {
+            burnargs = exec_new(_("Burning data DVD"), _("Please wait while the data DVD is burned to disk."));
+            ok = growisofs_add_args(exec_cmd_new(burnargs), datamodel);
+        }
+
+        if(ok)
+            ok = burn_start_process();
 	}
 
 	return ok;
