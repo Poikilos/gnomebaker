@@ -226,7 +226,7 @@ cdrecord_add_common_args(ExecCmd* cdBurn)
 	
 	gchar* mode = preferences_get_string(GB_WRITE_MODE);
 	if(g_ascii_strcasecmp(mode, _("default")) != 0)
-		exec_cmd_add_arg(cdBurn, mode);
+		exec_cmd_add_arg(cdBurn, "-%s", mode);
 	g_free(mode);	
 }
 
@@ -981,6 +981,9 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
         
         if(preferences_get_bool(GB_FINALIZE))
             exec_cmd_add_arg(e, "-dvd-compat");
+            
+        if(preferences_get_bool(GB_DUMMY))
+            exec_cmd_add_arg(e, "-use-the-force-luke=dummy");
 
         exec_cmd_add_arg(e, "-gui");	
         exec_cmd_add_arg(e, "-graft-points");

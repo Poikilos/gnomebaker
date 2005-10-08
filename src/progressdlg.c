@@ -55,8 +55,10 @@ progressdlg_new(const Exec* exec, GCallback callonprematureclose)
 	currentexec = -1;
 	progdlg_xml = glade_xml_new(glade_file, widget_progdlg, NULL);
 	glade_xml_signal_autoconnect(progdlg_xml);		
+    GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg); 
 	
 	progbar = GTK_PROGRESS_BAR(glade_xml_get_widget(progdlg_xml, widget_progdlg_progbar));	
+    gtk_progress_bar_set_text(progbar, " ");
 	textview = GTK_TEXT_VIEW(glade_xml_get_widget(progdlg_xml, widget_progdlg_output));
 	textBuffer = gtk_text_view_get_buffer(textview);	
 	textviewScroll = glade_xml_get_widget(progdlg_xml, widget_progdlg_output_scroll);
@@ -70,7 +72,6 @@ progressdlg_new(const Exec* exec, GCallback callonprematureclose)
     GtkWidget* processdesc = glade_xml_get_widget(progdlg_xml, widget_progdlg_processdescription);
     gtk_label_set_text(GTK_LABEL(processdesc), exec->processdescription);
 	
-	GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg);		
     gbcommon_center_window_on_parent(widget);
     gtk_main_iteration();
 	return widget;
@@ -197,7 +198,7 @@ progressdlg_pulse_start()
 {
 	GB_LOG_FUNC
 	g_return_if_fail(progbar != NULL);
-    gtk_progress_bar_set_text(progbar, "");
+    gtk_progress_bar_set_text(progbar, " ");
 	gtk_progress_bar_set_pulse_step(progbar, 0.01);		
 	timertag = gtk_timeout_add(20, (GtkFunction)progressdlg_pulse_ontimer, NULL);	
 }
