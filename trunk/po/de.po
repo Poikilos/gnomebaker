@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-08 01:24+0100\n"
+"POT-Creation-Date: 2005-10-14 23:56+0100\n"
 "PO-Revision-Date: 2005-07-20 00:03+0100\n"
 "Last-Translator: Marco Meyerhofer <marco_meyerhofer@freesurf.ch>\n"
 "Language-Team: German <de@li.org>\n"
@@ -100,8 +100,9 @@ msgid "Burning CD image"
 msgstr "CD-Abbild brennen"
 
 #: src/burn.c:90 src/burn.c:138
-msgid "Please wait while the CD image you selected is burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the CD image you selected is burned to CD."
+msgstr "Bitte ISO-File auswählen"
 
 #: src/burn.c:113
 #, fuzzy
@@ -109,8 +110,9 @@ msgid "Burning DVD image"
 msgstr "CD-Abbild brennen"
 
 #: src/burn.c:113
-msgid "Please wait while the DVD image you selected is burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the DVD image you selected is burned to DVD."
+msgstr "Bitte ISO-File auswählen"
 
 #: src/burn.c:121
 msgid ""
@@ -148,12 +150,13 @@ msgid "Burning data CD"
 msgstr ""
 
 #: src/burn.c:200
-msgid "Please wait while the data CD is burned directly to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the data is burned directly to CD."
+msgstr "Bitte ISO-File auswählen"
 
 #: src/burn.c:213
 msgid ""
-"Please wait while the data CD image is created and then burned to disk. "
+"Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
@@ -165,7 +168,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
-"burned to disk."
+"burned to CD."
 msgstr "Legen Sie bitte die Audio-CD ins CD-Laufwerk"
 
 #: src/burn.c:304
@@ -184,9 +187,9 @@ msgid "Copying data CD"
 msgstr "Daten-CD kopieren"
 
 #: src/burn.c:318
-msgid ""
-"Please wait while the data CD image is extracted and then burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the data CD image is extracted and then burned to CD."
+msgstr "Bitte ISO-File auswählen"
 
 #: src/burn.c:348
 #, fuzzy
@@ -194,9 +197,10 @@ msgid "Copying audio CD"
 msgstr "Audio-CD kopieren"
 
 #: src/burn.c:348
+#, fuzzy
 msgid ""
-"Please wait while the audio CD tracks are extracted and then burned to disk."
-msgstr ""
+"Please wait while the audio CD tracks are extracted and then burned to CD."
+msgstr "Legen Sie bitte die Audio-CD ins CD-Laufwerk"
 
 #: src/burn.c:366
 #, fuzzy
@@ -209,12 +213,13 @@ msgstr ""
 
 #: src/burn.c:383
 #, fuzzy
-msgid "Formatting DVD-RW"
+msgid "Formatting re-writeable DVD"
 msgstr "DVDRW formatieren"
 
 #: src/burn.c:383
-msgid "Please wait while the DVD-RW is formatted."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the DVD is formatted."
+msgstr "Bitte ISO-File auswählen"
 
 #: src/burn.c:402
 #, fuzzy
@@ -231,8 +236,9 @@ msgid "Burning data DVD"
 msgstr ""
 
 #: src/burn.c:418
-msgid "Please wait while the data DVD is burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the data is burned directly to DVD."
+msgstr "Bitte ISO-File auswählen"
 
 #: src/datacd.c:184
 msgid "File or directory is too large to fit in the remaining space on the CD"
@@ -589,23 +595,22 @@ msgid "Formatting DVD"
 msgstr "DVDRW formatieren"
 
 #: src/execfunctions.c:836
-#, fuzzy
-msgid "Burning DVD"
-msgstr "<b>DVD brennen...</b>"
+msgid "Preparing to burn DVD"
+msgstr ""
 
-#: src/execfunctions.c:869
+#: src/execfunctions.c:867 src/execfunctions.c:889
 #, fuzzy
 msgid "Writing DVD"
 msgstr "DVD-R schreiben"
 
-#: src/execfunctions.c:1049
+#: src/execfunctions.c:1048
 #, fuzzy
 msgid "Reading CD image"
 msgstr "<b>CD-Image wird eingelesen...</b>"
 
 #: src/execfunctions.c:1322
 #, fuzzy, c-format
-msgid "Converting [%.32s] to cd audio"
+msgid "Converting %s to cd audio"
 msgstr "<b>Wandle Dateien in CD-Audio um...</b>"
 
 #: src/burn.h:62 gnomebaker.glade:387 gnomebaker.glade:388
@@ -1002,6 +1007,14 @@ msgid ""
 msgstr ""
 "Bitte wählen Sie den Brenner von der Liste und legen Sie ein Medium ein "
 "welches die existierende Session enthält"
+
+#, fuzzy
+#~ msgid "Formatting DVD-RW"
+#~ msgstr "DVDRW formatieren"
+
+#, fuzzy
+#~ msgid "Burning DVD"
+#~ msgstr "<b>DVD brennen...</b>"
 
 #~ msgid "Add the current directory to the CD"
 #~ msgstr "Aktuelles Verzeichnis der CD hinzufügen"

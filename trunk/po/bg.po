@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome baker 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-08 01:24+0100\n"
+"POT-Creation-Date: 2005-10-14 23:56+0100\n"
 "PO-Revision-Date: 2005-03-30 16:35+0300\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -95,8 +95,9 @@ msgid "Burning CD image"
 msgstr "Запис на изображение"
 
 #: src/burn.c:90 src/burn.c:138
-msgid "Please wait while the CD image you selected is burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the CD image you selected is burned to CD."
+msgstr "Изберете файлът-образ на CD..."
 
 #: src/burn.c:113
 #, fuzzy
@@ -104,8 +105,9 @@ msgid "Burning DVD image"
 msgstr "Запис на изображение"
 
 #: src/burn.c:113
-msgid "Please wait while the DVD image you selected is burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the DVD image you selected is burned to DVD."
+msgstr "Изберете файлът-образ на CD..."
 
 #: src/burn.c:121
 msgid ""
@@ -139,12 +141,13 @@ msgid "Burning data CD"
 msgstr ""
 
 #: src/burn.c:200
-msgid "Please wait while the data CD is burned directly to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the data is burned directly to CD."
+msgstr "Изберете файлът-образ на CD..."
 
 #: src/burn.c:213
 msgid ""
-"Please wait while the data CD image is created and then burned to disk. "
+"Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
@@ -156,7 +159,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
-"burned to disk."
+"burned to CD."
 msgstr "Изберете iso файл за записване..."
 
 #: src/burn.c:304
@@ -175,9 +178,9 @@ msgid "Copying data CD"
 msgstr "Копиране на CD с данни"
 
 #: src/burn.c:318
-msgid ""
-"Please wait while the data CD image is extracted and then burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the data CD image is extracted and then burned to CD."
+msgstr "Изберете файлът-образ на CD..."
 
 #: src/burn.c:348
 #, fuzzy
@@ -185,9 +188,10 @@ msgid "Copying audio CD"
 msgstr "Копиране на аудио CD"
 
 #: src/burn.c:348
+#, fuzzy
 msgid ""
-"Please wait while the audio CD tracks are extracted and then burned to disk."
-msgstr ""
+"Please wait while the audio CD tracks are extracted and then burned to CD."
+msgstr "Изберете iso файл за записване..."
 
 #: src/burn.c:366
 #, fuzzy
@@ -200,12 +204,13 @@ msgstr ""
 
 #: src/burn.c:383
 #, fuzzy
-msgid "Formatting DVD-RW"
+msgid "Formatting re-writeable DVD"
 msgstr "Форматиране на DVDRW"
 
 #: src/burn.c:383
-msgid "Please wait while the DVD-RW is formatted."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the DVD is formatted."
+msgstr "Изберете файлът-образ на CD..."
 
 #: src/burn.c:402
 #, fuzzy
@@ -222,8 +227,9 @@ msgid "Burning data DVD"
 msgstr ""
 
 #: src/burn.c:418
-msgid "Please wait while the data DVD is burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the data is burned directly to DVD."
+msgstr "Изберете файлът-образ на CD..."
 
 #: src/datacd.c:184
 msgid "File or directory is too large to fit in the remaining space on the CD"
@@ -573,23 +579,22 @@ msgid "Formatting DVD"
 msgstr "Форматиране на DVDRW"
 
 #: src/execfunctions.c:836
-#, fuzzy
-msgid "Burning DVD"
-msgstr "<b>Запис на DVD...</b>"
+msgid "Preparing to burn DVD"
+msgstr ""
 
-#: src/execfunctions.c:869
+#: src/execfunctions.c:867 src/execfunctions.c:889
 #, fuzzy
 msgid "Writing DVD"
 msgstr "Запис на DVD-R"
 
-#: src/execfunctions.c:1049
+#: src/execfunctions.c:1048
 #, fuzzy
 msgid "Reading CD image"
 msgstr "<b>Четене на изображение на CD...</b>"
 
 #: src/execfunctions.c:1322
 #, fuzzy, c-format
-msgid "Converting [%.32s] to cd audio"
+msgid "Converting %s to cd audio"
 msgstr "<b>Конвертиране на wav в аудио cd...</b>"
 
 #: src/burn.h:62 gnomebaker.glade:387 gnomebaker.glade:388
@@ -984,6 +989,14 @@ msgid ""
 "<b>Please select the writing device from the list below and insert the disk "
 "containing the existing session.</b>"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Formatting DVD-RW"
+#~ msgstr "Форматиране на DVDRW"
+
+#, fuzzy
+#~ msgid "Burning DVD"
+#~ msgstr "<b>Запис на DVD...</b>"
 
 #~ msgid "Add the current directory to the CD"
 #~ msgstr "Добавяне на текущата папка към CD-то"
