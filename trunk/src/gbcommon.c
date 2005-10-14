@@ -282,7 +282,7 @@ gbcommon_launch_app_for_file(const gchar* file)
 		if(app != NULL)
 		{			
 			gchar* uri = gnome_vfs_get_uri_from_local_path(file);
-			GList* uris = g_list_append(uris, uri);
+			GList* uris = g_list_append(NULL, uri);
 			gnome_vfs_mime_application_launch(app, uris);
 			g_free(uri);
 			g_list_free(uris);
