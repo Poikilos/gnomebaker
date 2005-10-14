@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-14 23:56+0100\n"
-"PO-Revision-Date: 2005-08-10 22:22+0100\n"
+"PO-Revision-Date: 2005-08-27 17:34+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,14 +37,12 @@ msgid "_Open"
 msgstr "_Ouvrir"
 
 #: src/audiocd.c:246
-#, fuzzy
 msgid "Move selected _up"
-msgstr "Retirer sélectionné(s)"
+msgstr "Déplacer la sélection vers le _haut"
 
 #: src/audiocd.c:248
-#, fuzzy
 msgid "Move selected _down"
-msgstr "Retirer sélectionné(s)"
+msgstr "Déplacer la sélection vers le _bas"
 
 #: src/audiocd.c:251 src/datacd.c:458
 msgid "_Remove selected"
@@ -100,9 +98,8 @@ msgid "Burning CD image"
 msgstr "Graver une image CD"
 
 #: src/burn.c:90 src/burn.c:138
-#, fuzzy
 msgid "Please wait while the CD image you selected is burned to CD."
-msgstr "Veuillez sélectionner un fichier ISO..."
+msgstr ""
 
 #: src/burn.c:113
 #, fuzzy
@@ -110,9 +107,8 @@ msgid "Burning DVD image"
 msgstr "Graver une image DVD"
 
 #: src/burn.c:113
-#, fuzzy
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr "Veuillez sélectionner un fichier ISO..."
+msgstr ""
 
 #: src/burn.c:121
 msgid ""
@@ -150,9 +146,8 @@ msgid "Burning data CD"
 msgstr ""
 
 #: src/burn.c:200
-#, fuzzy
 msgid "Please wait while the data is burned directly to CD."
-msgstr "Veuillez sélectionner un fichier ISO..."
+msgstr ""
 
 #: src/burn.c:213
 msgid ""
@@ -165,11 +160,10 @@ msgid "Burning audio CD"
 msgstr ""
 
 #: src/burn.c:238
-#, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
-msgstr "Veuillez insérer le CD audio dans le lecteur"
+msgstr ""
 
 #: src/burn.c:304
 #, fuzzy
@@ -187,9 +181,8 @@ msgid "Copying data CD"
 msgstr "Copier un CD de données"
 
 #: src/burn.c:318
-#, fuzzy
 msgid "Please wait while the data CD image is extracted and then burned to CD."
-msgstr "Veuillez sélectionner un fichier ISO..."
+msgstr ""
 
 #: src/burn.c:348
 #, fuzzy
@@ -197,29 +190,26 @@ msgid "Copying audio CD"
 msgstr "Copier un CD audio"
 
 #: src/burn.c:348
-#, fuzzy
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
-msgstr "Veuillez insérer le CD audio dans le lecteur"
+msgstr ""
 
 #: src/burn.c:366
 #, fuzzy
 msgid "Blanking CD"
-msgstr "Effacer un CDRW"
+msgstr "Gravure du CD"
 
 #: src/burn.c:366
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
 #: src/burn.c:383
-#, fuzzy
 msgid "Formatting re-writeable DVD"
-msgstr "Effacer un DVDRW"
+msgstr ""
 
 #: src/burn.c:383
-#, fuzzy
 msgid "Please wait while the DVD is formatted."
-msgstr "Veuillez sélectionner un fichier ISO..."
+msgstr ""
 
 #: src/burn.c:402
 #, fuzzy
@@ -236,9 +226,8 @@ msgid "Burning data DVD"
 msgstr ""
 
 #: src/burn.c:418
-#, fuzzy
 msgid "Please wait while the data is burned directly to DVD."
-msgstr "Veuillez sélectionner un fichier ISO..."
+msgstr ""
 
 #: src/datacd.c:184
 msgid "File or directory is too large to fit in the remaining space on the CD"
@@ -248,7 +237,7 @@ msgstr ""
 
 #: src/datacd.c:454
 msgid "_Edit name"
-msgstr ""
+msgstr "_Modifier le nom"
 
 #: src/datacd.c:460
 msgid "Clear"
@@ -335,16 +324,15 @@ msgstr "Système de fichiers"
 
 #: src/filebrowser.c:73
 msgid "Home"
-msgstr ""
+msgstr "Dossier personnel"
 
 #: src/filebrowser.c:74
 msgid "(empty)"
-msgstr ""
+msgstr "(vide)"
 
 #: src/filebrowser.c:75
-#, fuzzy
 msgid "Folder"
-msgstr "Mode"
+msgstr "Dossier"
 
 #: src/filebrowser.c:574
 msgid "_Add directory"
@@ -410,7 +398,7 @@ msgstr "Fichiers image CD"
 #: src/gnomebaker.c:278
 #, fuzzy
 msgid "Please select a CD image file."
-msgstr "Veuillez sélectionner un fichier iso..."
+msgstr "Veuillez sélectionner un fichier ISO..."
 
 #: src/gnomebaker.c:301
 #, fuzzy
@@ -420,7 +408,7 @@ msgstr "Fichiers image CD"
 #: src/gnomebaker.c:302
 #, fuzzy
 msgid "Please select a DVD image file."
-msgstr "Veuillez sélectionner un fichier iso..."
+msgstr "Veuillez sélectionner un fichier ISO..."
 
 #: src/gnomebaker.c:371 gnomebaker.glade:11
 msgid "GnomeBaker"
@@ -438,7 +426,7 @@ msgstr "translator_credits"
 #: src/gnomebaker.c:437
 #, fuzzy
 msgid "Please select files to add to the disk."
-msgstr "Veuillez sélectionner un fichier iso pour sauvegarder ..."
+msgstr "Veuillez sélectionner le(s) fichier(s) a ajouter au disque..."
 
 #: src/gnomebaker.c:697
 #, fuzzy
@@ -555,9 +543,8 @@ msgid "default"
 msgstr "par défaut"
 
 #: src/execfunctions.c:377
-#, fuzzy
 msgid "Preparing to extract audio tracks"
-msgstr "<b>Extraction des pistes audio...</b>"
+msgstr ""
 
 #: src/execfunctions.c:388
 msgid ""
@@ -612,7 +599,7 @@ msgstr "<b>Lecture de l'image CD...</b>"
 #: src/execfunctions.c:1322
 #, fuzzy, c-format
 msgid "Converting %s to cd audio"
-msgstr "<b>Conversion des fichiers en CD audio...</b>"
+msgstr "<b>Conversion de %s vers le CD audio...</b>"
 
 #: src/burn.h:62 gnomebaker.glade:387 gnomebaker.glade:388
 msgid "Blank CDRW"
@@ -744,11 +731,11 @@ msgstr "Importer"
 
 #: gnomebaker.glade:792
 msgid "Move audio tracks up"
-msgstr ""
+msgstr "Déplacer les pistes audio vers le haut"
 
 #: gnomebaker.glade:809
 msgid "Move audio tracks down"
-msgstr ""
+msgstr "Déplacer les pistes audio vers le bas"
 
 #: gnomebaker.glade:889 gnomebaker.glade:1277
 msgid "0%"
@@ -863,7 +850,7 @@ msgstr "<b>Options</b>"
 
 #: gnomebaker.glade:2039
 msgid "Ask on quit"
-msgstr ""
+msgstr "Confirmer avant de quitter"
 
 #: gnomebaker.glade:2061
 msgid "Play sound when burning is complete"
@@ -1009,22 +996,15 @@ msgstr ""
 "<b>Choisissez le périphérique de gravure dans la liste ci-dessous et insérez "
 "le disque contenant la session existante.</b>"
 
-#, fuzzy
-#~ msgid "Formatting DVD-RW"
-#~ msgstr "Effacer un DVDRW"
+#~ msgid "The plugin to handle a file of type %s is not installed."
+#~ msgstr ""
+#~ "L'extension pour prendre en charge les fichiers de type %s n'est pas "
+#~ "installée."
 
-#, fuzzy
-#~ msgid "Burning DVD"
-#~ msgstr "<b>Gravure du  DVD...</b>"
-
-#~ msgid "Add the current directory to the CD"
-#~ msgstr "Ajoute le dossier courant au CD"
-
-#~ msgid "Add directory"
-#~ msgstr "Ajouter un dossier"
-
-#~ msgid "Writing lead-out"
-#~ msgstr "Finalisation de la gravure"
+#~ msgid "There is no known plugin to handle a file of type %s."
+#~ msgstr ""
+#~ "Il n'existe pas d'extension capable de prendre en charge les fichiers de "
+#~ "type %s."
 
 #~ msgid "Completed"
 #~ msgstr "Terminé"
@@ -1047,31 +1027,32 @@ msgstr ""
 #~ msgid "Fixating"
 #~ msgstr "Fixation en cours"
 
+#~ msgid "Please insert the audio CD into the CD reader"
+#~ msgstr "Veuillez insérer le CD audio dans le lecteur"
+
 #~ msgid "<b>Formatting DVD...</b>"
 #~ msgstr "<b>Formatage du  DVD...</b>"
 
 #~ msgid "Please insert a rewritable DVD into the DVD writer"
 #~ msgstr "Veuillez insérer un DVD réinscriptible dans le graveur de DVD"
 
+#~ msgid "<b>Burning DVD...</b>"
+#~ msgstr "<b>Gravure du  DVD...</b>"
+
 #~ msgid "Please insert a writable DVD into the DVD writer"
 #~ msgstr "Veuillez insérer un DVD inscriptible dans le graveur de DVD"
+
+#~ msgid "Add the current directory to the CD"
+#~ msgstr "Ajoute le dossier courant au CD"
+
+#~ msgid "Add directory"
+#~ msgstr "Ajouter un dossier"
 
 #~ msgid "<b>Burning</b>"
 #~ msgstr "<b>Gravure</b>"
 
-#, fuzzy
 #~ msgid "<b>GnomeBaker</b>"
-#~ msgstr "GnomeBaker"
-
-#~ msgid "The plugin to handle a file of type %s is not installed."
-#~ msgstr ""
-#~ "L'extension pour prendre en charge les fichiers de type %s n'est pas "
-#~ "installée."
-
-#~ msgid "There is no known plugin to handle a file of type %s."
-#~ msgstr ""
-#~ "Il n'existe pas d'extension capable de prendre en charge les fichiers de "
-#~ "type %s."
+#~ msgstr "<b>GnomeBaker</b>"
 
 #~ msgid "File %s was not opened \n"
 #~ msgstr "Le fichier %s n'était pas ouvert \n"
