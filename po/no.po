@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-08 01:24+0100\n"
+"POT-Creation-Date: 2005-10-14 23:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jann - Ove Risvik <jann.ove@gmail.com> \n"
 "Language-Team: DunnoMIME-Version: 1.0\n"
@@ -100,8 +100,9 @@ msgid "Burning CD image"
 msgstr "Brenn CD Image"
 
 #: src/burn.c:90 src/burn.c:138
-msgid "Please wait while the CD image you selected is burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the CD image you selected is burned to CD."
+msgstr "Venligst velg en isofil"
 
 #: src/burn.c:113
 #, fuzzy
@@ -109,8 +110,9 @@ msgid "Burning DVD image"
 msgstr "Brenn CD Image"
 
 #: src/burn.c:113
-msgid "Please wait while the DVD image you selected is burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the DVD image you selected is burned to DVD."
+msgstr "Venligst velg en isofil"
 
 #: src/burn.c:121
 #, fuzzy
@@ -149,12 +151,13 @@ msgid "Burning data CD"
 msgstr ""
 
 #: src/burn.c:200
-msgid "Please wait while the data CD is burned directly to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the data is burned directly to CD."
+msgstr "Venligst velg en isofil"
 
 #: src/burn.c:213
 msgid ""
-"Please wait while the data CD image is created and then burned to disk. "
+"Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
@@ -166,7 +169,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
-"burned to disk."
+"burned to CD."
 msgstr "Venligst sett inn lyd-cd i cd-leseren"
 
 #: src/burn.c:304
@@ -185,9 +188,9 @@ msgid "Copying data CD"
 msgstr "Kopier Data CD"
 
 #: src/burn.c:318
-msgid ""
-"Please wait while the data CD image is extracted and then burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the data CD image is extracted and then burned to CD."
+msgstr "Venligst velg en isofil"
 
 #: src/burn.c:348
 #, fuzzy
@@ -195,9 +198,10 @@ msgid "Copying audio CD"
 msgstr "Kopier Audio CD"
 
 #: src/burn.c:348
+#, fuzzy
 msgid ""
-"Please wait while the audio CD tracks are extracted and then burned to disk."
-msgstr ""
+"Please wait while the audio CD tracks are extracted and then burned to CD."
+msgstr "Venligst sett inn lyd-cd i cd-leseren"
 
 #: src/burn.c:366
 #, fuzzy
@@ -210,12 +214,13 @@ msgstr ""
 
 #: src/burn.c:383
 #, fuzzy
-msgid "Formatting DVD-RW"
+msgid "Formatting re-writeable DVD"
 msgstr "Formater DVD+RW"
 
 #: src/burn.c:383
-msgid "Please wait while the DVD-RW is formatted."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the DVD is formatted."
+msgstr "Venligst velg en isofil"
 
 #: src/burn.c:402
 #, fuzzy
@@ -232,8 +237,9 @@ msgid "Burning data DVD"
 msgstr ""
 
 #: src/burn.c:418
-msgid "Please wait while the data DVD is burned to disk."
-msgstr ""
+#, fuzzy
+msgid "Please wait while the data is burned directly to DVD."
+msgstr "Venligst velg en isofil"
 
 #: src/datacd.c:184
 msgid "File or directory is too large to fit in the remaining space on the CD"
@@ -632,23 +638,22 @@ msgid "Formatting DVD"
 msgstr "Formater DVD+RW"
 
 #: src/execfunctions.c:836
-#, fuzzy
-msgid "Burning DVD"
-msgstr "<b>Brenner DVD...</b>"
+msgid "Preparing to burn DVD"
+msgstr ""
 
-#: src/execfunctions.c:869
+#: src/execfunctions.c:867 src/execfunctions.c:889
 #, fuzzy
 msgid "Writing DVD"
 msgstr "Brenn DVD-R"
 
-#: src/execfunctions.c:1049
+#: src/execfunctions.c:1048
 #, fuzzy
 msgid "Reading CD image"
 msgstr "<b>Leser CD image...</b>"
 
 #: src/execfunctions.c:1322
 #, fuzzy, c-format
-msgid "Converting [%.32s] to cd audio"
+msgid "Converting %s to cd audio"
 msgstr "<b>Konverterer wav til cd-lydspor...</b>"
 
 #: src/burn.h:62 gnomebaker.glade:387 gnomebaker.glade:388
@@ -1050,6 +1055,14 @@ msgid ""
 msgstr ""
 "Venligst vel brenner fra listen nedenfor og sett inn CDn som inneholder den "
 "eksisterende sesjonen</b>"
+
+#, fuzzy
+#~ msgid "Formatting DVD-RW"
+#~ msgstr "Formater DVD+RW"
+
+#, fuzzy
+#~ msgid "Burning DVD"
+#~ msgstr "<b>Brenner DVD...</b>"
 
 #~ msgid "Add the current directory to the CD"
 #~ msgstr "Legg til gjeldende mappe til CD"

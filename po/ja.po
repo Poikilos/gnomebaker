@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-08 01:24+0100\n"
+"POT-Creation-Date: 2005-10-14 23:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -93,7 +93,7 @@ msgid "Burning CD image"
 msgstr ""
 
 #: src/burn.c:90 src/burn.c:138
-msgid "Please wait while the CD image you selected is burned to disk."
+msgid "Please wait while the CD image you selected is burned to CD."
 msgstr ""
 
 #: src/burn.c:113
@@ -101,7 +101,7 @@ msgid "Burning DVD image"
 msgstr ""
 
 #: src/burn.c:113
-msgid "Please wait while the DVD image you selected is burned to disk."
+msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr ""
 
 #: src/burn.c:121
@@ -134,12 +134,12 @@ msgid "Burning data CD"
 msgstr ""
 
 #: src/burn.c:200
-msgid "Please wait while the data CD is burned directly to disk."
+msgid "Please wait while the data is burned directly to CD."
 msgstr ""
 
 #: src/burn.c:213
 msgid ""
-"Please wait while the data CD image is created and then burned to disk. "
+"Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
@@ -150,7 +150,7 @@ msgstr ""
 #: src/burn.c:238
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
-"burned to disk."
+"burned to CD."
 msgstr ""
 
 #: src/burn.c:304
@@ -166,8 +166,7 @@ msgid "Copying data CD"
 msgstr ""
 
 #: src/burn.c:318
-msgid ""
-"Please wait while the data CD image is extracted and then burned to disk."
+msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 
 #: src/burn.c:348
@@ -176,7 +175,7 @@ msgstr ""
 
 #: src/burn.c:348
 msgid ""
-"Please wait while the audio CD tracks are extracted and then burned to disk."
+"Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr ""
 
 #: src/burn.c:366
@@ -188,11 +187,11 @@ msgid "Please wait while the CD is blanked."
 msgstr ""
 
 #: src/burn.c:383
-msgid "Formatting DVD-RW"
+msgid "Formatting re-writeable DVD"
 msgstr ""
 
 #: src/burn.c:383
-msgid "Please wait while the DVD-RW is formatted."
+msgid "Please wait while the DVD is formatted."
 msgstr ""
 
 #: src/burn.c:402
@@ -209,7 +208,7 @@ msgid "Burning data DVD"
 msgstr ""
 
 #: src/burn.c:418
-msgid "Please wait while the data DVD is burned to disk."
+msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
 
 #: src/datacd.c:184
@@ -545,20 +544,20 @@ msgid "Formatting DVD"
 msgstr ""
 
 #: src/execfunctions.c:836
-msgid "Burning DVD"
+msgid "Preparing to burn DVD"
 msgstr ""
 
-#: src/execfunctions.c:869
+#: src/execfunctions.c:867 src/execfunctions.c:889
 msgid "Writing DVD"
 msgstr ""
 
-#: src/execfunctions.c:1049
+#: src/execfunctions.c:1048
 msgid "Reading CD image"
 msgstr ""
 
 #: src/execfunctions.c:1322
 #, c-format
-msgid "Converting [%.32s] to cd audio"
+msgid "Converting %s to cd audio"
 msgstr ""
 
 #: src/burn.h:62 gnomebaker.glade:387 gnomebaker.glade:388
