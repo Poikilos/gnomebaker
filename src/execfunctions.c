@@ -833,7 +833,7 @@ growisofs_pre_proc(void* ex,void* buffer)
 	GB_LOG_FUNC	
 	g_return_if_fail(ex != NULL);
 	
-	progressdlg_set_status(_("Burning DVD"));
+	progressdlg_set_status(_("Preparing to burn DVD"));
 	progressdlg_increment_exec_number();
 	if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
 		exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
@@ -846,9 +846,7 @@ growisofs_post_proc(void* ex,void* buffer)
 {
 	GB_LOG_FUNC
 	if(preferences_get_bool(GB_EJECT))
-	{
 		devices_eject_disk(GB_WRITER);
-	}
 }
 
 
@@ -868,7 +866,7 @@ growisofs_read_proc(void* ex, void* buffer)
 			progressdlg_set_fraction((gfloat)progress / 100.0);
         progressdlg_set_status(_("Writing DVD"));
 	}
-	execfunctions_find_line_set_status(buf, "restarting DVD+RW format", '.');
+	execfunctions_find_line_set_status(buf, "restarting DVD", '.');
     execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
 	progressdlg_append_output(buf);
 }
@@ -888,8 +886,9 @@ growisofs_read_iso_proc(void* ex, void* buffer)
 		gint progress = 0;
 		if(sscanf(buf,"%*d/%*d ( %d.%*d%%)",&progress) >0)
 			progressdlg_set_fraction((gfloat)progress / 100.0);
+        progressdlg_set_status(_("Writing DVD"));
 	}
-	
+	execfunctions_find_line_set_status(buf, "restarting DVD", '.');
     execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
 	progressdlg_append_output(buf);
 }
@@ -1197,6 +1196,7 @@ cdrdao_write_image_read_proc(void* ex, void* buffer)
         if(sscanf(wrote, "Wrote %d of %d", &current, &total) == 2)
             progressdlg_set_fraction((gfloat)current/(gfloat)total);
     }
+    execfunctions_find_line_set_status(output, "Writing track", '(');
     progressdlg_append_output(output);
 }
 

@@ -87,7 +87,7 @@ burn_cd_iso(const gchar* file)
 
 	if(burn_show_start_dlg(burn_cd_image) == GTK_RESPONSE_OK)
 	{
-		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to disk."));
+		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
         mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);
 		cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
 		ok = burn_start_process();
@@ -110,7 +110,7 @@ burn_dvd_iso(const gchar* file)
     {
         if(burn_show_start_dlg(burn_dvd_image) == GTK_RESPONSE_OK)
         {
-            burnargs = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to disk."));
+            burnargs = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to DVD."));
             growisofs_add_iso_args(exec_cmd_new(burnargs),file);
             ok = burn_start_process();
         }
@@ -135,7 +135,7 @@ burn_cue_or_toc(const gchar* file)
 
 	if(burn_show_start_dlg(burn_cd_image) == GTK_RESPONSE_OK)
 	{
-		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to disk."));
+		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
 		cdrdao_add_image_args(exec_cmd_new(burnargs), file);
 		ok = burn_start_process(FALSE);
 	}
@@ -197,7 +197,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 		}
         else if(preferences_get_bool(GB_ONTHEFLY))
         {
-            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data CD is burned directly to disk."));
+            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data is burned directly to CD."));
             mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
             ExecCmd* cmd = exec_cmd_new(burnargs);
             cmd->piped = TRUE;
@@ -210,7 +210,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
         }
 		else
 		{
-            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data CD image is created and then burned to disk. Depending on the speed of your CD writer, this may take some time. "));
+            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data disk image is created and then burned to CD. Depending on the speed of your CD writer, this may take some time. "));
             mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
 			gchar* file = preferences_get_create_data_cd_image();            
             ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);			
@@ -235,7 +235,7 @@ burn_create_audio_cd(GtkTreeModel* model)
     
     if(burn_show_start_dlg(create_audio_cd) == GTK_RESPONSE_OK)
     {       
-        burnargs = exec_new(_("Burning audio CD"), _("Please wait while the selected tracks are converted to CD audio and then burned to disk."));
+        burnargs = exec_new(_("Burning audio CD"), _("Please wait while the selected tracks are converted to CD audio and then burned to CD."));
         const gboolean onthefly = FALSE;/*preferences_get_bool(GB_ONTHEFLY);*/
         
         GtkTreeIter iter;
@@ -315,7 +315,7 @@ burn_copy_data_cd()
 		}
 		else
 		{
-            burnargs = exec_new(_("Copying data CD"), _("Please wait while the data CD image is extracted and then burned to disk."));
+            burnargs = exec_new(_("Copying data CD"), _("Please wait while the data CD image is extracted and then burned to CD."));
 			file = preferences_get_copy_data_cd_image();			
 		}
 
@@ -345,7 +345,7 @@ burn_copy_audio_cd()
 
 	if(burn_show_start_dlg(copy_audio_cd) == GTK_RESPONSE_OK)
 	{
-		burnargs = exec_new(_("Copying audio CD"), _("Please wait while the audio CD tracks are extracted and then burned to disk."));
+		burnargs = exec_new(_("Copying audio CD"), _("Please wait while the audio CD tracks are extracted and then burned to CD."));
 		cdda2wav_add_copy_args(exec_cmd_new(burnargs));
 		cdrecord_add_audio_args(exec_cmd_new(burnargs));
 		ok = burn_start_process();
@@ -380,7 +380,7 @@ burn_format_dvdrw()
 	
 	if(burn_show_start_dlg(format_dvdrw) == GTK_RESPONSE_OK)
 	{		
-		burnargs = exec_new(_("Formatting DVD-RW"), _("Please wait while the DVD-RW is formatted."));
+		burnargs = exec_new(_("Formatting re-writeable DVD"), _("Please wait while the DVD is formatted."));
 		dvdformat_add_args(exec_cmd_new(burnargs));
 		ok = burn_start_process();
 	}
@@ -415,7 +415,7 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
         }
         else
         {
-            burnargs = exec_new(_("Burning data DVD"), _("Please wait while the data DVD is burned to disk."));
+            burnargs = exec_new(_("Burning data DVD"), _("Please wait while the data is burned directly to DVD."));
             ok = growisofs_add_args(exec_cmd_new(burnargs), datamodel);
         }
 
