@@ -47,5 +47,7 @@ gboolean devices_mount_device(const gchar* devicekey, gchar** mountpoint);
 void devices_save_optionmenu(GtkOptionMenu* optmen, const gchar* devicekey);
 gboolean devices_eject_disk(const gchar* devicekey);
 gint devices_prompt_for_disk(GtkWindow* parent, const gchar* devicekey);
+gint devices_prompt_for_blank_disk(GtkWindow* parent, const gchar* devicekey);
+gboolean devices_reader_is_also_writer();
 
 #endif	/*_DEVICES_H_*/

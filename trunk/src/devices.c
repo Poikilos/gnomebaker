@@ -791,3 +791,17 @@ devices_prompt_for_disk(GtkWindow* parent, const gchar* devicekey)
 }
 
 
+gboolean 
+devices_reader_is_also_writer()
+{
+    GB_LOG_FUNC    
+    gchar* reader = devices_get_device_config(GB_READER, GB_DEVICE_NODE_LABEL);
+    gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_NODE_LABEL);
+    gboolean ret = (g_ascii_strcasecmp(reader, writer) == 0);
+    g_free(reader);
+    g_free(writer);
+    return ret;
+}
+
+
+
