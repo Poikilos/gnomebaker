@@ -71,6 +71,18 @@ execfunctions_find_line_set_status(const gchar* buffer, const gchar* text, const
 }
 
 
+void
+execfunctions_prompt_for_disk_post_proc(void* ex, void* buffer)
+{
+    GB_LOG_FUNC   
+    if(((ExecCmd*)ex)->exitCode == 0 && devices_reader_is_also_writer())
+    {
+        devices_eject_disk(GB_WRITER);
+        devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER);
+    }
+}
+
+
 /*******************************************************************************
  * CDRECORD
  ******************************************************************************/
@@ -482,6 +494,7 @@ cdda2wav_add_copy_args(ExecCmd* e)
 
 	e->preProc = cdda2wav_pre_proc;
 	e->readProc = cdda2wav_read_proc;
+    e->postProc = execfunctions_prompt_for_disk_post_proc;
 }
 
 
@@ -1102,20 +1115,6 @@ readcd_read_proc(void* ex, void* buffer)
 	}	
 }
 
-/*
-static void
-readcd_post_proc(void* ex, void* buffer)
-{
-	GB_LOG_FUNC
-	g_return_if_fail(ex != NULL);
-	ExecCmd* e =(ExecCmd*)ex;
-	if(e->exitCode == 0)
-	{
-		progressdlg_set_fraction(1.0);
-		progressdlg_set_text("100%");
-	}
-}*/
-
 
 /*
  *  Populates the information required to make an iso from an existing data cd
@@ -1140,7 +1139,7 @@ readcd_add_copy_args(ExecCmd* e, const gchar* iso)
 
 	e->preProc = readcd_pre_proc;	
 	e->readProc = readcd_read_proc;
-	/*e->postProc = readcd_post_proc;*/
+    e->postProc = execfunctions_prompt_for_disk_post_proc;
 }
 
 /*******************************************************************************

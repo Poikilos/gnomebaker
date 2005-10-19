@@ -21,6 +21,7 @@
 
 #include "datacd.h"
 #include "gnomebaker.h"
+#include <sys/types.h>
 #include <sys/stat.h>
 #include "filebrowser.h"
 #include "gbcommon.h"
