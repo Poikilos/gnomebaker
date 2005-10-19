@@ -672,7 +672,7 @@ gboolean
 audiocd_import_playlist(const gchar* playlist)
 {
     GB_LOG_FUNC
-    g_return_if_fail(playlist != NULL);
+    g_return_val_if_fail(playlist != NULL, FALSE);
     
     gboolean ret = FALSE;
     gchar* mime = gbcommon_get_mime_type(playlist);
