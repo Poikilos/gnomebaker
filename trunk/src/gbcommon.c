@@ -61,6 +61,8 @@ void
 gbcommon_start_busy_cursor1(GladeXML* xml, const gchar* windowname)
 {
 	GB_LOG_FUNC
+    g_return_if_fail(xml != NULL);
+    g_return_if_fail(windowname != NULL);    
 	GtkWidget* dlg = glade_xml_get_widget(xml, windowname);
 	g_return_if_fail(dlg != NULL);
 	gbcommon_start_busy_cursor(dlg);
@@ -84,6 +86,8 @@ void
 gbcommon_end_busy_cursor1(GladeXML* xml, const gchar* windowname)
 {
 	GB_LOG_FUNC
+    g_return_if_fail(xml != NULL);
+    g_return_if_fail(windowname != NULL);        
 	GtkWidget* dlg = glade_xml_get_widget(xml, windowname);
 	g_return_if_fail(dlg != NULL);
 	gbcommon_end_busy_cursor(dlg);
@@ -94,8 +98,9 @@ guint64
 gbcommon_calc_dir_size(const gchar* dirname)
 {
 	/*GB_LOG_FUNC*/
-	guint64 size = 0;
-	
+    g_return_if_fail(dirname != NULL);
+    
+	guint64 size = 0;	
 	GDir *dir = g_dir_open(dirname, 0, NULL);
 	if(dir != NULL)
 	{
@@ -245,6 +250,8 @@ GdkPixbuf*
 gbcommon_get_icon_for_mime(const gchar* mime, gint size)
 {
 	GB_LOG_FUNC	
+    g_return_val_if_fail(mime != NULL, NULL);
+    
 	GtkIconTheme* theme = gtk_icon_theme_get_default();
 	g_return_val_if_fail(theme != NULL, NULL);
 
@@ -263,6 +270,7 @@ GdkPixbuf*
 gbcommon_get_icon_for_name(const gchar* icon, gint size)
 {
 	GB_LOG_FUNC
+    g_return_val_if_fail(icon != NULL, NULL);
 	GtkIconTheme* theme = gtk_icon_theme_get_default();
 	g_return_val_if_fail(theme != NULL, NULL);
 	return gtk_icon_theme_load_icon(theme, icon, 16, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
