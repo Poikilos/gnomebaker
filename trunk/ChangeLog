@@ -1,3 +1,9 @@
+Version 0.5.1
+
+* TODO Fix copying and disk detection when the cd reader is also the writer.
+* Attempt to enable large file support (>2GB) using AC_SYS_LARGEFILE.
+* Apply patch #1329223 Escaping song names
+
 Version 0.5.0
 
 * We don't need libvorbis anymore as we use gstreamer to get tag info.
