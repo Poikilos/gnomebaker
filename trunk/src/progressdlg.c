@@ -64,7 +64,7 @@ progressdlg_new(const Exec* exec, GCallback callonprematureclose)
 	textviewScroll = glade_xml_get_widget(progdlg_xml, widget_progdlg_output_scroll);
     
     GtkWidget* processtitle = glade_xml_get_widget(progdlg_xml, widget_progdlg_processtitle);      
-    gchar* markup = g_strdup_printf("<b><big>%s</big></b>", exec->processtitle);
+    gchar* markup = g_markup_printf_escaped("<b><big>%s</big></b>", exec->processtitle);
     gtk_label_set_text(GTK_LABEL(processtitle), markup);
     gtk_label_set_use_markup(GTK_LABEL(processtitle), TRUE);
     g_free(markup);
@@ -156,7 +156,7 @@ progressdlg_set_status(const gchar* status)
 	
 	GtkWidget* statuslabel = glade_xml_get_widget(progdlg_xml, "label297");
 	g_return_if_fail(statuslabel != NULL);
-    gchar* markup = g_strdup_printf("<i>%s</i>", status);	
+    gchar* markup = g_markup_printf_escaped("<i>%s</i>", status);	
 	gtk_label_set_text(GTK_LABEL(statuslabel), markup);
 	gtk_label_set_use_markup(GTK_LABEL(statuslabel), TRUE);	
     g_free(markup);
