@@ -30,7 +30,7 @@ static const gchar* const widget_progdlg = "progDlg";
 static const gchar* const widget_progdlg_progbar = "progressbar6";
 static const gchar* const widget_progdlg_output = "textview1";
 static const gchar* const widget_progdlg_output_scroll = "scrolledwindow17";
-static const gchar* const widget_progdlg_toggleoutputlabel = "label249";
+static const gchar* const widget_progdlg_toggleoutputlabel = "label297";
 static const gchar* const widget_progdlg_processtitle = "label295";
 static const gchar* const widget_progdlg_processdescription = "label296";
 
@@ -39,6 +39,7 @@ static GtkProgressBar* progbar = NULL;
 static GtkTextView* textview = NULL;
 static GtkTextBuffer* textBuffer = NULL;
 static GtkWidget* textviewScroll = NULL;
+static GtkLabel* statuslabel = NULL;
 
 static gint timertag = 0;
 static gint numberofexecs = 0;
@@ -62,6 +63,7 @@ progressdlg_new(const Exec* exec, GCallback callonprematureclose)
 	textview = GTK_TEXT_VIEW(glade_xml_get_widget(progdlg_xml, widget_progdlg_output));
 	textBuffer = gtk_text_view_get_buffer(textview);	
 	textviewScroll = glade_xml_get_widget(progdlg_xml, widget_progdlg_output_scroll);
+    statuslabel = GTK_LABEL(glade_xml_get_widget(progdlg_xml, widget_progdlg_toggleoutputlabel));
     
     GtkWidget* processtitle = glade_xml_get_widget(progdlg_xml, widget_progdlg_processtitle);      
     gchar* markup = g_markup_printf_escaped("<b><big>%s</big></b>", exec->processtitle);
@@ -85,19 +87,16 @@ void
 progressdlg_delete(GtkWidget* self)
 {
 	GB_LOG_FUNC
-	if(self != NULL && GTK_IS_DIALOG(self))
-	{
-		gtk_widget_hide(self);
-		gtk_widget_destroy(self);
-	}
-	
-	g_free(progdlg_xml);
-	
+    g_return_if_fail(self != NULL);    
+	gtk_widget_hide(self);
+	gtk_widget_destroy(self);
+	g_free(progdlg_xml);	
 	progbar = NULL;
 	textview = NULL;
 	textBuffer = NULL;
 	textviewScroll = NULL;
 	progdlg_xml = NULL;
+    statuslabel = NULL;
 }
 
 
@@ -130,15 +129,17 @@ progressdlg_set_fraction(gfloat fraction)
 void 
 progressdlg_append_output(const gchar* output)
 {
-	GB_LOG_FUNC
+    /*GB_LOG_FUNC*/
 	g_return_if_fail(textview != NULL);
 	g_return_if_fail(textBuffer != NULL);
-	
+    
 	GtkTextIter textIter;
-	gtk_text_buffer_get_end_iter(textBuffer, &textIter);
+    gtk_text_buffer_get_end_iter(textBuffer, &textIter);
 	gtk_text_buffer_insert(textBuffer, &textIter, output, strlen(output));	
-	gtk_text_iter_set_line(&textIter, gtk_text_buffer_get_line_count(textBuffer));
-	gtk_text_view_scroll_to_iter(textview, &textIter, 0.0, TRUE, 0.0, 0.0);		
+    gtk_text_buffer_get_end_iter(textBuffer, &textIter);
+    GtkTextMark* mark = gtk_text_buffer_create_mark(textBuffer, "end of buffer", &textIter, TRUE);
+    gtk_text_view_scroll_to_mark(textview, mark, 0.1, TRUE, 0.0, 1.0);
+    gtk_text_buffer_delete_mark(textBuffer, mark);
 }
 
 
@@ -154,14 +155,10 @@ progressdlg_on_close(GtkButton * button, gpointer user_data)
 void 
 progressdlg_set_status(const gchar* status)
 {
-	GB_LOG_FUNC
-	g_return_if_fail(progdlg_xml != NULL);
-	
-	GtkWidget* statuslabel = glade_xml_get_widget(progdlg_xml, "label297");
-	g_return_if_fail(statuslabel != NULL);
+	GB_LOG_FUNC	
     gchar* markup = g_markup_printf_escaped("<i>%s</i>", status);	
-	gtk_label_set_text(GTK_LABEL(statuslabel), markup);
-	gtk_label_set_use_markup(GTK_LABEL(statuslabel), TRUE);	
+	gtk_label_set_text(statuslabel, markup);
+	gtk_label_set_use_markup(statuslabel, TRUE);	
     g_free(markup);
 }
 
