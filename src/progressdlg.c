@@ -40,6 +40,8 @@ static GtkTextView* textview = NULL;
 static GtkTextBuffer* textBuffer = NULL;
 static GtkWidget* textviewScroll = NULL;
 static GtkLabel* statuslabel = NULL;
+static GtkWindow* parentwindow = NULL;
+static gchar* originalparentwindowtitle = NULL;
 
 static gint timertag = 0;
 static gint numberofexecs = 0;
@@ -48,9 +50,12 @@ static GCallback closefunction = NULL;
 
 
 GtkWidget* 
-progressdlg_new(const Exec* exec, GCallback callonprematureclose)
+progressdlg_new(const Exec* exec, GtkWindow* parent, GCallback callonprematureclose)
 {		
 	GB_LOG_FUNC
+    g_return_val_if_fail(exec != NULL, NULL);
+    g_return_val_if_fail(parent != NULL, NULL);
+    
     closefunction = callonprematureclose;
 	numberofexecs = exec_count_operations(exec);
 	currentexec = -1;
@@ -73,6 +78,9 @@ progressdlg_new(const Exec* exec, GCallback callonprematureclose)
     
     GtkWidget* processdesc = glade_xml_get_widget(progdlg_xml, widget_progdlg_processdescription);
     gtk_label_set_text(GTK_LABEL(processdesc), exec->processdescription);
+    
+    parentwindow = parent;
+    originalparentwindowtitle = g_strdup(gtk_window_get_title(parentwindow));
 	
     /* Center the window on the main window and then pump the events so it's
      * visible quickly ready for feedback from the exec layer */
@@ -87,7 +95,7 @@ void
 progressdlg_delete(GtkWidget* self)
 {
 	GB_LOG_FUNC
-    g_return_if_fail(self != NULL);    
+    g_return_if_fail(self != NULL);        
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
 	g_free(progdlg_xml);	
@@ -97,6 +105,9 @@ progressdlg_delete(GtkWidget* self)
 	textviewScroll = NULL;
 	progdlg_xml = NULL;
     statuslabel = NULL;
+    gtk_window_set_title(parentwindow, originalparentwindowtitle);
+    g_free(originalparentwindowtitle);
+    originalparentwindowtitle = NULL;
 }
 
 
@@ -122,6 +133,7 @@ progressdlg_set_fraction(gfloat fraction)
 	gchar* percnt = g_strdup_printf("%d%%",(gint)(fraction * 100));
 	gtk_progress_bar_set_fraction(progbar, fraction);
 	gtk_progress_bar_set_text(progbar, percnt);		
+    gtk_window_set_title(parentwindow, percnt);
 	g_free(percnt);
 }
 
@@ -244,15 +256,19 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
         gtk_progress_bar_set_text(progbar, " ");
         if(ex->outcome == COMPLETED)
         {
-            progressdlg_set_status(_("Completed"));
+            const gchar* completed = _("Completed");
+            progressdlg_set_status(completed);
+            gtk_window_set_title(parentwindow, completed);
             if(preferences_get_bool(GB_PLAY_SOUND))
-                media_start_playing(PACKAGE_MEDIA_DIR"/BurnOk.wav");        
+                media_start_playing(PACKAGE_MEDIA_DIR"/BurnOk.wav");
         }
         else if(ex->outcome == FAILED) 
         {
-            progressdlg_set_status(_("Failed"));
+            const gchar* failed = _("Failed");
+            progressdlg_set_status(failed);
+            gtk_window_set_title(parentwindow, failed);
             if(preferences_get_bool(GB_PLAY_SOUND))
-               media_start_playing(PACKAGE_MEDIA_DIR"/BurnFailed.wav");        
+               media_start_playing(PACKAGE_MEDIA_DIR"/BurnFailed.wav");
             if(ex->err != NULL)
                 progressdlg_append_output(ex->err->message);
         }
