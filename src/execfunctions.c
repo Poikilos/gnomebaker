@@ -1318,7 +1318,7 @@ gstreamer_pre_proc(void* ex, void* buffer)
     ExecCmd* cmd = (ExecCmd*)ex;
     
     gchar* filename = g_path_get_basename((gchar*)g_ptr_array_index(cmd->args, 0));
-    gchar* text = g_markup_printf_escaped(_("Converting %s to cd audio"), filename);
+    gchar* text = g_strdup_printf(_("Converting %s to cd audio"), filename);
     progressdlg_set_status(text);
     g_free(filename);
     g_free(text);
