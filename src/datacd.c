@@ -584,14 +584,15 @@ datacd_get_msinfo(gchar** msinfo)
 	GB_LOG_FUNC
 	gboolean ok = FALSE;
 	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
-	gchar* msinfocmd = g_strdup_printf("cdrecord -msinfo dev=%s", writer);
-	GString* output = exec_run_cmd(msinfocmd);
+	gchar* msinfocmd = g_strdup_printf("cdrecord -msinfo dev=%s", writer);    
+	gchar* output = NULL;
+    exec_run_cmd(msinfocmd, &output);
 	
 	gint start = 0, end = 0;
-	if((output == NULL ) || (sscanf(output->str, "%d,%d\n", &start, &end) != 2))
+	if((output == NULL ) || (sscanf(output, "%d,%d\n", &start, &end) != 2))
 	{
 		gchar* message = g_strdup_printf(_("Error getting session information.\n\n%s"), 
-			output != NULL ? output->str : _("unknown error"));
+			output != NULL ? output : _("unknown error"));
 		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 		g_free(message);
 	}
@@ -602,7 +603,7 @@ datacd_get_msinfo(gchar** msinfo)
 		ok = TRUE;
 	}
 	
-	g_string_free(output, TRUE);
+	g_free(output);
 	g_free(writer);
 	g_free(msinfocmd);
 	return ok;	
