@@ -70,7 +70,7 @@ burn_start_process()
 	GB_LOG_FUNC
 	/* Create the dlg before we start the thread as callbacks from the
 	 * thread may need to use the controls.*/
-	GtkWidget *dlg = progressdlg_new(burnargs, G_CALLBACK(burn_end_process));
+	GtkWidget *dlg = progressdlg_new(burnargs, gnomebaker_get_window(), G_CALLBACK(burn_end_process));
     exec_run(burnargs);
     progressdlg_finish(dlg, burnargs);
 	progressdlg_delete(dlg);
