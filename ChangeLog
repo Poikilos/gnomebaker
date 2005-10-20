@@ -1,8 +1,11 @@
 Version 0.5.1
 
 * TODO Fix copying and disk detection when the cd reader is also the writer.
+* TODO Fix devices_mount as it only works in english locales.
 * Attempt to enable large file support (>2GB) using AC_SYS_LARGEFILE.
 * Apply patch #1329223 Escaping song names
+* Apply patch #1328125 Patch to make Desktop file more compliant
+* Fix the progress dialog so when you are viewing output it scrolls to the bottom properly.
 
 Version 0.5.0
 
