@@ -73,7 +73,7 @@ void exec_run(Exec* e);
 void exec_stop(Exec* e);
 void exec_cmd_add_arg(ExecCmd* e, const gchar* format, ...);
 void exec_cmd_update_arg(ExecCmd* e, const gchar* argstart, const gchar* format, ...);
-GString* exec_run_cmd(const gchar* cmd);
+gint exec_run_cmd(const gchar* cmd, gchar** output);
 ExecState exec_cmd_get_state(ExecCmd* e);
 ExecState exec_cmd_set_state(ExecCmd* e, ExecState state);
 gint exec_count_operations(const Exec* e);

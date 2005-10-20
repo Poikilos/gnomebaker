@@ -370,15 +370,15 @@ devices_probe_bus(const gchar* bus)
 		strcat(command, bus);
 	}
 	
-	GString* buffer = exec_run_cmd(command);
+	gchar* buffer = NULL;
+    exec_run_cmd(command, &buffer);
 	if(buffer == NULL)
 		g_critical("devices_probe_bus - Failed to scan the scsi bus");
-	else if(!devices_parse_cdrecord_output(buffer->str, bus))	
+	else if(!devices_parse_cdrecord_output(buffer, bus))
 		g_critical("devices_probe_bus - failed to parse cdrecord output");
 	else
-		ok = TRUE;
-	
-	g_string_free(buffer, TRUE);
+		ok = TRUE;	
+	g_free(buffer);
 
 	return ok;
 }
@@ -641,13 +641,14 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 		else
 			mountcmd = g_strdup_printf("umount %s", mount);	
 		
-		GString* output = exec_run_cmd(mountcmd);		
-		if((output == NULL) || ((strlen(output->str) > 0) && 
-				(strstr(output->str, "already mounted") == NULL) && 
-					(strstr(output->str, "is not mounted") == NULL)))
+        static const gint device_not_mounted = 512;   
+        
+		gchar* output = NULL;
+        const gint ret = exec_run_cmd(mountcmd, &output);        
+		if((ret != 0) && (ret != device_not_mounted))
 		{
 			gchar* message = g_strdup_printf(_("Error %s %s.\n\n%s"), 
-				mount ? _("mounting") : _("unmounting"), mount, output != NULL ? output->str : _("unknown error"));
+				mount ? _("mounting") : _("unmounting"), mount, output != NULL ? output : _("unknown error"));
 			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 			g_free(message);
 		}
@@ -656,9 +657,8 @@ devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 			ok = TRUE;
 			if(mountpoint != NULL)
 				*mountpoint = g_strdup(mount);
-		}
-		
-		g_string_free(output, TRUE);
+		}		
+		g_free(output);
 		g_free(mountcmd);		
 	}
 	g_free(mount);

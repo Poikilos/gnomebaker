@@ -455,27 +455,21 @@ exec_stop(Exec* e)
 }
 
 
-GString* 
-exec_run_cmd(const gchar* cmd)
+gint
+exec_run_cmd(const gchar* cmd, gchar** output)
 {
     GB_LOG_FUNC    
-    g_return_val_if_fail(cmd != NULL, NULL);
-    
-    GB_TRACE("exec_run_cmd - %s", cmd);
-    GString* ret = NULL;    
+    g_return_val_if_fail(cmd != NULL, -1);
+        
     gchar* stdout = NULL;
     gchar* stderr = NULL;
-    gint status = 0;
-    GError* error = NULL;
-    
-    if(g_spawn_command_line_sync(cmd, &stdout, &stderr, &status, &error))
+    gint exitcode = -1;
+    GError* error = NULL;    
+    if(g_spawn_command_line_sync(cmd, &stdout, &stderr, &exitcode, &error))
     {
-        ret = g_string_new(stdout); 
-        g_string_append(ret, stderr);
-        
+        *output = g_strconcat(stdout, stderr, NULL);
         g_free(stdout);
         g_free(stderr);     
-        /*GB_TRACE(ret->str);*/
     }
     else if(error != NULL)
     {       
@@ -486,8 +480,8 @@ exec_run_cmd(const gchar* cmd)
     {
         g_critical("Unknown error spawning command [%s]", cmd);     
     }
-    
-    return ret;
+    GB_TRACE("exec_run_cmd - [%s] returned [%d]", cmd, exitcode);
+    return exitcode;
 }
 
 
