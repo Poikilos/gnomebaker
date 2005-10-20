@@ -626,6 +626,69 @@ mkisofs_foreach_func(GtkTreeModel* model,
 }
 
 
+static gint
+mkisofs_get_filesystem_details(gchar** volume, gchar** createdby)
+{
+    GB_LOG_FUNC   
+    g_return_val_if_fail(volume != NULL, GTK_RESPONSE_CANCEL);   
+    g_return_val_if_fail(createdby != NULL, GTK_RESPONSE_CANCEL);
+    
+    GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);    
+    GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
+    gtk_entry_set_text(created, g_get_real_name());
+    GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
+    gbcommon_center_window_on_parent(dlg);
+    gint ret = gtk_dialog_run(GTK_DIALOG(dlg));
+    if(ret == GTK_RESPONSE_OK)
+    {
+        *volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
+        *createdby = g_strdup(gtk_entry_get_text(created));
+    }
+    gtk_widget_hide(dlg);
+    gtk_widget_destroy(dlg);
+    return ret;
+}
+
+
+static void
+mkisofs_add_common_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* volume, const gchar* createdby)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);   
+    g_return_if_fail(datamodel != NULL);
+    
+    if(volume != NULL && createdby != NULL)
+    {
+        exec_cmd_add_arg(e, "-V");          
+        exec_cmd_add_arg(e, volume);
+        exec_cmd_add_arg(e, "-p");
+        exec_cmd_add_arg(e, createdby);
+    }
+    
+    exec_cmd_add_arg(e, "-iso-level");
+    exec_cmd_add_arg(e, "3");
+    exec_cmd_add_arg(e, "-l"); /* allow 31 character iso9660 filenames */
+    
+    if(preferences_get_bool(GB_ROCKRIDGE))      
+    {
+        exec_cmd_add_arg(e, "-R");
+        exec_cmd_add_arg(e, "-hide-rr-moved");
+    }
+    
+    if(preferences_get_bool(GB_JOLIET))
+    {
+        exec_cmd_add_arg(e, "-J");
+        exec_cmd_add_arg(e, "-joliet-long");
+    }    
+    
+    /*exec_cmd_add_arg(e, "-f"); don't follow links */
+    /*exec_cmd_add_arg(e, "-hfs");*/        
+    
+    exec_cmd_add_arg(e, "-graft-points");
+    gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);         
+} 
+
+
 gboolean
 mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gboolean calculatesize)
 {
@@ -636,54 +699,15 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gb
 	
 	/* If this is a another session on an existing cd we don't show the 
 	   iso details dialog */	
-	gint ret = GTK_RESPONSE_OK;
 	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
-	
 	gchar* volume = NULL;
 	gchar* createdby = NULL;
+    gint ret = GTK_RESPONSE_OK;
 	if(msinfo == NULL && !calculatesize)
-	{
-		GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);	
-		GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
-		gtk_entry_set_text(created, g_get_real_name());
-		GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
-        gbcommon_center_window_on_parent(dlg);
-		ret = gtk_dialog_run(GTK_DIALOG(dlg));
-		volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
-		createdby = g_strdup(gtk_entry_get_text(created));
-		gtk_widget_hide(dlg);
-		gtk_widget_destroy(dlg);
-	}
-	
+        ret = mkisofs_get_filesystem_details(&volume, &createdby);
 	if(ret == GTK_RESPONSE_OK)
 	{
 		exec_cmd_add_arg(e, "mkisofs");		
-		if(volume != NULL && createdby != NULL)
-		{
-			exec_cmd_add_arg(e, "-V");			
-			exec_cmd_add_arg(e, volume);
-			exec_cmd_add_arg(e, "-p");
-			exec_cmd_add_arg(e, createdby);
-		}
-        
-        exec_cmd_add_arg(e, "-iso-level");
-        exec_cmd_add_arg(e, "3");
-        exec_cmd_add_arg(e, "-l"); /* allow 31 character iso9660 filenames */
-		
-        if(preferences_get_bool(GB_ROCKRIDGE))		
-        {
-		    exec_cmd_add_arg(e, "-R");
-            exec_cmd_add_arg(e, "-hide-rr-moved");
-        }
-		
-        if(preferences_get_bool(GB_JOLIET))
-        {
-		    exec_cmd_add_arg(e, "-J");
-            exec_cmd_add_arg(e, "-joliet-long");
-        }
-        
-        /*exec_cmd_add_arg(e, "-f"); don't follow links */
-		/*exec_cmd_add_arg(e, "-hfs");*/		
 				
 		if(msinfo != NULL)
 		{
@@ -723,8 +747,7 @@ mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gb
             e->readProc = mkisofs_read_proc;
         }
         
-		exec_cmd_add_arg(e, "-graft-points");
-		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);			
+        mkisofs_add_common_args(e, datamodel, volume, createdby);
 	}
 	
 	/* We don't own the msinfo gchar datacd does 
@@ -914,58 +937,16 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
 	g_return_val_if_fail(e != NULL, FALSE);
 	        
     /* If this is a another session on an existing cd we don't show the iso details dialog */	
-	gint ret = GTK_RESPONSE_OK;
 	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);   
 	gchar* volume = NULL;
 	gchar* createdby = NULL;
+    gint ret = GTK_RESPONSE_OK;
 	if(msinfo == NULL)
-	{
-		GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);	
-		GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
-		gtk_entry_set_text(created, g_get_real_name());
-		GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
-        gbcommon_center_window_on_parent(dlg);
-		ret = gtk_dialog_run(GTK_DIALOG(dlg));
-		volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
-		createdby = g_strdup(gtk_entry_get_text(created));
-		gtk_widget_hide(dlg);
-		gtk_widget_destroy(dlg);
-	}
-	
+        ret = mkisofs_get_filesystem_details(&volume, &createdby);
 	if(ret == GTK_RESPONSE_OK)
 	{        
 		exec_cmd_add_arg(e, "growisofs");		
-		if(volume != NULL && createdby != NULL)
-		{
-			exec_cmd_add_arg(e,  "-V");			
-			exec_cmd_add_arg(e, volume);
-			exec_cmd_add_arg(e, "-p");
-			exec_cmd_add_arg(e, createdby);
-		}
-        
-        /* http://www.troubleshooters.com/linux/coasterless_dvd.htm#_Gotchas 
-            states that dao with dvd compat is the best way of burning dvds */
-        exec_cmd_add_arg(e, "-use-the-force-luke=dao");
-                
-        exec_cmd_add_arg(e, "-iso-level");
-        exec_cmd_add_arg(e, "3");
-        exec_cmd_add_arg(e, "-l"); /* allow 31 character iso9660 filenames */
-		
-        if(preferences_get_bool(GB_ROCKRIDGE))		
-        {
-		    exec_cmd_add_arg(e, "-R");
-            exec_cmd_add_arg(e, "-hide-rr-moved");
-        }
-		
-        if(preferences_get_bool(GB_JOLIET))
-        {
-		    exec_cmd_add_arg(e, "-J");
-            exec_cmd_add_arg(e, "-joliet-long");
-        }
-        
-        /*exec_cmd_add_arg(e, "-f"); don't follow links */
-		/*exec_cmd_add_arg(e, "-hfs");*/		
-				
+				                
         /* merge new session with existing one */	
         gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
         if(msinfo != NULL)
@@ -977,7 +958,12 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
         exec_cmd_add_arg(e, writer);
         g_free(writer);
         
+        /* TODO: Overburn support
+        if(preferences_get_int(GB_OVERBURN))
+            exec_cmd_add_arg(growisofs, "-overburn"); */                
+        
         exec_cmd_add_arg(e,"-speed=%d", preferences_get_int(GB_DVDWRITE_SPEED));
+        
         /*http://fy.chalmers.se/~appro/linux/DVD+RW/tools/growisofs.c
             for the use-the-force options */        
         /* stop the reloading of the disc */
@@ -985,21 +971,20 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
         
         /* force overwriting existing filesystem */
         exec_cmd_add_arg(e, "-use-the-force-luke=tty");
-	
-        /* TODO: Overburn support */
-        /* preferences_get_int(GB_OVERBURN)
-        if(prefs->overburn)
-            exec_cmd_add_arg(growisofs, "-overburn"); */
+                
+        /* http://www.troubleshooters.com/linux/coasterless_dvd.htm#_Gotchas 
+            states that dao with dvd compat is the best way of burning dvds */
+        exec_cmd_add_arg(e, "-use-the-force-luke=dao");
+        
+        if(preferences_get_bool(GB_DUMMY))
+            exec_cmd_add_arg(e, "-use-the-force-luke=dummy");
         
         if(preferences_get_bool(GB_FINALIZE))
             exec_cmd_add_arg(e, "-dvd-compat");
-            
-        if(preferences_get_bool(GB_DUMMY))
-            exec_cmd_add_arg(e, "-use-the-force-luke=dummy");
 
         exec_cmd_add_arg(e, "-gui");	
-        exec_cmd_add_arg(e, "-graft-points");
-		gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);	
+        
+        mkisofs_add_common_args(e, datamodel, volume, createdby);
 				
 		e->readProc = growisofs_read_proc;
         e->preProc = growisofs_pre_proc;
