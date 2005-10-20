@@ -72,8 +72,11 @@ progressdlg_new(const Exec* exec, GCallback callonprematureclose)
     GtkWidget* processdesc = glade_xml_get_widget(progdlg_xml, widget_progdlg_processdescription);
     gtk_label_set_text(GTK_LABEL(processdesc), exec->processdescription);
 	
+    /* Center the window on the main window and then pump the events so it's
+     * visible quickly ready for feedback from the exec layer */
     gbcommon_center_window_on_parent(widget);
-    gtk_main_iteration();
+    while(gtk_events_pending())
+        gtk_main_iteration();
 	return widget;
 }
 
