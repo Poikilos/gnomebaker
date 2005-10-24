@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-14 23:56+0100\n"
+"POT-Creation-Date: 2005-10-24 21:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -46,7 +46,7 @@ msgstr "Odstraň vybrané"
 msgid "Move selected _down"
 msgstr "Odstraň vybrané"
 
-#: src/audiocd.c:251 src/datacd.c:458
+#: src/audiocd.c:251 src/datacd.c:459
 #, fuzzy
 msgid "_Remove selected"
 msgstr "Odstraň vybrané"
@@ -214,35 +214,35 @@ msgstr ""
 msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
 
-#: src/datacd.c:184
+#: src/datacd.c:185
 msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr ""
 
-#: src/datacd.c:454
+#: src/datacd.c:455
 msgid "_Edit name"
 msgstr ""
 
-#: src/datacd.c:460
+#: src/datacd.c:461
 msgid "Clear"
 msgstr "Smaž"
 
-#: src/datacd.c:493 gnomebaker.glade:329
+#: src/datacd.c:494 gnomebaker.glade:329
 msgid "Contents"
 msgstr ""
 
-#: src/datacd.c:517 src/datacd.c:527 src/filebrowser.c:796
+#: src/datacd.c:518 src/datacd.c:528 src/filebrowser.c:796
 msgid "Size"
 msgstr ""
 
-#: src/datacd.c:537
+#: src/datacd.c:538
 msgid "Full Path"
 msgstr ""
 
-#: src/datacd.c:546
+#: src/datacd.c:547
 msgid "Session"
 msgstr ""
 
-#: src/datacd.c:592
+#: src/datacd.c:594
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -250,11 +250,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/datacd.c:593 src/devices.c:650
+#: src/datacd.c:595 src/devices.c:651
 msgid "unknown error"
 msgstr ""
 
-#: src/datacd.c:666
+#: src/datacd.c:668
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -268,7 +268,7 @@ msgid ""
 "and then go to preferences and rescan for devices."
 msgstr ""
 
-#: src/devices.c:649
+#: src/devices.c:650
 #, c-format
 msgid ""
 "Error %s %s.\n"
@@ -276,17 +276,86 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/devices.c:650
+#: src/devices.c:651
 msgid "mounting"
 msgstr ""
 
-#: src/devices.c:650
+#: src/devices.c:651
 msgid "unmounting"
 msgstr ""
 
 #: src/devices.c:780
 #, c-format
 msgid "Please insert a disk into the %s"
+msgstr ""
+
+#: src/execfunctions.c:94
+msgid "Preparing to blank disk"
+msgstr ""
+
+#: src/execfunctions.c:137
+msgid "Preparing to burn disk"
+msgstr ""
+
+#. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
+#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
+#: src/execfunctions.c:194
+#, c-format
+msgid "Writing track %d"
+msgstr ""
+
+#: src/execfunctions.c:240 gnomebaker.glade:2756
+msgid "default"
+msgstr ""
+
+#: src/execfunctions.c:389
+msgid "Preparing to extract audio tracks"
+msgstr ""
+
+#: src/execfunctions.c:400
+msgid ""
+"Audio tracks from a previous sesion already exist on disk, do you wish to "
+"use the existing tracks?"
+msgstr ""
+
+#: src/execfunctions.c:456
+#, c-format
+msgid "Extracting audio track %d"
+msgstr ""
+
+#: src/execfunctions.c:526
+msgid "Calculating data disk image size"
+msgstr ""
+
+#: src/execfunctions.c:564
+msgid "Creating data disk image"
+msgstr ""
+
+#: src/execfunctions.c:571
+msgid ""
+"A data CD image from a previous session already exists on disk, do you wish "
+"to use the existing image?"
+msgstr ""
+
+#: src/execfunctions.c:792
+msgid "Formatting DVD"
+msgstr ""
+
+#: src/execfunctions.c:872
+msgid "Preparing to burn DVD"
+msgstr ""
+
+#: src/execfunctions.c:903 src/execfunctions.c:925
+msgid "Writing DVD"
+msgstr ""
+
+#: src/execfunctions.c:1046
+msgid "Reading CD image"
+msgstr ""
+
+#: src/execfunctions.c:1306
+#, c-format
+msgid "Converting %s to cd audio"
 msgstr ""
 
 #: src/filebrowser.c:72 src/filebrowser.c:682
@@ -338,7 +407,7 @@ msgstr ""
 msgid "Mime"
 msgstr ""
 
-#: src/gbcommon.c:456
+#: src/gbcommon.c:464
 msgid "All files"
 msgstr ""
 
@@ -402,6 +471,11 @@ msgstr ""
 msgid "Please select a playlist."
 msgstr ""
 
+#: src/media.c:399
+#, c-format
+msgid "The plugin to handle a file of type %s is not installed."
+msgstr ""
+
 #: src/prefsdlg.c:143
 msgid "Name"
 msgstr ""
@@ -432,6 +506,22 @@ msgstr ""
 
 #: src/prefsdlg.c:212
 msgid "Write DVD-RAM"
+msgstr ""
+
+#: src/progressdlg.c:185 gnomebaker.glade:1654
+msgid "Show output"
+msgstr ""
+
+#: src/progressdlg.c:185
+msgid "Hide output"
+msgstr ""
+
+#: src/progressdlg.c:259
+msgid "Completed"
+msgstr ""
+
+#: src/progressdlg.c:267
+msgid "Failed"
 msgstr ""
 
 #: src/startdlg.c:131
@@ -484,75 +574,6 @@ msgstr ""
 
 #: src/startdlg.c:154
 msgid "<b>File system</b>"
-msgstr ""
-
-#: src/execfunctions.c:82
-msgid "Preparing to blank disk"
-msgstr ""
-
-#: src/execfunctions.c:125
-msgid "Preparing to burn disk"
-msgstr ""
-
-#. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: src/execfunctions.c:182
-#, c-format
-msgid "Writing track %d"
-msgstr ""
-
-#: src/execfunctions.c:228 gnomebaker.glade:2754
-msgid "default"
-msgstr ""
-
-#: src/execfunctions.c:377
-msgid "Preparing to extract audio tracks"
-msgstr ""
-
-#: src/execfunctions.c:388
-msgid ""
-"Audio tracks from a previous sesion already exist on disk, do you wish to "
-"use the existing tracks?"
-msgstr ""
-
-#: src/execfunctions.c:444
-#, c-format
-msgid "Extracting audio track %d"
-msgstr ""
-
-#: src/execfunctions.c:513
-msgid "Calculating data disk image size"
-msgstr ""
-
-#: src/execfunctions.c:551
-msgid "Creating data disk image"
-msgstr ""
-
-#: src/execfunctions.c:558
-msgid ""
-"A data CD image from a previous session already exists on disk, do you wish "
-"to use the existing image?"
-msgstr ""
-
-#: src/execfunctions.c:756
-msgid "Formatting DVD"
-msgstr ""
-
-#: src/execfunctions.c:836
-msgid "Preparing to burn DVD"
-msgstr ""
-
-#: src/execfunctions.c:867 src/execfunctions.c:889
-msgid "Writing DVD"
-msgstr ""
-
-#: src/execfunctions.c:1048
-msgid "Reading CD image"
-msgstr ""
-
-#: src/execfunctions.c:1322
-#, c-format
-msgid "Converting %s to cd audio"
 msgstr ""
 
 #: src/burn.h:62 gnomebaker.glade:387 gnomebaker.glade:388
@@ -747,10 +768,6 @@ msgstr ""
 msgid "<i>...</i>"
 msgstr ""
 
-#: gnomebaker.glade:1654
-msgid "Show output"
-msgstr ""
-
 #: gnomebaker.glade:1703
 msgid "GPL"
 msgstr ""
@@ -775,174 +792,178 @@ msgstr ""
 msgid "<b>Temporary Directory</b>"
 msgstr ""
 
-#: gnomebaker.glade:1893
-msgid "/tmp"
-msgstr ""
-
-#: gnomebaker.glade:1914
-msgid "Clean temporary directory on exit"
-msgstr ""
-
-#: gnomebaker.glade:1936
+#: gnomebaker.glade:1880
 msgid "<b>File Browser</b>"
 msgstr ""
 
-#: gnomebaker.glade:1965
-msgid "Show hidden files"
-msgstr ""
-
-#: gnomebaker.glade:1988
-msgid "Show humanreadable filesizes"
-msgstr ""
-
-#: gnomebaker.glade:2010
+#: gnomebaker.glade:1908
 msgid "<b>Other</b>"
 msgstr ""
 
-#: gnomebaker.glade:2039
-msgid "Ask on quit"
+#: gnomebaker.glade:1949
+msgid "/tmp"
 msgstr ""
 
-#: gnomebaker.glade:2061
+#: gnomebaker.glade:1970
+msgid "Clean temporary directory on exit"
+msgstr ""
+
+#: gnomebaker.glade:1993
+msgid "Show hidden files"
+msgstr ""
+
+#: gnomebaker.glade:2016
+msgid "Show humanreadable filesizes"
+msgstr ""
+
+#: gnomebaker.glade:2039
 msgid "Play sound when burning is complete"
 msgstr ""
 
-#: gnomebaker.glade:2088
+#: gnomebaker.glade:2062
+msgid "Ask on quit"
+msgstr ""
+
+#: gnomebaker.glade:2090
 msgid "General"
 msgstr ""
 
-#: gnomebaker.glade:2121
+#: gnomebaker.glade:2123
 msgid "<b>Detected devices</b>"
 msgstr ""
 
-#: gnomebaker.glade:2182
-msgid "Always scan for devices on startup"
-msgstr ""
-
-#: gnomebaker.glade:2254
+#: gnomebaker.glade:2201
 msgid "_Add device"
 msgstr ""
 
-#: gnomebaker.glade:2329 gnomebaker.glade:2655
+#: gnomebaker.glade:2276 gnomebaker.glade:2657
 msgid "Sc_an for devices"
 msgstr ""
 
-#: gnomebaker.glade:2376
+#: gnomebaker.glade:2350
+msgid "Always scan for devices on startup"
+msgstr ""
+
+#: gnomebaker.glade:2378
 msgid "Devices"
 msgstr ""
 
-#: gnomebaker.glade:2407
+#: gnomebaker.glade:2409
 msgid "Start burning..."
 msgstr ""
 
-#: gnomebaker.glade:2495
+#: gnomebaker.glade:2497
 msgid "_Start"
 msgstr ""
 
-#: gnomebaker.glade:2578
+#: gnomebaker.glade:2580
 msgid "<b>Options</b>"
 msgstr ""
 
-#: gnomebaker.glade:2717
+#: gnomebaker.glade:2719
 msgid "Mode"
 msgstr ""
 
-#: gnomebaker.glade:2762
+#: gnomebaker.glade:2764
 msgid "tao"
 msgstr ""
 
-#: gnomebaker.glade:2770
+#: gnomebaker.glade:2772
 msgid "dao"
 msgstr ""
 
-#: gnomebaker.glade:2778
+#: gnomebaker.glade:2780
 msgid "raw96p"
 msgstr ""
 
-#: gnomebaker.glade:2786
+#: gnomebaker.glade:2788
 msgid "raw16"
 msgstr ""
 
-#: gnomebaker.glade:2806
+#: gnomebaker.glade:2808
 msgid "<b>Devices</b>"
 msgstr ""
 
-#: gnomebaker.glade:2834
+#: gnomebaker.glade:2836
 msgid "Reader"
 msgstr ""
 
-#: gnomebaker.glade:2863 gnomebaker.glade:3515
+#: gnomebaker.glade:2865
 msgid "Writer"
 msgstr ""
 
-#: gnomebaker.glade:2892
+#: gnomebaker.glade:2894
 msgid "Speed"
 msgstr ""
 
-#: gnomebaker.glade:2930
+#: gnomebaker.glade:2932
 msgid "ISO filesystem details"
 msgstr ""
 
-#: gnomebaker.glade:3004
+#: gnomebaker.glade:3006
 msgid "<b>Volume label</b>"
 msgstr ""
 
-#: gnomebaker.glade:3036
-msgid "GnomeBaker data cd"
-msgstr ""
-
-#: gnomebaker.glade:3054
+#: gnomebaker.glade:3034
 msgid "<b>Created by</b>"
 msgstr ""
 
-#: gnomebaker.glade:3086
-msgid "Created by username"
-msgstr ""
-
-#: gnomebaker.glade:3104
+#: gnomebaker.glade:3062
 msgid "<b>Boot options</b>"
 msgstr ""
 
-#: gnomebaker.glade:3134
-msgid "Not bootable"
-msgstr ""
-
-#: gnomebaker.glade:3158
-msgid "PC bootable"
-msgstr ""
-
-#: gnomebaker.glade:3191
+#: gnomebaker.glade:3100
 msgid "Floppy disk image"
 msgstr ""
 
-#: gnomebaker.glade:3212
+#: gnomebaker.glade:3121
 msgid "Hard disk image"
 msgstr ""
 
-#: gnomebaker.glade:3243
-msgid "Boot catalog"
+#: gnomebaker.glade:3231
+msgid "Not bootable"
 msgstr ""
 
-#: gnomebaker.glade:3272
-msgid "Boot Image"
+#: gnomebaker.glade:3257
+msgid "Created by username"
 msgstr ""
 
-#: gnomebaker.glade:3336
+#: gnomebaker.glade:3279
+msgid "GnomeBaker data cd"
+msgstr ""
+
+#: gnomebaker.glade:3299
+msgid "PC bootable"
+msgstr ""
+
+#: gnomebaker.glade:3324
 msgid "Sun workstation bootable"
 msgstr ""
 
-#: gnomebaker.glade:3359
+#: gnomebaker.glade:3347
+msgid "Boot Image"
+msgstr ""
+
+#: gnomebaker.glade:3376
+msgid "Boot catalog"
+msgstr ""
+
+#: gnomebaker.glade:3405
 msgid "Boot Image list"
 msgstr ""
 
-#: gnomebaker.glade:3440
-msgid "Select writer..."
+#: gnomebaker.glade:3442
+msgid "Import Session"
 msgstr ""
 
-#: gnomebaker.glade:3559
+#: gnomebaker.glade:3517
+msgid "<b>Select Writer</b>"
+msgstr ""
+
+#: gnomebaker.glade:3545
 msgid ""
-"<b>Please select the writing device from the list below and insert the disk "
-"containing the existing session.</b>"
+"Please select the writing device from the list below and insert the disk "
+"containing the existing session"
 msgstr ""
 
 #~ msgid "File %s was not opened \n"
