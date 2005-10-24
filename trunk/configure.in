@@ -4,12 +4,15 @@ dnl If you don't want it to overwrite it,
 dnl 	Please disable it in the Anjuta project configuration
 
 AC_INIT(configure.in)
-AM_INIT_AUTOMAKE(gnomebaker, 0.5.0)
+AM_INIT_AUTOMAKE(gnomebaker, 0.5.1)
 AM_CONFIG_HEADER(config.h)
+
+dnl -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 
 AC_ISC_POSIX
 CFLAGS=""
 AC_SUBST(CFLAGS)
+AC_SYS_LARGEFILE
 AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC

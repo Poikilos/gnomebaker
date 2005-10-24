@@ -3,18 +3,37 @@ src/audiocd.c
 src/burn.c
 src/datacd.c
 src/devices.c
-src/filebrowser.c
 src/exec.c
+src/execfunctions.c
+src/filebrowser.c
 src/gbcommon.c
 src/gnomebaker.c
+src/main.c
+src/media.c
 src/preferences.c
 src/prefsdlg.c
+src/progressdlg.c
+src/selectdevicedlg.c
+src/splashdlg.c
 src/startdlg.c
-src/execfunctions.c
 
 #header files
+src/audiocd.h
 src/burn.h
+src/datacd.h
+src/devices.h
+src/exec.h
+src/execfunctions.h
+src/filebrowser.h
 src/gbcommon.h
+src/gnomebaker.h
+src/media.h
+src/preferences.h
+src/prefsdlg.h
+src/progressdlg.h
+src/selectdevicedlg.h
+src/splashdlg.h
+src/startdlg.h
 
 #glade files
 gnomebaker.glade
