@@ -424,6 +424,9 @@ exec_run(Exec* ex)
             exec_spawn_process(e, exec_working_dir_setup_func);
             
         state = exec_cmd_get_state(e);  
+        /* If we have spawned off a bunch of children and something went wrong in the
+         * target process, we update the spawned children to failed so they stop. If
+         * cancel was clicked we will already have updated all of the children. */
         if((/*(state == CANCELLED) || */(state == FAILED)) && (piped != NULL))
         {
             GList* cmd = ex->cmds;
