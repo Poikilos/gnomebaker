@@ -437,6 +437,7 @@ exec_run(Exec* ex)
         g_list_free(piped);
         piped = NULL;
     }
+    g_list_free(piped);
     exec_set_outcome(ex);
 }
 
