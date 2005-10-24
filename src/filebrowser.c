@@ -33,9 +33,9 @@ static const gchar* const widget_browser_filelist = "treeview5";
 
 
 /* callback id, so we can block it! */
-gulong sel_changed_id;
+static gulong sel_changed_id;
 
-GtkTreePath* dirtreeselected = NULL;
+static GtkTreePath* dirtreeselected = NULL;
 
 enum /* Directory Tree */
 {
