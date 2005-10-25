@@ -98,7 +98,7 @@ guint64
 gbcommon_calc_dir_size(const gchar* dirname)
 {
 	/*GB_LOG_FUNC*/
-    g_return_if_fail(dirname != NULL);
+    g_return_val_if_fail(dirname != NULL, 0);
     
 	guint64 size = 0;	
 	GDir *dir = g_dir_open(dirname, 0, NULL);
