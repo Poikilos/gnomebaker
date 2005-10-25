@@ -7,6 +7,7 @@ Version 0.5.1
 * Apply patch #1328125 Patch to make Desktop file more compliant
 * Fix the progress dialog so when you are viewing output it scrolls to the bottom properly.
 * Show burning progress in the main window title so when you minimise the app you can see when it's finished.
+* Apply patch #1329438 Fix exec layer in 64bit architecures
 
 Version 0.5.0
 
