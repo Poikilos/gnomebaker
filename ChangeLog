@@ -9,6 +9,7 @@ Version 0.5.1
 * Show burning progress in the main window title so when you minimise the app you can see when it's finished.
 * Apply patch #1329438 Fix exec layer in 64bit architecures
 * Apply patch #1328641 Fix build on GNU/kFreeBSD
+* Apply patch #1329831 Updated pt_BR translation
 
 Version 0.5.0
 
