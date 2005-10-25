@@ -32,7 +32,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-#ifdef __FreeBSD__
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
 #include <sys/cdio.h>
 #define CDROM_DRIVE_STATUS     0x5326
 #define CDS_NO_DISC        1
@@ -686,7 +686,7 @@ devices_eject_disk(const gchar* devicekey)
     else
     {			
         /* Use ioctl to send the CDROMEJECT (CDIOCEJECT on FreeBSD) command to the device */
-#ifdef __FreeBSD__
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
         if(ioctl(cdrom, CDIOCEJECT, 0) < 0)
             ret = TRUE;
         else 
