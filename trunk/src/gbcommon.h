@@ -74,7 +74,7 @@ extern gboolean showtrace;
 
 
 #define GB_LOG_FUNC											\
-	if(showtrace) g_print("[%x] [%s] [%s] [%d]\n", (guint)g_thread_self(), __FUNCTION__, __FILE__, __LINE__);	\
+	if(showtrace) g_print("[%p] [%s] [%s] [%d]\n", (gpointer)g_thread_self(), __FUNCTION__, __FILE__, __LINE__);	\
 		
 #define GB_TRACE			\
 	if(showtrace) g_message	\
