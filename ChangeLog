@@ -10,6 +10,7 @@ Version 0.5.1
 * Apply patch #1329438 Fix exec layer in 64bit architecures
 * Apply patch #1328641 Fix build on GNU/kFreeBSD
 * Apply patch #1329831 Updated pt_BR translation
+* Use valgrind to fix minor memory leaks.
 
 Version 0.5.0
 

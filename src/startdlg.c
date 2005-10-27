@@ -288,7 +288,7 @@ startdlg_delete(GtkWidget* self)
 	
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
-	g_free(startdlg_xml);
+	g_object_unref(startdlg_xml);
 	startdlg_xml = NULL;
 }
 

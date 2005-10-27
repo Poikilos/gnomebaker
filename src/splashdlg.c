@@ -52,7 +52,7 @@ splashdlg_delete(GtkWidget* self)
 	gbcommon_end_busy_cursor(self);
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
-	g_free(splashdlg_xml);
+	g_object_unref(splashdlg_xml);
 	splashdlg_xml = NULL;
 }
 

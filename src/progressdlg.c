@@ -98,7 +98,7 @@ progressdlg_delete(GtkWidget* self)
     g_return_if_fail(self != NULL);        
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
-	g_free(progdlg_xml);	
+	g_object_unref(progdlg_xml);	
 	progbar = NULL;
 	textview = NULL;
 	textBuffer = NULL;
