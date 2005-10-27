@@ -34,26 +34,25 @@ static const gchar* const widget_startdlg_readlabel = "labelReader";
 static const gchar* const widget_startdlg_writemode = "optionmenu7";
 static const gchar* const widget_startdlg_modelabel = "label265";
 
+static GladeXML* startdlg_xml = NULL;
 
-GladeXML* startdlg_xml = NULL;
-
-GtkWidget* checkDummy = NULL;
-GtkWidget* checkEject = NULL;
-GtkWidget* checkFastErase = NULL;
-GtkWidget* checkBurnFree = NULL;
-GtkWidget* radioBurnDisk = NULL;	
-GtkWidget* radioISOOnly = NULL;	
-GtkWidget* checkForce = NULL;	
-GtkWidget* checkFinalize = NULL;
-GtkWidget* checkFastFormat = NULL;
-GtkWidget* checkJoliet = NULL;
-GtkWidget* checkRockRidge = NULL;
-GtkWidget* checkOnTheFly = NULL;
-GtkWidget* labelFileSystem = NULL;
+static GtkWidget* checkDummy = NULL;
+static GtkWidget* checkEject = NULL;
+static GtkWidget* checkFastErase = NULL;
+static GtkWidget* checkBurnFree = NULL;
+static GtkWidget* radioBurnDisk = NULL;	
+static GtkWidget* radioISOOnly = NULL;	
+static GtkWidget* checkForce = NULL;	
+static GtkWidget* checkFinalize = NULL;
+static GtkWidget* checkFastFormat = NULL;
+static GtkWidget* checkJoliet = NULL;
+static GtkWidget* checkRockRidge = NULL;
+static GtkWidget* checkOnTheFly = NULL;
+static GtkWidget* labelFileSystem = NULL;
 
 static const guint xpad = 12;
 static const guint ypad = 0;
-gboolean gdvdmode = FALSE;
+static gboolean gdvdmode = FALSE;
 
 #define TABLE_ATTACH_OPTIONS_1 			\
 	GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, ypad	\
@@ -63,6 +62,7 @@ gboolean gdvdmode = FALSE;
 
 #define TABLE_ATTACH_OPTIONS_3            \
     GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, xpad + xpad, ypad    \
+
 
 static void 
 startdlg_create_iso_toggled(GtkToggleButton* togglebutton, gpointer user_data)
