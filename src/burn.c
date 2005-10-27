@@ -56,7 +56,7 @@ burn_show_start_dlg(const BurnType burntype)
 
 
 static gboolean
-burn_end_process()
+burn_stop_process()
 {
     GB_LOG_FUNC
     exec_stop(burnargs);
@@ -65,12 +65,12 @@ burn_end_process()
 
 
 static gboolean
-burn_start_process()
+burn_run_process()
 {
 	GB_LOG_FUNC
 	/* Create the dlg before we start the thread as callbacks from the
 	 * thread may need to use the controls.*/
-	GtkWidget *dlg = progressdlg_new(burnargs, gnomebaker_get_window(), G_CALLBACK(burn_end_process));
+	GtkWidget *dlg = progressdlg_new(burnargs, gnomebaker_get_window(), G_CALLBACK(burn_stop_process));
     exec_run(burnargs);
     progressdlg_finish(dlg, burnargs);
 	progressdlg_delete(dlg);
@@ -90,7 +90,7 @@ burn_cd_iso(const gchar* file)
 		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
         mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);
 		cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
-		ok = burn_start_process();
+		ok = burn_run_process();
 	}
 
 	return ok;
@@ -112,7 +112,7 @@ burn_dvd_iso(const gchar* file)
         {
             burnargs = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to DVD."));
             growisofs_add_iso_args(exec_cmd_new(burnargs),file);
-            ok = burn_start_process();
+            ok = burn_run_process();
         }
     }
     else
@@ -137,7 +137,7 @@ burn_cue_or_toc(const gchar* file)
 	{
 		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
 		cdrdao_add_image_args(exec_cmd_new(burnargs), file);
-		ok = burn_start_process(FALSE);
+		ok = burn_run_process(FALSE);
 	}
 
 	return ok;
@@ -193,7 +193,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
                 ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);
             g_free(file);
             if(ok)
-                ok = burn_start_process();
+                ok = burn_run_process();
 		}
         else if(preferences_get_bool(GB_ONTHEFLY))
         {
@@ -205,7 +205,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
             if(ok)                 
             {
                 cdrecord_add_iso_args(exec_cmd_new(burnargs), NULL);
-                ok = burn_start_process();
+                ok = burn_run_process();
             }
         }
 		else
@@ -217,7 +217,7 @@ burn_create_data_cd(GtkTreeModel* datamodel)
             if(ok)
             {
                 cdrecord_add_iso_args(exec_cmd_new(burnargs), file);            
-                ok = burn_start_process();
+                ok = burn_run_process();
             }
             g_free(file);                
 		}
@@ -281,7 +281,7 @@ burn_create_audio_cd(GtkTreeModel* model)
                 g_free(audiofiles->data);
             g_list_free(audiofiles);
             
-            ok = burn_start_process();
+            ok = burn_run_process();
         }
     }
 
@@ -327,7 +327,7 @@ burn_copy_data_cd()
                 mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);
 				cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
             }
-			ok = burn_start_process();
+			ok = burn_run_process();
 		}
 		
 		g_free(file);
@@ -348,7 +348,7 @@ burn_copy_audio_cd()
 		burnargs = exec_new(_("Copying audio CD"), _("Please wait while the audio CD tracks are extracted and then burned to CD."));
 		cdda2wav_add_copy_args(exec_cmd_new(burnargs));
 		cdrecord_add_audio_args(exec_cmd_new(burnargs));
-		ok = burn_start_process();
+		ok = burn_run_process();
 	}
 
 	return ok;
@@ -365,7 +365,7 @@ burn_blank_cdrw()
 	{		
 		burnargs = exec_new(_("Blanking CD"), _("Please wait while the CD is blanked."));
 		cdrecord_add_blank_args(exec_cmd_new(burnargs));
-		ok = burn_start_process();
+		ok = burn_run_process();
 	}
 
 	return ok;
@@ -382,7 +382,7 @@ burn_format_dvdrw()
 	{		
 		burnargs = exec_new(_("Formatting re-writeable DVD"), _("Please wait while the DVD is formatted."));
 		dvdformat_add_args(exec_cmd_new(burnargs));
-		ok = burn_start_process();
+		ok = burn_run_process();
 	}
 
 	return ok;
@@ -420,7 +420,7 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
         }
 
         if(ok)
-            ok = burn_start_process();
+            ok = burn_run_process();
 	}
 
 	return ok;
