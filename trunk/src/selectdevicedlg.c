@@ -55,7 +55,7 @@ selectdevicedlg_delete(GtkWidget* self)
 {
 	g_return_if_fail(NULL != self);
 	gtk_widget_destroy(self);
-	g_free(selectdevicedlgdlg_xml);
+	g_object_unref(selectdevicedlgdlg_xml);
 	selectdevicedlgdlg_xml = NULL;
 }
 

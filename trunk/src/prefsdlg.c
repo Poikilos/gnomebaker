@@ -470,6 +470,6 @@ prefsdlg_delete(GtkWidget* self)
 	GB_LOG_FUNC
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
-	g_free(prefsdlg_xml);
+	g_object_unref(prefsdlg_xml);
 	prefsdlg_xml = NULL;
 }

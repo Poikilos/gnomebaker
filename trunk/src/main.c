@@ -69,7 +69,7 @@ main(gint argc, gchar *argv[])
 	/* init GStreamer and GNOME using the GStreamer popt tables */
 	options[0].arg = (void *) gst_init_get_popt_table ();
 
-	gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+	GnomeProgram* prog = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
                     argc, argv, GNOME_PARAM_POPT_TABLE, options,
                     GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR, NULL);
 
@@ -88,7 +88,8 @@ main(gint argc, gchar *argv[])
 	gtk_main();
 	gdk_threads_leave();	
 	gnomebaker_delete(app);
-	
+	g_object_unref(prog);
+    prog = NULL;
 	return 0;
 }
 

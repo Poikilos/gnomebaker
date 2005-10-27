@@ -225,10 +225,11 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 				icon = gbcommon_get_icon_for_mime(mime, 16);
 				g_free(mime);
 			}
+			gchar* humanreadable = gbcommon_humanreadable_filesize(size);
 			gtk_list_store_set(liststore, &iter, DATACD_COL_ICON, icon,	DATACD_COL_FILE, basename, 
-				DATACD_COL_SIZE, size, DATACD_COL_HUMANSIZE, gbcommon_humanreadable_filesize(size),
+				DATACD_COL_SIZE, size, DATACD_COL_HUMANSIZE, humanreadable,
 				DATACD_COL_PATH, filename, DATACD_COL_SESSION, existingsession, -1);
-			
+			g_free(humanreadable);
 			g_object_unref(icon);
 			g_free(basename);
 		}

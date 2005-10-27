@@ -163,7 +163,7 @@ gnomebaker_delete(GtkWidget* self)
     gb_common_finalise();
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
-	g_free(xml);
+	g_object_unref(xml);
 }
 
 

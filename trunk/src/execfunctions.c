@@ -646,6 +646,7 @@ mkisofs_get_filesystem_details(gchar** volume, gchar** createdby)
     }
     gtk_widget_hide(dlg);
     gtk_widget_destroy(dlg);
+    g_object_unref(dialog);
     return ret;
 }
 
