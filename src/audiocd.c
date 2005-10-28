@@ -25,6 +25,7 @@
 #include "burn.h"
 #include <stdio.h>
 #include "media.h"
+#include "preferences.h"
 
 
 static const gchar* const widget_audiocd_tree = "treeview8";
@@ -481,6 +482,8 @@ audiocd_on_audiocd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 		
 	fraction = (fraction * previoussize)/audiocdsize;
 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);	
+    
+    preferences_set_int(GB_AUDIO_DISK_SIZE, gtk_option_menu_get_history(optionmenu));
 }
 
 
@@ -786,6 +789,6 @@ audiocd_new()
         
     GtkWidget* optmenu = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_size);
     gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(optmenu), audiodisksizes, 
-        (sizeof(audiodisksizes)/sizeof(DiskSize)), 2);
+        (sizeof(audiodisksizes)/sizeof(DiskSize)), preferences_get_int(GB_AUDIO_DISK_SIZE));
 }
 

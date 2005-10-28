@@ -572,10 +572,7 @@ datacd_new()
 	
 	GtkWidget* optmenu = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_size);
 	gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(optmenu), datadisksizes, 
-		DISK_SIZE_COUNT, 2);
-	
-	/* get the currently selected cd size */
-	datacd_get_datadisk_size();	
+		DISK_SIZE_COUNT, preferences_get_int(GB_DATA_DISK_SIZE));
 }
 
 
@@ -701,6 +698,8 @@ datacd_on_datadisk_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 	gchar* buf = g_strdup_printf("%d%%", (gint)(fraction * 100));
 	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
 	g_free(buf);
+    
+    preferences_set_int(GB_DATA_DISK_SIZE, gtk_option_menu_get_history(optionmenu));
 }
 
 
