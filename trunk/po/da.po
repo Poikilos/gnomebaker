@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-25 23:15+0200\n"
+"POT-Creation-Date: 2005-10-30 19:47+0100\n"
 "PO-Revision-Date: 2005-10-25 23:14+0200\n"
 "Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
 "Language-Team: \n"
@@ -28,40 +28,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/audiocd.c:131 ../src/audiocd.c:639 ../gnomebaker.glade.h:4
+#: ../src/audiocd.c:132 ../src/audiocd.c:642 ../gnomebaker.glade.h:4
 msgid "0 mins 0 secs"
 msgstr "0 min. 0 sek."
 
-#: ../src/audiocd.c:142
+#: ../src/audiocd.c:143
 #, c-format
 msgid "%d mins %d secs"
 msgstr "%d min. %d sek."
 
-#: ../src/audiocd.c:150
+#: ../src/audiocd.c:151
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "Spor er for stort til at være på det resterende plads på CD'en"
 
-#: ../src/audiocd.c:241 ../src/filebrowser.c:583
+#: ../src/audiocd.c:242 ../src/filebrowser.c:583
 msgid "_Open"
 msgstr "_Åbn"
 
-#: ../src/audiocd.c:246
+#: ../src/audiocd.c:247
 msgid "Move selected _up"
 msgstr "Flyt valgte _op"
 
-#: ../src/audiocd.c:248
+#: ../src/audiocd.c:249
 msgid "Move selected _down"
 msgstr "Flyt valgte _ned"
 
-#: ../src/audiocd.c:251 ../src/datacd.c:459
+#: ../src/audiocd.c:252 ../src/datacd.c:460
 msgid "_Remove selected"
 msgstr "_Fjern valgte"
 
-#: ../src/audiocd.c:253
+#: ../src/audiocd.c:254
 msgid "_Clear"
 msgstr "_Ryd"
 
-#: ../src/audiocd.c:343
+#: ../src/audiocd.c:344
 #, c-format
 msgid ""
 "The file [%s] referred to in the playlist could not be imported as it does "
@@ -70,7 +70,7 @@ msgstr ""
 "Filen [%s] som der henvises til i afspilningslisten, eksisterer ikke og kan "
 "derfor ikke importeres."
 
-#: ../src/audiocd.c:683
+#: ../src/audiocd.c:686
 msgid ""
 "The file you have selected is not a supported playlist. Please select a pls "
 "or m3u file."
@@ -78,27 +78,27 @@ msgstr ""
 "Filen du har valgt er ikke en understøttet afspilningsliste. Vælg venligst "
 "en fil af typen pls eller m3u."
 
-#: ../src/audiocd.c:708
+#: ../src/audiocd.c:711
 msgid "Track"
 msgstr "Spor"
 
-#: ../src/audiocd.c:721
+#: ../src/audiocd.c:724
 msgid "Duration"
 msgstr "Varighed"
 
-#: ../src/audiocd.c:738
+#: ../src/audiocd.c:741
 msgid "Artist"
 msgstr "Kunstner"
 
-#: ../src/audiocd.c:747
+#: ../src/audiocd.c:750
 msgid "Album"
 msgstr "Album"
 
-#: ../src/audiocd.c:756
+#: ../src/audiocd.c:759
 msgid "Title"
 msgstr "Titel"
 
-#: ../src/audiocd.c:765
+#: ../src/audiocd.c:768
 msgid "Info"
 msgstr "Info"
 
@@ -236,31 +236,31 @@ msgstr "Vent venligst mens dataen brændes direkte til DVD."
 msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr "Fil eller mappe er for stor til at være på CD'ens resterende plads"
 
-#: ../src/datacd.c:455
+#: ../src/datacd.c:456
 msgid "_Edit name"
 msgstr "_Redigér navn"
 
-#: ../src/datacd.c:461
+#: ../src/datacd.c:462
 msgid "Clear"
 msgstr "Ryd"
 
-#: ../src/datacd.c:494 ../gnomebaker.glade.h:41
+#: ../src/datacd.c:495 ../gnomebaker.glade.h:41
 msgid "Contents"
 msgstr "Indhold"
 
-#: ../src/datacd.c:518 ../src/datacd.c:528 ../src/filebrowser.c:796
+#: ../src/datacd.c:519 ../src/datacd.c:529 ../src/filebrowser.c:796
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../src/datacd.c:538
+#: ../src/datacd.c:539
 msgid "Full Path"
 msgstr "Fuld sti"
 
-#: ../src/datacd.c:547
+#: ../src/datacd.c:548
 msgid "Session"
 msgstr "Session"
 
-#: ../src/datacd.c:594
+#: ../src/datacd.c:592
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -271,11 +271,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/datacd.c:595 ../src/devices.c:651
+#: ../src/datacd.c:593 ../src/devices.c:651
 msgid "unknown error"
 msgstr "ukendt fejl"
 
-#: ../src/datacd.c:668
+#: ../src/datacd.c:666
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -370,23 +370,23 @@ msgstr ""
 "Et data-CD aftryk fra en tidligere session findes allerede på disken. Vil du "
 "bruge det eksisterende aftryk?"
 
-#: ../src/execfunctions.c:792
+#: ../src/execfunctions.c:793
 msgid "Formatting DVD"
 msgstr "Formaterer DVD"
 
-#: ../src/execfunctions.c:872
+#: ../src/execfunctions.c:873
 msgid "Preparing to burn DVD"
 msgstr "Klargører brænding af DVD"
 
-#: ../src/execfunctions.c:903 ../src/execfunctions.c:925
+#: ../src/execfunctions.c:904 ../src/execfunctions.c:926
 msgid "Writing DVD"
 msgstr "Skriver DVD"
 
-#: ../src/execfunctions.c:1046
+#: ../src/execfunctions.c:1047
 msgid "Reading CD image"
 msgstr "Læser CD-aftryk"
 
-#: ../src/execfunctions.c:1306
+#: ../src/execfunctions.c:1307
 #, c-format
 msgid "Converting %s to cd audio"
 msgstr "Konverterer %s til CD-lyd"
