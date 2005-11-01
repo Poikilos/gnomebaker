@@ -12,6 +12,7 @@ Version 0.5.1
 * Apply patch #1329831 Updated pt_BR translation
 * Use valgrind to fix minor memory leaks.
 * Remember the last selected data and audio disk sizes.
+* Add raw96r write mode.
 
 Version 0.5.0
 
