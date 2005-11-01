@@ -1,7 +1,9 @@
 [Desktop Entry]
 Name=GnomeBaker
-Comment=GnomeBaker CD/DVD Writer
 GenericName=CD/DVD Writer
+GenericName[da]=CD/DVD-brændeprogram
+Comment=Write CD and DVD
+Comment[da]=Brænd CD og DVD
 Exec=gnomebaker
 Icon=/usr/local/share/gnomebaker/gnomebaker-48.png
 Terminal=false
