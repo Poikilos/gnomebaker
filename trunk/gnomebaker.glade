@@ -2759,17 +2759,17 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="tao1">
+		    <widget class="GtkMenuItem" id="dao1">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">tao</property>
+		      <property name="label" translatable="yes">dao</property>
 		      <property name="use_underline">True</property>
 		    </widget>
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="dao1">
+		    <widget class="GtkMenuItem" id="raw16">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">dao</property>
+		      <property name="label" translatable="yes">raw16</property>
 		      <property name="use_underline">True</property>
 		    </widget>
 		  </child>
@@ -2783,9 +2783,17 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="raw16">
+		    <widget class="GtkMenuItem" id="raw96r1">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">raw16</property>
+		      <property name="label" translatable="yes">raw96r</property>
+		      <property name="use_underline">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="tao1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">tao</property>
 		      <property name="use_underline">True</property>
 		    </widget>
 		  </child>
