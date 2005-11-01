@@ -198,18 +198,31 @@ startdlg_new(const BurnType burntype)
 		case create_video_cd:			
 			gdvdmode = FALSE;
 			break;
-		case create_data_cd:		
-			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_reader));
-			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
+		case create_data_cd:
+            gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_reader));
+            gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
             gtk_table_attach(table, radioBurnDisk, 0, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);
-			gtk_table_attach(table, checkEject, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_3);
-			gtk_table_attach(table, checkDummy, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS_3);		
-			gtk_table_attach(table, checkBurnFree, 0, 2, 8, 9, TABLE_ATTACH_OPTIONS_3);
+            gtk_table_attach(table, checkEject, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_3);
+            gtk_table_attach(table, checkDummy, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS_3);        
+            gtk_table_attach(table, checkBurnFree, 0, 2, 8, 9, TABLE_ATTACH_OPTIONS_3);
             gtk_table_attach(table, checkOnTheFly, 2, 4, 8, 9, TABLE_ATTACH_OPTIONS_3);
-			gtk_table_attach(table, radioISOOnly, 0, 4, 9, 10, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, radioISOOnly, 0, 4, 9, 10, TABLE_ATTACH_OPTIONS_2);
             gtk_table_attach(table, labelFileSystem, 0, 4, 10, 11, TABLE_ATTACH_OPTIONS_1);            
             gtk_table_attach(table, checkJoliet, 0, 2, 11, 12, TABLE_ATTACH_OPTIONS_2);
-			gtk_table_attach(table, checkRockRidge, 2, 4, 11, 12, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, checkRockRidge, 2, 4, 11, 12, TABLE_ATTACH_OPTIONS_2);
+            g_signal_emit_by_name(radioISOOnly, "toggled", radioISOOnly, NULL);
+            gdvdmode = FALSE;
+            break;		
+        case append_data_cd:        
+			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_reader));
+			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
+			gtk_table_attach(table, checkEject, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkDummy, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS_2);		
+			gtk_table_attach(table, checkBurnFree, 0, 2, 8, 9, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, checkOnTheFly, 2, 4, 8, 9, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, labelFileSystem, 0, 4, 9, 10, TABLE_ATTACH_OPTIONS_1);            
+            gtk_table_attach(table, checkJoliet, 0, 2, 10, 11, TABLE_ATTACH_OPTIONS_2);
+			gtk_table_attach(table, checkRockRidge, 2, 4, 10, 11, TABLE_ATTACH_OPTIONS_2);
 			g_signal_emit_by_name(radioISOOnly, "toggled", radioISOOnly, NULL);
 			gdvdmode = FALSE;
 			break;
@@ -239,10 +252,10 @@ startdlg_new(const BurnType burntype)
 			gdvdmode = TRUE;
 			break;
 		case create_data_dvd:
-			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));
-			gtk_widget_hide(optmenWriteMode);
-			gtk_widget_hide(optmenReader);
-			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
+            gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));
+            gtk_widget_hide(optmenWriteMode);
+            gtk_widget_hide(optmenReader);
+            gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
             gtk_table_attach(table, radioBurnDisk, 0, 4, 6, 7, TABLE_ATTACH_OPTIONS_2);
             gtk_table_attach(table, checkEject, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_3);
             gtk_table_attach(table, checkDummy, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS_3);        
@@ -251,6 +264,20 @@ startdlg_new(const BurnType burntype)
             gtk_table_attach(table, labelFileSystem, 0, 4, 10, 11, TABLE_ATTACH_OPTIONS_1);            
             gtk_table_attach(table, checkJoliet, 0, 2, 11, 12, TABLE_ATTACH_OPTIONS_2);
             gtk_table_attach(table, checkRockRidge, 2, 4, 11, 12, TABLE_ATTACH_OPTIONS_2);
+            g_signal_emit_by_name(radioISOOnly, "toggled", radioISOOnly, NULL);
+            gdvdmode = TRUE;
+            break;
+        case append_data_dvd:
+			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_modelabel));
+			gtk_widget_hide(optmenWriteMode);
+			gtk_widget_hide(optmenReader);
+			gtk_widget_hide(glade_xml_get_widget(startdlg_xml, widget_startdlg_readlabel));
+            gtk_table_attach(table, checkEject, 0, 2, 7, 8, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, checkDummy, 2, 4, 7, 8, TABLE_ATTACH_OPTIONS_2);        
+            gtk_table_attach(table, checkFinalize, 0, 2, 8, 9, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, labelFileSystem, 0, 4, 9, 10, TABLE_ATTACH_OPTIONS_1);            
+            gtk_table_attach(table, checkJoliet, 0, 2, 10, 11, TABLE_ATTACH_OPTIONS_2);
+            gtk_table_attach(table, checkRockRidge, 2, 4, 10, 11, TABLE_ATTACH_OPTIONS_2);
             g_signal_emit_by_name(radioISOOnly, "toggled", radioISOOnly, NULL);
             gdvdmode = TRUE;
 			break;

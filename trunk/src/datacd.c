@@ -708,16 +708,22 @@ datacd_on_create_datadisk(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
 	
-	/* Here we should get a glist of data files to burn to the cd.
-	 * or something like that */	
 	GtkWidget *datatree = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree);
 	g_return_if_fail(datatree != NULL);
-	
 	GtkTreeModel* datamodel = gtk_tree_view_get_model(GTK_TREE_VIEW(datatree));
 	g_return_if_fail(datamodel != NULL);
+    gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
 
 	if(datadisksize >= datadisksizes[DVD_4GB].size)
-		burn_create_data_dvd(datamodel);
-	else
-		burn_create_data_cd(datamodel);	
+    {
+        if(msinfo != NULL)
+            burn_append_data_dvd(datamodel);    
+        else
+		    burn_create_data_dvd(datamodel);
+    }
+	else if(msinfo != NULL)
+        burn_append_data_cd(datamodel);
+    else
+	    burn_create_data_cd(datamodel);	
+
 }
