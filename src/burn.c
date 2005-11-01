@@ -64,7 +64,7 @@ burn_stop_process()
 }
 
 
-static gboolean
+static void
 burn_run_process()
 {
 	GB_LOG_FUNC
@@ -74,36 +74,31 @@ burn_run_process()
     exec_run(burnargs);
     progressdlg_finish(dlg, burnargs);
 	progressdlg_delete(dlg);
-	return (burnargs->outcome == COMPLETED);
 }
 
 
-static gboolean
+static void
 burn_cd_iso(const gchar* file)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(file != NULL, FALSE);
-	gboolean ok = FALSE;
+	g_return_if_fail(file != NULL);
 
 	if(burn_show_start_dlg(burn_cd_image) == GTK_RESPONSE_OK)
 	{
 		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
         mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);
 		cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
-		ok = burn_run_process();
+		burn_run_process();
 	}
-
-	return ok;
 }
 
 
-gboolean
+void
 burn_dvd_iso(const gchar* file)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(file != NULL, FALSE);
+	g_return_if_fail(file != NULL);
 	
-    gboolean ok = FALSE;        
     gchar* mime = gbcommon_get_mime_type(file);
     /* Check that the mime type is iso */
     if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
@@ -112,7 +107,7 @@ burn_dvd_iso(const gchar* file)
         {
             burnargs = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to DVD."));
             growisofs_add_iso_args(exec_cmd_new(burnargs),file);
-            ok = burn_run_process();
+            burn_run_process();
         }
     }
     else
@@ -120,62 +115,53 @@ burn_dvd_iso(const gchar* file)
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
           _("The file you have selected is not a DVD image. Please select a DVD image to burn."));
     }
-    
     g_free(mime);
-	return ok;
 }
 
 
-gboolean
+void
 burn_cue_or_toc(const gchar* file)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(file != NULL, FALSE);
-	gboolean ok = FALSE;
+	g_return_if_fail(file != NULL);
 
 	if(burn_show_start_dlg(burn_cd_image) == GTK_RESPONSE_OK)
 	{
 		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
 		cdrdao_add_image_args(exec_cmd_new(burnargs), file);
-		ok = burn_run_process(FALSE);
+		burn_run_process(FALSE);
 	}
-
-	return ok;
 }
 
 
-gboolean 
+void
 burn_cd_image_file(const gchar* file)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(file != NULL, FALSE);
+	g_return_if_fail(file != NULL);
+    
 	gchar* mime = gbcommon_get_mime_type(file);
-	g_return_val_if_fail(mime != NULL, FALSE);
+	g_return_if_fail(mime != NULL);
 	GB_TRACE("mime type is %s for %s", mime, file);
-	gboolean ret = FALSE;
-	
 	/* Check that the mime type is iso */
 	if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
-		ret = burn_cd_iso(file);
+		burn_cd_iso(file);
 	else if(gbcommon_str_has_suffix(file, ".cue") || gbcommon_str_has_suffix(file, ".toc"))
-		ret = burn_cue_or_toc(file);
+		burn_cue_or_toc(file);
 	else
 		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
 		  _("The file you have selected is not a cd image. Please select a cd image to burn."));
-	
 	g_free(mime);	
-	return ret;
 }
 
 
-gboolean
+void
 burn_create_data_cd(GtkTreeModel* datamodel)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(datamodel != NULL, FALSE);
+	g_return_if_fail(datamodel != NULL);
     
-	gboolean ok = FALSE;	
-	if((ok = (burn_show_start_dlg(create_data_cd) == GTK_RESPONSE_OK)))
+	if(burn_show_start_dlg(create_data_cd) == GTK_RESPONSE_OK)
 	{	                     
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
@@ -186,14 +172,12 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 			gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
 			gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filesel), "gnomebaker.iso");
 		
-            ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK);
+            const gint ret = gtk_dialog_run(GTK_DIALOG(filesel));
             gchar* file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));       
             gtk_widget_destroy(filesel);
-			if(ok)
-                ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);
+			if((ret == GTK_RESPONSE_OK) && mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE))
+                burn_run_process();
             g_free(file);
-            if(ok)
-                ok = burn_run_process();
 		}
         else if(preferences_get_bool(GB_ONTHEFLY))
         {
@@ -201,11 +185,10 @@ burn_create_data_cd(GtkTreeModel* datamodel)
             mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
             ExecCmd* cmd = exec_cmd_new(burnargs);
             cmd->piped = TRUE;
-            ok = mkisofs_add_args(cmd, datamodel, NULL, FALSE);			
-            if(ok)                 
+            if(mkisofs_add_args(cmd, datamodel, NULL, FALSE))
             {
                 cdrecord_add_iso_args(exec_cmd_new(burnargs), NULL);
-                ok = burn_run_process();
+                burn_run_process();
             }
         }
 		else
@@ -213,25 +196,58 @@ burn_create_data_cd(GtkTreeModel* datamodel)
             burnargs = exec_new(_("Burning data CD"), _("Please wait while the data disk image is created and then burned to CD. Depending on the speed of your CD writer, this may take some time. "));
             mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
 			gchar* file = preferences_get_create_data_cd_image();            
-            ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);			
-            if(ok)
+            if(mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE))
             {
                 cdrecord_add_iso_args(exec_cmd_new(burnargs), file);            
-                ok = burn_run_process();
+                burn_run_process();
             }
             g_free(file);                
 		}
 	}
-	return ok;
 }
 
 
-gboolean 
+void
+burn_append_data_cd(GtkTreeModel* datamodel)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(datamodel != NULL);
+    
+    if(burn_show_start_dlg(append_data_cd) == GTK_RESPONSE_OK)
+    {                        
+        if(preferences_get_bool(GB_ONTHEFLY))
+        {
+            burnargs = exec_new(_("Appending to data CD"), _("Please wait while the additional data is burned directly to CD."));
+            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
+            ExecCmd* cmd = exec_cmd_new(burnargs);
+            cmd->piped = TRUE;
+            if(mkisofs_add_args(cmd, datamodel, NULL, FALSE))
+            {
+                cdrecord_add_iso_args(exec_cmd_new(burnargs), NULL);
+                burn_run_process();
+            }
+        }
+        else
+        {
+            burnargs = exec_new(_("Appending to data CD"), _("Please wait while the data disk image is created and then appended to the CD. Depending on the speed of your CD writer, this may take some time. "));
+            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, NULL, TRUE);
+            gchar* file = preferences_get_create_data_cd_image();            
+            if(mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE))
+            {
+                cdrecord_add_iso_args(exec_cmd_new(burnargs), file);            
+                burn_run_process();
+            }
+            g_free(file);      
+        }
+    }
+}
+
+
+void
 burn_create_audio_cd(GtkTreeModel* model)
 {
     GB_LOG_FUNC
-    g_return_val_if_fail(model != NULL, FALSE);
-    gboolean ok = FALSE;
+    g_return_if_fail(model != NULL);
     
     if(burn_show_start_dlg(create_audio_cd) == GTK_RESPONSE_OK)
     {       
@@ -281,24 +297,19 @@ burn_create_audio_cd(GtkTreeModel* model)
                 g_free(audiofiles->data);
             g_list_free(audiofiles);
             
-            ok = burn_run_process();
+            burn_run_process();
         }
     }
-
-    return ok;
 }
 
 
-gboolean
+void
 burn_copy_data_cd()
 {
 	GB_LOG_FUNC
-	gboolean ok = FALSE;
 
 	if(burn_show_start_dlg(copy_data_cd) == GTK_RESPONSE_OK)
 	{        
-		ok = TRUE;
-		gchar* file = NULL;		
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
             burnargs = exec_new(_("Extracting CD image"), _("Please wait while the data CD image is extracted."));
@@ -308,93 +319,79 @@ burn_copy_data_cd()
 			gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
 			gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filesel), "gnomebaker.iso");
 		
-			if((ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)))
-				file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));
-			
+            const gint ret = gtk_dialog_run(GTK_DIALOG(filesel));
+            gchar* file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));			
 			gtk_widget_destroy(filesel);
+            if(ret == GTK_RESPONSE_OK)
+            {
+                readcd_add_copy_args(exec_cmd_new(burnargs), file);
+                burn_run_process();
+            }
+            g_free(file);
 		}
 		else
 		{
             burnargs = exec_new(_("Copying data CD"), _("Please wait while the data CD image is extracted and then burned to CD."));
-			file = preferences_get_copy_data_cd_image();			
+			gchar* file = preferences_get_copy_data_cd_image();			
+            readcd_add_copy_args(exec_cmd_new(burnargs), file);
+            mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);
+            cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
+            burn_run_process();
+            g_free(file);
 		}
-
-		if(ok)
-		{
-			readcd_add_copy_args(exec_cmd_new(burnargs), file);
-			if(!preferences_get_bool(GB_CREATEISOONLY))
-            {
-                mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);
-				cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
-            }
-			ok = burn_run_process();
-		}
-		
-		g_free(file);
 	}
-
-	return ok;
 }
 
 
-gboolean
+void
 burn_copy_audio_cd()
 {
 	GB_LOG_FUNC
-	gboolean ok = FALSE;
 
 	if(burn_show_start_dlg(copy_audio_cd) == GTK_RESPONSE_OK)
 	{
 		burnargs = exec_new(_("Copying audio CD"), _("Please wait while the audio CD tracks are extracted and then burned to CD."));
 		cdda2wav_add_copy_args(exec_cmd_new(burnargs));
 		cdrecord_add_audio_args(exec_cmd_new(burnargs));
-		ok = burn_run_process();
+		burn_run_process();
 	}
-
-	return ok;
 }
 
 
-gboolean
+void
 burn_blank_cdrw()
 {
 	GB_LOG_FUNC
-	gboolean ok = FALSE;
 	
 	if(burn_show_start_dlg(blank_cdrw) == GTK_RESPONSE_OK)
 	{		
 		burnargs = exec_new(_("Blanking CD"), _("Please wait while the CD is blanked."));
 		cdrecord_add_blank_args(exec_cmd_new(burnargs));
-		ok = burn_run_process();
+		burn_run_process();
 	}
-
-	return ok;
 }
 
 
-gboolean
+void
 burn_format_dvdrw()
 {
 	GB_LOG_FUNC
-	gboolean ok = FALSE;
 	
 	if(burn_show_start_dlg(format_dvdrw) == GTK_RESPONSE_OK)
 	{		
 		burnargs = exec_new(_("Formatting re-writeable DVD"), _("Please wait while the DVD is formatted."));
 		dvdformat_add_args(exec_cmd_new(burnargs));
-		ok = burn_run_process();
+		burn_run_process();
 	}
-
-	return ok;
 }
 
 
-gboolean
+void
 burn_create_data_dvd(GtkTreeModel* datamodel)
 {
 	GB_LOG_FUNC
-	gboolean ok = FALSE;
-
+    g_return_if_fail(datamodel != NULL);
+    
 	if(burn_show_start_dlg(create_data_dvd) == GTK_RESPONSE_OK)
 	{	            
         if(preferences_get_bool(GB_CREATEISOONLY))
@@ -406,24 +403,35 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
             gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
             gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filesel), "gnomebaker.iso");
         
-            ok = (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK);
+            const gint ret = gtk_dialog_run(GTK_DIALOG(filesel));            
             gchar* file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));       
             gtk_widget_destroy(filesel);
-            if(ok)
-                ok = mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE);
+            if((ret == GTK_RESPONSE_OK) && mkisofs_add_args(exec_cmd_new(burnargs), datamodel, file, FALSE))
+                burn_run_process();
             g_free(file);
         }
         else
         {
             burnargs = exec_new(_("Burning data DVD"), _("Please wait while the data is burned directly to DVD."));
-            ok = growisofs_add_args(exec_cmd_new(burnargs), datamodel);
+            if(growisofs_add_args(exec_cmd_new(burnargs), datamodel))
+                burn_run_process();
         }
-
-        if(ok)
-            ok = burn_run_process();
 	}
+}
 
-	return ok;
+
+void
+burn_append_data_dvd(GtkTreeModel* datamodel)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(datamodel != NULL);
+    
+    if(burn_show_start_dlg(append_data_dvd) == GTK_RESPONSE_OK)
+    {               
+        burnargs = exec_new(_("Appending to data DVD"), _("Please wait while the data is appended directly to the DVD."));
+        if(growisofs_add_args(exec_cmd_new(burnargs), datamodel))
+            burn_run_process();
+    }
 }
 
 

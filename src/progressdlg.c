@@ -150,7 +150,7 @@ progressdlg_append_output(const gchar* output)
 	gtk_text_buffer_insert(textBuffer, &textIter, output, strlen(output));	
     gtk_text_buffer_get_end_iter(textBuffer, &textIter);
     GtkTextMark* mark = gtk_text_buffer_create_mark(textBuffer, "end of buffer", &textIter, TRUE);
-    gtk_text_view_scroll_to_mark(textview, mark, 0.1, TRUE, 0.0, 1.0);
+    gtk_text_view_scroll_to_mark(textview, mark, 0.1, FALSE, 0.0, 0.0);
     gtk_text_buffer_delete_mark(textBuffer, mark);
 }
 
