@@ -62,7 +62,7 @@ typedef enum
 
 static const gchar* BurnTypeText[BurnTypeCount] = 
 {
-	N_("Blank CDRW"),
+	N_("Blank CD-RW"),
 	N_("Copy Data CD"),
 	N_("Copy Audio CD"),
 	N_("Burn CD Image"),

@@ -97,12 +97,12 @@
 		      <child>
 			<widget class="GtkImageMenuItem" id="blank_cdrw1">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Bl_ank CDRW</property>
+			  <property name="label" translatable="yes">Bl_ank CD-RW</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="gnomebaker_on_blank_cdrw" last_modification_time="Thu, 08 Apr 2004 20:55:06 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image322">
+			    <widget class="GtkImage" id="image354">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-cdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -117,12 +117,12 @@
 		      <child>
 			<widget class="GtkImageMenuItem" id="format_dvdrw1">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Format DVDRW</property>
+			  <property name="label" translatable="yes">_Format DVD±RW</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="gnomebaker_on_format_dvdrw" last_modification_time="Wed, 05 Jan 2005 22:09:46 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image323">
+			    <widget class="GtkImage" id="image355">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-dvdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -148,7 +148,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_datacd" last_modification_time="Fri, 09 Apr 2004 20:26:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image324">
+			    <widget class="GtkImage" id="image356">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -168,7 +168,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_audiocd" last_modification_time="Fri, 09 Apr 2004 20:26:00 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image325">
+			    <widget class="GtkImage" id="image357">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-audio-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -194,7 +194,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_iso" last_modification_time="Thu, 08 Apr 2004 21:00:53 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image326">
+			    <widget class="GtkImage" id="image358">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-cd-iso.png</property>
 			      <property name="xalign">0.5</property>
@@ -214,7 +214,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_dvd_iso" last_modification_time="Fri, 04 Mar 2005 19:19:17 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image327">
+			    <widget class="GtkImage" id="image359">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-dvd-iso.png</property>
 			      <property name="xalign">0.5</property>
@@ -240,7 +240,7 @@
 			  <signal name="activate" handler="gnomebaker_on_import" last_modification_time="Tue, 04 Jan 2005 00:49:21 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image328">
+			    <widget class="GtkImage" id="image360">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-import-session.png</property>
 			      <property name="xalign">0.5</property>
@@ -282,7 +282,7 @@
 			  <signal name="activate" handler="gnomebaker_on_refresh" last_modification_time="Sun, 21 Nov 2004 15:12:14 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image329">
+			    <widget class="GtkImage" id="image361">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
 			      <property name="icon_size">1</property>
@@ -331,7 +331,7 @@
 			  <signal name="activate" handler="gnomebaker_on_help" last_modification_time="Thu, 03 Feb 2005 21:13:55 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image330">
+			    <widget class="GtkImage" id="image362">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -384,8 +384,8 @@
 	      <child>
 		<widget class="GtkToolButton" id="btnBlankCDRW">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Blank CDRW</property>
-		  <property name="label" translatable="yes">Blank CDRW</property>
+		  <property name="tooltip" translatable="yes">Blank CD-RW</property>
+		  <property name="label" translatable="yes">Blank CD-RW</property>
 		  <property name="use_underline">True</property>
 		  <property name="icon">baker-blank-cdrw.png</property>
 		  <property name="visible_horizontal">True</property>
@@ -402,8 +402,8 @@
 	      <child>
 		<widget class="GtkToolButton" id="toolbutton6">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Format DVDRW</property>
-		  <property name="label" translatable="yes">Format DVDRW</property>
+		  <property name="tooltip" translatable="yes">Format DVD±RW</property>
+		  <property name="label" translatable="yes">Format DVD±RW</property>
 		  <property name="use_underline">True</property>
 		  <property name="icon">baker-blank-dvdrw.png</property>
 		  <property name="visible_horizontal">True</property>
@@ -1780,7 +1780,7 @@
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">True</property>
-  <property name="resizable">True</property>
+  <property name="resizable">False</property>
   <property name="destroy_with_parent">False</property>
   <property name="icon">gnomebaker-48.png</property>
   <property name="decorated">True</property>
@@ -1838,13 +1838,13 @@
 
 	  <child>
 	    <widget class="GtkTable" id="table4">
-	      <property name="border_width">10</property>
+	      <property name="border_width">12</property>
 	      <property name="visible">True</property>
 	      <property name="n_rows">9</property>
 	      <property name="n_columns">3</property>
 	      <property name="homogeneous">False</property>
-	      <property name="row_spacing">10</property>
-	      <property name="column_spacing">10</property>
+	      <property name="row_spacing">12</property>
+	      <property name="column_spacing">12</property>
 
 	      <child>
 		<widget class="GtkLabel" id="label19">
@@ -2109,13 +2109,13 @@
 
 	  <child>
 	    <widget class="GtkTable" id="table8">
-	      <property name="border_width">10</property>
+	      <property name="border_width">12</property>
 	      <property name="visible">True</property>
 	      <property name="n_rows">4</property>
 	      <property name="n_columns">1</property>
 	      <property name="homogeneous">False</property>
-	      <property name="row_spacing">10</property>
-	      <property name="column_spacing">10</property>
+	      <property name="row_spacing">12</property>
+	      <property name="column_spacing">12</property>
 
 	      <child>
 		<widget class="GtkLabel" id="label268">
@@ -2396,7 +2396,7 @@
 	  </child>
 	</widget>
 	<packing>
-	  <property name="padding">10</property>
+	  <property name="padding">0</property>
 	  <property name="expand">True</property>
 	  <property name="fill">True</property>
 	</packing>
