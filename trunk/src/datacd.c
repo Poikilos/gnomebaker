@@ -56,33 +56,35 @@ enum
 };
 
 
-DiskSize datadisksizes[DISK_SIZE_COUNT] = 
+static DiskSize datadisksizes[DISK_SIZE_COUNT] = 
 {
-	{200 * 1024 * 1024, "200MB CD"},
-	{650 * 1024 * 1024, "650MB CD"},
-	{700 * 1024 * 1024, "700MB CD"},
-	{800 * 1024 * 1024, "800MB CD"},
-	{4.7 * 1000 * 1000 * 1000, "4.7GB DVD"}, /* DVDs are salesman's MegaByte ie 1000 not 1024 */
-	{8.5 * 1000 * 1000 * 1000, "8.5GB DVD"}
+    /* http://www.cdrfaq.org/faq07.html#S7-6 
+        http://www.osta.org/technology/dvdqa/dvdqa6.htm */
+	{94500.0 * 2048, "200MB CD"},
+	{333000.0 * 2048, "650MB CD"},
+	{360000.0 * 2048, "700MB CD"},
+	{405000.0 * 2048, "800MB CD"},
+	{2294922.0 * 2048, "4.7GB DVD"}, 
+	{8.5 * 1000 * 1000 * 1000, "8.5GB DVD"} /* DVDs are salesman's MegaByte ie 1000 not 1024 */
 };
 
 
 enum
 {
+    TARGET_URI_LIST,
     TARGET_STRING,
-    TARGET_URL
+    TARGET_COUNT
 };
 
 
 static GtkTargetEntry targetentries[] = 
 {
-    {"STRING", 0, TARGET_STRING},
-    {"text/plain", 0, TARGET_STRING},
-    {"text/uri-list", 0, TARGET_URL},
+    {"text/uri-list", 0, TARGET_URI_LIST},
+    {"text/plain", 0, TARGET_STRING}
 };
 
 
-void 
+static void 
 datacd_set_multisession(const gchar* msinfo)
 {
 	GB_LOG_FUNC
@@ -96,7 +98,7 @@ datacd_set_multisession(const gchar* msinfo)
 }
 
 
-void
+static void
 datacd_on_show_humansize_changed(GConfClient *client,
                                    guint cnxn_id,
 								   GConfEntry *entry,
@@ -123,7 +125,7 @@ datacd_on_show_humansize_changed(GConfClient *client,
 }
 
 
-gdouble 
+static gdouble 
 datacd_get_datadisk_size()
 {
 	GB_LOG_FUNC
@@ -134,7 +136,22 @@ datacd_get_datadisk_size()
 }
 
 
-gboolean 
+static gchar*
+datacd_format_progress_text(gdouble currentsize)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(currentsize < datadisksize, NULL);
+    
+    gchar* current = gbcommon_humanreadable_filesize((guint64)currentsize);
+    gchar* remaining = gbcommon_humanreadable_filesize((guint64)(datadisksize - currentsize));
+    gchar* buf = g_strdup_printf(_("%s used - %s remaining"), current, remaining);
+    g_free(current);
+    g_free(remaining);
+    return buf;
+}   
+
+
+static gboolean 
 datacd_update_progress_bar(gboolean add, guint64 filesize)
 {
 	GB_LOG_FUNC
@@ -157,11 +174,13 @@ datacd_update_progress_bar(gboolean add, guint64 filesize)
 		currentsize -= (gdouble)filesize;
 	
 	fraction = currentsize / disksize;
-	
+    
 	if(fraction < 0.0 || fraction == -0.0)
 	{
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0%");
+		gchar* buf = datacd_format_progress_text(0.0);
+        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+        g_free(buf);
 		
 		/* disable the create button as there's nothing on the disk */
 		gnomebaker_enable_widget(widget_datacd_create, FALSE);
@@ -172,11 +191,10 @@ datacd_update_progress_bar(gboolean add, guint64 filesize)
 	/* If the file is too large then we don't allow the user to add it */
 	else if(fraction <= 1.0)
 	{
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
-		
-		gchar* buf = g_strdup_printf("%d%%", (gint)(fraction * 100));
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
-		g_free(buf);
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);		
+        gchar* buf = datacd_format_progress_text(currentsize);
+        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+        g_free(buf);
 		gnomebaker_enable_widget(widget_datacd_create, TRUE);
 	}
 	else
@@ -185,12 +203,11 @@ datacd_update_progress_bar(gboolean add, guint64 filesize)
 			_("File or directory is too large to fit in the remaining space on the CD"));
 		ok = FALSE;
 	}
-	
 	return ok;
 }
 
 
-gboolean  
+static gboolean  
 datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean existingsession)
 {
 	GB_LOG_FUNC
@@ -278,7 +295,7 @@ datacd_add_selection(GtkSelectionData* selection)
 }
 
 
-void
+static void
 datacd_on_drag_data_received(
     GtkWidget * widget,
     GdkDragContext * context,
@@ -294,7 +311,7 @@ datacd_on_drag_data_received(
 }
 
 
-void
+static void
 datacd_foreach_fileselection(GtkTreeModel *filemodel,
 								  GtkTreePath *path,
 								  GtkTreeIter *iter,
@@ -364,7 +381,7 @@ datacd_remove()
 }
 
 
-void
+static void
 datacd_on_remove_clicked(GtkWidget *menuitem, gpointer userdata)
 {
 	GB_LOG_FUNC	
@@ -386,7 +403,9 @@ datacd_clear()
 	GtkWidget* progbar = glade_xml_get_widget(xml, widget_datacd_progressbar);
 	
 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), "0%");
+	gchar* buf = datacd_format_progress_text(0.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+    g_free(buf);
 	gnomebaker_enable_widget(widget_datacd_create, FALSE);
 	
 	/* clear any multisession flags */	
@@ -396,7 +415,7 @@ datacd_clear()
 }
 
 
-void
+static void
 datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 {	
 	GB_LOG_FUNC
@@ -404,7 +423,7 @@ datacd_on_clear_clicked(GtkWidget *menuitem, gpointer userdata)
 }
 
 
-void
+static void
 datacd_contents_cell_edited(GtkCellRendererText *cell,
 							gchar* path_string,
 							gchar* new_text,
@@ -430,7 +449,7 @@ datacd_contents_cell_edited(GtkCellRendererText *cell,
 }
 
 
-void 
+static void 
 datacd_on_edit(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -439,7 +458,7 @@ datacd_on_edit(gpointer widget, gpointer user_data)
 }
 
 
-gboolean
+static gboolean
 datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -558,7 +577,7 @@ datacd_new()
 
 	/* Enable the file list as a drag destination */	
     gtk_drag_dest_set(GTK_WIDGET(filelist), GTK_DEST_DEFAULT_ALL,
-		targetentries, 3, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+		targetentries, TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
 	/* Connect the function to handle the drag data */
     g_signal_connect(filelist, "drag_data_received",
@@ -576,7 +595,7 @@ datacd_new()
 }
 
 
-gboolean 
+static gboolean 
 datacd_get_msinfo(gchar** msinfo)
 {
 	GB_LOG_FUNC
@@ -680,7 +699,7 @@ datacd_import_session()
 }
 
 
-void 
+void /* libglade callback */
 datacd_on_datadisk_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -694,8 +713,7 @@ datacd_on_datadisk_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 		
 	fraction = (fraction * previoussize)/datadisksize;
 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
-	
-	gchar* buf = g_strdup_printf("%d%%", (gint)(fraction * 100));
+	gchar* buf = datacd_format_progress_text(fraction * datadisksize);
 	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
 	g_free(buf);
     
@@ -703,7 +721,7 @@ datacd_on_datadisk_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 }
 
 
-void
+void /* libglade callback */
 datacd_on_create_datadisk(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC

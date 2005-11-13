@@ -281,23 +281,13 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 }
 
 
-static gboolean
-gnomebaker_dvd_image_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
-{
-    GB_LOG_FUNC
-    if(g_ascii_strcasecmp(filter_info->mime_type, "application/x-cd-image") == 0)
-        return TRUE;
-    return FALSE;
-}
-
-
 void /* libglade callback */
 gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
     GtkFileFilter *imagefilter = gtk_file_filter_new();
     gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_MIME_TYPE,
-        gnomebaker_dvd_image_file_filter, NULL, NULL);
+        gbcommon_iso_file_filter, NULL, NULL);
     gtk_file_filter_set_name(imagefilter,_("DVD Image files"));
 	const gchar* file = gbcommon_show_file_chooser(_("Please select a DVD image file."), imagefilter);
 	if(file != NULL)

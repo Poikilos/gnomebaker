@@ -57,15 +57,16 @@ enum /* FileList */
 
 enum
 {
+    TARGET_URI_LIST,
     TARGET_STRING,
-    TARGET_URL
+    TARGET_COUNT
 };
+
 
 static GtkTargetEntry targetentries[] = 
 {
-    {"STRING", 0, TARGET_STRING},
-    {"text/plain", 0, TARGET_STRING},
-    {"text/uri-list", 0, TARGET_URL},
+    {"text/uri-list", 0, TARGET_URI_LIST},
+    {"text/plain", 0, TARGET_STRING}
 };
 
 
@@ -693,7 +694,7 @@ filebrowser_setup_tree(GtkTreeView* dirtree, GtkTreeView* filelist)
 	    
 	/* Enable the file list as a drag source */	
     gtk_drag_source_set(GTK_WIDGET(dirtree), GDK_BUTTON1_MASK, targetentries,
-		3, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+		TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
 	g_signal_connect(dirtree, "drag_data_get", 
 		G_CALLBACK(filebrowser_on_drag_data_get), store);
