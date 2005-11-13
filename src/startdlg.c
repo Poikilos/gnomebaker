@@ -71,11 +71,11 @@ startdlg_on_ok_clicked(GtkButton * button, gpointer user_data)
     StartDlg* start_dlg = (StartDlg*)user_data;    
     devices_save_optionmenu(start_dlg->reader, GB_READER);
     devices_save_optionmenu(start_dlg->writer, GB_WRITER);
-    preferences_set_int(start_dlg->gdvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED, gtk_spin_button_get_value(start_dlg->write_speed));
+    preferences_set_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED, gtk_spin_button_get_value(start_dlg->write_speed));
     preferences_set_bool(GB_BURNFREE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(start_dlg->burn_free)));          
     preferences_set_bool(GB_FAST_BLANK, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(start_dlg->fast_erase)));
     gchar* text = gbcommon_get_option_menu_selection(start_dlg->write_mode);    
-    preferences_set_string(GB_WRITE_MODE, text);
+    preferences_set_string(start_dlg->dvdmode ? GB_DVDWRITE_MODE : GB_WRITE_MODE, text);
     g_free(text);
     preferences_set_bool(GB_FINALIZE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(start_dlg->finalize)));
     preferences_set_bool(GB_FAST_FORMAT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(start_dlg->fast_format)));
@@ -194,19 +194,23 @@ startdlg_add_device_section(GtkTable* table, StartDlg* start_dlg, gboolean show_
         gtk_table_attach (GTK_TABLE (table), GTK_WIDGET(start_dlg->write_mode), 3, 4, row, row + 1, TABLE_ATTACH_OPTIONS_1);
     
         GtkWidget* menu5 = gtk_menu_new ();        
-        static const gchar* modes[] = {"default", "dao", "raw16", "raw96p", "raw96r", "tao"};
-        gint i = 0;
-        for(; i < sizeof(modes)/sizeof(gchar*); ++i)
+        const gchar* cdmodes[] = {_("default"), "dao", "raw16", "raw96p", "raw96r", "tao", NULL};
+        const gchar* dvdmodes[] = {_("default"), "dao", NULL};
+        const gchar** modes = cdmodes;
+        if(start_dlg->dvdmode) modes = dvdmodes;
+        const gchar** mode = modes;
+        while(*mode != NULL)
         {
-            GtkWidget* menuitem = gtk_menu_item_new_with_label(modes[i]);
+            GtkWidget* menuitem = gtk_menu_item_new_with_label(*mode);
             gtk_widget_show(menuitem);
             gtk_menu_shell_append(GTK_MENU_SHELL(menu5), menuitem);
+            ++mode;
         }
         gtk_widget_show(menu5);
         gtk_option_menu_set_menu (start_dlg->write_mode, menu5);  
-        gchar* mode = preferences_get_string(GB_WRITE_MODE);
-        gbcommon_set_option_menu_selection(start_dlg->write_mode, mode);    
-        g_free(mode);
+        gchar* writemode = preferences_get_string(start_dlg->dvdmode ? GB_DVDWRITE_MODE : GB_WRITE_MODE);
+        gbcommon_set_option_menu_selection(start_dlg->write_mode, writemode);    
+        g_free(writemode);
     }
     ++row;
     gtk_table_attach(table, startdlg_create_label(_("<b>Options</b>")), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_1);
@@ -254,7 +258,6 @@ startdlg_blank_cdrw_section(StartDlg* start_dlg)
     gtk_table_attach(table, GTK_WIDGET(start_dlg->eject), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     gtk_table_attach(table, GTK_WIDGET(start_dlg->fast_erase), 2, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(table), FALSE, FALSE, xpad);
-    start_dlg->gdvdmode = FALSE;    
 }
 
 
@@ -295,7 +298,6 @@ startdlg_burn_dvd_image_section(StartDlg* start_dlg)
     ++row;
     gtk_table_attach(table, GTK_WIDGET(start_dlg->eject), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(table), FALSE, FALSE, xpad);
-    start_dlg->gdvdmode = TRUE;
 }
 
 
@@ -345,24 +347,24 @@ startdlg_create_filesystem_tab(StartDlg* start_dlg)
 
 
 static void 
-startdlg_create_data_disk_section(StartDlg* start_dlg, gboolean dvd)
+startdlg_create_data_disk_section(StartDlg* start_dlg)
 {
     GtkTable* table = GTK_TABLE(startdlg_create_table());
-    guint row = startdlg_add_device_section(table, start_dlg, FALSE, !dvd);
+    guint row = startdlg_add_device_section(table, start_dlg, FALSE, TRUE);
     ++row;
     gtk_table_attach(table, GTK_WIDGET(start_dlg->burn_disk), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     ++row;
     gtk_table_attach(table, GTK_WIDGET(start_dlg->eject), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_3);
     gtk_table_attach(table, GTK_WIDGET(start_dlg->dummy), 2, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);        
     ++row;
-    if(!dvd)
+    if(!start_dlg->dvdmode)
     {
         gtk_table_attach(table, GTK_WIDGET(start_dlg->burn_free), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_3);
         gtk_table_attach(table, GTK_WIDGET(start_dlg->on_the_fly), 2, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);
     }
     else
     {
-        gtk_table_attach(table, GTK_WIDGET(start_dlg->finalize), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_3);        
+        gtk_table_attach(table, GTK_WIDGET(start_dlg->finalize), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);        
     }
     ++row;
     gtk_table_attach(table, GTK_WIDGET(start_dlg->iso_only), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
@@ -378,20 +380,19 @@ startdlg_create_data_disk_section(StartDlg* start_dlg, gboolean dvd)
     gtk_notebook_append_page(notebook, GTK_WIDGET(startdlg_create_information_tab(start_dlg)), gtk_label_new(_("Disk Information")));
     gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(notebook), FALSE, FALSE, xpad);        
     g_signal_emit_by_name(start_dlg->iso_only, "toggled", start_dlg->iso_only, start_dlg);
-    start_dlg->gdvdmode = TRUE;
 }
 
 
 static void 
-startdlg_append_data_disk_section(StartDlg* start_dlg, gboolean dvd)
+startdlg_append_data_disk_section(StartDlg* start_dlg)
 {
     GtkTable* table = GTK_TABLE(startdlg_create_table());
-    guint row = startdlg_add_device_section(table, start_dlg, FALSE, !dvd);
+    guint row = startdlg_add_device_section(table, start_dlg, FALSE, TRUE);
     ++row;
     gtk_table_attach(table, GTK_WIDGET(start_dlg->eject), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     gtk_table_attach(table, GTK_WIDGET(start_dlg->dummy), 2, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);      
     ++row;
-    if(!dvd)
+    if(!start_dlg->dvdmode)
     {
         gtk_table_attach(table, GTK_WIDGET(start_dlg->burn_free), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
         gtk_table_attach(table, GTK_WIDGET(start_dlg->on_the_fly), 2, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
@@ -400,12 +401,7 @@ startdlg_append_data_disk_section(StartDlg* start_dlg, gboolean dvd)
     {
         gtk_table_attach(table, GTK_WIDGET(start_dlg->finalize), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     }    
-    ++row;
-    gtk_table_attach(table, startdlg_create_label(_("<b>File System</b>")), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_1);
-    ++row;
-    gtk_table_attach(table, GTK_WIDGET(start_dlg->joliet), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
-    gtk_table_attach(table, GTK_WIDGET(start_dlg->rock_ridge), 2, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
-
+    
     GtkNotebook* notebook = GTK_NOTEBOOK(gtk_notebook_new());
     gtk_notebook_append_page(notebook, GTK_WIDGET(table), gtk_label_new(_("Writing")));
     gtk_notebook_append_page(notebook, GTK_WIDGET(startdlg_create_filesystem_tab(start_dlg)), gtk_label_new(_("Filesystem")));
@@ -413,7 +409,6 @@ startdlg_append_data_disk_section(StartDlg* start_dlg, gboolean dvd)
     gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(notebook), FALSE, FALSE, xpad);        
 
     g_signal_emit_by_name(start_dlg->iso_only, "toggled", start_dlg->iso_only, start_dlg);
-    start_dlg->gdvdmode = dvd;
 }
 
 
@@ -447,6 +442,11 @@ startdlg_copy_data_cd_section(StartDlg* start_dlg)
     gtk_table_attach(table, GTK_WIDGET(start_dlg->iso_only), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
 
     gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(table), FALSE, FALSE, xpad);
+    ++row;
+    GtkWidget* hbox = gtk_hbox_new (FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->iso_file), TRUE, TRUE, 0);    
+    gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->browse), TRUE, TRUE, 0);
+    gtk_table_attach(table, hbox, 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);    
     g_signal_emit_by_name(start_dlg->iso_only, "toggled", start_dlg->iso_only, start_dlg);
 }
 
@@ -462,7 +462,6 @@ startdlg_format_dvdrw_section(StartDlg* start_dlg)
     ++row;
     gtk_table_attach(table, GTK_WIDGET(start_dlg->fast_format), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(table), FALSE, FALSE, xpad);
-    start_dlg->gdvdmode = TRUE;
 }
 
 
@@ -488,7 +487,6 @@ startdlg_new(const BurnType burntype)
     devices_populate_optionmenu(GTK_WIDGET(start_dlg->writer), GB_WRITER);  
     start_dlg->reader = GTK_OPTION_MENU(gtk_option_menu_new ());
     devices_populate_optionmenu(GTK_WIDGET(start_dlg->reader), GB_READER); 
-    gtk_widget_set_size_request (GTK_WIDGET(start_dlg->reader), 68, -1);
     GtkObject* spinSpeed_adj = gtk_adjustment_new (4, 0, 100, 1, 10, 10);  
     start_dlg->write_speed = GTK_SPIN_BUTTON(gtk_spin_button_new (GTK_ADJUSTMENT (spinSpeed_adj), 1, 0));
     gtk_spin_button_set_numeric (start_dlg->write_speed, TRUE);
@@ -536,17 +534,18 @@ startdlg_new(const BurnType burntype)
 		case burn_cd_image:			
 			startdlg_burn_cd_image_section(start_dlg);
 			break;
-		case burn_dvd_image:			
+		case burn_dvd_image:
+            start_dlg->dvdmode = TRUE;
 			startdlg_burn_dvd_image_section(start_dlg);
 			break;
 		case create_video_cd:		
             /* not supported yet */	
 			break;
 		case create_data_cd:
-            startdlg_create_data_disk_section(start_dlg, FALSE);
+            startdlg_create_data_disk_section(start_dlg);
             break;		
         case append_data_cd:        
-            startdlg_append_data_disk_section(start_dlg, FALSE);
+            startdlg_append_data_disk_section(start_dlg);
 			break;
 		case copy_audio_cd:
 			startdlg_copy_audio_cd_section(start_dlg);            
@@ -555,13 +554,16 @@ startdlg_new(const BurnType burntype)
             startdlg_copy_data_cd_section(start_dlg);
 			break;
 		case format_dvdrw:
+            start_dlg->dvdmode = TRUE;
             startdlg_format_dvdrw_section(start_dlg);
 			break;
 		case create_data_dvd:
-            startdlg_create_data_disk_section(start_dlg, TRUE);
+            start_dlg->dvdmode = TRUE;
+            startdlg_create_data_disk_section(start_dlg);
             break;
         case append_data_dvd:
-            startdlg_append_data_disk_section(start_dlg, TRUE);
+            start_dlg->dvdmode = TRUE;
+            startdlg_append_data_disk_section(start_dlg);
 			break;
 		default:
 			break;
@@ -569,7 +571,7 @@ startdlg_new(const BurnType burntype)
     startdlg_add_action_area(start_dlg);	
     
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(start_dlg->write_speed), 
-        preferences_get_int(start_dlg->gdvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED));
+        preferences_get_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED));
     
     gtk_widget_show_all(GTK_WIDGET(start_dlg->dialog));
     gbcommon_center_window_on_parent(GTK_WIDGET(start_dlg->dialog));
