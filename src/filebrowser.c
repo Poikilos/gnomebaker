@@ -889,6 +889,11 @@ void
 filebrowser_new()
 {
 	GB_LOG_FUNC
+    
+    ROOT_LABEL = _(ROOT_LABEL);
+    HOME_LABEL = _(HOME_LABEL);
+    EMPTY_LABEL = _(EMPTY_LABEL);
+    DIRECTORY = _(DIRECTORY);
 	
 	GtkTreeView* dirtree = 
 		GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree));

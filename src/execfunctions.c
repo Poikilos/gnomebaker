@@ -633,21 +633,48 @@ mkisofs_add_common_args(ExecCmd* e, GtkTreeModel* datamodel, StartDlg* start_dlg
     g_return_if_fail(datamodel != NULL);
     g_return_if_fail(start_dlg != NULL);
     
-    // TODO check the content of the GtkEntry so we don't append duff values
-    exec_cmd_add_arg(e, "-V");
-    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->volume_id));
-    exec_cmd_add_arg(e, "-A");
-    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->app_id));
-    exec_cmd_add_arg(e, "-p");
-    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->preparer));
-    exec_cmd_add_arg(e, "-publisher");
-    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->publisher));
-    exec_cmd_add_arg(e, "-copyright");
-    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->copyright));
-    exec_cmd_add_arg(e, "-abstract");
-    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->abstract));
-    exec_cmd_add_arg(e, "-bilio");
-    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->bibliography));
+    const gchar* text = gtk_entry_get_text(start_dlg->volume_id);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-V");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->app_id);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-A");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->preparer);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-p");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->publisher);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-publisher");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->copyright);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-copyright");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->abstract);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-abstract");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->bibliography);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-bilio");
+        exec_cmd_add_arg(e, text);
+    }
         
     exec_cmd_add_arg(e, "-iso-level");
     exec_cmd_add_arg(e, "3");
