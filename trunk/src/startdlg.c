@@ -513,6 +513,7 @@ startdlg_new(const BurnType burntype)
     start_dlg->volume_id = GTK_ENTRY(gtk_entry_new_with_max_length(32));
     gtk_entry_set_text(start_dlg->volume_id, _("GnomeBaker data disk"));
     start_dlg->app_id = GTK_ENTRY(gtk_entry_new_with_max_length(128));
+    gtk_entry_set_text(start_dlg->app_id, "GnomeBaker");
     start_dlg->preparer = GTK_ENTRY(gtk_entry_new_with_max_length(128));
     gtk_entry_set_text(start_dlg->preparer, g_get_real_name ());
     start_dlg->publisher = GTK_ENTRY(gtk_entry_new_with_max_length(128));

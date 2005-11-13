@@ -625,46 +625,29 @@ mkisofs_foreach_func(GtkTreeModel* model,
 }
 
 
-static gint
-mkisofs_get_filesystem_details(gchar** volume, gchar** createdby)
-{
-    GB_LOG_FUNC   
-    g_return_val_if_fail(volume != NULL, GTK_RESPONSE_CANCEL);   
-    g_return_val_if_fail(createdby != NULL, GTK_RESPONSE_CANCEL);
-    
-    GladeXML* dialog = glade_xml_new(glade_file, widget_isofsdlg, NULL);    
-    GtkEntry* created = GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_createdby));
-    gtk_entry_set_text(created, g_get_real_name());
-    GtkWidget* dlg = glade_xml_get_widget(dialog, widget_isofsdlg);
-    gbcommon_center_window_on_parent(dlg);
-    gint ret = gtk_dialog_run(GTK_DIALOG(dlg));
-    if(ret == GTK_RESPONSE_OK)
-    {
-        *volume = g_strdup(gtk_entry_get_text(GTK_ENTRY(glade_xml_get_widget(dialog, widget_isofsdlg_volume))));
-        *createdby = g_strdup(gtk_entry_get_text(created));
-    }
-    gtk_widget_hide(dlg);
-    gtk_widget_destroy(dlg);
-    g_object_unref(dialog);
-    return ret;
-}
-
-
 static void
-mkisofs_add_common_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* volume, const gchar* createdby)
+mkisofs_add_common_args(ExecCmd* e, GtkTreeModel* datamodel, StartDlg* start_dlg)
 {
     GB_LOG_FUNC
     g_return_if_fail(e != NULL);   
     g_return_if_fail(datamodel != NULL);
+    g_return_if_fail(start_dlg != NULL);
     
-    if(volume != NULL && createdby != NULL)
-    {
-        exec_cmd_add_arg(e, "-V");          
-        exec_cmd_add_arg(e, volume);
-        exec_cmd_add_arg(e, "-p");
-        exec_cmd_add_arg(e, createdby);
-    }
-    
+    exec_cmd_add_arg(e, "-V");
+    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->volume_id));
+    exec_cmd_add_arg(e, "-A");
+    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->app_id));
+    exec_cmd_add_arg(e, "-p");
+    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->preparer));
+    exec_cmd_add_arg(e, "-publisher");
+    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->publisher));
+    exec_cmd_add_arg(e, "-copyright");
+    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->copyright));
+    exec_cmd_add_arg(e, "-abstract");
+    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->abstract));
+    exec_cmd_add_arg(e, "-bilio");
+    exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->bibliography));
+        
     exec_cmd_add_arg(e, "-iso-level");
     exec_cmd_add_arg(e, "3");
     exec_cmd_add_arg(e, "-l"); /* allow 31 character iso9660 filenames */
@@ -689,73 +672,70 @@ mkisofs_add_common_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* volume
 } 
 
 
-gboolean
-mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gboolean calculatesize)
+void
+mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, StartDlg* start_dlg, const gboolean calculatesize)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(e != NULL, FALSE);
-	g_return_val_if_fail(datamodel != NULL, FALSE);
+	g_return_if_fail(e != NULL);
+	g_return_if_fail(datamodel != NULL);
+    g_return_if_fail(start_dlg != NULL);
 	cdrecord_totaldiskbytes = 0;
+    
+    exec_cmd_add_arg(e, "mkisofs");     
 	
 	/* If this is a another session on an existing cd we don't show the 
 	   iso details dialog */	
 	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
-	gchar* volume = NULL;
-	gchar* createdby = NULL;
-    gint ret = GTK_RESPONSE_OK;
-	if(msinfo == NULL && !calculatesize)
-        ret = mkisofs_get_filesystem_details(&volume, &createdby);
-	if(ret == GTK_RESPONSE_OK)
+	if(msinfo != NULL)
 	{
-		exec_cmd_add_arg(e, "mkisofs");		
-				
-		if(msinfo != NULL)
-		{
-			exec_cmd_add_arg(e, "-C");
-			exec_cmd_add_arg(e, msinfo);
-			
-			gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
-			exec_cmd_add_arg(e, "-M");
-			exec_cmd_add_arg(e, writer);
-			g_free(writer);			
-			
-			/* This is a cludge so that we don't ask the user if they want to use the existing iso */
-			gchar* createdataiso = preferences_get_create_data_cd_image();
-			gchar* cmd = g_strdup_printf("rm -fr %s", createdataiso);
-			system(cmd);			
-			g_free(cmd);
-			g_free(createdataiso);
-		}		
+		exec_cmd_add_arg(e, "-C");
+		exec_cmd_add_arg(e, msinfo);
 		
-        if(iso != NULL) /* no filename means we're on the fly */
-        {            
-            exec_cmd_add_arg(e, "-gui");	
-            exec_cmd_add_arg(e, "-o");
-            exec_cmd_add_arg(e, iso);
-        }
-        
-        if(calculatesize)
-        {
-            exec_cmd_add_arg(e, "--print-size");      
-            e->preProc = mkisofs_calc_size_pre_proc;
-            e->readProc = mkisofs_calc_size_read_proc;
-            e->postProc = mkisofs_calc_size_post_proc;
-        }
-        else
-        {
-            e->preProc = mkisofs_pre_proc;
-            e->readProc = mkisofs_read_proc;
-        }
-        
-        mkisofs_add_common_args(e, datamodel, volume, createdby);
-	}
+		gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+		exec_cmd_add_arg(e, "-M");
+		exec_cmd_add_arg(e, writer);
+		g_free(writer);			
+		
+		/* This is a cludge so that we don't ask the user if they want to use the existing iso */
+		gchar* createdataiso = preferences_get_create_data_cd_image();
+		gchar* cmd = g_strdup_printf("rm -fr %s", createdataiso);
+		system(cmd);			
+		g_free(cmd);
+		g_free(createdataiso);
+	}	
+    
+    if(preferences_get_bool(GB_CREATEISOONLY))
+    {
+        exec_cmd_add_arg(e, "-gui");    
+        exec_cmd_add_arg(e, "-o");                    
+        exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->iso_file));
+    }
+    else if(!preferences_get_bool(GB_ONTHEFLY))
+    {            
+        exec_cmd_add_arg(e, "-gui");    
+        exec_cmd_add_arg(e, "-o");            
+        gchar* file = preferences_get_create_data_cd_image();            
+        exec_cmd_add_arg(e, file);
+        g_free(file);
+    }
+    
+    if(calculatesize)
+    {
+        exec_cmd_add_arg(e, "--print-size");      
+        e->preProc = mkisofs_calc_size_pre_proc;
+        e->readProc = mkisofs_calc_size_read_proc;
+        e->postProc = mkisofs_calc_size_post_proc;
+    }
+    else
+    {
+        e->preProc = mkisofs_pre_proc;
+        e->readProc = mkisofs_read_proc;
+    }
+    
+    mkisofs_add_common_args(e, datamodel, start_dlg);
 	
 	/* We don't own the msinfo gchar datacd does 
 	g_free(msinfo);*/
-	g_free(volume);
-	g_free(createdby);
-	
-	return (ret == GTK_RESPONSE_OK);
 }
 
 
@@ -930,73 +910,59 @@ growisofs_read_iso_proc(void* ex, void* buffer)
 }
 
 
-gboolean
-growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel)
+void
+growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, StartDlg* start_dlg)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(e != NULL, FALSE);
-	        
-    /* If this is a another session on an existing cd we don't show the iso details dialog */	
-	gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);   
-	gchar* volume = NULL;
-	gchar* createdby = NULL;
-    gint ret = GTK_RESPONSE_OK;
-	if(msinfo == NULL)
-        ret = mkisofs_get_filesystem_details(&volume, &createdby);
-	if(ret == GTK_RESPONSE_OK)
-	{        
-		exec_cmd_add_arg(e, "growisofs");		
-				                
-        /* merge new session with existing one */	
-        gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
-        if(msinfo != NULL)
-            exec_cmd_add_arg(e, "-M");
-        else
-            exec_cmd_add_arg(e, "-Z");
+	g_return_if_fail(e != NULL);
+	    
+    exec_cmd_add_arg(e, "growisofs");           
+    
+    /* merge new session with existing one */	
+    gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datamodel), DATACD_EXISTING_SESSION);
+    if(msinfo != NULL)
+        exec_cmd_add_arg(e, "-M");
+    else
+        exec_cmd_add_arg(e, "-Z");
 
-        gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
-        exec_cmd_add_arg(e, writer);
-        g_free(writer);
-        
-        /* TODO: Overburn support
-        if(preferences_get_int(GB_OVERBURN))
-            exec_cmd_add_arg(growisofs, "-overburn"); */                
-        
-        exec_cmd_add_arg(e,"-speed=%d", preferences_get_int(GB_DVDWRITE_SPEED));
-        
-        /*http://fy.chalmers.se/~appro/linux/DVD+RW/tools/growisofs.c
-            for the use-the-force options */        
-        /* stop the reloading of the disc */
-        exec_cmd_add_arg(e, "-use-the-force-luke=notray");
-        
-        /* force overwriting existing filesystem */
-        exec_cmd_add_arg(e, "-use-the-force-luke=tty");
-                
-        /* http://www.troubleshooters.com/linux/coasterless_dvd.htm#_Gotchas 
-            states that dao with dvd compat is the best way of burning dvds */
-        exec_cmd_add_arg(e, "-use-the-force-luke=dao");
-        
-        if(preferences_get_bool(GB_DUMMY))
-            exec_cmd_add_arg(e, "-use-the-force-luke=dummy");
-        
-        if(preferences_get_bool(GB_FINALIZE))
-            exec_cmd_add_arg(e, "-dvd-compat");
+    gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
+    exec_cmd_add_arg(e, writer);
+    g_free(writer);
+    
+    /* TODO: Overburn support
+    if(preferences_get_int(GB_OVERBURN))
+        exec_cmd_add_arg(growisofs, "-overburn"); */                
+    
+    exec_cmd_add_arg(e,"-speed=%d", preferences_get_int(GB_DVDWRITE_SPEED));
+    
+    /*http://fy.chalmers.se/~appro/linux/DVD+RW/tools/growisofs.c
+        for the use-the-force options */        
+    /* stop the reloading of the disc */
+    exec_cmd_add_arg(e, "-use-the-force-luke=notray");
+    
+    /* force overwriting existing filesystem */
+    exec_cmd_add_arg(e, "-use-the-force-luke=tty");
+            
+    /* http://www.troubleshooters.com/linux/coasterless_dvd.htm#_Gotchas 
+        states that dao with dvd compat is the best way of burning dvds */
+    exec_cmd_add_arg(e, "-use-the-force-luke=dao");
+    
+    if(preferences_get_bool(GB_DUMMY))
+        exec_cmd_add_arg(e, "-use-the-force-luke=dummy");
+    
+    if(preferences_get_bool(GB_FINALIZE))
+        exec_cmd_add_arg(e, "-dvd-compat");
 
-        exec_cmd_add_arg(e, "-gui");	
-        
-        mkisofs_add_common_args(e, datamodel, volume, createdby);
-				
-		e->readProc = growisofs_read_proc;
-        e->preProc = growisofs_pre_proc;
-        e->postProc = growisofs_post_proc;
-	}
+    exec_cmd_add_arg(e, "-gui");	
+    
+    mkisofs_add_common_args(e, datamodel, start_dlg);
+			
+	e->readProc = growisofs_read_proc;
+    e->preProc = growisofs_pre_proc;
+    e->postProc = growisofs_post_proc;
 	
 	/* We don't own the msinfo gchar datacd does 
 	g_free(msinfo);*/
-	g_free(volume);
-	g_free(createdby);
-	
-	return (ret == GTK_RESPONSE_OK);
 }
 
 void 
@@ -1105,11 +1071,11 @@ readcd_read_proc(void* ex, void* buffer)
  *  Populates the information required to make an iso from an existing data cd
  */
 void
-readcd_add_copy_args(ExecCmd* e, const gchar* iso)
+readcd_add_copy_args(ExecCmd* e, StartDlg* start_dlg)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
-	g_return_if_fail(iso != NULL);	
+	g_return_if_fail(start_dlg != NULL);	
 
 	exec_cmd_add_arg(e, "readcd");
 	
@@ -1117,7 +1083,16 @@ readcd_add_copy_args(ExecCmd* e, const gchar* iso)
 	exec_cmd_add_arg(e, "dev=%s", reader);	
 	g_free(reader);
 	
-	exec_cmd_add_arg(e, "f=%s", iso);	
+    if(preferences_get_bool(GB_CREATEISOONLY))
+    {
+	   exec_cmd_add_arg(e, "f=%s", gtk_entry_get_text(start_dlg->iso_file));	
+    }
+    else
+    {
+       gchar* file = preferences_get_copy_data_cd_image();
+       exec_cmd_add_arg(e, "f=%s", file);    
+       g_free(file);   
+    }
 	/*exec_cmd_add_arg(e, "-notrunc");
 	exec_cmd_add_arg(e, "-clone");
 	exec_cmd_add_arg(e, "-silent");*/
