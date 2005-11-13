@@ -28,6 +28,7 @@
 
 #include <gnome.h>
 #include "exec.h"
+#include "startdlg.h"
 
 void cdda2wav_add_copy_args(ExecCmd* e);
 void cdrecord_add_iso_args(ExecCmd* cdBurn, const gchar* iso);
@@ -35,11 +36,11 @@ void cdrecord_add_audio_args(ExecCmd* cdBurn);
 void cdrecord_add_blank_args(ExecCmd* cdBurn);
 void cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles);
 void dvdformat_add_args(ExecCmd* dvdFormat);
-gboolean growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel);
+void growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, StartDlg* start_dlg);
 void growisofs_add_iso_args(ExecCmd* growisofs, const gchar *iso);
-gboolean mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, const gchar* iso, const gboolean calculatesize);
+void mkisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, StartDlg* start_dlg, const gboolean calculatesize);
 void mkisofs_add_calc_iso_size_args(ExecCmd* e, const gchar* iso);
-void readcd_add_copy_args(ExecCmd* e, const gchar* iso);
+void readcd_add_copy_args(ExecCmd* e, StartDlg* start_dlg);
 void cdrdao_add_image_args(ExecCmd* cmd, const gchar* toc_or_cue);
 void gstreamer_add_args(ExecCmd* cmd, const gchar* from, const gchar* to);
 
