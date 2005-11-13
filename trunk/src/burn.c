@@ -426,5 +426,10 @@ gboolean
 burn_init()
 {
     GB_LOG_FUNC
+#ifdef ENABLE_NLS
+    gint i;
+    for (i = 0; i < BurnTypeCount; ++i)
+        BurnTypeText[i] = _(BurnTypeText[i]);
+#endif
     return TRUE;
 }
