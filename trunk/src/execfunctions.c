@@ -633,6 +633,7 @@ mkisofs_add_common_args(ExecCmd* e, GtkTreeModel* datamodel, StartDlg* start_dlg
     g_return_if_fail(datamodel != NULL);
     g_return_if_fail(start_dlg != NULL);
     
+    // TODO check the content of the GtkEntry so we don't append duff values
     exec_cmd_add_arg(e, "-V");
     exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->volume_id));
     exec_cmd_add_arg(e, "-A");
@@ -945,7 +946,10 @@ growisofs_add_args(ExecCmd* e, GtkTreeModel* datamodel, StartDlg* start_dlg)
             
     /* http://www.troubleshooters.com/linux/coasterless_dvd.htm#_Gotchas 
         states that dao with dvd compat is the best way of burning dvds */
-    exec_cmd_add_arg(e, "-use-the-force-luke=dao");
+    gchar* mode = preferences_get_string(GB_DVDWRITE_MODE);
+    if(g_ascii_strcasecmp(mode, _("default")) != 0)
+        exec_cmd_add_arg(e, "-use-the-force-luke=dao");
+    g_free(mode);    
     
     if(preferences_get_bool(GB_DUMMY))
         exec_cmd_add_arg(e, "-use-the-force-luke=dummy");

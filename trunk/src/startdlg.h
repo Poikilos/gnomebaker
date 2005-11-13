@@ -57,7 +57,7 @@ typedef struct
     GtkEntry* copyright;
     GtkEntry* abstract;
     GtkEntry* bibliography;
-    gboolean gdvdmode;
+    gboolean dvdmode;
 } StartDlg;
 
 

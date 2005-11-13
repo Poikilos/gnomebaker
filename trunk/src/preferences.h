@@ -40,6 +40,7 @@
 #define GB_CLEANTEMPDIR 			GB_BASE_KEY "/CleanTempDir"
 #define GB_CREATEISOONLY 			GB_BASE_KEY "/CreateISOOnly"
 #define GB_WRITE_MODE 				GB_BASE_KEY "/WriteMode"
+#define GB_DVDWRITE_MODE            GB_BASE_KEY "/DvdWriteMode"
 #define GB_ALWAYS_SCAN				GB_BASE_KEY "/AlwaysScanOnStartup"
 #define GB_FORCE					GB_BASE_KEY "/Force"
 #define GB_FINALIZE					GB_BASE_KEY "/Finalize"
