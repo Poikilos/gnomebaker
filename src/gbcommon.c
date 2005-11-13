@@ -479,9 +479,10 @@ gbcommon_center_window_on_parent(GtkWidget* window)
     GB_LOG_FUNC    
     g_return_if_fail(window != NULL);
     
-    GtkWindow* mainwindow = gnomebaker_get_window();
-    gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(mainwindow));
+    gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(gnomebaker_get_window()));
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
+    gtk_widget_realize(window);
+    gdk_window_set_functions(window->window, GDK_FUNC_RESIZE|GDK_FUNC_MOVE|GDK_FUNC_CLOSE);
     gtk_widget_show(window);
 }
 
