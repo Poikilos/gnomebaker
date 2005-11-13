@@ -495,5 +495,13 @@ gbcommon_str_has_suffix(const gchar* str, const gchar* suffix)
     return (g_ascii_strcasecmp(str + strlen(str) - strlen(suffix), suffix) == 0);
 }
 
+gboolean
+gbcommon_iso_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
+{
+    GB_LOG_FUNC
+    if(g_ascii_strcasecmp(filter_info->mime_type, "application/x-cd-image") == 0)
+        return TRUE;
+    return FALSE;
+}
 
 

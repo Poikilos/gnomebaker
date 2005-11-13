@@ -38,25 +38,27 @@ static gdouble audiocdsize = 0.0;
 
 static DiskSize audiodisksizes[] = 
 {
-	{22, "22 min. CD"},
-	{74, "74 min. CD"},
-	{80, "80 min. CD"},
-	{90, "90 min. CD"}
+	{21.0, "21 min. CD"},
+	{63.0, "63 min. CD"},
+	{74.0, "74 min. CD"},
+    {80.0, "80 min. CD"},
+	{90.0, "90 min. CD"},
+    {99.0, "99 min. CD"}
 };
 
 
 enum
 {
+    TARGET_URI_LIST,
     TARGET_STRING,
-    TARGET_URL    
+    TARGET_COUNT
 };
 
 
 static GtkTargetEntry targetentries[] = 
 {
-    {"STRING", 0, TARGET_STRING},
-    {"text/plain", 0, TARGET_STRING},
-    {"text/uri-list", 0, TARGET_URL},
+    {"text/uri-list", 0, TARGET_URI_LIST},
+    {"text/plain", 0, TARGET_STRING}
 };
 
 
@@ -102,6 +104,20 @@ audiocd_get_audiocd_size()
 }
 
 
+static gchar*
+audiocd_format_progress_text(gdouble currentsecs)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(currentsecs < (audiocdsize * 60), NULL);
+    
+    gint ss1 = ((gint)currentsecs)%60;
+    gint m1 = (((gint)currentsecs)-ss1)/60;
+    gint ss2 = ((gint)((audiocdsize * 60) - currentsecs))%60;
+    gint m2 = (((gint)((audiocdsize * 60) - currentsecs))-ss2)/60;        
+    return g_strdup_printf(_("%d mins %d secs used - %d mins %d secs remaining"), m1, ss1, m2, ss2);    
+}   
+
+
 static gboolean 
 audiocd_update_progress_bar(gboolean add, gdouble seconds)
 {
@@ -129,20 +145,18 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 	if(fraction < 0.0 || fraction == -0.0)
 	{
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), _("0 mins 0 secs"));
+        gchar* buf = audiocd_format_progress_text(0.0);
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+        g_free(buf);
 		gnomebaker_enable_widget(widget_audiocd_create, FALSE);
 	}	
 	/* If the file is too large then we don't allow the user to add it */
 	else if(fraction <= 1.0)
 	{
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
-
-		gint ss = ((gint)currentsecs)%60;
-		gint m = (((gint)currentsecs)-ss)/60;
-		
-		gchar* buf = g_strdup_printf(_("%d mins %d secs"), m, ss);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
-		g_free(buf);
+        gchar* buf = audiocd_format_progress_text(currentsecs);
+        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+        g_free(buf);
 		gnomebaker_enable_widget(widget_audiocd_create, TRUE);
 	}
 	else
@@ -482,6 +496,9 @@ audiocd_on_audiocd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 		
 	fraction = (fraction * previoussize)/audiocdsize;
 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);	
+    gchar* buf = audiocd_format_progress_text(fraction * audiocdsize* 60);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+    g_free(buf);
     
     preferences_set_int(GB_AUDIO_DISK_SIZE, gtk_option_menu_get_history(optionmenu));
 }
@@ -638,8 +655,11 @@ audiocd_clear()
     GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));    
     GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
     
+    gchar* buf = audiocd_format_progress_text(0.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+    g_free(buf);
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), _("0 mins 0 secs"));
+
     gnomebaker_enable_widget(widget_audiocd_create, FALSE);
 
     /* Now get each row and free the MediaInfo* we store in each */    
@@ -774,7 +794,7 @@ audiocd_new()
 
     /* Enable the file list as a drag destination */    
     gtk_drag_dest_set(GTK_WIDGET(filelist), GTK_DEST_DEFAULT_ALL,
-        targetentries, 3, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+        targetentries, TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
     /* Connect the function to handle the drag data */
     g_signal_connect(filelist, "drag_data_received",

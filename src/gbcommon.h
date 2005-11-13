@@ -67,6 +67,7 @@ void gb_common_finalise();
 gboolean gbcommon_init();
 void gbcommon_center_window_on_parent(GtkWidget* window);
 gboolean gbcommon_str_has_suffix(const gchar* str, const gchar* suffix);
+gboolean gbcommon_iso_file_filter(const GtkFileFilterInfo *filter_info, gpointer data);
 
 /* defined in main.c */
 extern const gchar* glade_file;

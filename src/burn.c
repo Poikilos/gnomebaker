@@ -48,8 +48,8 @@ burn_show_start_dlg(const BurnType burntype)
 		exec_delete(burnargs);
 	burnargs = NULL;	
 
-	GtkWidget *dlg = startdlg_new(burntype);	
-	gint ret = gtk_dialog_run(GTK_DIALOG(dlg));	
+	StartDlg *dlg = startdlg_new(burntype);	
+	gint ret = gtk_dialog_run(dlg->dialog);	
 	startdlg_delete(dlg);		
 	return ret;
 }

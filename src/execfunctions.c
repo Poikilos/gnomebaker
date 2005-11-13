@@ -610,9 +610,8 @@ mkisofs_foreach_func(GtkTreeModel* model,
 	GB_LOG_FUNC
 	gchar *file = NULL, *filepath = NULL;
 	gboolean existingsession = FALSE;
-    guint64 size = 0;
 		
-	gtk_tree_model_get (model, iter, DATACD_COL_FILE, &file, DATACD_COL_SIZE, &size, 
+	gtk_tree_model_get (model, iter, DATACD_COL_FILE, &file,
 		DATACD_COL_PATH, &filepath, DATACD_COL_SESSION, &existingsession, -1);
 	
 	/* Only add files that are not part of an existing session */
