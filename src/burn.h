@@ -26,7 +26,6 @@
 #  include <config.h>
 #endif
 
-#include <pthread.h>
 #include <gnome.h>
 
 

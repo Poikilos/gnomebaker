@@ -19,15 +19,8 @@
  * Created on: Wed Feb 26 00:33:10 2003
  */
 
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/wait.h>
-#include <glib.h>
 #include "exec.h"
-#include <glib/gprintf.h>
+#include <sys/wait.h>
 #include "gbcommon.h"
 
 
