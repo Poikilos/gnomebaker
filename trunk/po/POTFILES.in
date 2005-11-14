@@ -1,3 +1,5 @@
+[encoding: UTF-8]
+
 #source files 
 src/audiocd.c
 src/burn.c
@@ -37,5 +39,3 @@ src/startdlg.h
 
 #glade files
 gnomebaker.glade
-
-
