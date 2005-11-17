@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-14 08:57+0100\n"
-"PO-Revision-Date: 2005-11-14 08:56+0100\n"
+"PO-Revision-Date: 2005-11-17 10:09+0100\n"
 "Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "%d min. %d sek. brugt - %d min. %d. sek. tilbage"
 
 #: ../src/audiocd.c:165
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Spor er for stort til at være på det resterende plads på CD'en"
+msgstr "Spor er for stort til at være på det resterende plads på CD'en."
 
 #: ../src/audiocd.c:256 ../src/filebrowser.c:584
 msgid "_Open"
@@ -254,7 +254,7 @@ msgstr "%s brugt - %s tilbage"
 
 #: ../src/datacd.c:203
 msgid "File or directory is too large to fit in the remaining space on the CD"
-msgstr "Fil eller mappe er for stor til at være på CD'ens resterende plads"
+msgstr "Fil eller mappe er for stor til at være på CD'ens resterende plads."
 
 #: ../src/datacd.c:475
 msgid "_Edit name"
@@ -394,7 +394,7 @@ msgstr ""
 
 #: ../src/execfunctions.c:800
 msgid "Formatting DVD"
-msgstr "Formaterer DVD"
+msgstr "Sletter DVD"
 
 #: ../src/execfunctions.c:880
 msgid "Preparing to burn DVD"
@@ -692,7 +692,7 @@ msgstr "Opret kun ISO"
 
 #: ../src/startdlg.c:503
 msgid "Force format"
-msgstr "Tving format"
+msgstr "Gennemtving sletning"
 
 #: ../src/startdlg.c:504
 msgid "Finalize"
@@ -905,7 +905,7 @@ msgstr "Klik for at påbegynde oprettelse af datadisk."
 
 #: ../gnomebaker.glade.h:39
 msgid "Click to begin the process of creating an audio cd"
-msgstr "Klik for at påbegynde oprettelse af lyd-CD"
+msgstr "Klik for at påbegynde oprettelse af lyd-CD."
 
 #: ../gnomebaker.glade.h:40
 msgid "Co_py Audio CD"
@@ -1015,9 +1015,7 @@ msgstr "Afspil lyd når brænding er fuldført"
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
-msgstr ""
-"Vælg venligst brænderenheden fra listen nedenfor og indsæt disken med den "
-"eksisterende session"
+msgstr "Vælg venligst brænderenheden fra listen nedenfor og indsæt disken med den eksisterende session."
 
 #: ../gnomebaker.glade.h:72
 msgid "Reader"
