@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-14 08:57+0100\n"
-"PO-Revision-Date: 2005-11-17 10:09+0100\n"
+"POT-Creation-Date: 2005-11-18 08:53+0100\n"
+"PO-Revision-Date: 2005-11-18 08:53+0100\n"
 "Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -99,19 +99,19 @@ msgstr "Info"
 
 #: ../src/burn.c:94 ../src/burn.c:140
 msgid "Burning CD image"
-msgstr "Brænder CD-aftryk"
+msgstr "Skriver CD-aftryk"
 
 #: ../src/burn.c:94 ../src/burn.c:140
 msgid "Please wait while the CD image you selected is burned to CD."
-msgstr "Vent venligst mens det valgte CD-aftryk brændes til CD."
+msgstr "Vent venligst mens det valgte CD-aftryk skrives til CD."
 
 #: ../src/burn.c:116
 msgid "Burning DVD image"
-msgstr "Brænder DVD-aftryk"
+msgstr "Skriver DVD-aftryk"
 
 #: ../src/burn.c:116
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr "Vent venligst mens det valgte DVD-aftryk brændes til DVD."
+msgstr "Vent venligst mens det valgte DVD-aftryk skrives til DVD."
 
 #: ../src/burn.c:125
 msgid ""
@@ -119,7 +119,7 @@ msgid ""
 "burn."
 msgstr ""
 "Filen du har valgt er ikke et DVD-aftryk. Vælg venligst et DVD-aftryk at "
-"brænde."
+"skrive."
 
 #: ../src/burn.c:164
 msgid ""
@@ -127,7 +127,7 @@ msgid ""
 "burn."
 msgstr ""
 "Filen du har valgt er ikke et CD-aftryk. Vælg venligst et CD-aftryk at "
-"brænde."
+"skrive."
 
 #: ../src/burn.c:180
 msgid "Creating data CD image"
@@ -139,18 +139,18 @@ msgstr "Vent venligst mens data-CD-aftrykket bliver oprettet."
 
 #: ../src/burn.c:186 ../src/burn.c:196
 msgid "Burning data CD"
-msgstr "Brænder data-CD"
+msgstr "Skriver data-CD"
 
 #: ../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
-msgstr "Vent venligst mens dataen brændes direkte til CD."
+msgstr "Vent venligst mens dataen skrives direkte til CD."
 
 #: ../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
-"Vent venligst mens data-CD-aftrykket oprettes or dernæst brændes til CD. "
+"Vent venligst mens data-CD-aftrykket oprettes og dernæst skrives til CD. "
 "Afhængig CD-brænderens hastighed, kan dette tage noget tid. "
 
 #: ../src/burn.c:220 ../src/burn.c:230
@@ -159,7 +159,7 @@ msgstr "Tilføjer til data-CD"
 
 #: ../src/burn.c:220
 msgid "Please wait while the additional data is burned directly to CD."
-msgstr "Vent venligst mens yderligere data brændes direkte til CD."
+msgstr "Vent venligst mens yderligere data skrives direkte til CD."
 
 #: ../src/burn.c:230
 msgid ""
@@ -171,14 +171,14 @@ msgstr ""
 
 #: ../src/burn.c:252
 msgid "Burning audio CD"
-msgstr "Brænder lyd-CD"
+msgstr "Skriver lyd-CD"
 
 #: ../src/burn.c:252
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr ""
-"Vent venligst mens de valgte spor konverteres til CD-lyd og dernæst brændes "
+"Vent venligst mens de valgte spor konverteres til CD-lyd og dernæst skrives "
 "til CD."
 
 #: ../src/burn.c:315
@@ -196,7 +196,7 @@ msgstr "Kopierer data-CD"
 #: ../src/burn.c:321
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
-"Vent venligst mens data-CD-aftrykket udpakkes og dernæst brændes til CD."
+"Vent venligst mens data-CD-aftrykket udpakkes og dernæst skrives til CD."
 
 #: ../src/burn.c:341
 msgid "Copying audio CD"
@@ -205,7 +205,7 @@ msgstr "Kopierer lyd-CD"
 #: ../src/burn.c:341
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
-msgstr "Vent venligst mens lyd-CD spor udtrækkes og dernæst brændes til CD."
+msgstr "Vent venligst mens lyd-CD spor udtrækkes og dernæst skrives til CD."
 
 #: ../src/burn.c:358
 msgid "Blanking CD"
@@ -233,11 +233,11 @@ msgstr "Vent venligst mens data-DVD-aftrykket oprettes."
 
 #: ../src/burn.c:399
 msgid "Burning data DVD"
-msgstr "Brænder data-DVD"
+msgstr "Skriver data-DVD"
 
 #: ../src/burn.c:399
 msgid "Please wait while the data is burned directly to DVD."
-msgstr "Vent venligst mens dataen brændes direkte til DVD."
+msgstr "Vent venligst mens dataen skrives direkte til DVD."
 
 #: ../src/burn.c:417
 msgid "Appending to data DVD"
@@ -310,9 +310,9 @@ msgid ""
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
-"Monteringspunktet (f.eks. /mnt/cdrom) for brænderenheden kunne ikke findes. "
-"Tjek venligst at brænderenheden har en linje i /etc/fstab og genskan dernæst "
-"efter enheder i indstillingerne."
+"Monteringspunktet (f.eks. /mnt/cdrom) for brænder-enheden kunne ikke findes. "
+"Tjek venligst at brænder-enheden har en linje i /etc/fstab og genskan "
+"dernæst efter enheder i indstillingerne."
 
 #: ../src/devices.c:650
 #, c-format
@@ -344,7 +344,7 @@ msgstr "Klargører sletning af disk"
 
 #: ../src/execfunctions.c:137
 msgid "Preparing to burn disk"
-msgstr "Klargører brænding af disk"
+msgstr "Klargører skrivning af disk"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
@@ -398,7 +398,7 @@ msgstr "Sletter DVD"
 
 #: ../src/execfunctions.c:880
 msgid "Preparing to burn DVD"
-msgstr "Klargører brænding af DVD"
+msgstr "Klargører skrivning af DVD"
 
 #: ../src/execfunctions.c:911 ../src/execfunctions.c:933
 msgid "Writing DVD"
@@ -440,11 +440,11 @@ msgstr "_Tilføj fil(er)"
 
 #: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
 msgid "_Burn CD Image"
-msgstr "_Brænd CD-aftryk"
+msgstr "_Skriv CD-aftryk"
 
 #: ../src/filebrowser.c:606
 msgid "_Burn DVD Image"
-msgstr "_Brænd DVD-aftryk"
+msgstr "_Skriv DVD-aftryk"
 
 #: ../src/filebrowser.c:714
 #, c-format
@@ -509,7 +509,7 @@ msgstr "GnomeBaker"
 
 #: ../src/gnomebaker.c:362
 msgid "Simple CD/DVD Burning for Gnome"
-msgstr "Simpel CD/DVD-brænding til Gnome"
+msgstr "Simpel CD/DVD-skrivning til Gnome"
 
 #: ../src/gnomebaker.c:362 ../gnomebaker.glade.h:104
 msgid "translator_credits"
@@ -604,7 +604,7 @@ msgstr "Læser:"
 
 #: ../src/startdlg.c:186
 msgid "Writer:"
-msgstr "Brænder:"
+msgstr "Skriver:"
 
 #: ../src/startdlg.c:189
 msgid "Speed:"
@@ -684,7 +684,7 @@ msgstr "BurnFree"
 
 #: ../src/startdlg.c:498
 msgid "Burn the disk"
-msgstr "Brænd disken"
+msgstr "Skriv disken"
 
 #: ../src/startdlg.c:500
 msgid "Create ISO only"
@@ -736,11 +736,11 @@ msgstr "Kopiér lyd-CD"
 
 #: ../src/burn.h:68 ../gnomebaker.glade.h:32
 msgid "Burn CD Image"
-msgstr "Brænd CD-aftryk"
+msgstr "Skriv CD-aftryk"
 
 #: ../src/burn.h:69 ../gnomebaker.glade.h:33
 msgid "Burn DVD Image"
-msgstr "Brænd DVD-aftryk"
+msgstr "Skriv DVD-aftryk"
 
 #: ../src/burn.h:70
 msgid "Create Data CD"
@@ -885,7 +885,7 @@ msgstr "Opstartskatalog"
 
 #: ../gnomebaker.glade.h:34
 msgid "Burn _DVD Image"
-msgstr "Brænd _DVD-aftryk"
+msgstr "Skriv _DVD-aftryk"
 
 #: ../gnomebaker.glade.h:35
 msgid "C_opy Data CD"
@@ -1009,13 +1009,15 @@ msgstr "PC opstartsbar"
 
 #: ../gnomebaker.glade.h:70
 msgid "Play sound when burning is complete"
-msgstr "Afspil lyd når brænding er fuldført"
+msgstr "Afspil lyd når skrivning er fuldført"
 
 #: ../gnomebaker.glade.h:71
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
-msgstr "Vælg venligst brænderenheden fra listen nedenfor og indsæt disken med den eksisterende session."
+msgstr ""
+"Vælg venligst brænder-enheden fra listen nedenfor og indsæt disken med den "
+"eksisterende session."
 
 #: ../gnomebaker.glade.h:72
 msgid "Reader"
@@ -1047,7 +1049,7 @@ msgstr "Vis letlæselige filstørrelser"
 
 #: ../gnomebaker.glade.h:80
 msgid "Simple CD burning for Gnome."
-msgstr "Simpel CD-brænding til Gnome."
+msgstr "Simpel CD-skrivning til Gnome."
 
 #: ../gnomebaker.glade.h:81
 msgid "Speed"
@@ -1059,7 +1061,7 @@ msgstr "Opstartsvindue"
 
 #: ../gnomebaker.glade.h:83
 msgid "Start burning..."
-msgstr "Start brænding..."
+msgstr "Start skrivning..."
 
 #: ../gnomebaker.glade.h:84
 msgid "Starting GnomeBaker..."
