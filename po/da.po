@@ -1,4 +1,4 @@
-# Danish translation of GnomeBaker
+# Danish translation of GnomeBaker.
 # Copyright (C) 2005 
 # This file is distributed under the same license as the GnomeBaker package.
 # Christoffer Sørensen <gnomebaker@curo.dk>, 2005.
@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-18 08:53+0100\n"
-"PO-Revision-Date: 2005-11-18 08:53+0100\n"
+"POT-Creation-Date: 2005-11-24 09:51+0100\n"
+"PO-Revision-Date: 2005-11-24 09:53+0100\n"
 "Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "%d min. %d sek. brugt - %d min. %d. sek. tilbage"
 
 #: ../src/audiocd.c:165
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Spor er for stort til at være på det resterende plads på CD'en."
+msgstr "Spor er for stort til at være på det resterende plads på cd'en."
 
 #: ../src/audiocd.c:256 ../src/filebrowser.c:584
 msgid "_Open"
@@ -99,26 +99,26 @@ msgstr "Info"
 
 #: ../src/burn.c:94 ../src/burn.c:140
 msgid "Burning CD image"
-msgstr "Skriver CD-aftryk"
+msgstr "Skriver cd-aftryk"
 
 #: ../src/burn.c:94 ../src/burn.c:140
 msgid "Please wait while the CD image you selected is burned to CD."
-msgstr "Vent venligst mens det valgte CD-aftryk skrives til CD."
+msgstr "Vent venligst mens det valgte cd-aftryk skrives til cd."
 
 #: ../src/burn.c:116
 msgid "Burning DVD image"
-msgstr "Skriver DVD-aftryk"
+msgstr "Skriver dvd-aftryk"
 
 #: ../src/burn.c:116
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr "Vent venligst mens det valgte DVD-aftryk skrives til DVD."
+msgstr "Vent venligst mens det valgte dvd-aftryk skrives til dvd."
 
 #: ../src/burn.c:125
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
 "burn."
 msgstr ""
-"Filen du har valgt er ikke et DVD-aftryk. Vælg venligst et DVD-aftryk at "
+"Filen du har valgt er ikke et dvd-aftryk. Vælg venligst et dvd-aftryk at "
 "skrive."
 
 #: ../src/burn.c:164
@@ -126,126 +126,126 @@ msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
 msgstr ""
-"Filen du har valgt er ikke et CD-aftryk. Vælg venligst et CD-aftryk at "
+"Filen du har valgt er ikke et cd-aftryk. Vælg venligst et cd-aftryk at "
 "skrive."
 
 #: ../src/burn.c:180
 msgid "Creating data CD image"
-msgstr "Opretter data-CD-aftryk"
+msgstr "Opretter data-cd-aftryk"
 
 #: ../src/burn.c:180
 msgid "Please wait while the data CD image is created."
-msgstr "Vent venligst mens data-CD-aftrykket bliver oprettet."
+msgstr "Vent venligst mens data-cd-aftrykket bliver oprettet."
 
 #: ../src/burn.c:186 ../src/burn.c:196
 msgid "Burning data CD"
-msgstr "Skriver data-CD"
+msgstr "Skriver data-cd"
 
 #: ../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
-msgstr "Vent venligst mens dataen skrives direkte til CD."
+msgstr "Vent venligst mens dataen skrives direkte til cd."
 
 #: ../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
-"Vent venligst mens data-CD-aftrykket oprettes og dernæst skrives til CD. "
-"Afhængig CD-brænderens hastighed, kan dette tage noget tid. "
+"Vent venligst mens data-cd-aftrykket oprettes og dernæst skrives til cd. "
+"Afhængig cd-brænderens hastighed, kan dette tage noget tid. "
 
 #: ../src/burn.c:220 ../src/burn.c:230
 msgid "Appending to data CD"
-msgstr "Tilføjer til data-CD"
+msgstr "Tilføjer til data-cd"
 
 #: ../src/burn.c:220
 msgid "Please wait while the additional data is burned directly to CD."
-msgstr "Vent venligst mens yderligere data skrives direkte til CD."
+msgstr "Vent venligst mens yderligere data skrives direkte til cd."
 
 #: ../src/burn.c:230
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
-"Vent venligst mens data-CD-aftrykket oprettes or dernæst tilføjes til CD'en. "
-"Afhængig CD-brænderens hastighed, kan dette tage noget tid. "
+"Vent venligst mens data-cd-aftrykket oprettes or dernæst tilføjes til cd'en. "
+"Afhængig cd-brænderens hastighed, kan dette tage noget tid. "
 
 #: ../src/burn.c:252
 msgid "Burning audio CD"
-msgstr "Skriver lyd-CD"
+msgstr "Skriver lyd-cd"
 
 #: ../src/burn.c:252
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr ""
-"Vent venligst mens de valgte spor konverteres til CD-lyd og dernæst skrives "
-"til CD."
+"Vent venligst mens de valgte spor konverteres til cd-lyd og dernæst skrives "
+"til cd."
 
 #: ../src/burn.c:315
 msgid "Extracting CD image"
-msgstr "Udpakker CD-aftryk"
+msgstr "Udpakker cd-aftryk"
 
 #: ../src/burn.c:315
 msgid "Please wait while the data CD image is extracted."
-msgstr "Vent venligst mens data-CD-aftrykket udpakkes."
+msgstr "Vent venligst mens data-cd-aftrykket udpakkes."
 
 #: ../src/burn.c:321
 msgid "Copying data CD"
-msgstr "Kopierer data-CD"
+msgstr "Kopierer data-cd"
 
 #: ../src/burn.c:321
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
-"Vent venligst mens data-CD-aftrykket udpakkes og dernæst skrives til CD."
+"Vent venligst mens data-cd-aftrykket udpakkes og dernæst skrives til cd."
 
 #: ../src/burn.c:341
 msgid "Copying audio CD"
-msgstr "Kopierer lyd-CD"
+msgstr "Kopierer lyd-cd"
 
 #: ../src/burn.c:341
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
-msgstr "Vent venligst mens lyd-CD spor udtrækkes og dernæst skrives til CD."
+msgstr "Vent venligst mens lyd-cd spor udtrækkes og dernæst skrives til cd."
 
 #: ../src/burn.c:358
 msgid "Blanking CD"
-msgstr "Sletter CD"
+msgstr "Sletter cd"
 
 #: ../src/burn.c:358
 msgid "Please wait while the CD is blanked."
-msgstr "Vent venligst mens CD'en slettes."
+msgstr "Vent venligst mens cd'en slettes."
 
 #: ../src/burn.c:374
 msgid "Formatting re-writeable DVD"
-msgstr "Sletter genskrivbar DVD"
+msgstr "Sletter genskrivbar dvd"
 
 #: ../src/burn.c:374
 msgid "Please wait while the DVD is formatted."
-msgstr "Vent venligst mens DVD'en slettes."
+msgstr "Vent venligst mens dvd'en slettes."
 
 #: ../src/burn.c:393
 msgid "Creating data DVD image"
-msgstr "Opretter data-DVD-aftryk"
+msgstr "Opretter data-dvd-aftryk"
 
 #: ../src/burn.c:393
 msgid "Please wait while the data DVD image is created."
-msgstr "Vent venligst mens data-DVD-aftrykket oprettes."
+msgstr "Vent venligst mens data-dvd-aftrykket oprettes."
 
 #: ../src/burn.c:399
 msgid "Burning data DVD"
-msgstr "Skriver data-DVD"
+msgstr "Skriver data-dvd"
 
 #: ../src/burn.c:399
 msgid "Please wait while the data is burned directly to DVD."
-msgstr "Vent venligst mens dataen skrives direkte til DVD."
+msgstr "Vent venligst mens dataen skrives direkte til dvd."
 
 #: ../src/burn.c:417
 msgid "Appending to data DVD"
-msgstr "Tilføjer til data-DVD"
+msgstr "Tilføjer til data-dvd"
 
 #: ../src/burn.c:417
 msgid "Please wait while the data is appended directly to the DVD."
-msgstr "Vent venligst mens dataen tilføjes direkte til DVD'en."
+msgstr "Vent venligst mens dataen tilføjes direkte til dvd'en."
 
 #: ../src/datacd.c:147
 #, c-format
@@ -254,7 +254,7 @@ msgstr "%s brugt - %s tilbage"
 
 #: ../src/datacd.c:203
 msgid "File or directory is too large to fit in the remaining space on the CD"
-msgstr "Fil eller mappe er for stor til at være på CD'ens resterende plads."
+msgstr "Fil eller katalog er for stor til at være på cd'ens resterende plads."
 
 #: ../src/datacd.c:475
 msgid "_Edit name"
@@ -389,29 +389,29 @@ msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
-"Et data-CD aftryk fra en tidligere session findes allerede på disken. Vil du "
+"Et data-cd aftryk fra en tidligere session findes allerede på disken. Vil du "
 "bruge det eksisterende aftryk?"
 
 #: ../src/execfunctions.c:800
 msgid "Formatting DVD"
-msgstr "Sletter DVD"
+msgstr "Sletter dvd"
 
 #: ../src/execfunctions.c:880
 msgid "Preparing to burn DVD"
-msgstr "Klargører skrivning af DVD"
+msgstr "Klargører skrivning af dvd"
 
 #: ../src/execfunctions.c:911 ../src/execfunctions.c:933
 msgid "Writing DVD"
-msgstr "Skriver DVD"
+msgstr "Skriver dvd"
 
 #: ../src/execfunctions.c:1043
 msgid "Reading CD image"
-msgstr "Læser CD-aftryk"
+msgstr "Læser cd-aftryk"
 
 #: ../src/execfunctions.c:1312
 #, c-format
 msgid "Converting %s to cd audio"
-msgstr "Konverterer %s til CD-lyd"
+msgstr "Konverterer %s til cd-lyd"
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:379
 #: ../src/startdlg.c:407
@@ -432,7 +432,7 @@ msgstr "Mappe"
 
 #: ../src/filebrowser.c:575
 msgid "_Add directory"
-msgstr "_Tilføj mappe"
+msgstr "_Tilføj katalog"
 
 #: ../src/filebrowser.c:588
 msgid "_Add file(s)"
@@ -440,11 +440,11 @@ msgstr "_Tilføj fil(er)"
 
 #: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
 msgid "_Burn CD Image"
-msgstr "_Skriv CD-aftryk"
+msgstr "_Skriv cd-aftryk"
 
 #: ../src/filebrowser.c:606
 msgid "_Burn DVD Image"
-msgstr "_Skriv DVD-aftryk"
+msgstr "_Skriv dvd-aftryk"
 
 #: ../src/filebrowser.c:714
 #, c-format
@@ -489,19 +489,19 @@ msgstr "Er du sikker på at du vil afslutte?"
 
 #: ../src/gnomebaker.c:277
 msgid "CD Image files"
-msgstr "CD-aftryk"
+msgstr "Cd-aftryk"
 
 #: ../src/gnomebaker.c:278
 msgid "Please select a CD image file."
-msgstr "Vælg venligst et CD-aftryk."
+msgstr "Vælg venligst et cd-aftryk."
 
 #: ../src/gnomebaker.c:291
 msgid "DVD Image files"
-msgstr "DVD-aftryk"
+msgstr "Dvd-aftryk"
 
 #: ../src/gnomebaker.c:292
 msgid "Please select a DVD image file."
-msgstr "Vælg venligst et DVD-aftryk."
+msgstr "Vælg venligst et dvd-aftryk."
 
 #: ../src/gnomebaker.c:361 ../gnomebaker.glade.h:54
 msgid "GnomeBaker"
@@ -509,7 +509,7 @@ msgstr "GnomeBaker"
 
 #: ../src/gnomebaker.c:362
 msgid "Simple CD/DVD Burning for Gnome"
-msgstr "Simpel CD/DVD-skrivning til Gnome"
+msgstr "Simpel cd/dvd-skrivning til Gnome"
 
 #: ../src/gnomebaker.c:362 ../gnomebaker.glade.h:104
 msgid "translator_credits"
@@ -552,19 +552,19 @@ msgstr "Monteringspunkt"
 
 #: ../src/prefsdlg.c:185
 msgid "Write CD-R"
-msgstr "Skriv CD-R"
+msgstr "Skriv cd-r"
 
 #: ../src/prefsdlg.c:194
 msgid "Write CD-RW"
-msgstr "Skriv CD-RW"
+msgstr "Skriv cd-rw"
 
 #: ../src/prefsdlg.c:203
 msgid "Write DVD-R"
-msgstr "Skriv DVD-R"
+msgstr "Skriv dvd-r"
 
 #: ../src/prefsdlg.c:212
 msgid "Write DVD-RAM"
-msgstr "Skriv DVD-RAM"
+msgstr "Skriv dvd-ram"
 
 #: ../src/progressdlg.c:185 ../gnomebaker.glade.h:79
 msgid "Show output"
@@ -588,7 +588,7 @@ msgstr "Vælg venligst en aftryksfil at gemme til."
 
 #: ../src/startdlg.c:119
 msgid "CD/DVD Image files"
-msgstr "CD/DVD-aftryk"
+msgstr "cd/dvd-aftryk"
 
 #: ../src/startdlg.c:177 ../gnomebaker.glade.h:13
 msgid "<b>Devices</b>"
@@ -724,55 +724,55 @@ msgstr "GnomeBaker datadisk"
 
 #: ../src/burn.h:65 ../gnomebaker.glade.h:28
 msgid "Blank CD-RW"
-msgstr "Slet CD-RW"
+msgstr "Slet cd-rw"
 
 #: ../src/burn.h:66 ../gnomebaker.glade.h:43
 msgid "Copy Data CD"
-msgstr "Kopiér data-CD"
+msgstr "Kopiér data-cd"
 
 #: ../src/burn.h:67 ../gnomebaker.glade.h:42
 msgid "Copy Audio CD"
-msgstr "Kopiér lyd-CD"
+msgstr "Kopiér lyd-cd"
 
 #: ../src/burn.h:68 ../gnomebaker.glade.h:32
 msgid "Burn CD Image"
-msgstr "Skriv CD-aftryk"
+msgstr "Skriv cd-aftryk"
 
 #: ../src/burn.h:69 ../gnomebaker.glade.h:33
 msgid "Burn DVD Image"
-msgstr "Skriv DVD-aftryk"
+msgstr "Skriv dvd-aftryk"
 
 #: ../src/burn.h:70
 msgid "Create Data CD"
-msgstr "Opret data-CD"
+msgstr "Opret data-cd"
 
 #: ../src/burn.h:71
 msgid "Append to Data CD"
-msgstr "Tilføj til data-CD"
+msgstr "Tilføj til data-cd"
 
 #: ../src/burn.h:72
 msgid "Create Audio CD"
-msgstr "Opret lyd-CD"
+msgstr "Opret lyd-cd"
 
 #: ../src/burn.h:73
 msgid "Create Mixed CD"
-msgstr "Opret kombineret CD (mixed)"
+msgstr "Opret kombineret cd (mixed)"
 
 #: ../src/burn.h:74
 msgid "Create Video CD"
-msgstr "Opret video-CD (VCD)"
+msgstr "Opret video-cd (vcd)"
 
 #: ../src/burn.h:75 ../gnomebaker.glade.h:51
 msgid "Format DVD±RW"
-msgstr "Slet DVD±RW"
+msgstr "Slet dvd±rw"
 
 #: ../src/burn.h:76
 msgid "Create Data DVD"
-msgstr "Opret data-DVD"
+msgstr "Opret data-dvd"
 
 #: ../src/burn.h:77
 msgid "Append to Data DVD"
-msgstr "Tilføj til data-DVD"
+msgstr "Tilføj til data-dvd"
 
 #: ../gnomebaker.glade.h:1
 msgid " "
@@ -833,15 +833,15 @@ msgstr "<b>Vælg brænder</b>"
 
 #: ../gnomebaker.glade.h:18
 msgid "<b>Temporary Directory</b>"
-msgstr "<b>Midlertidig mappe</b>"
+msgstr "<b>Midlertidigt katalog</b>"
 
 #: ../gnomebaker.glade.h:19
 msgid "<b>Video CD</b>"
-msgstr "<b>Video-CD (VCD)</b>"
+msgstr "<b>Video-cd (vcd)</b>"
 
 #: ../gnomebaker.glade.h:20
 msgid "<b>Volume label</b>"
-msgstr "<b>CD-navn</b>"
+msgstr "<b>Cd-navn</b>"
 
 #: ../gnomebaker.glade.h:21
 msgid "<i>...</i>"
@@ -853,7 +853,7 @@ msgstr "Tilføj fil(er)"
 
 #: ../gnomebaker.glade.h:23
 msgid "Add the selected files to the CD"
-msgstr "Tilføj de valgte filer til CD'en"
+msgstr "Tilføj de valgte filer til cd'en"
 
 #: ../gnomebaker.glade.h:24
 msgid "Always scan for devices on startup"
@@ -869,7 +869,7 @@ msgstr "Bager"
 
 #: ../gnomebaker.glade.h:27
 msgid "Bl_ank CD-RW"
-msgstr "Sl_et CD-RW"
+msgstr "Sl_et cd-rw"
 
 #: ../gnomebaker.glade.h:29
 msgid "Boot Image"
@@ -885,19 +885,19 @@ msgstr "Opstartskatalog"
 
 #: ../gnomebaker.glade.h:34
 msgid "Burn _DVD Image"
-msgstr "Skriv _DVD-aftryk"
+msgstr "Skriv _dvd-aftryk"
 
 #: ../gnomebaker.glade.h:35
 msgid "C_opy Data CD"
-msgstr "K_opiér data-CD"
+msgstr "K_opiér data-cd"
 
 #: ../gnomebaker.glade.h:36
 msgid "Clean temporary directory on exit"
-msgstr "Tøm midlertidig mappe ved afslutning"
+msgstr "Tøm midlertidigt katalog ved afslutning"
 
 #: ../gnomebaker.glade.h:37
 msgid "Clear the contents of the CD"
-msgstr "Fjern indholdet fra CD'en"
+msgstr "Fjern indholdet fra cd'en"
 
 #: ../gnomebaker.glade.h:38
 msgid "Click to begin the process of creating a data disk."
@@ -905,11 +905,11 @@ msgstr "Klik for at påbegynde oprettelse af datadisk."
 
 #: ../gnomebaker.glade.h:39
 msgid "Click to begin the process of creating an audio cd"
-msgstr "Klik for at påbegynde oprettelse af lyd-CD."
+msgstr "Klik for at påbegynde oprettelse af lyd-cd."
 
 #: ../gnomebaker.glade.h:40
 msgid "Co_py Audio CD"
-msgstr "Ko_piér lyd-CD"
+msgstr "Ko_piér lyd-cd"
 
 #: ../gnomebaker.glade.h:44
 msgid "Create Audio Disk"
@@ -921,7 +921,7 @@ msgstr "Opret datadisk"
 
 #: ../gnomebaker.glade.h:46
 msgid "Create Video Disk"
-msgstr "Opret videodisk (VCD)"
+msgstr "Opret videodisk (vcd)"
 
 #: ../gnomebaker.glade.h:47
 msgid "Created by username"
@@ -953,7 +953,7 @@ msgstr "GnomeBaker indstillinger"
 
 #: ../gnomebaker.glade.h:56
 msgid "GnomeBaker data cd"
-msgstr "GnomeBaker data-CD"
+msgstr "GnomeBaker data-cd"
 
 #: ../gnomebaker.glade.h:57
 msgid "Hard disk image"
@@ -1033,7 +1033,7 @@ msgstr "Fjern valgte"
 
 #: ../gnomebaker.glade.h:75
 msgid "Remove the selected files from the CD"
-msgstr "Fjern de valgte filer fra CD'en"
+msgstr "Fjern de valgte filer fra cd'en"
 
 #: ../gnomebaker.glade.h:76
 msgid "Sc_an for devices"
@@ -1049,7 +1049,7 @@ msgstr "Vis letlæselige filstørrelser"
 
 #: ../gnomebaker.glade.h:80
 msgid "Simple CD burning for Gnome."
-msgstr "Simpel CD-skrivning til Gnome."
+msgstr "Simpel cd-skrivning til Gnome."
 
 #: ../gnomebaker.glade.h:81
 msgid "Speed"
@@ -1089,7 +1089,7 @@ msgstr "_Tilføj valgte"
 
 #: ../gnomebaker.glade.h:91
 msgid "_Format DVD±RW"
-msgstr "_Slet DVD±RW"
+msgstr "_Slet dvd±rw"
 
 #: ../gnomebaker.glade.h:92
 msgid "_Import Session"
