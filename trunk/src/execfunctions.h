@@ -43,5 +43,6 @@ void mkisofs_add_calc_iso_size_args(ExecCmd* e, const gchar* iso);
 void readcd_add_copy_args(ExecCmd* e, StartDlg* start_dlg);
 void cdrdao_add_image_args(ExecCmd* cmd, const gchar* toc_or_cue);
 void gstreamer_add_args(ExecCmd* cmd, const gchar* from, const gchar* to);
+void md5sum_add_args(ExecCmd* cmd, const gchar* md5);
 
 #endif	/*_EXECFUNCTIONS_H_*/
