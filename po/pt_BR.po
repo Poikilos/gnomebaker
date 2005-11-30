@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-14 08:57+0100\n"
+"POT-Creation-Date: 2005-11-30 21:33+0000\n"
 "PO-Revision-Date: 2005-10-18 16:26-0200\n"
 "Last-Translator: Goedson Teixeira Paixao <goedson@debian.org>\n"
 "Language-Team: Portuguese <debian-l10n-portuguese@blists.debian.org>\n"
@@ -16,36 +16,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/audiocd.c:117
+#: src/audiocd.c:117
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
 msgstr ""
 
-#: ../src/audiocd.c:165
+#: src/audiocd.c:165
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "A trilha é muito grande para caber no espaço restante do CD"
 
-#: ../src/audiocd.c:256 ../src/filebrowser.c:584
+#: src/audiocd.c:256 src/filebrowser.c:584
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../src/audiocd.c:261
+#: src/audiocd.c:261
 msgid "Move selected _up"
 msgstr "Mover ítens selecionados para cima"
 
-#: ../src/audiocd.c:263
+#: src/audiocd.c:263
 msgid "Move selected _down"
 msgstr "Mover ítens selecionados para baixo"
 
-#: ../src/audiocd.c:266 ../src/datacd.c:479
+#: src/audiocd.c:266 src/datacd.c:479
 msgid "_Remove selected"
 msgstr "_Remover ítens selecionados"
 
-#: ../src/audiocd.c:268
+#: src/audiocd.c:268
 msgid "_Clear"
 msgstr "_Limpar"
 
-#: ../src/audiocd.c:358
+#: src/audiocd.c:358
 #, c-format
 msgid ""
 "The file [%s] referred to in the playlist could not be imported as it does "
@@ -54,7 +54,7 @@ msgstr ""
 "O arquivo [%s] referenciado na lista de reprodução não pode ser importado "
 "porque ele não existe."
 
-#: ../src/audiocd.c:706
+#: src/audiocd.c:706
 msgid ""
 "The file you have selected is not a supported playlist. Please select a pls "
 "or m3u file."
@@ -62,51 +62,51 @@ msgstr ""
 "O arquivo que você selecionou não é uma lista de reprodução suportada. Por "
 "favor, selecione um arquivo pls ou m3u."
 
-#: ../src/audiocd.c:731
+#: src/audiocd.c:731
 msgid "Track"
 msgstr "Trilha"
 
-#: ../src/audiocd.c:744
+#: src/audiocd.c:744
 msgid "Duration"
 msgstr "Duração"
 
-#: ../src/audiocd.c:761
+#: src/audiocd.c:761
 msgid "Artist"
 msgstr "Artista"
 
-#: ../src/audiocd.c:770
+#: src/audiocd.c:770
 msgid "Album"
 msgstr "Álbum"
 
-#: ../src/audiocd.c:779
+#: src/audiocd.c:779
 msgid "Title"
 msgstr "Título"
 
-#: ../src/audiocd.c:788
+#: src/audiocd.c:788
 msgid "Info"
 msgstr "Informações"
 
-#: ../src/burn.c:94 ../src/burn.c:140
+#: src/burn.c:94 src/burn.c:140
 msgid "Burning CD image"
 msgstr "Queimando imagem de CD"
 
-#: ../src/burn.c:94 ../src/burn.c:140
+#: src/burn.c:94 src/burn.c:140
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr ""
 "Por favor, aguarde enquanto a imagem de CD que você selecionou é gravada no "
 "CD."
 
-#: ../src/burn.c:116
+#: src/burn.c:116
 msgid "Burning DVD image"
 msgstr "Queimando imagem de DVD"
 
-#: ../src/burn.c:116
+#: src/burn.c:116
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr ""
 "Por favor, aguarde enquanto a imagem de DVD que você selecionou é gravada no "
 "DVD."
 
-#: ../src/burn.c:125
+#: src/burn.c:125
 msgid ""
 "The file you have selected is not a DVD image. Please select a DVD image to "
 "burn."
@@ -114,7 +114,7 @@ msgstr ""
 "O arquivo que você selecionou não é uma imagem de DVD. Por favor selecione "
 "uma imagem de DVD para queimar."
 
-#: ../src/burn.c:164
+#: src/burn.c:164
 msgid ""
 "The file you have selected is not a cd image. Please select a cd image to "
 "burn."
@@ -122,23 +122,23 @@ msgstr ""
 "O arquivo que vocÊ selecionou não é uma imagem de CD. POr favor selecione "
 "uma imagem de CD para queimar."
 
-#: ../src/burn.c:180
+#: src/burn.c:180
 msgid "Creating data CD image"
 msgstr "Criando imagem do CD de dados"
 
-#: ../src/burn.c:180
+#: src/burn.c:180
 msgid "Please wait while the data CD image is created."
 msgstr "Por favor, aguarde enquanto a imagem do CD de dados é criada."
 
-#: ../src/burn.c:186 ../src/burn.c:196
+#: src/burn.c:186 src/burn.c:196
 msgid "Burning data CD"
 msgstr "Queimando CD de dados"
 
-#: ../src/burn.c:186
+#: src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
 msgstr "Por favor, aguarde enquanto os dados são gravados diretamente no CD."
 
-#: ../src/burn.c:196
+#: src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
@@ -147,17 +147,17 @@ msgstr ""
 "CD. Dependendo da velocidade do seu gravador de CD, isto pode levar algum "
 "tempo."
 
-#: ../src/burn.c:220 ../src/burn.c:230
+#: src/burn.c:220 src/burn.c:230
 #, fuzzy
 msgid "Appending to data CD"
 msgstr "Queimando CD de dados"
 
-#: ../src/burn.c:220
+#: src/burn.c:220
 #, fuzzy
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr "Por favor, aguarde enquanto os dados são gravados diretamente no CD."
 
-#: ../src/burn.c:230
+#: src/burn.c:230
 #, fuzzy
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
@@ -167,11 +167,11 @@ msgstr ""
 "CD. Dependendo da velocidade do seu gravador de CD, isto pode levar algum "
 "tempo."
 
-#: ../src/burn.c:252
+#: src/burn.c:252
 msgid "Burning audio CD"
 msgstr "Queimando CD de áudio"
 
-#: ../src/burn.c:252
+#: src/burn.c:252
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
@@ -179,112 +179,112 @@ msgstr ""
 "Por favor, aguarde enquanto as faixas selecionadas são convertidas para "
 "áudio de CD e gravadas no CD."
 
-#: ../src/burn.c:315
+#: src/burn.c:315
 msgid "Extracting CD image"
 msgstr "Extraindo imagem do CD"
 
-#: ../src/burn.c:315
+#: src/burn.c:315
 msgid "Please wait while the data CD image is extracted."
 msgstr "Por favor, aguarde enquanto a imagem do CD de dados é extraída"
 
-#: ../src/burn.c:321
+#: src/burn.c:321
 msgid "Copying data CD"
 msgstr "Copiando CD de dados"
 
-#: ../src/burn.c:321
+#: src/burn.c:321
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 "Por favor, aguarde enquando a imagem do CD de dados é extraída e depois "
 "gravada no CD."
 
-#: ../src/burn.c:341
+#: src/burn.c:341
 msgid "Copying audio CD"
 msgstr "Copiando CD de áudio"
 
-#: ../src/burn.c:341
+#: src/burn.c:341
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr ""
 "Por favor, aguarde enquando as faixas do CD de áudio são extraídas e depois "
 "gravadas no CD."
 
-#: ../src/burn.c:358
+#: src/burn.c:358
 msgid "Blanking CD"
 msgstr "Apagando CD"
 
-#: ../src/burn.c:358
+#: src/burn.c:358
 msgid "Please wait while the CD is blanked."
 msgstr "Por favor, aguarde enquanto o CD é apagado."
 
-#: ../src/burn.c:374
+#: src/burn.c:374
 msgid "Formatting re-writeable DVD"
 msgstr "Formatando DVD regravável"
 
-#: ../src/burn.c:374
+#: src/burn.c:374
 msgid "Please wait while the DVD is formatted."
 msgstr "Por favor aguarde enquanto o DVD é formatado."
 
-#: ../src/burn.c:393
+#: src/burn.c:393
 msgid "Creating data DVD image"
 msgstr "Criando imagem de DVD de dados."
 
-#: ../src/burn.c:393
+#: src/burn.c:393
 msgid "Please wait while the data DVD image is created."
 msgstr "Por favor, aguarde enquando a imagem do DVD de dados é criada."
 
-#: ../src/burn.c:399
+#: src/burn.c:399
 msgid "Burning data DVD"
 msgstr "Queimando DVD de dados"
 
-#: ../src/burn.c:399
+#: src/burn.c:399
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Por favor, aguarde enquanto os dados são gravados diretamente no DVD."
 
-#: ../src/burn.c:417
+#: src/burn.c:417
 #, fuzzy
 msgid "Appending to data DVD"
 msgstr "Queimando DVD de dados"
 
-#: ../src/burn.c:417
+#: src/burn.c:417
 #, fuzzy
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Por favor, aguarde enquanto os dados são gravados diretamente no DVD."
 
-#: ../src/datacd.c:147
+#: src/datacd.c:147
 #, c-format
 msgid "%s used - %s remaining"
 msgstr ""
 
-#: ../src/datacd.c:203
+#: src/datacd.c:203
 msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr ""
 "Arquivo ou diretório é muito grande para caber no espaço restante no CD"
 
-#: ../src/datacd.c:475
+#: src/datacd.c:475
 msgid "_Edit name"
 msgstr "_Editar nome"
 
-#: ../src/datacd.c:481
+#: src/datacd.c:481
 msgid "Clear"
 msgstr "Limpar"
 
-#: ../src/datacd.c:514 ../gnomebaker.glade.h:41
+#: src/datacd.c:514 gnomebaker.glade:437
 msgid "Contents"
 msgstr "Conteúdo"
 
-#: ../src/datacd.c:538 ../src/datacd.c:548 ../src/filebrowser.c:797
+#: src/datacd.c:538 src/datacd.c:548 src/filebrowser.c:797
 msgid "Size"
 msgstr "Tamanho"
 
-#: ../src/datacd.c:558
+#: src/datacd.c:558
 msgid "Full Path"
 msgstr "Caminho Completo"
 
-#: ../src/datacd.c:567
+#: src/datacd.c:567
 msgid "Session"
 msgstr "Sessão"
 
-#: ../src/datacd.c:611
+#: src/datacd.c:612
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -295,11 +295,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/datacd.c:612 ../src/devices.c:651
+#: src/datacd.c:613 src/devices.c:657
 msgid "unknown error"
 msgstr "erro desconhecido"
 
-#: ../src/datacd.c:685
+#: src/datacd.c:686
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -308,7 +308,7 @@ msgstr ""
 "Erro ao importar sessão de [%s]. Por favor verifique a configuração do "
 "dispositivo nas preferências."
 
-#: ../src/devices.c:631
+#: src/devices.c:646
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
@@ -319,10 +319,10 @@ msgstr ""
 "entrada no arquivo /etc/fstab e então vá em preferências e faça a busca de "
 "dispositivos novamente."
 
-#: ../src/devices.c:650
-#, c-format
+#: src/devices.c:656
+#, fuzzy, c-format
 msgid ""
-"Error %s %s.\n"
+"Error mounting %s.\n"
 "\n"
 "%s"
 msgstr ""
@@ -330,45 +330,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/devices.c:651
-msgid "mounting"
-msgstr "montando"
-
-#: ../src/devices.c:651
-msgid "unmounting"
-msgstr "desmontando"
-
-#: ../src/devices.c:780
+#: src/devices.c:785
 #, c-format
 msgid "Please insert a disk into the %s"
 msgstr "Por favor insira um disco no %s"
 
-#: ../src/execfunctions.c:94
+#: src/execfunctions.c:94
 msgid "Preparing to blank disk"
 msgstr "Preparando para apagar disco"
 
-#: ../src/execfunctions.c:137
+#: src/execfunctions.c:137
 msgid "Preparing to burn disk"
 msgstr "Preparando para queimar disco"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: ../src/execfunctions.c:194
+#: src/execfunctions.c:194
 #, c-format
 msgid "Writing track %d"
 msgstr "Gravando faixa %d"
 
-#: ../src/execfunctions.c:240 ../src/execfunctions.c:977
-#: ../src/preferences.c:67 ../src/preferences.c:68 ../src/startdlg.c:197
-#: ../src/startdlg.c:198 ../gnomebaker.glade.h:99
+#: src/execfunctions.c:240 src/execfunctions.c:977 src/preferences.c:67
+#: src/preferences.c:68 src/startdlg.c:197 src/startdlg.c:198
+#: gnomebaker.glade:2864
 msgid "default"
 msgstr "padrão"
 
-#: ../src/execfunctions.c:389
+#: src/execfunctions.c:389
 msgid "Preparing to extract audio tracks"
 msgstr "Preparando para extrair faixas de áudio"
 
-#: ../src/execfunctions.c:400
+#: src/execfunctions.c:400
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -376,20 +368,20 @@ msgstr ""
 "Já existem trilhas de áudio de uma sessão anterior no disco. Você deseja "
 "usar as trilhas existentes?"
 
-#: ../src/execfunctions.c:456
+#: src/execfunctions.c:456
 #, c-format
 msgid "Extracting audio track %d"
 msgstr "Extraíndo faixa %d de áudio"
 
-#: ../src/execfunctions.c:526
+#: src/execfunctions.c:526
 msgid "Calculating data disk image size"
 msgstr "Calculando tamanho da imagem de do disco de dados"
 
-#: ../src/execfunctions.c:564
+#: src/execfunctions.c:564
 msgid "Creating data disk image"
 msgstr "Criando imagem do disco de dados"
 
-#: ../src/execfunctions.c:571
+#: src/execfunctions.c:571
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -397,645 +389,769 @@ msgstr ""
 "Já existe uma imagem de CD de dados de uma sessão anterior. Deseja utilizar "
 "a imagem existente?"
 
-#: ../src/execfunctions.c:800
+#: src/execfunctions.c:800
 msgid "Formatting DVD"
 msgstr "Formatando DVD"
 
-#: ../src/execfunctions.c:880
+#: src/execfunctions.c:880
 msgid "Preparing to burn DVD"
 msgstr "Preparando para queimar DVD"
 
-#: ../src/execfunctions.c:911 ../src/execfunctions.c:933
+#: src/execfunctions.c:911 src/execfunctions.c:933
 msgid "Writing DVD"
 msgstr "Gravando DVD"
 
-#: ../src/execfunctions.c:1043
+#: src/execfunctions.c:1043
 msgid "Reading CD image"
 msgstr "Lendo imagem de CD"
 
-#: ../src/execfunctions.c:1312
+#: src/execfunctions.c:1312
 #, c-format
 msgid "Converting %s to cd audio"
 msgstr "Convertendo %s para áudio de CD"
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:379
-#: ../src/startdlg.c:407
+#: src/execfunctions.c:1424
+msgid "Verifying the disk content"
+msgstr ""
+
+#: src/filebrowser.c:73 src/filebrowser.c:683 src/startdlg.c:379
+#: src/startdlg.c:407
 msgid "Filesystem"
 msgstr "Sistema de arquivos"
 
-#: ../src/filebrowser.c:74
+#: src/filebrowser.c:74
 msgid "Home"
 msgstr "Diretório Pessoal"
 
-#: ../src/filebrowser.c:75
+#: src/filebrowser.c:75
 msgid "(empty)"
 msgstr "(vazio)"
 
-#: ../src/filebrowser.c:76
+#: src/filebrowser.c:76
 msgid "Folder"
 msgstr "Pasta"
 
-#: ../src/filebrowser.c:575
+#: src/filebrowser.c:575
 msgid "_Add directory"
 msgstr "_Adicionar diretório"
 
-#: ../src/filebrowser.c:588
+#: src/filebrowser.c:588
 msgid "_Add file(s)"
 msgstr "_Adicionar arquivo(s)"
 
-#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
+#: src/filebrowser.c:603 gnomebaker.glade:300
 msgid "_Burn CD Image"
 msgstr "Queimar imagem de CD"
 
-#: ../src/filebrowser.c:606
+#: src/filebrowser.c:606
 msgid "_Burn DVD Image"
 msgstr "Queimar imagem de CD"
 
-#: ../src/filebrowser.c:714
+#: src/filebrowser.c:714
 #, c-format
 msgid "%s's home"
 msgstr "Pasta Pessoal de %s"
 
-#: ../src/filebrowser.c:782
+#: src/filebrowser.c:782
 msgid "File"
 msgstr "Arquivo"
 
-#: ../src/filebrowser.c:817
+#: src/filebrowser.c:817
 msgid "Type"
 msgstr "Tipo"
 
-#: ../src/filebrowser.c:826
+#: src/filebrowser.c:826
 msgid "Mime"
 msgstr "Mime"
 
-#: ../src/gbcommon.c:464
+#: src/gbcommon.c:464
 msgid "All files"
 msgstr "Todos os arquivos"
 
-#: ../src/gnomebaker.c:102
+#: src/gnomebaker.c:102
 msgid "Loading preferences..."
 msgstr "Carregando preferências..."
 
-#: ../src/gnomebaker.c:105
+#: src/gnomebaker.c:105
 msgid "Detecting devices..."
 msgstr "Detectando dispositivos..."
 
-#: ../src/gnomebaker.c:108
+#: src/gnomebaker.c:108
 msgid "Registering gstreamer plugins..."
 msgstr "Registrando plugins gstreamer..."
 
-#: ../src/gnomebaker.c:111
+#: src/gnomebaker.c:111
 msgid "Loading GUI..."
 msgstr "Carregando GUI..."
 
-#: ../src/gnomebaker.c:200
+#: src/gnomebaker.c:200
 msgid "Are you sure you want to quit?"
 msgstr "Tem certeza que deseja sair?"
 
-#: ../src/gnomebaker.c:277
+#: src/gnomebaker.c:277
 msgid "CD Image files"
 msgstr "Arquivos de imagem de CD"
 
-#: ../src/gnomebaker.c:278
+#: src/gnomebaker.c:278
 msgid "Please select a CD image file."
 msgstr "Por favor, selecione um arquivo de imagem de CD."
 
-#: ../src/gnomebaker.c:291
+#: src/gnomebaker.c:291
 msgid "DVD Image files"
 msgstr "Arquivos de imagem de DVD"
 
-#: ../src/gnomebaker.c:292
+#: src/gnomebaker.c:292
 msgid "Please select a DVD image file."
 msgstr "Por favor, selecione um arquivo de imagem de DVD."
 
-#: ../src/gnomebaker.c:361 ../gnomebaker.glade.h:54
+#: src/gnomebaker.c:361 gnomebaker.glade:11
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:362
+#: src/gnomebaker.c:362
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "Gravação de CD/DVD simples para o Gnome"
 
-#: ../src/gnomebaker.c:362 ../gnomebaker.glade.h:104
+#: src/gnomebaker.c:362 gnomebaker.glade:1814
 msgid "translator_credits"
 msgstr "Goedson Teixeira Paixão <goedson@debian.org>"
 
-#: ../src/gnomebaker.c:427
+#: src/gnomebaker.c:427
 msgid "Please select files to add to the disk."
 msgstr "Por favor, selecione arquivos para adicionar ao disco."
 
-#: ../src/gnomebaker.c:687
+#: src/gnomebaker.c:687
 msgid "Playlist files"
 msgstr "Arquivos de lista de reprodução"
 
-#: ../src/gnomebaker.c:688
+#: src/gnomebaker.c:688
 msgid "Please select a playlist."
 msgstr "Por favor, selecione uma lista de reprodução."
 
-#: ../src/media.c:399
+#: src/media.c:399
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr "O plugin para lidar com arquivos do tipo %s não está instalado."
 
-#: ../src/prefsdlg.c:143
+#: src/prefsdlg.c:143
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/prefsdlg.c:158
+#: src/prefsdlg.c:158
 msgid "Id"
 msgstr "Id"
 
-#: ../src/prefsdlg.c:167
+#: src/prefsdlg.c:167
 msgid "Node"
 msgstr "Nó"
 
-#: ../src/prefsdlg.c:176
+#: src/prefsdlg.c:176
 msgid "Mount point"
 msgstr "Ponto de montagem"
 
-#: ../src/prefsdlg.c:185
+#: src/prefsdlg.c:185
 msgid "Write CD-R"
 msgstr "Gravar CD-R"
 
-#: ../src/prefsdlg.c:194
+#: src/prefsdlg.c:194
 msgid "Write CD-RW"
 msgstr "Gravar CD-RW"
 
-#: ../src/prefsdlg.c:203
+#: src/prefsdlg.c:203
 msgid "Write DVD-R"
 msgstr "Gravar DVD-R"
 
-#: ../src/prefsdlg.c:212
+#: src/prefsdlg.c:212
 msgid "Write DVD-RAM"
 msgstr "Gravar DVD-RAM"
 
-#: ../src/progressdlg.c:185 ../gnomebaker.glade.h:79
+#: src/progressdlg.c:185 gnomebaker.glade:1762
 msgid "Show output"
 msgstr "Mostrar saída"
 
-#: ../src/progressdlg.c:185
+#: src/progressdlg.c:185
 #, fuzzy
 msgid "Hide output"
 msgstr "Mostrar saída"
 
-#: ../src/progressdlg.c:259
+#: src/progressdlg.c:259
 msgid "Completed"
 msgstr "Completado"
 
-#: ../src/progressdlg.c:267
+#: src/progressdlg.c:267
 msgid "Failed"
 msgstr "Falhou"
 
-#: ../src/startdlg.c:97
+#: src/startdlg.c:97
 #, fuzzy
 msgid "Please select an image file to save to."
 msgstr "POr favor, selecione um arquivo iso para gravar."
 
-#: ../src/startdlg.c:119
+#: src/startdlg.c:119
 #, fuzzy
 msgid "CD/DVD Image files"
 msgstr "Arquivos de imagem de DVD"
 
-#: ../src/startdlg.c:177 ../gnomebaker.glade.h:13
+#: src/startdlg.c:177 gnomebaker.glade:2924
 msgid "<b>Devices</b>"
 msgstr "<b>Dispositivos</b>"
 
-#: ../src/startdlg.c:178
+#: src/startdlg.c:178
 #, fuzzy
 msgid "<b>Device</b>"
 msgstr "<b>Dispositivos</b>"
 
-#: ../src/startdlg.c:182
+#: src/startdlg.c:182
 #, fuzzy
 msgid "Reader:"
 msgstr "Leitor"
 
-#: ../src/startdlg.c:186
+#: src/startdlg.c:186
 #, fuzzy
 msgid "Writer:"
 msgstr "Gravador"
 
-#: ../src/startdlg.c:189
+#: src/startdlg.c:189
 #, fuzzy
 msgid "Speed:"
 msgstr "Velocidade"
 
-#: ../src/startdlg.c:193
+#: src/startdlg.c:193
 #, fuzzy
 msgid "Mode:"
 msgstr "Modo"
 
-#: ../src/startdlg.c:216 ../gnomebaker.glade.h:15
+#: src/startdlg.c:216 gnomebaker.glade:2688
 msgid "<b>Options</b>"
 msgstr "<b>Opções</b>"
 
-#: ../src/startdlg.c:245 ../gnomebaker.glade.h:96
+#: src/startdlg.c:245 gnomebaker.glade:2605
 msgid "_Start"
 msgstr "Iniciar"
 
-#: ../src/startdlg.c:309
+#: src/startdlg.c:309
 #, fuzzy
 msgid "<b>Disk Information</b>"
 msgstr "<b>Opções para inicialização</b>"
 
-#: ../src/startdlg.c:311
+#: src/startdlg.c:311
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/startdlg.c:314
+#: src/startdlg.c:314
 msgid "Application ID:"
 msgstr ""
 
-#: ../src/startdlg.c:317
+#: src/startdlg.c:317
 msgid "Preparer:"
 msgstr ""
 
-#: ../src/startdlg.c:320
+#: src/startdlg.c:320
 msgid "Publisher:"
 msgstr ""
 
-#: ../src/startdlg.c:323
+#: src/startdlg.c:323
 msgid "Copyright:"
 msgstr ""
 
-#: ../src/startdlg.c:326
+#: src/startdlg.c:326
 msgid "Abstract:"
 msgstr ""
 
-#: ../src/startdlg.c:329
+#: src/startdlg.c:329
 msgid "Bibliography:"
 msgstr ""
 
-#: ../src/startdlg.c:340
+#: src/startdlg.c:340
 #, fuzzy
 msgid "<b>Filesystem</b>"
 msgstr "<b>Sistema de arquivos</b>"
 
-#: ../src/startdlg.c:378 ../src/startdlg.c:406
+#: src/startdlg.c:378 src/startdlg.c:406
 #, fuzzy
 msgid "Writing"
 msgstr "Gravando DVD"
 
-#: ../src/startdlg.c:380 ../src/startdlg.c:408
+#: src/startdlg.c:380 src/startdlg.c:408
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:494
+#: src/startdlg.c:494
 msgid "Dummy write"
 msgstr "Simular gravação"
 
-#: ../src/startdlg.c:495
+#: src/startdlg.c:495
 msgid "Eject disk"
 msgstr "Ejetar disco"
 
-#: ../src/startdlg.c:496
+#: src/startdlg.c:496
 msgid "Fast blank"
 msgstr "Limpeza rápida"
 
-#: ../src/startdlg.c:497
+#: src/startdlg.c:497
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: ../src/startdlg.c:498
+#: src/startdlg.c:498
 msgid "Burn the disk"
 msgstr "Queimar o disco"
 
-#: ../src/startdlg.c:500
+#: src/startdlg.c:500
 msgid "Create ISO only"
 msgstr "Apenas criar ISO"
 
-#: ../src/startdlg.c:503
+#: src/startdlg.c:503
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:504
+#: src/startdlg.c:504
 msgid "Finalize"
 msgstr "Finalizar"
 
-#: ../src/startdlg.c:505
+#: src/startdlg.c:505
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:506
+#: src/startdlg.c:506
 msgid "Joliet"
 msgstr "Joliet"
 
-#: ../src/startdlg.c:507
+#: src/startdlg.c:507
 msgid "Rock Ridge"
 msgstr "Rock Ridge"
 
-#: ../src/startdlg.c:508
+#: src/startdlg.c:508
 msgid "On The Fly"
 msgstr ""
 
-#: ../src/startdlg.c:510
+#: src/startdlg.c:510
 msgid "_Browse..."
 msgstr ""
 
-#: ../src/startdlg.c:512
+#: src/startdlg.c:512
 #, fuzzy
 msgid "GnomeBaker data disk"
 msgstr "CD feito pelo GnomeBaker"
 
-#: ../src/burn.h:65 ../gnomebaker.glade.h:28
+#: src/burn.h:65 gnomebaker.glade:495 gnomebaker.glade:496
 #, fuzzy
 msgid "Blank CD-RW"
 msgstr "Limpar CDRW"
 
-#: ../src/burn.h:66 ../gnomebaker.glade.h:43
+#: src/burn.h:66 gnomebaker.glade:544 gnomebaker.glade:545
 msgid "Copy Data CD"
 msgstr "Copiar CD de dados"
 
-#: ../src/burn.h:67 ../gnomebaker.glade.h:42
+#: src/burn.h:67 gnomebaker.glade:562 gnomebaker.glade:563
 msgid "Copy Audio CD"
 msgstr "Copiar CD de Áudio"
 
-#: ../src/burn.h:68 ../gnomebaker.glade.h:32
+#: src/burn.h:68 gnomebaker.glade:593 gnomebaker.glade:594
 msgid "Burn CD Image"
 msgstr "Queimar imagem de CD"
 
-#: ../src/burn.h:69 ../gnomebaker.glade.h:33
+#: src/burn.h:69 gnomebaker.glade:611 gnomebaker.glade:612
 msgid "Burn DVD Image"
 msgstr "Queimar imagem de DVD"
 
-#: ../src/burn.h:70
+#: src/burn.h:70
 msgid "Create Data CD"
 msgstr "Criar CD de Dados"
 
-#: ../src/burn.h:71
+#: src/burn.h:71
 #, fuzzy
 msgid "Append to Data CD"
 msgstr "Criar CD de Dados"
 
-#: ../src/burn.h:72
+#: src/burn.h:72
 msgid "Create Audio CD"
 msgstr "Criar CD de Áudio"
 
-#: ../src/burn.h:73
+#: src/burn.h:73
 msgid "Create Mixed CD"
 msgstr "Criar CD Misto"
 
-#: ../src/burn.h:74
+#: src/burn.h:74
 msgid "Create Video CD"
 msgstr "Criar CD de Vídeo"
 
-#: ../src/burn.h:75 ../gnomebaker.glade.h:51
+#: src/burn.h:75
 #, fuzzy
-msgid "Format DVD±RW"
-msgstr "Formatar DVDRW"
+msgid "Format DVD RW"
+msgstr "Formatar DVD+RW"
 
-#: ../src/burn.h:76
+#: src/burn.h:76
 msgid "Create Data DVD"
 msgstr "Criar DVD de Dados"
 
-#: ../src/burn.h:77
+#: src/burn.h:77
 #, fuzzy
 msgid "Append to Data DVD"
 msgstr "Criar DVD de Dados"
 
-#: ../gnomebaker.glade.h:1
-msgid " "
-msgstr " "
-
-#: ../gnomebaker.glade.h:2
-msgid "..."
-msgstr "..."
-
-#: ../gnomebaker.glade.h:3
-msgid "/tmp"
-msgstr "/tmp"
-
-#: ../gnomebaker.glade.h:4
-msgid "0 mins 0 secs"
-msgstr "0 mins 0 segs"
-
-#: ../gnomebaker.glade.h:6
-#, no-c-format
-msgid "0%"
-msgstr "0%"
-
-#: ../gnomebaker.glade.h:7
-msgid "<b><big>...</big></b>"
-msgstr "<b><big>...</big></b>"
-
-#: ../gnomebaker.glade.h:8
-msgid "<b>Audio Disk</b>"
-msgstr "<b>Disco de Áudio</b>"
-
-#: ../gnomebaker.glade.h:9
-msgid "<b>Boot options</b>"
-msgstr "<b>Opções para inicialização</b>"
-
-#: ../gnomebaker.glade.h:10
-msgid "<b>Created by</b>"
-msgstr "<b>Criado por</b>"
-
-#: ../gnomebaker.glade.h:11
-msgid "<b>Data Disk</b>"
-msgstr "<b>Disco de Dados</b>"
-
-#: ../gnomebaker.glade.h:12
-msgid "<b>Detected devices</b>"
-msgstr "<b>Dispositivos detectados</b>"
-
-#: ../gnomebaker.glade.h:14
-msgid "<b>File Browser</b>"
-msgstr "<b>Navegador de Arquivos</b>"
-
-#: ../gnomebaker.glade.h:16
-msgid "<b>Other</b>"
-msgstr "<b>Outras</b>"
-
-#: ../gnomebaker.glade.h:17
+#: gnomebaker.glade:79
 #, fuzzy
-msgid "<b>Select Writer</b>"
-msgstr "Escolher gravador..."
+msgid "_Add selection"
+msgstr "_Adicionar diretório"
 
-#: ../gnomebaker.glade.h:18
-msgid "<b>Temporary Directory</b>"
-msgstr "<b>Diretório Temporário</b>"
-
-#: ../gnomebaker.glade.h:19
-msgid "<b>Video CD</b>"
-msgstr "<b>CD de Áudio</b>"
-
-#: ../gnomebaker.glade.h:20
-msgid "<b>Volume label</b>"
-msgstr "<b>Etiqueta de volume</b>"
-
-#: ../gnomebaker.glade.h:21
-msgid "<i>...</i>"
-msgstr "<i>...</i>"
-
-#: ../gnomebaker.glade.h:22
-msgid "Add file(s)"
-msgstr "Adicionar arquivo(s)"
-
-#: ../gnomebaker.glade.h:23
-msgid "Add the selected files to the CD"
-msgstr "Adicionar os arquivos selecionados ao CD"
-
-#: ../gnomebaker.glade.h:24
-msgid "Always scan for devices on startup"
-msgstr "Sempre procurar dispositivos ao iniciar"
-
-#: ../gnomebaker.glade.h:25
-msgid "Ask on quit"
-msgstr "Perguntar ao sair"
-
-#: ../gnomebaker.glade.h:26
-msgid "Baking"
-msgstr "Gravando"
-
-#: ../gnomebaker.glade.h:27
+#: gnomebaker.glade:101
 #, fuzzy
-msgid "Bl_ank CD-RW"
-msgstr "Limp_ar CDRW"
+msgid "_Remove selection"
+msgstr "_Remover ítens selecionados"
 
-#: ../gnomebaker.glade.h:29
-msgid "Boot Image"
-msgstr "Imagem de inicialização"
-
-#: ../gnomebaker.glade.h:30
-msgid "Boot Image list"
-msgstr "Lista de imagens de inicialização"
-
-#: ../gnomebaker.glade.h:31
-msgid "Boot catalog"
-msgstr "Catálogo de inicialização"
-
-#: ../gnomebaker.glade.h:34
-msgid "Burn _DVD Image"
-msgstr "Queimar imagem de DVD"
-
-#: ../gnomebaker.glade.h:35
-msgid "C_opy Data CD"
-msgstr "C_opiar CD de dados"
-
-#: ../gnomebaker.glade.h:36
-msgid "Clean temporary directory on exit"
-msgstr "Limpar diretório temporário ao sair"
-
-#: ../gnomebaker.glade.h:37
-msgid "Clear the contents of the CD"
-msgstr "Limpar o conteúdo do CD"
-
-#: ../gnomebaker.glade.h:38
-msgid "Click to begin the process of creating a data disk."
-msgstr "Clique para iniciar o processo de criação do disco de dados."
-
-#: ../gnomebaker.glade.h:39
-msgid "Click to begin the process of creating an audio cd"
-msgstr "Clique para iniciar o processo de criação do CD de áudio"
-
-#: ../gnomebaker.glade.h:40
-msgid "Co_py Audio CD"
-msgstr "Co_piar CD de Áudio"
-
-#: ../gnomebaker.glade.h:44
-msgid "Create Audio Disk"
-msgstr "Criar Disco de Áudio"
-
-#: ../gnomebaker.glade.h:45
-msgid "Create Data Disk"
-msgstr "Criar Disco de Dados"
-
-#: ../gnomebaker.glade.h:46
-msgid "Create Video Disk"
-msgstr "Criar Disco de Vídeo"
-
-#: ../gnomebaker.glade.h:47
-msgid "Created by username"
-msgstr "Nome do usuário que criou"
-
-#: ../gnomebaker.glade.h:48
-msgid "Devices"
-msgstr "Dispositivos"
-
-#: ../gnomebaker.glade.h:49
-msgid "Edit GnomeBaker's preferences"
-msgstr "Editar preferências do GnomeBaker"
-
-#: ../gnomebaker.glade.h:50
-msgid "Floppy disk image"
-msgstr "Imagem de disquete"
-
-#: ../gnomebaker.glade.h:52
-msgid "GPL"
-msgstr "GPL"
-
-#: ../gnomebaker.glade.h:53
-msgid "General"
-msgstr "Geral"
-
-#: ../gnomebaker.glade.h:55
-msgid "GnomeBaker Preferences"
-msgstr "Preferências do GnomeBaker"
-
-#: ../gnomebaker.glade.h:56
-msgid "GnomeBaker data cd"
-msgstr "CD feito pelo GnomeBaker"
-
-#: ../gnomebaker.glade.h:57
-msgid "Hard disk image"
-msgstr "Imagem de disco rígido"
-
-#: ../gnomebaker.glade.h:58
-msgid "ISO filesystem details"
-msgstr "Detalhes do sistema de arquivos ISO"
-
-#: ../gnomebaker.glade.h:59
-msgid "I_mport Playlist"
-msgstr "I_mportar Lista de Reprodução"
-
-#: ../gnomebaker.glade.h:60
-msgid "Import"
-msgstr "Importar"
-
-#: ../gnomebaker.glade.h:61
-#, fuzzy
-msgid "Import Session"
-msgstr "_Importar Sessão"
-
-#: ../gnomebaker.glade.h:62
-msgid "Import existing session"
-msgstr "Importar sessão existente"
-
-#: ../gnomebaker.glade.h:63
-msgid "Mode"
-msgstr "Modo"
-
-#: ../gnomebaker.glade.h:64
-msgid "Move audio tracks down"
-msgstr "Mover faixas de áudio para baixo"
-
-#: ../gnomebaker.glade.h:65
-msgid "Move audio tracks up"
-msgstr "Mover faixas de áudio para cima"
-
-#: ../gnomebaker.glade.h:66
-#, fuzzy
-msgid "Move selection _down"
-msgstr "Mover ítens selecionados para baixo"
-
-#: ../gnomebaker.glade.h:67
+#: gnomebaker.glade:137
 #, fuzzy
 msgid "Move selection _up"
 msgstr "Mover ítens selecionados para cima"
 
-#: ../gnomebaker.glade.h:68
-msgid "Not bootable"
-msgstr "Não inicializável"
+#: gnomebaker.glade:159
+#, fuzzy
+msgid "Move selection _down"
+msgstr "Mover ítens selecionados para baixo"
 
-#: ../gnomebaker.glade.h:69
-msgid "PC bootable"
-msgstr "Inicializável em PC"
+#: gnomebaker.glade:199
+msgid "_Actions"
+msgstr "_Ações"
 
-#: ../gnomebaker.glade.h:70
+#: gnomebaker.glade:208
+#, fuzzy
+msgid "Bl_ank CD-RW"
+msgstr "Limp_ar CDRW"
+
+#: gnomebaker.glade:228
+#, fuzzy
+msgid "_Format DVD±RW"
+msgstr "_Formatar DVD+RW"
+
+#: gnomebaker.glade:254
+msgid "C_opy Data CD"
+msgstr "C_opiar CD de dados"
+
+#: gnomebaker.glade:274
+msgid "Co_py Audio CD"
+msgstr "Co_piar CD de Áudio"
+
+#: gnomebaker.glade:320
+msgid "Burn _DVD Image"
+msgstr "Queimar imagem de DVD"
+
+#: gnomebaker.glade:346
+msgid "_Import Session"
+msgstr "_Importar Sessão"
+
+#: gnomebaker.glade:366
+msgid "I_mport Playlist"
+msgstr "I_mportar Lista de Reprodução"
+
+#: gnomebaker.glade:379
+msgid "_View"
+msgstr "_Visualizar"
+
+#: gnomebaker.glade:388
+msgid "_Refresh"
+msgstr "Atualizar"
+
+#: gnomebaker.glade:415
+msgid "_Show File Browser"
+msgstr "<b>Mostrar Navegador de Arquivos</b>"
+
+#: gnomebaker.glade:513 gnomebaker.glade:514
+#, fuzzy
+msgid "Format DVD±RW"
+msgstr "Formatar DVDRW"
+
+#: gnomebaker.glade:642
+msgid "Edit GnomeBaker's preferences"
+msgstr "Editar preferências do GnomeBaker"
+
+#: gnomebaker.glade:675
+msgid "Refresh the file browser file list"
+msgstr "Atualizar a lista de arquivo do navegador"
+
+#: gnomebaker.glade:803
+msgid "Add the selected files to the CD"
+msgstr "Adicionar os arquivos selecionados ao CD"
+
+#: gnomebaker.glade:804
+msgid "Add file(s)"
+msgstr "Adicionar arquivo(s)"
+
+#: gnomebaker.glade:821
+msgid "Remove the selected files from the CD"
+msgstr "Remover os arquivos selecionados do CD"
+
+#: gnomebaker.glade:822
+msgid "Remove selected"
+msgstr "Remover ítens selecionados"
+
+#: gnomebaker.glade:839
+msgid "Clear the contents of the CD"
+msgstr "Limpar o conteúdo do CD"
+
+#: gnomebaker.glade:868
+msgid "Import existing session"
+msgstr "Importar sessão existente"
+
+#: gnomebaker.glade:869
+msgid "Import"
+msgstr "Importar"
+
+#: gnomebaker.glade:900
+msgid "Move audio tracks up"
+msgstr "Mover faixas de áudio para cima"
+
+#: gnomebaker.glade:917
+msgid "Move audio tracks down"
+msgstr "Mover faixas de áudio para baixo"
+
+#: gnomebaker.glade:997 gnomebaker.glade:1385
+msgid "0%"
+msgstr "0%"
+
+#: gnomebaker.glade:1030
+msgid "Click to begin the process of creating a data disk."
+msgstr "Clique para iniciar o processo de criação do disco de dados."
+
+#: gnomebaker.glade:1073
+msgid "Create Data Disk"
+msgstr "Criar Disco de Dados"
+
+#: gnomebaker.glade:1122
+msgid "<b>Data Disk</b>"
+msgstr "<b>Disco de Dados</b>"
+
+#: gnomebaker.glade:1191
+msgid "0 mins 0 secs"
+msgstr "0 mins 0 segs"
+
+#: gnomebaker.glade:1224
+msgid "Click to begin the process of creating an audio cd"
+msgstr "Clique para iniciar o processo de criação do CD de áudio"
+
+#: gnomebaker.glade:1267
+msgid "Create Audio Disk"
+msgstr "Criar Disco de Áudio"
+
+#: gnomebaker.glade:1316
+msgid "<b>Audio Disk</b>"
+msgstr "<b>Disco de Áudio</b>"
+
+#: gnomebaker.glade:1458
+msgid "Create Video Disk"
+msgstr "Criar Disco de Vídeo"
+
+#: gnomebaker.glade:1507
+msgid "<b>Video CD</b>"
+msgstr "<b>CD de Áudio</b>"
+
+#: gnomebaker.glade:1572
+msgid "Baking"
+msgstr "Gravando"
+
+#: gnomebaker.glade:1631
+msgid "<b><big>...</big></b>"
+msgstr "<b><big>...</big></b>"
+
+#: gnomebaker.glade:1656
+msgid "..."
+msgstr "..."
+
+#: gnomebaker.glade:1684
+msgid " "
+msgstr " "
+
+#: gnomebaker.glade:1697
+msgid "<i>...</i>"
+msgstr "<i>...</i>"
+
+#: gnomebaker.glade:1811
+msgid "GPL"
+msgstr "GPL"
+
+#: gnomebaker.glade:1812
+msgid "Simple CD burning for Gnome."
+msgstr "Programa para gravação de CDs para o GNOME"
+
+#: gnomebaker.glade:1819
+msgid "Splash window"
+msgstr "Janela de início"
+
+#: gnomebaker.glade:1859
+msgid "Starting GnomeBaker..."
+msgstr "Iniciando GnomeBaker..."
+
+#: gnomebaker.glade:1887
+msgid "GnomeBaker Preferences"
+msgstr "Preferências do GnomeBaker"
+
+#: gnomebaker.glade:1960
+msgid "<b>Temporary Directory</b>"
+msgstr "<b>Diretório Temporário</b>"
+
+#: gnomebaker.glade:1988
+msgid "<b>File Browser</b>"
+msgstr "<b>Navegador de Arquivos</b>"
+
+#: gnomebaker.glade:2016
+msgid "<b>Other</b>"
+msgstr "<b>Outras</b>"
+
+#: gnomebaker.glade:2057
+msgid "/tmp"
+msgstr "/tmp"
+
+#: gnomebaker.glade:2078
+msgid "Clean temporary directory on exit"
+msgstr "Limpar diretório temporário ao sair"
+
+#: gnomebaker.glade:2101
+msgid "Show hidden files"
+msgstr "Mostrar arquivos escondidos"
+
+#: gnomebaker.glade:2124
+msgid "Show humanreadable filesizes"
+msgstr "Mostrar tamanhos de arquivo amigáveis"
+
+#: gnomebaker.glade:2147
 msgid "Play sound when burning is complete"
 msgstr "Tocar som quando completar a gravação"
 
-#: ../gnomebaker.glade.h:71
+#: gnomebaker.glade:2170
+msgid "Ask on quit"
+msgstr "Perguntar ao sair"
+
+#: gnomebaker.glade:2198
+msgid "General"
+msgstr "Geral"
+
+#: gnomebaker.glade:2231
+msgid "<b>Detected devices</b>"
+msgstr "<b>Dispositivos detectados</b>"
+
+#: gnomebaker.glade:2309
+msgid "_Add device"
+msgstr "_Adicionar dispositivo"
+
+#: gnomebaker.glade:2384 gnomebaker.glade:2765
+msgid "Sc_an for devices"
+msgstr "Procur_ar dispositivos"
+
+#: gnomebaker.glade:2458
+msgid "Always scan for devices on startup"
+msgstr "Sempre procurar dispositivos ao iniciar"
+
+#: gnomebaker.glade:2486
+msgid "Devices"
+msgstr "Dispositivos"
+
+#: gnomebaker.glade:2517
+msgid "Start burning..."
+msgstr "Iniciar gravação..."
+
+#: gnomebaker.glade:2827
+msgid "Mode"
+msgstr "Modo"
+
+#: gnomebaker.glade:2872
+msgid "dao"
+msgstr "dao"
+
+#: gnomebaker.glade:2880
+msgid "raw16"
+msgstr "raw16"
+
+#: gnomebaker.glade:2888
+msgid "raw96p"
+msgstr "raw96p"
+
+#: gnomebaker.glade:2896
+#, fuzzy
+msgid "raw96r"
+msgstr "raw96p"
+
+#: gnomebaker.glade:2904
+msgid "tao"
+msgstr "tao"
+
+#: gnomebaker.glade:2952
+msgid "Reader"
+msgstr "Leitor"
+
+#: gnomebaker.glade:2981
+msgid "Writer"
+msgstr "Gravador"
+
+#: gnomebaker.glade:3010
+msgid "Speed"
+msgstr "Velocidade"
+
+#: gnomebaker.glade:3048
+msgid "ISO filesystem details"
+msgstr "Detalhes do sistema de arquivos ISO"
+
+#: gnomebaker.glade:3122
+msgid "<b>Volume label</b>"
+msgstr "<b>Etiqueta de volume</b>"
+
+#: gnomebaker.glade:3150
+msgid "<b>Created by</b>"
+msgstr "<b>Criado por</b>"
+
+#: gnomebaker.glade:3178
+msgid "<b>Boot options</b>"
+msgstr "<b>Opções para inicialização</b>"
+
+#: gnomebaker.glade:3216
+msgid "Floppy disk image"
+msgstr "Imagem de disquete"
+
+#: gnomebaker.glade:3237
+msgid "Hard disk image"
+msgstr "Imagem de disco rígido"
+
+#: gnomebaker.glade:3347
+msgid "Not bootable"
+msgstr "Não inicializável"
+
+#: gnomebaker.glade:3373
+msgid "Created by username"
+msgstr "Nome do usuário que criou"
+
+#: gnomebaker.glade:3395
+msgid "GnomeBaker data cd"
+msgstr "CD feito pelo GnomeBaker"
+
+#: gnomebaker.glade:3415
+msgid "PC bootable"
+msgstr "Inicializável em PC"
+
+#: gnomebaker.glade:3440
+msgid "Sun workstation bootable"
+msgstr "Inicializávem em estação de trabalho Sun"
+
+#: gnomebaker.glade:3463
+msgid "Boot Image"
+msgstr "Imagem de inicialização"
+
+#: gnomebaker.glade:3492
+msgid "Boot catalog"
+msgstr "Catálogo de inicialização"
+
+#: gnomebaker.glade:3521
+msgid "Boot Image list"
+msgstr "Lista de imagens de inicialização"
+
+#: gnomebaker.glade:3558
+#, fuzzy
+msgid "Import Session"
+msgstr "_Importar Sessão"
+
+#: gnomebaker.glade:3633
+#, fuzzy
+msgid "<b>Select Writer</b>"
+msgstr "Escolher gravador..."
+
+#: gnomebaker.glade:3661
 #, fuzzy
 msgid ""
 "Please select the writing device from the list below and insert the disk "
@@ -1044,121 +1160,11 @@ msgstr ""
 "<b>Por favor, selecione o dispositivo de escrita da lista abaixo e insira o "
 "disco contendo a sessão existente.</b>"
 
-#: ../gnomebaker.glade.h:72
-msgid "Reader"
-msgstr "Leitor"
+#~ msgid "mounting"
+#~ msgstr "montando"
 
-#: ../gnomebaker.glade.h:73
-msgid "Refresh the file browser file list"
-msgstr "Atualizar a lista de arquivo do navegador"
-
-#: ../gnomebaker.glade.h:74
-msgid "Remove selected"
-msgstr "Remover ítens selecionados"
-
-#: ../gnomebaker.glade.h:75
-msgid "Remove the selected files from the CD"
-msgstr "Remover os arquivos selecionados do CD"
-
-#: ../gnomebaker.glade.h:76
-msgid "Sc_an for devices"
-msgstr "Procur_ar dispositivos"
-
-#: ../gnomebaker.glade.h:77
-msgid "Show hidden files"
-msgstr "Mostrar arquivos escondidos"
-
-#: ../gnomebaker.glade.h:78
-msgid "Show humanreadable filesizes"
-msgstr "Mostrar tamanhos de arquivo amigáveis"
-
-#: ../gnomebaker.glade.h:80
-msgid "Simple CD burning for Gnome."
-msgstr "Programa para gravação de CDs para o GNOME"
-
-#: ../gnomebaker.glade.h:81
-msgid "Speed"
-msgstr "Velocidade"
-
-#: ../gnomebaker.glade.h:82
-msgid "Splash window"
-msgstr "Janela de início"
-
-#: ../gnomebaker.glade.h:83
-msgid "Start burning..."
-msgstr "Iniciar gravação..."
-
-#: ../gnomebaker.glade.h:84
-msgid "Starting GnomeBaker..."
-msgstr "Iniciando GnomeBaker..."
-
-#: ../gnomebaker.glade.h:85
-msgid "Sun workstation bootable"
-msgstr "Inicializávem em estação de trabalho Sun"
-
-#: ../gnomebaker.glade.h:86
-msgid "Writer"
-msgstr "Gravador"
-
-#: ../gnomebaker.glade.h:87
-msgid "_Actions"
-msgstr "_Ações"
-
-#: ../gnomebaker.glade.h:88
-msgid "_Add device"
-msgstr "_Adicionar dispositivo"
-
-#: ../gnomebaker.glade.h:89
-#, fuzzy
-msgid "_Add selection"
-msgstr "_Adicionar diretório"
-
-#: ../gnomebaker.glade.h:91
-#, fuzzy
-msgid "_Format DVD±RW"
-msgstr "_Formatar DVD+RW"
-
-#: ../gnomebaker.glade.h:92
-msgid "_Import Session"
-msgstr "_Importar Sessão"
-
-#: ../gnomebaker.glade.h:93
-msgid "_Refresh"
-msgstr "Atualizar"
-
-#: ../gnomebaker.glade.h:94
-#, fuzzy
-msgid "_Remove selection"
-msgstr "_Remover ítens selecionados"
-
-#: ../gnomebaker.glade.h:95
-msgid "_Show File Browser"
-msgstr "<b>Mostrar Navegador de Arquivos</b>"
-
-#: ../gnomebaker.glade.h:97
-msgid "_View"
-msgstr "_Visualizar"
-
-#: ../gnomebaker.glade.h:98
-msgid "dao"
-msgstr "dao"
-
-#: ../gnomebaker.glade.h:100
-msgid "raw16"
-msgstr "raw16"
-
-#: ../gnomebaker.glade.h:101
-msgid "raw96p"
-msgstr "raw96p"
-
-#: ../gnomebaker.glade.h:102
-#, fuzzy
-msgid "raw96r"
-msgstr "raw96p"
-
-#: ../gnomebaker.glade.h:103
-msgid "tao"
-msgstr "tao"
+#~ msgid "unmounting"
+#~ msgstr "desmontando"
 
 #~ msgid "%d mins %d secs"
 #~ msgstr "%d mins %d segs"
@@ -1168,9 +1174,6 @@ msgstr "tao"
 
 #~ msgid "Fast"
 #~ msgstr "Rápido"
-
-#~ msgid "Format DVD+RW"
-#~ msgstr "Formatar DVD+RW"
 
 #, fuzzy
 #~ msgid "Formatting DVD-RW"

@@ -615,51 +615,56 @@ devices_probe_busses()
 }
 
 
+void 
+devices_unmount_device(const gchar* devicekey)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(devicekey != NULL);
+    
+    gchar* node = devices_get_device_config(devicekey, GB_DEVICE_NODE_LABEL);
+    gchar* mountcmd = g_strdup_printf("umount %s", node); 
+    gchar* output = NULL;
+    exec_run_cmd(mountcmd, &output);
+    g_free(output);
+    g_free(mountcmd);
+    g_free(node);
+}
+
+
 gboolean 
 devices_mount_device(const gchar* devicekey, gchar** mountpoint)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(devicekey != NULL, FALSE);
+    g_return_val_if_fail(mountpoint != NULL, FALSE);
 	gboolean ok = FALSE;
 	
 	gchar* mount = devices_get_device_config(devicekey, GB_DEVICE_MOUNT_LABEL);		
 	if((mount == NULL) || (strlen(mount) == 0))
 	{
-        if(mountpoint != NULL)
-        {
-            gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-                _("The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
-                "Please check that the writing device has an entry in /etc/fstab and then go "
-                "to preferences and rescan for devices."));
-        }
+        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+            _("The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
+            "Please check that the writing device has an entry in /etc/fstab and then go "
+            "to preferences and rescan for devices."));
 	}
 	else
 	{
-		gchar* mountcmd = NULL;
-		if(mountpoint != NULL)
-			mountcmd = g_strdup_printf("mount %s", mount);	
-		else
-			mountcmd = g_strdup_printf("umount %s", mount);	
-		
-        static const gint device_not_mounted = 512;   
-        
+		gchar* mountcmd = g_strdup_printf("mount %s", mount);	
 		gchar* output = NULL;
-        const gint ret = exec_run_cmd(mountcmd, &output);        
-		if((ret != 0) && (ret != device_not_mounted))
+		if(exec_run_cmd(mountcmd, &output) != 0)
 		{
-			gchar* message = g_strdup_printf(_("Error %s %s.\n\n%s"), 
-				mount ? _("mounting") : _("unmounting"), mount, output != NULL ? output : _("unknown error"));
+			gchar* message = g_strdup_printf(_("Error mounting %s.\n\n%s"), 
+	            mount, output != NULL ? output : _("unknown error"));
 			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 			g_free(message);
 		}
 		else
 		{
-			ok = TRUE;
-			if(mountpoint != NULL)
-				*mountpoint = g_strdup(mount);
+			ok = TRUE;			
+    		*mountpoint = g_strdup(mount);
 		}		
 		g_free(output);
-		g_free(mountcmd);		
+		g_free(mountcmd);
 	}
 	g_free(mount);
 	

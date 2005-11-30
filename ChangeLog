@@ -13,6 +13,9 @@ Version 0.5.1
 * Use valgrind to fix minor memory leaks.
 * Remember the last selected data and audio disk sizes.
 * Add raw96r write mode.
+* Fix up datacd sizes according to cdrfaq.org
+* Refactor the start burn dialog so that burning a data disk won't pop up loads of dialogs.
+* Unmount devices using the device node rather than the mount point.
 
 Version 0.5.0
 

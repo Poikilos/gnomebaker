@@ -96,7 +96,7 @@ cdrecord_blank_pre_proc(void* ex, void* buffer)
         exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
     else
         progressdlg_pulse_start();
-    devices_mount_device(GB_WRITER, NULL);
+    devices_unmount_device(GB_WRITER);
 }
 
 
@@ -144,7 +144,7 @@ cdrecord_pre_proc(void* ex, void* buffer)
         /* If we have the total disk bytes set then let cdrecord know about it */
         if(cdrecord_totaldiskbytes > 0)
             exec_cmd_update_arg((ExecCmd*)ex, "tsize=", "tsize=%ds", cdrecord_totaldiskbytes);
-        devices_mount_device(GB_WRITER, NULL);
+        devices_unmount_device(GB_WRITER);
     }
 }
 
@@ -416,7 +416,7 @@ cdda2wav_pre_proc(void* ex, void* buffer)
 	else if(response == GTK_RESPONSE_YES)
 		exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
         
-	devices_mount_device(GB_READER, NULL);
+	devices_unmount_device(GB_READER);
 	g_free(tmp);
 }
 
@@ -801,7 +801,7 @@ dvdformat_pre_proc(void* ex, void* buffer)
 	progressdlg_increment_exec_number();
     if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
         exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
-    devices_mount_device(GB_WRITER, NULL);
+    devices_unmount_device(GB_WRITER);
 }
 
 
@@ -881,7 +881,7 @@ growisofs_pre_proc(void* ex,void* buffer)
 	progressdlg_increment_exec_number();
 	if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
 		exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
-    devices_mount_device(GB_WRITER, NULL);
+    devices_unmount_device(GB_WRITER);
 }
 
 
@@ -1061,7 +1061,7 @@ readcd_pre_proc(void* ex, void* buffer)
 		exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
 	else if(response == GTK_RESPONSE_YES)
 		exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
-    devices_mount_device(GB_READER, NULL);
+    devices_unmount_device(GB_READER);
 }
 
 
@@ -1412,4 +1412,46 @@ gstreamer_add_args(ExecCmd* cmd, const gchar* from, const gchar* to)
     cmd->libProc = gstreamer_lib_proc;
     cmd->preProc = gstreamer_pre_proc;   
 }
+
+
+/*******************************************************************************
+ * GSTREAMER
+ ******************************************************************************/
+static void
+md5sum_pre_proc(void* ex, void* buffer)
+{
+    GB_LOG_FUNC
+    progressdlg_set_status(_("Verifying the disk content"));
+    progressdlg_increment_exec_number();
+    progressdlg_pulse_start();
+}
+
+
+static void
+md5sum_post_proc(void* ex, void* buffer)
+{
+    GB_LOG_FUNC
+    progressdlg_pulse_stop();
+    if(preferences_get_bool(GB_EJECT))
+        devices_eject_disk(GB_WRITER);
+}
+
+
+void 
+md5sum_add_args(ExecCmd* cmd, const gchar* md5)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(cmd != NULL);  
+    g_return_if_fail(md5 != NULL);
+    
+    exec_cmd_add_arg(cmd, "md5sum");
+    gchar* writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
+    exec_cmd_add_arg(cmd, writer);
+    g_free(writer);
+    exec_cmd_add_arg(cmd, md5);
+    
+    cmd->preProc = md5sum_pre_proc;
+    cmd->postProc = md5sum_post_proc;
+}
+
 

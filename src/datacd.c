@@ -600,6 +600,7 @@ datacd_get_msinfo(gchar** msinfo)
 {
 	GB_LOG_FUNC
 	gboolean ok = FALSE;
+    devices_unmount_device(GB_WRITER);
 	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
 	gchar* msinfocmd = g_strdup_printf("cdrecord -msinfo dev=%s", writer);    
 	gchar* output = NULL;
@@ -688,8 +689,7 @@ datacd_import_session()
 			g_free(message);			
 		}				
 		
-		if(!devices_mount_device(GB_WRITER, NULL))
-			g_critical("Error unmounting writer device");	
+		devices_unmount_device(GB_WRITER);
 	}
 	
 	g_free(mountpoint);	

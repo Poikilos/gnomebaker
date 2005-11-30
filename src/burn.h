@@ -72,7 +72,7 @@ static const gchar* BurnTypeText[BurnTypeCount] =
 	N_("Create Audio CD"),
 	N_("Create Mixed CD"),
 	N_("Create Video CD"),
-	N_("Format DVD±RW"),
+	N_("Format DVD RW"),
 	N_("Create Data DVD"),
     N_("Append to Data DVD")
 };
