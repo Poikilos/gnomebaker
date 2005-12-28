@@ -36,7 +36,7 @@ preferences_init()
 {
 	GB_LOG_FUNC
 	
-	gboolean ok = FALSE;	
+	gboolean ok = FALSE;
 	g_type_init();
 	gconf_client = gconf_client_get_default();
 	if(gconf_client == NULL) 
@@ -48,7 +48,10 @@ preferences_init()
 		gchar* tempdir = preferences_get_string(GB_TEMP_DIR);
 		if(tempdir == NULL)
 		{		
-			tempdir = g_build_filename(g_get_tmp_dir(), "GnomeBaker", g_get_user_name(), NULL);		
+		    gchar* temp_string = g_strdup_printf("GnomeBaker-%s", g_get_user_name());
+			tempdir = g_build_filename(g_get_tmp_dir(), temp_string, NULL);		
+			g_free(temp_string);
+            temp_string = NULL;
 					
 			/* set up default values */			
 			preferences_set_string(GB_READER, "Device01");
