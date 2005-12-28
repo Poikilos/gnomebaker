@@ -316,7 +316,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 						GdkPixbuf* icon = gbcommon_get_icon_for_name("gnome-fs-directory", 16);
 						gtk_list_store_set(GTK_LIST_STORE(filemodel), &iterRight, 
 							FL_COL_ICON, icon, FL_COL_NAME, name,
-							FL_COL_SIZE, (guint64)0, FL_COL_HUMANSIZE, "4 B", 
+							FL_COL_SIZE, (guint64)4096, FL_COL_HUMANSIZE, "4 KB",
 							FL_COL_TYPE, DIRECTORY, FL_COL_MIME, "x-directory/normal", -1);
 						g_object_unref(icon);
 					}
@@ -804,7 +804,7 @@ filebrowser_setup_list(GtkTreeView* filelist)
 	/* 3rd column to add the human readeable size to */
 	col = gtk_tree_view_column_new();
     gtk_tree_view_column_set_resizable(col, TRUE);
-	gtk_tree_view_column_set_title(col, "Size");
+	gtk_tree_view_column_set_title(col, _("Size"));
 	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
 	gtk_tree_view_column_set_attributes(col, renderer, "text", FL_COL_HUMANSIZE,NULL);

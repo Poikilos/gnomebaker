@@ -142,13 +142,14 @@ gnomebaker_new()
 	
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
+    
+    gtk_widget_show_all (main_window);
 	
+    /* Check preferences to see if we'll show/hide the file browser */
 	GtkWidget* checkmenuitem = glade_xml_get_widget(xml, widget_show_browser_menu);
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(checkmenuitem),
 		preferences_get_bool(GB_SHOW_FILE_BROWSER));
 	g_signal_emit_by_name(checkmenuitem, "toggled", checkmenuitem, NULL);	
-
-	gtk_widget_show_all (main_window);
 
 	return main_window;
 }
