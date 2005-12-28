@@ -1048,8 +1048,8 @@ readcd_pre_proc(void* ex, void* buffer)
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
 		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
-			"A CD image from a previous session already exists on disk, "
-			"do you wish to use the existing image?");		
+			_("A CD image from a previous session already exists on disk, "
+			"do you wish to use the existing image?"));		
 	}
 	
 	g_free(file);

@@ -369,7 +369,7 @@ startdlg_create_data_disk_section(StartDlg* start_dlg)
     ++row;
     gtk_table_attach(table, GTK_WIDGET(start_dlg->iso_only), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     ++row;
-    GtkWidget* hbox = gtk_hbox_new (FALSE, 0);
+    GtkWidget* hbox = gtk_hbox_new (FALSE, 4);
     gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->iso_file), TRUE, TRUE, 0);    
     gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->browse), TRUE, TRUE, 0);
     gtk_table_attach(table, hbox, 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);    
@@ -443,7 +443,7 @@ startdlg_copy_data_cd_section(StartDlg* start_dlg)
 
     gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(table), FALSE, FALSE, xpad);
     ++row;
-    GtkWidget* hbox = gtk_hbox_new (FALSE, 0);
+    GtkWidget* hbox = gtk_hbox_new (FALSE, 4);
     gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->iso_file), TRUE, TRUE, 0);    
     gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->browse), TRUE, TRUE, 0);
     gtk_table_attach(table, hbox, 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);    
@@ -472,7 +472,7 @@ startdlg_new(const BurnType burntype)
     
     StartDlg* start_dlg = g_new0(StartDlg, 1);    
     start_dlg->dialog = GTK_DIALOG(gtk_dialog_new ());
-    gtk_window_set_title(GTK_WINDOW(start_dlg->dialog), BurnTypeText[burntype]);
+    gtk_window_set_title(GTK_WINDOW(start_dlg->dialog), _(BurnTypeText[burntype]));
     gtk_window_set_modal (GTK_WINDOW (start_dlg->dialog), TRUE);
     GdkPixbuf* icon = gdk_pixbuf_new_from_file(PACKAGE_PIXMAPS_DIR"/gnomebaker-48.png", NULL);
     if(icon != NULL)
