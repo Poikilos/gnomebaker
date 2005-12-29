@@ -1,7 +1,7 @@
 Version 0.5.1
 
-* TODO Fix copying and disk detection when the cd reader is also the writer.
-* TODO Fix devices_mount as it only works in english locales.
+* TODO Test Fix copying and disk detection when the cd reader is also the writer.
+* TODO Test Fix devices_mount as it only works in english locales.
 * Attempt to enable large file support (>2GB) using AC_SYS_LARGEFILE.
 * Apply patch #1329223 Escaping song names
 * Apply patch #1328125 Patch to make Desktop file more compliant
@@ -16,6 +16,12 @@ Version 0.5.1
 * Fix up datacd sizes according to cdrfaq.org
 * Refactor the start burn dialog so that burning a data disk won't pop up loads of dialogs.
 * Unmount devices using the device node rather than the mount point.
+* Apply patch #1385469 Change default tempdir location
+* Apply patch #1389004 fixed File Broswer show/hide logic
+* Fix bug #1385461 Default tempdir location doesn´t work for a second user - Bugs item #1385461, was opened at 2005-12-19 20:12 Message generated for change (Comment added …	 	23:54
+* Fix bug #1221654 Interface not usable from keyboard - Bugs item #1221654, was opened at 2005-06-16 01:59 Message generated for change (Comment added …	 	23:53
+* Fix bug #1252914 'delete' key should work in Disk tabs - Bugs item #1252914, was opened at 2005-08-06 02:11 Message generated for change (Comment added …	
+* Fix bug #1336559 Gnomebaker asks for an empty disk when there is one inserted
 
 Version 0.5.0
 
