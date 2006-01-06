@@ -55,7 +55,7 @@ main(gint argc, gchar *argv[])
 
 	#ifdef ENABLE_NLS
 		setlocale(LC_ALL,"");		
-		bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+		bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
 		bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 		textdomain (GETTEXT_PACKAGE);
 	#endif
@@ -69,10 +69,8 @@ main(gint argc, gchar *argv[])
 	/* init GStreamer and GNOME using the GStreamer popt tables */
 	options[0].arg = (void *) gst_init_get_popt_table ();
 
-	GnomeProgram* prog = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-                    argc, argv, GNOME_PARAM_POPT_TABLE, options,
-                    GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR, NULL);
-
+    GnomeProgram* prog = gnome_program_init ("gnomebaker", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, 
+        GNOME_PARAM_POPT_TABLE, options, GNOME_PARAM_APP_DATADIR, DATADIR, NULL);
 	glade_gnome_init();
 	
 	glade_file = gnome_program_locate_file(NULL, GNOME_FILE_DOMAIN_APP_DATADIR,
@@ -86,9 +84,9 @@ main(gint argc, gchar *argv[])
 	
     gdk_threads_enter();	
 	gtk_main();
-	gdk_threads_leave();	
-	gnomebaker_delete(app);
-	g_object_unref(prog);
+	gdk_threads_leave();
+    gnomebaker_delete(app);
+    g_object_unref(prog);
     prog = NULL;
 	return 0;
 }

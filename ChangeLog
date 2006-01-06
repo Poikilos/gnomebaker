@@ -22,6 +22,7 @@ Version 0.5.1
 * Fix bug #1221654 Interface not usable from keyboard - Bugs item #1221654, was opened at 2005-06-16 01:59 Message generated for change (Comment added …	 	23:53
 * Fix bug #1252914 'delete' key should work in Disk tabs - Bugs item #1252914, was opened at 2005-08-06 02:11 Message generated for change (Comment added …	
 * Fix bug #1336559 Gnomebaker asks for an empty disk when there is one inserted
+* Apply patch #1333284 Patch for GNU Build System - Brian Pepple
 
 Version 0.5.0
 

@@ -474,7 +474,7 @@ startdlg_new(const BurnType burntype)
     start_dlg->dialog = GTK_DIALOG(gtk_dialog_new ());
     gtk_window_set_title(GTK_WINDOW(start_dlg->dialog), _(BurnTypeText[burntype]));
     gtk_window_set_modal (GTK_WINDOW (start_dlg->dialog), TRUE);
-    GdkPixbuf* icon = gdk_pixbuf_new_from_file(PACKAGE_PIXMAPS_DIR"/gnomebaker-48.png", NULL);
+    GdkPixbuf* icon = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
     if(icon != NULL)
     {
         gtk_window_set_icon(GTK_WINDOW (start_dlg->dialog), icon);

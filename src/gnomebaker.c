@@ -359,9 +359,9 @@ gnomebaker_on_about(GtkMenuItem * menuitem, gpointer user_data)
 	{
 		const gchar* authors[] = {"Luke Biddell", "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", "Adam Biddell (Sounds)", NULL};
 		const gchar* documenters[] = {"Milen Dzhumerov", NULL};
-		about = gnome_about_new(_("GnomeBaker"), VERSION, "GPL", 
+		about = gnome_about_new(_("GnomeBaker"), PACKAGE_VERSION, "GPL", 
 			_("Simple CD/DVD Burning for Gnome"), authors, documenters, _("translator_credits"), 
-			gdk_pixbuf_new_from_file(PACKAGE_PIXMAPS_DIR"/splash_2.png", NULL));
+			gdk_pixbuf_new_from_file(IMAGEDIR"/splash_2.png", NULL));
 		g_object_add_weak_pointer(G_OBJECT(about), (void**)&about);
 		gtk_widget_show(about);	
 	}
