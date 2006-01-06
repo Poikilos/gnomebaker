@@ -260,15 +260,15 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
             progressdlg_set_status(completed);
             gtk_window_set_title(parentwindow, completed);
             if(preferences_get_bool(GB_PLAY_SOUND))
-                media_start_playing(PACKAGE_MEDIA_DIR"/BurnOk.wav");
-        }
+                media_start_playing(MEDIADIR"/BurnOk.wav");
+            }
         else if(ex->outcome == FAILED) 
         {
             const gchar* failed = _("Failed");
             progressdlg_set_status(failed);
             gtk_window_set_title(parentwindow, failed);
             if(preferences_get_bool(GB_PLAY_SOUND))
-               media_start_playing(PACKAGE_MEDIA_DIR"/BurnFailed.wav");
+               media_start_playing(MEDIADIR"/BurnFailed.wav");
             if(ex->err != NULL)
                 progressdlg_append_output(ex->err->message);
         }

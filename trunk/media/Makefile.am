@@ -1,6 +1,4 @@
-## Process this file with automake to produce Makefile.in
-
-gnomebaker_mediadir = $(prefix)/@NO_PREFIX_PACKAGE_MEDIA_DIR@
+gnomebaker_mediadir = $(datadir)/gnomebaker
 
 gnomebaker_media_DATA = \
 	BurnFailed.wav\

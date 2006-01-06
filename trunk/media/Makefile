@@ -34,8 +34,6 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = i686-pc-linux-gnu
-host_triplet = i686-pc-linux-gnu
 subdir = media
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -58,122 +56,123 @@ am__installdirs = "$(DESTDIR)$(gnomebaker_mediadir)"
 gnomebaker_mediaDATA_INSTALL = $(INSTALL_DATA)
 DATA = $(gnomebaker_media_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/luke/gnomebaker/missing --run aclocal-1.9
+ACLOCAL = ${SHELL} /home/luke/projects/gnomebaker/HEAD/gnomebaker/missing --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} /home/luke/gnomebaker/missing --run tar
-AR = ar
-AUTOCONF = ${SHELL} /home/luke/gnomebaker/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/luke/gnomebaker/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/luke/gnomebaker/missing --run automake-1.9
+AMTAR = ${SHELL} /home/luke/projects/gnomebaker/HEAD/gnomebaker/missing --run tar
+AUTOCONF = ${SHELL} /home/luke/projects/gnomebaker/HEAD/gnomebaker/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/luke/projects/gnomebaker/HEAD/gnomebaker/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/luke/projects/gnomebaker/HEAD/gnomebaker/missing --run automake-1.9
 AWK = mawk
 CATALOGS =  af.gmo de.gmo es.gmo he.gmo ko.gmo nl_NL.gmo pt.gmo sk.gmo tr.gmo cs.gmo en_US.gmo hr.gmo lv.gmo pl.gmo ro.gmo sv.gmo zh_CN.gmo da.gmo es_ES.gmo fr.gmo ja.gmo ms.gmo pt_BR.gmo ru.gmo sv_SE.gmo eu.gmo no.gmo bg.gmo
 CATOBJEXT = .gmo
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = 
+CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
-CXX = g++
-CXXCPP = g++ -E
-CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DATADIRNAME = share
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
-ECHO = echo
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
 EGREP = grep -E
 EXEEXT = 
-F77 = 
-FFLAGS = 
 GETTEXT_PACKAGE = gnomebaker
+GLIB_CFLAGS = -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include  
+GLIB_GENMARSHAL = glib-genmarshal
+GLIB_LIBS = -lglib-2.0  
+GLIB_MKENUMS = glib-mkenums
+GLIB_REQUIRED = 2.4.0
 GMOFILES =  af.gmo de.gmo es.gmo he.gmo ko.gmo nl_NL.gmo pt.gmo sk.gmo tr.gmo cs.gmo en_US.gmo hr.gmo lv.gmo pl.gmo ro.gmo sv.gmo zh_CN.gmo da.gmo es_ES.gmo fr.gmo ja.gmo ms.gmo pt_BR.gmo ru.gmo sv_SE.gmo eu.gmo no.gmo bg.gmo
 GMSGFMT = /usr/bin/msgfmt
-GNOME_CFLAGS = -DORBIT2=1 -pthread -DXTHREADS -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I/usr/include/libgnomeui-2.0 -I/usr/include/libgnome-2.0 -I/usr/include/libgnomecanvas-2.0 -I/usr/include/gtk-2.0 -I/usr/include/libart-2.0 -I/usr/include/gconf/2 -I/usr/include/libbonoboui-2.0 -I/usr/include/gnome-vfs-2.0 -I/usr/lib/gnome-vfs-2.0/include -I/usr/include/gnome-keyring-1 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/orbit-2.0 -I/usr/include/libbonobo-2.0 -I/usr/include/bonobo-activation-2.0 -I/usr/include/pango-1.0 -I/usr/include/freetype2 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/X11R6/include -I/usr/include/libxml2 -I/usr/include/libglade-2.0 -I/usr/include/gstreamer-0.8  
-GNOME_LIBS = -Wl,--export-dynamic -pthread -L/usr/X11R6/lib -lgnomeui-2 -lSM -lICE -lbonoboui-2 -lgnome-keyring -lgnomecanvas-2 -lgnome-2 -lpopt -lart_lgpl_2 -lpangoft2-1.0 -lgnomevfs-2 -lbonobo-2 -lgconf-2 -lbonobo-activation -lORBit-2 -lglade-2.0 -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lpangocairo-1.0 -lfontconfig -lXinerama -lXi -lXrandr -lXext -lXcursor -lXfixes -lpango-1.0 -lcairo -lXrender -lX11 -lgstreamer-0.8 -lgobject-2.0 -lgmodule-2.0 -ldl -lgthread-2.0 -lxml2 -lz -lm -lglib-2.0  
+GNOMEBAKER_CFLAGS = -DORBIT2=1 -pthread -DXTHREADS -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I/usr/include/libgnomeui-2.0 -I/usr/include/libgnome-2.0 -I/usr/include/libgnomecanvas-2.0 -I/usr/include/gtk-2.0 -I/usr/include/libart-2.0 -I/usr/include/gconf/2 -I/usr/include/libbonoboui-2.0 -I/usr/include/gnome-vfs-2.0 -I/usr/lib/gnome-vfs-2.0/include -I/usr/include/gnome-keyring-1 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/orbit-2.0 -I/usr/include/libbonobo-2.0 -I/usr/include/bonobo-activation-2.0 -I/usr/include/pango-1.0 -I/usr/include/freetype2 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/X11R6/include -I/usr/include/libxml2 -I/usr/include/libglade-2.0 -I/usr/include/gstreamer-0.8  
+GNOMEBAKER_LIBS = -Wl,--export-dynamic -pthread -L/usr/X11R6/lib -lgnomeui-2 -lSM -lICE -lbonoboui-2 -lgnome-keyring -lgnomecanvas-2 -lgnome-2 -lpopt -lart_lgpl_2 -lpangoft2-1.0 -lgnomevfs-2 -lbonobo-2 -lgconf-2 -lbonobo-activation -lORBit-2 -lglade-2.0 -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lpangocairo-1.0 -lfontconfig -lXinerama -lXi -lXrandr -lXext -lXcursor -lXfixes -lpango-1.0 -lcairo -lXrender -lX11 -lgstreamer-0.8 -lgobject-2.0 -lgmodule-2.0 -ldl -lgthread-2.0 -lxml2 -lz -lm -lglib-2.0  
+GOBJECT_QUERY = gobject-query
+GSTREAMER_REQUIRED = 0.8.9
+GTK_REQUIRED = 2.4.0
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
 INSTOBJEXT = .mo
 INTLLIBS = 
+INTLTOOL_CAVES_RULE = %.caves:     %.caves.in     $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_DESKTOP_RULE = %.desktop:   %.desktop.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_DIRECTORY_RULE = %.directory: %.directory.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_EXTRACT = $(top_builddir)/intltool-extract
+INTLTOOL_ICONV = /usr/bin/iconv
+INTLTOOL_KBD_RULE = %.kbd:       %.kbd.in       $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -x -u -m -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_KEYS_RULE = %.keys:      %.keys.in      $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -k -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_MERGE = $(top_builddir)/intltool-merge
+INTLTOOL_MSGFMT = /usr/bin/msgfmt
+INTLTOOL_MSGMERGE = /usr/bin/msgmerge
+INTLTOOL_OAF_RULE = %.oaf:       %.oaf.in       $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -o -p $(top_srcdir)/po $< $@
+INTLTOOL_PERL = /usr/bin/perl
+INTLTOOL_PONG_RULE = %.pong:      %.pong.in      $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -x -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_PROP_RULE = %.prop:      %.prop.in      $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_SCHEMAS_RULE = %.schemas:   %.schemas.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -s -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_SERVER_RULE = %.server:    %.server.in    $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -o -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_SHEET_RULE = %.sheet:     %.sheet.in     $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -x -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_SOUNDLIST_RULE = %.soundlist: %.soundlist.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_THEME_RULE = %.theme:     %.theme.in     $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_UI_RULE = %.ui:        %.ui.in        $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -x -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_UPDATE = $(top_builddir)/intltool-update
+INTLTOOL_XAM_RULE = %.xam:       %.xml.in       $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -x -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
+INTLTOOL_XGETTEXT = /usr/bin/xgettext
+INTLTOOL_XML_NOMERGE_RULE = %.xml:       %.xml.in       $(INTLTOOL_MERGE) ; LC_ALL=C $(INTLTOOL_MERGE) -x -u /tmp $< $@
+INTLTOOL_XML_RULE = %.xml:       %.xml.in       $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -x -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
 LDFLAGS = 
+LIBGLADE_REQUIRED = 2.4.2
+LIBGNOME_REQUIRED = 2.8.1
 LIBOBJS = 
 LIBS = 
-LIBTOOL = $(SHELL) $(top_builddir)/libtool
-LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/luke/gnomebaker/missing --run makeinfo
+MAINT = 
+MAINTAINER_MODE_FALSE = #
+MAINTAINER_MODE_TRUE = 
+MAKEINFO = ${SHELL} /home/luke/projects/gnomebaker/HEAD/gnomebaker/missing --run makeinfo
 MKINSTALLDIRS = ./mkinstalldirs
 MSGFMT = /usr/bin/msgfmt
-NO_PREFIX_PACKAGE_DATA_DIR = share
-NO_PREFIX_PACKAGE_DOC_DIR = doc/gnomebaker
-NO_PREFIX_PACKAGE_HELP_DIR = share/gnome/help/gnomebaker
-NO_PREFIX_PACKAGE_MEDIA_DIR = share/gnomebaker/media
-NO_PREFIX_PACKAGE_MENU_DIR = share/applications
-NO_PREFIX_PACKAGE_PIXMAPS_DIR = share/gnomebaker
 OBJEXT = o
 PACKAGE = gnomebaker
-PACKAGE_BUGREPORT = 
-PACKAGE_DATA_DIR = /usr/local/share
-PACKAGE_DOC_DIR = /usr/local/doc/gnomebaker
-PACKAGE_HELP_DIR = /usr/local/share/gnome/help/gnomebaker
-PACKAGE_MEDIA_DIR = 
-PACKAGE_MENU_DIR = /usr/local/share/gnomebaker/media
-PACKAGE_NAME = 
-PACKAGE_PIXMAPS_DIR = /usr/local/share/gnomebaker
-PACKAGE_STRING = 
-PACKAGE_TARNAME = 
-PACKAGE_VERSION = 
+PACKAGE_BUGREPORT = gnomebaker
+PACKAGE_NAME = GnomeBaker
+PACKAGE_STRING = GnomeBaker 0.5.1
+PACKAGE_TARNAME = gnomebaker
+PACKAGE_VERSION = 0.5.1
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 POFILES =  af.po de.po es.po he.po ko.po nl_NL.po pt.po sk.po tr.po cs.po en_US.po hr.po lv.po pl.po ro.po sv.po zh_CN.po da.po es_ES.po fr.po ja.po ms.po pt_BR.po ru.po sv_SE.po eu.po no.po bg.po
 POSUB = po
 PO_IN_DATADIR_FALSE = 
 PO_IN_DATADIR_TRUE = 
-RANLIB = ranlib
 SET_MAKE = 
 SHELL = /bin/sh
-STRIP = strip
+STRIP = 
 USE_NLS = yes
 VERSION = 0.5.1
 XGETTEXT = /usr/bin/xgettext
-ac_ct_AR = ar
 ac_ct_CC = gcc
-ac_ct_CXX = g++
-ac_ct_F77 = 
-ac_ct_RANLIB = ranlib
-ac_ct_STRIP = strip
-ac_pt_PKG_CONFIG = /usr/bin/pkg-config
+ac_ct_STRIP = 
+ac_pt_PKG_CONFIG = 
 am__fastdepCC_FALSE = #
 am__fastdepCC_TRUE = 
-am__fastdepCXX_FALSE = #
-am__fastdepCXX_TRUE = 
 am__include = include
 am__leading_dot = .
 am__quote = 
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = i686-pc-linux-gnu
 build_alias = 
-build_cpu = i686
-build_os = linux-gnu
-build_vendor = pc
 datadir = ${prefix}/share
 exec_prefix = ${prefix}
-host = i686-pc-linux-gnu
 host_alias = 
-host_cpu = i686
-host_os = linux-gnu
-host_vendor = pc
 includedir = ${prefix}/include
 infodir = ${prefix}/info
-install_sh = /home/luke/gnomebaker/install-sh
+install_sh = /home/luke/projects/gnomebaker/HEAD/gnomebaker/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localstatedir = ${prefix}/var
@@ -186,7 +185,7 @@ sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 sysconfdir = ${prefix}/etc
 target_alias = 
-gnomebaker_mediadir = $(prefix)/share/gnomebaker/media
+gnomebaker_mediadir = $(datadir)/gnomebaker
 gnomebaker_media_DATA = \
 	BurnFailed.wav\
 	BurnOk.wav
@@ -224,15 +223,6 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-
-mostlyclean-libtool:
-	-rm -f *.lo
-
-clean-libtool:
-	-rm -rf .libs _libs
-
-distclean-libtool:
-	-rm -f libtool
 uninstall-info-am:
 install-gnomebaker_mediaDATA: $(gnomebaker_media_DATA)
 	@$(NORMAL_INSTALL)
@@ -318,11 +308,11 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool mostlyclean-am
+clean-am: clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f Makefile
-distclean-am: clean-am distclean-generic distclean-libtool
+distclean-am: clean-am distclean-generic
 
 dvi: dvi-am
 
@@ -350,7 +340,7 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-am
 
-mostlyclean-am: mostlyclean-generic mostlyclean-libtool
+mostlyclean-am: mostlyclean-generic
 
 pdf: pdf-am
 
@@ -362,16 +352,15 @@ ps-am:
 
 uninstall-am: uninstall-gnomebaker_mediaDATA uninstall-info-am
 
-.PHONY: all all-am check check-am clean clean-generic clean-libtool \
-	distclean distclean-generic distclean-libtool distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-exec install-exec-am \
-	install-gnomebaker_mediaDATA install-info install-info-am \
-	install-man install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
-	ps ps-am uninstall uninstall-am uninstall-gnomebaker_mediaDATA \
-	uninstall-info-am
+.PHONY: all all-am check check-am clean clean-generic distclean \
+	distclean-generic distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-exec \
+	install-exec-am install-gnomebaker_mediaDATA install-info \
+	install-info-am install-man install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
+	pdf-am ps ps-am uninstall uninstall-am \
+	uninstall-gnomebaker_mediaDATA uninstall-info-am
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -1,37 +1,35 @@
-## Process this file with automake to produce Makefile.in
-## Created by Anjuta - will be overwritten
-## If you don't want it to overwrite it,
-## 	Please disable it in the Anjuta project configuration
+SUBDIRS = po src pixmaps media help
 
-SUBDIRS = intl po macros src pixmaps media help
+desktop_in_files=gnomebaker.desktop.in
+desktop_files=$(desktop_in_files:.desktop.in=.desktop)
+@INTLTOOL_DESKTOP_RULE@
 
-gnomebakerdocdir = ${prefix}/doc/gnomebaker
-gnomebakerdoc_DATA = \
-	README\
-	COPYING\
-	AUTHORS\
-	ChangeLog\
-	INSTALL\
-	NEWS\
-	TODO\
-	xmldocs.make\
-	omf.make
+Applicationsdir = $(datadir)/applications
+Applications_DATA = $(desktop_files)
 
+gladedir = $(datadir)/gnomebaker
+glade_DATA = gnomebaker.glade
 
-gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@
-gnomemenu_DATA = gnomebaker.desktop
+INTLTOOL = 			\
+	intltool-extract.in 	\
+	intltool-merge.in 	\
+	intltool-update.in
 
-##gnomebaker_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/@PACKAGE@/glade
-gnomebaker_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/@PACKAGE@
-gnomebaker_glade_file_DATA = gnomebaker.glade
+EXTRA_DIST =				\
+	AUTHORS				\
+	README				\
+	ChangeLog			\
+	TODO				\
+	autogen.sh			\
+	xmldocs.make			\
+	omf.make			\
+	$(desktop_in_files)		\
+	$(desktop_files)		\
+	$(glade_DATA)			\
+	$(INTLTOOL)
 
-EXTRA_DIST = $(gnomebakerdoc_DATA) $(gnomebaker_glade_file_DATA) $(gnomemenu_DATA) autogen.sh
-
-
-# Copy all the spec files. Of cource, only one is actually used.
-dist-hook:
-	for specfile in *.spec; do \
-		if test -f $$specfile; then \
-			cp -p $$specfile $(distdir); \
-		fi \
-	done
+DISTCLEANFILES = 		\
+	intltool-extract	\
+	intltool-merge		\
+	intltool-update		\
+	$(desktop_files)

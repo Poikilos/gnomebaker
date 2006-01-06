@@ -1,23 +1,7 @@
 #!/bin/sh
-# Run this to generate all the initial makefiles, etc.
 
-srcdir=`dirname $0`
-test -z "$srcdir" && srcdir=.
+glib-gettextize -f -c
+intltoolize --copy --force --automake
 
-if test -z "$GNOME2_DIR" ; then
-  GNOME_COMMON_DATADIR="/usr/share"
-else
-  GNOME_COMMON_DATADIR="$GNOME2_DIR/share"
-fi
-
-GNOME_COMMON_MACROS_DIR="macros"
-
-export GNOME_COMMON_DATADIR
-export GNOME_COMMON_MACROS_DIR
-
-ACLOCAL_FLAGS="-I $GNOME_COMMON_MACROS_DIR $ACLOCAL_FLAGS"
-export ACLOCAL_FLAGS
-
-PKG_NAME="the package"
-
-. $srcdir/$GNOME_COMMON_MACROS_DIR/autogen.sh
+ACLOCAL=aclocal-1.9 AUTOMAKE=automake-1.9 autoreconf -v --install --force || exit 1
+./configure --enable-maintainer-mode "$@"

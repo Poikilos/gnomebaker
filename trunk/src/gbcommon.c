@@ -439,7 +439,7 @@ gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel, cons
 	GB_LOG_FUNC
 	g_return_if_fail(filename != NULL);
 	
-	gchar* fullfilename = g_build_filename(PACKAGE_PIXMAPS_DIR, filename, NULL);
+	gchar* fullfilename = g_build_filename(IMAGEDIR, filename, NULL);
 	GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file(fullfilename, NULL);
 	GtkWidget* image = gtk_image_new_from_pixbuf(pixbuf);
 	gbcommon_append_menu_item(menu, menuitemlabel, image, activated, userdata);	

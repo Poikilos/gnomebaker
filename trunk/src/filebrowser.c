@@ -834,9 +834,9 @@ filebrowser_setup_list(GtkTreeView* filelist)
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(filelist),
 		GTK_SELECTION_MULTIPLE);
 
-	/* Enable the file list as a drag source */	
+	/* Enable the file list as a drag source */
     gtk_drag_source_set(GTK_WIDGET(filelist), GDK_BUTTON1_MASK, targetentries,
-		3, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+        TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
 	/* Connect the function to handle the drag data */
     g_signal_connect(filelist, "drag_data_get",

@@ -2,4 +2,7 @@
 .libs
 gnomebaker
 Makefile
+Makefile.in
 *.diff
+*.c
+*.h
