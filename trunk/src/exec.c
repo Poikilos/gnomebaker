@@ -73,14 +73,14 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
     ExecCmd* cmd = (ExecCmd*)data;
     gboolean cont = TRUE;
     
-    if(condition & G_IO_IN || condition & G_IO_PRI) /* there's data to be read */
+    if((condition & G_IO_IN) || (condition & G_IO_PRI)) /* there's data to be read */
     {
         static const gint BUFF_SIZE = 1024;
         gchar buffer[BUFF_SIZE];
         memset(buffer, 0x0, BUFF_SIZE * sizeof(gchar));
         gsize bytes = 0;
         const GIOStatus status = g_io_channel_read_chars(channel, buffer, (BUFF_SIZE - 1) * sizeof(gchar), &bytes, NULL);  
-        if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_AGAIN) /* need to check what to do for again */
+        if ((status == G_IO_STATUS_ERROR) || (status == G_IO_STATUS_AGAIN)) /* need to check what to do for again */
         {
             GB_TRACE("exec_channel_callback - read error [%d]", status);
             cont = FALSE;
@@ -94,16 +94,21 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
                 cmd->readProc(cmd, converted);
                 g_free(converted);
             }
-            else 
+            else
             {
-                g_warning("exec_channel_callback - conversion error [%s]", error->message);
-                g_error_free (error);
+                if(error != NULL)
+                {
+                    g_warning("exec_channel_callback - conversion error [%s]", error->message);
+                    g_error_free(error);
+                }
+                else
+                    g_warning("exec_channel_callback - unknown conversion error");
                 cmd->readProc(cmd, buffer); 
             }
         }
     }
     
-    if (cont == FALSE || condition & G_IO_HUP || condition & G_IO_ERR || condition & G_IO_NVAL) 
+    if ((cont == FALSE) || (condition & G_IO_HUP) || (condition & G_IO_ERR) || (condition & G_IO_NVAL))
     {
         /* We assume a failure here (even on G_IO_HUP) as exec_spawn_process will 
          check the return code of the child to determine if it actually worked
@@ -185,7 +190,7 @@ exec_spawn_process(ExecCmd* e, GSpawnChildSetupFunc child_setup)
 		g_critical("exec_spawn_process - failed to spawn process [%d] [%s]",
 			err->code, err->message);			
         exec_cmd_set_state(e, FAILED);
-        g_error_free(err);
+        if(err != NULL) g_error_free(err);
 	}
 }
 
@@ -286,8 +291,7 @@ exec_delete(Exec * exec)
     for(; cmd != NULL; cmd = cmd->next)
         exec_cmd_delete((ExecCmd*)cmd->data);
     g_list_free(exec->cmds);
-    if(exec->err != NULL)
-        g_error_free(exec->err);
+    if(exec->err != NULL) g_error_free(exec->err);
     g_free(exec);
 }
 
