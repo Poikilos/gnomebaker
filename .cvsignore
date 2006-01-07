@@ -29,3 +29,5 @@ libtool
 *.gz
 *.bz2
 *.gladep
+COPYING
+INSTALL
