@@ -23,6 +23,7 @@ Version 0.5.1
 * Fix bug #1252914 'delete' key should work in Disk tabs - Bugs item #1252914, was opened at 2005-08-06 02:11 Message generated for change (Comment added …	
 * Fix bug #1336559 Gnomebaker asks for an empty disk when there is one inserted
 * Apply patch #1333284 Patch for GNU Build System - Brian Pepple
+* Apply patch from Bjoern Schiessle to export m3u and pls playlists.
 
 Version 0.5.0
 

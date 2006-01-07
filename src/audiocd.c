@@ -709,6 +709,116 @@ audiocd_import_playlist(const gchar* playlist)
 }
 
 
+static gboolean
+audiocd_export_m3u(const gchar* playlist)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(playlist != NULL, FALSE);
+
+    gboolean ret = FALSE;
+    FILE *file = NULL;   
+    if ((file = fopen(playlist, "w")) == 0)
+    {
+        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
+            GTK_BUTTONS_NONE, _("Failed to write playlist file"));
+    }
+    else
+    {
+        GtkWidget* tree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
+        GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(tree));
+        GtkTreeIter iter;
+        gboolean valid = gtk_tree_model_get_iter_first (model, &iter);
+        while (valid)
+        {
+            gchar *playlist_item = NULL;
+            gtk_tree_model_get (model, &iter,  AUDIOCD_COL_FILE, &playlist_item, -1);
+            fprintf(file, "%s\n", playlist_item);
+            g_free (playlist_item);
+            valid = gtk_tree_model_iter_next (model, &iter);
+        }
+        
+        fclose(file);
+        ret = TRUE;
+    }
+    
+    return ret;
+}    
+
+
+static gboolean
+audiocd_export_pls(const gchar* playlist)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(playlist != NULL, FALSE);
+
+    gboolean ret = FALSE;
+    FILE *file;   
+    if ((file = fopen(playlist, "w")) == 0)
+    {
+        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, 
+            GTK_BUTTONS_NONE, _("Failed to write playlist file"));
+    }
+    else
+    {
+        fprintf(file, "[playlist]\n");
+        GtkWidget* tree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
+        GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(tree));
+        GtkTreeIter iter;
+        gboolean valid = gtk_tree_model_get_iter_first (model, &iter);
+        gint track = 1;
+        while (valid)
+        {
+            gchar *playlist_item = NULL, *title = NULL;
+            MediaInfo* info = NULL;
+            gtk_tree_model_get (model, &iter, AUDIOCD_COL_FILE, &playlist_item, -1);
+            gtk_tree_model_get (model, &iter, AUDIOCD_COL_TITLE, &title, -1);
+            gtk_tree_model_get (model, &iter, AUDIOCD_COL_INFO, &info, -1);
+            fprintf(file, "File%d=%s\n", track, playlist_item);
+            fprintf(file, "Title%d=%s\n", track, title);
+            fprintf(file, "Length%d=%ld\n", track, info->duration);
+            g_free (playlist_item);
+            g_free (title);
+            /*g_free (info); we don't own the media info pointer */
+            
+            valid = gtk_tree_model_iter_next (model, &iter);
+            track++;
+        }
+
+        fprintf(file, "NumberOfEntries=%d\n", track-1);
+        fprintf(file, "Version=2");
+        fclose(file);
+        ret = TRUE;
+    }
+    
+    return ret;
+}    
+
+
+gboolean 
+audiocd_export_playlist(const gchar* playlist)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(playlist != NULL, FALSE);
+
+    gboolean ret = FALSE;
+    gint result = GTK_RESPONSE_YES;
+    if(g_file_test(playlist, G_FILE_TEST_EXISTS))
+    {
+        result = gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
+                    GTK_BUTTONS_NONE, _("Playlist already exists.\n Do you want to replace it?"));
+    }
+
+    if(result == GTK_RESPONSE_YES)
+    {
+        if (strlen(playlist) < 4 || gbcommon_str_has_suffix(playlist, ".m3u"))
+            ret = audiocd_export_m3u(playlist);
+        else if (strlen(playlist) < 4 || gbcommon_str_has_suffix(playlist, ".pls"))
+            ret = audiocd_export_pls(playlist);
+    }   
+    return ret;
+}
+
+
 void
 audiocd_new()
 {
