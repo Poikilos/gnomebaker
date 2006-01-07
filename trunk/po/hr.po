@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-07 13:45+0000\n"
+"POT-Creation-Date: 2006-01-07 22:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Croatian <hr@li.org>\n"
@@ -100,153 +100,165 @@ msgstr "Naslov"
 msgid "Info"
 msgstr ""
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 #, fuzzy
 msgid "Burning CD image"
 msgstr "Sprži CD Image"
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 #, fuzzy
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:118
+#: ../src/burn.c:116
+msgid ""
+"The file you have selected seems not to be a DVD image. Do you really want "
+"to write it to DVD?"
+msgstr ""
+
+#: ../src/burn.c:121
 #, fuzzy
 msgid "Burning DVD image"
 msgstr "Sprži CD Image"
 
-#: ../src/burn.c:118
+#: ../src/burn.c:121
 #, fuzzy
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:190
+#: ../src/burn.c:164
+msgid ""
+"The file you have selected seems not to be a CD image. Do you really want to "
+"write it to CD?"
+msgstr ""
+
+#: ../src/burn.c:181
 #, fuzzy
 msgid "Creating data CD image"
 msgstr "Napravi CD sa podacima"
 
-#: ../src/burn.c:190
+#: ../src/burn.c:181
 #, fuzzy
 msgid "Please wait while the data CD image is created."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:196 ../src/burn.c:206
+#: ../src/burn.c:187 ../src/burn.c:197
 msgid "Burning data CD"
 msgstr ""
 
-#: ../src/burn.c:196
+#: ../src/burn.c:187
 #, fuzzy
 msgid "Please wait while the data is burned directly to CD."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:206
+#: ../src/burn.c:197
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:230 ../src/burn.c:240
+#: ../src/burn.c:221 ../src/burn.c:231
 #, fuzzy
 msgid "Appending to data CD"
 msgstr "Kopiraj CD sa podacima"
 
-#: ../src/burn.c:230
+#: ../src/burn.c:221
 #, fuzzy
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:240
+#: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 msgid "Burning audio CD"
 msgstr ""
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 #, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr "Molim Vas umetnite audio CD u CD čitač"
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 #, fuzzy
 msgid "Extracting CD image"
 msgstr "Sprži CD Image"
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 #, fuzzy
 msgid "Please wait while the data CD image is extracted."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 #, fuzzy
 msgid "Copying data CD"
 msgstr "Kopiraj CD sa podacima"
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 #, fuzzy
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 #, fuzzy
 msgid "Copying audio CD"
 msgstr "Kopiraj audio CD"
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 #, fuzzy
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr "Molim Vas umetnite audio CD u CD čitač"
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 #, fuzzy
 msgid "Blanking CD"
 msgstr "Prazan CDRW"
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 #, fuzzy
 msgid "Formatting re-writeable DVD"
 msgstr "Formatiraj DVD+RW"
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 #, fuzzy
 msgid "Please wait while the DVD is formatted."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Creating data DVD image"
 msgstr "Napravi CD sa podacima"
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Please wait while the data DVD image is created."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 #, fuzzy
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Appending to data DVD"
 msgstr "Kopiraj CD sa podacima"
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."

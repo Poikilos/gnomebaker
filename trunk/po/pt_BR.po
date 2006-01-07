@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-07 13:45+0000\n"
+"POT-Creation-Date: 2006-01-07 22:42+0000\n"
 "PO-Revision-Date: 2005-10-18 16:26-0200\n"
 "Last-Translator: Goedson Teixeira Paixao <goedson@debian.org>\n"
 "Language-Team: Portuguese <debian-l10n-portuguese@blists.debian.org>\n"
@@ -97,43 +97,61 @@ msgstr "Título"
 msgid "Info"
 msgstr "Informações"
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 msgid "Burning CD image"
 msgstr "Queimando imagem de CD"
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr ""
 "Por favor, aguarde enquanto a imagem de CD que você selecionou é gravada no "
 "CD."
 
-#: ../src/burn.c:118
+#: ../src/burn.c:116
+#, fuzzy
+msgid ""
+"The file you have selected seems not to be a DVD image. Do you really want "
+"to write it to DVD?"
+msgstr ""
+"O arquivo que você selecionou não é uma imagem de DVD. Por favor selecione "
+"uma imagem de DVD para queimar."
+
+#: ../src/burn.c:121
 msgid "Burning DVD image"
 msgstr "Queimando imagem de DVD"
 
-#: ../src/burn.c:118
+#: ../src/burn.c:121
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr ""
 "Por favor, aguarde enquanto a imagem de DVD que você selecionou é gravada no "
 "DVD."
 
-#: ../src/burn.c:190
+#: ../src/burn.c:164
+#, fuzzy
+msgid ""
+"The file you have selected seems not to be a CD image. Do you really want to "
+"write it to CD?"
+msgstr ""
+"O arquivo que você selecionou não é uma imagem de DVD. Por favor selecione "
+"uma imagem de DVD para queimar."
+
+#: ../src/burn.c:181
 msgid "Creating data CD image"
 msgstr "Criando imagem do CD de dados"
 
-#: ../src/burn.c:190
+#: ../src/burn.c:181
 msgid "Please wait while the data CD image is created."
 msgstr "Por favor, aguarde enquanto a imagem do CD de dados é criada."
 
-#: ../src/burn.c:196 ../src/burn.c:206
+#: ../src/burn.c:187 ../src/burn.c:197
 msgid "Burning data CD"
 msgstr "Queimando CD de dados"
 
-#: ../src/burn.c:196
+#: ../src/burn.c:187
 msgid "Please wait while the data is burned directly to CD."
 msgstr "Por favor, aguarde enquanto os dados são gravados diretamente no CD."
 
-#: ../src/burn.c:206
+#: ../src/burn.c:197
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
@@ -142,17 +160,17 @@ msgstr ""
 "CD. Dependendo da velocidade do seu gravador de CD, isto pode levar algum "
 "tempo."
 
-#: ../src/burn.c:230 ../src/burn.c:240
+#: ../src/burn.c:221 ../src/burn.c:231
 #, fuzzy
 msgid "Appending to data CD"
 msgstr "Queimando CD de dados"
 
-#: ../src/burn.c:230
+#: ../src/burn.c:221
 #, fuzzy
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr "Por favor, aguarde enquanto os dados são gravados diretamente no CD."
 
-#: ../src/burn.c:240
+#: ../src/burn.c:231
 #, fuzzy
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
@@ -162,11 +180,11 @@ msgstr ""
 "CD. Dependendo da velocidade do seu gravador de CD, isto pode levar algum "
 "tempo."
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 msgid "Burning audio CD"
 msgstr "Queimando CD de áudio"
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
@@ -174,73 +192,73 @@ msgstr ""
 "Por favor, aguarde enquanto as faixas selecionadas são convertidas para "
 "áudio de CD e gravadas no CD."
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 msgid "Extracting CD image"
 msgstr "Extraindo imagem do CD"
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 msgid "Please wait while the data CD image is extracted."
 msgstr "Por favor, aguarde enquanto a imagem do CD de dados é extraída"
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 msgid "Copying data CD"
 msgstr "Copiando CD de dados"
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 "Por favor, aguarde enquando a imagem do CD de dados é extraída e depois "
 "gravada no CD."
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 msgid "Copying audio CD"
 msgstr "Copiando CD de áudio"
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr ""
 "Por favor, aguarde enquando as faixas do CD de áudio são extraídas e depois "
 "gravadas no CD."
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 msgid "Blanking CD"
 msgstr "Apagando CD"
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 msgid "Please wait while the CD is blanked."
 msgstr "Por favor, aguarde enquanto o CD é apagado."
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 msgid "Formatting re-writeable DVD"
 msgstr "Formatando DVD regravável"
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 msgid "Please wait while the DVD is formatted."
 msgstr "Por favor aguarde enquanto o DVD é formatado."
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 msgid "Creating data DVD image"
 msgstr "Criando imagem de DVD de dados."
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 msgid "Please wait while the data DVD image is created."
 msgstr "Por favor, aguarde enquando a imagem do DVD de dados é criada."
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr "Queimando DVD de dados"
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Por favor, aguarde enquanto os dados são gravados diretamente no DVD."
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Appending to data DVD"
 msgstr "Queimando DVD de dados"
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Por favor, aguarde enquanto os dados são gravados diretamente no DVD."
@@ -1184,13 +1202,6 @@ msgstr "raw96p"
 #: ../gnomebaker.glade.h:105
 msgid "tao"
 msgstr "tao"
-
-#~ msgid ""
-#~ "The file you have selected is not a DVD image. Please select a DVD image "
-#~ "to burn."
-#~ msgstr ""
-#~ "O arquivo que você selecionou não é uma imagem de DVD. Por favor "
-#~ "selecione uma imagem de DVD para queimar."
 
 #~ msgid ""
 #~ "The file you have selected is not a cd image. Please select a cd image to "

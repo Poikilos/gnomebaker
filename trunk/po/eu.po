@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-07 13:45+0000\n"
+"POT-Creation-Date: 2006-01-07 22:42+0000\n"
 "PO-Revision-Date: 2005-02-09 23:46+0100\n"
 "Last-Translator: Mikel Olasagasti <hey_neken@mundurat.net>\n"
 "Language-Team: Basque <gnome@euskalgnu.org>\n"
@@ -101,153 +101,171 @@ msgstr "Titulua"
 msgid "Info"
 msgstr ""
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 #, fuzzy
 msgid "Burning CD image"
 msgstr "Idatzi CD irudia"
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 #, fuzzy
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:118
+#: ../src/burn.c:116
+#, fuzzy
+msgid ""
+"The file you have selected seems not to be a DVD image. Do you really want "
+"to write it to DVD?"
+msgstr ""
+"Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
+"kopiatzeko."
+
+#: ../src/burn.c:121
 #, fuzzy
 msgid "Burning DVD image"
 msgstr "Idatzi CD irudia"
 
-#: ../src/burn.c:118
+#: ../src/burn.c:121
 #, fuzzy
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:190
+#: ../src/burn.c:164
+#, fuzzy
+msgid ""
+"The file you have selected seems not to be a CD image. Do you really want to "
+"write it to CD?"
+msgstr ""
+"Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
+"kopiatzeko."
+
+#: ../src/burn.c:181
 #, fuzzy
 msgid "Creating data CD image"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: ../src/burn.c:190
+#: ../src/burn.c:181
 #, fuzzy
 msgid "Please wait while the data CD image is created."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:196 ../src/burn.c:206
+#: ../src/burn.c:187 ../src/burn.c:197
 msgid "Burning data CD"
 msgstr ""
 
-#: ../src/burn.c:196
+#: ../src/burn.c:187
 #, fuzzy
 msgid "Please wait while the data is burned directly to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:206
+#: ../src/burn.c:197
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:230 ../src/burn.c:240
+#: ../src/burn.c:221 ../src/burn.c:231
 #, fuzzy
 msgid "Appending to data CD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.c:230
+#: ../src/burn.c:221
 #, fuzzy
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:240
+#: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 msgid "Burning audio CD"
 msgstr ""
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 #, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr "Mesedez, sartu audio CD bat CD irakurgailuan"
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 #, fuzzy
 msgid "Extracting CD image"
 msgstr "Idatzi CD irudia"
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 #, fuzzy
 msgid "Please wait while the data CD image is extracted."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 #, fuzzy
 msgid "Copying data CD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 #, fuzzy
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 #, fuzzy
 msgid "Copying audio CD"
 msgstr "Kopiatu audio CDa"
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 #, fuzzy
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr "Mesedez, sartu audio CD bat CD irakurgailuan"
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 #, fuzzy
 msgid "Blanking CD"
 msgstr "Garbitu CDRWa"
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 #, fuzzy
 msgid "Formatting re-writeable DVD"
 msgstr "Formateatu DVDRWa"
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 #, fuzzy
 msgid "Please wait while the DVD is formatted."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Creating data DVD image"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Please wait while the data DVD image is created."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 #, fuzzy
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Appending to data DVD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
@@ -1214,14 +1232,6 @@ msgstr "raw96p"
 #: ../gnomebaker.glade.h:105
 msgid "tao"
 msgstr "tao"
-
-#, fuzzy
-#~ msgid ""
-#~ "The file you have selected is not a DVD image. Please select a DVD image "
-#~ "to burn."
-#~ msgstr ""
-#~ "Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi "
-#~ "bat kopiatzeko."
 
 #~ msgid ""
 #~ "The file you have selected is not a cd image. Please select a cd image to "

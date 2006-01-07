@@ -25,6 +25,7 @@ Version 0.5.1
 * Apply patch #1333284 Patch for GNU Build System - Brian Pepple
 * Apply patch from Bjoern Schiessle to export m3u and pls playlists.
 * Apply patch from gamehack to use GOption for parsing startup arguments.
+* Apply patch #1395049 Ask for confirmation when burning images which are not *.iso - goedson 
 
 Version 0.5.0
 
