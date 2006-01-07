@@ -18,7 +18,7 @@
  * Copyright: luke_biddell@yahoo.com
  * Created on: Sun Jul  4 23:23:55 2004
  */
-  
+
 #ifndef _GBCOMMON_H
 #define _GBCOMMON_H
 
@@ -32,7 +32,7 @@
 typedef struct
 {
 	gdouble size;
-	gchar* label;	
+	gchar* label;
 } DiskSize;
 
 
@@ -49,7 +49,7 @@ gchar* gbcommon_humanreadable_filesize(guint64 size);
 GdkPixbuf* gbcommon_get_icon_for_mime(const gchar* mime, gint size);
 GdkPixbuf* gbcommon_get_icon_for_name(const gchar* mime, gint size);
 void gbcommon_launch_app_for_file(const gchar* file);
-void gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[], 
+void gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[],
 											 const gint sizecount, const gint history);
 gchar* gbcommon_get_mime_description(const gchar* mime);
 gchar* gbcommon_get_mime_type(const gchar* file);
@@ -57,12 +57,12 @@ gchar* gbcommon_get_local_path(const gchar* uri);
 gchar* gbcommon_get_uri(const gchar* localpath);
 gboolean gbcommon_get_first_selected_row(GtkTreeModel *model, GtkTreePath  *path,
 										 GtkTreeIter  *iter, gpointer user_data);
-void gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel, 
+void gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel,
 					const gchar* filename, GCallback activated, gpointer userdata);
-void gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel, 
+void gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel,
 					const gchar* stockid, GCallback activated, gpointer userdata);
 
-gchar* gbcommon_show_file_chooser(const gchar* title, GtkFileFilter* imagefilter);
+gchar* gbcommon_show_file_chooser(const gchar* title, GtkFileChooserAction action, GtkFileFilter* imagefilter);
 void gb_common_finalise();
 gboolean gbcommon_init();
 void gbcommon_center_window_on_parent(GtkWidget* window);
@@ -76,7 +76,7 @@ extern gboolean showtrace;
 
 #define GB_LOG_FUNC											\
 	if(showtrace) g_print("[%p] [%s] [%s] [%d]\n", (gpointer)g_thread_self(), __FUNCTION__, __FILE__, __LINE__);	\
-		
+
 #define GB_TRACE			\
 	if(showtrace) g_message	\
 

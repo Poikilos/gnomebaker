@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-06 23:35+0000\n"
+"POT-Creation-Date: 2006-01-07 13:45+0000\n"
 "PO-Revision-Date: 2005-07-20 00:03+0100\n"
 "Last-Translator: Marco Meyerhofer <marco_meyerhofer@freesurf.ch>\n"
 "Language-Team: German <de@li.org>\n"
@@ -66,27 +66,38 @@ msgstr ""
 "Die Datei, die Sie ausgewählt haben, ist kein CD-Image. Bitte wählen Sie ein "
 "CD-Image zum brennen aus."
 
-#: ../src/audiocd.c:731
+#: ../src/audiocd.c:723 ../src/audiocd.c:759
+#, fuzzy
+msgid "Failed to write playlist file"
+msgstr "gconf konnte nicht initialisiert werden"
+
+#: ../src/audiocd.c:808
+msgid ""
+"Playlist already exists.\n"
+" Do you want to replace it?"
+msgstr ""
+
+#: ../src/audiocd.c:841
 msgid "Track"
 msgstr "Track"
 
-#: ../src/audiocd.c:744
+#: ../src/audiocd.c:854
 msgid "Duration"
 msgstr "Dauer"
 
-#: ../src/audiocd.c:761
+#: ../src/audiocd.c:871
 msgid "Artist"
 msgstr "Künstler"
 
-#: ../src/audiocd.c:770
+#: ../src/audiocd.c:880
 msgid "Album"
 msgstr "Album"
 
-#: ../src/audiocd.c:779
+#: ../src/audiocd.c:889
 msgid "Title"
 msgstr "Titel"
 
-#: ../src/audiocd.c:788
+#: ../src/audiocd.c:898
 msgid "Info"
 msgstr ""
 
@@ -344,7 +355,7 @@ msgstr "Schreibe lead-out"
 
 #: ../src/execfunctions.c:240 ../src/execfunctions.c:977
 #: ../src/preferences.c:70 ../src/preferences.c:71 ../src/startdlg.c:197
-#: ../src/startdlg.c:198 ../gnomebaker.glade.h:99
+#: ../src/startdlg.c:198 ../gnomebaker.glade.h:101
 msgid "default"
 msgstr "Standard"
 
@@ -447,7 +458,7 @@ msgstr "Verzeichnis hinzufügen"
 msgid "_Add file(s)"
 msgstr "Datei(en) hinzufügen"
 
-#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
+#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:89
 msgid "_Burn CD Image"
 msgstr "_CD-Image brennen"
 
@@ -472,9 +483,13 @@ msgstr "Typ"
 msgid "Mime"
 msgstr "Mime"
 
-#: ../src/gbcommon.c:464
+#: ../src/gbcommon.c:468
 msgid "All files"
 msgstr "Alle Dateien"
+
+#: ../src/gbcommon.c:480
+msgid "Save file as type:"
+msgstr ""
 
 #: ../src/gnomebaker.c:102
 msgid "Loading preferences..."
@@ -515,33 +530,37 @@ msgstr "CD-Image Liste"
 msgid "Please select a DVD image file."
 msgstr "Wählen Sie eine ISO-Datei zum Speichern unter..."
 
-#: ../src/gnomebaker.c:362 ../gnomebaker.glade.h:54
+#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:54
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:363
+#: ../src/gnomebaker.c:364
 #, fuzzy
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "Einfaches CD-Brennen für Gnome"
 
-#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:104
+#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:106
 msgid "translator_credits"
 msgstr "Marco Meyerhofer <marco_meyerhofer@freesurf.ch>"
 
-#: ../src/gnomebaker.c:428
+#: ../src/gnomebaker.c:429
 #, fuzzy
 msgid "Please select files to add to the disk."
 msgstr "Wählen Sie eine ISO-Datei zum Speichern unter..."
 
-#: ../src/gnomebaker.c:688
+#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
 #, fuzzy
 msgid "Playlist files"
 msgstr "Alle Dateien"
 
-#: ../src/gnomebaker.c:689
+#: ../src/gnomebaker.c:690
 #, fuzzy
 msgid "Please select a playlist."
 msgstr "Wählen Sie eine ISO-Datei zum Speichern unter..."
+
+#: ../src/gnomebaker.c:711
+msgid "Save playlist as..."
+msgstr ""
 
 #: ../src/media.c:399
 #, c-format
@@ -581,7 +600,7 @@ msgstr "DVD-R schreiben"
 msgid "Write DVD-RAM"
 msgstr "DVD-RAM schreiben"
 
-#: ../src/progressdlg.c:185 ../gnomebaker.glade.h:79
+#: ../src/progressdlg.c:185 ../gnomebaker.glade.h:78
 #, fuzzy
 msgid "Show output"
 msgstr "Ausgabe ansehen"
@@ -642,7 +661,7 @@ msgstr "Modus"
 msgid "<b>Options</b>"
 msgstr "<b>Optionen</b>"
 
-#: ../src/startdlg.c:245 ../gnomebaker.glade.h:96
+#: ../src/startdlg.c:245 ../gnomebaker.glade.h:98
 msgid "_Start"
 msgstr "_Start"
 
@@ -1005,57 +1024,53 @@ msgid "ISO filesystem details"
 msgstr "Details zum ISO Filesystem"
 
 #: ../gnomebaker.glade.h:59
-msgid "I_mport Playlist"
-msgstr ""
-
-#: ../gnomebaker.glade.h:60
 msgid "Import"
 msgstr "Importieren"
 
-#: ../gnomebaker.glade.h:61
+#: ../gnomebaker.glade.h:60
 #, fuzzy
 msgid "Import Session"
 msgstr "Sitzung _importieren"
 
-#: ../gnomebaker.glade.h:62
+#: ../gnomebaker.glade.h:61
 msgid "Import existing session"
 msgstr "Bestehende Session importieren"
 
-#: ../gnomebaker.glade.h:63
+#: ../gnomebaker.glade.h:62
 msgid "Mode"
 msgstr "Modus"
 
-#: ../gnomebaker.glade.h:64
+#: ../gnomebaker.glade.h:63
 msgid "Move audio tracks down"
 msgstr ""
 
-#: ../gnomebaker.glade.h:65
+#: ../gnomebaker.glade.h:64
 msgid "Move audio tracks up"
 msgstr ""
 
-#: ../gnomebaker.glade.h:66
+#: ../gnomebaker.glade.h:65
 #, fuzzy
 msgid "Move selection _down"
 msgstr "Auswahl entfernen"
 
-#: ../gnomebaker.glade.h:67
+#: ../gnomebaker.glade.h:66
 #, fuzzy
 msgid "Move selection _up"
 msgstr "Auswahl entfernen"
 
-#: ../gnomebaker.glade.h:68
+#: ../gnomebaker.glade.h:67
 msgid "Not bootable"
 msgstr "Nicht bootbar"
 
-#: ../gnomebaker.glade.h:69
+#: ../gnomebaker.glade.h:68
 msgid "PC bootable"
 msgstr "PC bootbar"
 
-#: ../gnomebaker.glade.h:70
+#: ../gnomebaker.glade.h:69
 msgid "Play sound when burning is complete"
 msgstr ""
 
-#: ../gnomebaker.glade.h:71
+#: ../gnomebaker.glade.h:70
 #, fuzzy
 msgid ""
 "Please select the writing device from the list below and insert the disk "
@@ -1064,74 +1079,79 @@ msgstr ""
 "Bitte wählen Sie den Brenner von der Liste und legen Sie ein Medium ein "
 "welches die existierende Session enthält"
 
-#: ../gnomebaker.glade.h:72
+#: ../gnomebaker.glade.h:71
 msgid "Reader"
 msgstr "Leser"
 
-#: ../gnomebaker.glade.h:73
+#: ../gnomebaker.glade.h:72
 msgid "Refresh the file browser file list"
 msgstr "Datei-Browser aktualisieren"
 
-#: ../gnomebaker.glade.h:74
+#: ../gnomebaker.glade.h:73
 msgid "Remove selected"
 msgstr "Auswahl entfernen"
 
-#: ../gnomebaker.glade.h:75
+#: ../gnomebaker.glade.h:74
 msgid "Remove the selected files from the CD"
 msgstr "Ausgewählte Dateien von der CD entfernen"
 
-#: ../gnomebaker.glade.h:76
+#: ../gnomebaker.glade.h:75
 msgid "Sc_an for devices"
 msgstr "N_ach Laufwerk suchen"
 
-#: ../gnomebaker.glade.h:77
+#: ../gnomebaker.glade.h:76
 msgid "Show hidden files"
 msgstr "Versteckte Dateien anzeigen"
 
-#: ../gnomebaker.glade.h:78
+#: ../gnomebaker.glade.h:77
 msgid "Show humanreadable filesizes"
 msgstr "Zeige Dateigrössen in menschenlesbarem Format"
 
-#: ../gnomebaker.glade.h:80
+#: ../gnomebaker.glade.h:79
 msgid "Simple CD burning for Gnome."
 msgstr "Einfaches CD-Brennen für Gnome"
 
-#: ../gnomebaker.glade.h:81
+#: ../gnomebaker.glade.h:80
 msgid "Speed"
 msgstr "Geschwindigkeit"
 
-#: ../gnomebaker.glade.h:82
+#: ../gnomebaker.glade.h:81
 msgid "Splash window"
 msgstr ""
 
-#: ../gnomebaker.glade.h:83
+#: ../gnomebaker.glade.h:82
 msgid "Start burning..."
 msgstr "Brennvorgang starten..."
 
-#: ../gnomebaker.glade.h:84
+#: ../gnomebaker.glade.h:83
 msgid "Starting GnomeBaker..."
 msgstr "GnomeBaker wird gestartet..."
 
-#: ../gnomebaker.glade.h:85
+#: ../gnomebaker.glade.h:84
 msgid "Sun workstation bootable"
 msgstr "Sun workstation bootbar"
 
-#: ../gnomebaker.glade.h:86
+#: ../gnomebaker.glade.h:85
 msgid "Writer"
 msgstr "Brenner"
 
-#: ../gnomebaker.glade.h:87
+#: ../gnomebaker.glade.h:86
 msgid "_Actions"
 msgstr "_Aktionen"
 
-#: ../gnomebaker.glade.h:88
+#: ../gnomebaker.glade.h:87
 msgid "_Add device"
 msgstr "Laufwerk hinzufügen"
 
-#: ../gnomebaker.glade.h:89
+#: ../gnomebaker.glade.h:88
 #, fuzzy
 msgid "_Add selection"
 msgstr "Verzeichnis hinzufügen"
+
+#: ../gnomebaker.glade.h:90
+#, fuzzy
+msgid "_Export"
+msgstr "Importieren"
 
 #: ../gnomebaker.glade.h:91
 #, fuzzy
@@ -1139,44 +1159,54 @@ msgid "_Format DVD±RW"
 msgstr "DVDRW _formatieren"
 
 #: ../gnomebaker.glade.h:92
+#, fuzzy
+msgid "_Import"
+msgstr "Importieren"
+
+#: ../gnomebaker.glade.h:93
 msgid "_Import Session"
 msgstr "Sitzung _importieren"
 
-#: ../gnomebaker.glade.h:93
+#: ../gnomebaker.glade.h:94
+#, fuzzy
+msgid "_Playlist"
+msgstr "Alle Dateien"
+
+#: ../gnomebaker.glade.h:95
 msgid "_Refresh"
 msgstr "_Neu laden"
 
-#: ../gnomebaker.glade.h:94
+#: ../gnomebaker.glade.h:96
 #, fuzzy
 msgid "_Remove selection"
 msgstr "Auswahl entfernen"
 
-#: ../gnomebaker.glade.h:95
+#: ../gnomebaker.glade.h:97
 msgid "_Show File Browser"
 msgstr "Datei-Browser"
 
-#: ../gnomebaker.glade.h:97
+#: ../gnomebaker.glade.h:99
 msgid "_View"
 msgstr "_Ansehen"
 
-#: ../gnomebaker.glade.h:98
+#: ../gnomebaker.glade.h:100
 msgid "dao"
 msgstr "dao"
 
-#: ../gnomebaker.glade.h:100
+#: ../gnomebaker.glade.h:102
 msgid "raw16"
 msgstr "raw16"
 
-#: ../gnomebaker.glade.h:101
+#: ../gnomebaker.glade.h:103
 msgid "raw96p"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:102
+#: ../gnomebaker.glade.h:104
 #, fuzzy
 msgid "raw96r"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:103
+#: ../gnomebaker.glade.h:105
 msgid "tao"
 msgstr "tao"
 
@@ -1283,9 +1313,6 @@ msgstr "tao"
 
 #~ msgid "File %s was not opened"
 #~ msgstr "Datei %s wurde nicht geöffnet"
-
-#~ msgid "Failed to initialise gconf"
-#~ msgstr "gconf konnte nicht initialisiert werden"
 
 #, fuzzy
 #~ msgid "audioinfo_new - mime type is %s for %s"

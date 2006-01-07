@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome baker 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-06 23:35+0000\n"
+"POT-Creation-Date: 2006-01-07 13:45+0000\n"
 "PO-Revision-Date: 2005-03-30 16:35+0300\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -61,27 +61,38 @@ msgid ""
 "or m3u file."
 msgstr ""
 
-#: ../src/audiocd.c:731
+#: ../src/audiocd.c:723 ../src/audiocd.c:759
+#, fuzzy
+msgid "Failed to write playlist file"
+msgstr "Грешка при инициализиране на gconf"
+
+#: ../src/audiocd.c:808
+msgid ""
+"Playlist already exists.\n"
+" Do you want to replace it?"
+msgstr ""
+
+#: ../src/audiocd.c:841
 msgid "Track"
 msgstr "Песен"
 
-#: ../src/audiocd.c:744
+#: ../src/audiocd.c:854
 msgid "Duration"
 msgstr "Продължителност"
 
-#: ../src/audiocd.c:761
+#: ../src/audiocd.c:871
 msgid "Artist"
 msgstr "Артист"
 
-#: ../src/audiocd.c:770
+#: ../src/audiocd.c:880
 msgid "Album"
 msgstr "Албум"
 
-#: ../src/audiocd.c:779
+#: ../src/audiocd.c:889
 msgid "Title"
 msgstr "Заглавие"
 
-#: ../src/audiocd.c:788
+#: ../src/audiocd.c:898
 msgid "Info"
 msgstr ""
 
@@ -334,7 +345,7 @@ msgstr ""
 
 #: ../src/execfunctions.c:240 ../src/execfunctions.c:977
 #: ../src/preferences.c:70 ../src/preferences.c:71 ../src/startdlg.c:197
-#: ../src/startdlg.c:198 ../gnomebaker.glade.h:99
+#: ../src/startdlg.c:198 ../gnomebaker.glade.h:101
 msgid "default"
 msgstr "стандартно"
 
@@ -431,7 +442,7 @@ msgstr "Добавяне на папка"
 msgid "_Add file(s)"
 msgstr "_Добавяне на файл(ове)"
 
-#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
+#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:89
 msgid "_Burn CD Image"
 msgstr "_Запис на изображение"
 
@@ -457,9 +468,13 @@ msgstr "Тип"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:464
+#: ../src/gbcommon.c:468
 msgid "All files"
 msgstr "Всички файлове"
+
+#: ../src/gbcommon.c:480
+msgid "Save file as type:"
+msgstr ""
 
 #: ../src/gnomebaker.c:102
 msgid "Loading preferences..."
@@ -500,33 +515,37 @@ msgstr "Файлове-образи на CD-та"
 msgid "Please select a DVD image file."
 msgstr "Изберете iso файл за записване..."
 
-#: ../src/gnomebaker.c:362 ../gnomebaker.glade.h:54
+#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:54
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:363
+#: ../src/gnomebaker.c:364
 #, fuzzy
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "Лесен запис на CD към GNOME"
 
-#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:104
+#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:106
 msgid "translator_credits"
 msgstr "Владимир \"Kaladan\" Петков <vpetkov@i-space.org>"
 
-#: ../src/gnomebaker.c:428
+#: ../src/gnomebaker.c:429
 #, fuzzy
 msgid "Please select files to add to the disk."
 msgstr "Изберете iso файл за записване..."
 
-#: ../src/gnomebaker.c:688
+#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
 #, fuzzy
 msgid "Playlist files"
 msgstr "Всички файлове"
 
-#: ../src/gnomebaker.c:689
+#: ../src/gnomebaker.c:690
 #, fuzzy
 msgid "Please select a playlist."
 msgstr "Изберете iso файл за записване..."
+
+#: ../src/gnomebaker.c:711
+msgid "Save playlist as..."
+msgstr ""
 
 #: ../src/media.c:399
 #, c-format
@@ -565,7 +584,7 @@ msgstr "Запис на DVD-R"
 msgid "Write DVD-RAM"
 msgstr "Запис на DVD-RAM"
 
-#: ../src/progressdlg.c:185 ../gnomebaker.glade.h:79
+#: ../src/progressdlg.c:185 ../gnomebaker.glade.h:78
 msgid "Show output"
 msgstr ""
 
@@ -624,7 +643,7 @@ msgstr "Режим"
 msgid "<b>Options</b>"
 msgstr "<b>Опции</b>"
 
-#: ../src/startdlg.c:245 ../gnomebaker.glade.h:96
+#: ../src/startdlg.c:245 ../gnomebaker.glade.h:98
 msgid "_Start"
 msgstr "_Старт"
 
@@ -988,130 +1007,131 @@ msgid "ISO filesystem details"
 msgstr ""
 
 #: ../gnomebaker.glade.h:59
-msgid "I_mport Playlist"
-msgstr ""
-
-#: ../gnomebaker.glade.h:60
 msgid "Import"
 msgstr "Внасяне"
 
-#: ../gnomebaker.glade.h:61
+#: ../gnomebaker.glade.h:60
 #, fuzzy
 msgid "Import Session"
 msgstr "_Внасяне на сесия"
 
-#: ../gnomebaker.glade.h:62
+#: ../gnomebaker.glade.h:61
 msgid "Import existing session"
 msgstr "Внасяне на съществуваща сесия"
 
-#: ../gnomebaker.glade.h:63
+#: ../gnomebaker.glade.h:62
 msgid "Mode"
 msgstr "Режим"
 
-#: ../gnomebaker.glade.h:64
+#: ../gnomebaker.glade.h:63
 msgid "Move audio tracks down"
 msgstr ""
 
-#: ../gnomebaker.glade.h:65
+#: ../gnomebaker.glade.h:64
 msgid "Move audio tracks up"
 msgstr ""
 
-#: ../gnomebaker.glade.h:66
+#: ../gnomebaker.glade.h:65
 #, fuzzy
 msgid "Move selection _down"
 msgstr "Премахване на избраните"
 
-#: ../gnomebaker.glade.h:67
+#: ../gnomebaker.glade.h:66
 #, fuzzy
 msgid "Move selection _up"
 msgstr "Премахване на избраните"
 
-#: ../gnomebaker.glade.h:68
+#: ../gnomebaker.glade.h:67
 msgid "Not bootable"
 msgstr "Не е стартируем"
 
-#: ../gnomebaker.glade.h:69
+#: ../gnomebaker.glade.h:68
 msgid "PC bootable"
 msgstr "Стартируем от PC"
 
-#: ../gnomebaker.glade.h:70
+#: ../gnomebaker.glade.h:69
 msgid "Play sound when burning is complete"
 msgstr ""
 
-#: ../gnomebaker.glade.h:71
+#: ../gnomebaker.glade.h:70
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:72
+#: ../gnomebaker.glade.h:71
 msgid "Reader"
 msgstr "Четец"
 
-#: ../gnomebaker.glade.h:73
+#: ../gnomebaker.glade.h:72
 msgid "Refresh the file browser file list"
 msgstr "Презареждане на списъка с файлове"
 
-#: ../gnomebaker.glade.h:74
+#: ../gnomebaker.glade.h:73
 msgid "Remove selected"
 msgstr "Премахване на избраните"
 
-#: ../gnomebaker.glade.h:75
+#: ../gnomebaker.glade.h:74
 msgid "Remove the selected files from the CD"
 msgstr "Премахване на избраните файлове от CD-то"
 
-#: ../gnomebaker.glade.h:76
+#: ../gnomebaker.glade.h:75
 msgid "Sc_an for devices"
 msgstr "Ск_аниране за устройства"
 
-#: ../gnomebaker.glade.h:77
+#: ../gnomebaker.glade.h:76
 msgid "Show hidden files"
 msgstr "Показване на скритите файлове"
 
-#: ../gnomebaker.glade.h:78
+#: ../gnomebaker.glade.h:77
 msgid "Show humanreadable filesizes"
 msgstr "Използване на мерни единици разбираеми от хора"
 
-#: ../gnomebaker.glade.h:80
+#: ../gnomebaker.glade.h:79
 msgid "Simple CD burning for Gnome."
 msgstr "Лесен запис на CD към GNOME."
 
-#: ../gnomebaker.glade.h:81
+#: ../gnomebaker.glade.h:80
 msgid "Speed"
 msgstr "Скорост"
 
-#: ../gnomebaker.glade.h:82
+#: ../gnomebaker.glade.h:81
 msgid "Splash window"
 msgstr "Предварителен екран"
 
-#: ../gnomebaker.glade.h:83
+#: ../gnomebaker.glade.h:82
 msgid "Start burning..."
 msgstr "Стартиране на записването..."
 
-#: ../gnomebaker.glade.h:84
+#: ../gnomebaker.glade.h:83
 msgid "Starting GnomeBaker..."
 msgstr "Стартиране на GnomeBaker..."
 
-#: ../gnomebaker.glade.h:85
+#: ../gnomebaker.glade.h:84
 msgid "Sun workstation bootable"
 msgstr ""
 
-#: ../gnomebaker.glade.h:86
+#: ../gnomebaker.glade.h:85
 msgid "Writer"
 msgstr "Записвачка"
 
-#: ../gnomebaker.glade.h:87
+#: ../gnomebaker.glade.h:86
 msgid "_Actions"
 msgstr "_Действия"
 
-#: ../gnomebaker.glade.h:88
+#: ../gnomebaker.glade.h:87
 msgid "_Add device"
 msgstr "_Добавяне на устройство"
 
-#: ../gnomebaker.glade.h:89
+#: ../gnomebaker.glade.h:88
 #, fuzzy
 msgid "_Add selection"
 msgstr "Добавяне на папка"
+
+#: ../gnomebaker.glade.h:90
+#, fuzzy
+msgid "_Export"
+msgstr "Внасяне"
 
 #: ../gnomebaker.glade.h:91
 #, fuzzy
@@ -1119,44 +1139,54 @@ msgid "_Format DVD±RW"
 msgstr "_Форматиране на DVDRW"
 
 #: ../gnomebaker.glade.h:92
+#, fuzzy
+msgid "_Import"
+msgstr "Внасяне"
+
+#: ../gnomebaker.glade.h:93
 msgid "_Import Session"
 msgstr "_Внасяне на сесия"
 
-#: ../gnomebaker.glade.h:93
+#: ../gnomebaker.glade.h:94
+#, fuzzy
+msgid "_Playlist"
+msgstr "Всички файлове"
+
+#: ../gnomebaker.glade.h:95
 msgid "_Refresh"
 msgstr "_Презареждане"
 
-#: ../gnomebaker.glade.h:94
+#: ../gnomebaker.glade.h:96
 #, fuzzy
 msgid "_Remove selection"
 msgstr "_Премахване на избраните"
 
-#: ../gnomebaker.glade.h:95
+#: ../gnomebaker.glade.h:97
 msgid "_Show File Browser"
 msgstr "_Показване на файловия браузър"
 
-#: ../gnomebaker.glade.h:97
+#: ../gnomebaker.glade.h:99
 msgid "_View"
 msgstr "_Изглед"
 
-#: ../gnomebaker.glade.h:98
+#: ../gnomebaker.glade.h:100
 msgid "dao"
 msgstr "dao"
 
-#: ../gnomebaker.glade.h:100
+#: ../gnomebaker.glade.h:102
 msgid "raw16"
 msgstr "raw16"
 
-#: ../gnomebaker.glade.h:101
+#: ../gnomebaker.glade.h:103
 msgid "raw96p"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:102
+#: ../gnomebaker.glade.h:104
 #, fuzzy
 msgid "raw96r"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:103
+#: ../gnomebaker.glade.h:105
 msgid "tao"
 msgstr "tao"
 
@@ -1234,9 +1264,6 @@ msgstr "tao"
 
 #~ msgid "File %s was not opened"
 #~ msgstr "Файлът %s не беше отворен"
-
-#~ msgid "Failed to initialise gconf"
-#~ msgstr "Грешка при инициализиране на gconf"
 
 #~ msgid "audioinfo_new - mime type is %s for %s"
 #~ msgstr "audioinfo_new - типът mime на 2%s е 1%s"

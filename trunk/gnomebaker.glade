@@ -24,7 +24,6 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
   <property name="enable_layout_config">True</property>
   <signal name="delete_event" handler="gnomebaker_on_delete" last_modification_time="Sat, 10 Apr 2004 22:33:28 GMT"/>
   <signal name="window_state_event" handler="gnomebaker_window_state_event" last_modification_time="Mon, 15 Aug 2005 22:41:45 GMT"/>
@@ -42,8 +41,6 @@
 	  <child>
 	    <widget class="GtkMenuBar" id="menubar2">
 	      <property name="visible">True</property>
-	      <property name="pack_direction">GTK_PACK_DIRECTION_LTR</property>
-	      <property name="child_pack_direction">GTK_PACK_DIRECTION_LTR</property>
 
 	      <child>
 		<widget class="GtkMenuItem" id="file2">
@@ -361,11 +358,39 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkMenuItem" id="import_playlist1">
+			<widget class="GtkSeparatorMenuItem" id="separator5">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">I_mport Playlist</property>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="playlist1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">_Playlist</property>
 			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="gnomebaker_on_import_playlist" last_modification_time="Wed, 05 Oct 2005 22:19:09 GMT"/>
+
+			  <child>
+			    <widget class="GtkMenu" id="playlist1_menu">
+
+			      <child>
+				<widget class="GtkMenuItem" id="import_playlist1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">_Import</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="gnomebaker_on_import_playlist" last_modification_time="Wed, 05 Oct 2005 22:19:09 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkMenuItem" id="export_playlist1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">_Export</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="gnomebaker_on_export_playlist" last_modification_time="Sat, 22 Oct 2005 11:53:42 GMT"/>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
 			</widget>
 		      </child>
 		    </widget>
@@ -1582,7 +1607,6 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
   <property name="has_separator">False</property>
   <signal name="delete_event" handler="progressdlg_on_delete" last_modification_time="Sun, 25 Apr 2004 18:54:21 GMT"/>
 
@@ -1829,7 +1853,6 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_SPLASHSCREEN</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
 
   <child>
     <widget class="GtkVBox" id="vbox15">
@@ -1897,7 +1920,6 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
   <property name="has_separator">False</property>
   <signal name="delete_event" handler="prefsdlg_on_delete" last_modification_time="Tue, 28 Dec 2004 10:38:28 GMT"/>
 
@@ -2527,7 +2549,6 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
   <property name="has_separator">False</property>
 
   <child internal-child="vbox">
@@ -3058,7 +3079,6 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
   <property name="has_separator">False</property>
 
   <child internal-child="vbox">
@@ -3568,7 +3588,6 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
   <property name="has_separator">True</property>
 
   <child internal-child="vbox">
