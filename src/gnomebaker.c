@@ -588,7 +588,7 @@ gnomebaker_on_help(gpointer widget, gpointer user_data)
 	GB_LOG_FUNC
 	GError *error = NULL;
 	gnome_help_display("gnomebaker", NULL, &error);
-	if(error)
+	if(error != NULL)
 	{
 		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,
 			GTK_BUTTONS_NONE, error->message);
