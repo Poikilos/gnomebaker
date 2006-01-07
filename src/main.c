@@ -35,24 +35,34 @@
 const gchar* glade_file;
 gboolean showtrace = FALSE;
 
+static GOptionEntry entries[] = 
+{
+    { "trace-on", 0, 0, G_OPTION_ARG_NONE, &showtrace, "Show tracing information (useful when debugging)", 0 },
+    { NULL }
+};
 
 gint 
 main(gint argc, gchar *argv[])
-{	
-	gint i = 0;	
-	for(; i < argc; ++i)
-	{
-		if(g_ascii_strcasecmp("--trace-on", argv[i]) == 0)
-		{
-			showtrace = TRUE;
-			break;
-		}
-	}
+{		
+	GError* error = NULL;
+	GOptionContext* context = g_option_context_new(" - GNOME CD/DVD burning application");
+	/* add main entries */
+	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
+	/* recognise gtk/gdk/gstreamer options */
+	g_option_context_add_group(context, gtk_get_option_group(TRUE));
+    /*g_option_context_add_group(context, gst_init_get_option_group());*/
+	/* ignore unknown options */
+	g_option_context_set_ignore_unknown_options(context, TRUE);
+	/* parse options */
+	g_option_context_parse(context, &argc, &argv, &error);
 	
+	/* free options */
+	g_option_context_free(context);
+	g_error_free(error);
+    
 	g_thread_init(NULL);
 	gdk_threads_init();
 	
-
 	#ifdef ENABLE_NLS
 		setlocale(LC_ALL,"");		
 		bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
