@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-07 13:45+0000\n"
+"POT-Creation-Date: 2006-01-07 22:42+0000\n"
 "PO-Revision-Date: 2005-01-20 03:03:03.358888\n"
 "Last-Translator: Li Qing <qingl@bluebottle.com>\n"
 "Language-Team: Chinese (China) <zh_CN@li.org>\n"
@@ -100,153 +100,167 @@ msgstr "曲名"
 msgid "Info"
 msgstr ""
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 #, fuzzy
 msgid "Burning CD image"
 msgstr "刻录 CD 映像"
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 #, fuzzy
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:118
+#: ../src/burn.c:116
+#, fuzzy
+msgid ""
+"The file you have selected seems not to be a DVD image. Do you really want "
+"to write it to DVD?"
+msgstr "您选择的文件不是一个 CD 映像，请选择一个 CD 映像来刻录。"
+
+#: ../src/burn.c:121
 #, fuzzy
 msgid "Burning DVD image"
 msgstr "刻录 CD 映像"
 
-#: ../src/burn.c:118
+#: ../src/burn.c:121
 #, fuzzy
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:190
+#: ../src/burn.c:164
+#, fuzzy
+msgid ""
+"The file you have selected seems not to be a CD image. Do you really want to "
+"write it to CD?"
+msgstr "您选择的文件不是一个 CD 映像，请选择一个 CD 映像来刻录。"
+
+#: ../src/burn.c:181
 #, fuzzy
 msgid "Creating data CD image"
 msgstr "<b>正在创建数据盘映像...</b>"
 
-#: ../src/burn.c:190
+#: ../src/burn.c:181
 #, fuzzy
 msgid "Please wait while the data CD image is created."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:196 ../src/burn.c:206
+#: ../src/burn.c:187 ../src/burn.c:197
 msgid "Burning data CD"
 msgstr ""
 
-#: ../src/burn.c:196
+#: ../src/burn.c:187
 #, fuzzy
 msgid "Please wait while the data is burned directly to CD."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:206
+#: ../src/burn.c:197
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:230 ../src/burn.c:240
+#: ../src/burn.c:221 ../src/burn.c:231
 #, fuzzy
 msgid "Appending to data CD"
 msgstr "复制数据 CD"
 
-#: ../src/burn.c:230
+#: ../src/burn.c:221
 #, fuzzy
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:240
+#: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 msgid "Burning audio CD"
 msgstr ""
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 #, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr "请在光驱中插入一张音乐 CD"
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 #, fuzzy
 msgid "Extracting CD image"
 msgstr "刻录 CD 映像"
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 #, fuzzy
 msgid "Please wait while the data CD image is extracted."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 #, fuzzy
 msgid "Copying data CD"
 msgstr "复制数据 CD"
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 #, fuzzy
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 #, fuzzy
 msgid "Copying audio CD"
 msgstr "复制音乐 CD"
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 #, fuzzy
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr "请在光驱中插入一张音乐 CD"
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 #, fuzzy
 msgid "Blanking CD"
 msgstr "空白 CDRW"
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 #, fuzzy
 msgid "Formatting re-writeable DVD"
 msgstr "格式化 DVDRW(_F)"
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 #, fuzzy
 msgid "Please wait while the DVD is formatted."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Creating data DVD image"
 msgstr "<b>正在创建数据盘映像...</b>"
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Please wait while the data DVD image is created."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 #, fuzzy
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "请选择一个 iso 文件"
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Appending to data DVD"
 msgstr "复制数据 CD"
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "请选择一个 iso 文件"
@@ -1209,12 +1223,6 @@ msgstr "raw96p"
 #: ../gnomebaker.glade.h:105
 msgid "tao"
 msgstr "tao"
-
-#, fuzzy
-#~ msgid ""
-#~ "The file you have selected is not a DVD image. Please select a DVD image "
-#~ "to burn."
-#~ msgstr "您选择的文件不是一个 CD 映像，请选择一个 CD 映像来刻录。"
 
 #~ msgid ""
 #~ "The file you have selected is not a cd image. Please select a cd image to "

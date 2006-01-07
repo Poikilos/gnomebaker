@@ -106,11 +106,14 @@ burn_dvd_iso(const gchar* file)
 	GB_LOG_FUNC
 	g_return_if_fail(file != NULL);
     
-    /* LB - I've had to remove this as gnome vfs doesn't return application/x-cd-image
-     * if an iso doesn't have a .iso extension. So we just have to hope for the best :-( */    
-    
-    /* gchar* mime = gbcommon_get_mime_type(file);
-    if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)*/   
+      /* GnomeVFS fails to correctly identify a CD image if the extension is no .iso, so we'll offer the user to burn it anyway 
+        When gnomevfs is fixed, we'll go back to the previous code.
+        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+        _("The file you have selected is not a DVD image. Please select a DVD image to burn."));*/
+    gchar* mime = gbcommon_get_mime_type(file);
+    if((g_ascii_strcasecmp(mime, "application/x-cd-image") == 0) || 
+        (gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE, 
+            _("The file you have selected seems not to be a DVD image. Do you really want to write it to DVD?")) == GTK_RESPONSE_YES))
     {
         StartDlg* dlg = burn_show_start_dlg(burn_dvd_image);
         if(dlg != NULL)
@@ -121,12 +124,7 @@ burn_dvd_iso(const gchar* file)
             startdlg_delete(dlg);
         }
     }
-    /*else
-    {
-        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
-          _("The file you have selected is not a DVD image. Please select a DVD image to burn."));
-    }
-    g_free(mime);*/
+    g_free(mime);
 }
 
 
@@ -153,26 +151,19 @@ burn_cd_image_file(const gchar* file)
 	GB_LOG_FUNC
 	g_return_if_fail(file != NULL);
     
-    /* LB - I've had to remove this as gnome vfs doesn't return application/x-cd-image
-     * if an iso doesn't have a .iso extension. So we just have to hope for the best :-( */
-     
-	/*gchar* mime = gbcommon_get_mime_type(file);
-	g_return_if_fail(mime != NULL);
-	GB_TRACE("mime type is %s for %s", mime, file);
-	 Check that the mime type is iso 
-	if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
-		burn_cd_iso(file);
-	else if(gbcommon_str_has_suffix(file, ".cue") || gbcommon_str_has_suffix(file, ".toc"))
-		burn_cue_or_toc(file);
-	else
-		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
-		  _("The file you have selected is not a cd image. Please select a cd image to burn."));    
-	g_free(mime);	*/
-    
-    if(gbcommon_str_has_suffix(file, ".cue") || gbcommon_str_has_suffix(file, ".toc"))
-        burn_cue_or_toc(file);
-    else
+    /* GnomeVFS fails to correctly identify a CD image if the extension is no .iso, so we'll offer the user to burn it anyway 
+        When gnomevfs is fixed, we'll go back to the previous code.
+        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
+        _("The file you have selected is not a cd image. Please select a cd image to burn."));*/
+    gchar* mime = gbcommon_get_mime_type(file);            
+    if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
         burn_cd_iso(file);
+    else if(gbcommon_str_has_suffix(file, ".cue") || gbcommon_str_has_suffix(file, ".toc"))
+        burn_cue_or_toc(file);    
+    else if(gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE, 
+        _("The file you have selected seems not to be a CD image. Do you really want to write it to CD?")) == GTK_RESPONSE_YES) 
+        burn_cd_iso(file);
+    g_free(mime);
 }
 
 

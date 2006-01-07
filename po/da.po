@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-07 13:45+0000\n"
+"POT-Creation-Date: 2006-01-07 22:42+0000\n"
 "PO-Revision-Date: 2005-11-24 09:53+0100\n"
 "Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
 "Language-Team: \n"
@@ -107,39 +107,57 @@ msgstr "Titel"
 msgid "Info"
 msgstr "Info"
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 msgid "Burning CD image"
 msgstr "Skriver cd-aftryk"
 
-#: ../src/burn.c:94 ../src/burn.c:142
+#: ../src/burn.c:94 ../src/burn.c:140
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr "Vent venligst mens det valgte cd-aftryk skrives til cd."
 
-#: ../src/burn.c:118
+#: ../src/burn.c:116
+#, fuzzy
+msgid ""
+"The file you have selected seems not to be a DVD image. Do you really want "
+"to write it to DVD?"
+msgstr ""
+"Filen du har valgt er ikke et dvd-aftryk. Vælg venligst et dvd-aftryk at "
+"skrive."
+
+#: ../src/burn.c:121
 msgid "Burning DVD image"
 msgstr "Skriver dvd-aftryk"
 
-#: ../src/burn.c:118
+#: ../src/burn.c:121
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr "Vent venligst mens det valgte dvd-aftryk skrives til dvd."
 
-#: ../src/burn.c:190
+#: ../src/burn.c:164
+#, fuzzy
+msgid ""
+"The file you have selected seems not to be a CD image. Do you really want to "
+"write it to CD?"
+msgstr ""
+"Filen du har valgt er ikke et dvd-aftryk. Vælg venligst et dvd-aftryk at "
+"skrive."
+
+#: ../src/burn.c:181
 msgid "Creating data CD image"
 msgstr "Opretter data-cd-aftryk"
 
-#: ../src/burn.c:190
+#: ../src/burn.c:181
 msgid "Please wait while the data CD image is created."
 msgstr "Vent venligst mens data-cd-aftrykket bliver oprettet."
 
-#: ../src/burn.c:196 ../src/burn.c:206
+#: ../src/burn.c:187 ../src/burn.c:197
 msgid "Burning data CD"
 msgstr "Skriver data-cd"
 
-#: ../src/burn.c:196
+#: ../src/burn.c:187
 msgid "Please wait while the data is burned directly to CD."
 msgstr "Vent venligst mens dataen skrives direkte til cd."
 
-#: ../src/burn.c:206
+#: ../src/burn.c:197
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
@@ -147,15 +165,15 @@ msgstr ""
 "Vent venligst mens data-cd-aftrykket oprettes og dernæst skrives til cd. "
 "Afhængig cd-brænderens hastighed, kan dette tage noget tid. "
 
-#: ../src/burn.c:230 ../src/burn.c:240
+#: ../src/burn.c:221 ../src/burn.c:231
 msgid "Appending to data CD"
 msgstr "Tilføjer til data-cd"
 
-#: ../src/burn.c:230
+#: ../src/burn.c:221
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr "Vent venligst mens yderligere data skrives direkte til cd."
 
-#: ../src/burn.c:240
+#: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
@@ -163,11 +181,11 @@ msgstr ""
 "Vent venligst mens data-cd-aftrykket oprettes or dernæst tilføjes til cd'en. "
 "Afhængig cd-brænderens hastighed, kan dette tage noget tid. "
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 msgid "Burning audio CD"
 msgstr "Skriver lyd-cd"
 
-#: ../src/burn.c:262
+#: ../src/burn.c:253
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
@@ -175,69 +193,69 @@ msgstr ""
 "Vent venligst mens de valgte spor konverteres til cd-lyd og dernæst skrives "
 "til cd."
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 msgid "Extracting CD image"
 msgstr "Udpakker cd-aftryk"
 
-#: ../src/burn.c:325
+#: ../src/burn.c:316
 msgid "Please wait while the data CD image is extracted."
 msgstr "Vent venligst mens data-cd-aftrykket udpakkes."
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 msgid "Copying data CD"
 msgstr "Kopierer data-cd"
 
-#: ../src/burn.c:331
+#: ../src/burn.c:322
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 "Vent venligst mens data-cd-aftrykket udpakkes og dernæst skrives til cd."
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 msgid "Copying audio CD"
 msgstr "Kopierer lyd-cd"
 
-#: ../src/burn.c:351
+#: ../src/burn.c:342
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr "Vent venligst mens lyd-cd spor udtrækkes og dernæst skrives til cd."
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 msgid "Blanking CD"
 msgstr "Sletter cd"
 
-#: ../src/burn.c:368
+#: ../src/burn.c:359
 msgid "Please wait while the CD is blanked."
 msgstr "Vent venligst mens cd'en slettes."
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 msgid "Formatting re-writeable DVD"
 msgstr "Sletter genskrivbar dvd"
 
-#: ../src/burn.c:384
+#: ../src/burn.c:375
 msgid "Please wait while the DVD is formatted."
 msgstr "Vent venligst mens dvd'en slettes."
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 msgid "Creating data DVD image"
 msgstr "Opretter data-dvd-aftryk"
 
-#: ../src/burn.c:403
+#: ../src/burn.c:394
 msgid "Please wait while the data DVD image is created."
 msgstr "Vent venligst mens data-dvd-aftrykket oprettes."
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr "Skriver data-dvd"
 
-#: ../src/burn.c:409
+#: ../src/burn.c:400
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Vent venligst mens dataen skrives direkte til dvd."
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 msgid "Appending to data DVD"
 msgstr "Tilføjer til data-dvd"
 
-#: ../src/burn.c:427
+#: ../src/burn.c:418
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Vent venligst mens dataen tilføjes direkte til dvd'en."
 
@@ -1154,13 +1172,6 @@ msgstr "raw96r"
 #: ../gnomebaker.glade.h:105
 msgid "tao"
 msgstr "tao"
-
-#~ msgid ""
-#~ "The file you have selected is not a DVD image. Please select a DVD image "
-#~ "to burn."
-#~ msgstr ""
-#~ "Filen du har valgt er ikke et dvd-aftryk. Vælg venligst et dvd-aftryk at "
-#~ "skrive."
 
 #~ msgid ""
 #~ "The file you have selected is not a cd image. Please select a cd image to "
