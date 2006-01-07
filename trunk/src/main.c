@@ -41,6 +41,7 @@ static GOptionEntry entries[] =
     { NULL }
 };
 
+
 gint 
 main(gint argc, gchar *argv[])
 {		
@@ -53,12 +54,9 @@ main(gint argc, gchar *argv[])
     /*g_option_context_add_group(context, gst_init_get_option_group());*/
 	/* ignore unknown options */
 	g_option_context_set_ignore_unknown_options(context, TRUE);
-	/* parse options */
 	g_option_context_parse(context, &argc, &argv, &error);
-	
-	/* free options */
 	g_option_context_free(context);
-	g_error_free(error);
+    if(error != NULL) g_error_free(error);
     
 	g_thread_init(NULL);
 	gdk_threads_init();
