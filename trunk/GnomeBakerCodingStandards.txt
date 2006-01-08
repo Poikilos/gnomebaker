@@ -7,7 +7,7 @@ GnomeBaker Coding Standards
 
 The first line in any function should be GB_LOG_FUNC. It is a really simple
 macro which when enabled logs the function entry to a console. It's pretty
-noddy but helps when debugging peoples problems remotely. 
+noddy but helps when debugging people's problems remotely. 
 
 Also, when wishing to output debugging info, please use the GB_TRACE macro. eg.
 
@@ -185,7 +185,7 @@ something appropriate as you have to do something in the if.
 6. Function names begin with the filename
 -------------------------------------------------------------------------------
 
-Where practical function names should begin with the file they are implemented
+Where practical, function names should begin with the file they are implemented
 in.
 
 ie
@@ -247,3 +247,10 @@ anything until it compiles without warnings unless there's a good reason.
 * update configure.in and add the language code (ie fr) the the ALL_LINGUAS variable.
 * make sure the translator has added their name to the translator_credits string in the po file.
 * run 'make update-po' in the po directory to make sure that the po file does not contain errors.
+
+
+11. Comments
+--------------------------------------------------------------------------------
+
+All code comments are to use proper c style comments /* */ rather than //.
+
