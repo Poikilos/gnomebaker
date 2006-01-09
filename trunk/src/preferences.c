@@ -67,6 +67,7 @@ preferences_init()
 			preferences_set_bool(GB_SHOWHUMANSIZE, TRUE);
 			preferences_set_bool(GB_CLEANTEMPDIR, TRUE);
 			preferences_set_bool(GB_CREATEISOONLY, FALSE);
+			preferences_set_bool(GB_SCROLL_OUTPUT, TRUE);
 			preferences_set_string(GB_WRITE_MODE, _("default"));
             preferences_set_string(GB_DVDWRITE_MODE, _("default"));
 			preferences_set_bool(GB_ALWAYS_SCAN, TRUE);
@@ -78,6 +79,7 @@ preferences_init()
             preferences_set_bool(GB_PLAY_SOUND, TRUE);
             preferences_set_int(GB_DATA_DISK_SIZE, 0);
             preferences_set_int(GB_AUDIO_DISK_SIZE, 0);
+            preferences_set_bool(GB_CDRECORD_FORCE, FALSE);
 		}		
 		
 		gbcommon_mkdir(tempdir);
