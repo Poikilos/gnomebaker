@@ -197,11 +197,13 @@ cdrecord_read_proc(void* ex, void* buffer)
             progressdlg_set_fraction(totalfraction);
         }
 	}
+    else 
+        progressdlg_append_output(buffer);
+        
     execfunctions_find_line_set_status(buf, "Performing OPC", '.');
     execfunctions_find_line_set_status(buf, "Last chance", '.');
     execfunctions_find_line_set_status(buf, "Writing Leadout", '.');
-    execfunctions_find_line_set_status(buf, "Fixating", '.');
-	progressdlg_append_output(buffer);
+    execfunctions_find_line_set_status(buf, "Fixating", '.');	
 }
 
 
@@ -222,6 +224,9 @@ cdrecord_add_common_args(ExecCmd* cdBurn)
 	gchar* writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
 	exec_cmd_add_arg(cdBurn, "dev=%s", writer);
 	g_free(writer);
+
+	if(preferences_get_bool(GB_CDRECORD_FORCE))
+	   exec_cmd_add_arg(cdBurn, "-force");
 	
 	exec_cmd_add_arg(cdBurn, "gracetime=5");
 	exec_cmd_add_arg(cdBurn, "speed=%d", preferences_get_int(GB_CDWRITE_SPEED));
@@ -365,6 +370,9 @@ cdrecord_add_blank_args(ExecCmd* cdBurn)
 	exec_cmd_add_arg(cdBurn, "speed=%d", preferences_get_int(GB_CDWRITE_SPEED));
 	exec_cmd_add_arg(cdBurn, "-v");
 	/*exec_cmd_add_arg(cdBurn, "-format");*/
+    
+    if(preferences_get_bool(GB_CDRECORD_FORCE))
+       exec_cmd_add_arg(cdBurn, "-force");
 
 	if(preferences_get_bool(GB_EJECT))
 		exec_cmd_add_arg(cdBurn, "-eject");
@@ -433,6 +441,7 @@ cdda2wav_read_proc(void* ex, void* buffer)
 		const gchar* tracksstart = strstr(text, "Tracks:");		
 		if(tracksstart != NULL)
             sscanf(tracksstart, "Tracks:%d", &cdda2wav_totaltracks);
+        progressdlg_append_output(text);
 	}
 	else if(cdda2wav_totaltracks)
 	{	
@@ -457,9 +466,9 @@ cdda2wav_read_proc(void* ex, void* buffer)
             progressdlg_set_status(status);
             g_free(status);                
 		}
-	}
-		
-	progressdlg_append_output(text);
+        else
+            progressdlg_append_output(text);
+	}			
 }
 
 
@@ -597,7 +606,8 @@ mkisofs_read_proc(void* ex, void* buffer)
         if(sscanf(++percent, "%f%%", &progress) == 1)
 		  progressdlg_set_fraction(progress/100.0);
 	}
-	progressdlg_append_output(buffer);
+    else 
+	   progressdlg_append_output(buffer);
 }
 
 
@@ -815,8 +825,9 @@ dvdformat_read_proc(void* ex, void* buffer)
     /*  * formatting 24.5% */     
     gfloat percent = 0.0;
     if(sscanf((gchar*)buffer, "%*s %*s %f%%", &percent) == 1)
-        progressdlg_set_fraction(percent/100.0);    
-	progressdlg_append_output((gchar*)buffer);
+        progressdlg_set_fraction(percent/100.0);
+    else    
+        progressdlg_append_output((gchar*)buffer);
 }
 
 
@@ -902,17 +913,19 @@ growisofs_read_proc(void* ex, void* buffer)
     g_return_if_fail(ex != NULL);
     
 	gchar *buf = (gchar*)buffer;
-	const gchar* progressstr = strstr(buf, "done");
+	const gchar* progressstr = strstr(buf, "done, estimate");
 	if(progressstr != NULL)
 	{
 		gint progress = 0;
-		if(sscanf(buf,"%d.%*d",&progress) >0)
+		if(sscanf(buf, "%d.%*d", &progress) > 0)
 			progressdlg_set_fraction((gfloat)progress / 100.0);
         progressdlg_set_status(_("Writing DVD"));
 	}
+    else 
+        progressdlg_append_output(buf);
+        
 	execfunctions_find_line_set_status(buf, "restarting DVD", '.');
     execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
-	progressdlg_append_output(buf);
 }
 
 
@@ -1186,8 +1199,10 @@ cdrdao_write_image_read_proc(void* ex, void* buffer)
         if(sscanf(wrote, "Wrote %d of %d", &current, &total) == 2)
             progressdlg_set_fraction((gfloat)current/(gfloat)total);
     }
+    else 
+        progressdlg_append_output(output);
+        
     execfunctions_find_line_set_status(output, "Writing track", '(');
-    progressdlg_append_output(output);
 }
 
 

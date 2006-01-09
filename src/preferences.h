@@ -53,12 +53,14 @@
 #define GB_PLAY_SOUND               GB_BASE_KEY "/PlaySound"
 #define GB_DATA_DISK_SIZE           GB_BASE_KEY "/DataDiskSize"
 #define GB_AUDIO_DISK_SIZE          GB_BASE_KEY "/AudioDiskSize"
+#define GB_CDRECORD_FORCE		    GB_BASE_KEY "/CDRecordForce"
 
 #define GB_MAIN_WINDOW_HEIGHT		GB_BASE_KEY "/UI/MainWindowHeight"
 #define GB_MAIN_WINDOW_WIDTH		GB_BASE_KEY "/UI/MainWindowWidth"
 #define GB_MAIN_WINDOW_POSITION_X	GB_BASE_KEY "/UI/MainWindowPositionX"
 #define GB_MAIN_WINDOW_POSITION_Y	GB_BASE_KEY "/UI/MainWindowPositionY"
 #define GB_MAIN_WINDOW_MAXIMIZED	GB_BASE_KEY "/UI/MainWindowMaximized"
+#define GB_SCROLL_OUTPUT		    GB_BASE_KEY "/UI/ScrollOutput"
 
 #define GB_DEVICE_FORMAT 			"Device%.2d"
 #define GB_DEVICES_KEY				GB_BASE_KEY "/Devices" 

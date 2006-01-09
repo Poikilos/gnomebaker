@@ -29,6 +29,7 @@
 /* Prefs dialog glade widget names */
 static const gchar* const widget_prefsdlg = "prefsDlg";
 static const gchar* const widget_prefsdlg_tempdir = "tmpDirEntry";
+static const gchar* const widget_prefsdlg_cdrecordarg = "cdrecordargentry";
 static const gchar* const widget_prefsdlg_cleantempdir = "checkCleanTmp";
 static const gchar* const widget_prefsdlg_showhidden = "checkHiddenFiles";
 static const gchar* const widget_prefsdlg_askonquit = "checkAskOnQuit";
@@ -36,6 +37,8 @@ static const gchar* const widget_prefsdlg_playsound = "checkPlaySound";
 static const gchar* const widget_prefsdlg_showhumansize = "checkShowHumanSizes";
 static const gchar* const widget_prefsdlg_alwaysscan = "checkAlwaysScan";
 static const gchar* const widget_prefsdlg_devicelist = "treeview12";
+static const gchar* const widget_prefsdlg_scrolloutput = "checkScrollOutput";
+static const gchar* const widget_prefsdlg_cdrecordforce = "checkCDRecordForce";
 
 
 static const gint DEVICELIST_COL_ICON = 0;
@@ -271,7 +274,11 @@ prefsdlg_on_ok(GtkButton* button, gpointer user_data)
 	GtkWidget* entry = glade_xml_get_widget(prefsdlg_xml, "tmpDirEntry");
 	const gchar* tempdir = gtk_entry_get_text(GTK_ENTRY(entry));
 	preferences_set_string(GB_TEMP_DIR, tempdir);
-	gbcommon_mkdir(tempdir);	
+	gbcommon_mkdir(tempdir);
+
+	// this is for the cdrecord additional arguments
+	GtkWidget* checkCDRecordForce = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cdrecordforce);
+	preferences_set_bool(GB_CDRECORD_FORCE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkCDRecordForce)));
 	
 	GtkWidget* checkCleanTmp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cleantempdir);
 	preferences_set_bool(GB_CLEANTEMPDIR, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkCleanTmp)));
@@ -290,6 +297,9 @@ prefsdlg_on_ok(GtkButton* button, gpointer user_data)
     
     GtkWidget* checkAskOnQuit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_askonquit);
     preferences_set_bool(GB_ASK_ON_QUIT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkAskOnQuit)));
+
+	GtkWidget* checkOutputScroll = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_scrolloutput);
+	preferences_set_bool(GB_SCROLL_OUTPUT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkOutputScroll)));
 	
 	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
 	g_return_if_fail(devicelist != NULL);
@@ -432,6 +442,11 @@ prefsdlg_new(void)
 	gtk_entry_set_text(GTK_ENTRY(entry), tempdir);
 	g_free(tempdir);
 	
+	// cdrecord additional arguments
+	GtkWidget* checkCDRecordForce = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cdrecordforce);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkCDRecordForce), 
+        preferences_get_bool(GB_CDRECORD_FORCE));
+	
 	GtkWidget* checkCleanTmp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cleantempdir);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkCleanTmp), 
 		preferences_get_bool(GB_CLEANTEMPDIR));
@@ -439,6 +454,10 @@ prefsdlg_new(void)
 	GtkWidget* checkShowHidden = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhidden);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkShowHidden), 
 		preferences_get_bool(GB_SHOWHIDDEN));
+
+	GtkWidget* checkOutputScroll = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_scrolloutput);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkOutputScroll),
+		preferences_get_bool(GB_SCROLL_OUTPUT));
 	
 	GtkWidget* checkShowHumanSizes = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhumansize);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkShowHumanSizes),
