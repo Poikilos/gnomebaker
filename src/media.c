@@ -1,11 +1,3 @@
-/***************************************************************************
- *            media.c
- *
- *  Sun Feb  6 21:47:19 2005
- *  Copyright  2005  Christoffer Sørensen
- *  Email gnomebaker@curo.dk
- ****************************************************************************/
-
 /*
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,6 +13,12 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+/*
+ * File: media.c
+ * Copyright: gnomebaker@curo.dk
+ * Created on: Sun Feb  6 21:47:19 2005
+ */
+ 
  
 #include "gbcommon.h"
 #include "media.h"
