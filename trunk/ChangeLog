@@ -26,6 +26,9 @@ Version 0.5.1
 * Apply patch from Bjoern Schiessle to export m3u and pls playlists.
 * Apply patch from gamehack to use GOption for parsing startup arguments.
 * Apply patch #1395049 Ask for confirmation when burning images which are not *.iso - goedson 
+* Apply patch from gamehack to enable -force option to cdrecord
+* Apply patch from gamehack for option of scrolling progress window output
+
 
 Version 0.5.0
 
