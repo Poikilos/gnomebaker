@@ -86,6 +86,7 @@ startdlg_on_ok_clicked(GtkButton * button, gpointer user_data)
     preferences_set_bool(GB_ROCKRIDGE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(start_dlg->rock_ridge)));
     preferences_set_bool(GB_CREATEISOONLY, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(start_dlg->iso_only)));  
     preferences_set_bool(GB_ONTHEFLY, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(start_dlg->on_the_fly))); 
+    preferences_set_string(GB_LAST_ISO, gtk_entry_get_text(start_dlg->iso_file));
 }
 
 
@@ -507,6 +508,14 @@ startdlg_new(const BurnType burntype)
     start_dlg->rock_ridge = startdlg_create_check_button(_("Rock Ridge"), GB_ROCKRIDGE);
     start_dlg->on_the_fly = startdlg_create_check_button(_("On The Fly"), GB_ONTHEFLY);                    
     start_dlg->iso_file = GTK_ENTRY(gtk_entry_new()); 
+    gchar* last_iso = preferences_get_string(GB_LAST_ISO);
+    if(last_iso == NULL || strlen(last_iso) == 0)
+    {
+        g_free(last_iso);
+        last_iso = preferences_get_default_iso();
+    }
+    gtk_entry_set_text(start_dlg->iso_file, last_iso);
+    g_free(last_iso);
     start_dlg->browse = GTK_BUTTON(gtk_button_new_with_mnemonic(_("_Browse...")));
     start_dlg->volume_id = GTK_ENTRY(gtk_entry_new_with_max_length(32));
     gtk_entry_set_text(start_dlg->volume_id, _("GnomeBaker data disk"));
