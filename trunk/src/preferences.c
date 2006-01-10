@@ -80,6 +80,10 @@ preferences_init()
             preferences_set_int(GB_DATA_DISK_SIZE, 0);
             preferences_set_int(GB_AUDIO_DISK_SIZE, 0);
             preferences_set_bool(GB_CDRECORD_FORCE, FALSE);
+            
+            gchar* last_iso = preferences_get_default_iso();
+            preferences_set_string(GB_LAST_ISO, last_iso);
+            g_free(last_iso);
 		}		
 		
 		gbcommon_mkdir(tempdir);
@@ -130,6 +134,14 @@ preferences_get_convert_audio_track_dir()
 	gbcommon_mkdir(path);
 	g_free(tempdir);
 	return path;
+}
+
+
+gchar*
+preferences_get_default_iso()
+{
+    GB_LOG_FUNC   
+    return g_build_filename(g_get_home_dir(), "gnomebaker.iso", NULL); 
 }
 
 

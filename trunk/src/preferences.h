@@ -54,6 +54,7 @@
 #define GB_DATA_DISK_SIZE           GB_BASE_KEY "/DataDiskSize"
 #define GB_AUDIO_DISK_SIZE          GB_BASE_KEY "/AudioDiskSize"
 #define GB_CDRECORD_FORCE		    GB_BASE_KEY "/CDRecordForce"
+#define GB_LAST_ISO                 GB_BASE_KEY "/LastISO"
 
 #define GB_MAIN_WINDOW_HEIGHT		GB_BASE_KEY "/UI/MainWindowHeight"
 #define GB_MAIN_WINDOW_WIDTH		GB_BASE_KEY "/UI/MainWindowWidth"
@@ -86,6 +87,7 @@ void preferences_finalise();
 gchar* preferences_get_copy_data_cd_image();
 gchar* preferences_get_create_data_cd_image();
 gchar* preferences_get_convert_audio_track_dir();
+gchar* preferences_get_default_iso();
 GtkToolbarStyle preferences_get_toolbar_style();
 
 gchar* preferences_get_string(const gchar* key);
