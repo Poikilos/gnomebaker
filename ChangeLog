@@ -28,6 +28,7 @@ Version 0.5.1
 * Apply patch #1395049 Ask for confirmation when burning images which are not *.iso - goedson 
 * Apply patch from gamehack to enable -force option to cdrecord
 * Apply patch from gamehack for option of scrolling progress window output
+* Fix RFE #1275226 Show Space Remaining on disk
 
 
 Version 0.5.0
