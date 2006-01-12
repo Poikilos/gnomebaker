@@ -30,6 +30,7 @@ Version 0.5.1
 * Apply patch from gamehack for option of scrolling progress window output
 * Fix RFE #1275226 Show Space Remaining on disk
 * Apply patch from gamehack for nice summary in configure.in
+* Make toolbar button enablement and menu enablement consistent.
 
 
 Version 0.5.0

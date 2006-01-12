@@ -41,8 +41,11 @@ static const gchar* const widget_gnomebaker = "GnomeBaker";
 static const gchar* const widget_project_notebook = "notebook1";
 static const gchar* const widget_appbar = "appbar1";
 static const gchar* const widget_import = "toolbutton5";
+static const gchar* const widget_menu_import = "import_session1";
 static const gchar* const widget_up = "toolbutton8";
+static const gchar* const widget_menu_up = "move_selection_up1";
 static const gchar* const widget_down = "toolbutton9";
+static const gchar* const widget_menu_down = "move_selection_down1";
 static const gchar* const widget_top_toolbar_dock = "bonobodockitem4";
 static const gchar* const widget_top_toolbar = "toolbar3";
 static const gchar* const widget_middle_toolbar = "toolbar4";
@@ -605,19 +608,28 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
 {
     GB_LOG_FUNC
     GtkWidget* import = glade_xml_get_widget(xml, widget_import);
+    GtkWidget* menu_import = glade_xml_get_widget(xml, widget_menu_import);
     GtkWidget* up = glade_xml_get_widget(xml, widget_up);
     GtkWidget* down = glade_xml_get_widget(xml, widget_down);
+    GtkWidget* menu_up = glade_xml_get_widget(xml, widget_menu_up);
+    GtkWidget* menu_down = glade_xml_get_widget(xml, widget_menu_down);
     switch(page_num) 
     {
         case 0:
             gtk_widget_set_sensitive(import, TRUE);
+            gtk_widget_set_sensitive(menu_import, TRUE);
             gtk_widget_set_sensitive(up, FALSE);
             gtk_widget_set_sensitive(down, FALSE);
+            gtk_widget_set_sensitive(menu_up, FALSE);
+            gtk_widget_set_sensitive(menu_down, FALSE);
             break;
         case 1:
             gtk_widget_set_sensitive(import, FALSE);
+            gtk_widget_set_sensitive(menu_import, FALSE);
             gtk_widget_set_sensitive(up, TRUE);
             gtk_widget_set_sensitive(down, TRUE);
+            gtk_widget_set_sensitive(menu_up, TRUE);
+            gtk_widget_set_sensitive(menu_down, TRUE);
             break;
         default:{}
     };

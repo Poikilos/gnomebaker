@@ -134,6 +134,7 @@
 		      <child>
 			<widget class="GtkImageMenuItem" id="move_selection_up1">
 			  <property name="visible">True</property>
+			  <property name="sensitive">False</property>
 			  <property name="label" translatable="yes">Move selection _up</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="gnomebaker_on_up" last_modification_time="Sun, 13 Nov 2005 23:27:59 GMT"/>
@@ -156,6 +157,7 @@
 		      <child>
 			<widget class="GtkImageMenuItem" id="move_selection_down1">
 			  <property name="visible">True</property>
+			  <property name="sensitive">False</property>
 			  <property name="label" translatable="yes">Move selection _down</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="gnomebaker_on_down" last_modification_time="Sun, 13 Nov 2005 23:27:59 GMT"/>
