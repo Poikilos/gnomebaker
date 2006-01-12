@@ -65,5 +65,13 @@ po/Makefile.in
 ])
 
 echo
-echo "GnomeBaker prefix: $prefix"
+dnl ==========================================================================
+echo "
+                    GnomeBaker $VERSION
+===========================================================
+
+        prefix:                    ${prefix}
+        compiler:                  ${CC}
+        cflags:                    ${CFLAGS}
+"
 echo
