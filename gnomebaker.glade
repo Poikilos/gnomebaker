@@ -830,7 +830,7 @@
 		      <child>
 			<widget class="GtkToolButton" id="buttonAddFiles">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Add the selected files to the CD</property>
+			  <property name="tooltip" translatable="yes">Add the selected files to the disk</property>
 			  <property name="label" translatable="yes">Add file(s)</property>
 			  <property name="use_underline">True</property>
 			  <property name="stock_id">gtk-add</property>
@@ -848,7 +848,7 @@
 		      <child>
 			<widget class="GtkToolButton" id="buttonRemove">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Remove the selected files from the CD</property>
+			  <property name="tooltip" translatable="yes">Remove the selected files from the disk</property>
 			  <property name="label" translatable="yes">Remove selected</property>
 			  <property name="use_underline">True</property>
 			  <property name="stock_id">gtk-remove</property>
@@ -866,7 +866,7 @@
 		      <child>
 			<widget class="GtkToolButton" id="button18">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Clear the contents of the CD</property>
+			  <property name="tooltip" translatable="yes">Clear the contents of the disk</property>
 			  <property name="stock_id">gtk-clear</property>
 			  <property name="visible_horizontal">True</property>
 			  <property name="visible_vertical">True</property>
