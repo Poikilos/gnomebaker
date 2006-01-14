@@ -15,6 +15,21 @@ gnomebaker_pixmaps_DATA = \
 	baker-cd-iso.png\
 	baker-cue-image.png\
 	baker-dvd-iso.png\
-	baker-remove-files.png
+	baker-remove-files.png\
+	state00.png\
+	state01.png\
+	state02.png\
+	state03.png\
+	state04.png\
+	state05.png\
+	state06.png\
+	state07.png\
+	state08.png\
+	state09.png\
+	state10.png\
+	state11.png\
+	state12.png\
+	state13.png
+	
 
 EXTRA_DIST = $(gnomebaker_pixmaps_DATA)
