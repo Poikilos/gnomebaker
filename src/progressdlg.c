@@ -42,11 +42,27 @@ static GtkWidget* textviewScroll = NULL;
 static GtkLabel* statuslabel = NULL;
 static GtkWindow* parentwindow = NULL;
 static gchar* originalparentwindowtitle = NULL;
-
+static GdkPixbuf* originalparenticon = NULL;
+static gint iconindex = 0;
 static gint timertag = 0;
 static gint numberofexecs = 0;
 static gint currentexec = -1;
 static GCallback closefunction = NULL;
+static GHashTable* statusicons = NULL;
+
+
+
+static void 
+progressdlg_set_icon(const gint index) 
+{   
+    GB_LOG_FUNC
+    g_return_if_fail(index >= 0  && index <= 13);
+    
+    /*GB_TRACE("progressdlg_set_icon - using icon [%d]\n", index);*/
+    GdkPixbuf* icon = (GdkPixbuf*)g_hash_table_lookup(statusicons, (gpointer)index);
+    gtk_window_set_icon(parentwindow, icon);
+    gtk_window_set_icon(progressdlg_get_window(), icon);
+}
 
 
 GtkWidget* 
@@ -56,9 +72,26 @@ progressdlg_new(const Exec* exec, GtkWindow* parent, GCallback callonprematurecl
     g_return_val_if_fail(exec != NULL, NULL);
     g_return_val_if_fail(parent != NULL, NULL);
     
+    iconindex = 0;
     closefunction = callonprematureclose;
 	numberofexecs = exec_count_operations(exec);
 	currentexec = -1;
+    timertag = 0;
+    
+    if(statusicons == NULL) 
+    {
+        statusicons = g_hash_table_new(g_direct_hash, g_direct_equal);
+        gint i = 0;     
+        for(; i < 14; ++i)
+        {
+            gchar* filename = g_strdup_printf(IMAGEDIR"/state%.2d.png", i);
+            printf("loading icon [%s]\n", filename);
+            GdkPixbuf* icon = gdk_pixbuf_new_from_file(filename, NULL);
+            g_hash_table_insert(statusicons, (gpointer)i, icon);
+            g_free(filename);    
+        }
+    }
+    
 	progdlg_xml = glade_xml_new(glade_file, widget_progdlg, NULL);
 	glade_xml_signal_autoconnect(progdlg_xml);		
     GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg); 
@@ -81,7 +114,9 @@ progressdlg_new(const Exec* exec, GtkWindow* parent, GCallback callonprematurecl
     
     parentwindow = parent;
     originalparentwindowtitle = g_strdup(gtk_window_get_title(parentwindow));
-	
+    originalparenticon = gtk_window_get_icon(parentwindow);
+    gdk_pixbuf_ref(originalparenticon);
+	progressdlg_set_icon(0);
     /* Center the window on the main window and then pump the events so it's
      * visible quickly ready for feedback from the exec layer */
     gbcommon_center_window_on_parent(widget);
@@ -118,7 +153,7 @@ progressdlg_get_window()
     g_return_val_if_fail(progdlg_xml != NULL, NULL);
     return GTK_WINDOW(glade_xml_get_widget(progdlg_xml, widget_progdlg));
 }
-    
+
 
 void 
 progressdlg_set_fraction(gfloat fraction)
@@ -134,7 +169,22 @@ progressdlg_set_fraction(gfloat fraction)
 	gtk_progress_bar_set_fraction(progbar, fraction);
 	gtk_progress_bar_set_text(progbar, percnt);		
     gtk_window_set_title(parentwindow, percnt);
-	g_free(percnt);
+    g_free(percnt);
+    
+    int i = iconindex;
+    for(; i <= 11; ++i)
+    {
+        const gfloat lowerbound = (1.0/11.0) * (gfloat)i;
+        const gfloat upperbound = (1.0/11.0) * (gfloat)(i + 1);
+        /*GB_TRACE("progressdlg_set_fraction - fraction is [%f] lowerbound is [%f] upperbound is [%f]\n", 
+            fraction, lowerbound, upperbound);*/
+        if(fraction > lowerbound && fraction < upperbound && i > iconindex)
+        {
+            iconindex = i;
+            progressdlg_set_icon(i);
+            break;
+        }
+    }     
 }
 
 
@@ -164,6 +214,8 @@ progressdlg_on_close(GtkButton * button, gpointer user_data)
 	GB_LOG_FUNC
 	if(closefunction != NULL)
         closefunction();
+    gtk_window_set_icon(parentwindow, originalparenticon);
+    gdk_pixbuf_unref(originalparenticon);
 }
 
 
@@ -264,7 +316,8 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
             gtk_window_set_title(parentwindow, completed);
             if(preferences_get_bool(GB_PLAY_SOUND))
                 media_start_playing(MEDIADIR"/BurnOk.wav");
-            }
+            progressdlg_set_icon(12);
+        }
         else if(ex->outcome == FAILED) 
         {
             const gchar* failed = _("Failed");
@@ -274,6 +327,7 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
                media_start_playing(MEDIADIR"/BurnFailed.wav");
             if(ex->err != NULL)
                 progressdlg_append_output(ex->err->message);
+            progressdlg_set_icon(13);
         }
         /* Scrub out he closefunction callback as whatever exec was doing is finished */
         closefunction = NULL;
