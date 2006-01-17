@@ -37,16 +37,16 @@ gboolean showtrace = FALSE;
 
 static GOptionEntry entries[] = 
 {
-    { "trace-on", 0, 0, G_OPTION_ARG_NONE, &showtrace, "Show tracing information (useful when debugging)", 0 },
+    { "trace-on", 0, 0, G_OPTION_ARG_NONE, &showtrace, N_("Show tracing information (useful when debugging)"), 0 },
     { NULL }
 };
 
 
 gint 
 main(gint argc, gchar *argv[])
-{		
+{	    	
 	GError* error = NULL;
-	GOptionContext* context = g_option_context_new(" - GNOME CD/DVD burning application");
+	GOptionContext* context = g_option_context_new(_(" - GNOME CD/DVD burning application"));
 	/* add main entries */
 	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
 	/* recognise gtk/gdk/gstreamer options */
@@ -56,9 +56,9 @@ main(gint argc, gchar *argv[])
 	g_option_context_set_ignore_unknown_options(context, TRUE);
 	g_option_context_parse(context, &argc, &argv, &error);
 	g_option_context_free(context);
-    if(error != NULL) g_error_free(error);
+    if(error != NULL) g_error_free(error);   
     
-	g_thread_init(NULL);
+    g_thread_init(NULL);
 	gdk_threads_init();
 	
 	#ifdef ENABLE_NLS
@@ -83,12 +83,18 @@ main(gint argc, gchar *argv[])
 	
 	glade_file = gnome_program_locate_file(NULL, GNOME_FILE_DOMAIN_APP_DATADIR,
 					"gnomebaker/gnomebaker.glade", FALSE, NULL);                
-	
+
+#if !defined(__linux__)
 	GtkWidget* dlg = splashdlg_new();		
+#endif
+
 	while(g_main_context_pending(NULL))
 		g_main_context_iteration(NULL, TRUE);	
 	GtkWidget* app = gnomebaker_new();
+    
+#if !defined(__linux__)    
 	splashdlg_delete(dlg);
+#endif
 	
     gdk_threads_enter();	
 	gtk_main();
