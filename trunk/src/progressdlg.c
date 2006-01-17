@@ -85,7 +85,7 @@ progressdlg_new(const Exec* exec, GtkWindow* parent, GCallback callonprematurecl
         for(; i < 14; ++i)
         {
             gchar* filename = g_strdup_printf(IMAGEDIR"/state%.2d.png", i);
-            printf("loading icon [%s]\n", filename);
+            GB_TRACE("progressdlg_new - loading icon [%s]\n", filename);
             GdkPixbuf* icon = gdk_pixbuf_new_from_file(filename, NULL);
             g_hash_table_insert(statusicons, (gpointer)i, icon);
             g_free(filename);    
@@ -171,7 +171,7 @@ progressdlg_set_fraction(gfloat fraction)
     gtk_window_set_title(parentwindow, percnt);
     g_free(percnt);
     
-    int i = iconindex;
+    int i = 0;
     for(; i <= 11; ++i)
     {
         const gfloat lowerbound = (1.0/11.0) * (gfloat)i;
@@ -200,10 +200,10 @@ progressdlg_append_output(const gchar* output)
 	gtk_text_buffer_insert(textBuffer, &textIter, output, strlen(output));	
 	if(preferences_get_bool(GB_SCROLL_OUTPUT))
 	{
-    		gtk_text_buffer_get_end_iter(textBuffer, &textIter);
-    		GtkTextMark* mark = gtk_text_buffer_create_mark(textBuffer, "end of buffer", &textIter, TRUE);
-    		gtk_text_view_scroll_to_mark(textview, mark, 0.1, FALSE, 0.0, 0.0);
-    		gtk_text_buffer_delete_mark(textBuffer, mark);
+		gtk_text_buffer_get_end_iter(textBuffer, &textIter);
+		GtkTextMark* mark = gtk_text_buffer_create_mark(textBuffer, "end of buffer", &textIter, TRUE);
+		gtk_text_view_scroll_to_mark(textview, mark, 0.1, FALSE, 0.0, 0.0);
+		gtk_text_buffer_delete_mark(textBuffer, mark);
 	}
 }
 
@@ -255,7 +255,11 @@ progressdlg_pulse_ontimer(gpointer userdata)
 {
 	/*GB_LOG_FUNC*/
 	g_return_val_if_fail(progbar != NULL, TRUE);
-	gtk_progress_bar_pulse(progbar);		
+	gtk_progress_bar_pulse(progbar);
+    /*++iconindex;
+    if(iconindex > 11) 
+        iconindex = 0;
+    progressdlg_set_icon(iconindex);*/
 	return TRUE;
 }
 
@@ -267,7 +271,7 @@ progressdlg_pulse_start()
 	g_return_if_fail(progbar != NULL);
     gtk_progress_bar_set_text(progbar, " ");
 	gtk_progress_bar_set_pulse_step(progbar, 0.01);		
-	timertag = gtk_timeout_add(20, (GtkFunction)progressdlg_pulse_ontimer, NULL);	
+	timertag = gtk_timeout_add(40, (GtkFunction)progressdlg_pulse_ontimer, NULL);
 }
 
 

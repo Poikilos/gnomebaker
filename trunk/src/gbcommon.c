@@ -450,67 +450,53 @@ gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel, cons
 
 gchar*
 gbcommon_show_file_chooser(const gchar* title, GtkFileChooserAction action,
-                           GtkFileFilter* imagefilter)
+                           GtkFileFilter* customfilter, const gboolean showallfilefilter,
+                           GtkComboBox* saveasoptions)
 {
     GB_LOG_FUNC
     g_return_val_if_fail(title != NULL, NULL);
-    g_return_val_if_fail(imagefilter != NULL, NULL);
     g_return_val_if_fail(action == GTK_FILE_CHOOSER_ACTION_OPEN ||
-                         action == GTK_FILE_CHOOSER_ACTION_SAVE, NULL);
+            action == GTK_FILE_CHOOSER_ACTION_SAVE, NULL);
     
-    gchar* file = NULL;
-    GtkWidget *filesel;
-    
-    filesel = gtk_file_chooser_dialog_new( title , NULL, action, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+    GtkWidget *filesel = gtk_file_chooser_dialog_new( title , NULL, action, GTK_STOCK_CANCEL, 
+            GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
-    GtkFileFilter *allfilter = gtk_file_filter_new();
-    gtk_file_filter_add_pattern (allfilter, "*");
-    gtk_file_filter_set_name(allfilter,_("All files"));
-    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), imagefilter);
-    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), allfilter);
-    
-    /* save dialog: add combobox to choose between m3u and pls files */
-    if(action == GTK_FILE_CHOOSER_ACTION_SAVE)
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), customfilter);
+    if(showallfilefilter || customfilter == NULL)
     {
-        GtkWidget *pulldown_hbox = gtk_hbox_new(FALSE, 15);
-
-        gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(filesel),
-                                          pulldown_hbox);
-
-        GtkWidget *filetypes_label = gtk_label_new(_("Save file as type:"));
-
-        GtkWidget *filetypes_combo = gtk_combo_box_new_text();
-        gtk_combo_box_append_text(GTK_COMBO_BOX(filetypes_combo), ".m3u");
-        gtk_combo_box_append_text(GTK_COMBO_BOX(filetypes_combo), ".pls");
-        gtk_combo_box_set_active(GTK_COMBO_BOX(filetypes_combo), 0);
+        GtkFileFilter *allfilter = gtk_file_filter_new();
+        gtk_file_filter_add_pattern (allfilter, "*");
+        gtk_file_filter_set_name(allfilter,_("All files"));    
+        gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), allfilter);
+    }
     
-        gtk_box_pack_start(GTK_BOX(pulldown_hbox),filetypes_label,
-                           FALSE, TRUE, 0);
-        gtk_box_pack_end(GTK_BOX(pulldown_hbox), filetypes_combo,
-                         TRUE, TRUE, 0);
-
+    if(action == GTK_FILE_CHOOSER_ACTION_SAVE && saveasoptions != NULL)
+    {
+        GtkWidget* pulldown_hbox = gtk_hbox_new(FALSE, 15);
+        gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(filesel), pulldown_hbox);
+        GtkWidget* filetypes_label = gtk_label_new(_("Save file as type:"));
+        gtk_box_pack_start(GTK_BOX(pulldown_hbox),filetypes_label, FALSE, TRUE, 0);
+        gtk_box_pack_end(GTK_BOX(pulldown_hbox), GTK_WIDGET(saveasoptions), TRUE, TRUE, 0);
         gtk_widget_show_all(pulldown_hbox);
-
-        if (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)
-        {
-            file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
-            
-            gchar* ext = gtk_combo_box_get_active_text(GTK_COMBO_BOX(filetypes_combo));
-
-            if(strlen(file) > 3 && strcmp(&file[strlen(file)-4], ext))
-                file = g_strconcat(file, ext, NULL);
-
-            g_free(ext);
-        }
     }
-    else
+
+    gchar* file = NULL;
+    if (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)
     {
-        if (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)
-            file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
+        file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));
+        if(action == GTK_FILE_CHOOSER_ACTION_SAVE && saveasoptions != NULL)
+        {
+            gchar* ext = gtk_combo_box_get_active_text(saveasoptions);
+            if(strlen(file) > 3 && !gbcommon_str_has_suffix(file, ext))
+            {
+                gchar* tmp = file;
+                file = g_strconcat(tmp, ext, NULL);
+                g_free(tmp);
+            }
+            g_free(ext);
+        }            
     }
-
     gtk_widget_destroy(filesel);
-
     return file;
 }
 

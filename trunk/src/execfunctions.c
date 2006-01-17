@@ -32,13 +32,6 @@
 #include "media.h"
 
 
-/* ISOfs dialog glade widget names 
- These don't really belong here and will be moved when the dialog has it's own file */
-static const gchar* const widget_isofsdlg = "isofsDlg";
-static const gchar* const widget_isofsdlg_createdby = "entryCreated";
-static const gchar* const widget_isofsdlg_volume = "entryVolume";
-
-
 static gint cdrecord_totaltrackstowrite = 1;
 static gint cdrecord_firsttrack = -1;
 static guint64 cdrecord_totaldiskbytes = 0;
@@ -50,7 +43,7 @@ static gint readcd_totalguchars = -1;
 /*static gint cdrdao_cdminutes = -1;*/
 
 
-void
+static void
 execfunctions_find_line_set_status(const gchar* buffer, const gchar* text, const gchar delimiter)
 {
     GB_LOG_FUNC    
@@ -71,7 +64,7 @@ execfunctions_find_line_set_status(const gchar* buffer, const gchar* text, const
 }
 
 
-void
+static void
 execfunctions_prompt_for_disk_post_proc(void* ex, void* buffer)
 {
     GB_LOG_FUNC   
@@ -198,12 +191,13 @@ cdrecord_read_proc(void* ex, void* buffer)
         }
 	}
     else 
-        progressdlg_append_output(buffer);
-        
-    execfunctions_find_line_set_status(buf, "Performing OPC", '.');
-    execfunctions_find_line_set_status(buf, "Last chance", '.');
-    execfunctions_find_line_set_status(buf, "Writing Leadout", '.');
-    execfunctions_find_line_set_status(buf, "Fixating", '.');	
+    {
+        progressdlg_append_output(buffer);        
+        execfunctions_find_line_set_status(buf, "Performing OPC", '.');
+        execfunctions_find_line_set_status(buf, "Last chance", '.');
+        execfunctions_find_line_set_status(buf, "Writing Leadout", '.');
+        execfunctions_find_line_set_status(buf, "Fixating", '.');	
+    }
 }
 
 
@@ -922,10 +916,11 @@ growisofs_read_proc(void* ex, void* buffer)
         progressdlg_set_status(_("Writing DVD"));
 	}
     else 
-        progressdlg_append_output(buf);
-        
-	execfunctions_find_line_set_status(buf, "restarting DVD", '.');
-    execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
+    {
+        progressdlg_append_output(buf);        
+    	execfunctions_find_line_set_status(buf, "restarting DVD", '.');
+        execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
+    }
 }
 
 
@@ -945,9 +940,12 @@ growisofs_read_iso_proc(void* ex, void* buffer)
 			progressdlg_set_fraction((gfloat)progress / 100.0);
         progressdlg_set_status(_("Writing DVD"));
 	}
-	execfunctions_find_line_set_status(buf, "restarting DVD", '.');
-    execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
-	progressdlg_append_output(buf);
+    else 
+    {
+    	execfunctions_find_line_set_status(buf, "restarting DVD", '.');
+        execfunctions_find_line_set_status(buf, "writing lead-out", '\r');
+    	progressdlg_append_output(buf);
+    }
 }
 
 
@@ -1200,9 +1198,10 @@ cdrdao_write_image_read_proc(void* ex, void* buffer)
             progressdlg_set_fraction((gfloat)current/(gfloat)total);
     }
     else 
-        progressdlg_append_output(output);
-        
-    execfunctions_find_line_set_status(output, "Writing track", '(');
+    {
+        progressdlg_append_output(output);        
+        execfunctions_find_line_set_status(output, "Writing track", '(');
+    }
 }
 
 

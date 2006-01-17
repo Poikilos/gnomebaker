@@ -279,9 +279,11 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
     gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
         gnomebaker_cd_image_file_filter, NULL, NULL);
     gtk_file_filter_set_name(imagefilter,_("CD Image files"));
-	const gchar* file = gbcommon_show_file_chooser(_("Please select a CD image file."), GTK_FILE_CHOOSER_ACTION_OPEN, imagefilter);
+	gchar* file = gbcommon_show_file_chooser(_("Please select a CD image file."), 
+        GTK_FILE_CHOOSER_ACTION_OPEN, imagefilter, TRUE, NULL);
 	if(file != NULL)
 		burn_cd_image_file(file);
+    g_free(file);
 }
 
 
@@ -293,10 +295,11 @@ gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
     gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_MIME_TYPE,
         gbcommon_iso_file_filter, NULL, NULL);
     gtk_file_filter_set_name(imagefilter,_("DVD Image files"));
-	const gchar* file = gbcommon_show_file_chooser(_("Please select a DVD image file."), GTK_FILE_CHOOSER_ACTION_OPEN, 
-    imagefilter);
+	gchar* file = gbcommon_show_file_chooser(_("Please select a DVD image file."), 
+        GTK_FILE_CHOOSER_ACTION_OPEN, imagefilter, TRUE, NULL);
 	if(file != NULL)
         burn_dvd_iso(file);
+    g_free(file);
 }
 
 
@@ -699,7 +702,8 @@ gnomebaker_on_import_playlist(gpointer widget, gpointer user_data)
     gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
         gnomebaker_playlist_file_filter, NULL, NULL);
     gtk_file_filter_set_name(imagefilter,_("Playlist files"));
-    const gchar* file = gbcommon_show_file_chooser(_("Please select a playlist."), GTK_FILE_CHOOSER_ACTION_OPEN, imagefilter);
+    gchar* file = gbcommon_show_file_chooser(_("Please select a playlist."), 
+            GTK_FILE_CHOOSER_ACTION_OPEN, imagefilter, TRUE, NULL);
     if(file != NULL)
     {
         if(audiocd_import_playlist(file))
@@ -708,6 +712,7 @@ gnomebaker_on_import_playlist(gpointer widget, gpointer user_data)
             gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 1);
         }
     }
+    g_free(file);
 }
 
 
@@ -718,10 +723,61 @@ gnomebaker_on_export_playlist(gpointer widget, gpointer user_data)
 
     GtkFileFilter *imagefilter = gtk_file_filter_new();
     gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
-                               gnomebaker_playlist_file_filter, NULL, NULL);
+            gnomebaker_playlist_file_filter, NULL, NULL);
     gtk_file_filter_set_name(imagefilter,_("Playlist files"));
-    const gchar* file = gbcommon_show_file_chooser(_("Save playlist as..."),
-                                                   GTK_FILE_CHOOSER_ACTION_SAVE, imagefilter);
-
+    
+    GtkWidget *filetypes_combo = gtk_combo_box_new_text();
+    gtk_combo_box_append_text(GTK_COMBO_BOX(filetypes_combo), ".m3u");
+    gtk_combo_box_append_text(GTK_COMBO_BOX(filetypes_combo), ".pls");
+    gtk_combo_box_set_active(GTK_COMBO_BOX(filetypes_combo), 0);
+            
+    gchar* file = gbcommon_show_file_chooser(_("Save playlist as..."),
+            GTK_FILE_CHOOSER_ACTION_SAVE, imagefilter, FALSE, GTK_COMBO_BOX(filetypes_combo));
     audiocd_export_playlist(file);
+    g_free(file);
 }
+
+
+static gboolean
+gnomebaker_project_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
+{
+    GB_LOG_FUNC
+    return gbcommon_str_has_suffix(filter_info->filename, ".gbp");
+}
+
+
+void /* libglade callback */
+gnomebaker_on_open_project(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC   
+    
+    GtkFileFilter *imagefilter = gtk_file_filter_new();
+    gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_FILENAME,
+        gnomebaker_playlist_file_filter, NULL, NULL);
+    gtk_file_filter_set_name(imagefilter,_("Project files"));
+    gchar* file = gbcommon_show_file_chooser(_("Please select a project file."), GTK_FILE_CHOOSER_ACTION_OPEN, imagefilter, FALSE, NULL);
+    if(file != NULL);
+    g_free(file);
+}
+
+
+void /* libglade callback */
+gnomebaker_on_save_project(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC   
+}
+
+
+void /* libglade callback */
+gnomebaker_on_save_project_as(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC   
+}
+
+
+void /* libglade callback */
+gnomebaker_on_save_all(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC   
+}
+
