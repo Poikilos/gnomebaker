@@ -40,5 +40,8 @@ void progressdlg_pulse_stop();
 void progressdlg_increment_exec_number();
 void progressdlg_finish(GtkWidget* self, const Exec* ex);
 GtkWindow* progressdlg_get_window();
+void progressdlg_start_approximation(gint seconds);
+void progressdlg_stop_approximation();
+
 
 #endif	/*_PROGRESSDLG_H_*/

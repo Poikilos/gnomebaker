@@ -369,14 +369,15 @@ burn_format_dvdrw()
 {
 	GB_LOG_FUNC
 	
-    StartDlg* dlg = burn_show_start_dlg(format_dvdrw);
+    /*StartDlg* dlg = burn_show_start_dlg(format_dvdrw);
     if(dlg != NULL)
 	{		
 		burnargs = exec_new(_("Formatting re-writeable DVD"), _("Please wait while the DVD is formatted."));
 		dvdformat_add_args(exec_cmd_new(burnargs));
 		burn_run_process();
         startdlg_delete(dlg);
-	}
+	}*/
+    burn_test();
 }
 
 
@@ -432,3 +433,57 @@ burn_init()
         BurnTypeText[i] = _(BurnTypeText[i]);
     return TRUE;
 }
+
+
+/* TEST CODE */
+
+static gint total_time = 10;
+
+static void
+test_pre_proc(void* ex, void* buffer)
+{
+    GB_LOG_FUNC
+    progressdlg_set_status(_("Verifying the disk content"));
+    progressdlg_increment_exec_number();
+    progressdlg_start_approximation(total_time);
+}
+
+
+static void
+test_lib_proc(void* ex, void* buffer)
+{
+    GB_LOG_FUNC
+    static gint interval = 50000;
+    gint counter = 0;
+    
+    while(counter < ((total_time - 9) * (G_USEC_PER_SEC / interval)))
+    {
+        while(gtk_events_pending())
+            gtk_main_iteration();
+        g_usleep(interval);
+        ++counter;
+    }
+}
+
+
+static void
+test_post_proc(void* ex, void* buffer)
+{
+    GB_LOG_FUNC
+    progressdlg_stop_approximation();
+}
+
+
+void 
+burn_test()
+{
+    GB_LOG_FUNC
+    burnargs = exec_new(_("Appending to data DVD"), _("Please wait while the data is appended directly to the DVD."));
+    ExecCmd* cmd = exec_cmd_new(burnargs);
+    cmd->preProc = test_pre_proc;
+    cmd->libProc = test_lib_proc;
+    cmd->postProc = test_post_proc;
+    burn_run_process();
+}
+
+
