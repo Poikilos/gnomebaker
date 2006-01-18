@@ -49,6 +49,9 @@ static gint numberofexecs = 0;
 static gint currentexec = -1;
 static GCallback closefunction = NULL;
 static GHashTable* statusicons = NULL;
+static gdouble approximationinterval = 0.0;
+static gdouble approximationfraction = 0.0;
+
 
 
 
@@ -77,6 +80,8 @@ progressdlg_new(const Exec* exec, GtkWindow* parent, GCallback callonprematurecl
 	numberofexecs = exec_count_operations(exec);
 	currentexec = -1;
     timertag = 0;
+    approximationfraction = 0.0;
+    approximationinterval = 0.0;
     
     if(statusicons == NULL) 
     {
@@ -341,4 +346,52 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
 }
 
 
+static gboolean 
+progressdlg_approximation_ontimer(gpointer userdata)
+{
+    /*GB_LOG_FUNC*/
+    approximationfraction = approximationfraction + approximationinterval;
+    if(approximationfraction > (1.0 - approximationinterval))
+        approximationfraction = 0.99;                 
+    progressdlg_set_fraction(approximationfraction);
+    return TRUE;
+}
+
+
+void 
+progressdlg_start_approximation(gint seconds)
+{    
+    GB_LOG_FUNC
+    g_return_if_fail(progbar != NULL);
+    
+    gint timeout = (seconds * 1000) / 100;
+    approximationinterval = 1.0 / (((gdouble)seconds) * (1000/timeout));        
+    timertag = gtk_timeout_add(timeout, (GtkFunction)progressdlg_approximation_ontimer, NULL);
+}
+
+
+void 
+progressdlg_stop_approximation()
+{    
+    GB_LOG_FUNC
+    g_return_if_fail(progbar != NULL);
+    gtk_timeout_remove(timertag);
+    timertag = 0;
+    
+    /* now wind the progress bar to 100% */
+    const gdouble remaining = 1.0 - approximationfraction;   
+    const gint iterations = 2000 / 40;
+    const gdouble portion = remaining / (gdouble)iterations;
+    gint i = 0;
+    for(; i < iterations; ++i)
+    {
+        approximationfraction += portion;
+        progressdlg_set_fraction(approximationfraction);
+        while(gtk_events_pending())
+            gtk_main_iteration();
+        g_usleep(40000);
+    }
+    approximationfraction = 0.0;
+    approximationinterval = 0.0;
+}
 
