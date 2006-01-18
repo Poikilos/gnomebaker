@@ -369,15 +369,15 @@ burn_format_dvdrw()
 {
 	GB_LOG_FUNC
 	
-    /*StartDlg* dlg = burn_show_start_dlg(format_dvdrw);
+    StartDlg* dlg = burn_show_start_dlg(format_dvdrw);
     if(dlg != NULL)
 	{		
 		burnargs = exec_new(_("Formatting re-writeable DVD"), _("Please wait while the DVD is formatted."));
 		dvdformat_add_args(exec_cmd_new(burnargs));
 		burn_run_process();
         startdlg_delete(dlg);
-	}*/
-    burn_test();
+	}
+    /*burn_test();*/
 }
 
 
