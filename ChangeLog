@@ -32,6 +32,10 @@ Version 0.5.1
 * Apply patch from gamehack for nice summary in configure.in
 * Make toolbar button enablement and menu enablement consistent.
 * Use gamehacks animated icons to show progress when burning.
+* Splash dialog is now only shown on platforms other than linux as they use manual cdrecord device discovery.
+* Fix Bug #1270524 Won't allow burning of 700mb files
+* Icons - you've been tango'd. Nice one Gamehack.
+
 
 Version 0.5.0
 
