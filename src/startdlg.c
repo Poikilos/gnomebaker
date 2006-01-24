@@ -498,7 +498,7 @@ startdlg_new(const BurnType burntype)
     start_dlg->burn_free = startdlg_create_check_button(_("BurnFree"), GB_BURNFREE);    
     start_dlg->burn_disk = startdlg_create_radio_button(_("Burn the disk"), 
         NULL, !preferences_get_bool(GB_CREATEISOONLY)); 
-    start_dlg->iso_only = startdlg_create_radio_button(_("Create ISO only"), 
+    start_dlg->iso_only = startdlg_create_radio_button(_("Only create image"), 
         GTK_RADIO_BUTTON(start_dlg->burn_disk), preferences_get_bool(GB_CREATEISOONLY));    
     g_signal_connect(G_OBJECT(start_dlg->iso_only), "toggled", (GCallback)startdlg_create_iso_toggled, start_dlg);
     start_dlg->force_format = startdlg_create_check_button(_("Force format"), GB_FORCE);       
@@ -506,7 +506,7 @@ startdlg_new(const BurnType burntype)
     start_dlg->fast_format = startdlg_create_check_button(_("Fast format"), GB_FAST_FORMAT);
     start_dlg->joliet = startdlg_create_check_button(_("Joliet"), GB_JOLIET);
     start_dlg->rock_ridge = startdlg_create_check_button(_("Rock Ridge"), GB_ROCKRIDGE);
-    start_dlg->on_the_fly = startdlg_create_check_button(_("On The Fly"), GB_ONTHEFLY);                    
+    start_dlg->on_the_fly = startdlg_create_check_button(_("On the fly"), GB_ONTHEFLY);                    
     start_dlg->iso_file = GTK_ENTRY(gtk_entry_new()); 
     gchar* last_iso = preferences_get_string(GB_LAST_ISO);
     if(last_iso == NULL || strlen(last_iso) == 0)
