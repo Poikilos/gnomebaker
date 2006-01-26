@@ -1,0 +1,1180 @@
+# Finnish translation for The GnomeBaker CD Burner
+# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# This file is distributed under the same license as the The GnomeBaker CD Burner package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: The GnomeBaker CD Burner\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2006-01-12 10:15+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Finnish <fi@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Rosetta-Version: 0.1\n"
+
+#: ../src/audiocd.c:117
+#, c-format
+msgid "%d mins %d secs used - %d mins %d secs remaining"
+msgstr ""
+
+#: ../src/audiocd.c:165
+msgid "Track is too large to fit in the remaining space on the CD"
+msgstr "Raita on liian suuri mahtuakseen CD-levyllä jäljellä olevaan tilaan"
+
+#: ../src/audiocd.c:256 ../src/filebrowser.c:584
+msgid "_Open"
+msgstr ""
+
+#: ../src/audiocd.c:261
+msgid "Move selected _up"
+msgstr ""
+
+#: ../src/audiocd.c:263
+msgid "Move selected _down"
+msgstr ""
+
+#: ../src/audiocd.c:266 ../src/datacd.c:479
+msgid "_Remove selected"
+msgstr ""
+
+#: ../src/audiocd.c:268
+msgid "_Clear"
+msgstr ""
+
+#: ../src/audiocd.c:358
+#, c-format
+msgid ""
+"The file [%s] referred to in the playlist could not be imported as it does "
+"not exist."
+msgstr ""
+
+#: ../src/audiocd.c:706
+msgid ""
+"The file you have selected is not a supported playlist. Please select a pls "
+"or m3u file."
+msgstr ""
+
+#: ../src/audiocd.c:723 ../src/audiocd.c:759
+msgid "Failed to write playlist file"
+msgstr ""
+
+#: ../src/audiocd.c:808
+msgid ""
+"Playlist already exists.\n"
+" Do you want to replace it?"
+msgstr ""
+
+#: ../src/audiocd.c:841
+msgid "Track"
+msgstr "Raita"
+
+#: ../src/audiocd.c:854
+msgid "Duration"
+msgstr "Kesto"
+
+#: ../src/audiocd.c:871
+msgid "Artist"
+msgstr "Artisti"
+
+#: ../src/audiocd.c:880
+msgid "Album"
+msgstr "Albumi"
+
+#: ../src/audiocd.c:889
+msgid "Title"
+msgstr "Nimike"
+
+#: ../src/audiocd.c:898
+msgid "Info"
+msgstr ""
+
+#: ../src/burn.c:94 ../src/burn.c:140
+msgid "Burning CD image"
+msgstr ""
+
+#: ../src/burn.c:94 ../src/burn.c:140
+msgid "Please wait while the CD image you selected is burned to CD."
+msgstr ""
+
+#: ../src/burn.c:116
+msgid ""
+"The file you have selected seems not to be a DVD image. Do you really want "
+"to write it to DVD?"
+msgstr ""
+
+#: ../src/burn.c:121
+msgid "Burning DVD image"
+msgstr ""
+
+#: ../src/burn.c:121
+msgid "Please wait while the DVD image you selected is burned to DVD."
+msgstr ""
+
+#: ../src/burn.c:164
+msgid ""
+"The file you have selected seems not to be a CD image. Do you really want to "
+"write it to CD?"
+msgstr ""
+
+#: ../src/burn.c:181
+msgid "Creating data CD image"
+msgstr ""
+
+#: ../src/burn.c:181
+msgid "Please wait while the data CD image is created."
+msgstr ""
+
+#: ../src/burn.c:187 ../src/burn.c:197
+msgid "Burning data CD"
+msgstr ""
+
+#: ../src/burn.c:187
+msgid "Please wait while the data is burned directly to CD."
+msgstr ""
+
+#: ../src/burn.c:197
+msgid ""
+"Please wait while the data disk image is created and then burned to CD. "
+"Depending on the speed of your CD writer, this may take some time. "
+msgstr ""
+
+#: ../src/burn.c:221 ../src/burn.c:231
+msgid "Appending to data CD"
+msgstr ""
+
+#: ../src/burn.c:221
+msgid "Please wait while the additional data is burned directly to CD."
+msgstr ""
+
+#: ../src/burn.c:231
+msgid ""
+"Please wait while the data disk image is created and then appended to the "
+"CD. Depending on the speed of your CD writer, this may take some time. "
+msgstr ""
+
+#: ../src/burn.c:253
+msgid "Burning audio CD"
+msgstr ""
+
+#: ../src/burn.c:253
+msgid ""
+"Please wait while the selected tracks are converted to CD audio and then "
+"burned to CD."
+msgstr ""
+
+#: ../src/burn.c:316
+msgid "Extracting CD image"
+msgstr ""
+
+#: ../src/burn.c:316
+msgid "Please wait while the data CD image is extracted."
+msgstr ""
+
+#: ../src/burn.c:322
+msgid "Copying data CD"
+msgstr ""
+
+#: ../src/burn.c:322
+msgid ""
+"Please wait while the data CD image is extracted and then burned to CD."
+msgstr ""
+
+#: ../src/burn.c:342
+msgid "Copying audio CD"
+msgstr ""
+
+#: ../src/burn.c:342
+msgid ""
+"Please wait while the audio CD tracks are extracted and then burned to CD."
+msgstr ""
+
+#: ../src/burn.c:359
+msgid "Blanking CD"
+msgstr ""
+
+#: ../src/burn.c:359
+msgid "Please wait while the CD is blanked."
+msgstr ""
+
+#: ../src/burn.c:375
+msgid "Formatting re-writeable DVD"
+msgstr ""
+
+#: ../src/burn.c:375
+msgid "Please wait while the DVD is formatted."
+msgstr ""
+
+#: ../src/burn.c:394
+msgid "Creating data DVD image"
+msgstr ""
+
+#: ../src/burn.c:394
+msgid "Please wait while the data DVD image is created."
+msgstr ""
+
+#: ../src/burn.c:400
+msgid "Burning data DVD"
+msgstr ""
+
+#: ../src/burn.c:400
+msgid "Please wait while the data is burned directly to DVD."
+msgstr ""
+
+#: ../src/burn.c:418
+msgid "Appending to data DVD"
+msgstr ""
+
+#: ../src/burn.c:418
+msgid "Please wait while the data is appended directly to the DVD."
+msgstr ""
+
+#: ../src/datacd.c:147
+#, c-format
+msgid "%s used - %s remaining"
+msgstr ""
+
+#: ../src/datacd.c:203
+msgid ""
+"File or directory is too large to fit in the remaining space on the CD"
+msgstr ""
+"Tiedosto tai hakemisto on liian suuri mahtuakseen CD-levyllä jäljellä "
+"olevaan tilaan"
+
+#: ../src/datacd.c:475
+msgid "_Edit name"
+msgstr ""
+
+#: ../src/datacd.c:481
+msgid "Clear"
+msgstr "Tyhjennä"
+
+#: ../src/datacd.c:514 ../gnomebaker.glade.h:45
+msgid "Contents"
+msgstr "Sisältö"
+
+#: ../src/datacd.c:538 ../src/datacd.c:548 ../src/filebrowser.c:797
+#: ../src/filebrowser.c:807
+msgid "Size"
+msgstr "Koko"
+
+#: ../src/datacd.c:558
+msgid "Full Path"
+msgstr "Täydellinen tiedostopolku"
+
+#: ../src/datacd.c:567
+msgid "Session"
+msgstr "Istunto"
+
+#: ../src/datacd.c:612
+#, c-format
+msgid ""
+"Error getting session information.\n"
+"\n"
+"%s"
+msgstr ""
+"Virhe haettaessa istunnon tietoja.\n"
+"\n"
+"%s"
+
+#: ../src/datacd.c:613 ../src/devices.c:657
+msgid "unknown error"
+msgstr "tuntematon virhe"
+
+#: ../src/datacd.c:686
+#, c-format
+msgid ""
+"Error importing session from [%s]. Please check the device configuration in "
+"preferences."
+msgstr ""
+"Virhe tuotaessa istuntoa [%s]:sta. Tarkista laitteen asetukset asetukset-"
+"valikosta."
+
+#: ../src/devices.c:646
+msgid ""
+"The mount point (e.g. /mnt/cdrom) for the writing device could not be "
+"obtained. Please check that the writing device has an entry in /etc/fstab "
+"and then go to preferences and rescan for devices."
+msgstr ""
+"Kirjoittavan laitteen liitoskohtaa (esim. /mnt/cdrom) ei löytynyt. Tarkista "
+"että kirjoittavalle laitteelle on määritetty liitoskohta /etc/fstab -"
+"tiedostoon ja mene asetukset-valikkoon etsiäksesi laitteita uudelleen."
+
+#: ../src/devices.c:656
+#, c-format
+msgid ""
+"Error mounting %s.\n"
+"\n"
+"%s"
+msgstr ""
+
+#: ../src/devices.c:785
+#, c-format
+msgid "Please insert a disk into the %s"
+msgstr ""
+
+#: ../src/execfunctions.c:94
+msgid "Preparing to blank disk"
+msgstr ""
+
+#: ../src/execfunctions.c:137
+msgid "Preparing to burn disk"
+msgstr ""
+
+#. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
+#: ../src/execfunctions.c:194
+#, c-format
+msgid "Writing track %d"
+msgstr ""
+
+#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
+#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
+#: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
+msgid "default"
+msgstr "oletus"
+
+#: ../src/execfunctions.c:397
+msgid "Preparing to extract audio tracks"
+msgstr ""
+
+#: ../src/execfunctions.c:408
+msgid ""
+"Audio tracks from a previous sesion already exist on disk, do you wish to "
+"use the existing tracks?"
+msgstr ""
+"Ääniraitoja aiemmasta istunnosta on jo ennestään levyllä, haluatko käyttää "
+"jo olemassaolevia raitoja?"
+
+#: ../src/execfunctions.c:465
+#, c-format
+msgid "Extracting audio track %d"
+msgstr ""
+
+#: ../src/execfunctions.c:535
+msgid "Calculating data disk image size"
+msgstr ""
+
+#: ../src/execfunctions.c:573
+msgid "Creating data disk image"
+msgstr ""
+
+#: ../src/execfunctions.c:580
+msgid ""
+"A data CD image from a previous session already exists on disk, do you wish "
+"to use the existing image?"
+msgstr ""
+"Data-CD:n levykuva aiemmasta istunnosta on jo olemassa, haluatko käyttää jo "
+"olemassaolevaa levykuvaa?"
+
+#: ../src/execfunctions.c:810
+msgid "Formatting DVD"
+msgstr ""
+
+#: ../src/execfunctions.c:891
+msgid "Preparing to burn DVD"
+msgstr ""
+
+#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
+msgid "Writing DVD"
+msgstr ""
+
+#: ../src/execfunctions.c:1056
+msgid "Reading CD image"
+msgstr ""
+
+#: ../src/execfunctions.c:1064
+msgid ""
+"A CD image from a previous session already exists on disk, do you wish to "
+"use the existing image?"
+msgstr ""
+
+#: ../src/execfunctions.c:1327
+#, c-format
+msgid "Converting %s to cd audio"
+msgstr ""
+
+#: ../src/execfunctions.c:1439
+msgid "Verifying the disk content"
+msgstr ""
+
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
+#: ../src/startdlg.c:408
+msgid "Filesystem"
+msgstr "Tiedostojärjestelmä"
+
+#: ../src/filebrowser.c:74
+msgid "Home"
+msgstr ""
+
+#: ../src/filebrowser.c:75
+msgid "(empty)"
+msgstr ""
+
+#: ../src/filebrowser.c:76
+msgid "Folder"
+msgstr ""
+
+#: ../src/filebrowser.c:575
+msgid "_Add directory"
+msgstr ""
+
+#: ../src/filebrowser.c:588
+msgid "_Add file(s)"
+msgstr ""
+
+#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:94
+#, fuzzy
+msgid "_Burn CD Image"
+msgstr "_Kirjoita CD-levykuva"
+
+#: ../src/filebrowser.c:606
+msgid "_Burn DVD Image"
+msgstr ""
+
+#: ../src/filebrowser.c:714
+#, c-format
+msgid "%s's home"
+msgstr "%s:n kotihakemisto"
+
+#: ../src/filebrowser.c:782
+msgid "File"
+msgstr "Tiedosto"
+
+#: ../src/filebrowser.c:817
+msgid "Type"
+msgstr "Tyyppi"
+
+#: ../src/filebrowser.c:826
+msgid "Mime"
+msgstr ""
+
+#: ../src/gbcommon.c:468
+msgid "All files"
+msgstr "Kaikki tiedostot"
+
+#: ../src/gbcommon.c:480
+msgid "Save file as type:"
+msgstr ""
+
+#: ../src/gnomebaker.c:102
+msgid "Loading preferences..."
+msgstr "Ladataan asetuksia..."
+
+#: ../src/gnomebaker.c:105
+msgid "Detecting devices..."
+msgstr "Tunnistetaan laitteita..."
+
+#: ../src/gnomebaker.c:108
+msgid "Registering gstreamer plugins..."
+msgstr "Rekisteröidään gstreamerin liitännäisiä..."
+
+#: ../src/gnomebaker.c:111
+msgid "Loading GUI..."
+msgstr "Ladataan käyttöliittymää..."
+
+#: ../src/gnomebaker.c:201
+msgid "Are you sure you want to quit?"
+msgstr "Haluatko varmasti lopettaa ohjelman?"
+
+#: ../src/gnomebaker.c:278
+msgid "CD Image files"
+msgstr ""
+
+#: ../src/gnomebaker.c:279
+msgid "Please select a CD image file."
+msgstr ""
+
+#: ../src/gnomebaker.c:292
+msgid "DVD Image files"
+msgstr ""
+
+#: ../src/gnomebaker.c:293
+msgid "Please select a DVD image file."
+msgstr ""
+
+#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
+msgid "GnomeBaker"
+msgstr "GnomeBaker"
+
+#: ../src/gnomebaker.c:364
+msgid "Simple CD/DVD Burning for Gnome"
+msgstr ""
+
+#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
+msgid "translator_credits"
+msgstr "Kiitokset käännöstyöstä"
+
+#: ../src/gnomebaker.c:429
+msgid "Please select files to add to the disk."
+msgstr ""
+
+#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
+msgid "Playlist files"
+msgstr ""
+
+#: ../src/gnomebaker.c:690
+msgid "Please select a playlist."
+msgstr ""
+
+#: ../src/gnomebaker.c:711
+msgid "Save playlist as..."
+msgstr ""
+
+#: ../src/media.c:397
+#, c-format
+msgid "The plugin to handle a file of type %s is not installed."
+msgstr ""
+
+#: ../src/prefsdlg.c:146
+msgid "Name"
+msgstr "Nimi"
+
+#: ../src/prefsdlg.c:161
+msgid "Id"
+msgstr "Id"
+
+#: ../src/prefsdlg.c:170
+msgid "Node"
+msgstr "Solmu"
+
+#: ../src/prefsdlg.c:179
+msgid "Mount point"
+msgstr "Liitospiste"
+
+#: ../src/prefsdlg.c:188
+msgid "Write CD-R"
+msgstr "Luo CD-R"
+
+#: ../src/prefsdlg.c:197
+msgid "Write CD-RW"
+msgstr "Luo CD-RW"
+
+#: ../src/prefsdlg.c:206
+msgid "Write DVD-R"
+msgstr "Luo DVD-R"
+
+#: ../src/prefsdlg.c:215
+msgid "Write DVD-RAM"
+msgstr "Luo DVD-RAM"
+
+#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
+msgid "Show output"
+msgstr ""
+
+#: ../src/progressdlg.c:188
+msgid "Hide output"
+msgstr ""
+
+#: ../src/progressdlg.c:262
+msgid "Completed"
+msgstr "Valmis"
+
+#: ../src/progressdlg.c:270
+msgid "Failed"
+msgstr "Epäonnistui"
+
+#: ../src/startdlg.c:98
+msgid "Please select an image file to save to."
+msgstr ""
+
+#: ../src/startdlg.c:120
+msgid "CD/DVD Image files"
+msgstr ""
+
+#: ../src/startdlg.c:178 ../gnomebaker.glade.h:14
+msgid "<b>Devices</b>"
+msgstr "<b>Laitteet</b>"
+
+#: ../src/startdlg.c:179
+msgid "<b>Device</b>"
+msgstr ""
+
+#: ../src/startdlg.c:183
+msgid "Reader:"
+msgstr ""
+
+#: ../src/startdlg.c:187
+msgid "Writer:"
+msgstr ""
+
+#: ../src/startdlg.c:190
+msgid "Speed:"
+msgstr ""
+
+#: ../src/startdlg.c:194
+msgid "Mode:"
+msgstr ""
+
+#: ../src/startdlg.c:217 ../gnomebaker.glade.h:16
+msgid "<b>Options</b>"
+msgstr "<b>Asetukset</b>"
+
+#: ../src/startdlg.c:246 ../gnomebaker.glade.h:103
+msgid "_Start"
+msgstr "_Aloita"
+
+#: ../src/startdlg.c:310
+msgid "<b>Disk Information</b>"
+msgstr ""
+
+#: ../src/startdlg.c:312
+msgid "Volume ID:"
+msgstr ""
+
+#: ../src/startdlg.c:315
+msgid "Application ID:"
+msgstr ""
+
+#: ../src/startdlg.c:318
+msgid "Preparer:"
+msgstr ""
+
+#: ../src/startdlg.c:321
+msgid "Publisher:"
+msgstr ""
+
+#: ../src/startdlg.c:324
+msgid "Copyright:"
+msgstr ""
+
+#: ../src/startdlg.c:327
+msgid "Abstract:"
+msgstr ""
+
+#: ../src/startdlg.c:330
+msgid "Bibliography:"
+msgstr ""
+
+#: ../src/startdlg.c:341
+msgid "<b>Filesystem</b>"
+msgstr ""
+
+#: ../src/startdlg.c:379 ../src/startdlg.c:407
+msgid "Writing"
+msgstr ""
+
+#: ../src/startdlg.c:381 ../src/startdlg.c:409
+msgid "Disk Information"
+msgstr ""
+
+#: ../src/startdlg.c:495
+msgid "Dummy write"
+msgstr "Simuloitu kirjoitus"
+
+#: ../src/startdlg.c:496
+msgid "Eject disk"
+msgstr "Poista levy"
+
+#: ../src/startdlg.c:497
+msgid "Fast blank"
+msgstr "Nopea tyhjennys"
+
+#: ../src/startdlg.c:498
+msgid "BurnFree"
+msgstr "BurnFree"
+
+#: ../src/startdlg.c:499
+msgid "Burn the disk"
+msgstr ""
+
+#: ../src/startdlg.c:501
+msgid "Create ISO only"
+msgstr "Luo ainoastaan ISO"
+
+#: ../src/startdlg.c:504
+msgid "Force format"
+msgstr ""
+
+#: ../src/startdlg.c:505
+msgid "Finalize"
+msgstr "Viimeistele"
+
+#: ../src/startdlg.c:506
+msgid "Fast format"
+msgstr ""
+
+#: ../src/startdlg.c:507
+msgid "Joliet"
+msgstr ""
+
+#: ../src/startdlg.c:508
+msgid "Rock Ridge"
+msgstr ""
+
+#: ../src/startdlg.c:509
+msgid "On The Fly"
+msgstr ""
+
+#: ../src/startdlg.c:519
+msgid "_Browse..."
+msgstr ""
+
+#: ../src/startdlg.c:521
+msgid "GnomeBaker data disk"
+msgstr ""
+
+#: ../src/burn.h:65 ../gnomebaker.glade.h:32
+msgid "Blank CD-RW"
+msgstr ""
+
+#: ../src/burn.h:66 ../gnomebaker.glade.h:47
+msgid "Copy Data CD"
+msgstr "Kopioi Data-CD"
+
+#: ../src/burn.h:67 ../gnomebaker.glade.h:46
+msgid "Copy Audio CD"
+msgstr "Kopioi Ääni-CD"
+
+#: ../src/burn.h:68 ../gnomebaker.glade.h:36
+msgid "Burn CD Image"
+msgstr "Kirjoita CD-image"
+
+#: ../src/burn.h:69 ../gnomebaker.glade.h:37
+msgid "Burn DVD Image"
+msgstr ""
+
+#: ../src/burn.h:70
+msgid "Create Data CD"
+msgstr "Tee uusi Data-CD"
+
+#: ../src/burn.h:71
+msgid "Append to Data CD"
+msgstr ""
+
+#: ../src/burn.h:72
+msgid "Create Audio CD"
+msgstr "Tee uusi Ääni-CD"
+
+#: ../src/burn.h:73
+#, fuzzy
+msgid "Create Mixed CD"
+msgstr "Luo hybridi-CD"
+
+#: ../src/burn.h:74
+#, fuzzy
+msgid "Create Video CD"
+msgstr "Luo uusi Video-CD"
+
+#: ../src/burn.h:75
+msgid "Format DVD RW"
+msgstr ""
+
+#: ../src/burn.h:76
+#, fuzzy
+msgid "Create Data DVD"
+msgstr "Luo uusi Data-DVD"
+
+#: ../src/burn.h:77
+msgid "Append to Data DVD"
+msgstr ""
+
+#: ../gnomebaker.glade.h:1
+msgid " "
+msgstr ""
+
+#: ../gnomebaker.glade.h:2
+msgid "..."
+msgstr ""
+
+#: ../gnomebaker.glade.h:3
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../gnomebaker.glade.h:4
+msgid "0 mins 0 secs"
+msgstr "0 minuuttia 0 sekuntia"
+
+#: ../gnomebaker.glade.h:6
+#, no-c-format
+msgid "0%"
+msgstr "0%"
+
+#: ../gnomebaker.glade.h:7
+msgid "<b><big>...</big></b>"
+msgstr ""
+
+#: ../gnomebaker.glade.h:8
+msgid "<b>Additional <i>cdrecord</i> options</b>"
+msgstr ""
+
+#: ../gnomebaker.glade.h:9
+msgid "<b>Audio Disk</b>"
+msgstr "<b>Audiolevy</b>"
+
+#: ../gnomebaker.glade.h:10
+#, fuzzy
+msgid "<b>Boot options</b>"
+msgstr "<b>Käynnistysvalinnat</b>"
+
+#: ../gnomebaker.glade.h:11
+#, fuzzy
+msgid "<b>Created by</b>"
+msgstr "<b>Luonut</b>"
+
+#: ../gnomebaker.glade.h:12
+#, fuzzy
+msgid "<b>Data Disk</b>"
+msgstr "<b>Datalevy</b>"
+
+#: ../gnomebaker.glade.h:13
+msgid "<b>Detected devices</b>"
+msgstr "<b>Löydetyt laitteet</b>"
+
+#: ../gnomebaker.glade.h:15
+#, fuzzy
+msgid "<b>File Browser</b>"
+msgstr "<b>Tiedostoselain</b>"
+
+#: ../gnomebaker.glade.h:17
+msgid "<b>Other</b>"
+msgstr ""
+
+#: ../gnomebaker.glade.h:18
+msgid "<b>Progress window</b>"
+msgstr ""
+
+#: ../gnomebaker.glade.h:19
+msgid "<b>Select Writer</b>"
+msgstr ""
+
+#: ../gnomebaker.glade.h:20
+msgid "<b>Temporary Directory</b>"
+msgstr "<b>Väliaikaishakemisto</b>"
+
+#: ../gnomebaker.glade.h:21
+msgid "<b>Video CD</b>"
+msgstr "<b>Video-CD</b>"
+
+#: ../gnomebaker.glade.h:22
+msgid "<b>Volume label</b>"
+msgstr "<b>Teoksen nimi</b>"
+
+#: ../gnomebaker.glade.h:23
+msgid "<i>...</i>"
+msgstr ""
+
+#: ../gnomebaker.glade.h:24
+msgid "Add file(s)"
+msgstr "Lisää tiedosto(ja)"
+
+#: ../gnomebaker.glade.h:25
+msgid "Add the selected files to the CD"
+msgstr "Lisää valitut tiedostot CD:lle"
+
+#: ../gnomebaker.glade.h:26
+msgid "Advanced"
+msgstr ""
+
+#: ../gnomebaker.glade.h:27
+msgid "Always scan for devices on startup"
+msgstr "Etsi aina laitteita käynnistyksessä"
+
+#: ../gnomebaker.glade.h:28
+msgid "Ask on quit"
+msgstr ""
+
+#: ../gnomebaker.glade.h:29
+msgid "Automatically scroll output"
+msgstr ""
+
+#: ../gnomebaker.glade.h:30
+msgid "Baking"
+msgstr ""
+
+#: ../gnomebaker.glade.h:31
+msgid "Bl_ank CD-RW"
+msgstr ""
+
+#: ../gnomebaker.glade.h:33
+#, fuzzy
+msgid "Boot Image"
+msgstr "Käynnistyslevykuva"
+
+#: ../gnomebaker.glade.h:34
+msgid "Boot Image list"
+msgstr "Lista käynnistyslevykuvista"
+
+#: ../gnomebaker.glade.h:35
+#, fuzzy
+msgid "Boot catalog"
+msgstr "Käynnistyskuvasto"
+
+#: ../gnomebaker.glade.h:38
+msgid "Burn _DVD Image"
+msgstr ""
+
+#: ../gnomebaker.glade.h:39
+#, fuzzy
+msgid "C_opy Data CD"
+msgstr "K_opioi Data-CD"
+
+#: ../gnomebaker.glade.h:40
+msgid "Clean temporary directory on exit"
+msgstr "Tyhjennä väliaikaishakemisto poistuttaessa"
+
+#: ../gnomebaker.glade.h:41
+msgid "Clear the contents of the CD"
+msgstr "Tyhjennä CD-levyn sisältö"
+
+#: ../gnomebaker.glade.h:42
+msgid "Click to begin the process of creating a data disk."
+msgstr "Napsauta aloittaaksesi datalevyn luonti."
+
+#: ../gnomebaker.glade.h:43
+msgid "Click to begin the process of creating an audio cd"
+msgstr "Napsauta aloittaaksesi äänilevyn luonti"
+
+#: ../gnomebaker.glade.h:44
+#, fuzzy
+msgid "Co_py Audio CD"
+msgstr "Ko_pioi Audio-CD"
+
+#: ../gnomebaker.glade.h:48
+msgid "Create Audio Disk"
+msgstr "Luo Audiolevy"
+
+#: ../gnomebaker.glade.h:49
+msgid "Create Data Disk"
+msgstr "Luo Datalevy"
+
+#: ../gnomebaker.glade.h:50
+msgid "Create Video Disk"
+msgstr ""
+
+#: ../gnomebaker.glade.h:51
+#, fuzzy
+msgid "Created by username"
+msgstr "Luojan käyttäjätunnus"
+
+#: ../gnomebaker.glade.h:52
+msgid "Devices"
+msgstr "Laitteet"
+
+#: ../gnomebaker.glade.h:53
+msgid "Edit GnomeBaker's preferences"
+msgstr "Muokkaa GnomeBakerin asetuksia"
+
+#: ../gnomebaker.glade.h:54
+msgid "Floppy disk image"
+msgstr "Levykkeen levykuva"
+
+#: ../gnomebaker.glade.h:55
+msgid "Force"
+msgstr "Pakota"
+
+#: ../gnomebaker.glade.h:56
+msgid "Format DVD±RW"
+msgstr ""
+
+#: ../gnomebaker.glade.h:57
+msgid "GPL"
+msgstr "GPL"
+
+#: ../gnomebaker.glade.h:58
+#, fuzzy
+msgid "General"
+msgstr "Yleiset"
+
+#: ../gnomebaker.glade.h:60
+msgid "GnomeBaker Preferences"
+msgstr "GnomeBakerin Asetukset"
+
+#: ../gnomebaker.glade.h:61
+#, fuzzy
+msgid "GnomeBaker data cd"
+msgstr "GnomeBaker data-cd"
+
+#: ../gnomebaker.glade.h:62
+msgid "Hard disk image"
+msgstr "Kovalevyn levykuva"
+
+#: ../gnomebaker.glade.h:63
+msgid "ISO filesystem details"
+msgstr "ISO-tiedostojärjestelmän tiedot"
+
+#: ../gnomebaker.glade.h:64
+msgid "Import"
+msgstr "Tuo"
+
+#: ../gnomebaker.glade.h:65
+msgid "Import Session"
+msgstr ""
+
+#: ../gnomebaker.glade.h:66
+msgid "Import existing session"
+msgstr "Tuo olemassaoleva istunto"
+
+#: ../gnomebaker.glade.h:67
+msgid "Mode"
+msgstr "Kirjoitustila"
+
+#: ../gnomebaker.glade.h:68
+msgid "Move audio tracks down"
+msgstr ""
+
+#: ../gnomebaker.glade.h:69
+msgid "Move audio tracks up"
+msgstr ""
+
+#: ../gnomebaker.glade.h:70
+msgid "Move selection _down"
+msgstr ""
+
+#: ../gnomebaker.glade.h:71
+msgid "Move selection _up"
+msgstr ""
+
+#: ../gnomebaker.glade.h:72
+msgid "Not bootable"
+msgstr "Ei käynnistyskelpoinen"
+
+#: ../gnomebaker.glade.h:73
+msgid "PC bootable"
+msgstr "PC:ssä käynnistyskelpoinen"
+
+#: ../gnomebaker.glade.h:74
+msgid "Play sound when burning is complete"
+msgstr ""
+
+#: ../gnomebaker.glade.h:75
+msgid ""
+"Please select the writing device from the list below and insert the disk "
+"containing the existing session"
+msgstr ""
+
+#: ../gnomebaker.glade.h:76
+msgid "Reader"
+msgstr "Lukija"
+
+#: ../gnomebaker.glade.h:77
+#, fuzzy
+msgid "Refresh the file browser file list"
+msgstr "Lataa uudelleen tiedostoselaimen tiedostolista"
+
+#: ../gnomebaker.glade.h:78
+msgid "Remove selected"
+msgstr "Poista valitut"
+
+#: ../gnomebaker.glade.h:79
+msgid "Remove the selected files from the CD"
+msgstr "Poista valitut tiedostot CD:ltä"
+
+#: ../gnomebaker.glade.h:80
+msgid "Sc_an for devices"
+msgstr "Et_si laitteita"
+
+#: ../gnomebaker.glade.h:81
+#, fuzzy
+msgid "Show hidden files"
+msgstr "Näytä piilotiedostot"
+
+#: ../gnomebaker.glade.h:82
+#, fuzzy
+msgid "Show humanreadable filesizes"
+msgstr "Näytä ihmisystävällisinä tiedostokokoina"
+
+#: ../gnomebaker.glade.h:84
+msgid "Simple CD burning for Gnome."
+msgstr "Yksinkertaista CD-kirjoitusta Gnomelle."
+
+#: ../gnomebaker.glade.h:85
+msgid "Speed"
+msgstr "Nopeus"
+
+#: ../gnomebaker.glade.h:86
+msgid "Splash window"
+msgstr "Aloitusikkuna"
+
+#: ../gnomebaker.glade.h:87
+msgid "Start burning..."
+msgstr "Aloita kirjoitus..."
+
+#: ../gnomebaker.glade.h:88
+#, fuzzy
+msgid "Starting GnomeBaker..."
+msgstr "Käynnistetään GnomeBakeria..."
+
+#: ../gnomebaker.glade.h:89
+msgid "Sun workstation bootable"
+msgstr "Käynnistyskelpoinen Sun-työasemassa"
+
+#: ../gnomebaker.glade.h:90
+msgid "Writer"
+msgstr "Kirjoitin"
+
+#: ../gnomebaker.glade.h:91
+#, fuzzy
+msgid "_Actions"
+msgstr "_Toiminnot"
+
+#: ../gnomebaker.glade.h:92
+msgid "_Add device"
+msgstr "_Lisää laite"
+
+#: ../gnomebaker.glade.h:93
+msgid "_Add selection"
+msgstr ""
+
+#: ../gnomebaker.glade.h:95
+msgid "_Export"
+msgstr ""
+
+#: ../gnomebaker.glade.h:96
+msgid "_Format DVD±RW"
+msgstr ""
+
+#: ../gnomebaker.glade.h:97
+msgid "_Import"
+msgstr ""
+
+#: ../gnomebaker.glade.h:98
+#, fuzzy
+msgid "_Import Session"
+msgstr "_Tuo Istunto"
+
+#: ../gnomebaker.glade.h:99
+msgid "_Playlist"
+msgstr ""
+
+#: ../gnomebaker.glade.h:100
+#, fuzzy
+msgid "_Refresh"
+msgstr "_Lataa uudelleen"
+
+#: ../gnomebaker.glade.h:101
+msgid "_Remove selection"
+msgstr ""
+
+#: ../gnomebaker.glade.h:102
+#, fuzzy
+msgid "_Show File Browser"
+msgstr "_Näytä tiedostoselain"
+
+#: ../gnomebaker.glade.h:104
+#, fuzzy
+msgid "_View"
+msgstr "_Näytä"
+
+#: ../gnomebaker.glade.h:105
+msgid "dao"
+msgstr "dao"
+
+#: ../gnomebaker.glade.h:107
+msgid "raw16"
+msgstr "raw16"
+
+#: ../gnomebaker.glade.h:108
+msgid "raw96p"
+msgstr "raw96p"
+
+#: ../gnomebaker.glade.h:109
+msgid "raw96r"
+msgstr ""
+
+#: ../gnomebaker.glade.h:110
+msgid "tao"
+msgstr "tao"
