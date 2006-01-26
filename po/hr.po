@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-24 21:54+0000\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2006-01-12 10:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Croatian <hr@li.org>\n"
@@ -16,8 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Rosetta-Version: 0.1\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 
 #: ../src/audiocd.c:117
 #, c-format
@@ -25,28 +23,24 @@ msgid "%d mins %d secs used - %d mins %d secs remaining"
 msgstr ""
 
 #: ../src/audiocd.c:165
-#, fuzzy
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Zapis je prevelik da bi stao na preostalom prostoru na CD-u"
+msgstr "Zapis je prevelik da bi stao na preostali prostoru na CD-u"
 
 #: ../src/audiocd.c:256 ../src/filebrowser.c:584
 msgid "_Open"
 msgstr ""
 
 #: ../src/audiocd.c:261
-#, fuzzy
 msgid "Move selected _up"
-msgstr "Odstrani označeno"
+msgstr ""
 
 #: ../src/audiocd.c:263
-#, fuzzy
 msgid "Move selected _down"
-msgstr "Odstrani označeno"
+msgstr ""
 
 #: ../src/audiocd.c:266 ../src/datacd.c:479
-#, fuzzy
 msgid "_Remove selected"
-msgstr "Odstrani označeno"
+msgstr ""
 
 #: ../src/audiocd.c:268
 msgid "_Clear"
@@ -65,50 +59,47 @@ msgid ""
 "or m3u file."
 msgstr ""
 
-#: ../src/audiocd.c:724 ../src/audiocd.c:761
+#: ../src/audiocd.c:723 ../src/audiocd.c:759
 msgid "Failed to write playlist file"
 msgstr ""
 
-#: ../src/audiocd.c:810
+#: ../src/audiocd.c:808
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:843
-#, fuzzy
+#: ../src/audiocd.c:841
 msgid "Track"
 msgstr "Zapis"
 
-#: ../src/audiocd.c:856
+#: ../src/audiocd.c:854
 msgid "Duration"
 msgstr "Trajanje"
 
-#: ../src/audiocd.c:873
+#: ../src/audiocd.c:871
 msgid "Artist"
-msgstr "Umjetnik/ca"
+msgstr "Umjetnik"
 
-#: ../src/audiocd.c:882
+#: ../src/audiocd.c:880
 msgid "Album"
 msgstr "Album"
 
-#: ../src/audiocd.c:891
+#: ../src/audiocd.c:889
 msgid "Title"
 msgstr "Naslov"
 
-#: ../src/audiocd.c:900
+#: ../src/audiocd.c:898
 msgid "Info"
 msgstr ""
 
 #: ../src/burn.c:94 ../src/burn.c:140
-#, fuzzy
 msgid "Burning CD image"
-msgstr "Sprži CD Image"
+msgstr ""
 
 #: ../src/burn.c:94 ../src/burn.c:140
-#, fuzzy
 msgid "Please wait while the CD image you selected is burned to CD."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
 #: ../src/burn.c:116
 msgid ""
@@ -117,14 +108,12 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:121
-#, fuzzy
 msgid "Burning DVD image"
-msgstr "Sprži CD Image"
+msgstr ""
 
 #: ../src/burn.c:121
-#, fuzzy
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
 #: ../src/burn.c:164
 msgid ""
@@ -133,23 +122,20 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:181
-#, fuzzy
 msgid "Creating data CD image"
-msgstr "Napravi CD sa podacima"
+msgstr ""
 
 #: ../src/burn.c:181
-#, fuzzy
 msgid "Please wait while the data CD image is created."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
 #: ../src/burn.c:187 ../src/burn.c:197
 msgid "Burning data CD"
 msgstr ""
 
 #: ../src/burn.c:187
-#, fuzzy
 msgid "Please wait while the data is burned directly to CD."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
 #: ../src/burn.c:197
 msgid ""
@@ -158,14 +144,12 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:221 ../src/burn.c:231
-#, fuzzy
 msgid "Appending to data CD"
-msgstr "Kopiraj CD sa podacima"
+msgstr ""
 
 #: ../src/burn.c:221
-#, fuzzy
 msgid "Please wait while the additional data is burned directly to CD."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
 #: ../src/burn.c:231
 msgid ""
@@ -178,83 +162,75 @@ msgid "Burning audio CD"
 msgstr ""
 
 #: ../src/burn.c:253
-#, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
-msgstr "Molim Vas umetnite audio CD u CD čitač"
+msgstr ""
 
 #: ../src/burn.c:316
-#, fuzzy
 msgid "Extracting CD image"
-msgstr "Sprži CD Image"
+msgstr ""
 
 #: ../src/burn.c:316
-#, fuzzy
 msgid "Please wait while the data CD image is extracted."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
 #: ../src/burn.c:322
-#, fuzzy
 msgid "Copying data CD"
-msgstr "Kopiraj CD sa podacima"
+msgstr ""
 
 #: ../src/burn.c:322
-#, fuzzy
-msgid "Please wait while the data CD image is extracted and then burned to CD."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgid ""
+"Please wait while the data CD image is extracted and then burned to CD."
+msgstr ""
 
 #: ../src/burn.c:342
-#, fuzzy
 msgid "Copying audio CD"
-msgstr "Kopiraj audio CD"
+msgstr ""
 
 #: ../src/burn.c:342
-#, fuzzy
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
-msgstr "Molim Vas umetnite audio CD u CD čitač"
+msgstr ""
 
 #: ../src/burn.c:359
-#, fuzzy
 msgid "Blanking CD"
-msgstr "Prazan CDRW"
+msgstr ""
 
 #: ../src/burn.c:359
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:396
-#, fuzzy
+#: ../src/burn.c:375
+msgid "Formatting re-writeable DVD"
+msgstr ""
+
+#: ../src/burn.c:375
+msgid "Please wait while the DVD is formatted."
+msgstr ""
+
+#: ../src/burn.c:394
 msgid "Creating data DVD image"
-msgstr "Napravi CD sa podacima"
+msgstr ""
 
-#: ../src/burn.c:396
-#, fuzzy
+#: ../src/burn.c:394
 msgid "Please wait while the data DVD image is created."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
-#: ../src/burn.c:402
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:402
-#, fuzzy
+#: ../src/burn.c:400
 msgid "Please wait while the data is burned directly to DVD."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
-#: ../src/burn.c:420 ../src/burn.c:482
-#, fuzzy
+#: ../src/burn.c:418
 msgid "Appending to data DVD"
-msgstr "Kopiraj CD sa podacima"
+msgstr ""
 
-#: ../src/burn.c:420 ../src/burn.c:482
-#, fuzzy
+#: ../src/burn.c:418
 msgid "Please wait while the data is appended directly to the DVD."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
-
-#: ../src/burn.c:447 ../src/execfunctions.c:1438
-msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/datacd.c:147
@@ -263,8 +239,8 @@ msgid "%s used - %s remaining"
 msgstr ""
 
 #: ../src/datacd.c:203
-#, fuzzy
-msgid "File or directory is too large to fit in the remaining space on the CD"
+msgid ""
+"File or directory is too large to fit in the remaining space on the CD"
 msgstr ""
 "Datoteka ili direktorij su preveliki da bi stali na preostali prostor na CD-u"
 
@@ -273,8 +249,9 @@ msgid "_Edit name"
 msgstr ""
 
 #: ../src/datacd.c:481
+#, fuzzy
 msgid "Clear"
-msgstr ""
+msgstr "Očisti"
 
 #: ../src/datacd.c:514 ../gnomebaker.glade.h:45
 msgid "Contents"
@@ -323,104 +300,99 @@ msgid ""
 msgstr ""
 
 #: ../src/devices.c:656
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error mounting %s.\n"
 "\n"
 "%s"
-msgstr "Greška pri montiranju pisača"
+msgstr ""
 
 #: ../src/devices.c:785
-#, fuzzy, c-format
+#, c-format
 msgid "Please insert a disk into the %s"
-msgstr "Molim Vas umetnite prazan CD u CD pisač"
+msgstr ""
 
-#: ../src/execfunctions.c:87
+#: ../src/execfunctions.c:94
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:130
+#: ../src/execfunctions.c:137
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: ../src/execfunctions.c:187
+#: ../src/execfunctions.c:194
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:239 ../src/execfunctions.c:988
+#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
 #: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
 msgid "default"
 msgstr ""
 
-#: ../src/execfunctions.c:391
+#: ../src/execfunctions.c:397
 msgid "Preparing to extract audio tracks"
 msgstr ""
 
-#: ../src/execfunctions.c:402
+#: ../src/execfunctions.c:408
 #, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
-"Audio zapisi od prijašnje sesije već posotje na disku, da li želite "
-"iskoristiti postoječe zapise?"
+"Audio zapisi od prijašnje sesije već postoje na disku, da li želite "
+"iskoristiti postojeće zapise?"
 
-#: ../src/execfunctions.c:459
+#: ../src/execfunctions.c:465
 #, c-format
 msgid "Extracting audio track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:529
-#, fuzzy
+#: ../src/execfunctions.c:535
 msgid "Calculating data disk image size"
-msgstr "<b>Praznim disk...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:567
-#, fuzzy
+#: ../src/execfunctions.c:573
 msgid "Creating data disk image"
-msgstr "<b>Praznim disk...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:574
+#: ../src/execfunctions.c:580
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:804
-#, fuzzy
+#: ../src/execfunctions.c:810
 msgid "Formatting DVD"
-msgstr "Formatiraj DVD+RW"
+msgstr ""
 
-#: ../src/execfunctions.c:885
+#: ../src/execfunctions.c:891
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:916 ../src/execfunctions.c:941
-#, fuzzy
+#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
 msgid "Writing DVD"
-msgstr "Sprži CD Image"
+msgstr ""
 
-#: ../src/execfunctions.c:1054
-#, fuzzy
+#: ../src/execfunctions.c:1056
 msgid "Reading CD image"
-msgstr "Sprži CD Image"
+msgstr ""
 
-#: ../src/execfunctions.c:1062
-#, fuzzy
+#: ../src/execfunctions.c:1064
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
-"Audio zapisi od prijašnje sesije već posotje na disku, da li želite "
-"iskoristiti postoječe zapise?"
 
-#: ../src/execfunctions.c:1326
+#: ../src/execfunctions.c:1327
 #, c-format
 msgid "Converting %s to cd audio"
+msgstr ""
+
+#: ../src/execfunctions.c:1439
+msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
@@ -453,9 +425,8 @@ msgid "_Burn CD Image"
 msgstr ""
 
 #: ../src/filebrowser.c:606
-#, fuzzy
 msgid "_Burn DVD Image"
-msgstr "Sprži CD Image"
+msgstr ""
 
 #: ../src/filebrowser.c:714
 #, c-format
@@ -474,98 +445,76 @@ msgstr ""
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:469
+#: ../src/gbcommon.c:468
 msgid "All files"
 msgstr ""
 
-#: ../src/gbcommon.c:477
+#: ../src/gbcommon.c:480
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:102
 msgid "Loading preferences..."
 msgstr ""
 
-#: ../src/gnomebaker.c:108
+#: ../src/gnomebaker.c:105
 msgid "Detecting devices..."
 msgstr ""
 
-#: ../src/gnomebaker.c:111
+#: ../src/gnomebaker.c:108
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: ../src/gnomebaker.c:114
+#: ../src/gnomebaker.c:111
 msgid "Loading GUI..."
 msgstr ""
 
-#: ../src/gnomebaker.c:204
+#: ../src/gnomebaker.c:201
 msgid "Are you sure you want to quit?"
 msgstr ""
 
-#: ../src/gnomebaker.c:281
+#: ../src/gnomebaker.c:278
 msgid "CD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:282
-#, fuzzy
+#: ../src/gnomebaker.c:279
 msgid "Please select a CD image file."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
-#: ../src/gnomebaker.c:297
-#, fuzzy
+#: ../src/gnomebaker.c:292
 msgid "DVD Image files"
-msgstr "Sprži CD Image"
+msgstr ""
 
-#: ../src/gnomebaker.c:298
-#, fuzzy
+#: ../src/gnomebaker.c:293
 msgid "Please select a DVD image file."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
-#: ../src/gnomebaker.c:369 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
 msgid "GnomeBaker"
 msgstr ""
 
-#: ../src/gnomebaker.c:370
+#: ../src/gnomebaker.c:364
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr ""
 
-#: ../src/gnomebaker.c:370 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
 msgid "translator_credits"
 msgstr ""
 
-#: ../src/gnomebaker.c:435
-#, fuzzy
+#: ../src/gnomebaker.c:429
 msgid "Please select files to add to the disk."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
-#: ../src/gnomebaker.c:704 ../src/gnomebaker.c:727
+#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
 msgid "Playlist files"
 msgstr ""
 
-#: ../src/gnomebaker.c:705
-#, fuzzy
+#: ../src/gnomebaker.c:690
 msgid "Please select a playlist."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
-#: ../src/gnomebaker.c:734
+#: ../src/gnomebaker.c:711
 msgid "Save playlist as..."
-msgstr ""
-
-#: ../src/gnomebaker.c:757
-msgid "Project files"
-msgstr ""
-
-#: ../src/gnomebaker.c:758
-#, fuzzy
-msgid "Please select a project file."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
-
-#: ../src/main.c:40
-msgid "Show tracing information (useful when debugging)"
-msgstr ""
-
-#: ../src/main.c:49
-msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -605,58 +554,29 @@ msgstr ""
 msgid "Write DVD-RAM"
 msgstr ""
 
-#: ../src/progressdlg.c:79
-#, fuzzy, c-format
-msgid "%d minutes %d seconds"
-msgstr "0 minuta 0 sekundi"
-
-#: ../src/progressdlg.c:81
-#, fuzzy, c-format
-msgid "%d minute %d seconds"
-msgstr "0 minuta 0 sekundi"
-
-#: ../src/progressdlg.c:83
-#, c-format
-msgid "%d seconds"
-msgstr ""
-
-#: ../src/progressdlg.c:217
-#, c-format
-msgid "%s remaining"
-msgstr ""
-
-#: ../src/progressdlg.c:273 ../gnomebaker.glade.h:83
+#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
 msgid "Show output"
 msgstr ""
 
-#: ../src/progressdlg.c:273
+#: ../src/progressdlg.c:188
 msgid "Hide output"
 msgstr ""
 
-#: ../src/progressdlg.c:349
-#, c-format
-msgid "Elapsed time %s"
-msgstr ""
-
-#: ../src/progressdlg.c:355
-#, fuzzy
+#: ../src/progressdlg.c:262
 msgid "Completed"
-msgstr "Zgotovljeno"
+msgstr "Završeno"
 
-#: ../src/progressdlg.c:364
-#, fuzzy
+#: ../src/progressdlg.c:270
 msgid "Failed"
-msgstr "Nije uspjelo"
+msgstr "Neuspjeh"
 
 #: ../src/startdlg.c:98
-#, fuzzy
 msgid "Please select an image file to save to."
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgstr ""
 
 #: ../src/startdlg.c:120
-#, fuzzy
 msgid "CD/DVD Image files"
-msgstr "Sprži CD Image"
+msgstr ""
 
 #: ../src/startdlg.c:178 ../gnomebaker.glade.h:14
 msgid "<b>Devices</b>"
@@ -727,9 +647,8 @@ msgid "<b>Filesystem</b>"
 msgstr ""
 
 #: ../src/startdlg.c:379 ../src/startdlg.c:407
-#, fuzzy
 msgid "Writing"
-msgstr "Sprži CD Image"
+msgstr ""
 
 #: ../src/startdlg.c:381 ../src/startdlg.c:409
 msgid "Disk Information"
@@ -756,7 +675,7 @@ msgid "Burn the disk"
 msgstr ""
 
 #: ../src/startdlg.c:501
-msgid "Only create image"
+msgid "Create ISO only"
 msgstr ""
 
 #: ../src/startdlg.c:504
@@ -780,7 +699,7 @@ msgid "Rock Ridge"
 msgstr ""
 
 #: ../src/startdlg.c:509
-msgid "On the fly"
+msgid "On The Fly"
 msgstr ""
 
 #: ../src/startdlg.c:519
@@ -792,9 +711,8 @@ msgid "GnomeBaker data disk"
 msgstr ""
 
 #: ../src/burn.h:65 ../gnomebaker.glade.h:32
-#, fuzzy
 msgid "Blank CD-RW"
-msgstr "Prazan CDRW"
+msgstr ""
 
 #: ../src/burn.h:66 ../gnomebaker.glade.h:47
 #, fuzzy
@@ -811,9 +729,8 @@ msgid "Burn CD Image"
 msgstr "Sprži CD Image"
 
 #: ../src/burn.h:69 ../gnomebaker.glade.h:37
-#, fuzzy
 msgid "Burn DVD Image"
-msgstr "Sprži CD Image"
+msgstr ""
 
 #: ../src/burn.h:70
 #, fuzzy
@@ -821,9 +738,8 @@ msgid "Create Data CD"
 msgstr "Napravi CD sa podacima"
 
 #: ../src/burn.h:71
-#, fuzzy
 msgid "Append to Data CD"
-msgstr "Napravi CD sa podacima"
+msgstr ""
 
 #: ../src/burn.h:72
 msgid "Create Audio CD"
@@ -838,9 +754,8 @@ msgid "Create Video CD"
 msgstr "Napravi video CD"
 
 #: ../src/burn.h:75
-#, fuzzy
 msgid "Format DVD RW"
-msgstr "Formatiraj DVD+RW"
+msgstr ""
 
 #: ../src/burn.h:76
 #, fuzzy
@@ -848,9 +763,8 @@ msgid "Create Data DVD"
 msgstr "Napravi DVD sa podacima"
 
 #: ../src/burn.h:77
-#, fuzzy
 msgid "Append to Data DVD"
-msgstr "Napravi DVD sa podacima"
+msgstr ""
 
 #: ../gnomebaker.glade.h:1
 msgid " "
@@ -938,9 +852,8 @@ msgid "Add file(s)"
 msgstr ""
 
 #: ../gnomebaker.glade.h:25
-#, fuzzy
-msgid "Add the selected files to the disk"
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgid "Add the selected files to the CD"
+msgstr ""
 
 #: ../gnomebaker.glade.h:26
 msgid "Advanced"
@@ -963,9 +876,8 @@ msgid "Baking"
 msgstr ""
 
 #: ../gnomebaker.glade.h:31
-#, fuzzy
 msgid "Bl_ank CD-RW"
-msgstr "Prazan CDRW"
+msgstr ""
 
 #: ../gnomebaker.glade.h:33
 msgid "Boot Image"
@@ -980,9 +892,8 @@ msgid "Boot catalog"
 msgstr ""
 
 #: ../gnomebaker.glade.h:38
-#, fuzzy
 msgid "Burn _DVD Image"
-msgstr "Sprži CD Image"
+msgstr ""
 
 #: ../gnomebaker.glade.h:39
 msgid "C_opy Data CD"
@@ -993,7 +904,7 @@ msgid "Clean temporary directory on exit"
 msgstr ""
 
 #: ../gnomebaker.glade.h:41
-msgid "Clear the contents of the disk"
+msgid "Clear the contents of the CD"
 msgstr ""
 
 #: ../gnomebaker.glade.h:42
@@ -1017,9 +928,8 @@ msgid "Create Data Disk"
 msgstr ""
 
 #: ../gnomebaker.glade.h:50
-#, fuzzy
 msgid "Create Video Disk"
-msgstr "Napravi video CD"
+msgstr ""
 
 #: ../gnomebaker.glade.h:51
 msgid "Created by username"
@@ -1042,9 +952,8 @@ msgid "Force"
 msgstr ""
 
 #: ../gnomebaker.glade.h:56
-#, fuzzy
 msgid "Format DVD±RW"
-msgstr "Formatiraj DVD+RW"
+msgstr ""
 
 #: ../gnomebaker.glade.h:57
 msgid "GPL"
@@ -1095,14 +1004,12 @@ msgid "Move audio tracks up"
 msgstr ""
 
 #: ../gnomebaker.glade.h:70
-#, fuzzy
 msgid "Move selection _down"
-msgstr "Odstrani označeno"
+msgstr ""
 
 #: ../gnomebaker.glade.h:71
-#, fuzzy
 msgid "Move selection _up"
-msgstr "Odstrani označeno"
+msgstr ""
 
 #: ../gnomebaker.glade.h:72
 msgid "Not bootable"
@@ -1131,14 +1038,12 @@ msgid "Refresh the file browser file list"
 msgstr ""
 
 #: ../gnomebaker.glade.h:78
-#, fuzzy
 msgid "Remove selected"
-msgstr "Odstrani označeno"
+msgstr "Ukloni označeno"
 
 #: ../gnomebaker.glade.h:79
-#, fuzzy
-msgid "Remove the selected files from the disk"
-msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
+msgid "Remove the selected files from the CD"
+msgstr ""
 
 #: ../gnomebaker.glade.h:80
 msgid "Sc_an for devices"
@@ -1189,18 +1094,16 @@ msgid "_Add device"
 msgstr ""
 
 #: ../gnomebaker.glade.h:93
-#, fuzzy
 msgid "_Add selection"
-msgstr "Odstrani označeno"
+msgstr ""
 
 #: ../gnomebaker.glade.h:95
 msgid "_Export"
 msgstr ""
 
 #: ../gnomebaker.glade.h:96
-#, fuzzy
 msgid "_Format DVD±RW"
-msgstr "Formatiraj DVD+RW"
+msgstr ""
 
 #: ../gnomebaker.glade.h:97
 msgid "_Import"
@@ -1219,9 +1122,8 @@ msgid "_Refresh"
 msgstr ""
 
 #: ../gnomebaker.glade.h:101
-#, fuzzy
 msgid "_Remove selection"
-msgstr "Odstrani označeno"
+msgstr ""
 
 #: ../gnomebaker.glade.h:102
 msgid "_Show File Browser"
@@ -1250,99 +1152,3 @@ msgstr ""
 #: ../gnomebaker.glade.h:110
 msgid "tao"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Formatting re-writeable DVD"
-#~ msgstr "Formatiraj DVD+RW"
-
-#, fuzzy
-#~ msgid "Please wait while the DVD is formatted."
-#~ msgstr "Molim Vas odaberite jednu iso datoteku za spasiti na..."
-
-#, fuzzy
-#~ msgid "Move Selected Files _Down"
-#~ msgstr "Odstrani označeno"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Up"
-#~ msgstr "Odstrani označeno"
-
-#, fuzzy
-#~ msgid "_Remove Selected Files"
-#~ msgstr "Odstrani označeno"
-
-#, fuzzy
-#~ msgid "Formatting DVD-RW"
-#~ msgstr "Formatiraj DVD+RW"
-
-#, fuzzy
-#~ msgid "Burning DVD"
-#~ msgstr "Sprži CD Image"
-
-#, fuzzy
-#~ msgid "<b>Burning disk...</b>"
-#~ msgstr "<b>Pržim disk...</b>"
-
-#, fuzzy
-#~ msgid "Please insert the CD into the CD writer"
-#~ msgstr "Molim Vas umetnite CD-RW u CD pisač"
-
-#, fuzzy
-#~ msgid "<b>Blanking disk...</b>"
-#~ msgstr "<b>Praznim disk...</b>"
-
-#~ msgid "Please insert the CD-RW into the CD writer"
-#~ msgstr "Molim Vas umetnite CD-RW u CD pisač"
-
-#, fuzzy
-#~ msgid "Fixating"
-#~ msgstr "Fiksiram"
-
-#~ msgid "TITLE="
-#~ msgstr "NASLOV="
-
-#~ msgid "ARTIST="
-#~ msgstr "UMJETNIK/CA="
-
-#~ msgid "ALBUM="
-#~ msgstr "ALBUM="
-
-#~ msgid "File %s was not opened \n"
-#~ msgstr "Datoteka %s nije otvorena \n"
-
-#~ msgid "Performer"
-#~ msgstr "Izvođač/ica"
-
-#~ msgid "Albumtitle"
-#~ msgstr "Naslov albuma"
-
-#, fuzzy
-#~ msgid "Tracktitle"
-#~ msgstr "Naslov stvari"
-
-#~ msgid "File %s was not opened"
-#~ msgstr "datoteka %s nije otvorena"
-
-#~ msgid "Stereo"
-#~ msgstr "Stereo"
-
-#~ msgid "Dual Channel"
-#~ msgstr "Dvojni kanal"
-
-#~ msgid "Single Channel"
-#~ msgstr "Jedan kanal"
-
-#, fuzzy
-#~ msgid "burn - [%s]"
-#~ msgstr "prži - [%s]"
-
-#~ msgid "adding [%s]"
-#~ msgstr "dodajem [%s]"
-
-#, fuzzy
-#~ msgid "Tracks:"
-#~ msgstr "Zapisi:"
-
-#, fuzzy
-#~ msgid "File size %f disksize %f Fraction is %f"
-#~ msgstr "Veličina datoteke %f veličina diska %f Frakcija je %f"

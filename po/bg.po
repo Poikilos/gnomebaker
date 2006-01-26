@@ -1,21 +1,21 @@
-# Bulgarian translation of gnome baker.
-# Copyright (C) 2005 THE gnome baker'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the gnome baker package.
-# Vladimir Petkov <vpetkov@i-space.org>, 2005.
-# 
-# 
+# Bulgarian translation for gnomebaker
+# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# This file is distributed under the same license as the gnomebaker package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome baker 0.3\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-24 21:54+0000\n"
-"PO-Revision-Date: 2005-03-30 16:35+0300\n"
-"Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
-"Language-Team: Bulgarian <dict@fsa-bg.org>\n"
+"Project-Id-Version: gnomebaker\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2006-01-12 10:15+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Rosetta-Version: 0.1\n"
 
 #: ../src/audiocd.c:117
 #, c-format
@@ -24,29 +24,28 @@ msgstr ""
 
 #: ../src/audiocd.c:165
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Песента е твърде голяма за да се побере в оставащото място на CD-то"
+msgstr ""
+"Песента(Track) е твърде дълга за да се събере на оставащото място на CD-то"
 
 #: ../src/audiocd.c:256 ../src/filebrowser.c:584
 msgid "_Open"
 msgstr ""
 
 #: ../src/audiocd.c:261
-#, fuzzy
 msgid "Move selected _up"
-msgstr "Премахване на избраните"
+msgstr ""
 
 #: ../src/audiocd.c:263
-#, fuzzy
 msgid "Move selected _down"
-msgstr "Премахване на избраните"
+msgstr ""
 
 #: ../src/audiocd.c:266 ../src/datacd.c:479
 msgid "_Remove selected"
-msgstr "_Премахване на избраните"
+msgstr ""
 
 #: ../src/audiocd.c:268
 msgid "_Clear"
-msgstr "_Изчистване"
+msgstr ""
 
 #: ../src/audiocd.c:358
 #, c-format
@@ -61,50 +60,47 @@ msgid ""
 "or m3u file."
 msgstr ""
 
-#: ../src/audiocd.c:724 ../src/audiocd.c:761
-#, fuzzy
+#: ../src/audiocd.c:723 ../src/audiocd.c:759
 msgid "Failed to write playlist file"
-msgstr "Грешка при инициализиране на gconf"
+msgstr ""
 
-#: ../src/audiocd.c:810
+#: ../src/audiocd.c:808
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:843
+#: ../src/audiocd.c:841
 msgid "Track"
-msgstr "Песен"
+msgstr "Песен(Track)"
 
-#: ../src/audiocd.c:856
+#: ../src/audiocd.c:854
 msgid "Duration"
 msgstr "Продължителност"
 
-#: ../src/audiocd.c:873
+#: ../src/audiocd.c:871
 msgid "Artist"
-msgstr "Артист"
+msgstr "Изпълнител"
 
-#: ../src/audiocd.c:882
+#: ../src/audiocd.c:880
 msgid "Album"
 msgstr "Албум"
 
-#: ../src/audiocd.c:891
+#: ../src/audiocd.c:889
 msgid "Title"
 msgstr "Заглавие"
 
-#: ../src/audiocd.c:900
+#: ../src/audiocd.c:898
 msgid "Info"
 msgstr ""
 
 #: ../src/burn.c:94 ../src/burn.c:140
-#, fuzzy
 msgid "Burning CD image"
-msgstr "Запис на изображение"
+msgstr ""
 
 #: ../src/burn.c:94 ../src/burn.c:140
-#, fuzzy
 msgid "Please wait while the CD image you selected is burned to CD."
-msgstr "Изберете файлът-образ на CD..."
+msgstr ""
 
 #: ../src/burn.c:116
 msgid ""
@@ -113,14 +109,12 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:121
-#, fuzzy
 msgid "Burning DVD image"
-msgstr "Запис на изображение"
+msgstr ""
 
 #: ../src/burn.c:121
-#, fuzzy
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr "Изберете файлът-образ на CD..."
+msgstr ""
 
 #: ../src/burn.c:164
 msgid ""
@@ -129,23 +123,20 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:181
-#, fuzzy
 msgid "Creating data CD image"
-msgstr "<b>Създаване на изображение за диск с данни...</b>"
+msgstr ""
 
 #: ../src/burn.c:181
-#, fuzzy
 msgid "Please wait while the data CD image is created."
-msgstr "Изберете файлът-образ на CD..."
+msgstr ""
 
 #: ../src/burn.c:187 ../src/burn.c:197
 msgid "Burning data CD"
 msgstr ""
 
 #: ../src/burn.c:187
-#, fuzzy
 msgid "Please wait while the data is burned directly to CD."
-msgstr "Изберете файлът-образ на CD..."
+msgstr ""
 
 #: ../src/burn.c:197
 msgid ""
@@ -154,14 +145,12 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:221 ../src/burn.c:231
-#, fuzzy
 msgid "Appending to data CD"
-msgstr "Копиране на CD с данни"
+msgstr ""
 
 #: ../src/burn.c:221
-#, fuzzy
 msgid "Please wait while the additional data is burned directly to CD."
-msgstr "Изберете файлът-образ на CD..."
+msgstr ""
 
 #: ../src/burn.c:231
 msgid ""
@@ -174,83 +163,75 @@ msgid "Burning audio CD"
 msgstr ""
 
 #: ../src/burn.c:253
-#, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
-msgstr "Изберете iso файл за записване..."
+msgstr ""
 
 #: ../src/burn.c:316
-#, fuzzy
 msgid "Extracting CD image"
-msgstr "Запис на изображение"
+msgstr ""
 
 #: ../src/burn.c:316
-#, fuzzy
 msgid "Please wait while the data CD image is extracted."
-msgstr "Изберете файлът-образ на CD..."
+msgstr ""
 
 #: ../src/burn.c:322
-#, fuzzy
 msgid "Copying data CD"
-msgstr "Копиране на CD с данни"
+msgstr ""
 
 #: ../src/burn.c:322
-#, fuzzy
-msgid "Please wait while the data CD image is extracted and then burned to CD."
-msgstr "Изберете файлът-образ на CD..."
+msgid ""
+"Please wait while the data CD image is extracted and then burned to CD."
+msgstr ""
 
 #: ../src/burn.c:342
-#, fuzzy
 msgid "Copying audio CD"
-msgstr "Копиране на аудио CD"
+msgstr ""
 
 #: ../src/burn.c:342
-#, fuzzy
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
-msgstr "Изберете iso файл за записване..."
+msgstr ""
 
 #: ../src/burn.c:359
-#, fuzzy
 msgid "Blanking CD"
-msgstr "Празен CDRW"
+msgstr ""
 
 #: ../src/burn.c:359
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:396
-#, fuzzy
+#: ../src/burn.c:375
+msgid "Formatting re-writeable DVD"
+msgstr ""
+
+#: ../src/burn.c:375
+msgid "Please wait while the DVD is formatted."
+msgstr ""
+
+#: ../src/burn.c:394
 msgid "Creating data DVD image"
-msgstr "<b>Създаване на изображение за диск с данни...</b>"
+msgstr ""
 
-#: ../src/burn.c:396
-#, fuzzy
+#: ../src/burn.c:394
 msgid "Please wait while the data DVD image is created."
-msgstr "Изберете файлът-образ на CD..."
+msgstr ""
 
-#: ../src/burn.c:402
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:402
-#, fuzzy
+#: ../src/burn.c:400
 msgid "Please wait while the data is burned directly to DVD."
-msgstr "Изберете файлът-образ на CD..."
+msgstr ""
 
-#: ../src/burn.c:420 ../src/burn.c:482
-#, fuzzy
+#: ../src/burn.c:418
 msgid "Appending to data DVD"
-msgstr "Копиране на CD с данни"
+msgstr ""
 
-#: ../src/burn.c:420 ../src/burn.c:482
-#, fuzzy
+#: ../src/burn.c:418
 msgid "Please wait while the data is appended directly to the DVD."
-msgstr "Изберете файлът-образ на CD..."
-
-#: ../src/burn.c:447 ../src/execfunctions.c:1438
-msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/datacd.c:147
@@ -259,10 +240,11 @@ msgid "%s used - %s remaining"
 msgstr ""
 
 #: ../src/datacd.c:203
-msgid "File or directory is too large to fit in the remaining space on the CD"
+msgid ""
+"File or directory is too large to fit in the remaining space on the CD"
 msgstr ""
-"Файл или папка са твърде големи за да се поберат в оставащото свободно място "
-"на CD-то"
+"Файлът или директорията е твърде голям(а) за да се събере на оставащото "
+"място върху CD-то"
 
 #: ../src/datacd.c:475
 msgid "_Edit name"
@@ -274,7 +256,7 @@ msgstr "Изчистване"
 
 #: ../src/datacd.c:514 ../gnomebaker.glade.h:45
 msgid "Contents"
-msgstr "Потребителско ръководство"
+msgstr "Съдържание"
 
 #: ../src/datacd.c:538 ../src/datacd.c:548 ../src/filebrowser.c:797
 #: ../src/filebrowser.c:807
@@ -283,7 +265,7 @@ msgstr "Размер"
 
 #: ../src/datacd.c:558
 msgid "Full Path"
-msgstr "Пълен път"
+msgstr "Пълен Път"
 
 #: ../src/datacd.c:567
 msgid "Session"
@@ -296,7 +278,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Грешка при получаването на информация за сесията.\n"
+"Грешка при отчитане на информацията за сесията.\n"
 "\n"
 "%s"
 
@@ -310,6 +292,8 @@ msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
 msgstr ""
+"Грешка при импортиране на сесия от [%s]. Моля проверете конфигурацията на "
+"устройствата в Настройки."
 
 #: ../src/devices.c:646
 msgid ""
@@ -317,105 +301,106 @@ msgid ""
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
+"Точката за монтиране (напр. /mnt/cdrom) за записващото устройство не може да "
+"бъде намерена. Моля проверете дали записващото устройство е въведено в "
+"/etc/fstab и след това презаредете устройствата в Настройки."
 
 #: ../src/devices.c:656
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error mounting %s.\n"
 "\n"
 "%s"
 msgstr ""
-"Грешка %s %s.\n"
-"\n"
-"%s"
 
 #: ../src/devices.c:785
-#, fuzzy, c-format
+#, c-format
 msgid "Please insert a disk into the %s"
-msgstr "Поставете CD-то в записвачката"
+msgstr ""
 
-#: ../src/execfunctions.c:87
+#: ../src/execfunctions.c:94
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:130
+#: ../src/execfunctions.c:137
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: ../src/execfunctions.c:187
+#: ../src/execfunctions.c:194
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:239 ../src/execfunctions.c:988
+#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
 #: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
 msgid "default"
-msgstr "стандартно"
+msgstr "по подразбиране"
 
-#: ../src/execfunctions.c:391
-#, fuzzy
+#: ../src/execfunctions.c:397
 msgid "Preparing to extract audio tracks"
-msgstr "<b>Изваждане на песни...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:402
+#: ../src/execfunctions.c:408
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
+"Аудио песни(tracks) от предна сесия вече съществуват на диска, искате ли да "
+"използвате съществуващите песни(tracks)?"
 
-#: ../src/execfunctions.c:459
-#, fuzzy, c-format
+#: ../src/execfunctions.c:465
+#, c-format
 msgid "Extracting audio track %d"
-msgstr "<b>Изваждане на песни...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:529
-#, fuzzy
+#: ../src/execfunctions.c:535
 msgid "Calculating data disk image size"
-msgstr "<b>Създаване на изображение за диск с данни...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:567
-#, fuzzy
+#: ../src/execfunctions.c:573
 msgid "Creating data disk image"
-msgstr "<b>Създаване на изображение за диск с данни...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:574
+#: ../src/execfunctions.c:580
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
+"Image на CD с данни от предна сесия вече съществува, искате ли да използвате "
+"съществуващия image?"
 
-#: ../src/execfunctions.c:804
-#, fuzzy
+#: ../src/execfunctions.c:810
 msgid "Formatting DVD"
-msgstr "Форматиране на DVDRW"
+msgstr ""
 
-#: ../src/execfunctions.c:885
+#: ../src/execfunctions.c:891
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:916 ../src/execfunctions.c:941
-#, fuzzy
+#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
 msgid "Writing DVD"
-msgstr "Запис на DVD-R"
+msgstr ""
 
-#: ../src/execfunctions.c:1054
-#, fuzzy
+#: ../src/execfunctions.c:1056
 msgid "Reading CD image"
-msgstr "<b>Четене на изображение на CD...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:1062
+#: ../src/execfunctions.c:1064
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1326
-#, fuzzy, c-format
+#: ../src/execfunctions.c:1327
+#, c-format
 msgid "Converting %s to cd audio"
-msgstr "<b>Конвертиране на wav в аудио cd...</b>"
+msgstr ""
+
+#: ../src/execfunctions.c:1439
+msgid "Verifying the disk content"
+msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
 #: ../src/startdlg.c:408
@@ -431,27 +416,24 @@ msgid "(empty)"
 msgstr ""
 
 #: ../src/filebrowser.c:76
-#, fuzzy
 msgid "Folder"
-msgstr "Режим"
+msgstr ""
 
 #: ../src/filebrowser.c:575
-#, fuzzy
 msgid "_Add directory"
-msgstr "Добавяне на папка"
+msgstr ""
 
 #: ../src/filebrowser.c:588
 msgid "_Add file(s)"
-msgstr "_Добавяне на файл(ове)"
+msgstr ""
 
 #: ../src/filebrowser.c:603 ../gnomebaker.glade.h:94
 msgid "_Burn CD Image"
-msgstr "_Запис на изображение"
+msgstr "_Записване на CD Image"
 
 #: ../src/filebrowser.c:606
-#, fuzzy
 msgid "_Burn DVD Image"
-msgstr "_Запис на изображение"
+msgstr ""
 
 #: ../src/filebrowser.c:714
 #, c-format
@@ -470,101 +452,76 @@ msgstr "Тип"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:469
+#: ../src/gbcommon.c:468
 msgid "All files"
 msgstr "Всички файлове"
 
-#: ../src/gbcommon.c:477
+#: ../src/gbcommon.c:480
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:102
 msgid "Loading preferences..."
 msgstr "Зареждане на настройките..."
 
-#: ../src/gnomebaker.c:108
+#: ../src/gnomebaker.c:105
 msgid "Detecting devices..."
-msgstr "Засичане на устройства..."
+msgstr "Откриване на устройства..."
+
+#: ../src/gnomebaker.c:108
+msgid "Registering gstreamer plugins..."
+msgstr "Регистриране на gstreamer плъгини..."
 
 #: ../src/gnomebaker.c:111
-msgid "Registering gstreamer plugins..."
+msgid "Loading GUI..."
+msgstr "Зареждане на графичния интерфейс..."
+
+#: ../src/gnomebaker.c:201
+msgid "Are you sure you want to quit?"
+msgstr "Сигурни ли сте, че искате да излезете?"
+
+#: ../src/gnomebaker.c:278
+msgid "CD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:114
-msgid "Loading GUI..."
-msgstr "Зареждане на ГПИ..."
-
-#: ../src/gnomebaker.c:204
-msgid "Are you sure you want to quit?"
-msgstr "Наистина ли искате да спрете програмата?"
-
-#: ../src/gnomebaker.c:281
-msgid "CD Image files"
-msgstr "Файлове-образи на CD-та"
-
-#: ../src/gnomebaker.c:282
-#, fuzzy
+#: ../src/gnomebaker.c:279
 msgid "Please select a CD image file."
-msgstr "Изберете iso файл за записване..."
+msgstr ""
 
-#: ../src/gnomebaker.c:297
-#, fuzzy
+#: ../src/gnomebaker.c:292
 msgid "DVD Image files"
-msgstr "Файлове-образи на CD-та"
+msgstr ""
 
-#: ../src/gnomebaker.c:298
-#, fuzzy
+#: ../src/gnomebaker.c:293
 msgid "Please select a DVD image file."
-msgstr "Изберете iso файл за записване..."
+msgstr ""
 
-#: ../src/gnomebaker.c:369 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:370
-#, fuzzy
+#: ../src/gnomebaker.c:364
 msgid "Simple CD/DVD Burning for Gnome"
-msgstr "Лесен запис на CD към GNOME"
+msgstr ""
 
-#: ../src/gnomebaker.c:370 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
 msgid "translator_credits"
-msgstr "Владимир \"Kaladan\" Петков <vpetkov@i-space.org>"
+msgstr "Никола Касабов"
 
-#: ../src/gnomebaker.c:435
-#, fuzzy
+#: ../src/gnomebaker.c:429
 msgid "Please select files to add to the disk."
-msgstr "Изберете iso файл за записване..."
+msgstr ""
 
-#: ../src/gnomebaker.c:704 ../src/gnomebaker.c:727
-#, fuzzy
+#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
 msgid "Playlist files"
-msgstr "Всички файлове"
+msgstr ""
 
-#: ../src/gnomebaker.c:705
-#, fuzzy
+#: ../src/gnomebaker.c:690
 msgid "Please select a playlist."
-msgstr "Изберете iso файл за записване..."
+msgstr ""
 
-#: ../src/gnomebaker.c:734
+#: ../src/gnomebaker.c:711
 msgid "Save playlist as..."
-msgstr ""
-
-#: ../src/gnomebaker.c:757
-#, fuzzy
-msgid "Project files"
-msgstr "Изваждане на диск"
-
-#: ../src/gnomebaker.c:758
-#, fuzzy
-msgid "Please select a project file."
-msgstr "Изберете iso файл за записване..."
-
-#: ../src/main.c:40
-msgid "Show tracing information (useful when debugging)"
-msgstr ""
-
-#: ../src/main.c:49
-msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -586,116 +543,83 @@ msgstr "Възел"
 
 #: ../src/prefsdlg.c:179
 msgid "Mount point"
-msgstr "Точка за монтиране"
+msgstr "Точка на монтиране"
 
 #: ../src/prefsdlg.c:188
 msgid "Write CD-R"
-msgstr "Запис на CD-R"
+msgstr "Записване на CD-R"
 
 #: ../src/prefsdlg.c:197
 msgid "Write CD-RW"
-msgstr "Запис на CD-RW"
+msgstr "Записване на CD-RW"
 
 #: ../src/prefsdlg.c:206
 msgid "Write DVD-R"
-msgstr "Запис на DVD-R"
+msgstr "Записване на DVD-R"
 
 #: ../src/prefsdlg.c:215
 msgid "Write DVD-RAM"
-msgstr "Запис на DVD-RAM"
+msgstr "Записване на DVD-RAM"
 
-#: ../src/progressdlg.c:79
-#, fuzzy, c-format
-msgid "%d minutes %d seconds"
-msgstr "%d мин. %d сек."
-
-#: ../src/progressdlg.c:81
-#, fuzzy, c-format
-msgid "%d minute %d seconds"
-msgstr "%d мин. %d сек."
-
-#: ../src/progressdlg.c:83
-#, c-format
-msgid "%d seconds"
-msgstr ""
-
-#: ../src/progressdlg.c:217
-#, c-format
-msgid "%s remaining"
-msgstr ""
-
-#: ../src/progressdlg.c:273 ../gnomebaker.glade.h:83
+#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
 msgid "Show output"
 msgstr ""
 
-#: ../src/progressdlg.c:273
+#: ../src/progressdlg.c:188
 msgid "Hide output"
 msgstr ""
 
-#: ../src/progressdlg.c:349
-#, c-format
-msgid "Elapsed time %s"
-msgstr ""
-
-#: ../src/progressdlg.c:355
+#: ../src/progressdlg.c:262
 msgid "Completed"
-msgstr "Готово"
+msgstr "Завършено"
 
-#: ../src/progressdlg.c:364
+#: ../src/progressdlg.c:270
 msgid "Failed"
-msgstr "Неуспех"
+msgstr "Неуспешно"
 
 #: ../src/startdlg.c:98
-#, fuzzy
 msgid "Please select an image file to save to."
-msgstr "Изберете iso файл за записване..."
+msgstr ""
 
 #: ../src/startdlg.c:120
-#, fuzzy
 msgid "CD/DVD Image files"
-msgstr "Файлове-образи на CD-та"
+msgstr ""
 
 #: ../src/startdlg.c:178 ../gnomebaker.glade.h:14
 msgid "<b>Devices</b>"
 msgstr "<b>Устройства</b>"
 
 #: ../src/startdlg.c:179
-#, fuzzy
 msgid "<b>Device</b>"
-msgstr "<b>Устройства</b>"
+msgstr ""
 
 #: ../src/startdlg.c:183
-#, fuzzy
 msgid "Reader:"
-msgstr "Четец"
+msgstr ""
 
 #: ../src/startdlg.c:187
-#, fuzzy
 msgid "Writer:"
-msgstr "Записвачка"
+msgstr ""
 
 #: ../src/startdlg.c:190
-#, fuzzy
 msgid "Speed:"
-msgstr "Скорост"
+msgstr ""
 
 #: ../src/startdlg.c:194
-#, fuzzy
 msgid "Mode:"
-msgstr "Режим"
+msgstr ""
 
 #: ../src/startdlg.c:217 ../gnomebaker.glade.h:16
 msgid "<b>Options</b>"
-msgstr "<b>Опции</b>"
+msgstr "<b>Настройки</b>"
 
 #: ../src/startdlg.c:246 ../gnomebaker.glade.h:103
 msgid "_Start"
 msgstr "_Старт"
 
 #: ../src/startdlg.c:310
-#, fuzzy
 msgid "<b>Disk Information</b>"
-msgstr "<b>Опции при стартиране</b>"
+msgstr ""
 
 #: ../src/startdlg.c:312
 msgid "Volume ID:"
@@ -726,14 +650,12 @@ msgid "Bibliography:"
 msgstr ""
 
 #: ../src/startdlg.c:341
-#, fuzzy
 msgid "<b>Filesystem</b>"
-msgstr "<b>Файлов браузър</b>"
+msgstr ""
 
 #: ../src/startdlg.c:379 ../src/startdlg.c:407
-#, fuzzy
 msgid "Writing"
-msgstr "Запис на DVD-R"
+msgstr ""
 
 #: ../src/startdlg.c:381 ../src/startdlg.c:409
 msgid "Disk Information"
@@ -741,15 +663,15 @@ msgstr ""
 
 #: ../src/startdlg.c:495
 msgid "Dummy write"
-msgstr ""
+msgstr "Фиктивен запис"
 
 #: ../src/startdlg.c:496
 msgid "Eject disk"
-msgstr "Изваждане на диск"
+msgstr "Изваждане на диска"
 
 #: ../src/startdlg.c:497
 msgid "Fast blank"
-msgstr ""
+msgstr "Бързо изтриване"
 
 #: ../src/startdlg.c:498
 msgid "BurnFree"
@@ -760,8 +682,8 @@ msgid "Burn the disk"
 msgstr ""
 
 #: ../src/startdlg.c:501
-msgid "Only create image"
-msgstr ""
+msgid "Create ISO only"
+msgstr "Създаване само на ISO"
 
 #: ../src/startdlg.c:504
 msgid "Force format"
@@ -769,7 +691,7 @@ msgstr ""
 
 #: ../src/startdlg.c:505
 msgid "Finalize"
-msgstr "Приключване"
+msgstr "Финализиране"
 
 #: ../src/startdlg.c:506
 msgid "Fast format"
@@ -784,7 +706,7 @@ msgid "Rock Ridge"
 msgstr ""
 
 #: ../src/startdlg.c:509
-msgid "On the fly"
+msgid "On The Fly"
 msgstr ""
 
 #: ../src/startdlg.c:519
@@ -792,66 +714,60 @@ msgid "_Browse..."
 msgstr ""
 
 #: ../src/startdlg.c:521
-#, fuzzy
 msgid "GnomeBaker data disk"
-msgstr "Диск с данни"
+msgstr ""
 
 #: ../src/burn.h:65 ../gnomebaker.glade.h:32
-#, fuzzy
 msgid "Blank CD-RW"
-msgstr "Празен CDRW"
+msgstr ""
 
 #: ../src/burn.h:66 ../gnomebaker.glade.h:47
 msgid "Copy Data CD"
-msgstr "Копиране на CD с данни"
+msgstr "Копиране на CD с Данни"
 
 #: ../src/burn.h:67 ../gnomebaker.glade.h:46
 msgid "Copy Audio CD"
-msgstr "Копиране на аудио CD"
+msgstr "Копиране на Аудио CD"
 
 #: ../src/burn.h:68 ../gnomebaker.glade.h:36
 msgid "Burn CD Image"
-msgstr "Запис на изображение"
+msgstr "Записване от CD Image файл"
 
 #: ../src/burn.h:69 ../gnomebaker.glade.h:37
-#, fuzzy
 msgid "Burn DVD Image"
-msgstr "Запис на изображение"
+msgstr ""
 
 #: ../src/burn.h:70
 msgid "Create Data CD"
-msgstr "Създаване на CD с данни"
+msgstr "Създаване на CD с Данни"
 
 #: ../src/burn.h:71
-#, fuzzy
 msgid "Append to Data CD"
-msgstr "Създаване на CD с данни"
+msgstr ""
 
 #: ../src/burn.h:72
 msgid "Create Audio CD"
-msgstr "Създаване на аудио CD"
+msgstr "Създаване на Аудио CD"
 
 #: ../src/burn.h:73
 msgid "Create Mixed CD"
-msgstr "Създаване на смесено CD"
+msgstr "Създаване на Смесено CD"
 
 #: ../src/burn.h:74
 msgid "Create Video CD"
-msgstr "Създаване на видео CD"
+msgstr "Създаване на Видео CD"
 
 #: ../src/burn.h:75
-#, fuzzy
 msgid "Format DVD RW"
-msgstr "Форматиране на DVD+RW"
+msgstr ""
 
 #: ../src/burn.h:76
 msgid "Create Data DVD"
-msgstr "Създаване на DVD с данни"
+msgstr "Създаване на DVD с Данни"
 
 #: ../src/burn.h:77
-#, fuzzy
 msgid "Append to Data DVD"
-msgstr "Създаване на DVD с данни"
+msgstr ""
 
 #: ../gnomebaker.glade.h:1
 msgid " "
@@ -867,7 +783,7 @@ msgstr "/tmp"
 
 #: ../gnomebaker.glade.h:4
 msgid "0 mins 0 secs"
-msgstr "0 мин. и 0 сек."
+msgstr "0 мин 0 сек"
 
 #: ../gnomebaker.glade.h:6
 #, no-c-format
@@ -884,11 +800,11 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:9
 msgid "<b>Audio Disk</b>"
-msgstr "<b>Музикален диск</b>"
+msgstr "<b>Аудио Диск</b>"
 
 #: ../gnomebaker.glade.h:10
 msgid "<b>Boot options</b>"
-msgstr "<b>Опции при стартиране</b>"
+msgstr "<b>Стартови(boot) опции</b>"
 
 #: ../gnomebaker.glade.h:11
 msgid "<b>Created by</b>"
@@ -896,33 +812,31 @@ msgstr "<b>Създадено от</b>"
 
 #: ../gnomebaker.glade.h:12
 msgid "<b>Data Disk</b>"
-msgstr "<b>Диск с данни</b>"
+msgstr "<b>Диск с Данни</b>"
 
 #: ../gnomebaker.glade.h:13
 msgid "<b>Detected devices</b>"
-msgstr "<b>Засечени устройства</b>"
+msgstr "<b>Открити устройства</b>"
 
 #: ../gnomebaker.glade.h:15
 msgid "<b>File Browser</b>"
-msgstr "<b>Файлов браузър</b>"
+msgstr "<b>Файлов Браузър</b>"
 
 #: ../gnomebaker.glade.h:17
-#, fuzzy
 msgid "<b>Other</b>"
-msgstr "<b>Опции</b>"
+msgstr ""
 
 #: ../gnomebaker.glade.h:18
 msgid "<b>Progress window</b>"
 msgstr ""
 
 #: ../gnomebaker.glade.h:19
-#, fuzzy
 msgid "<b>Select Writer</b>"
-msgstr "Избор на записвачка..."
+msgstr ""
 
 #: ../gnomebaker.glade.h:20
 msgid "<b>Temporary Directory</b>"
-msgstr "<b>Временна папка</b>"
+msgstr "<b>Временна Дирестория</b>"
 
 #: ../gnomebaker.glade.h:21
 msgid "<b>Video CD</b>"
@@ -930,7 +844,7 @@ msgstr "<b>Видео CD</b>"
 
 #: ../gnomebaker.glade.h:22
 msgid "<b>Volume label</b>"
-msgstr "<b>Етикет на носителя</b>"
+msgstr "<b>Етикет на тома</b>"
 
 #: ../gnomebaker.glade.h:23
 msgid "<i>...</i>"
@@ -938,12 +852,11 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:24
 msgid "Add file(s)"
-msgstr "Добавяне на файл(ове)"
+msgstr "Добави файл(ове)"
 
 #: ../gnomebaker.glade.h:25
-#, fuzzy
-msgid "Add the selected files to the disk"
-msgstr "Добавяне на избраните файлове към CD-то"
+msgid "Add the selected files to the CD"
+msgstr "Добавяне на избраните файлове към CD"
 
 #: ../gnomebaker.glade.h:26
 msgid "Advanced"
@@ -951,7 +864,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:27
 msgid "Always scan for devices on startup"
-msgstr "При стартиране винаги да се сканира за нови устройства"
+msgstr "Винаги сканира за устройства при стартиране"
 
 #: ../gnomebaker.glade.h:28
 msgid "Ask on quit"
@@ -966,67 +879,64 @@ msgid "Baking"
 msgstr ""
 
 #: ../gnomebaker.glade.h:31
-#, fuzzy
 msgid "Bl_ank CD-RW"
-msgstr "Пр_азно CDRW"
+msgstr ""
 
 #: ../gnomebaker.glade.h:33
 msgid "Boot Image"
-msgstr ""
+msgstr "Стартов(boot) image"
 
 #: ../gnomebaker.glade.h:34
 msgid "Boot Image list"
-msgstr ""
+msgstr "Списък на Стартов(boot) Image"
 
 #: ../gnomebaker.glade.h:35
 msgid "Boot catalog"
-msgstr ""
+msgstr "Стартов(boot) каталог"
 
 #: ../gnomebaker.glade.h:38
-#, fuzzy
 msgid "Burn _DVD Image"
-msgstr "Запис на изображение"
+msgstr ""
 
 #: ../gnomebaker.glade.h:39
 msgid "C_opy Data CD"
-msgstr "К_опиране на CD с данни"
+msgstr "К_опиране на CD с Данни"
 
 #: ../gnomebaker.glade.h:40
 msgid "Clean temporary directory on exit"
-msgstr "Изчистване на временната папка след спиране на програмата"
+msgstr "Изчистване на временната директория при излизане"
 
 #: ../gnomebaker.glade.h:41
-#, fuzzy
-msgid "Clear the contents of the disk"
-msgstr "Изчистване съдържанието на CD-то"
+msgid "Clear the contents of the CD"
+msgstr "Изчистване на съдържанието на CD"
 
 #: ../gnomebaker.glade.h:42
 msgid "Click to begin the process of creating a data disk."
-msgstr "Натиснете за да започне процеса по запис на диск с данни."
+msgstr "Натисни за да започне процес на създаване на диск с данни."
 
 #: ../gnomebaker.glade.h:43
 msgid "Click to begin the process of creating an audio cd"
-msgstr ""
+msgstr "Натисни за да започне процес на създаване на аудио cd"
 
 #: ../gnomebaker.glade.h:44
 msgid "Co_py Audio CD"
-msgstr "Ко_пиране на музикално CD"
+msgstr "Ко_пиране на Аудио CD"
 
 #: ../gnomebaker.glade.h:48
 msgid "Create Audio Disk"
-msgstr "Запис на музикален диск"
+msgstr "Създаване на Аудио Диск"
 
 #: ../gnomebaker.glade.h:49
 msgid "Create Data Disk"
-msgstr "Запис на диск с данни"
+msgstr "Създаване на Диск с Данни"
 
 #: ../gnomebaker.glade.h:50
 msgid "Create Video Disk"
-msgstr "Създаване на видео CD"
+msgstr ""
 
 #: ../gnomebaker.glade.h:51
 msgid "Created by username"
-msgstr "Създадено от потребител"
+msgstr "Създадено от username"
 
 #: ../gnomebaker.glade.h:52
 msgid "Devices"
@@ -1038,16 +948,15 @@ msgstr "Редактиране настройките на GnomeBaker"
 
 #: ../gnomebaker.glade.h:54
 msgid "Floppy disk image"
-msgstr ""
+msgstr "Image на Флопи диск"
 
 #: ../gnomebaker.glade.h:55
 msgid "Force"
-msgstr "Насилствено"
+msgstr "Принуждаване"
 
 #: ../gnomebaker.glade.h:56
-#, fuzzy
 msgid "Format DVD±RW"
-msgstr "Форматиране на DVDRW"
+msgstr ""
 
 #: ../gnomebaker.glade.h:57
 msgid "GPL"
@@ -1063,32 +972,31 @@ msgstr "Настройки на GnomeBaker"
 
 #: ../gnomebaker.glade.h:61
 msgid "GnomeBaker data cd"
-msgstr "Диск с данни"
+msgstr "GnomeBaker cd с данни"
 
 #: ../gnomebaker.glade.h:62
 msgid "Hard disk image"
-msgstr ""
+msgstr "Image на Хард диск"
 
 #: ../gnomebaker.glade.h:63
 msgid "ISO filesystem details"
-msgstr ""
+msgstr "детайли на ISO файлова система"
 
 #: ../gnomebaker.glade.h:64
 msgid "Import"
-msgstr "Внасяне"
+msgstr "Вмъкване"
 
 #: ../gnomebaker.glade.h:65
-#, fuzzy
 msgid "Import Session"
-msgstr "_Внасяне на сесия"
+msgstr ""
 
 #: ../gnomebaker.glade.h:66
 msgid "Import existing session"
-msgstr "Внасяне на съществуваща сесия"
+msgstr "Вмъкване на съществуваща сесия"
 
 #: ../gnomebaker.glade.h:67
 msgid "Mode"
-msgstr "Режим"
+msgstr "Метод"
 
 #: ../gnomebaker.glade.h:68
 msgid "Move audio tracks down"
@@ -1099,22 +1007,20 @@ msgid "Move audio tracks up"
 msgstr ""
 
 #: ../gnomebaker.glade.h:70
-#, fuzzy
 msgid "Move selection _down"
-msgstr "Премахване на избраните"
+msgstr ""
 
 #: ../gnomebaker.glade.h:71
-#, fuzzy
 msgid "Move selection _up"
-msgstr "Премахване на избраните"
+msgstr ""
 
 #: ../gnomebaker.glade.h:72
 msgid "Not bootable"
-msgstr "Не е стартируем"
+msgstr "Не е стартово(bootable)"
 
 #: ../gnomebaker.glade.h:73
 msgid "PC bootable"
-msgstr "Стартируем от PC"
+msgstr "Стартово PC"
 
 #: ../gnomebaker.glade.h:74
 msgid "Play sound when burning is complete"
@@ -1128,24 +1034,23 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:76
 msgid "Reader"
-msgstr "Четец"
+msgstr "Четящо устройство"
 
 #: ../gnomebaker.glade.h:77
 msgid "Refresh the file browser file list"
-msgstr "Презареждане на списъка с файлове"
+msgstr "Обновяване списъка на файловете във файловия браузър"
 
 #: ../gnomebaker.glade.h:78
 msgid "Remove selected"
 msgstr "Премахване на избраните"
 
 #: ../gnomebaker.glade.h:79
-#, fuzzy
-msgid "Remove the selected files from the disk"
-msgstr "Премахване на избраните файлове от CD-то"
+msgid "Remove the selected files from the CD"
+msgstr "Премахване на избраните файлове от CD"
 
 #: ../gnomebaker.glade.h:80
 msgid "Sc_an for devices"
-msgstr "Ск_аниране за устройства"
+msgstr "_Сканиране за устройства"
 
 #: ../gnomebaker.glade.h:81
 msgid "Show hidden files"
@@ -1153,11 +1058,11 @@ msgstr "Показване на скритите файлове"
 
 #: ../gnomebaker.glade.h:82
 msgid "Show humanreadable filesizes"
-msgstr "Използване на мерни единици разбираеми от хора"
+msgstr "Показване на лесночетими файлови размери"
 
 #: ../gnomebaker.glade.h:84
 msgid "Simple CD burning for Gnome."
-msgstr "Лесен запис на CD към GNOME."
+msgstr "Лесен запис на CD за GNOME"
 
 #: ../gnomebaker.glade.h:85
 msgid "Speed"
@@ -1165,11 +1070,11 @@ msgstr "Скорост"
 
 #: ../gnomebaker.glade.h:86
 msgid "Splash window"
-msgstr "Предварителен екран"
+msgstr "Splash прозорец"
 
 #: ../gnomebaker.glade.h:87
 msgid "Start burning..."
-msgstr "Стартиране на записването..."
+msgstr "Стартиране на записване..."
 
 #: ../gnomebaker.glade.h:88
 msgid "Starting GnomeBaker..."
@@ -1177,11 +1082,11 @@ msgstr "Стартиране на GnomeBaker..."
 
 #: ../gnomebaker.glade.h:89
 msgid "Sun workstation bootable"
-msgstr ""
+msgstr "Стартова(bootable) Sun workstation"
 
 #: ../gnomebaker.glade.h:90
 msgid "Writer"
-msgstr "Записвачка"
+msgstr "Записващо устройство"
 
 #: ../gnomebaker.glade.h:91
 msgid "_Actions"
@@ -1192,46 +1097,40 @@ msgid "_Add device"
 msgstr "_Добавяне на устройство"
 
 #: ../gnomebaker.glade.h:93
-#, fuzzy
 msgid "_Add selection"
-msgstr "_Премахване на избраните"
+msgstr ""
 
 #: ../gnomebaker.glade.h:95
-#, fuzzy
 msgid "_Export"
-msgstr "Внасяне"
+msgstr ""
 
 #: ../gnomebaker.glade.h:96
-#, fuzzy
 msgid "_Format DVD±RW"
-msgstr "_Форматиране на DVDRW"
+msgstr ""
 
 #: ../gnomebaker.glade.h:97
-#, fuzzy
 msgid "_Import"
-msgstr "Внасяне"
+msgstr ""
 
 #: ../gnomebaker.glade.h:98
 msgid "_Import Session"
-msgstr "_Внасяне на сесия"
+msgstr "_Вмъкване на сесия"
 
 #: ../gnomebaker.glade.h:99
-#, fuzzy
 msgid "_Playlist"
-msgstr "Всички файлове"
+msgstr ""
 
 #: ../gnomebaker.glade.h:100
 msgid "_Refresh"
-msgstr "_Презареждане"
+msgstr "_Обновяване"
 
 #: ../gnomebaker.glade.h:101
-#, fuzzy
 msgid "_Remove selection"
-msgstr "_Премахване на избраните"
+msgstr ""
 
 #: ../gnomebaker.glade.h:102
 msgid "_Show File Browser"
-msgstr "_Показване на файловия браузър"
+msgstr "Показване на файловия _браузър"
 
 #: ../gnomebaker.glade.h:104
 msgid "_View"
@@ -1250,189 +1149,9 @@ msgid "raw96p"
 msgstr "raw96p"
 
 #: ../gnomebaker.glade.h:109
-#, fuzzy
 msgid "raw96r"
-msgstr "raw96p"
+msgstr ""
 
 #: ../gnomebaker.glade.h:110
 msgid "tao"
 msgstr "tao"
-
-#, fuzzy
-#~ msgid "Formatting re-writeable DVD"
-#~ msgstr "Форматиране на DVDRW"
-
-#, fuzzy
-#~ msgid "Please wait while the DVD is formatted."
-#~ msgstr "Изберете файлът-образ на CD..."
-
-#~ msgid "Create ISO only"
-#~ msgstr "Само ISO"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Down"
-#~ msgstr "Премахване на избраните"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Up"
-#~ msgstr "Премахване на избраните"
-
-#, fuzzy
-#~ msgid "_Add Selected Files"
-#~ msgstr "Добавяне на папка"
-
-#, fuzzy
-#~ msgid "_Audio Disk"
-#~ msgstr "<b>Музикален диск</b>"
-
-#, fuzzy
-#~ msgid "_Data Disk"
-#~ msgstr "Запис на диск с данни"
-
-#, fuzzy
-#~ msgid "_Remove Selected Files"
-#~ msgstr "_Премахване на избраните"
-
-#~ msgid "mounting"
-#~ msgstr "монтиране"
-
-#~ msgid "unmounting"
-#~ msgstr "от-монтиране"
-
-#~ msgid "Fast"
-#~ msgstr "Бързо"
-
-#, fuzzy
-#~ msgid "Formatting DVD-RW"
-#~ msgstr "Форматиране на DVDRW"
-
-#, fuzzy
-#~ msgid "Burning DVD"
-#~ msgstr "<b>Запис на DVD...</b>"
-
-#~ msgid "Add the current directory to the CD"
-#~ msgstr "Добавяне на текущата папка към CD-то"
-
-#~ msgid "Add directory"
-#~ msgstr "Добавяне на папка"
-
-#~ msgid "<b>Burning disk...</b>"
-#~ msgstr "<b>Запис на диск...</b>"
-
-#~ msgid "<b>Blanking disk...</b>"
-#~ msgstr "<b>Изчистване на диск...</b>"
-
-#~ msgid "Please insert the CD-RW into the CD writer"
-#~ msgstr "Поставете CD-RW в записвачката"
-
-#~ msgid "Fixating"
-#~ msgstr "Фиксиране"
-
-#~ msgid "<b>Formatting DVD...</b>"
-#~ msgstr "<b>Форматиране на DVD...</b>"
-
-#~ msgid "<b>Burning</b>"
-#~ msgstr "<b>Записване</b>"
-
-#, fuzzy
-#~ msgid "<b>GnomeBaker</b>"
-#~ msgstr "GnomeBaker"
-
-#~ msgid "TITLE="
-#~ msgstr "ЗАГЛАВИЕ="
-
-#~ msgid "ARTIST="
-#~ msgstr "АРТИСТ="
-
-#~ msgid "ALBUM="
-#~ msgstr "АЛБУМ="
-
-#~ msgid "File %s was not opened \n"
-#~ msgstr "Файлът %s не беше отворен \n"
-
-#~ msgid "Performer"
-#~ msgstr "Изпълнител"
-
-#~ msgid "Albumtitle"
-#~ msgstr "Заглавие на албум"
-
-#~ msgid "Tracktitle"
-#~ msgstr "Заглавие на песен"
-
-#~ msgid "File %s was not opened"
-#~ msgstr "Файлът %s не беше отворен"
-
-#~ msgid "audioinfo_new - mime type is %s for %s"
-#~ msgstr "audioinfo_new - типът mime на 2%s е 1%s"
-
-#~ msgid "Error reading wav header for file [%s]"
-#~ msgstr "Грешка при четенето на wav хедъра за файла [%s]"
-
-#~ msgid "Stereo"
-#~ msgstr "Стерео"
-
-#~ msgid "Joint Stereo"
-#~ msgstr "Джоинт стерео"
-
-#~ msgid "Dual Channel"
-#~ msgstr "Двоен канал"
-
-#~ msgid "Single Channel"
-#~ msgstr "Един канал"
-
-#~ msgid "Failed to start child process"
-#~ msgstr "Неуспех при стартирането на под-процес"
-
-#~ msgid "burn - [%s]"
-#~ msgstr "запис - [%s]"
-
-#~ msgid "Error getting msinfo"
-#~ msgstr "Грешка при получаването на msinfo"
-
-#~ msgid "Error mounting writer device"
-#~ msgstr "Грешка при монтирането на устройството за запис"
-
-#~ msgid "creating [%s]"
-#~ msgstr "създаване на [%s]"
-
-#~ msgid "toolbar style [%s] [%d]"
-#~ msgstr "стил на лентата с инструменти [%s] [%d]"
-
-#~ msgid "adding [%s]"
-#~ msgstr "добавяне на [%s]"
-
-#~ msgid "<b>Converting mp3 to cd audio...</b>"
-#~ msgstr "<b>Конвертиране на mp3 в аудио cd...</b>"
-
-#~ msgid "Converted file is [%s]"
-#~ msgstr "Конвертирания файл е [%s]"
-
-#~ msgid "<b>Converting ogg to cd audio...</b>"
-#~ msgstr "<b>Конвертиране на ogg файл в аудио cd...</b>"
-
-#~ msgid "Tracks:"
-#~ msgstr "Песни:"
-
-#~ msgid "returning [%s]"
-#~ msgstr "връщане [%s]"
-
-#~ msgid "74 min. CD"
-#~ msgstr "74 мин. CD"
-
-#~ msgid "80 min. CD"
-#~ msgstr "80 мин. CD"
-
-#~ msgid "Start burning"
-#~ msgstr "Стартиране на записването"
-
-#~ msgid "Allow overburning"
-#~ msgstr "Разрешаване на overburning"
-
-#~ msgid "Multisession"
-#~ msgstr "Много сесии"
-
-#~ msgid "Create ISO Only"
-#~ msgstr "Само ISO"
-
-#~ msgid "Eject CD"
-#~ msgstr "Изваждане на CD"

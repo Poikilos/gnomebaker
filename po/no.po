@@ -2,20 +2,19 @@
 # Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
 # This file is distributed under the same license as the GTK2/Gnome cd burning application package.
 # Jann - Ove Risvik <jann.ove@gmail.com>, 2005.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-24 21:54+0000\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2006-01-12 10:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Jann - Ove Risvik <jann.ove@gmail.com> \n"
+"Last-Translator: Jann - Ove Risvik <jann.ove@gmail.com>\n"
 "Language-Team: DunnoMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Rosetta-Version: 0.1\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 
 #: ../src/audiocd.c:117
 #, c-format
@@ -23,6 +22,7 @@ msgid "%d mins %d secs used - %d mins %d secs remaining"
 msgstr ""
 
 #: ../src/audiocd.c:165
+#, fuzzy
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "Sporet er for stort til Ã¥ fÃ¥ plass pÃ¥ CD-en"
 
@@ -66,38 +66,39 @@ msgstr ""
 "Filen du har valgt er ikke en cd image. Venligst velg en cd image for Ã¥ "
 "brenne"
 
-#: ../src/audiocd.c:724 ../src/audiocd.c:761
-#, fuzzy
+#: ../src/audiocd.c:723 ../src/audiocd.c:759
 msgid "Failed to write playlist file"
-msgstr "Mislyktes Ã¥ initialisere gconf"
+msgstr ""
 
-#: ../src/audiocd.c:810
+#: ../src/audiocd.c:808
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:843
+#: ../src/audiocd.c:841
 msgid "Track"
 msgstr "Spor"
 
-#: ../src/audiocd.c:856
+#: ../src/audiocd.c:854
+#, fuzzy
 msgid "Duration"
 msgstr "Lengde"
 
-#: ../src/audiocd.c:873
+#: ../src/audiocd.c:871
 msgid "Artist"
 msgstr "Artist"
 
-#: ../src/audiocd.c:882
+#: ../src/audiocd.c:880
+#, fuzzy
 msgid "Album"
 msgstr "Album"
 
-#: ../src/audiocd.c:891
+#: ../src/audiocd.c:889
 msgid "Title"
 msgstr "Tittel"
 
-#: ../src/audiocd.c:900
+#: ../src/audiocd.c:898
 msgid "Info"
 msgstr ""
 
@@ -112,13 +113,10 @@ msgid "Please wait while the CD image you selected is burned to CD."
 msgstr "Venligst velg en isofil"
 
 #: ../src/burn.c:116
-#, fuzzy
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
-"Filen du har valgt er ikke en cd image. Venligst velg en cd image for Ã¥ "
-"brenne"
 
 #: ../src/burn.c:121
 #, fuzzy
@@ -131,13 +129,10 @@ msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr "Venligst velg en isofil"
 
 #: ../src/burn.c:164
-#, fuzzy
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
-"Filen du har valgt er ikke en cd image. Venligst velg en cd image for Ã¥ "
-"brenne"
 
 #: ../src/burn.c:181
 #, fuzzy
@@ -208,7 +203,8 @@ msgstr "Kopier Data CD"
 
 #: ../src/burn.c:322
 #, fuzzy
-msgid "Please wait while the data CD image is extracted and then burned to CD."
+msgid ""
+"Please wait while the data CD image is extracted and then burned to CD."
 msgstr "Venligst velg en isofil"
 
 #: ../src/burn.c:342
@@ -231,38 +227,44 @@ msgstr "Slett CDRW"
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:396
+#: ../src/burn.c:375
+#, fuzzy
+msgid "Formatting re-writeable DVD"
+msgstr "Formater DVD+RW"
+
+#: ../src/burn.c:375
+#, fuzzy
+msgid "Please wait while the DVD is formatted."
+msgstr "Venligst velg en isofil"
+
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Creating data DVD image"
 msgstr "<b>Lager data disk image...</b>"
 
-#: ../src/burn.c:396
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Please wait while the data DVD image is created."
 msgstr "Venligst velg en isofil"
 
-#: ../src/burn.c:402
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:402
+#: ../src/burn.c:400
 #, fuzzy
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Venligst velg en isofil"
 
-#: ../src/burn.c:420 ../src/burn.c:482
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Appending to data DVD"
 msgstr "Kopier Data CD"
 
-#: ../src/burn.c:420 ../src/burn.c:482
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Venligst velg en isofil"
-
-#: ../src/burn.c:447 ../src/execfunctions.c:1438
-msgid "Verifying the disk content"
-msgstr ""
 
 #: ../src/datacd.c:147
 #, c-format
@@ -270,7 +272,8 @@ msgid "%s used - %s remaining"
 msgstr ""
 
 #: ../src/datacd.c:203
-msgid "File or directory is too large to fit in the remaining space on the CD"
+msgid ""
+"File or directory is too large to fit in the remaining space on the CD"
 msgstr ""
 "Fil eller mappe er for stor til Ã¥ fÃ¥ plass i gjennvÃ¦rende plass pÃ¥ CDn"
 
@@ -334,48 +337,44 @@ msgstr ""
 "deretter prÃ¸v Ã¥ skanne pÃ¥ nytt.."
 
 #: ../src/devices.c:656
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Error mounting %s.\n"
 "\n"
 "%s"
 msgstr ""
-"Feil %s %s\n"
-"\n"
-"%s"
 
 #: ../src/devices.c:785
-#, fuzzy, c-format
+#, fuzzy
 msgid "Please insert a disk into the %s"
-msgstr "Please insert a blank CD into the CD writer"
+msgstr ""
 
-#: ../src/execfunctions.c:87
+#: ../src/execfunctions.c:94
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:130
+#: ../src/execfunctions.c:137
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: ../src/execfunctions.c:187
+#: ../src/execfunctions.c:194
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:239 ../src/execfunctions.c:988
+#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
 #: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
 msgid "default"
 msgstr "standard"
 
-#: ../src/execfunctions.c:391
+#: ../src/execfunctions.c:397
 #, fuzzy
 msgid "Preparing to extract audio tracks"
 msgstr "<b>Treker ut lydspor...</b>"
 
-#: ../src/execfunctions.c:402
+#: ../src/execfunctions.c:408
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -383,22 +382,22 @@ msgstr ""
 "Lydspor fra en tidligere sesjon er allerede tilstede pÃ¥ disken, vil du "
 "bruke de eksisterende sporene?"
 
-#: ../src/execfunctions.c:459
-#, fuzzy, c-format
+#: ../src/execfunctions.c:465
+#, fuzzy
 msgid "Extracting audio track %d"
-msgstr "<b>Treker ut lydspor...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:529
+#: ../src/execfunctions.c:535
 #, fuzzy
 msgid "Calculating data disk image size"
 msgstr "<b>Lager data disk image...</b>"
 
-#: ../src/execfunctions.c:567
+#: ../src/execfunctions.c:573
 #, fuzzy
 msgid "Creating data disk image"
 msgstr "<b>Lager data disk image...</b>"
 
-#: ../src/execfunctions.c:574
+#: ../src/execfunctions.c:580
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -406,38 +405,39 @@ msgstr ""
 "Data fra en tidligere sesjon eksisterer allerede pÃ¥ disken, Ã¸nsker duÃ¥ "
 "bruke de eksisterende filene?"
 
-#: ../src/execfunctions.c:804
+#: ../src/execfunctions.c:810
 #, fuzzy
 msgid "Formatting DVD"
 msgstr "Formater DVD+RW"
 
-#: ../src/execfunctions.c:885
+#: ../src/execfunctions.c:891
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:916 ../src/execfunctions.c:941
+#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
 #, fuzzy
 msgid "Writing DVD"
 msgstr "Brenn DVD-R"
 
-#: ../src/execfunctions.c:1054
+#: ../src/execfunctions.c:1056
 #, fuzzy
 msgid "Reading CD image"
 msgstr "<b>Leser CD image...</b>"
 
-#: ../src/execfunctions.c:1062
-#, fuzzy
+#: ../src/execfunctions.c:1064
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
-"Data fra en tidligere sesjon eksisterer allerede pÃ¥ disken, Ã¸nsker duÃ¥ "
-"bruke de eksisterende filene?"
 
-#: ../src/execfunctions.c:1326
-#, fuzzy, c-format
+#: ../src/execfunctions.c:1327
+#, fuzzy
 msgid "Converting %s to cd audio"
-msgstr "<b>Konverterer wav til cd-lydspor...</b>"
+msgstr ""
+
+#: ../src/execfunctions.c:1439
+msgid "Verifying the disk content"
+msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
 #: ../src/startdlg.c:408
@@ -493,64 +493,64 @@ msgstr "Type"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:469
+#: ../src/gbcommon.c:468
 msgid "All files"
 msgstr "Alle filer"
 
-#: ../src/gbcommon.c:477
+#: ../src/gbcommon.c:480
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:102
 msgid "Loading preferences..."
 msgstr "Laster instilinger"
 
-#: ../src/gnomebaker.c:108
+#: ../src/gnomebaker.c:105
 msgid "Detecting devices..."
 msgstr "Skanner for enheter"
 
-#: ../src/gnomebaker.c:111
+#: ../src/gnomebaker.c:108
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: ../src/gnomebaker.c:114
+#: ../src/gnomebaker.c:111
 msgid "Loading GUI..."
 msgstr "Laster grensesnitt"
 
-#: ../src/gnomebaker.c:204
+#: ../src/gnomebaker.c:201
 msgid "Are you sure you want to quit?"
 msgstr "Er du sikker pÃ¥ at du vil avslutte?"
 
-#: ../src/gnomebaker.c:281
+#: ../src/gnomebaker.c:278
 #, fuzzy
 msgid "CD Image files"
 msgstr "Oppstartsimage-liste"
 
-#: ../src/gnomebaker.c:282
+#: ../src/gnomebaker.c:279
 #, fuzzy
 msgid "Please select a CD image file."
 msgstr "Venligst velg en isofil Ã¥ lagre til..."
 
-#: ../src/gnomebaker.c:297
+#: ../src/gnomebaker.c:292
 #, fuzzy
 msgid "DVD Image files"
 msgstr "Oppstartsimage-liste"
 
-#: ../src/gnomebaker.c:298
+#: ../src/gnomebaker.c:293
 #, fuzzy
 msgid "Please select a DVD image file."
 msgstr "Venligst velg en isofil Ã¥ lagre til..."
 
-#: ../src/gnomebaker.c:369 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
 msgid "GnomeBaker"
 msgstr ""
 
-#: ../src/gnomebaker.c:370
+#: ../src/gnomebaker.c:364
 #, fuzzy
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "Enkel CD-brenning for Gnome"
 
-#: ../src/gnomebaker.c:370 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
 msgid "translator_credits"
 msgstr ""
 "Jonathan Carter\n"
@@ -592,41 +592,23 @@ msgstr ""
 "Mauricio PeÃ±aloza\n"
 "Petri Pennanen."
 
-#: ../src/gnomebaker.c:435
+#: ../src/gnomebaker.c:429
 #, fuzzy
 msgid "Please select files to add to the disk."
 msgstr "Venligst velg en isofil Ã¥ lagre til..."
 
-#: ../src/gnomebaker.c:704 ../src/gnomebaker.c:727
+#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
 #, fuzzy
 msgid "Playlist files"
 msgstr "Alle filer"
 
-#: ../src/gnomebaker.c:705
+#: ../src/gnomebaker.c:690
 #, fuzzy
 msgid "Please select a playlist."
 msgstr "Venligst velg en isofil Ã¥ lagre til..."
 
-#: ../src/gnomebaker.c:734
+#: ../src/gnomebaker.c:711
 msgid "Save playlist as..."
-msgstr ""
-
-#: ../src/gnomebaker.c:757
-#, fuzzy
-msgid "Project files"
-msgstr "LÃ¸s ut disk"
-
-#: ../src/gnomebaker.c:758
-#, fuzzy
-msgid "Please select a project file."
-msgstr "Venligst velg en isofil Ã¥ lagre til..."
-
-#: ../src/main.c:40
-msgid "Show tracing information (useful when debugging)"
-msgstr ""
-
-#: ../src/main.c:49
-msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -666,46 +648,21 @@ msgstr "Brenn DVD-R"
 msgid "Write DVD-RAM"
 msgstr "Brenn DVD-RAM"
 
-#: ../src/progressdlg.c:79
-#, fuzzy, c-format
-msgid "%d minutes %d seconds"
-msgstr "%d m %d s"
-
-#: ../src/progressdlg.c:81
-#, fuzzy, c-format
-msgid "%d minute %d seconds"
-msgstr "%d m %d s"
-
-#: ../src/progressdlg.c:83
-#, c-format
-msgid "%d seconds"
-msgstr ""
-
-#: ../src/progressdlg.c:217
-#, c-format
-msgid "%s remaining"
-msgstr ""
-
-#: ../src/progressdlg.c:273 ../gnomebaker.glade.h:83
+#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
 #, fuzzy
 msgid "Show output"
 msgstr "Vis detaljer"
 
-#: ../src/progressdlg.c:273
+#: ../src/progressdlg.c:188
 #, fuzzy
 msgid "Hide output"
 msgstr "Vis detaljer"
 
-#: ../src/progressdlg.c:349
-#, c-format
-msgid "Elapsed time %s"
-msgstr ""
-
-#: ../src/progressdlg.c:355
+#: ../src/progressdlg.c:262
 msgid "Completed"
 msgstr "Ferdig"
 
-#: ../src/progressdlg.c:364
+#: ../src/progressdlg.c:270
 msgid "Failed"
 msgstr "Myslyktes"
 
@@ -824,8 +781,8 @@ msgid "Burn the disk"
 msgstr ""
 
 #: ../src/startdlg.c:501
-msgid "Only create image"
-msgstr ""
+msgid "Create ISO only"
+msgstr "Bare lag ISO"
 
 #: ../src/startdlg.c:504
 msgid "Force format"
@@ -848,7 +805,7 @@ msgid "Rock Ridge"
 msgstr ""
 
 #: ../src/startdlg.c:509
-msgid "On the fly"
+msgid "On The Fly"
 msgstr ""
 
 #: ../src/startdlg.c:519
@@ -919,7 +876,7 @@ msgstr "Lag Data DVD"
 
 #: ../gnomebaker.glade.h:1
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
@@ -1005,8 +962,7 @@ msgid "Add file(s)"
 msgstr "Legg til fil(er)"
 
 #: ../gnomebaker.glade.h:25
-#, fuzzy
-msgid "Add the selected files to the disk"
+msgid "Add the selected files to the CD"
 msgstr "Legg til valgte filer til CD"
 
 #: ../gnomebaker.glade.h:26
@@ -1061,8 +1017,7 @@ msgid "Clean temporary directory on exit"
 msgstr "Rensk midlertidlig mappe ved avslutning"
 
 #: ../gnomebaker.glade.h:41
-#, fuzzy
-msgid "Clear the contents of the disk"
+msgid "Clear the contents of the CD"
 msgstr "Nullstill innholdet av CDn"
 
 #: ../gnomebaker.glade.h:42
@@ -1209,8 +1164,7 @@ msgid "Remove selected"
 msgstr "Fjern valgt"
 
 #: ../gnomebaker.glade.h:79
-#, fuzzy
-msgid "Remove the selected files from the disk"
+msgid "Remove the selected files from the CD"
 msgstr "Fjern valgte filer fra cd"
 
 #: ../gnomebaker.glade.h:80
@@ -1264,12 +1218,11 @@ msgstr "Legg til enhet"
 #: ../gnomebaker.glade.h:93
 #, fuzzy
 msgid "_Add selection"
-msgstr "Fjern valgt"
+msgstr "Legg til mappe"
 
 #: ../gnomebaker.glade.h:95
-#, fuzzy
 msgid "_Export"
-msgstr "Importer"
+msgstr ""
 
 #: ../gnomebaker.glade.h:96
 #, fuzzy
@@ -1277,18 +1230,16 @@ msgid "_Format DVD±RW"
 msgstr "_Formater DVDRW"
 
 #: ../gnomebaker.glade.h:97
-#, fuzzy
 msgid "_Import"
-msgstr "Importer"
+msgstr ""
 
 #: ../gnomebaker.glade.h:98
 msgid "_Import Session"
 msgstr "_Importer Sesjon"
 
 #: ../gnomebaker.glade.h:99
-#, fuzzy
 msgid "_Playlist"
-msgstr "Alle filer"
+msgstr ""
 
 #: ../gnomebaker.glade.h:100
 msgid "_Refresh"
@@ -1328,39 +1279,12 @@ msgid "tao"
 msgstr ""
 
 #, fuzzy
-#~ msgid "Formatting re-writeable DVD"
-#~ msgstr "Formater DVD+RW"
-
-#, fuzzy
-#~ msgid "Please wait while the DVD is formatted."
-#~ msgstr "Venligst velg en isofil"
-
-#~ msgid "Create ISO only"
-#~ msgstr "Bare lag ISO"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Down"
-#~ msgstr "Fjern valgt"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Up"
-#~ msgstr "Fjern valgt"
-
-#, fuzzy
-#~ msgid "_Add Selected Files"
-#~ msgstr "Legg til mappe"
-
-#, fuzzy
-#~ msgid "_Audio Disk"
-#~ msgstr "<b>Lydcd</b>"
-
-#, fuzzy
-#~ msgid "_Data Disk"
-#~ msgstr "Lag datadisk"
-
-#, fuzzy
-#~ msgid "_Remove Selected Files"
-#~ msgstr "Fjern valgt"
+#~ msgid ""
+#~ "The file you have selected is not a DVD image. Please select a DVD image to "
+#~ "burn."
+#~ msgstr ""
+#~ "Filen du har valgt er ikke en cd image. Venligst velg en cd image for Ã¥ "
+#~ "brenne"
 
 #~ msgid ""
 #~ "The file you have selected is not a cd image. Please select a cd image to "
@@ -1375,6 +1299,10 @@ msgstr ""
 
 #~ msgid "unmounting"
 #~ msgstr "avmonterer"
+
+#, c-format
+#~ msgid "%d mins %d secs"
+#~ msgstr "%d m %d s"
 
 #~ msgid "Fast"
 #~ msgstr "Kjappt"
@@ -1434,6 +1362,7 @@ msgstr ""
 #~ msgid "ALBUM="
 #~ msgstr "ALBUM="
 
+#, c-format
 #~ msgid "File %s was not opened \n"
 #~ msgstr "Fil %s ble ikke Ã¥pnet \n"
 
@@ -1446,16 +1375,22 @@ msgstr ""
 #~ msgid "Tracktitle"
 #~ msgstr "Sportittel"
 
+#, c-format
 #~ msgid "File %s was not opened"
 #~ msgstr "Fil %s ble ikke Ã¥pnet"
 
+#, c-format
 #~ msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
 #~ msgstr "Mislyktes Ã¥ undersÃ¸ke fil [%s] med retur kode [%d] feil # [%s]"
+
+#~ msgid "Failed to initialise gconf"
+#~ msgstr "Mislyktes Ã¥ initialisere gconf"
 
 #, fuzzy
 #~ msgid "audioinfo_new - mime type is %s for %s"
 #~ msgstr "minetype er %s for %s"
 
+#, c-format
 #~ msgid "Error reading wav header for file [%s]"
 #~ msgstr "Feil ved lesning av wav-header for fil [%s]"
 
@@ -1474,15 +1409,19 @@ msgstr ""
 #~ msgid "Failed to start child process"
 #~ msgstr "Greide ikke Ã¥ starte underprosess"
 
+#, c-format
 #~ msgid "mime type is %s for %s"
 #~ msgstr "minetype er %s for %s"
 
+#, c-format
 #~ msgid "burn - [%s]"
 #~ msgstr "brenn - [%s]"
 
+#, c-format
 #~ msgid "received sel %s"
 #~ msgstr "mottok valg %s"
 
+#, c-format
 #~ msgid "datacd next session is [%s]"
 #~ msgstr "datacd neste sesjon er [%s]"
 
@@ -1495,12 +1434,15 @@ msgstr ""
 #~ msgid "Error unmounting writer device"
 #~ msgstr "Feil ved avmontering av brenner"
 
+#, c-format
 #~ msgid "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
 #~ msgstr "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
 
+#, c-format
 #~ msgid "node [%s] mount [%s]"
 #~ msgstr "node [%s] er montert [%s]"
 
+#, c-format
 #~ msgid "node [%s] is link to [%s]"
 #~ msgstr "node [%s] er link til [%s]"
 
@@ -1514,9 +1456,11 @@ msgstr ""
 #~ msgid "devices_get_ide_device - probing [%s]"
 #~ msgstr "devices_add_ide_device - prober [%s]"
 
+#, c-format
 #~ msgid "Failed to open %s"
 #~ msgstr "Myslykkes Ã¥ Ã¥pne %s"
 
+#, c-format
 #~ msgid "devices_add_scsi_device - probing [%s]"
 #~ msgstr "devices_add_scsi_device - prober [%s]"
 
@@ -1529,81 +1473,95 @@ msgstr ""
 #~ msgid "Error reading scsi information from /proc/scsi/sg/devices"
 #~ msgstr "Feil ved lesning av scsi information fra /proc/scsi/sg/devices"
 
+#, c-format
 #~ msgid "---- key [%s], value [%s]"
 #~ msgstr "---- nÃ¸kkel [%s], verdi [%s]"
 
+#, c-format
 #~ msgid "looking for device [%d]"
 #~ msgstr "leter etter enhet [%d]"
 
+#, c-format
 #~ msgid ""
 #~ "Requested device index [%d] is out of bounds. All devices have been read."
 #~ msgstr ""
-#~ "Forespurt enhetsindeks [%d] er utenfor grensen.  Alle enheter er blitt "
-#~ "lest."
+#~ "Forespurt enhetsindeks [%d] er utenfor grensen.  Alle enheter er blitt lest."
 
 #~ msgid "Failed to open /proc/sys/dev/cdrom/info"
 #~ msgstr "Mislykktes Ã¥ Ã¥pne /proc/sys/dev/cdrom/info"
 
+#, c-format
 #~ msgid "selection data is %s\n"
 #~ msgstr "valgt data er %s\n"
 
+#, c-format
 #~ msgid "creating [%s]"
 #~ msgstr "lager [%s]"
 
+#, c-format
 #~ msgid "failed to create temp %d"
 #~ msgstr "mislykkes Ã¥ lage midlertidlig mappe %d"
 
+#, c-format
 #~ msgid "Failed to get contents of file [%s]"
 #~ msgstr "Mislykkes Ã¥ lese innhold av fil [%s]"
 
+#, c-format
 #~ msgid "MessageDialog message [%s]"
 #~ msgstr "Meldingsdialog melding [%s]"
-
-#~ msgid "toolbar style [%s] [%d]"
-#~ msgstr "verltÃ¸ylinje-stil"
 
 #~ msgid "Invalid row in device list"
 #~ msgstr "Invalid rad i enhetsliste"
 
+#, c-format
 #~ msgid "cdrecord - adding create audio data [%s]"
 #~ msgstr "cdrecord - adding create audio data [%s]"
 
+#, c-format
 #~ msgid "adding [%s]"
 #~ msgstr "adding [%s]"
 
+#, c-format
 #~ msgid "cdda2wav_read_proc - total tracks %d"
 #~ msgstr "cdda2wav_read_proc - total tracks %d"
 
+#, c-format
 #~ msgid "growisofs: progress: %d"
 #~ msgstr "growisofs: fremgang: %d"
 
+#, c-format
 #~ msgid "growisofs: fraction: %f"
 #~ msgstr "growisofs: fraksjon: %f"
 
 #~ msgid "<b>Converting mp3 to cd audio...</b>"
 #~ msgstr "<b>Konverterer mp3 til cd-lydspor...</b>"
 
+#, c-format
 #~ msgid "Converted file is [%s]"
 #~ msgstr "Konvertert fil er [%s]"
 
 #~ msgid "<b>Converting ogg to cd audio...</b>"
 #~ msgstr "<b>Konverterer ogg til cd-lydspor...</b>"
 
+#, c-format
 #~ msgid "Entering [%s] [%s] [%d]\n"
 #~ msgstr "GÃ¥r inn i [%s] [%s] [%d]\n"
 
+#, c-format
 #~ msgid "mime type is %s for %s %s"
 #~ msgstr "mime type er %s for %s %s"
 
 #~ msgid "monterer"
 #~ msgstr "monterer"
 
+#, c-format
 #~ msgid "returning [%s]"
 #~ msgstr "returnerer [%s]"
 
 #~ msgid "ISO files"
 #~ msgstr "ISO filer"
 
+#, c-format
 #~ msgid "file is %s"
 #~ msgstr "fil er %s"
 
@@ -1631,9 +1589,11 @@ msgstr ""
 #~ msgid "Eject CD"
 #~ msgstr "LÃ¸s ut CD"
 
+#, c-format
 #~ msgid "Duration %f Fraction is %f"
 #~ msgstr "Duration %f Fraction is %f"
 
+#, c-format
 #~ msgid "File size %f disksize %f Fraction is %f"
 #~ msgstr "File size %f  Disk size %f  Fraction is %f"
 

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the gnomebaker package.
 # Mikel Olasagasti <hey_neken@mundurat.net>, 2005.
 # , fuzzy
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker 0.3\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-24 21:54+0000\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2006-01-12 10:15+0100\n"
 "PO-Revision-Date: 2005-02-09 23:46+0100\n"
 "Last-Translator: Mikel Olasagasti <hey_neken@mundurat.net>\n"
 "Language-Team: Basque <gnome@euskalgnu.org>\n"
@@ -66,38 +66,37 @@ msgstr ""
 "Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
 "kopiatzeko."
 
-#: ../src/audiocd.c:724 ../src/audiocd.c:761
-#, fuzzy
+#: ../src/audiocd.c:723 ../src/audiocd.c:759
 msgid "Failed to write playlist file"
-msgstr "Huts egin da gconf abiatzen"
+msgstr ""
 
-#: ../src/audiocd.c:810
+#: ../src/audiocd.c:808
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:843
+#: ../src/audiocd.c:841
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/audiocd.c:856
+#: ../src/audiocd.c:854
 msgid "Duration"
 msgstr "Iraupena"
 
-#: ../src/audiocd.c:873
+#: ../src/audiocd.c:871
 msgid "Artist"
 msgstr "Artista"
 
-#: ../src/audiocd.c:882
+#: ../src/audiocd.c:880
 msgid "Album"
 msgstr "Albuma"
 
-#: ../src/audiocd.c:891
+#: ../src/audiocd.c:889
 msgid "Title"
 msgstr "Titulua"
 
-#: ../src/audiocd.c:900
+#: ../src/audiocd.c:898
 msgid "Info"
 msgstr ""
 
@@ -112,13 +111,10 @@ msgid "Please wait while the CD image you selected is burned to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
 #: ../src/burn.c:116
-#, fuzzy
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
-"Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
-"kopiatzeko."
 
 #: ../src/burn.c:121
 #, fuzzy
@@ -131,13 +127,10 @@ msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
 #: ../src/burn.c:164
-#, fuzzy
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
-"Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
-"kopiatzeko."
 
 #: ../src/burn.c:181
 #, fuzzy
@@ -208,7 +201,8 @@ msgstr "Kopiatu datu CDa"
 
 #: ../src/burn.c:322
 #, fuzzy
-msgid "Please wait while the data CD image is extracted and then burned to CD."
+msgid ""
+"Please wait while the data CD image is extracted and then burned to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
 #: ../src/burn.c:342
@@ -231,38 +225,44 @@ msgstr "Garbitu CDRWa"
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:396
+#: ../src/burn.c:375
+#, fuzzy
+msgid "Formatting re-writeable DVD"
+msgstr "Formateatu DVDRWa"
+
+#: ../src/burn.c:375
+#, fuzzy
+msgid "Please wait while the DVD is formatted."
+msgstr "Mesedez aukeratu iso fitxategi bat..."
+
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Creating data DVD image"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: ../src/burn.c:396
+#: ../src/burn.c:394
 #, fuzzy
 msgid "Please wait while the data DVD image is created."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:402
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:402
+#: ../src/burn.c:400
 #, fuzzy
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:420 ../src/burn.c:482
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Appending to data DVD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.c:420 ../src/burn.c:482
+#: ../src/burn.c:418
 #, fuzzy
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
-
-#: ../src/burn.c:447 ../src/execfunctions.c:1438
-msgid "Verifying the disk content"
-msgstr ""
 
 #: ../src/datacd.c:147
 #, c-format
@@ -270,7 +270,8 @@ msgid "%s used - %s remaining"
 msgstr ""
 
 #: ../src/datacd.c:203
-msgid "File or directory is too large to fit in the remaining space on the CD"
+msgid ""
+"File or directory is too large to fit in the remaining space on the CD"
 msgstr ""
 "Fitxategia edo direktorioa luzeegia da CDan geratzen den espazioan sartzeko"
 
@@ -329,53 +330,49 @@ msgid ""
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
-"Muntai puntua (adib. /mnt/cdrom) idazketa gailuarentzat ezin izan da lortu."
-"Mesedez, egiaztatu idazketa gailuak sarrera bat duela /etc/fstab fitxategian "
-"eta gero joan hobespenetara eta berriz bilatu gailuak."
+"Muntai puntua (adib. /mnt/cdrom) idazketa gailuarentzat ezin izan da "
+"lortu.Mesedez, egiaztatu idazketa gailuak sarrera bat duela /etc/fstab "
+"fitxategian eta gero joan hobespenetara eta berriz bilatu gailuak."
 
 #: ../src/devices.c:656
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Error mounting %s.\n"
 "\n"
 "%s"
 msgstr ""
-"Errorea %s %s.\n"
-"\n"
-"%s"
 
 #: ../src/devices.c:785
-#, fuzzy, c-format
+#, fuzzy
 msgid "Please insert a disk into the %s"
-msgstr "Mesedez, sartu CDa CD idazgailuan"
+msgstr ""
 
-#: ../src/execfunctions.c:87
+#: ../src/execfunctions.c:94
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:130
+#: ../src/execfunctions.c:137
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: ../src/execfunctions.c:187
+#: ../src/execfunctions.c:194
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:239 ../src/execfunctions.c:988
+#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
 #: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
 msgid "default"
 msgstr "lehenetsia"
 
-#: ../src/execfunctions.c:391
+#: ../src/execfunctions.c:397
 #, fuzzy
 msgid "Preparing to extract audio tracks"
 msgstr "<b>Audio pistak ateratzen...</b>"
 
-#: ../src/execfunctions.c:402
+#: ../src/execfunctions.c:408
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -383,22 +380,22 @@ msgstr ""
 "Audio CD irudi bat exisititzen da aurreko saiotik, irudi hau erabili nahi "
 "duzu?"
 
-#: ../src/execfunctions.c:459
-#, fuzzy, c-format
+#: ../src/execfunctions.c:465
+#, fuzzy
 msgid "Extracting audio track %d"
-msgstr "<b>Audio pistak ateratzen...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:529
+#: ../src/execfunctions.c:535
 #, fuzzy
 msgid "Calculating data disk image size"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: ../src/execfunctions.c:567
+#: ../src/execfunctions.c:573
 #, fuzzy
 msgid "Creating data disk image"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: ../src/execfunctions.c:574
+#: ../src/execfunctions.c:580
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -406,38 +403,39 @@ msgstr ""
 "Datu CD irudi bat exisititzen da aurreko saiotik, irudi hau erabili nahi "
 "duzu?"
 
-#: ../src/execfunctions.c:804
+#: ../src/execfunctions.c:810
 #, fuzzy
 msgid "Formatting DVD"
 msgstr "Formateatu DVDRWa"
 
-#: ../src/execfunctions.c:885
+#: ../src/execfunctions.c:891
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:916 ../src/execfunctions.c:941
+#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
 #, fuzzy
 msgid "Writing DVD"
 msgstr "Idatzi DVD-Ra"
 
-#: ../src/execfunctions.c:1054
+#: ../src/execfunctions.c:1056
 #, fuzzy
 msgid "Reading CD image"
 msgstr "<b>CD irudia irakurtzen...</b>"
 
-#: ../src/execfunctions.c:1062
-#, fuzzy
+#: ../src/execfunctions.c:1064
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
-"Datu CD irudi bat exisititzen da aurreko saiotik, irudi hau erabili nahi "
-"duzu?"
 
-#: ../src/execfunctions.c:1326
-#, fuzzy, c-format
+#: ../src/execfunctions.c:1327
+#, fuzzy
 msgid "Converting %s to cd audio"
-msgstr "<b>wav-ak audio cd-ra bihurtzen...</b>"
+msgstr ""
+
+#: ../src/execfunctions.c:1439
+msgid "Verifying the disk content"
+msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
 #: ../src/startdlg.c:408
@@ -493,102 +491,84 @@ msgstr "Moeta"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:469
+#: ../src/gbcommon.c:468
 msgid "All files"
 msgstr "Fitxategi guztiak"
 
-#: ../src/gbcommon.c:477
+#: ../src/gbcommon.c:480
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:102
 msgid "Loading preferences..."
 msgstr "Hobespenak kargatzen..."
 
-#: ../src/gnomebaker.c:108
+#: ../src/gnomebaker.c:105
 msgid "Detecting devices..."
 msgstr "Gailuak aurkitzen..."
 
-#: ../src/gnomebaker.c:111
+#: ../src/gnomebaker.c:108
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: ../src/gnomebaker.c:114
+#: ../src/gnomebaker.c:111
 msgid "Loading GUI..."
 msgstr "GUIa kargatzen..."
 
-#: ../src/gnomebaker.c:204
+#: ../src/gnomebaker.c:201
 msgid "Are you sure you want to quit?"
 msgstr "Ziur zaude irten nahi duzula?"
 
-#: ../src/gnomebaker.c:281
+#: ../src/gnomebaker.c:278
 #, fuzzy
 msgid "CD Image files"
 msgstr "Abio irudien zerrenda"
 
-#: ../src/gnomebaker.c:282
+#: ../src/gnomebaker.c:279
 #, fuzzy
 msgid "Please select a CD image file."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:297
+#: ../src/gnomebaker.c:292
 #, fuzzy
 msgid "DVD Image files"
 msgstr "Abio irudien zerrenda"
 
-#: ../src/gnomebaker.c:298
+#: ../src/gnomebaker.c:293
 #, fuzzy
 msgid "Please select a DVD image file."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:369 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:370
+#: ../src/gnomebaker.c:364
 #, fuzzy
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "CDak grabatzeko programa erraza Gnomerentzat"
 
-#: ../src/gnomebaker.c:370 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
 msgid "translator_credits"
 msgstr "Mikel Olasagasti <hey_neken@mundurat.net>"
 
-#: ../src/gnomebaker.c:435
+#: ../src/gnomebaker.c:429
 #, fuzzy
 msgid "Please select files to add to the disk."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:704 ../src/gnomebaker.c:727
+#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
 #, fuzzy
 msgid "Playlist files"
 msgstr "Fitxategi guztiak"
 
-#: ../src/gnomebaker.c:705
+#: ../src/gnomebaker.c:690
 #, fuzzy
 msgid "Please select a playlist."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:734
+#: ../src/gnomebaker.c:711
 msgid "Save playlist as..."
-msgstr ""
-
-#: ../src/gnomebaker.c:757
-#, fuzzy
-msgid "Project files"
-msgstr "Egotzi diskoa"
-
-#: ../src/gnomebaker.c:758
-#, fuzzy
-msgid "Please select a project file."
-msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
-
-#: ../src/main.c:40
-msgid "Show tracing information (useful when debugging)"
-msgstr ""
-
-#: ../src/main.c:49
-msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -628,46 +608,21 @@ msgstr "Idatzi DVD-Ra"
 msgid "Write DVD-RAM"
 msgstr "Idatzi DVD-RAM"
 
-#: ../src/progressdlg.c:79
-#, fuzzy, c-format
-msgid "%d minutes %d seconds"
-msgstr "%d min %d seg"
-
-#: ../src/progressdlg.c:81
-#, fuzzy, c-format
-msgid "%d minute %d seconds"
-msgstr "%d min %d seg"
-
-#: ../src/progressdlg.c:83
-#, c-format
-msgid "%d seconds"
-msgstr ""
-
-#: ../src/progressdlg.c:217
-#, c-format
-msgid "%s remaining"
-msgstr ""
-
-#: ../src/progressdlg.c:273 ../gnomebaker.glade.h:83
+#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
 #, fuzzy
 msgid "Show output"
 msgstr "Ikusi irteera"
 
-#: ../src/progressdlg.c:273
+#: ../src/progressdlg.c:188
 #, fuzzy
 msgid "Hide output"
 msgstr "Ikusi irteera"
 
-#: ../src/progressdlg.c:349
-#, c-format
-msgid "Elapsed time %s"
-msgstr ""
-
-#: ../src/progressdlg.c:355
+#: ../src/progressdlg.c:262
 msgid "Completed"
 msgstr "Amaitua"
 
-#: ../src/progressdlg.c:364
+#: ../src/progressdlg.c:270
 msgid "Failed"
 msgstr "Huts egin du"
 
@@ -786,8 +741,8 @@ msgid "Burn the disk"
 msgstr ""
 
 #: ../src/startdlg.c:501
-msgid "Only create image"
-msgstr ""
+msgid "Create ISO only"
+msgstr "Sortu ISOa bakarrik"
 
 #: ../src/startdlg.c:504
 msgid "Force format"
@@ -810,7 +765,7 @@ msgid "Rock Ridge"
 msgstr ""
 
 #: ../src/startdlg.c:509
-msgid "On the fly"
+msgid "On The Fly"
 msgstr ""
 
 #: ../src/startdlg.c:519
@@ -881,7 +836,7 @@ msgstr "Sortu datu DVDa"
 
 #: ../gnomebaker.glade.h:1
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
@@ -967,8 +922,7 @@ msgid "Add file(s)"
 msgstr "Gehitu fitxategia(k)"
 
 #: ../gnomebaker.glade.h:25
-#, fuzzy
-msgid "Add the selected files to the disk"
+msgid "Add the selected files to the CD"
 msgstr "Gehitu aukeratutako fitxategiak CDra"
 
 #: ../gnomebaker.glade.h:26
@@ -1023,8 +977,7 @@ msgid "Clean temporary directory on exit"
 msgstr "Garbitu denbora bateko direktorioa irtetean"
 
 #: ../gnomebaker.glade.h:41
-#, fuzzy
-msgid "Clear the contents of the disk"
+msgid "Clear the contents of the CD"
 msgstr "Garbitu CDaren edukiak"
 
 #: ../gnomebaker.glade.h:42
@@ -1170,8 +1123,7 @@ msgid "Remove selected"
 msgstr "Kendu aukeratutakoa"
 
 #: ../gnomebaker.glade.h:79
-#, fuzzy
-msgid "Remove the selected files from the disk"
+msgid "Remove the selected files from the CD"
 msgstr "Ezabatu aukeratutako fitxategiak CDtik"
 
 #: ../gnomebaker.glade.h:80
@@ -1225,12 +1177,11 @@ msgstr "_Gehitu gailua"
 #: ../gnomebaker.glade.h:93
 #, fuzzy
 msgid "_Add selection"
-msgstr "Kendu aukeratutakoa"
+msgstr "Gehitu direktorioa"
 
 #: ../gnomebaker.glade.h:95
-#, fuzzy
 msgid "_Export"
-msgstr "Inportatu"
+msgstr ""
 
 #: ../gnomebaker.glade.h:96
 #, fuzzy
@@ -1238,18 +1189,16 @@ msgid "_Format DVD±RW"
 msgstr "_Formateatu DVDRWa"
 
 #: ../gnomebaker.glade.h:97
-#, fuzzy
 msgid "_Import"
-msgstr "Inportatu"
+msgstr ""
 
 #: ../gnomebaker.glade.h:98
 msgid "_Import Session"
 msgstr "_Inoportatu saioa"
 
 #: ../gnomebaker.glade.h:99
-#, fuzzy
 msgid "_Playlist"
-msgstr "Fitxategi guztiak"
+msgstr ""
 
 #: ../gnomebaker.glade.h:100
 msgid "_Refresh"
@@ -1290,52 +1239,29 @@ msgid "tao"
 msgstr "tao"
 
 #, fuzzy
-#~ msgid "Formatting re-writeable DVD"
-#~ msgstr "Formateatu DVDRWa"
-
-#, fuzzy
-#~ msgid "Please wait while the DVD is formatted."
-#~ msgstr "Mesedez aukeratu iso fitxategi bat..."
-
-#~ msgid "Create ISO only"
-#~ msgstr "Sortu ISOa bakarrik"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Down"
-#~ msgstr "Kendu aukeratutakoa"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Up"
-#~ msgstr "Kendu aukeratutakoa"
-
-#, fuzzy
-#~ msgid "_Add Selected Files"
-#~ msgstr "Gehitu direktorioa"
-
-#, fuzzy
-#~ msgid "_Audio Disk"
-#~ msgstr "<b>Audio diskoa</b>"
-
-#, fuzzy
-#~ msgid "_Data Disk"
-#~ msgstr "Sortu datu diskoa"
-
-#, fuzzy
-#~ msgid "_Remove Selected Files"
-#~ msgstr "Kendu aukeratutakoa"
+#~ msgid ""
+#~ "The file you have selected is not a DVD image. Please select a DVD image to "
+#~ "burn."
+#~ msgstr ""
+#~ "Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
+#~ "kopiatzeko."
 
 #~ msgid ""
 #~ "The file you have selected is not a cd image. Please select a cd image to "
 #~ "burn."
 #~ msgstr ""
-#~ "Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi "
-#~ "bat kopiatzeko."
+#~ "Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
+#~ "kopiatzeko."
 
 #~ msgid "mounting"
 #~ msgstr "muntatzen"
 
 #~ msgid "unmounting"
 #~ msgstr "desmuntatzen"
+
+#, c-format
+#~ msgid "%d mins %d secs"
+#~ msgstr "%d min %d seg"
 
 #~ msgid "Fast"
 #~ msgstr "Azkarra"
@@ -1391,6 +1317,7 @@ msgstr "tao"
 #~ msgid "ALBUM="
 #~ msgstr "ALBUMA="
 
+#, c-format
 #~ msgid "File %s was not opened \n"
 #~ msgstr "%s fitxategia ez da ireki \n"
 
@@ -1403,19 +1330,25 @@ msgstr "tao"
 #~ msgid "Tracktitle"
 #~ msgstr "Pistaren titulua"
 
+#, c-format
 #~ msgid "File %s was not opened"
 #~ msgstr "%s fitxategia ez da ireki"
+
+#~ msgid "Failed to initialise gconf"
+#~ msgstr "Huts egin da gconf abiatzen"
 
 #, fuzzy
 #~ msgid "audioinfo_new - mime type is %s for %s"
 #~ msgstr "mime moeta %s da %s-(r)entzat"
 
+#, c-format
 #~ msgid "Error reading wav header for file [%s]"
 #~ msgstr "Errorea gertatu da [%s] wav fitxategiaren goiburua irakurtzen"
 
 #~ msgid "Stereo"
 #~ msgstr "Estereoa"
 
+#, fuzzy
 #~ msgid "Joint Stereo"
 #~ msgstr "Lotutako estereoa"
 
@@ -1428,15 +1361,19 @@ msgstr "tao"
 #~ msgid "Failed to start child process"
 #~ msgstr "Huts egin da ume prozesua abiatzen"
 
+#, c-format
 #~ msgid "mime type is %s for %s"
 #~ msgstr "mime moeta %s da %s-(r)entzat"
 
+#, c-format
 #~ msgid "burn - [%s]"
 #~ msgstr "kopiatu - [%s]"
 
+#, c-format
 #~ msgid "received sel %s"
 #~ msgstr "%s sel jaso da"
 
+#, c-format
 #~ msgid "datacd next session is [%s]"
 #~ msgstr "datacd-aren hurrengo saioa [%s] da"
 
@@ -1449,12 +1386,15 @@ msgstr "tao"
 #~ msgid "Error unmounting writer device"
 #~ msgstr "Errorea idazketa gailua desmuntatzen"
 
+#, c-format
 #~ msgid "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
 #~ msgstr "devices_write_device_to_gconf - [%s] [%s] [%s] [%s] gehituta"
 
+#, c-format
 #~ msgid "node [%s] mount [%s]"
 #~ msgstr "[%s] nodoa [%s]-n muntatua"
 
+#, c-format
 #~ msgid "node [%s] is link to [%s]"
 #~ msgstr "[%s] nodoa [%s]rako esteka bat da"
 
@@ -1463,16 +1403,17 @@ msgstr "tao"
 
 #~ msgid "devices_probe_bus - failed to parse cdrecord output"
 #~ msgstr ""
-#~ "devices_probe_bus - huts egin da cdrecord-en irteeraren sintaxia "
-#~ "analizatzen"
+#~ "devices_probe_bus - huts egin da cdrecord-en irteeraren sintaxia analizatzen"
 
 #, fuzzy
 #~ msgid "devices_get_ide_device - probing [%s]"
 #~ msgstr "devices_add_ide_device - [%s] frogatzen"
 
+#, c-format
 #~ msgid "Failed to open %s"
 #~ msgstr "Huts egin da %s irekitzerakoan"
 
+#, c-format
 #~ msgid "devices_add_scsi_device - probing [%s]"
 #~ msgstr "devices_add_scsi_device - [%s] frogatzen"
 
@@ -1485,9 +1426,11 @@ msgstr "tao"
 #~ msgid "Error reading scsi information from /proc/scsi/sg/devices"
 #~ msgstr "Huts egin da scsi informazioa /proc/scsi/sg/devices-tik irakurtzen"
 
+#, c-format
 #~ msgid "---- key [%s], value [%s]"
 #~ msgstr "---- [%s] gakoa, [%s] balioa"
 
+#, c-format
 #~ msgid "looking for device [%d]"
 #~ msgstr "[%d] gailua bilatzen"
 
@@ -1497,6 +1440,7 @@ msgstr "tao"
 #~ msgid "subdir from GValue is NULL"
 #~ msgstr "GValue-ren sub direktorioa NULL da"
 
+#, c-format
 #~ msgid "selection data is %s\n"
 #~ msgstr "aukera data %s da\n"
 
@@ -1510,6 +1454,7 @@ msgstr "tao"
 #~ msgid "exec_thread - Exec failed"
 #~ msgstr "exec_thread - exekuzioak huts egin du"
 
+#, c-format
 #~ msgid "exec_thread - parent created child with pid %d"
 #~ msgstr "exec_thread - prozesu nagusiak ume prozesua sortu du %d pid-arekin"
 
@@ -1548,72 +1493,90 @@ msgstr "tao"
 #~ msgid "exec_thread_on_the_fly - exiting"
 #~ msgstr "exec_thread - irteten"
 
+#, c-format
 #~ msgid "exec_go - failed to create thread [%d] [%s]"
 #~ msgstr "exec_go - huts egin da haria sortzen [%d] [%s]"
 
+#, c-format
 #~ msgid "exec_cancel - killing %d"
 #~ msgstr "exec_cancel - %d hiltzen"
 
 #~ msgid "exec_cancel - complete"
 #~ msgstr "exec_cancel - eginda"
 
+#, c-format
 #~ msgid "exec_run_cmd - %s"
 #~ msgstr "exec_run_cmd - %s"
 
+#, c-format
 #~ msgid "creating [%s]"
 #~ msgstr "[%s] sortzen"
 
+#, c-format
 #~ msgid "failed to create temp %d"
 #~ msgstr "huts egin da uneko %d sortzen"
 
+#, c-format
 #~ msgid "Failed to get contents of file [%s]"
 #~ msgstr "Huts egin da [%s] fitxategiaren edukiak lortzen"
 
+#, c-format
 #~ msgid "MessageDialog message [%s]"
 #~ msgstr "MessageDialog mezua [%s]"
 
+#, c-format
 #~ msgid "toolbar style [%s] [%d]"
 #~ msgstr "tresna barraren estiloa [%s] [%d]"
 
 #~ msgid "Invalid row in device list"
 #~ msgstr "Baliogabeko zutabea gailu zerrendan"
 
+#, c-format
 #~ msgid "cdrecord - adding create audio data [%s]"
 #~ msgstr "cdrecord - audio data sorketa gehitzen [%s]"
 
+#, c-format
 #~ msgid "adding [%s]"
 #~ msgstr "[%s] gehitzen"
 
+#, c-format
 #~ msgid "cdda2wav_read_proc - total tracks %d"
 #~ msgstr "cdda2wav_read_proc - %d pista guztira"
 
+#, c-format
 #~ msgid "growisofs: progress: %d"
 #~ msgstr "growisofs: progresua: %d"
 
+#, c-format
 #~ msgid "growisofs: fraction: %f"
 #~ msgstr "growisofs: frakzioa: %f"
 
 #~ msgid "<b>Converting mp3 to cd audio...</b>"
 #~ msgstr "<b>Mp3-a audio cd-ra bihurtzen...</b>"
 
+#, c-format
 #~ msgid "Converted file is [%s]"
 #~ msgstr "Bihurtutako fitxategia [%s] da"
 
 #~ msgid "<b>Converting ogg to cd audio...</b>"
 #~ msgstr "<b>Ogg-ak audio cd-ra bihurtzen...</b>"
 
+#, c-format
 #~ msgid "Entering [%s] [%s] [%d]\n"
 #~ msgstr "Hona sartzen [%s] [%s] [%d]\n"
 
+#, c-format
 #~ msgid "mime type is %s for %s %s"
 #~ msgstr "mime moeta %s da honentzat %s %s"
 
+#, c-format
 #~ msgid "returning [%s]"
 #~ msgstr "[%s]ra itzultzen"
 
 #~ msgid "ISO files"
 #~ msgstr "ISO fitxategiak"
 
+#, c-format
 #~ msgid "file is %s"
 #~ msgstr "fitxategia %s da"
 

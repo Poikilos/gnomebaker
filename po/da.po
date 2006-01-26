@@ -1,8 +1,8 @@
 # Danish translation of GnomeBaker.
-# Copyright (C) 2005 
+# Copyright (C) 2005, 06
 # This file is distributed under the same license as the GnomeBaker package.
 # Christoffer Sørensen <gnomebaker@curo.dk>, 2005.
-# Lasse Bang Mikkelsen <lbm@fatalerror.dk>, 2005.
+# Lasse Bang Mikkelsen <lbm@fatalerror.dk>, 2005, 06.
 #
 #      Konventioner:
 #
@@ -18,10 +18,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-24 21:54+0000\n"
-"PO-Revision-Date: 2005-11-24 09:53+0100\n"
+"POT-Creation-Date: 2006-01-26 14:34+0100\n"
+"PO-Revision-Date: 2006-01-26 14:32+0100\n"
 "Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
-"Language-Team: \n"
+"Language-Team:\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -62,7 +62,7 @@ msgid ""
 "The file [%s] referred to in the playlist could not be imported as it does "
 "not exist."
 msgstr ""
-"Filen [%s] som der henvises til i afspilningslisten, eksisterer ikke og kan "
+"Filen [%s] som der henvises til i spillelisten, eksisterer ikke og kan "
 "derfor ikke importeres."
 
 #: ../src/audiocd.c:706
@@ -70,18 +70,20 @@ msgid ""
 "The file you have selected is not a supported playlist. Please select a pls "
 "or m3u file."
 msgstr ""
-"Filen du har valgt er ikke en understøttet afspilningsliste. Vælg venligst "
-"en fil af typen pls eller m3u."
+"Filen du har valgt er ikke en understøttet spilleliste. Vælg venligst en fil "
+"af typen pls eller m3u."
 
 #: ../src/audiocd.c:724 ../src/audiocd.c:761
 msgid "Failed to write playlist file"
-msgstr ""
+msgstr "Der opstod en fejl ved skrivning af spillelistefil"
 
 #: ../src/audiocd.c:810
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
+"Spilleliste findes allerede.\n"
+"Vil du erstatte den?"
 
 #: ../src/audiocd.c:843
 msgid "Track"
@@ -116,13 +118,12 @@ msgid "Please wait while the CD image you selected is burned to CD."
 msgstr "Vent venligst mens det valgte cd-aftryk skrives til cd."
 
 #: ../src/burn.c:116
-#, fuzzy
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
-"Filen du har valgt er ikke et dvd-aftryk. Vælg venligst et dvd-aftryk at "
-"skrive."
+"Filen du valgte, ser ikke ud til at være et dvd-aftryk. Vil du virkelig "
+"skrive den til dvd?"
 
 #: ../src/burn.c:121
 msgid "Burning DVD image"
@@ -133,13 +134,12 @@ msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr "Vent venligst mens det valgte dvd-aftryk skrives til dvd."
 
 #: ../src/burn.c:164
-#, fuzzy
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
-"Filen du har valgt er ikke et dvd-aftryk. Vælg venligst et dvd-aftryk at "
-"skrive."
+"Filen du valgte, ser ikke ud til at være et cd-aftryk. Vil du virkelig "
+"skrive den til cd?"
 
 #: ../src/burn.c:181
 msgid "Creating data CD image"
@@ -227,33 +227,41 @@ msgstr "Sletter cd"
 msgid "Please wait while the CD is blanked."
 msgstr "Vent venligst mens cd'en slettes."
 
-#: ../src/burn.c:396
+#: ../src/burn.c:375
+msgid "Formatting re-writeable DVD"
+msgstr "Sletter genskrivbar dvd"
+
+#: ../src/burn.c:375
+msgid "Please wait while the DVD is formatted."
+msgstr "Vent venligst mens dvd'en slettes."
+
+#: ../src/burn.c:395
 msgid "Creating data DVD image"
 msgstr "Opretter data-dvd-aftryk"
 
-#: ../src/burn.c:396
+#: ../src/burn.c:395
 msgid "Please wait while the data DVD image is created."
 msgstr "Vent venligst mens data-dvd-aftrykket oprettes."
 
-#: ../src/burn.c:402
+#: ../src/burn.c:401
 msgid "Burning data DVD"
 msgstr "Skriver data-dvd"
 
-#: ../src/burn.c:402
+#: ../src/burn.c:401
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Vent venligst mens dataen skrives direkte til dvd."
 
-#: ../src/burn.c:420 ../src/burn.c:482
+#: ../src/burn.c:419 ../src/burn.c:481
 msgid "Appending to data DVD"
 msgstr "Tilføjer til data-dvd"
 
-#: ../src/burn.c:420 ../src/burn.c:482
+#: ../src/burn.c:419 ../src/burn.c:481
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Vent venligst mens dataen tilføjes direkte til dvd'en."
 
-#: ../src/burn.c:447 ../src/execfunctions.c:1438
+#: ../src/burn.c:446 ../src/execfunctions.c:1438
 msgid "Verifying the disk content"
-msgstr ""
+msgstr "Efterprøver indholdet på disken"
 
 #: ../src/datacd.c:147
 #, c-format
@@ -283,7 +291,7 @@ msgstr "Størrelse"
 
 #: ../src/datacd.c:558
 msgid "Full Path"
-msgstr "Fuld sti"
+msgstr "Komplet sti"
 
 #: ../src/datacd.c:567
 msgid "Session"
@@ -324,13 +332,13 @@ msgstr ""
 "dernæst efter enheder i indstillingerne."
 
 #: ../src/devices.c:656
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error mounting %s.\n"
 "\n"
 "%s"
 msgstr ""
-"Fejl %s %s.\n"
+"Der opstod en fejl ved montering af %s.\n"
 "\n"
 "%s"
 
@@ -410,13 +418,12 @@ msgid "Reading CD image"
 msgstr "Læser cd-aftryk"
 
 #: ../src/execfunctions.c:1062
-#, fuzzy
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
-"Et data-cd aftryk fra en tidligere session findes allerede på disken. Vil du "
-"bruge det eksisterende aftryk?"
+"Et cd-aftryk fra en tidligere session eksisterer allerede på harddisken, "
+"ønsker du at bruge det eksisterende aftryk?"
 
 #: ../src/execfunctions.c:1326
 #, c-format
@@ -479,7 +486,7 @@ msgstr "Alle filer"
 
 #: ../src/gbcommon.c:477
 msgid "Save file as type:"
-msgstr ""
+msgstr "Gem fil som typen:"
 
 #: ../src/gnomebaker.c:105
 msgid "Loading preferences..."
@@ -537,33 +544,31 @@ msgstr "Vælg venligst filer som ønskes på disken."
 
 #: ../src/gnomebaker.c:704 ../src/gnomebaker.c:727
 msgid "Playlist files"
-msgstr "Afspilningsliste-filer"
+msgstr "Spilleliste-filer"
 
 #: ../src/gnomebaker.c:705
 msgid "Please select a playlist."
-msgstr "Vælg venligst en afspilningsliste."
+msgstr "Vælg venligst en spilleliste."
 
 #: ../src/gnomebaker.c:734
 msgid "Save playlist as..."
-msgstr ""
+msgstr "Gem spilleliste som..."
 
 #: ../src/gnomebaker.c:757
-#, fuzzy
 msgid "Project files"
-msgstr "Skub disk ud"
+msgstr "Projektfiler"
 
 #: ../src/gnomebaker.c:758
-#, fuzzy
 msgid "Please select a project file."
-msgstr "Vælg venligst et cd-aftryk."
+msgstr "Vælg venligst en projektfil."
 
 #: ../src/main.c:40
 msgid "Show tracing information (useful when debugging)"
-msgstr ""
+msgstr "Vis sporingsinformation (nyttig ved fejlsøgning)"
 
 #: ../src/main.c:49
 msgid " - GNOME CD/DVD burning application"
-msgstr ""
+msgstr " - GNOME cd/dvd-brændingsprogram"
 
 #: ../src/media.c:397
 #, c-format
@@ -603,24 +608,24 @@ msgid "Write DVD-RAM"
 msgstr "Skriv dvd-ram"
 
 #: ../src/progressdlg.c:79
-#, fuzzy, c-format
+#, c-format
 msgid "%d minutes %d seconds"
-msgstr "0 min. 0 sek."
+msgstr "%d minutter %d sekunder"
 
 #: ../src/progressdlg.c:81
-#, fuzzy, c-format
+#, c-format
 msgid "%d minute %d seconds"
-msgstr "0 min. 0 sek."
+msgstr "%d minut %d sekunder"
 
 #: ../src/progressdlg.c:83
 #, c-format
 msgid "%d seconds"
-msgstr ""
+msgstr "%d sekunder"
 
 #: ../src/progressdlg.c:217
-#, fuzzy, c-format
+#, c-format
 msgid "%s remaining"
-msgstr "%s brugt - %s tilbage"
+msgstr "%s tilbage"
 
 #: ../src/progressdlg.c:273 ../gnomebaker.glade.h:83
 msgid "Show output"
@@ -633,7 +638,7 @@ msgstr "Skjul uddata"
 #: ../src/progressdlg.c:349
 #, c-format
 msgid "Elapsed time %s"
-msgstr ""
+msgstr "Tid brugt %s"
 
 #: ../src/progressdlg.c:355
 msgid "Completed"
@@ -749,7 +754,7 @@ msgstr "Skriv disken"
 
 #: ../src/startdlg.c:501
 msgid "Only create image"
-msgstr ""
+msgstr "Opret kun aftryk"
 
 #: ../src/startdlg.c:504
 msgid "Force format"
@@ -772,9 +777,8 @@ msgid "Rock Ridge"
 msgstr "Rock Ridge"
 
 #: ../src/startdlg.c:509
-#, fuzzy
 msgid "On the fly"
-msgstr "Løbende (on-the-fly)"
+msgstr "Løbende (on the fly)"
 
 #: ../src/startdlg.c:519
 msgid "_Browse..."
@@ -825,9 +829,8 @@ msgid "Create Video CD"
 msgstr "Opret video-cd (vcd)"
 
 #: ../src/burn.h:75
-#, fuzzy
 msgid "Format DVD RW"
-msgstr "Slet dvd±rw"
+msgstr "Slet dvd rw"
 
 #: ../src/burn.h:76
 msgid "Create Data DVD"
@@ -839,7 +842,7 @@ msgstr "Tilføj til data-dvd"
 
 #: ../gnomebaker.glade.h:1
 msgid " "
-msgstr "."
+msgstr ". "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
@@ -864,7 +867,7 @@ msgstr "<b><big>...</big></b>"
 
 #: ../gnomebaker.glade.h:8
 msgid "<b>Additional <i>cdrecord</i> options</b>"
-msgstr ""
+msgstr "<b>Yderligere <i>cdrecord</i> tilvalg</b>"
 
 #: ../gnomebaker.glade.h:9
 msgid "<b>Audio Disk</b>"
@@ -896,7 +899,7 @@ msgstr "<b>Andet</b>"
 
 #: ../gnomebaker.glade.h:18
 msgid "<b>Progress window</b>"
-msgstr ""
+msgstr "<b>Fremgangsvindue</b>"
 
 #: ../gnomebaker.glade.h:19
 msgid "<b>Select Writer</b>"
@@ -923,13 +926,12 @@ msgid "Add file(s)"
 msgstr "Tilføj fil(er)"
 
 #: ../gnomebaker.glade.h:25
-#, fuzzy
 msgid "Add the selected files to the disk"
-msgstr "Tilføj de valgte filer til cd'en"
+msgstr "Tilføj de valgte filer til disken"
 
 #: ../gnomebaker.glade.h:26
 msgid "Advanced"
-msgstr ""
+msgstr "Avanceret"
 
 #: ../gnomebaker.glade.h:27
 msgid "Always scan for devices on startup"
@@ -941,7 +943,7 @@ msgstr "Spørg ved afslutning"
 
 #: ../gnomebaker.glade.h:29
 msgid "Automatically scroll output"
-msgstr ""
+msgstr "Rul automatisk uddata"
 
 #: ../gnomebaker.glade.h:30
 msgid "Baking"
@@ -976,9 +978,8 @@ msgid "Clean temporary directory on exit"
 msgstr "Tøm midlertidigt katalog ved afslutning"
 
 #: ../gnomebaker.glade.h:41
-#, fuzzy
 msgid "Clear the contents of the disk"
-msgstr "Fjern indholdet fra cd'en"
+msgstr "Fjern indholdet fra disken"
 
 #: ../gnomebaker.glade.h:42
 msgid "Click to begin the process of creating a data disk."
@@ -1022,7 +1023,7 @@ msgstr "Floppydisk-aftryk"
 
 #: ../gnomebaker.glade.h:55
 msgid "Force"
-msgstr ""
+msgstr "Tving"
 
 #: ../gnomebaker.glade.h:56
 msgid "Format DVD±RW"
@@ -1117,9 +1118,8 @@ msgid "Remove selected"
 msgstr "Fjern valgte"
 
 #: ../gnomebaker.glade.h:79
-#, fuzzy
 msgid "Remove the selected files from the disk"
-msgstr "Fjern de valgte filer fra cd'en"
+msgstr "Fjern de valgte filer fra disken"
 
 #: ../gnomebaker.glade.h:80
 msgid "Sc_an for devices"
@@ -1170,32 +1170,28 @@ msgid "_Add device"
 msgstr "_Tilføj enhed"
 
 #: ../gnomebaker.glade.h:93
-#, fuzzy
 msgid "_Add selection"
-msgstr "_Fjern valgte"
+msgstr "_Tilføj valgte"
 
 #: ../gnomebaker.glade.h:95
-#, fuzzy
 msgid "_Export"
-msgstr "Importér"
+msgstr "_Eksportér"
 
 #: ../gnomebaker.glade.h:96
 msgid "_Format DVD±RW"
 msgstr "_Slet dvd±rw"
 
 #: ../gnomebaker.glade.h:97
-#, fuzzy
 msgid "_Import"
-msgstr "Importér"
+msgstr "_Importér"
 
 #: ../gnomebaker.glade.h:98
 msgid "_Import Session"
 msgstr "_Importér session"
 
 #: ../gnomebaker.glade.h:99
-#, fuzzy
 msgid "_Playlist"
-msgstr "I_mportér afspilningsliste"
+msgstr "_Spilleliste"
 
 #: ../gnomebaker.glade.h:100
 msgid "_Refresh"
@@ -1232,49 +1228,3 @@ msgstr "raw96r"
 #: ../gnomebaker.glade.h:110
 msgid "tao"
 msgstr "tao"
-
-#~ msgid "Formatting re-writeable DVD"
-#~ msgstr "Sletter genskrivbar dvd"
-
-#~ msgid "Please wait while the DVD is formatted."
-#~ msgstr "Vent venligst mens dvd'en slettes."
-
-#~ msgid "Create ISO only"
-#~ msgstr "Opret kun ISO"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Down"
-#~ msgstr "Flyt valgte _ned"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Up"
-#~ msgstr "Flyt valgte _op"
-
-#, fuzzy
-#~ msgid "_Add Selected Files"
-#~ msgstr "_Tilføj valgte"
-
-#, fuzzy
-#~ msgid "_Audio Disk"
-#~ msgstr "<b>Lyddisk</b>"
-
-#, fuzzy
-#~ msgid "_Data Disk"
-#~ msgstr "Opret datadisk"
-
-#, fuzzy
-#~ msgid "_Remove Selected Files"
-#~ msgstr "_Fjern valgte"
-
-#~ msgid ""
-#~ "The file you have selected is not a cd image. Please select a cd image to "
-#~ "burn."
-#~ msgstr ""
-#~ "Filen du har valgt er ikke et cd-aftryk. Vælg venligst et cd-aftryk at "
-#~ "skrive."
-
-#~ msgid "mounting"
-#~ msgstr "monterer"
-
-#~ msgid "unmounting"
-#~ msgstr "afmonterer"

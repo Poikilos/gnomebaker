@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-24 21:54+0000\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2006-01-12 10:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -16,7 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Rosetta-Version: 0.1\n"
-"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../src/audiocd.c:117
 #, c-format
@@ -32,24 +31,20 @@ msgid "_Open"
 msgstr ""
 
 #: ../src/audiocd.c:261
-#, fuzzy
 msgid "Move selected _up"
-msgstr "Seçilenleri kaldır"
+msgstr ""
 
 #: ../src/audiocd.c:263
-#, fuzzy
 msgid "Move selected _down"
-msgstr "Seçilenleri kaldır"
+msgstr ""
 
 #: ../src/audiocd.c:266 ../src/datacd.c:479
-#, fuzzy
 msgid "_Remove selected"
-msgstr "Seçilenleri kaldır"
+msgstr ""
 
 #: ../src/audiocd.c:268
-#, fuzzy
 msgid "_Clear"
-msgstr "Temizle"
+msgstr ""
 
 #: ../src/audiocd.c:358
 #, c-format
@@ -64,44 +59,43 @@ msgid ""
 "or m3u file."
 msgstr ""
 
-#: ../src/audiocd.c:724 ../src/audiocd.c:761
+#: ../src/audiocd.c:723 ../src/audiocd.c:759
 msgid "Failed to write playlist file"
 msgstr ""
 
-#: ../src/audiocd.c:810
+#: ../src/audiocd.c:808
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:843
+#: ../src/audiocd.c:841
 msgid "Track"
 msgstr "İz"
 
-#: ../src/audiocd.c:856
+#: ../src/audiocd.c:854
 msgid "Duration"
 msgstr "Süre"
 
-#: ../src/audiocd.c:873
+#: ../src/audiocd.c:871
 msgid "Artist"
 msgstr "Şarkıcı"
 
-#: ../src/audiocd.c:882
+#: ../src/audiocd.c:880
 msgid "Album"
 msgstr "Albüm"
 
-#: ../src/audiocd.c:891
+#: ../src/audiocd.c:889
 msgid "Title"
 msgstr "Başlık"
 
-#: ../src/audiocd.c:900
+#: ../src/audiocd.c:898
 msgid "Info"
 msgstr ""
 
 #: ../src/burn.c:94 ../src/burn.c:140
-#, fuzzy
 msgid "Burning CD image"
-msgstr "İmge Dosyasını Yaz"
+msgstr ""
 
 #: ../src/burn.c:94 ../src/burn.c:140
 msgid "Please wait while the CD image you selected is burned to CD."
@@ -114,9 +108,8 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:121
-#, fuzzy
 msgid "Burning DVD image"
-msgstr "İmge Dosyasını Yaz"
+msgstr ""
 
 #: ../src/burn.c:121
 msgid "Please wait while the DVD image you selected is burned to DVD."
@@ -129,9 +122,8 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:181
-#, fuzzy
 msgid "Creating data CD image"
-msgstr "Veri CD'si Oluştur"
+msgstr ""
 
 #: ../src/burn.c:181
 msgid "Please wait while the data CD image is created."
@@ -152,9 +144,8 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:221 ../src/burn.c:231
-#, fuzzy
 msgid "Appending to data CD"
-msgstr "Veri CD'si Kopyala"
+msgstr ""
 
 #: ../src/burn.c:221
 msgid "Please wait while the additional data is burned directly to CD."
@@ -177,27 +168,25 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:316
-#, fuzzy
 msgid "Extracting CD image"
-msgstr "İmge Dosyasını Yaz"
+msgstr ""
 
 #: ../src/burn.c:316
 msgid "Please wait while the data CD image is extracted."
 msgstr ""
 
 #: ../src/burn.c:322
-#, fuzzy
 msgid "Copying data CD"
-msgstr "Veri CD'si Kopyala"
+msgstr ""
 
 #: ../src/burn.c:322
-msgid "Please wait while the data CD image is extracted and then burned to CD."
+msgid ""
+"Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 
 #: ../src/burn.c:342
-#, fuzzy
 msgid "Copying audio CD"
-msgstr "Ses CD'si Kopyala"
+msgstr ""
 
 #: ../src/burn.c:342
 msgid ""
@@ -205,42 +194,43 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:359
-#, fuzzy
 msgid "Blanking CD"
-msgstr "Boş CDRW"
+msgstr ""
 
 #: ../src/burn.c:359
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:396
-#, fuzzy
-msgid "Creating data DVD image"
-msgstr "Veri CD'si Oluştur"
+#: ../src/burn.c:375
+msgid "Formatting re-writeable DVD"
+msgstr ""
 
-#: ../src/burn.c:396
+#: ../src/burn.c:375
+msgid "Please wait while the DVD is formatted."
+msgstr ""
+
+#: ../src/burn.c:394
+msgid "Creating data DVD image"
+msgstr ""
+
+#: ../src/burn.c:394
 msgid "Please wait while the data DVD image is created."
 msgstr ""
 
-#: ../src/burn.c:402
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:402
+#: ../src/burn.c:400
 msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
 
-#: ../src/burn.c:420 ../src/burn.c:482
-#, fuzzy
+#: ../src/burn.c:418
 msgid "Appending to data DVD"
-msgstr "Veri CD'si Kopyala"
-
-#: ../src/burn.c:420 ../src/burn.c:482
-msgid "Please wait while the data is appended directly to the DVD."
 msgstr ""
 
-#: ../src/burn.c:447 ../src/execfunctions.c:1438
-msgid "Verifying the disk content"
+#: ../src/burn.c:418
+msgid "Please wait while the data is appended directly to the DVD."
 msgstr ""
 
 #: ../src/datacd.c:147
@@ -249,8 +239,9 @@ msgid "%s used - %s remaining"
 msgstr ""
 
 #: ../src/datacd.c:203
-msgid "File or directory is too large to fit in the remaining space on the CD"
-msgstr ""
+msgid ""
+"File or directory is too large to fit in the remaining space on the CD"
+msgstr "Dosya veya dizin CD'de kalan yere sığmak için çok büyük"
 
 #: ../src/datacd.c:475
 msgid "_Edit name"
@@ -275,7 +266,7 @@ msgstr "Tam Adres"
 
 #: ../src/datacd.c:567
 msgid "Session"
-msgstr ""
+msgstr "Oturum"
 
 #: ../src/datacd.c:612
 #, c-format
@@ -304,100 +295,98 @@ msgid ""
 msgstr ""
 
 #: ../src/devices.c:656
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error mounting %s.\n"
 "\n"
 "%s"
 msgstr ""
-"Hata %s %s\n"
-"\n"
-"%s"
 
 #: ../src/devices.c:785
-#, fuzzy, c-format
+#, c-format
 msgid "Please insert a disk into the %s"
-msgstr "Lütfen CD-Yazıcıya boş bir CD yerleştirin"
+msgstr ""
 
-#: ../src/execfunctions.c:87
+#: ../src/execfunctions.c:94
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:130
+#: ../src/execfunctions.c:137
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: ../src/execfunctions.c:187
+#: ../src/execfunctions.c:194
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:239 ../src/execfunctions.c:988
+#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
 #: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
 msgid "default"
 msgstr "Öntanımlı"
 
-#: ../src/execfunctions.c:391
+#: ../src/execfunctions.c:397
 msgid "Preparing to extract audio tracks"
 msgstr ""
 
-#: ../src/execfunctions.c:402
+#: ../src/execfunctions.c:408
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
 
-#: ../src/execfunctions.c:459
+#: ../src/execfunctions.c:465
 #, c-format
 msgid "Extracting audio track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:529
+#: ../src/execfunctions.c:535
 msgid "Calculating data disk image size"
 msgstr ""
 
-#: ../src/execfunctions.c:567
-#, fuzzy
+#: ../src/execfunctions.c:573
 msgid "Creating data disk image"
-msgstr "Sabit Disk imgesi"
+msgstr ""
 
-#: ../src/execfunctions.c:574
+#: ../src/execfunctions.c:580
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
+"Önceki oturuma ait bir veri CD imgesi disk üzerinde zaten bulunmakta, mevcut "
+"imgeyi kullanmak ister misiniz?"
 
-#: ../src/execfunctions.c:804
-#, fuzzy
+#: ../src/execfunctions.c:810
 msgid "Formatting DVD"
-msgstr "<b> DVD Biçimleniyor...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:885
+#: ../src/execfunctions.c:891
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:916 ../src/execfunctions.c:941
-#, fuzzy
+#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
 msgid "Writing DVD"
-msgstr "<b> DVD Yazılıyor...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:1054
-#, fuzzy
+#: ../src/execfunctions.c:1056
 msgid "Reading CD image"
-msgstr "İmge Dosyasını Yaz"
+msgstr ""
 
-#: ../src/execfunctions.c:1062
+#: ../src/execfunctions.c:1064
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1326
+#: ../src/execfunctions.c:1327
 #, c-format
 msgid "Converting %s to cd audio"
+msgstr ""
+
+#: ../src/execfunctions.c:1439
+msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
@@ -414,28 +403,24 @@ msgid "(empty)"
 msgstr ""
 
 #: ../src/filebrowser.c:76
-#, fuzzy
 msgid "Folder"
-msgstr "Tarz"
+msgstr ""
 
 #: ../src/filebrowser.c:575
-#, fuzzy
 msgid "_Add directory"
-msgstr "Dizin ekle"
+msgstr ""
 
 #: ../src/filebrowser.c:588
-#, fuzzy
 msgid "_Add file(s)"
-msgstr "Dosya(lar) ekle"
+msgstr ""
 
 #: ../src/filebrowser.c:603 ../gnomebaker.glade.h:94
 msgid "_Burn CD Image"
 msgstr ""
 
 #: ../src/filebrowser.c:606
-#, fuzzy
 msgid "_Burn DVD Image"
-msgstr "İmge Dosyasını Yaz"
+msgstr ""
 
 #: ../src/filebrowser.c:714
 #, c-format
@@ -444,107 +429,86 @@ msgstr ""
 
 #: ../src/filebrowser.c:782
 msgid "File"
-msgstr ""
+msgstr "Dosya"
 
 #: ../src/filebrowser.c:817
 msgid "Type"
-msgstr ""
+msgstr "Tür"
 
 #: ../src/filebrowser.c:826
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:469
-#, fuzzy
+#: ../src/gbcommon.c:468
 msgid "All files"
-msgstr "Dosya(lar) ekle"
+msgstr "Tüm dosyalar"
 
-#: ../src/gbcommon.c:477
+#: ../src/gbcommon.c:480
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:102
 msgid "Loading preferences..."
-msgstr ""
+msgstr "Özellikler Yükleniyor"
+
+#: ../src/gnomebaker.c:105
+msgid "Detecting devices..."
+msgstr "Aygıtlar algılanıyor..."
 
 #: ../src/gnomebaker.c:108
-msgid "Detecting devices..."
-msgstr ""
+msgid "Registering gstreamer plugins..."
+msgstr "Gstreamer eklentileri kaydediliyor..."
 
 #: ../src/gnomebaker.c:111
-msgid "Registering gstreamer plugins..."
-msgstr ""
-
-#: ../src/gnomebaker.c:114
 msgid "Loading GUI..."
-msgstr ""
+msgstr "Arayüz Yükleniyor..."
 
-#: ../src/gnomebaker.c:204
+#: ../src/gnomebaker.c:201
 msgid "Are you sure you want to quit?"
+msgstr "Çıkmak istediğinize emin misiniz?"
+
+#: ../src/gnomebaker.c:278
+msgid "CD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:281
-#, fuzzy
-msgid "CD Image files"
-msgstr "Önyükleyici imge listesi"
-
-#: ../src/gnomebaker.c:282
+#: ../src/gnomebaker.c:279
 msgid "Please select a CD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:297
-#, fuzzy
+#: ../src/gnomebaker.c:292
 msgid "DVD Image files"
-msgstr "Önyükleyici imge listesi"
+msgstr ""
 
-#: ../src/gnomebaker.c:298
+#: ../src/gnomebaker.c:293
 msgid "Please select a DVD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:369 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
 msgid "GnomeBaker"
 msgstr ""
 
-#: ../src/gnomebaker.c:370
+#: ../src/gnomebaker.c:364
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr ""
 
-#: ../src/gnomebaker.c:370 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
 msgid "translator_credits"
 msgstr ""
 
-#: ../src/gnomebaker.c:435
+#: ../src/gnomebaker.c:429
 msgid "Please select files to add to the disk."
 msgstr ""
 
-#: ../src/gnomebaker.c:704 ../src/gnomebaker.c:727
-#, fuzzy
+#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
 msgid "Playlist files"
-msgstr "Dosya(lar) ekle"
+msgstr ""
 
-#: ../src/gnomebaker.c:705
+#: ../src/gnomebaker.c:690
 msgid "Please select a playlist."
 msgstr ""
 
-#: ../src/gnomebaker.c:734
+#: ../src/gnomebaker.c:711
 msgid "Save playlist as..."
-msgstr ""
-
-#: ../src/gnomebaker.c:757
-#, fuzzy
-msgid "Project files"
-msgstr "CD'yi Çıkar"
-
-#: ../src/gnomebaker.c:758
-msgid "Please select a project file."
-msgstr ""
-
-#: ../src/main.c:40
-msgid "Show tracing information (useful when debugging)"
-msgstr ""
-
-#: ../src/main.c:49
-msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -554,7 +518,7 @@ msgstr ""
 
 #: ../src/prefsdlg.c:146
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: ../src/prefsdlg.c:161
 msgid "Id"
@@ -584,44 +548,19 @@ msgstr ""
 msgid "Write DVD-RAM"
 msgstr ""
 
-#: ../src/progressdlg.c:79
-#, fuzzy, c-format
-msgid "%d minutes %d seconds"
-msgstr "%d dakika %d saniye"
-
-#: ../src/progressdlg.c:81
-#, fuzzy, c-format
-msgid "%d minute %d seconds"
-msgstr "%d dakika %d saniye"
-
-#: ../src/progressdlg.c:83
-#, c-format
-msgid "%d seconds"
-msgstr ""
-
-#: ../src/progressdlg.c:217
-#, c-format
-msgid "%s remaining"
-msgstr ""
-
-#: ../src/progressdlg.c:273 ../gnomebaker.glade.h:83
+#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
 msgid "Show output"
 msgstr ""
 
-#: ../src/progressdlg.c:273
+#: ../src/progressdlg.c:188
 msgid "Hide output"
 msgstr ""
 
-#: ../src/progressdlg.c:349
-#, c-format
-msgid "Elapsed time %s"
-msgstr ""
-
-#: ../src/progressdlg.c:355
+#: ../src/progressdlg.c:262
 msgid "Completed"
 msgstr "Tamamlandı"
 
-#: ../src/progressdlg.c:364
+#: ../src/progressdlg.c:270
 msgid "Failed"
 msgstr "Hatalı"
 
@@ -630,38 +569,32 @@ msgid "Please select an image file to save to."
 msgstr ""
 
 #: ../src/startdlg.c:120
-#, fuzzy
 msgid "CD/DVD Image files"
-msgstr "Önyükleyici imge listesi"
+msgstr ""
 
 #: ../src/startdlg.c:178 ../gnomebaker.glade.h:14
 msgid "<b>Devices</b>"
 msgstr "<b>Aygıtlar</b>"
 
 #: ../src/startdlg.c:179
-#, fuzzy
 msgid "<b>Device</b>"
-msgstr "<b>Aygıtlar</b>"
+msgstr ""
 
 #: ../src/startdlg.c:183
-#, fuzzy
 msgid "Reader:"
-msgstr "Okuyucu"
+msgstr ""
 
 #: ../src/startdlg.c:187
-#, fuzzy
 msgid "Writer:"
-msgstr "Yazıcı"
+msgstr ""
 
 #: ../src/startdlg.c:190
-#, fuzzy
 msgid "Speed:"
-msgstr "Hız"
+msgstr ""
 
 #: ../src/startdlg.c:194
-#, fuzzy
 msgid "Mode:"
-msgstr "Tarz"
+msgstr ""
 
 #: ../src/startdlg.c:217 ../gnomebaker.glade.h:16
 msgid "<b>Options</b>"
@@ -672,9 +605,8 @@ msgid "_Start"
 msgstr "_Başlat"
 
 #: ../src/startdlg.c:310
-#, fuzzy
 msgid "<b>Disk Information</b>"
-msgstr "<b>Önyükleme Secenekleri</b>"
+msgstr ""
 
 #: ../src/startdlg.c:312
 msgid "Volume ID:"
@@ -705,14 +637,12 @@ msgid "Bibliography:"
 msgstr ""
 
 #: ../src/startdlg.c:341
-#, fuzzy
 msgid "<b>Filesystem</b>"
-msgstr "<b>Aygıtlar</b>"
+msgstr ""
 
 #: ../src/startdlg.c:379 ../src/startdlg.c:407
-#, fuzzy
 msgid "Writing"
-msgstr "<b> DVD Yazılıyor...</b>"
+msgstr ""
 
 #: ../src/startdlg.c:381 ../src/startdlg.c:409
 msgid "Disk Information"
@@ -723,9 +653,8 @@ msgid "Dummy write"
 msgstr ""
 
 #: ../src/startdlg.c:496
-#, fuzzy
 msgid "Eject disk"
-msgstr "CD'yi Çıkar"
+msgstr "Diski çıkar"
 
 #: ../src/startdlg.c:497
 msgid "Fast blank"
@@ -740,8 +669,8 @@ msgid "Burn the disk"
 msgstr ""
 
 #: ../src/startdlg.c:501
-msgid "Only create image"
-msgstr ""
+msgid "Create ISO only"
+msgstr "Sadece ISO yarat"
 
 #: ../src/startdlg.c:504
 msgid "Force format"
@@ -764,7 +693,7 @@ msgid "Rock Ridge"
 msgstr ""
 
 #: ../src/startdlg.c:509
-msgid "On the fly"
+msgid "On The Fly"
 msgstr ""
 
 #: ../src/startdlg.c:519
@@ -772,14 +701,12 @@ msgid "_Browse..."
 msgstr ""
 
 #: ../src/startdlg.c:521
-#, fuzzy
 msgid "GnomeBaker data disk"
-msgstr "GnomeBaker veri cd'si"
+msgstr ""
 
 #: ../src/burn.h:65 ../gnomebaker.glade.h:32
-#, fuzzy
 msgid "Blank CD-RW"
-msgstr "Boş CDRW"
+msgstr ""
 
 #: ../src/burn.h:66 ../gnomebaker.glade.h:47
 msgid "Copy Data CD"
@@ -794,18 +721,16 @@ msgid "Burn CD Image"
 msgstr "İmge Dosyasını Yaz"
 
 #: ../src/burn.h:69 ../gnomebaker.glade.h:37
-#, fuzzy
 msgid "Burn DVD Image"
-msgstr "İmge Dosyasını Yaz"
+msgstr ""
 
 #: ../src/burn.h:70
 msgid "Create Data CD"
 msgstr "Veri CD'si Oluştur"
 
 #: ../src/burn.h:71
-#, fuzzy
 msgid "Append to Data CD"
-msgstr "Veri CD'si Oluştur"
+msgstr ""
 
 #: ../src/burn.h:72
 msgid "Create Audio CD"
@@ -820,18 +745,16 @@ msgid "Create Video CD"
 msgstr "Video CD'si Oluştur"
 
 #: ../src/burn.h:75
-#, fuzzy
 msgid "Format DVD RW"
-msgstr "<b> DVD Biçimleniyor...</b>"
+msgstr ""
 
 #: ../src/burn.h:76
 msgid "Create Data DVD"
 msgstr "Veri DVD'si Oluştur"
 
 #: ../src/burn.h:77
-#, fuzzy
 msgid "Append to Data DVD"
-msgstr "Veri DVD'si Oluştur"
+msgstr ""
 
 #: ../gnomebaker.glade.h:1
 msgid " "
@@ -887,18 +810,16 @@ msgid "<b>File Browser</b>"
 msgstr ""
 
 #: ../gnomebaker.glade.h:17
-#, fuzzy
 msgid "<b>Other</b>"
-msgstr "<b>Seçenekler</b>"
+msgstr ""
 
 #: ../gnomebaker.glade.h:18
 msgid "<b>Progress window</b>"
 msgstr ""
 
 #: ../gnomebaker.glade.h:19
-#, fuzzy
 msgid "<b>Select Writer</b>"
-msgstr "<b>Algılanmış aygıtlar</b>"
+msgstr ""
 
 #: ../gnomebaker.glade.h:20
 msgid "<b>Temporary Directory</b>"
@@ -921,7 +842,7 @@ msgid "Add file(s)"
 msgstr "Dosya(lar) ekle"
 
 #: ../gnomebaker.glade.h:25
-msgid "Add the selected files to the disk"
+msgid "Add the selected files to the CD"
 msgstr ""
 
 #: ../gnomebaker.glade.h:26
@@ -945,9 +866,8 @@ msgid "Baking"
 msgstr ""
 
 #: ../gnomebaker.glade.h:31
-#, fuzzy
 msgid "Bl_ank CD-RW"
-msgstr "Boş CDRW"
+msgstr ""
 
 #: ../gnomebaker.glade.h:33
 msgid "Boot Image"
@@ -962,9 +882,8 @@ msgid "Boot catalog"
 msgstr "Önyükleyici kataloğu"
 
 #: ../gnomebaker.glade.h:38
-#, fuzzy
 msgid "Burn _DVD Image"
-msgstr "İmge Dosyasını Yaz"
+msgstr ""
 
 #: ../gnomebaker.glade.h:39
 msgid "C_opy Data CD"
@@ -975,7 +894,7 @@ msgid "Clean temporary directory on exit"
 msgstr ""
 
 #: ../gnomebaker.glade.h:41
-msgid "Clear the contents of the disk"
+msgid "Clear the contents of the CD"
 msgstr ""
 
 #: ../gnomebaker.glade.h:42
@@ -999,9 +918,8 @@ msgid "Create Data Disk"
 msgstr ""
 
 #: ../gnomebaker.glade.h:50
-#, fuzzy
 msgid "Create Video Disk"
-msgstr "Video CD'si Oluştur"
+msgstr ""
 
 #: ../gnomebaker.glade.h:51
 msgid "Created by username"
@@ -1012,9 +930,8 @@ msgid "Devices"
 msgstr "Aygıtlar"
 
 #: ../gnomebaker.glade.h:53
-#, fuzzy
 msgid "Edit GnomeBaker's preferences"
-msgstr "GnomeBaker veri cd'si"
+msgstr ""
 
 #: ../gnomebaker.glade.h:54
 msgid "Floppy disk image"
@@ -1025,9 +942,8 @@ msgid "Force"
 msgstr "Güç"
 
 #: ../gnomebaker.glade.h:56
-#, fuzzy
 msgid "Format DVD±RW"
-msgstr "<b> DVD Biçimleniyor...</b>"
+msgstr ""
 
 #: ../gnomebaker.glade.h:57
 msgid "GPL"
@@ -1038,9 +954,8 @@ msgid "General"
 msgstr "Genel"
 
 #: ../gnomebaker.glade.h:60
-#, fuzzy
 msgid "GnomeBaker Preferences"
-msgstr "GnomeBaker veri cd'si"
+msgstr ""
 
 #: ../gnomebaker.glade.h:61
 msgid "GnomeBaker data cd"
@@ -1079,14 +994,12 @@ msgid "Move audio tracks up"
 msgstr ""
 
 #: ../gnomebaker.glade.h:70
-#, fuzzy
 msgid "Move selection _down"
-msgstr "Seçilenleri kaldır"
+msgstr ""
 
 #: ../gnomebaker.glade.h:71
-#, fuzzy
 msgid "Move selection _up"
-msgstr "Seçilenleri kaldır"
+msgstr ""
 
 #: ../gnomebaker.glade.h:72
 msgid "Not bootable"
@@ -1119,7 +1032,7 @@ msgid "Remove selected"
 msgstr "Seçilenleri kaldır"
 
 #: ../gnomebaker.glade.h:79
-msgid "Remove the selected files from the disk"
+msgid "Remove the selected files from the CD"
 msgstr ""
 
 #: ../gnomebaker.glade.h:80
@@ -1156,7 +1069,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:89
 msgid "Sun workstation bootable"
-msgstr ""
+msgstr "Önyüklenebilir Sun iş istasyonu"
 
 #: ../gnomebaker.glade.h:90
 msgid "Writer"
@@ -1171,18 +1084,16 @@ msgid "_Add device"
 msgstr "_Aygıt ekle"
 
 #: ../gnomebaker.glade.h:93
-#, fuzzy
 msgid "_Add selection"
-msgstr "Seçilenleri kaldır"
+msgstr ""
 
 #: ../gnomebaker.glade.h:95
 msgid "_Export"
 msgstr ""
 
 #: ../gnomebaker.glade.h:96
-#, fuzzy
 msgid "_Format DVD±RW"
-msgstr "<b> DVD Biçimleniyor...</b>"
+msgstr ""
 
 #: ../gnomebaker.glade.h:97
 msgid "_Import"
@@ -1193,18 +1104,16 @@ msgid "_Import Session"
 msgstr ""
 
 #: ../gnomebaker.glade.h:99
-#, fuzzy
 msgid "_Playlist"
-msgstr "Dosya(lar) ekle"
+msgstr ""
 
 #: ../gnomebaker.glade.h:100
 msgid "_Refresh"
 msgstr ""
 
 #: ../gnomebaker.glade.h:101
-#, fuzzy
 msgid "_Remove selection"
-msgstr "Seçilenleri kaldır"
+msgstr ""
 
 #: ../gnomebaker.glade.h:102
 msgid "_Show File Browser"
@@ -1233,105 +1142,3 @@ msgstr ""
 #: ../gnomebaker.glade.h:110
 msgid "tao"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Formatting re-writeable DVD"
-#~ msgstr "<b> DVD Biçimleniyor...</b>"
-
-#, fuzzy
-#~ msgid "Create ISO only"
-#~ msgstr "Sadece ISO Oluştur"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Down"
-#~ msgstr "Seçilenleri kaldır"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Up"
-#~ msgstr "Seçilenleri kaldır"
-
-#, fuzzy
-#~ msgid "_Add Selected Files"
-#~ msgstr "Dizin ekle"
-
-#, fuzzy
-#~ msgid "_Remove Selected Files"
-#~ msgstr "Seçilenleri kaldır"
-
-#~ msgid "mounting"
-#~ msgstr "Bağlanıyor"
-
-#~ msgid "unmounting"
-#~ msgstr "Ayrılıyor"
-
-#~ msgid "Fast"
-#~ msgstr "Hız"
-
-#, fuzzy
-#~ msgid "Burning DVD"
-#~ msgstr "<b> DVD Yazılıyor...</b>"
-
-#~ msgid "Add directory"
-#~ msgstr "Dizin ekle"
-
-#~ msgid "<b>Burning disk...</b>"
-#~ msgstr "<b> Disk Yazılıyor...</b>"
-
-#, fuzzy
-#~ msgid "Please insert the CD into the CD writer"
-#~ msgstr "Lütfen CD-RW'a boş bir CD yerleştirin"
-
-#~ msgid "Please insert the CD-RW into the CD writer"
-#~ msgstr "Lütfen CD-RW'a boş bir CD yerleştirin"
-
-#, fuzzy
-#~ msgid "<b>GnomeBaker</b>"
-#~ msgstr "<b> Birim Etiketi</b>"
-
-#~ msgid "TITLE="
-#~ msgstr "BAŞLIK="
-
-#~ msgid "ARTIST="
-#~ msgstr "ŞARKICI="
-
-#~ msgid "File %s was not opened \n"
-#~ msgstr ""
-#~ "%s dosyası açılamadı \n"
-#~ "\n"
-
-#~ msgid "Performer"
-#~ msgstr "Sanatcı"
-
-#~ msgid "Albumtitle"
-#~ msgstr "Albüm İsmi"
-
-#~ msgid "Tracktitle"
-#~ msgstr "Parca ismi"
-
-#~ msgid "File %s was not opened"
-#~ msgstr "%s dosyası açılamadı"
-
-#~ msgid "Error reading wav header for file [%s]"
-#~ msgstr "[%s] için wav başlıkları okunurken hata"
-
-#~ msgid "burn - [%s]"
-#~ msgstr "Yaz - [%s]"
-
-#~ msgid "Failed to open %s"
-#~ msgstr " %s açılırlamadı"
-
-#~ msgid "adding [%s]"
-#~ msgstr "[%s] ekleniyor"
-
-#, fuzzy
-#~ msgid "ISO files"
-#~ msgstr "Dosya(lar) ekle"
-
-#~ msgid "Start burning"
-#~ msgstr "Yazma başlıyor"
-
-#~ msgid "Create ISO Only"
-#~ msgstr "Sadece ISO Oluştur"
-
-#~ msgid "Eject CD"
-#~ msgstr "CD'yi Çıkar"

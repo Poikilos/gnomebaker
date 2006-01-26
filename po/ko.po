@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-24 21:54+0000\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2006-01-12 10:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -16,7 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Rosetta-Version: 0.1\n"
-"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../src/audiocd.c:117
 #, c-format
@@ -32,24 +31,20 @@ msgid "_Open"
 msgstr ""
 
 #: ../src/audiocd.c:261
-#, fuzzy
 msgid "Move selected _up"
-msgstr "선택 항목 제거"
+msgstr ""
 
 #: ../src/audiocd.c:263
-#, fuzzy
 msgid "Move selected _down"
-msgstr "선택 항목 제거"
+msgstr ""
 
 #: ../src/audiocd.c:266 ../src/datacd.c:479
-#, fuzzy
 msgid "_Remove selected"
-msgstr "선택 항목 제거"
+msgstr ""
 
 #: ../src/audiocd.c:268
-#, fuzzy
 msgid "_Clear"
-msgstr "초기화"
+msgstr ""
 
 #: ../src/audiocd.c:358
 #, c-format
@@ -59,103 +54,89 @@ msgid ""
 msgstr ""
 
 #: ../src/audiocd.c:706
-#, fuzzy
 msgid ""
 "The file you have selected is not a supported playlist. Please select a pls "
 "or m3u file."
 msgstr ""
-"선택한 파일이 CD 이미지가 아닙니다. CD 굽기를 할 이미지를 선택하십시오."
 
-#: ../src/audiocd.c:724 ../src/audiocd.c:761
-#, fuzzy
+#: ../src/audiocd.c:723 ../src/audiocd.c:759
 msgid "Failed to write playlist file"
-msgstr "gconf 초기화 실패"
+msgstr ""
 
-#: ../src/audiocd.c:810
+#: ../src/audiocd.c:808
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:843
+#: ../src/audiocd.c:841
 msgid "Track"
 msgstr "트랙"
 
-#: ../src/audiocd.c:856
+#: ../src/audiocd.c:854
 #, fuzzy
 msgid "Duration"
 msgstr "시간"
 
-#: ../src/audiocd.c:873
+#: ../src/audiocd.c:871
 msgid "Artist"
 msgstr "가수"
 
-#: ../src/audiocd.c:882
+#: ../src/audiocd.c:880
 msgid "Album"
 msgstr "앨범"
 
-#: ../src/audiocd.c:891
+#: ../src/audiocd.c:889
 msgid "Title"
 msgstr "제목"
 
-#: ../src/audiocd.c:900
+#: ../src/audiocd.c:898
 msgid "Info"
 msgstr ""
 
 #: ../src/burn.c:94 ../src/burn.c:140
-#, fuzzy
 msgid "Burning CD image"
-msgstr "CD 이미지 굽기"
+msgstr ""
 
 #: ../src/burn.c:94 ../src/burn.c:140
-#, fuzzy
 msgid "Please wait while the CD image you selected is burned to CD."
-msgstr "ISO 파일을 선택하십시오..."
+msgstr ""
 
 #: ../src/burn.c:116
-#, fuzzy
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
-"선택한 파일이 CD 이미지가 아닙니다. CD 굽기를 할 이미지를 선택하십시오."
 
 #: ../src/burn.c:121
-#, fuzzy
 msgid "Burning DVD image"
-msgstr "CD 이미지 굽기"
+msgstr ""
 
 #: ../src/burn.c:121
-#, fuzzy
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr "ISO 파일을 선택하십시오..."
+msgstr ""
 
 #: ../src/burn.c:164
-#, fuzzy
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
-"선택한 파일이 CD 이미지가 아닙니다. CD 굽기를 할 이미지를 선택하십시오."
 
 #: ../src/burn.c:181
-#, fuzzy
 msgid "Creating data CD image"
-msgstr "<b>데이터 디스크 이미지 생성중...</b>"
+msgstr ""
 
 #: ../src/burn.c:181
-#, fuzzy
 msgid "Please wait while the data CD image is created."
-msgstr "ISO 파일을 선택하십시오..."
+msgstr ""
 
 #: ../src/burn.c:187 ../src/burn.c:197
 msgid "Burning data CD"
 msgstr ""
 
 #: ../src/burn.c:187
-#, fuzzy
 msgid "Please wait while the data is burned directly to CD."
-msgstr "ISO 파일을 선택하십시오..."
+msgstr ""
 
 #: ../src/burn.c:197
 msgid ""
@@ -164,14 +145,12 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:221 ../src/burn.c:231
-#, fuzzy
 msgid "Appending to data CD"
-msgstr "데이타 CD 복사하기"
+msgstr ""
 
 #: ../src/burn.c:221
-#, fuzzy
 msgid "Please wait while the additional data is burned directly to CD."
-msgstr "ISO 파일을 선택하십시오..."
+msgstr ""
 
 #: ../src/burn.c:231
 msgid ""
@@ -184,83 +163,75 @@ msgid "Burning audio CD"
 msgstr ""
 
 #: ../src/burn.c:253
-#, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
-msgstr "CD 리더에 오디오 CD를 넣어 주십시오"
+msgstr ""
 
 #: ../src/burn.c:316
-#, fuzzy
 msgid "Extracting CD image"
-msgstr "CD 이미지 굽기"
+msgstr ""
 
 #: ../src/burn.c:316
-#, fuzzy
 msgid "Please wait while the data CD image is extracted."
-msgstr "ISO 파일을 선택하십시오..."
+msgstr ""
 
 #: ../src/burn.c:322
-#, fuzzy
 msgid "Copying data CD"
-msgstr "데이타 CD 복사하기"
+msgstr ""
 
 #: ../src/burn.c:322
-#, fuzzy
-msgid "Please wait while the data CD image is extracted and then burned to CD."
-msgstr "ISO 파일을 선택하십시오..."
+msgid ""
+"Please wait while the data CD image is extracted and then burned to CD."
+msgstr ""
 
 #: ../src/burn.c:342
-#, fuzzy
 msgid "Copying audio CD"
-msgstr "오디오 CD 복사하기"
+msgstr ""
 
 #: ../src/burn.c:342
-#, fuzzy
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
-msgstr "CD 리더에 오디오 CD를 넣어 주십시오"
+msgstr ""
 
 #: ../src/burn.c:359
-#, fuzzy
 msgid "Blanking CD"
-msgstr "빈 CDRW"
+msgstr ""
 
 #: ../src/burn.c:359
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:396
-#, fuzzy
+#: ../src/burn.c:375
+msgid "Formatting re-writeable DVD"
+msgstr ""
+
+#: ../src/burn.c:375
+msgid "Please wait while the DVD is formatted."
+msgstr ""
+
+#: ../src/burn.c:394
 msgid "Creating data DVD image"
-msgstr "<b>데이터 디스크 이미지 생성중...</b>"
+msgstr ""
 
-#: ../src/burn.c:396
-#, fuzzy
+#: ../src/burn.c:394
 msgid "Please wait while the data DVD image is created."
-msgstr "ISO 파일을 선택하십시오..."
+msgstr ""
 
-#: ../src/burn.c:402
+#: ../src/burn.c:400
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:402
-#, fuzzy
+#: ../src/burn.c:400
 msgid "Please wait while the data is burned directly to DVD."
-msgstr "ISO 파일을 선택하십시오..."
+msgstr ""
 
-#: ../src/burn.c:420 ../src/burn.c:482
-#, fuzzy
+#: ../src/burn.c:418
 msgid "Appending to data DVD"
-msgstr "데이타 CD 복사하기"
+msgstr ""
 
-#: ../src/burn.c:420 ../src/burn.c:482
-#, fuzzy
+#: ../src/burn.c:418
 msgid "Please wait while the data is appended directly to the DVD."
-msgstr "ISO 파일을 선택하십시오..."
-
-#: ../src/burn.c:447 ../src/execfunctions.c:1438
-msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/datacd.c:147
@@ -269,7 +240,8 @@ msgid "%s used - %s remaining"
 msgstr ""
 
 #: ../src/datacd.c:203
-msgid "File or directory is too large to fit in the remaining space on the CD"
+msgid ""
+"File or directory is too large to fit in the remaining space on the CD"
 msgstr "파일 혹은 디렉토리가 CD의 남은 공간보다 너무 큽니다."
 
 #: ../src/datacd.c:475
@@ -294,9 +266,8 @@ msgid "Full Path"
 msgstr "전체 경로"
 
 #: ../src/datacd.c:567
-#, fuzzy
 msgid "Session"
-msgstr "세션 가져오기(_I)"
+msgstr ""
 
 #: ../src/datacd.c:612
 #, c-format
@@ -318,8 +289,7 @@ msgstr "알수 없는 오류"
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
-msgstr ""
-"[%s] 로 부터 세션 가져오기 오기. 기본 설정에 있는 장치 구성을 확인해 주십시오"
+msgstr "[%s] 로 부터 세션 가져오기 오기. 기본 설정에 있는 장치 구성을 확인해 주십시오"
 
 #: ../src/devices.c:646
 #, fuzzy
@@ -328,116 +298,103 @@ msgid ""
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
-"쓰기 장치를 위한 마운트 포인트(예를 들어 /mnt/cdrom)를 얻는데 실패했습니다. /"
-"etc/fstab내에 쓰기 장치가 등록되어 있는 확인한 후에 기본설정에서 장치를 다시 "
-"검색하십시오."
+"쓰기 장치를 위한 마운트 포인트(예를 들어 /mnt/cdrom)를 얻는데 실패했습니다. /etc/fstab내에 쓰기 장치가 등록되어 있는 "
+"확인한 후에 기본설정에서 장치를 다시 검색하십시오."
 
 #: ../src/devices.c:656
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error mounting %s.\n"
 "\n"
 "%s"
 msgstr ""
-"오류 %s %s.↵\n"
-"↵\n"
-"%s"
 
 #: ../src/devices.c:785
-#, fuzzy, c-format
+#, c-format
 msgid "Please insert a disk into the %s"
-msgstr "CD 라이터에 빈 CD를 넣어 주십시오"
+msgstr ""
 
-#: ../src/execfunctions.c:87
+#: ../src/execfunctions.c:94
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:130
+#: ../src/execfunctions.c:137
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: ../src/execfunctions.c:187
+#: ../src/execfunctions.c:194
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:239 ../src/execfunctions.c:988
+#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
 #: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
 #, fuzzy
 msgid "default"
 msgstr "기본"
 
-#: ../src/execfunctions.c:391
-#, fuzzy
+#: ../src/execfunctions.c:397
 msgid "Preparing to extract audio tracks"
-msgstr "<b>오디오 트랙 추출중...</>"
+msgstr ""
 
-#: ../src/execfunctions.c:402
+#: ../src/execfunctions.c:408
 #, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
-msgstr ""
-"이미 이전 세션의 오디오 트랙이 디스크에 존재합니다. 기존 트랙을 사용할까요?"
+msgstr "이미 이전 세션의 오디오 트랙이 디스크에 존재합니다. 기존 트랙을 사용할까요?"
 
-#: ../src/execfunctions.c:459
-#, fuzzy, c-format
+#: ../src/execfunctions.c:465
+#, c-format
 msgid "Extracting audio track %d"
-msgstr "<b>오디오 트랙 추출중...</>"
+msgstr ""
 
-#: ../src/execfunctions.c:529
-#, fuzzy
+#: ../src/execfunctions.c:535
 msgid "Calculating data disk image size"
-msgstr "<b>데이터 디스크 이미지 생성중...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:567
-#, fuzzy
+#: ../src/execfunctions.c:573
 msgid "Creating data disk image"
-msgstr "<b>데이터 디스크 이미지 생성중...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:574
+#: ../src/execfunctions.c:580
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
-msgstr ""
-"이미 이전 세션의 데이터 CD 이미지가 디스크에 존재합니다, 기존 이미지를 이용하"
-"시겠습니까?"
+msgstr "이미 이전 세션의 데이터 CD 이미지가 디스크에 존재합니다, 기존 이미지를 이용하시겠습니까?"
 
-#: ../src/execfunctions.c:804
-#, fuzzy
+#: ../src/execfunctions.c:810
 msgid "Formatting DVD"
-msgstr "DVDRW 포맷(_F)"
+msgstr ""
 
-#: ../src/execfunctions.c:885
+#: ../src/execfunctions.c:891
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:916 ../src/execfunctions.c:941
-#, fuzzy
+#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
 msgid "Writing DVD"
-msgstr "DVD-R 굽기"
+msgstr ""
 
-#: ../src/execfunctions.c:1054
-#, fuzzy
+#: ../src/execfunctions.c:1056
 msgid "Reading CD image"
-msgstr "<b>CD 이미지 읽는 중...</b>"
+msgstr ""
 
-#: ../src/execfunctions.c:1062
-#, fuzzy
+#: ../src/execfunctions.c:1064
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
-"이미 이전 세션의 데이터 CD 이미지가 디스크에 존재합니다, 기존 이미지를 이용하"
-"시겠습니까?"
 
-#: ../src/execfunctions.c:1326
-#, fuzzy, c-format
+#: ../src/execfunctions.c:1327
+#, c-format
 msgid "Converting %s to cd audio"
-msgstr "<b>wav 를 CD 오디오 변환중...</b>"
+msgstr ""
+
+#: ../src/execfunctions.c:1439
+msgid "Verifying the disk content"
+msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
 #: ../src/startdlg.c:408
@@ -453,31 +410,27 @@ msgid "(empty)"
 msgstr ""
 
 #: ../src/filebrowser.c:76
-#, fuzzy
 msgid "Folder"
-msgstr "모드"
+msgstr ""
 
 #: ../src/filebrowser.c:575
-#, fuzzy
 msgid "_Add directory"
-msgstr "디렉토리 추가"
+msgstr ""
 
 #: ../src/filebrowser.c:588
-#, fuzzy
 msgid "_Add file(s)"
-msgstr "파일(들) 추가"
+msgstr ""
 
 #: ../src/filebrowser.c:603 ../gnomebaker.glade.h:94
 msgid "_Burn CD Image"
 msgstr "CD 이미지 굽기(_B)"
 
 #: ../src/filebrowser.c:606
-#, fuzzy
 msgid "_Burn DVD Image"
-msgstr "CD 이미지 굽기(_B)"
+msgstr ""
 
 #: ../src/filebrowser.c:714
-#, fuzzy, c-format
+#, fuzzy
 msgid "%s's home"
 msgstr "%의 홈 폴더"
 
@@ -493,103 +446,76 @@ msgstr "형식"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:469
-#, fuzzy
+#: ../src/gbcommon.c:468
 msgid "All files"
-msgstr "파일(들) 추가"
+msgstr ""
 
-#: ../src/gbcommon.c:477
+#: ../src/gbcommon.c:480
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:102
 msgid "Loading preferences..."
 msgstr "기본 설정 불러오는 중..."
 
-#: ../src/gnomebaker.c:108
+#: ../src/gnomebaker.c:105
 msgid "Detecting devices..."
 msgstr "장치 찾는중..."
 
-#: ../src/gnomebaker.c:111
+#: ../src/gnomebaker.c:108
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: ../src/gnomebaker.c:114
+#: ../src/gnomebaker.c:111
 msgid "Loading GUI..."
 msgstr "GUI 불어오는중..."
 
-#: ../src/gnomebaker.c:204
+#: ../src/gnomebaker.c:201
 msgid "Are you sure you want to quit?"
 msgstr "정말로 끝내시겠습니까?"
 
-#: ../src/gnomebaker.c:281
-#, fuzzy
+#: ../src/gnomebaker.c:278
 msgid "CD Image files"
-msgstr "부트 이미지 목록"
+msgstr ""
 
-#: ../src/gnomebaker.c:282
-#, fuzzy
+#: ../src/gnomebaker.c:279
 msgid "Please select a CD image file."
-msgstr "저장할 iso 파일을 선택해 주십시오."
+msgstr ""
 
-#: ../src/gnomebaker.c:297
-#, fuzzy
+#: ../src/gnomebaker.c:292
 msgid "DVD Image files"
-msgstr "부트 이미지 목록"
+msgstr ""
 
-#: ../src/gnomebaker.c:298
-#, fuzzy
+#: ../src/gnomebaker.c:293
 msgid "Please select a DVD image file."
-msgstr "저장할 iso 파일을 선택해 주십시오."
+msgstr ""
 
-#: ../src/gnomebaker.c:369 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
 msgid "GnomeBaker"
 msgstr "그놈베이커"
 
-#: ../src/gnomebaker.c:370
-#, fuzzy
+#: ../src/gnomebaker.c:364
 msgid "Simple CD/DVD Burning for Gnome"
-msgstr "그놈용 간단한 CD 굽기 프로그램"
+msgstr ""
 
-#: ../src/gnomebaker.c:370 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
 msgid "translator_credits"
 msgstr "oseb\\n엄주관 <zugwan at gmail.com>"
 
-#: ../src/gnomebaker.c:435
-#, fuzzy
+#: ../src/gnomebaker.c:429
 msgid "Please select files to add to the disk."
-msgstr "저장할 iso 파일을 선택해 주십시오."
+msgstr ""
 
-#: ../src/gnomebaker.c:704 ../src/gnomebaker.c:727
-#, fuzzy
+#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
 msgid "Playlist files"
-msgstr "파일(들) 추가"
+msgstr ""
 
-#: ../src/gnomebaker.c:705
-#, fuzzy
+#: ../src/gnomebaker.c:690
 msgid "Please select a playlist."
-msgstr "저장할 iso 파일을 선택해 주십시오."
+msgstr ""
 
-#: ../src/gnomebaker.c:734
+#: ../src/gnomebaker.c:711
 msgid "Save playlist as..."
-msgstr ""
-
-#: ../src/gnomebaker.c:757
-#, fuzzy
-msgid "Project files"
-msgstr "CD 꺼내기"
-
-#: ../src/gnomebaker.c:758
-#, fuzzy
-msgid "Please select a project file."
-msgstr "저장할 iso 파일을 선택해 주십시오."
-
-#: ../src/main.c:40
-msgid "Show tracing information (useful when debugging)"
-msgstr ""
-
-#: ../src/main.c:49
-msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -629,67 +555,37 @@ msgstr "DVD-R 굽기"
 msgid "Write DVD-RAM"
 msgstr "DVD-RAM 굽기"
 
-#: ../src/progressdlg.c:79
-#, fuzzy, c-format
-msgid "%d minutes %d seconds"
-msgstr "% 분 %d 초"
-
-#: ../src/progressdlg.c:81
-#, fuzzy, c-format
-msgid "%d minute %d seconds"
-msgstr "% 분 %d 초"
-
-#: ../src/progressdlg.c:83
-#, c-format
-msgid "%d seconds"
-msgstr ""
-
-#: ../src/progressdlg.c:217
-#, c-format
-msgid "%s remaining"
-msgstr ""
-
-#: ../src/progressdlg.c:273 ../gnomebaker.glade.h:83
-#, fuzzy
+#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
 msgid "Show output"
-msgstr "출력 보기"
-
-#: ../src/progressdlg.c:273
-#, fuzzy
-msgid "Hide output"
-msgstr "출력 보기"
-
-#: ../src/progressdlg.c:349
-#, c-format
-msgid "Elapsed time %s"
 msgstr ""
 
-#: ../src/progressdlg.c:355
+#: ../src/progressdlg.c:188
+msgid "Hide output"
+msgstr ""
+
+#: ../src/progressdlg.c:262
 msgid "Completed"
 msgstr "완료"
 
-#: ../src/progressdlg.c:364
+#: ../src/progressdlg.c:270
 msgid "Failed"
 msgstr "실패"
 
 #: ../src/startdlg.c:98
-#, fuzzy
 msgid "Please select an image file to save to."
-msgstr "저장할 iso 파일을 선택해 주십시오."
+msgstr ""
 
 #: ../src/startdlg.c:120
-#, fuzzy
 msgid "CD/DVD Image files"
-msgstr "부트 이미지 목록"
+msgstr ""
 
 #: ../src/startdlg.c:178 ../gnomebaker.glade.h:14
 msgid "<b>Devices</b>"
 msgstr "<b>장치</b>"
 
 #: ../src/startdlg.c:179
-#, fuzzy
 msgid "<b>Device</b>"
-msgstr "<b>장치</b>"
+msgstr ""
 
 #: ../src/startdlg.c:183
 msgid "Reader:"
@@ -700,14 +596,12 @@ msgid "Writer:"
 msgstr ""
 
 #: ../src/startdlg.c:190
-#, fuzzy
 msgid "Speed:"
-msgstr "속도"
+msgstr ""
 
 #: ../src/startdlg.c:194
-#, fuzzy
 msgid "Mode:"
-msgstr "모드"
+msgstr ""
 
 #: ../src/startdlg.c:217 ../gnomebaker.glade.h:16
 msgid "<b>Options</b>"
@@ -718,9 +612,8 @@ msgid "_Start"
 msgstr "시작(_S)"
 
 #: ../src/startdlg.c:310
-#, fuzzy
 msgid "<b>Disk Information</b>"
-msgstr "<b>부트 옵션</b>"
+msgstr ""
 
 #: ../src/startdlg.c:312
 msgid "Volume ID:"
@@ -751,14 +644,12 @@ msgid "Bibliography:"
 msgstr ""
 
 #: ../src/startdlg.c:341
-#, fuzzy
 msgid "<b>Filesystem</b>"
-msgstr "<b>파일 브라우저</b>"
+msgstr ""
 
 #: ../src/startdlg.c:379 ../src/startdlg.c:407
-#, fuzzy
 msgid "Writing"
-msgstr "DVD-R 굽기"
+msgstr ""
 
 #: ../src/startdlg.c:381 ../src/startdlg.c:409
 msgid "Disk Information"
@@ -769,9 +660,8 @@ msgid "Dummy write"
 msgstr "가상 굽기"
 
 #: ../src/startdlg.c:496
-#, fuzzy
 msgid "Eject disk"
-msgstr "CD 꺼내기"
+msgstr ""
 
 #: ../src/startdlg.c:497
 msgid "Fast blank"
@@ -786,7 +676,7 @@ msgid "Burn the disk"
 msgstr ""
 
 #: ../src/startdlg.c:501
-msgid "Only create image"
+msgid "Create ISO only"
 msgstr ""
 
 #: ../src/startdlg.c:504
@@ -811,7 +701,7 @@ msgid "Rock Ridge"
 msgstr ""
 
 #: ../src/startdlg.c:509
-msgid "On the fly"
+msgid "On The Fly"
 msgstr ""
 
 #: ../src/startdlg.c:519
@@ -819,14 +709,12 @@ msgid "_Browse..."
 msgstr ""
 
 #: ../src/startdlg.c:521
-#, fuzzy
 msgid "GnomeBaker data disk"
-msgstr "그놈베이커 데이터 CD"
+msgstr ""
 
 #: ../src/burn.h:65 ../gnomebaker.glade.h:32
-#, fuzzy
 msgid "Blank CD-RW"
-msgstr "빈 CDRW"
+msgstr ""
 
 #: ../src/burn.h:66 ../gnomebaker.glade.h:47
 msgid "Copy Data CD"
@@ -841,18 +729,16 @@ msgid "Burn CD Image"
 msgstr "CD 이미지 굽기"
 
 #: ../src/burn.h:69 ../gnomebaker.glade.h:37
-#, fuzzy
 msgid "Burn DVD Image"
-msgstr "CD 이미지 굽기"
+msgstr ""
 
 #: ../src/burn.h:70
 msgid "Create Data CD"
 msgstr "데이타 CD 만들기"
 
 #: ../src/burn.h:71
-#, fuzzy
 msgid "Append to Data CD"
-msgstr "데이타 CD 만들기"
+msgstr ""
 
 #: ../src/burn.h:72
 msgid "Create Audio CD"
@@ -868,18 +754,16 @@ msgid "Create Video CD"
 msgstr "비디오 CD 만들기"
 
 #: ../src/burn.h:75
-#, fuzzy
 msgid "Format DVD RW"
-msgstr "DVD+RW 포맷하기"
+msgstr ""
 
 #: ../src/burn.h:76
 msgid "Create Data DVD"
 msgstr "데이타 DVD 만들기"
 
 #: ../src/burn.h:77
-#, fuzzy
 msgid "Append to Data DVD"
-msgstr "데이타 DVD 만들기"
+msgstr ""
 
 #: ../gnomebaker.glade.h:1
 msgid " "
@@ -935,18 +819,16 @@ msgid "<b>File Browser</b>"
 msgstr "<b>파일 브라우저</b>"
 
 #: ../gnomebaker.glade.h:17
-#, fuzzy
 msgid "<b>Other</b>"
-msgstr "<b>옵션</b>"
+msgstr ""
 
 #: ../gnomebaker.glade.h:18
 msgid "<b>Progress window</b>"
 msgstr ""
 
 #: ../gnomebaker.glade.h:19
-#, fuzzy
 msgid "<b>Select Writer</b>"
-msgstr "<b>파일 브라우저</b>"
+msgstr ""
 
 #: ../gnomebaker.glade.h:20
 msgid "<b>Temporary Directory</b>"
@@ -969,8 +851,7 @@ msgid "Add file(s)"
 msgstr "파일(들) 추가"
 
 #: ../gnomebaker.glade.h:25
-#, fuzzy
-msgid "Add the selected files to the disk"
+msgid "Add the selected files to the CD"
 msgstr "선택한 파일들을 CD에 더하기"
 
 #: ../gnomebaker.glade.h:26
@@ -994,9 +875,8 @@ msgid "Baking"
 msgstr ""
 
 #: ../gnomebaker.glade.h:31
-#, fuzzy
 msgid "Bl_ank CD-RW"
-msgstr "CDRW 지우기(_A)"
+msgstr ""
 
 #: ../gnomebaker.glade.h:33
 msgid "Boot Image"
@@ -1011,9 +891,8 @@ msgid "Boot catalog"
 msgstr ""
 
 #: ../gnomebaker.glade.h:38
-#, fuzzy
 msgid "Burn _DVD Image"
-msgstr "CD 이미지 굽기"
+msgstr ""
 
 #: ../gnomebaker.glade.h:39
 msgid "C_opy Data CD"
@@ -1024,8 +903,7 @@ msgid "Clean temporary directory on exit"
 msgstr "종료할때 임시 디렉토리 정리하기"
 
 #: ../gnomebaker.glade.h:41
-#, fuzzy
-msgid "Clear the contents of the disk"
+msgid "Clear the contents of the CD"
 msgstr "CD 내용 초기화"
 
 #: ../gnomebaker.glade.h:42
@@ -1049,9 +927,8 @@ msgid "Create Data Disk"
 msgstr "데이터 디스크 생성"
 
 #: ../gnomebaker.glade.h:50
-#, fuzzy
 msgid "Create Video Disk"
-msgstr "비디오 CD 만들기"
+msgstr ""
 
 #: ../gnomebaker.glade.h:51
 msgid "Created by username"
@@ -1076,9 +953,8 @@ msgid "Force"
 msgstr "강제"
 
 #: ../gnomebaker.glade.h:56
-#, fuzzy
 msgid "Format DVD±RW"
-msgstr "DVDRW 포맷(_F)"
+msgstr ""
 
 #: ../gnomebaker.glade.h:57
 msgid "GPL"
@@ -1090,9 +966,8 @@ msgid "General"
 msgstr "일반"
 
 #: ../gnomebaker.glade.h:60
-#, fuzzy
 msgid "GnomeBaker Preferences"
-msgstr "그놈베이커 기본설정 고치기"
+msgstr ""
 
 #: ../gnomebaker.glade.h:61
 msgid "GnomeBaker data cd"
@@ -1112,9 +987,8 @@ msgid "Import"
 msgstr "가져오기"
 
 #: ../gnomebaker.glade.h:65
-#, fuzzy
 msgid "Import Session"
-msgstr "세션 가져오기(_I)"
+msgstr ""
 
 #: ../gnomebaker.glade.h:66
 msgid "Import existing session"
@@ -1133,14 +1007,12 @@ msgid "Move audio tracks up"
 msgstr ""
 
 #: ../gnomebaker.glade.h:70
-#, fuzzy
 msgid "Move selection _down"
-msgstr "선택 항목 제거"
+msgstr ""
 
 #: ../gnomebaker.glade.h:71
-#, fuzzy
 msgid "Move selection _up"
-msgstr "선택 항목 제거"
+msgstr ""
 
 #: ../gnomebaker.glade.h:72
 msgid "Not bootable"
@@ -1173,8 +1045,7 @@ msgid "Remove selected"
 msgstr "선택 항목 제거"
 
 #: ../gnomebaker.glade.h:79
-#, fuzzy
-msgid "Remove the selected files from the disk"
+msgid "Remove the selected files from the CD"
 msgstr "선택한 파일들을 CD에서 지우기"
 
 #: ../gnomebaker.glade.h:80
@@ -1186,9 +1057,8 @@ msgid "Show hidden files"
 msgstr "숨긴 파일 보기"
 
 #: ../gnomebaker.glade.h:82
-#, fuzzy
 msgid "Show humanreadable filesizes"
-msgstr "숨긴 파일 보기"
+msgstr ""
 
 #: ../gnomebaker.glade.h:84
 msgid "Simple CD burning for Gnome."
@@ -1227,47 +1097,40 @@ msgid "_Add device"
 msgstr "장치 더하기(_A)"
 
 #: ../gnomebaker.glade.h:93
-#, fuzzy
 msgid "_Add selection"
-msgstr "선택 항목 제거"
+msgstr ""
 
 #: ../gnomebaker.glade.h:95
-#, fuzzy
 msgid "_Export"
-msgstr "가져오기"
+msgstr ""
 
 #: ../gnomebaker.glade.h:96
-#, fuzzy
 msgid "_Format DVD±RW"
-msgstr "DVDRW 포맷(_F)"
+msgstr ""
 
 #: ../gnomebaker.glade.h:97
-#, fuzzy
 msgid "_Import"
-msgstr "가져오기"
+msgstr ""
 
 #: ../gnomebaker.glade.h:98
 msgid "_Import Session"
 msgstr "세션 가져오기(_I)"
 
 #: ../gnomebaker.glade.h:99
-#, fuzzy
 msgid "_Playlist"
-msgstr "파일(들) 추가"
+msgstr ""
 
 #: ../gnomebaker.glade.h:100
 msgid "_Refresh"
 msgstr "새로 고침(_R)"
 
 #: ../gnomebaker.glade.h:101
-#, fuzzy
 msgid "_Remove selection"
-msgstr "선택 항목 제거"
+msgstr ""
 
 #: ../gnomebaker.glade.h:102
-#, fuzzy
 msgid "_Show File Browser"
-msgstr "<b>파일 브라우저</b>"
+msgstr ""
 
 #: ../gnomebaker.glade.h:104
 msgid "_View"
@@ -1286,433 +1149,9 @@ msgid "raw96p"
 msgstr "raw96p"
 
 #: ../gnomebaker.glade.h:109
-#, fuzzy
 msgid "raw96r"
-msgstr "raw96p"
+msgstr ""
 
 #: ../gnomebaker.glade.h:110
 msgid "tao"
 msgstr "tao"
-
-#, fuzzy
-#~ msgid "Formatting re-writeable DVD"
-#~ msgstr "DVDRW 포맷(_F)"
-
-#, fuzzy
-#~ msgid "Please wait while the DVD is formatted."
-#~ msgstr "ISO 파일을 선택하십시오..."
-
-#, fuzzy
-#~ msgid "Create ISO only"
-#~ msgstr "ISO 만 생성"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Down"
-#~ msgstr "선택 항목 제거"
-
-#, fuzzy
-#~ msgid "Move Selected Files _Up"
-#~ msgstr "선택 항목 제거"
-
-#, fuzzy
-#~ msgid "_Add Selected Files"
-#~ msgstr "디렉토리 추가"
-
-#, fuzzy
-#~ msgid "_Audio Disk"
-#~ msgstr "<b>오디오 디스크</b>"
-
-#, fuzzy
-#~ msgid "_Data Disk"
-#~ msgstr "데이터 디스크 생성"
-
-#, fuzzy
-#~ msgid "_Remove Selected Files"
-#~ msgstr "선택 항목 제거"
-
-#~ msgid ""
-#~ "The file you have selected is not a cd image. Please select a cd image to "
-#~ "burn."
-#~ msgstr ""
-#~ "선택한 파일이 CD 이미지가 아닙니다. CD 굽기를 할 이미지를 선택하십시오."
-
-#~ msgid "mounting"
-#~ msgstr "마운트 중"
-
-#~ msgid "unmounting"
-#~ msgstr "마운트 해제 중"
-
-#, fuzzy
-#~ msgid "Fast"
-#~ msgstr "빠르기"
-
-#, fuzzy
-#~ msgid "Formatting DVD-RW"
-#~ msgstr "DVDRW 포맷(_F)"
-
-#, fuzzy
-#~ msgid "Burning DVD"
-#~ msgstr "<b>DVD를 굽는 중...</b>"
-
-#~ msgid "Add the current directory to the CD"
-#~ msgstr "현재 디렉토리 CD에 더하기"
-
-#~ msgid "Add directory"
-#~ msgstr "디렉토리 추가"
-
-#~ msgid "<b>Burning disk...</b>"
-#~ msgstr "<b>디스크 굽는중...</b>"
-
-#, fuzzy
-#~ msgid "Please insert the CD into the CD writer"
-#~ msgstr "CD 라이터에 CD-RW를 넣어 주십시오"
-
-#~ msgid "<b>Blanking disk...</b>"
-#~ msgstr "<b>디스크 비우는 중...</b>"
-
-#~ msgid "Please insert the CD-RW into the CD writer"
-#~ msgstr "CD 라이터에 CD-RW를 넣어 주십시오"
-
-#, fuzzy
-#~ msgid "Fixating"
-#~ msgstr "고정중"
-
-#~ msgid "<b>Formatting DVD...</b>"
-#~ msgstr "<b>DVD 포맷중...</b>"
-
-#~ msgid "Please insert a rewritable DVD into the DVD writer"
-#~ msgstr "DVD 라이터기에 재기록할 DVD를 넣어주세요."
-
-#~ msgid "Please insert a writable DVD into the DVD writer"
-#~ msgstr "DVD 라이터기에 기록할 DVD를 넣어주세요."
-
-#~ msgid "<b>Burning</b>"
-#~ msgstr "<b>굽기</b>"
-
-#, fuzzy
-#~ msgid "<b>GnomeBaker</b>"
-#~ msgstr "그놈베이커"
-
-#~ msgid "TITLE="
-#~ msgstr "제목="
-
-#~ msgid "ARTIST="
-#~ msgstr "가수="
-
-#~ msgid "ALBUM="
-#~ msgstr "앨범="
-
-#~ msgid "File %s was not opened \n"
-#~ msgstr "File %s was not opened \n"
-
-#~ msgid "Performer"
-#~ msgstr "가수"
-
-#~ msgid "Albumtitle"
-#~ msgstr "앨범명:"
-
-#, fuzzy
-#~ msgid "Tracktitle"
-#~ msgstr "트랙명:"
-
-#~ msgid "File %s was not opened"
-#~ msgstr "%s 파일이 열리지 않았습니다"
-
-#, fuzzy
-#~ msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
-#~ msgstr "파일 [%s] 정보 얻기 실패 (반환값 [%d] 오류번호[%s])"
-
-#, fuzzy
-#~ msgid "audioinfo_new - mime type is %s for %s"
-#~ msgstr "%s %s를 위한 %s mime 형식입니다."
-
-#~ msgid "Error reading wav header for file [%s]"
-#~ msgstr "wav 헤더파일을 읽기 오류 [%s]"
-
-#~ msgid "Stereo"
-#~ msgstr "스테레오"
-
-#~ msgid "Joint Stereo"
-#~ msgstr "조인트 스테레오"
-
-#~ msgid "Dual Channel"
-#~ msgstr "이중 채널"
-
-#~ msgid "Single Channel"
-#~ msgstr "단일 채널"
-
-#, fuzzy
-#~ msgid "Failed to start child process"
-#~ msgstr "자식 프로세스 실행 실패"
-
-#~ msgid "burn - [%s]"
-#~ msgstr "굽기 - [%s]"
-
-#, fuzzy
-#~ msgid "datacd next session is [%s]"
-#~ msgstr "데이타CD 다음 세션은 [%s]"
-
-#~ msgid "Error getting msinfo"
-#~ msgstr "msinfo 얻기 오류"
-
-#~ msgid "Error mounting writer device"
-#~ msgstr "쓰기 장치 마운트 오류"
-
-#~ msgid "Error unmounting writer device"
-#~ msgstr "쓰기 장치 마운트 해제 오류"
-
-#, fuzzy
-#~ msgid "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
-#~ msgstr "devices_write_device_to_gconf - 더해짐 [%s] [%s] [%s] [%s]"
-
-#, fuzzy
-#~ msgid "node [%s] mount [%s]"
-#~ msgstr "노드 [%s] 마운트 [%s]"
-
-#, fuzzy
-#~ msgid "node [%s] is link to [%s]"
-#~ msgstr "노드 [%s]는 [%s]에 대한 링크입니다"
-
-#~ msgid "devices_probe_bus - Failed to scan the scsi bus"
-#~ msgstr "devices_probe_bus - scsi 버스 탐색 실패"
-
-#~ msgid "devices_probe_bus - failed to parse cdrecord output"
-#~ msgstr "devices_probe_bus - cdrecord 출력 분석 실패"
-
-#, fuzzy
-#~ msgid "devices_get_ide_device - probing [%s]"
-#~ msgstr "devices_add_ide_device - [%s] 검색중"
-
-#~ msgid "Failed to open %s"
-#~ msgstr "%s 열기 실패"
-
-#~ msgid "devices_add_scsi_device - probing [%s]"
-#~ msgstr "devices_add_scsi_device - [%s] 검색중"
-
-#~ msgid "Failed to open /proc/scsi/sg/devices"
-#~ msgstr "/proc/scsi/sg/devices 열기 실패"
-
-#~ msgid "Failed to open /proc/scsi/sg/device_strs"
-#~ msgstr "/proc/scsi/sg/device_strs 열기 실패"
-
-#~ msgid "Error reading scsi information from /proc/scsi/sg/devices"
-#~ msgstr "/proc/scsi/sg/devices 로 부터 scsi 정보 읽기 오류"
-
-#~ msgid "---- key [%s], value [%s]"
-#~ msgstr " ---- 키 [%s], 값[%s]"
-
-#~ msgid "looking for device [%d]"
-#~ msgstr "[%d] 장치 찾는 중"
-
-#, fuzzy
-#~ msgid ""
-#~ "Requested device index [%d] is out of bounds. All devices have been read."
-#~ msgstr "요청된 장치 번호 [%d]는 범위 밖입니다. 모든 장치들이 읽혀졌습니다."
-
-#~ msgid "Failed to open /proc/sys/dev/cdrom/info"
-#~ msgstr "/proc/sys/dev/cdrom/info 열기 실패"
-
-#, fuzzy
-#~ msgid "subdir from GValue is NULL"
-#~ msgstr "GValue로부터 subdir이 NULL입니다"
-
-#, fuzzy
-#~ msgid "Stat of file [%s] failed"
-#~ msgstr "file[%s] stat() 실패"
-
-#~ msgid "selection data is %s\n"
-#~ msgstr "selection data is %s\n"
-
-#, fuzzy
-#~ msgid "exec_read - child exited with code [%d]\n"
-#~ msgstr "exec_thread - 자식 프로세스가 [%d] 코드로 종료했습니다"
-
-#~ msgid "exec_thread - created child"
-#~ msgstr "exec_thread - 자식 프로세스 생성"
-
-#~ msgid "exec_thread - Exec failed"
-#~ msgstr "exec_thread - exec 실패"
-
-#~ msgid "exec_thread - parent created child with pid %d"
-#~ msgstr ""
-#~ "exec_thread - 부모 프로세스가 %d pid 의 자식 프로세스를 만들었습니다"
-
-#~ msgid "exec_thread - exiting"
-#~ msgstr "exec_thread - 종료중"
-
-#, fuzzy
-#~ msgid "exec_run_remainder - Exec failed"
-#~ msgstr "exec_thread - exec 실패"
-
-#, fuzzy
-#~ msgid "exec_run_remainder - parent created child with pid %d"
-#~ msgstr ""
-#~ "exec_thread - 부모 프로세스가 %d pid 의 자식 프로세스를 만들었습니다"
-
-#, fuzzy
-#~ msgid "exec_run_remainder - child exited with code [%d]\n"
-#~ msgstr "exec_thread - 자식 프로세스가 [%d] 코드로 종료했습니다"
-
-#, fuzzy
-#~ msgid "exec_run_remainder - thread exiting"
-#~ msgstr "exec_thread - 종료중"
-
-#, fuzzy
-#~ msgid "exec_thread_on_the_fly - root child running"
-#~ msgstr "exec_thread - 자식 프로세스 생성"
-
-#, fuzzy
-#~ msgid "exec_thread_on_the_fly - Exec failed"
-#~ msgstr "exec_thread - exec 실패"
-
-#, fuzzy
-#~ msgid "exec_thread_on_the_fly - parent created root child with pid %d"
-#~ msgstr ""
-#~ "exec_thread - 부모 프로세스가 %d pid 의 자식 프로세스를 만들었습니다"
-
-#, fuzzy
-#~ msgid "exec_thread_on_the_fly - exiting"
-#~ msgstr "exec_thread - 종료중"
-
-#~ msgid "exec_go - failed to create thread [%d] [%s]"
-#~ msgstr "exec_go - 쓰레드 [%d] [%s] 생성 실패"
-
-#, fuzzy
-#~ msgid "exec_cancel - killing %d"
-#~ msgstr "exec_cancel - %d 종료중"
-
-#~ msgid "exec_cancel - complete"
-#~ msgstr "exec_cancel - 완료"
-
-#~ msgid "exec_run_cmd - %s"
-#~ msgstr "exec_run_cmd - %s"
-
-#, fuzzy
-#~ msgid "error [%s] spawning command [%s]"
-#~ msgstr "오류 [%s]가 명령 [%s]을 발생"
-
-#, fuzzy
-#~ msgid "Uknown error spawning command [%s]"
-#~ msgstr "알려지지 않은 오류가 명령 [%s]을 발생"
-
-#~ msgid "failed to create temp %d"
-#~ msgstr "임시 공간 생성 실패 (%d)"
-
-#~ msgid "Failed to get contents of file [%s]"
-#~ msgstr "file [%s] 내용 얻기 실패"
-
-#~ msgid "toolbar style [%s] [%d]"
-#~ msgstr "도구 모음 유형 [%s] [%d]"
-
-#, fuzzy
-#~ msgid "Invalid row in device list"
-#~ msgstr "장치 목록에 무효한 줄"
-
-#, fuzzy
-#~ msgid "cdrecord - adding create audio data [%s]"
-#~ msgstr "cdrecord - 오디오 데이타 만들기 추가 [%s]"
-
-#~ msgid "adding [%s]"
-#~ msgstr "추가 [%s]"
-
-#~ msgid "cdda2wav_read_proc - total tracks %d"
-#~ msgstr "cdda2wav_read_proc - 전체 트랙 %d"
-
-#~ msgid "growisofs: progress: %d"
-#~ msgstr "growisofs: 진행: %d"
-
-#, fuzzy
-#~ msgid "growisofs: fraction: %f"
-#~ msgstr "growisofs: 부분: %f"
-
-#~ msgid "<b>Converting mp3 to cd audio...</b>"
-#~ msgstr "<b>mp3 를 cd 오디오로 변환중...</b>"
-
-#~ msgid "Converted file is [%s]"
-#~ msgstr "변환된 파일은 %s 입니다"
-
-#~ msgid "<b>Converting ogg to cd audio...</b>"
-#~ msgstr "<b>ogg 를 CD 오디오로 변환중...</b>"
-
-#, fuzzy
-#~ msgid "ISO files"
-#~ msgstr "파일(들) 추가"
-
-#~ msgid "file is %s"
-#~ msgstr "%s 파일입니다"
-
-#~ msgid "Tracks:"
-#~ msgstr "트랙:"
-
-#~ msgid "74 min. CD"
-#~ msgstr "74 min. CD"
-
-#~ msgid "80 min. CD"
-#~ msgstr "80 min. CD"
-
-#~ msgid "Start burning"
-#~ msgstr "굽기 시작"
-
-#, fuzzy
-#~ msgid "Allow overburning"
-#~ msgstr "오버버닝 허용"
-
-#~ msgid "Multisession"
-#~ msgstr "멀티세션"
-
-#~ msgid "Create ISO Only"
-#~ msgstr "ISO 만 생성"
-
-#~ msgid "Eject CD"
-#~ msgstr "CD 꺼내기"
-
-#~ msgid "Duration %f Fraction is %f"
-#~ msgstr "%f 시간중 %f"
-
-#, fuzzy
-#~ msgid "File size %f disksize %f Fraction is %f"
-#~ msgstr "파일 크기 %f 디스크 크기 %f 중 %f"
-
-#, fuzzy
-#~ msgid "Failed to get percent in dvdformat_read_proc"
-#~ msgstr "dvdformat_read_proc내에 퍼센트 얻기 실패"
-
-#, fuzzy
-#~ msgid "valid"
-#~ msgstr "무효"
-
-#, fuzzy
-#~ msgid "invalid"
-#~ msgstr "무효"
-
-#~ msgid "*** model [%p]\n"
-#~ msgstr "*** 모델 [%p] \n"
-
-#, fuzzy
-#~ msgid "*** name [%s]\n"
-#~ msgstr "*** 이름 [%s]\\n"
-
-#, fuzzy
-#~ msgid "*** mime [%s]\n"
-#~ msgstr "*** mime [%s]\\n"
-
-#~ msgid "*** size [%ld]\n"
-#~ msgstr "*** size [%ld]\n"
-
-#~ msgid "%s was double clicked"
-#~ msgstr "%s가 더블 클릭되었습니다"
-
-#~ msgid "650MB CD"
-#~ msgstr "650MB CD"
-
-#~ msgid "700MB CD"
-#~ msgstr "700MB CD"
-
-#~ msgid "4.7GB DVD"
-#~ msgstr "4.7GB DVD"
-
-#~ msgid "8.5GB DVD"
-#~ msgstr "8.5GB DVD"
-
-#~ msgid "Preferences"
-#~ msgstr "기본 설정"
