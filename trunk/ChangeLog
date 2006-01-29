@@ -36,7 +36,7 @@ Version 0.5.1
 * Fix Bug #1270524 Won't allow burning of 700mb files
 * Icons - you've been tango'd. Nice one Gamehack.
 * Added quite a few translations (and updated the rest)
-
+* Apply patch from mattias nissler to fix endian audio conversion problems on PPC.
 
 Version 0.5.0
 
