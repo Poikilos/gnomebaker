@@ -88,7 +88,21 @@ cdrecord_blank_pre_proc(void* ex, void* buffer)
     if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
         exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
     else
-        progressdlg_pulse_start();
+    {        
+        /* This time approximation is my first attempt at figuring out how long blanking a
+         * cd really takes. It's not very scientific and I will at some point try to figure it
+         * out more accurately.*/
+         const gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+        gint approximation = 0;               
+        if(preferences_get_bool(GB_FAST_BLANK))
+            approximation = (speed * -5) + 95;
+        else 
+            approximation = ((60/speed) * (60/speed)) * 15;
+        
+        g_print("approximation is %d", approximation);
+        progressdlg_start_approximation(approximation);    
+        progressdlg_increment_exec_number();
+    }
     devices_unmount_device(GB_WRITER);
 }
 
@@ -97,7 +111,7 @@ static void
 cdrecord_blank_post_proc(void* ex, void* buffer)
 {
 	GB_LOG_FUNC
-	progressdlg_pulse_stop();
+	progressdlg_stop_approximation();
 }
 
 

@@ -168,6 +168,9 @@ progressdlg_delete(GtkWidget* self)
     g_free(originalparentwindowtitle);
     originalparentwindowtitle = NULL;
     g_timer_destroy(timer);
+    gtk_window_set_icon(parentwindow, originalparenticon);
+    gdk_pixbuf_unref(originalparenticon);
+    originalparenticon = NULL;
     timer = NULL;
 }
 
@@ -247,8 +250,6 @@ progressdlg_on_close(GtkButton * button, gpointer user_data)
 	GB_LOG_FUNC
 	if(closefunction != NULL)
         closefunction();
-    gtk_window_set_icon(parentwindow, originalparenticon);
-    gdk_pixbuf_unref(originalparenticon);
 }
 
 
@@ -398,6 +399,8 @@ progressdlg_start_approximation(gint seconds)
     
     gint timeout = (seconds * 1000) / 100;
     approximationinterval = 1.0 / (((gdouble)seconds) * (1000/timeout));        
+    g_print("progressdlg_start_approximation - seconds [%d] timeout [%d] interval [%f]", 
+            seconds, timeout, approximationinterval);
     timertag = gtk_timeout_add(timeout, (GtkFunction)progressdlg_approximation_ontimer, NULL);
 }
 
