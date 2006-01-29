@@ -1254,8 +1254,8 @@ gstreamer_progress_timer(gpointer data)
     
     GstFormat fmt = GST_FORMAT_BYTES;
     gint64 pos = 0, total = 0;
-    if(gst_element_query (GST_ELEMENT(data), GST_QUERY_POSITION, &fmt, &pos) && 
-        gst_element_query (GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))
+    if(gst_element_query(GST_ELEMENT(data), GST_QUERY_POSITION, &fmt, &pos) && 
+        gst_element_query(GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))
     {
         progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
     }
@@ -1299,16 +1299,17 @@ gstreamer_new_decoded_pad(GstElement* element,
     g_return_if_fail(element != NULL);
     g_return_if_fail(pad != NULL);
     
-    GstCaps *caps = gst_pad_get_caps (pad);
-    GstStructure *str = gst_caps_get_structure (caps, 0);
-    if (!g_strrstr (gst_structure_get_name (str), "audio"))
+    GstCaps *caps = gst_pad_get_caps(pad);
+    GstStructure *str = gst_caps_get_structure(caps, 0);
+    if (!g_strrstr(gst_structure_get_name(str), "audio"))
         return;
     
-    GstPad* decodepad = gst_element_get_pad (mip->converter, "src"); 
-    gst_pad_link (pad, decodepad);
-    gst_element_link(mip->decoder,mip->converter);
+    GstPad* decodepad = gst_element_get_pad(mip->converter, "src"); 
+    gst_pad_link(pad, decodepad);
+    gst_element_link(mip->decoder, mip->converter);
     
-    gst_bin_add_many(GST_BIN(mip->pipeline), mip->converter, mip->scale, mip->encoder, mip->dest, NULL);
+    gst_bin_add_many(GST_BIN(mip->pipeline), mip->converter,
+        mip->scale, mip->endianconverter, mip->encoder, mip->dest, NULL);
 
     /* This function synchronizes a bins state on all of its contained children. */
     gst_bin_sync_children_state(GST_BIN(mip->pipeline));
@@ -1345,57 +1346,62 @@ gstreamer_lib_proc(void* ex, void* data)
     MediaPipeline* gstdata = g_new0(MediaPipeline, 1);
     
     /* create a new pipeline to hold the elements */
-    gstdata->pipeline = gst_pipeline_new ("gnomebaker-convert-to-wav-pipeline");
-    gstdata->source = gst_element_factory_make("filesrc","file-source");
-    g_object_set (G_OBJECT (gstdata->source), "location", g_ptr_array_index(cmd->args, 0), NULL);
+    gstdata->pipeline = gst_pipeline_new("gnomebaker-convert-to-wav-pipeline");
+    gstdata->source = gst_element_factory_make("filesrc", "file-source");
+    g_object_set(G_OBJECT(gstdata->source), "location", g_ptr_array_index(cmd->args, 0), NULL);
         
     /* decoder */
-    gstdata->decoder = gst_element_factory_make ("decodebin", "decoder");
-    g_signal_connect (gstdata->decoder, "new-decoded-pad", G_CALLBACK (gstreamer_new_decoded_pad), gstdata);
+    gstdata->decoder = gst_element_factory_make("decodebin", "decoder");
+    g_signal_connect(gstdata->decoder, "new-decoded-pad", G_CALLBACK (gstreamer_new_decoded_pad), gstdata);
     
     /* create an audio converter */
-    gstdata->converter = gst_element_factory_make ("audioconvert", "converter");
+    gstdata->converter = gst_element_factory_make("audioconvert", "converter");
     
     /* audioscale resamples audio */
-    gstdata->scale = gst_element_factory_make("audioscale","scale");
+    gstdata->scale = gst_element_factory_make("audioscale", "scale");
     
-    GstCaps *filtercaps = gst_caps_new_simple ("audio/x-raw-int",
+    /* Another audio converter. It is needed on big endian machines, otherwise
+       the audioscale can't be connected to the wavenc due to incompatible endianness. */
+    gstdata->endianconverter = gst_element_factory_make ("audioconvert", "endianconverter");
+    gst_element_link(gstdata->scale, gstdata->endianconverter);
+    
+    GstCaps *filtercaps = gst_caps_new_simple("audio/x-raw-int",
                                           "channels", G_TYPE_INT, 2,
                                           "rate",     G_TYPE_INT, 44100,
                                           "width",    G_TYPE_INT, 16,
                                           "depth",    G_TYPE_INT, 16,
                                           NULL);
     /* and an wav encoder */
-    gstdata->encoder = gst_element_factory_make ("wavenc", "encoder");
-    gst_element_link_filtered (gstdata->scale,gstdata->encoder,filtercaps);
-    gst_caps_free (filtercaps); 
+    gstdata->encoder = gst_element_factory_make("wavenc", "encoder");
+    gst_element_link_filtered(gstdata->endianconverter, gstdata->encoder, filtercaps);
+    gst_caps_free(filtercaps);
     
     /* finally the output filesink */   
     if(pipe != NULL)
     {   
-         gstdata->dest = gst_element_factory_make("fdsink","file-out");
-         g_object_set (G_OBJECT (gstdata->dest), "fd", pipe[1], NULL);
+         gstdata->dest = gst_element_factory_make("fdsink", "file-out");
+         g_object_set(G_OBJECT(gstdata->dest), "fd", pipe[1], NULL);
     }
     else
     {
         gstdata->dest = gst_element_factory_make("filesink","file-out");
-        g_object_set (G_OBJECT (gstdata->dest), "location", g_ptr_array_index(cmd->args, 1), NULL);
+        g_object_set(G_OBJECT(gstdata->dest), "location", g_ptr_array_index(cmd->args, 1), NULL);
     }
     
-    gst_bin_add_many (GST_BIN (gstdata->pipeline), gstdata->source, gstdata->decoder, NULL);
+    gst_bin_add_many(GST_BIN(gstdata->pipeline), gstdata->source, gstdata->decoder, NULL);
     
     gst_element_link(gstdata->converter, gstdata->scale);
     gst_element_link(gstdata->encoder, gstdata->dest);
     gst_element_link(gstdata->source, gstdata->decoder);
     
-    g_signal_connect (gstdata->pipeline, "error", G_CALLBACK(gstreamer_pipeline_error), cmd);
-    g_signal_connect (gstdata->pipeline, "eos", G_CALLBACK (gstreamer_pipeline_eos), cmd);
+    g_signal_connect(gstdata->pipeline, "error", G_CALLBACK(gstreamer_pipeline_error), cmd);
+    g_signal_connect(gstdata->pipeline, "eos", G_CALLBACK(gstreamer_pipeline_eos), cmd);
     
     /* If we're not writing to someone's pipe we update the progress bar */        
     if(pipe == NULL)
         gstreamertimer = g_timeout_add(1000, gstreamer_progress_timer, gstdata->dest);
     
-    gst_element_set_state (gstdata->pipeline, GST_STATE_PLAYING);
+    gst_element_set_state(gstdata->pipeline, GST_STATE_PLAYING);
     while(gst_bin_iterate(GST_BIN(gstdata->pipeline)) && (exec_cmd_get_state(cmd) == RUNNING))
     {                
         /* Keep the GUI responsive by pumping all of the events if we're not writing
@@ -1406,8 +1412,8 @@ gstreamer_lib_proc(void* ex, void* data)
     
     if(pipe == NULL)
         g_source_remove(gstreamertimer);
-    gst_element_set_state (gstdata->pipeline, GST_STATE_NULL);
-    gst_object_unref (GST_OBJECT (gstdata->pipeline));
+    gst_element_set_state(gstdata->pipeline, GST_STATE_NULL);
+    gst_object_unref(GST_OBJECT(gstdata->pipeline));
     g_free(gstdata);
 }
 

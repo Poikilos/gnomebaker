@@ -43,6 +43,7 @@ typedef struct
     GstElement* source;
 	GstElement* decoder;
 	GstElement* converter;
+    GstElement* endianconverter;
 	GstElement* scale;
 	GstElement* encoder;
 	GstElement* dest;
