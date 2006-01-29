@@ -490,6 +490,7 @@ startdlg_new(const BurnType burntype)
     devices_populate_optionmenu(GTK_WIDGET(start_dlg->reader), GB_READER); 
     GtkObject* spinSpeed_adj = gtk_adjustment_new (4, 0, 100, 1, 10, 10);  
     start_dlg->write_speed = GTK_SPIN_BUTTON(gtk_spin_button_new (GTK_ADJUSTMENT (spinSpeed_adj), 1, 0));
+    gtk_spin_button_set_range(start_dlg->write_speed, 1, 100);
     gtk_spin_button_set_numeric (start_dlg->write_speed, TRUE);
     start_dlg->write_mode = GTK_OPTION_MENU(gtk_option_menu_new ());
     start_dlg->dummy = startdlg_create_check_button(_("Dummy write"), GB_DUMMY);
