@@ -52,7 +52,7 @@ static GHashTable* statusicons = NULL;
 static gdouble approximationinterval = 0.0;
 static gdouble approximationfraction = 0.0;
 static GTimer* timer = NULL;
-
+static gboolean scrolloutput = TRUE;
 
 
 static void 
@@ -98,6 +98,7 @@ progressdlg_new(const Exec* exec, GtkWindow* parent, GCallback callonprematurecl
     timertag = 0;
     approximationfraction = 0.0;
     approximationinterval = 0.0;
+    scrolloutput = preferences_get_bool(GB_SCROLL_OUTPUT);
     
     if(statusicons == NULL) 
     {
@@ -215,12 +216,15 @@ progressdlg_set_fraction(gfloat fraction)
         }
     }
     
-    gdouble time = (g_timer_elapsed(timer, NULL) / fraction) * (1.0 - fraction); 
-    gchar* formatted = progressdlg_format_time((gint)time + 1.0);
-    gchar* text = g_strdup_printf(_("%s remaining"), formatted);
-    gtk_progress_bar_set_text(progbar, text); 
-    g_free(formatted);
-    g_free(text);
+    if(fraction > 0.0)
+    {
+        gdouble time = (g_timer_elapsed(timer, NULL) / fraction) * (1.0 - fraction); 
+        gchar* formatted = progressdlg_format_time((gint)time + 1.0);
+        gchar* text = g_strdup_printf(_("%s remaining"), formatted);
+        gtk_progress_bar_set_text(progbar, text); 
+        g_free(formatted);
+        g_free(text);
+    }
 }
 
 
@@ -234,7 +238,7 @@ progressdlg_append_output(const gchar* output)
 	GtkTextIter textIter;
     gtk_text_buffer_get_end_iter(textBuffer, &textIter);
 	gtk_text_buffer_insert(textBuffer, &textIter, output, strlen(output));	
-	if(preferences_get_bool(GB_SCROLL_OUTPUT))
+	if(scrolloutput)
 	{
 		gtk_text_buffer_get_end_iter(textBuffer, &textIter);
 		GtkTextMark* mark = gtk_text_buffer_create_mark(textBuffer, "end of buffer", &textIter, TRUE);
