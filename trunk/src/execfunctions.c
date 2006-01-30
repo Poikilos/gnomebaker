@@ -542,7 +542,7 @@ mkisofs_calc_size_pre_proc(void* ex, void* buffer)
     
     progressdlg_set_status(_("Calculating data disk image size"));
     progressdlg_increment_exec_number();
-    progressdlg_pulse_start();
+    progressdlg_start_approximation(20);
 }
 
     
@@ -568,7 +568,7 @@ mkisofs_calc_size_post_proc(void* ex, void* buffer)
 {   
     GB_LOG_FUNC
     g_return_if_fail(ex != NULL);
-    progressdlg_pulse_stop();
+    progressdlg_stop_approximation();
 }
 
 
@@ -1148,14 +1148,14 @@ readcd_add_copy_args(ExecCmd* e, StartDlg* start_dlg)
        gchar* file = preferences_get_copy_data_cd_image();
        exec_cmd_add_arg(e, "f=%s", file);    
        g_free(file);   
+       e->postProc = execfunctions_prompt_for_disk_post_proc;
     }
 	/*exec_cmd_add_arg(e, "-notrunc");
 	exec_cmd_add_arg(e, "-clone");
 	exec_cmd_add_arg(e, "-silent");*/
 
 	e->preProc = readcd_pre_proc;	
-	e->readProc = readcd_read_proc;
-    e->postProc = execfunctions_prompt_for_disk_post_proc;
+	e->readProc = readcd_read_proc;    
 }
 
 /*******************************************************************************
