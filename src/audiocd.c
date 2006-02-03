@@ -288,7 +288,7 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
 	g_return_val_if_fail(filename != NULL, FALSE);
 	g_return_val_if_fail(model != NULL, FALSE);
     
-    GB_TRACE("audiocd_add_file - [%s]", filename);
+    GB_TRACE("audiocd_add_file - [%s]\n", filename);
 	/* ret is set to true as we want to ignore non audio files. */
 	gboolean ret = TRUE;
 	MediaInfo* info = media_info_new(filename);
@@ -379,7 +379,7 @@ audiocd_import_m3u_playlist(const gchar* m3ufile, GtkTreeModel* model)
     {
         gchar* file = *line;
         g_strstrip(file);
-        GB_TRACE("audiocd_import_m3u_playlist - [%s]", file);
+        GB_TRACE("audiocd_import_m3u_playlist - [%s]\n", file);
         if((strlen(file) > 0) && (file[0] != '#') && !g_ascii_isspace(file[0]))
             ret = audiocd_import_playlist_file(m3udir, file, model);
         ++line;
@@ -411,7 +411,7 @@ audiocd_import_pls_playlist(const gchar* plsfile, GtkTreeModel* model)
             if(file != NULL)
             {
                 ++file;            
-                GB_TRACE("audiocd_import_pls_playlist - [%s]", file);
+                GB_TRACE("audiocd_import_pls_playlist - [%s]\n", file);
                 ret = audiocd_import_playlist_file(plsdir, file, model);
             }
             else

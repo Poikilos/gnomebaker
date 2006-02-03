@@ -79,7 +79,7 @@ extern gboolean showtrace;
 	if(showtrace) g_print("[%p] [%s] [%s] [%d]\n", (gpointer)g_thread_self(), __FUNCTION__, __FILE__, __LINE__);	\
 
 #define GB_TRACE			\
-	if(showtrace) g_message	\
+	if(showtrace) g_print	\
 
 #define GB_DECLARE_STRUCT(STRUCT, INSTANCE)			\
 	STRUCT INSTANCE; memset(&INSTANCE, 0x0, sizeof(STRUCT));	\

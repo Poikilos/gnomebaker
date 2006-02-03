@@ -88,7 +88,7 @@ devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename,
 	g_free(devicenodekey);
 	g_free(devicemountkey);
 	g_free(devicecapabilitieskey);
-	GB_TRACE("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]", 
+	GB_TRACE("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]\n", 
 		devicename, deviceid, devicenode, mountpoint);
 }
 
@@ -114,7 +114,7 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 			gchar node[64], mount[64];
 			if(sscanf(*line, "%s\t%s", node, mount) == 2)
 			{
-				GB_TRACE("node [%s] mount [%s]", node, mount);
+				GB_TRACE("devices_add_device - node [%s] mount [%s]\n", node, mount);
 				if(g_ascii_strcasecmp(node, devicenode) == 0)
 				{
 					mountpoint = g_strdup(mount);
@@ -127,7 +127,7 @@ devices_add_device(const gchar* devicename, const gchar* deviceid,
 					realpath(node, linktarget);					
 					if(g_ascii_strcasecmp(linktarget, devicenode) == 0)
 					{					
-						GB_TRACE("node [%s] is link to [%s]", node, linktarget);
+						GB_TRACE("devices_add_device - node [%s] is link to [%s]\n", node, linktarget);
 						mountpoint = g_strdup(mount);
 					}
 					g_free(linktarget);
@@ -392,7 +392,7 @@ devices_get_ide_device(const gchar* devicenode, const gchar* devicenodepath,
 	g_return_if_fail(devicenode != NULL);	
 	g_return_if_fail(modelname != NULL);
 	g_return_if_fail(deviceid != NULL);
-	GB_TRACE("devices_get_ide_device - probing [%s]", devicenode);
+	GB_TRACE("devices_get_ide_device - probing [%s]\n", devicenode);
 	gchar* contents = NULL;
 	gchar* file = g_strdup_printf("/proc/ide/%s/model", devicenode);
 	if(g_file_get_contents(file, &contents, NULL, NULL))
@@ -418,7 +418,7 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 	g_return_if_fail(devicenode != NULL);
 	g_return_if_fail(modelname != NULL);
 	g_return_if_fail(deviceid != NULL);
-	GB_TRACE("devices_add_scsi_device - probing [%s]", devicenode);
+	GB_TRACE("devices_add_scsi_device - probing [%s]\n", devicenode);
 	
 	gchar **device_strs = NULL, **devices = NULL;	
 	if((devices = gbcommon_get_file_as_list("/proc/scsi/sg/devices")) == NULL)
@@ -481,7 +481,7 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 void 
 devices_for_each(gpointer key, gpointer value, gpointer user_data)
 {	
-	GB_TRACE("---- key [%s], value [%s]", (gchar*)key, (gchar*)value);
+	GB_TRACE("---- key [%s], value [%s]\n", (gchar*)key, (gchar*)value);
 	g_free(key);
 	g_free(value);
 }
@@ -494,7 +494,7 @@ devices_get_cdrominfo(gchar** proccdrominfo, gint deviceindex)
 	g_return_val_if_fail(proccdrominfo != NULL, NULL);
 	g_return_val_if_fail(deviceindex >= 1, NULL);
 	
-	GB_TRACE("looking for device [%d]", deviceindex);
+	GB_TRACE("devices_get_cdrominfo - looking for device [%d]\n", deviceindex);
 	GHashTable* ret = NULL;
 	gchar** info = proccdrominfo;
 	while(*info != NULL)
@@ -529,8 +529,8 @@ devices_get_cdrominfo(gchar** proccdrominfo, gint deviceindex)
 				 looking for */
 				if(columnindex <= deviceindex)
 				{
-					GB_TRACE("Requested device index [%d] is out of bounds. "
-						"All devices have been read.", deviceindex);
+					GB_TRACE("devices_get_cdrominfo - Requested device index [%d] is out of bounds. "
+						"All devices have been read.\n", deviceindex);
 					g_hash_table_destroy(ret);
 					ret = NULL;
 					break;
@@ -681,7 +681,7 @@ devices_eject_disk(const gchar* devicekey)
 	/* from http://leapster.org/linux/cdrom/ */
 	gboolean ret = FALSE;
 	gchar *device = devices_get_device_config(devicekey,GB_DEVICE_NODE_LABEL);
-	GB_TRACE("Ejecting media in %s",device);
+	GB_TRACE("devices_eject_disk - Ejecting media in [%s]\n",device);
     int cdrom = open(device,O_RDONLY | O_NONBLOCK);
     g_free(device);
 	if(cdrom < 0)

@@ -192,7 +192,7 @@ media_type_found(GstElement *typefind,
 {
     GB_LOG_FUNC
     gchar* type = gst_caps_to_string (caps);
-    GB_TRACE("Media type %s found, probability %d%%\n", type, probability);
+    GB_TRACE("media_type_found - [%s] found, probability [%d%%]\n", type, probability);
     g_free (type);
     /*((MediaInfo*)data)->status = INSTALLED;*/
 }
@@ -239,7 +239,7 @@ media_info_get_mediafile_info(MediaInfo* info, const gchar* mediafile)
         GstFormat format = GST_FORMAT_TIME;
         gint64 total = 0;
         gst_element_query (destination, GST_QUERY_TOTAL, &format, &total);
-        GB_TRACE("*** track length [%ld]", (long int)(total / GST_SECOND));    
+        GB_TRACE("media_info_get_mediafile_info - track length [%ld]\n", (long int)(total / GST_SECOND));    
         info->duration = total / GST_SECOND;
     }
     gst_element_set_state (pipeline, GST_STATE_NULL);
@@ -269,7 +269,7 @@ media_get_plugin_status(const gchar* mimetype)
     for(; node != NULL; node = node->next)
     {
         PluginInfo* plugininfo = (PluginInfo*)node->data;
-        GB_TRACE("plugin mimetype [%s] requested [%s]", plugininfo->mimetype->str, mimetype);
+        GB_TRACE("media_get_plugin_status - plugin mimetype [%s] requested [%s]\n", plugininfo->mimetype->str, mimetype);
         if(g_ascii_strcasecmp(plugininfo->mimetype->str, mimetype) == 0)
         {
             status = plugininfo->status;
