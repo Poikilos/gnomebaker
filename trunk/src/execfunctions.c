@@ -99,7 +99,7 @@ cdrecord_blank_pre_proc(void* ex, void* buffer)
         else 
             approximation = ((60/speed) * (60/speed)) * 15;
         
-        g_print("approximation is %d", approximation);
+        GB_TRACE("approximation is %d", approximation);
         progressdlg_start_approximation(approximation);    
         progressdlg_increment_exec_number();
     }

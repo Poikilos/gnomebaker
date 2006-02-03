@@ -403,7 +403,7 @@ progressdlg_start_approximation(gint seconds)
     
     gint timeout = (seconds * 1000) / 100;
     approximationinterval = 1.0 / (((gdouble)seconds) * (1000/timeout));        
-    g_print("progressdlg_start_approximation - seconds [%d] timeout [%d] interval [%f]", 
+    GB_TRACE("progressdlg_start_approximation - seconds [%d] timeout [%d] interval [%f]", 
             seconds, timeout, approximationinterval);
     timertag = gtk_timeout_add(timeout, (GtkFunction)progressdlg_approximation_ontimer, NULL);
 }
