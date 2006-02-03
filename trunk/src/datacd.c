@@ -282,7 +282,7 @@ datacd_add_selection(GtkSelectionData* selection)
 	
 	gnomebaker_show_busy_cursor(TRUE);	    	
 
-	GB_TRACE("received sel %s", selection->data);	
+	GB_TRACE("datacd_add_selection - received sel [%s]\n", selection->data);	
 	const gchar* file = strtok((gchar*)selection->data,"\n");
 	while(file != NULL)
 	{
@@ -617,7 +617,7 @@ datacd_get_msinfo(gchar** msinfo)
 	else
 	{
 		*msinfo = g_strdup_printf("%d,%d", start, end);
-		GB_TRACE("datacd next session is [%s]", *msinfo);		
+		GB_TRACE("datacd_get_msinfo - next session is [%s]\n", *msinfo);		
 		ok = TRUE;
 	}
 	

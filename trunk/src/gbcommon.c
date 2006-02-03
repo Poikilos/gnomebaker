@@ -136,7 +136,7 @@ gbcommon_mkdir(const gchar* dirname)
 	GB_LOG_FUNC
 	g_return_if_fail(dirname != NULL);
 		
-	GB_TRACE("creating [%s]", dirname);
+	GB_TRACE("gbcommon_mkdir - creating [%s]\n", dirname);
 
 	gchar *dirs = g_strdup(dirname);
 	GString *dir = g_string_new("");
@@ -341,7 +341,7 @@ gbcommon_get_mime_description(const gchar* mime)
 	else
 		ret = g_strdup(mime);
 	
-	GB_TRACE("gbcommon_get_mime_description - mime [%s] description [%s]", mime, ret);	
+	GB_TRACE("gbcommon_get_mime_description - mime [%s] description [%s]\n", mime, ret);	
 	return ret;
 }
 
@@ -354,7 +354,7 @@ gbcommon_get_mime_type(const gchar* file)
 	
 	gchar* uri = gbcommon_get_uri(file);	
 	gchar* mime = gnome_vfs_get_mime_type(uri);
-	GB_TRACE("gbcommon_get_mime_type - uri [%s] mime [%s]", uri, mime);
+	GB_TRACE("gbcommon_get_mime_type - uri [%s] mime [%s]\n", uri, mime);
 	g_free(uri);	
 	return mime;
 }

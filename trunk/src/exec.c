@@ -82,7 +82,7 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
         const GIOStatus status = g_io_channel_read_chars(channel, buffer, (BUFF_SIZE - 1) * sizeof(gchar), &bytes, NULL);  
         if ((status == G_IO_STATUS_ERROR) || (status == G_IO_STATUS_AGAIN)) /* need to check what to do for again */
         {
-            GB_TRACE("exec_channel_callback - read error [%d]", status);
+            GB_TRACE("exec_channel_callback - read error [%d]\n", status);
             cont = FALSE;
         }        
         else if(cmd->readProc) 
@@ -114,7 +114,7 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
          check the return code of the child to determine if it actually worked
          and set the correct state accordingly.*/
         exec_cmd_set_state(cmd, FAILED);
-        GB_TRACE("exec_channel_callback - condition [%d]", condition);        
+        GB_TRACE("exec_channel_callback - condition [%d]\n", condition);        
         cont = FALSE;
     }
     
@@ -136,7 +136,7 @@ exec_spawn_process(ExecCmd* e, GSpawnChildSetupFunc child_setup)
 	if(g_spawn_async_with_pipes(NULL, (gchar**)e->args->pdata, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_DO_NOT_REAP_CHILD , 
         child_setup, e, &e->pid, NULL, &stdout, &stderr, &err))
 	{
-		GB_TRACE("exec_spawn_process - spawed process with pid [%d]", e->pid);
+		GB_TRACE("exec_spawn_process - spawed process with pid [%d]\n", e->pid);
 		GIOChannel *chanout = NULL, *chanerr = NULL;
 		guint chanoutid = 0, chanerrid = 0;
 		
@@ -183,11 +183,11 @@ exec_spawn_process(ExecCmd* e, GSpawnChildSetupFunc child_setup)
 		close(stderr);	
 		
         exec_cmd_set_state(e, (e->exitCode == 0) ? COMPLETED : FAILED);
-		GB_TRACE("exec_spawn_process - child [%d] exitcode [%d]", e->pid, e->exitCode);
+		GB_TRACE("exec_spawn_process - child [%d] exitcode [%d]\n", e->pid, e->exitCode);
 	}
 	else
 	{
-		g_critical("exec_spawn_process - failed to spawn process [%d] [%s]",
+		g_critical("exec_spawn_process - failed to spawn process [%d] [%s]\n",
 			err->code, err->message);			
         exec_cmd_set_state(e, FAILED);
         if(err != NULL) g_error_free(err);
@@ -248,7 +248,7 @@ exec_run_remainder(gpointer data)
             break;
 	}	
 	close(child_child_pipe[1]);			
-	GB_TRACE("exec_run_remainder - thread exiting");
+	GB_TRACE("exec_run_remainder - thread exiting\n");
 	return NULL;
 }
 
@@ -349,7 +349,7 @@ exec_cmd_update_arg(ExecCmd* e, const gchar* argstart, const gchar* format, ...)
             g_vasprintf(&newarg, format, va);
             va_end(va);    
             e->args->pdata[i] = newarg;
-            GB_TRACE("exec_cmd_update_arg - set to [%s]", (gchar*)g_ptr_array_index(e->args, i));
+            GB_TRACE("exec_cmd_update_arg - set to [%s]\n", (gchar*)g_ptr_array_index(e->args, i));
             break;
         }
     }
@@ -452,7 +452,7 @@ exec_stop(Exec* e)
     for(; cmd != NULL; cmd = cmd->next)
         exec_cmd_set_state((ExecCmd*)cmd->data, CANCELLED);        
     
-    GB_TRACE("exec_stop - complete");
+    GB_TRACE("exec_stop - complete\n");
 }
 
 
@@ -481,7 +481,7 @@ exec_run_cmd(const gchar* cmd, gchar** output)
     {
         g_critical("Unknown error spawning command [%s]", cmd);     
     }
-    GB_TRACE("exec_run_cmd - [%s] returned [%d]", cmd, exitcode);
+    GB_TRACE("exec_run_cmd - [%s] returned [%d]\n", cmd, exitcode);
     return exitcode;
 }
 
@@ -499,7 +499,7 @@ exec_count_operations(const Exec* e)
         if(!((ExecCmd*)cmd->data)->piped)
             ++count;
     }
-    GB_TRACE("exec_count_operations - there are [%d] operations", count);
+    GB_TRACE("exec_count_operations - there are [%d] operations\n", count);
     return count;
 }
 

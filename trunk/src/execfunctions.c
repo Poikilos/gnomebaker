@@ -99,7 +99,7 @@ cdrecord_blank_pre_proc(void* ex, void* buffer)
         else 
             approximation = ((60/speed) * (60/speed)) * 15;
         
-        GB_TRACE("approximation is %d", approximation);
+        GB_TRACE("cdrecord_blank_pre_proc - approximation is [%d]\n", approximation);
         progressdlg_start_approximation(approximation);    
         progressdlg_increment_exec_number();
     }
@@ -274,7 +274,7 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
     for (; audiofile != NULL ; audiofile = audiofile->next)
     {
         exec_cmd_add_arg(e, audiofile->data);
-        GB_TRACE("cdrecord - adding create audio data [%s]", (gchar*)audiofile->data);
+        GB_TRACE("cdrecord_add_create_audio_cd_args - adding [%s]\n", (gchar*)audiofile->data);
         cdrecord_totaltrackstowrite++;
     }		
 	e->readProc = cdrecord_read_proc;
@@ -329,7 +329,7 @@ cdrecord_copy_audio_cd_pre_proc(void* ex, void* buffer)
         {
             if(g_str_has_suffix(name, ".wav"))
             {
-                GB_TRACE("adding [%s]", name);
+                GB_TRACE("cdrecord_copy_audio_cd_pre_proc - adding [%s]\n", name);
                 gchar* fullpath = g_build_filename(tmp, name, NULL);
                 exec_cmd_add_arg(ex, fullpath);
                 cdrecord_totaltrackstowrite++;
@@ -557,7 +557,7 @@ mkisofs_calc_size_read_proc(void* ex, void* buffer)
     if(written != NULL)
     {
         if(sscanf(written, "written = %llu\n", &cdrecord_totaldiskbytes) == 1)
-            GB_TRACE("mkisofs_calc_size_read_proc - size is [%llu]", cdrecord_totaldiskbytes);
+            GB_TRACE("mkisofs_calc_size_read_proc - size is [%llu]\n", cdrecord_totaldiskbytes);
     }
     progressdlg_append_output(buffer);
 }
@@ -1104,7 +1104,7 @@ readcd_read_proc(void* ex, void* buffer)
 		if(end != NULL)
 		{			
 			if(sscanf(end, "%*s %d", &readcd_totalguchars) > 0)
-				GB_TRACE("readcd size is %d", readcd_totalguchars);
+				GB_TRACE("readcd_read_proc - readcd size is [%d]\n", readcd_totalguchars);
 		}
 		progressdlg_append_output(text);
 	}
@@ -1354,7 +1354,7 @@ gstreamer_lib_proc(void* ex, void* data)
     ExecCmd* cmd = (ExecCmd*)ex;
     gint* pipe = (gint*)data;
     
-    GB_TRACE("Converting [%s] to [%s]", (gchar*)g_ptr_array_index(cmd->args, 0), 
+    GB_TRACE("gstreamer_lib_proc - converting [%s] to [%s]\n", (gchar*)g_ptr_array_index(cmd->args, 0), 
         (gchar*)g_ptr_array_index(cmd->args, 1));
     
     MediaPipeline* gstdata = g_new0(MediaPipeline, 1);

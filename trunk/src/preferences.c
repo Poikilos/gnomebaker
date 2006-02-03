@@ -163,7 +163,7 @@ preferences_get_toolbar_style()
 	else if(g_ascii_strcasecmp(style, "both") == 0)
 		ret = GTK_TOOLBAR_BOTH;
 	
-	GB_TRACE("toolbar style [%s] [%d]", style, ret);
+	GB_TRACE("preferences_get_toolbar_style - toolbar style [%s] [%d]\n", style, ret);
 	g_free(style);
 	
 	return ret;

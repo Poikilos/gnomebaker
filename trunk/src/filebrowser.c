@@ -499,7 +499,7 @@ filebrowser_on_drag_data_get(GtkWidget* widget, GdkDragContext* context,
 		g_string_assign(file, uri);
 	}
 	
-	GB_TRACE("selection data is %s\n", file->str);
+	GB_TRACE("filebrowser_on_drag_data_get - selection data is [%s]\n", file->str);
 	
 	/* Set the fully built path(s) as the selection data */
 	gtk_selection_data_set(selection_data, selection_data->target, 8, 
