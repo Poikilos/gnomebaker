@@ -338,6 +338,9 @@ progressdlg_increment_exec_number()
 	gtk_text_buffer_get_end_iter(textBuffer, &endIter);		
 	gtk_text_buffer_get_start_iter(textBuffer, &startIter);	
 	gtk_text_buffer_delete(textBuffer, &startIter, &endIter);		
+    
+    if(timer != NULL)
+        g_timer_start(timer);
 }
 
 
