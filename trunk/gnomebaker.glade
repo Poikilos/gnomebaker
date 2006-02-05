@@ -54,6 +54,186 @@
 		    <widget class="GtkMenu" id="file2_menu">
 
 		      <child>
+			<widget class="GtkImageMenuItem" id="new_project1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">_New Project</property>
+			  <property name="use_underline">True</property>
+
+			  <child internal-child="image">
+			    <widget class="GtkImage" id="image1114">
+			      <property name="visible">True</property>
+			      <property name="stock">gtk-new</property>
+			      <property name="icon_size">1</property>
+			      <property name="xalign">0.5</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenu" id="new_project1_menu">
+
+			      <child>
+				<widget class="GtkMenuItem" id="data_disk1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">_Data Disk</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="gnomebaker_on_new_data_disk" last_modification_time="Sun, 15 Jan 2006 00:51:55 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkMenuItem" id="audio_disk1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">_Audio Disk</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="gnomebaker_on_new_audio_disk" last_modification_time="Sun, 05 Feb 2006 00:02:59 GMT"/>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkImageMenuItem" id="open_project1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">_Open Project</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="gnomebaker_on_open_project" last_modification_time="Sat, 14 Jan 2006 22:21:12 GMT"/>
+			  <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+
+			  <child internal-child="image">
+			    <widget class="GtkImage" id="image1115">
+			      <property name="visible">True</property>
+			      <property name="stock">gtk-open</property>
+			      <property name="icon_size">1</property>
+			      <property name="xalign">0.5</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkSeparatorMenuItem" id="separator10">
+			  <property name="visible">True</property>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkImageMenuItem" id="save_project1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">_Save Project</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="gnomebaker_on_save_project" last_modification_time="Sat, 14 Jan 2006 22:21:12 GMT"/>
+			  <accelerator key="S" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+
+			  <child internal-child="image">
+			    <widget class="GtkImage" id="image1116">
+			      <property name="visible">True</property>
+			      <property name="stock">gtk-save</property>
+			      <property name="icon_size">1</property>
+			      <property name="xalign">0.5</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkImageMenuItem" id="save_project_as1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Save Project _As</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="gnomebaker_on_save_project_as" last_modification_time="Sat, 14 Jan 2006 22:21:12 GMT"/>
+
+			  <child internal-child="image">
+			    <widget class="GtkImage" id="image1117">
+			      <property name="visible">True</property>
+			      <property name="stock">gtk-save-as</property>
+			      <property name="icon_size">1</property>
+			      <property name="xalign">0.5</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="save_all1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Save All</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="gnomebaker_on_save_all" last_modification_time="Sat, 14 Jan 2006 22:21:12 GMT"/>
+			  <accelerator key="A" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkSeparatorMenuItem" id="separator7">
+			  <property name="visible">True</property>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="playlist1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">_Import</property>
+			  <property name="use_underline">True</property>
+
+			  <child>
+			    <widget class="GtkMenu" id="playlist1_menu">
+
+			      <child>
+				<widget class="GtkMenuItem" id="import_playlist1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">_Playlist</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="gnomebaker_on_import_playlist" last_modification_time="Wed, 05 Oct 2005 22:19:09 GMT"/>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="export1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">_Export</property>
+			  <property name="use_underline">True</property>
+
+			  <child>
+			    <widget class="GtkMenu" id="export1_menu">
+
+			      <child>
+				<widget class="GtkMenuItem" id="export_playlist1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">_Playlist</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="gnomebaker_on_export_playlist" last_modification_time="Sat, 22 Oct 2005 11:53:42 GMT"/>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkSeparatorMenuItem" id="separator8">
+			  <property name="visible">True</property>
+			</widget>
+		      </child>
+
+		      <child>
 			<widget class="GtkImageMenuItem" id="quit">
 			  <property name="visible">True</property>
 			  <property name="stock_item">GNOMEUIINFO_MENU_EXIT_ITEM</property>
@@ -66,23 +246,44 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkMenuItem" id="edit2">
+		<widget class="GtkMenuItem" id="edit3">
 		  <property name="visible">True</property>
 		  <property name="stock_item">GNOMEUIINFO_MENU_EDIT_TREE</property>
 
 		  <child>
-		    <widget class="GtkMenu" id="edit2_menu">
+		    <widget class="GtkMenu" id="edit3_menu">
+
+		      <child>
+			<widget class="GtkImageMenuItem" id="preferences">
+			  <property name="visible">True</property>
+			  <property name="stock_item">GNOMEUIINFO_MENU_PREFERENCES_ITEM</property>
+			  <signal name="activate" handler="gnomebaker_on_preferences" last_modification_time="Fri, 09 Apr 2004 11:11:03 GMT"/>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="GtkMenuItem" id="project2">
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">_Project</property>
+		  <property name="use_underline">True</property>
+
+		  <child>
+		    <widget class="GtkMenu" id="project2_menu">
 
 		      <child>
 			<widget class="GtkImageMenuItem" id="add1">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Add selection</property>
+			  <property name="label" translatable="yes">_Add Selected Files</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="gnomebaker_on_add_files" last_modification_time="Sun, 13 Nov 2005 23:14:03 GMT"/>
 			  <accelerator key="plus" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image751">
+			    <widget class="GtkImage" id="image1118">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-add</property>
 			      <property name="icon_size">1</property>
@@ -98,13 +299,13 @@
 		      <child>
 			<widget class="GtkImageMenuItem" id="remove1">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Remove selection</property>
+			  <property name="label" translatable="yes">_Remove Selected Files</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="gnomebaker_on_remove" last_modification_time="Sun, 13 Nov 2005 23:14:03 GMT"/>
 			  <accelerator key="Delete" modifiers="0" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image752">
+			    <widget class="GtkImage" id="image1119">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-remove</property>
 			      <property name="icon_size">1</property>
@@ -135,13 +336,13 @@
 			<widget class="GtkImageMenuItem" id="move_selection_up1">
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
-			  <property name="label" translatable="yes">Move selection _up</property>
+			  <property name="label" translatable="yes">Move Selected Files _Up</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="gnomebaker_on_up" last_modification_time="Sun, 13 Nov 2005 23:27:59 GMT"/>
 			  <accelerator key="Up" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image753">
+			    <widget class="GtkImage" id="image1120">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-up</property>
 			      <property name="icon_size">1</property>
@@ -158,13 +359,13 @@
 			<widget class="GtkImageMenuItem" id="move_selection_down1">
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
-			  <property name="label" translatable="yes">Move selection _down</property>
+			  <property name="label" translatable="yes">Move Selected Files _Down</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="gnomebaker_on_down" last_modification_time="Sun, 13 Nov 2005 23:27:59 GMT"/>
 			  <accelerator key="Down" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image754">
+			    <widget class="GtkImage" id="image1121">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-down</property>
 			      <property name="icon_size">1</property>
@@ -184,10 +385,22 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkImageMenuItem" id="preferences">
+			<widget class="GtkImageMenuItem" id="import_session1">
 			  <property name="visible">True</property>
-			  <property name="stock_item">GNOMEUIINFO_MENU_PREFERENCES_ITEM</property>
-			  <signal name="activate" handler="gnomebaker_on_preferences" last_modification_time="Fri, 09 Apr 2004 11:11:03 GMT"/>
+			  <property name="label" translatable="yes">_Import Session</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="gnomebaker_on_import" last_modification_time="Tue, 04 Jan 2005 00:49:21 GMT"/>
+
+			  <child internal-child="image">
+			    <widget class="GtkImage" id="image1122">
+			      <property name="visible">True</property>
+			      <property name="pixbuf">baker-import-session.png</property>
+			      <property name="xalign">0.5</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			  </child>
 			</widget>
 		      </child>
 		    </widget>
@@ -198,7 +411,7 @@
 	      <child>
 		<widget class="GtkMenuItem" id="actions">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">_Actions</property>
+		  <property name="label" translatable="yes">_Tools</property>
 		  <property name="use_underline">True</property>
 
 		  <child>
@@ -212,7 +425,7 @@
 			  <signal name="activate" handler="gnomebaker_on_blank_cdrw" last_modification_time="Thu, 08 Apr 2004 20:55:06 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image755">
+			    <widget class="GtkImage" id="image1123">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-cdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -232,7 +445,7 @@
 			  <signal name="activate" handler="gnomebaker_on_format_dvdrw" last_modification_time="Wed, 05 Jan 2005 22:09:46 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image756">
+			    <widget class="GtkImage" id="image1124">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-dvdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -258,7 +471,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_datacd" last_modification_time="Fri, 09 Apr 2004 20:26:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image757">
+			    <widget class="GtkImage" id="image1125">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -278,7 +491,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_audiocd" last_modification_time="Fri, 09 Apr 2004 20:26:00 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image758">
+			    <widget class="GtkImage" id="image1126">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-audio-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -304,7 +517,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_iso" last_modification_time="Thu, 08 Apr 2004 21:00:53 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image759">
+			    <widget class="GtkImage" id="image1127">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-cd-iso.png</property>
 			      <property name="xalign">0.5</property>
@@ -324,76 +537,13 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_dvd_iso" last_modification_time="Fri, 04 Mar 2005 19:19:17 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image760">
+			    <widget class="GtkImage" id="image1128">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-dvd-iso.png</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xpad">0</property>
 			      <property name="ypad">0</property>
-			    </widget>
-			  </child>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkSeparatorMenuItem" id="separator3">
-			  <property name="visible">True</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkImageMenuItem" id="import_session1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Import Session</property>
-			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="gnomebaker_on_import" last_modification_time="Tue, 04 Jan 2005 00:49:21 GMT"/>
-
-			  <child internal-child="image">
-			    <widget class="GtkImage" id="image761">
-			      <property name="visible">True</property>
-			      <property name="pixbuf">baker-import-session.png</property>
-			      <property name="xalign">0.5</property>
-			      <property name="yalign">0.5</property>
-			      <property name="xpad">0</property>
-			      <property name="ypad">0</property>
-			    </widget>
-			  </child>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkSeparatorMenuItem" id="separator5">
-			  <property name="visible">True</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkMenuItem" id="playlist1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Playlist</property>
-			  <property name="use_underline">True</property>
-
-			  <child>
-			    <widget class="GtkMenu" id="playlist1_menu">
-
-			      <child>
-				<widget class="GtkMenuItem" id="import_playlist1">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_Import</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="gnomebaker_on_import_playlist" last_modification_time="Wed, 05 Oct 2005 22:19:09 GMT"/>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkMenuItem" id="export_playlist1">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_Export</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="gnomebaker_on_export_playlist" last_modification_time="Sat, 22 Oct 2005 11:53:42 GMT"/>
-				</widget>
-			      </child>
 			    </widget>
 			  </child>
 			</widget>
@@ -406,7 +556,7 @@
 	      <child>
 		<widget class="GtkMenuItem" id="view1">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">_View</property>
+		  <property name="label" translatable="yes">_Window</property>
 		  <property name="use_underline">True</property>
 
 		  <child>
@@ -418,9 +568,10 @@
 			  <property name="label" translatable="yes">_Refresh</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="gnomebaker_on_refresh" last_modification_time="Sun, 21 Nov 2004 15:12:14 GMT"/>
+			  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image762">
+			    <widget class="GtkImage" id="image1129">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
 			      <property name="icon_size">1</property>
@@ -469,7 +620,7 @@
 			  <signal name="activate" handler="gnomebaker_on_help" last_modification_time="Thu, 03 Feb 2005 21:13:55 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image763">
+			    <widget class="GtkImage" id="image1130">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -520,47 +671,13 @@
 	      <property name="show_arrow">False</property>
 
 	      <child>
-		<widget class="GtkToolButton" id="btnBlankCDRW">
+		<widget class="GtkMenuToolButton" id="menutoolbutton1">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Blank CD-RW</property>
-		  <property name="label" translatable="yes">Blank CD-RW</property>
-		  <property name="use_underline">True</property>
-		  <property name="icon">baker-blank-cdrw.png</property>
+		  <property name="tooltip" translatable="yes">Create a new project</property>
+		  <property name="stock_id">gtk-new</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <signal name="clicked" handler="gnomebaker_on_blank_cdrw" last_modification_time="Fri, 09 Apr 2004 20:19:10 GMT"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="toolbutton6">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Format DVD±RW</property>
-		  <property name="label" translatable="yes">Format DVD±RW</property>
-		  <property name="use_underline">True</property>
-		  <property name="icon">baker-blank-dvdrw.png</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <signal name="clicked" handler="gnomebaker_on_format_dvdrw" last_modification_time="Sun, 23 Jan 2005 23:15:48 GMT"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkSeparatorToolItem" id="separatortoolitem2">
-		  <property name="visible">True</property>
-		  <property name="draw">True</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
@@ -569,16 +686,14 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkToolButton" id="button24">
+		<widget class="GtkToolButton" id="toolbutton10">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Copy Data CD</property>
-		  <property name="label" translatable="yes">Copy Data CD</property>
-		  <property name="use_underline">True</property>
-		  <property name="icon">baker-data-copy.png</property>
+		  <property name="tooltip" translatable="yes">Open an existing project</property>
+		  <property name="stock_id">gtk-open</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <signal name="clicked" handler="gnomebaker_on_copy_datacd" last_modification_time="Sat, 10 Apr 2004 21:56:17 GMT"/>
+		  <property name="is_important">False</property>
+		  <signal name="clicked" handler="gnomebaker_on_open_project" last_modification_time="Sat, 14 Jan 2006 23:20:52 GMT"/>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
@@ -587,16 +702,14 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkToolButton" id="button23">
+		<widget class="GtkToolButton" id="toolbutton11">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Copy Audio CD</property>
-		  <property name="label" translatable="yes">Copy Audio CD</property>
-		  <property name="use_underline">True</property>
-		  <property name="icon">baker-audio-copy.png</property>
+		  <property name="tooltip" translatable="yes">Save project</property>
+		  <property name="stock_id">gtk-save</property>
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <signal name="clicked" handler="gnomebaker_on_copy_audiocd" last_modification_time="Fri, 09 Apr 2004 20:25:36 GMT"/>
+		  <property name="is_important">False</property>
+		  <signal name="clicked" handler="gnomebaker_on_save_project" last_modification_time="Sat, 14 Jan 2006 23:21:49 GMT"/>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
@@ -605,89 +718,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkSeparatorToolItem" id="separatortoolitem1">
-		  <property name="visible">True</property>
-		  <property name="draw">True</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">False</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="toolbutton3">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Burn CD Image</property>
-		  <property name="label" translatable="yes">Burn CD Image</property>
-		  <property name="use_underline">True</property>
-		  <property name="icon">baker-cd-iso.png</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <signal name="clicked" handler="gnomebaker_on_burn_iso" last_modification_time="Tue, 27 Jul 2004 22:48:25 GMT"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="toolbutton7">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Burn DVD Image</property>
-		  <property name="label" translatable="yes">Burn DVD Image</property>
-		  <property name="use_underline">True</property>
-		  <property name="icon">baker-dvd-iso.png</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <signal name="clicked" handler="gnomebaker_on_burn_dvd_iso" last_modification_time="Sat, 21 May 2005 16:16:41 GMT"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkSeparatorToolItem" id="separatortoolitem3">
-		  <property name="visible">True</property>
-		  <property name="draw">True</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">False</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="toolbutton2">
-		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Edit GnomeBaker's preferences</property>
-		  <property name="can_default">True</property>
-		  <property name="has_default">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="has_focus">True</property>
-		  <property name="stock_id">gtk-preferences</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">True</property>
-		  <signal name="clicked" handler="gnomebaker_on_preferences" last_modification_time="Tue, 27 Jul 2004 22:48:41 GMT"/>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkSeparatorToolItem" id="separatortoolitem4">
+		<widget class="GtkSeparatorToolItem" id="separatortoolitem7">
 		  <property name="visible">True</property>
 		  <property name="draw">True</property>
 		  <property name="visible_horizontal">True</property>
@@ -824,10 +855,6 @@
 		      <property name="show_arrow">True</property>
 
 		      <child>
-			<placeholder/>
-		      </child>
-
-		      <child>
 			<widget class="GtkToolButton" id="buttonAddFiles">
 			  <property name="visible">True</property>
 			  <property name="tooltip" translatable="yes">Add the selected files to the disk</property>
@@ -881,37 +908,6 @@
 
 		      <child>
 			<widget class="GtkSeparatorToolItem" id="separatortoolitem5">
-			  <property name="visible">True</property>
-			  <property name="draw">True</property>
-			  <property name="visible_horizontal">True</property>
-			  <property name="visible_vertical">True</property>
-			</widget>
-			<packing>
-			  <property name="expand">False</property>
-			  <property name="homogeneous">False</property>
-			</packing>
-		      </child>
-
-		      <child>
-			<widget class="GtkToolButton" id="toolbutton5">
-			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Import existing session</property>
-			  <property name="label" translatable="yes">Import</property>
-			  <property name="use_underline">True</property>
-			  <property name="icon">baker-import-session.png</property>
-			  <property name="visible_horizontal">True</property>
-			  <property name="visible_vertical">True</property>
-			  <property name="is_important">False</property>
-			  <signal name="clicked" handler="gnomebaker_on_import" last_modification_time="Sun, 02 Jan 2005 10:56:00 GMT"/>
-			</widget>
-			<packing>
-			  <property name="expand">False</property>
-			  <property name="homogeneous">True</property>
-			</packing>
-		      </child>
-
-		      <child>
-			<widget class="GtkSeparatorToolItem" id="separatortoolitem6">
 			  <property name="visible">True</property>
 			  <property name="draw">True</property>
 			  <property name="visible_horizontal">True</property>

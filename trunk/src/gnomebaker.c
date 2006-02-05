@@ -781,3 +781,16 @@ gnomebaker_on_save_all(gpointer widget, gpointer user_data)
     GB_LOG_FUNC   
 }
 
+
+void /* libglade callback */
+gnomebaker_on_new_data_disk(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC   
+}
+
+
+void /* libglade callback */
+gnomebaker_on_new_audio_disk(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC   
+}
