@@ -40,7 +40,6 @@
 static const gchar* const widget_gnomebaker = "GnomeBaker";
 static const gchar* const widget_project_notebook = "notebook1";
 static const gchar* const widget_appbar = "appbar1";
-static const gchar* const widget_import = "toolbutton5";
 static const gchar* const widget_menu_import = "import_session1";
 static const gchar* const widget_up = "toolbutton8";
 static const gchar* const widget_menu_up = "move_selection_up1";
@@ -610,7 +609,6 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
                                    gpointer user_data)
 {
     GB_LOG_FUNC
-    GtkWidget* import = glade_xml_get_widget(xml, widget_import);
     GtkWidget* menu_import = glade_xml_get_widget(xml, widget_menu_import);
     GtkWidget* up = glade_xml_get_widget(xml, widget_up);
     GtkWidget* down = glade_xml_get_widget(xml, widget_down);
@@ -619,7 +617,6 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
     switch(page_num) 
     {
         case 0:
-            gtk_widget_set_sensitive(import, TRUE);
             gtk_widget_set_sensitive(menu_import, TRUE);
             gtk_widget_set_sensitive(up, FALSE);
             gtk_widget_set_sensitive(down, FALSE);
@@ -627,7 +624,6 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(menu_down, FALSE);
             break;
         case 1:
-            gtk_widget_set_sensitive(import, FALSE);
             gtk_widget_set_sensitive(menu_import, FALSE);
             gtk_widget_set_sensitive(up, TRUE);
             gtk_widget_set_sensitive(down, TRUE);
@@ -765,6 +761,18 @@ void /* libglade callback */
 gnomebaker_on_save_project(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC   
+    
+    GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
+    g_return_if_fail(notebook != NULL);     
+    switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
+    {
+        case 0:   
+            datacd_save();
+            break;
+        case 1:            
+            break;
+        default:{}  
+    };
 }
 
 

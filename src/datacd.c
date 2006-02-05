@@ -744,5 +744,12 @@ datacd_on_create_datadisk(gpointer widget, gpointer user_data)
         burn_append_data_cd(datamodel);
     else
 	    burn_create_data_cd(datamodel);	
-
 }
+
+
+void 
+datacd_save()
+{
+    GB_LOG_FUNC
+}
+
