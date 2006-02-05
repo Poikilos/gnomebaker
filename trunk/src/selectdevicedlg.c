@@ -42,7 +42,7 @@ selectdevicedlg_new(void)
 	glade_xml_signal_autoconnect(selectdevicedlgdlg_xml);		
 	
 	GtkWidget *optmenWriteDev = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
-	devices_populate_optionmenu(optmenWriteDev, GB_WRITER);
+	devices_populate_optionmenu(optmenWriteDev, GB_WRITER, TRUE);
 	
     GtkWidget* dlg = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_device_dlg); 
     gbcommon_center_window_on_parent(dlg);

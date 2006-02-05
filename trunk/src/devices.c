@@ -171,7 +171,7 @@ devices_get_device_config(const gchar* devicekey, const gchar* deviceitem)
 
 
 void
-devices_populate_optionmenu(GtkWidget* option_menu, const gchar* devicekey)
+devices_populate_optionmenu(GtkWidget* option_menu, const gchar* devicekey, const gboolean addwritersonly)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(option_menu != NULL);
@@ -193,7 +193,13 @@ devices_populate_optionmenu(GtkWidget* option_menu, const gchar* devicekey)
 		gchar* devicekey = (gchar*)item->data;		
 		gchar* devicenamekey = g_strconcat(devicekey, GB_DEVICE_NAME_LABEL, NULL);
 		gchar* devicename = preferences_get_string(devicenamekey);	
-		if(devicename != NULL)
+        gchar* devicecapabilitieskey = g_strconcat(devicekey, GB_DEVICE_CAPABILITIES_LABEL, NULL);
+        const gint capabilities = preferences_get_int(devicecapabilitieskey);    
+        /* Check the capabilities of the device and make sure that, if we are only adding
+         * writers to the option menu, the device can actually write disks */    
+		if(devicename != NULL && (!addwritersonly || 
+                (capabilities & DC_WRITE_CDR || capabilities & DC_WRITE_CDRW || 
+                capabilities & DC_WRITE_DVDR || capabilities & DC_WRITE_DVDRAM)))
 		{
 			GtkWidget* menuitem = gtk_menu_item_new_with_label(devicename);
 			gtk_widget_show(menuitem);
@@ -208,6 +214,7 @@ devices_populate_optionmenu(GtkWidget* option_menu, const gchar* devicekey)
 			g_free(devicename);
 		}
 		
+        g_free(devicecapabilitieskey);
 		g_free(devicekey);
 		g_free(devicenamekey);		
 		++index;
