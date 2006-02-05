@@ -38,7 +38,7 @@ static const gint DC_WRITE_DVDRAM = 0x8;
 
 gboolean devices_probe_busses();
 gboolean devices_init();
-void devices_populate_optionmenu(GtkWidget* option_menu, const gchar* defaultselect);
+void devices_populate_optionmenu(GtkWidget* option_menu, const gchar* defaultselect, const gboolean addwritersonly);
 gchar* devices_get_device_config(const gchar* devicekey, const gchar* deviceitem);
 void devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename, 
 	const gchar* deviceid, const gchar* devicenode, const gchar* mountpoint,
