@@ -49,5 +49,6 @@ void datacd_clear();
 void datacd_remove();
 void datacd_add_selection(GtkSelectionData* selection);
 void datacd_import_session();
+void datacd_save();
 
 #endif	/*_DATACD_H_*/
