@@ -474,12 +474,12 @@ exec_run_cmd(const gchar* cmd, gchar** output)
     }
     else if(error != NULL)
     {       
-        g_critical("error [%s] spawning command [%s]", error->message, cmd);        
+        g_critical("exec_run_cmd - error [%s] spawning command [%s]", error->message, cmd);        
         g_error_free(error);
     }
     else
     {
-        g_critical("Unknown error spawning command [%s]", cmd);     
+        g_critical("exec_run_cmd - Unknown error spawning command [%s]", cmd);     
     }
     GB_TRACE("exec_run_cmd - [%s] returned [%d]\n", cmd, exitcode);
     return exitcode;

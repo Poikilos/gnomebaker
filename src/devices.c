@@ -404,7 +404,7 @@ devices_get_ide_device(const gchar* devicenode, const gchar* devicenodepath,
 	}
 	else
 	{
-		g_critical("Failed to open %s", file);
+		g_critical("devices_get_ide_device - Failed to open %s", file);
 	}
 	g_free(file);
 }
@@ -423,11 +423,11 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 	gchar **device_strs = NULL, **devices = NULL;	
 	if((devices = gbcommon_get_file_as_list("/proc/scsi/sg/devices")) == NULL)
 	{
-		g_critical("Failed to open /proc/scsi/sg/devices");
+		g_critical("devices_get_scsi_device - Failed to open /proc/scsi/sg/devices");
 	}
 	else if((device_strs = gbcommon_get_file_as_list("/proc/scsi/sg/device_strs")) == NULL)
 	{
-		g_critical("Failed to open /proc/scsi/sg/device_strs");
+		g_critical("devices_get_scsi_device - Failed to open /proc/scsi/sg/device_strs");
 	}
 	else
 	{
@@ -443,7 +443,7 @@ devices_get_scsi_device(const gchar* devicenode, const gchar* devicenodepath,
 				if(sscanf(*device, "%d\t%*d\t%d\t%d\t%d", 
 					&scsihost, &scsiid, &scsilun, &scsitype) != 4)
 				{
-					g_critical("Error reading scsi information from /proc/scsi/sg/devices");
+					g_critical("devices_get_scsi_device - Error reading scsi information from /proc/scsi/sg/devices");
 				}			
 				/* 5 is the magic number according to lib-nautilus-burn */
 				else if(scsitype == 5)
@@ -560,7 +560,7 @@ devices_probe_busses()
 	gchar **info = NULL;
 	if((info = gbcommon_get_file_as_list("/proc/sys/dev/cdrom/info")) == NULL)
 	{
-		g_critical("Failed to open /proc/sys/dev/cdrom/info");
+		g_critical("devices_probe_busses - Failed to open /proc/sys/dev/cdrom/info");
 	}
 	else
 	{
@@ -686,7 +686,7 @@ devices_eject_disk(const gchar* devicekey)
     g_free(device);
 	if(cdrom < 0)
 	{
-        g_critical("Error opening device %s",device);
+        g_critical("devices_eject_disk - Error opening device %s",device);
    	}
     else
     {			

@@ -257,7 +257,7 @@ datacd_add_to_compilation(const gchar* file, GtkListStore* liststore, gboolean e
 	}
 	else
 	{
-		g_warning("failed to stat file [%s] with ret code [%d] error no [%s]", 
+		g_warning("datacd_add_to_compilation - failed to stat file [%s] with ret code [%d] error no [%s]", 
 			filename, statret, strerror(errno));
 		
 		ret = FALSE;
@@ -644,17 +644,18 @@ datacd_import_session()
 	
 	gnomebaker_show_busy_cursor(TRUE);
 	
+    devices_unmount_device(GB_WRITER);
 	datacd_clear();
 
 	gchar* mountpoint = NULL;	
-	gchar* msinfo = NULL;
-	if(!datacd_get_msinfo(&msinfo))
+	gchar* msinfo = NULL;    
+    if(!datacd_get_msinfo(&msinfo))
 	{
-		g_critical("Error getting msinfo");
+		g_critical("datacd_import_session - Error getting msinfo");
 	}
 	else if(!devices_mount_device(GB_WRITER, &mountpoint))
 	{
-		g_critical("Error mounting writer device");
+		g_critical("datacd_import_session - Error mounting writer device");
 	}
 	else	
 	{							

@@ -176,7 +176,7 @@ filebrowser_build_path(GtkTreeModel* model, GtkTreeIter* iter)
 		}
 		else
 		{
-			g_critical("subdir from GValue is NULL");
+			g_critical("filebrowser_build_path - subdir from GValue is NULL");
 		}
 		
 		g_free(subdir);
@@ -344,7 +344,7 @@ filebrowser_populate(GtkTreeModel* treemodel,
 			}
 			else
 			{
-				g_warning("Stat of file [%s] failed", fullname);
+				g_warning("filebrowser_populate - Stat of file [%s] failed", fullname);
 			}
 
 			g_free(fullname);
