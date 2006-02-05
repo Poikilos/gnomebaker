@@ -147,7 +147,7 @@ gbcommon_mkdir(const gchar* dirname)
 		g_string_append_printf(dir, "/%s", currentdir);
 		if((g_file_test(dir->str, G_FILE_TEST_IS_DIR) == FALSE) && 
 				(mkdir(dir->str, 0775) == -1))
-			g_critical("failed to create temp %d", errno);
+			g_critical("gbcommon_mkdir - failed to create [%d]", errno);
 
 		currentdir = strtok(NULL, "/");
 	}
@@ -168,7 +168,7 @@ gbcommon_get_file_as_list(const gchar* file)
 	if(g_file_get_contents(file, &contents, NULL, NULL))
 		ret = g_strsplit(contents, "\n", 0);
 	else
-		g_critical("Failed to get contents of file [%s]", file);
+		g_critical("gbcommon_get_file_as_list - Failed to get contents of file [%s]", file);
 
 	g_free(contents);	
 	return ret;

@@ -719,7 +719,7 @@ audiocd_export_m3u(const gchar* playlist)
     FILE *file = NULL;   
     if ((file = fopen(playlist, "w")) == 0)
     {
-        g_critical("Failed to write playlist [%s]", playlist);
+        g_critical("audiocd_export_m3u - Failed to write playlist [%s]", playlist);
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
             GTK_BUTTONS_NONE, _("Failed to write playlist file"));
     }
@@ -756,7 +756,7 @@ audiocd_export_pls(const gchar* playlist)
     FILE *file;   
     if ((file = fopen(playlist, "w")) == 0)
     {
-        g_critical("Failed to write playlist [%s]", playlist);
+        g_critical("audiocd_export_pls - Failed to write playlist [%s]", playlist);
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, 
             GTK_BUTTONS_NONE, _("Failed to write playlist file"));
     }
