@@ -1,4 +1,4 @@
-AC_INIT(GnomeBaker, 0.5.1, gnomebaker)
+AC_INIT(GnomeBaker, 0.5.2, gnomebaker)
 AC_PREREQ(2.59)
 AC_COPYRIGHT([Copyright (C) 2003-2006 Luke Biddell])
 

@@ -1,3 +1,6 @@
+Version 0.5.2
+
+
 Version 0.5.1
 
 * Test Fix copying and disk detection when the cd reader is also the writer.
