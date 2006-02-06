@@ -85,5 +85,6 @@ void media_info_delete(MediaInfo* info);
 void media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar* inffile, int* trackstart);
 void media_start_playing(const gchar* file);
 void media_stop_playing();
+PluginStatus media_get_plugin_status(const gchar* mimetype);
 
 #endif	/* _MEDIA_H_ */

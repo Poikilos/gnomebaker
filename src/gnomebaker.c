@@ -53,7 +53,11 @@ static const gchar* const widget_browser_hpane = "hpaned3";
 static const gchar* const widget_add_button = "buttonAddFiles";
 static const gchar* const widget_refresh_menu = "refresh1";
 static const gchar* const widget_refresh_button = "toolbutton4";
+
+#ifndef USE_OLD_FILEBROWSER
 static GtkWidget* filechooser = NULL;
+static GtkFileFilter *audiofilter = NULL;
+#endif
 
 static GladeXML *xml = NULL;
 
@@ -101,6 +105,16 @@ gnomebaker_on_toolbar_style_changed(GConfClient *client,
 }
 
 
+#ifndef USE_OLD_FILEBROWSER
+static gboolean
+gnomebaker_audio_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
+{
+    GB_LOG_FUNC
+    return (media_get_plugin_status(filter_info->mime_type) == INSTALLED);
+}
+#endif
+
+
 GtkWidget* 
 gnomebaker_new()
 {
@@ -138,6 +152,11 @@ gnomebaker_new()
     gtk_container_remove(GTK_CONTAINER(vpane), tabs);            
     gtk_paned_pack1(GTK_PANED(vpane), filechooser, TRUE, TRUE);
     gtk_paned_pack2(GTK_PANED(vpane), tabs, TRUE, TRUE);
+    
+    audiofilter = gtk_file_filter_new();
+    gtk_file_filter_add_custom(audiofilter, GTK_FILE_FILTER_MIME_TYPE,
+        gnomebaker_audio_file_filter, NULL, NULL);
+    gtk_file_filter_set_name(audiofilter,_("Audio files"));
 #endif    
 	datacd_new();
 	audiocd_new();
@@ -667,6 +686,11 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(down, FALSE);
             gtk_widget_set_sensitive(menu_up, FALSE);
             gtk_widget_set_sensitive(menu_down, FALSE);
+#ifndef USE_OLD_FILEBROWSER    
+            /* We must ref before remove otherwise our filter gets destroyed */
+            g_object_ref(audiofilter);
+            gtk_file_chooser_remove_filter(GTK_FILE_CHOOSER(filechooser), audiofilter);            
+#endif            
             break;
         case 1:
             gtk_widget_set_sensitive(menu_import, FALSE);
@@ -674,6 +698,12 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(down, TRUE);
             gtk_widget_set_sensitive(menu_up, TRUE);
             gtk_widget_set_sensitive(menu_down, TRUE);
+#ifndef USE_OLD_FILEBROWSER    
+            /* When switching to an audio project we filter the files available in the
+             * file chooser according to the gstreamer plugins we have installed */
+            gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filechooser), audiofilter);
+            gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(filechooser), audiofilter);
+#endif            
             break;
         default:{}
     };

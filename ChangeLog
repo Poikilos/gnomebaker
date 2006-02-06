@@ -1,8 +1,10 @@
 Version 0.5.2
 
-* Fix RFE #1242645 Clearer indication of successful burn completion (acually in 0.5.0)
+* Fix RFE #1242645 Clearer indication of successful burn completion (acually in 0.5.1)
 * Fix RFE #1165304 smarten up device selection. Only show writers in the writers option menu.
 * Fix Bug #1418811 Copying with single drive fails
+* Use a GtkFileChooser for the file browser
+* Filter the file chooser and only show audio files for an audio project.
  
 
 Version 0.5.1
