@@ -53,9 +53,12 @@ static const gchar* const widget_browser_hpane = "hpaned3";
 static const gchar* const widget_add_button = "buttonAddFiles";
 static const gchar* const widget_refresh_menu = "refresh1";
 static const gchar* const widget_refresh_button = "toolbutton4";
+static GtkWidget* filechooser = NULL;
 
 static GladeXML *xml = NULL;
 
+/* Uncomment this to use gb's internal file browser rather than the standard gtk widget */
+/*#define USE_OLD_FILEBROWSER 1*/
 
 void /* libglade callback */
 gnomebaker_on_show_file_browser(GtkCheckMenuItem *checkmenuitem, gpointer user_data)
@@ -68,10 +71,14 @@ gnomebaker_on_show_file_browser(GtkCheckMenuItem *checkmenuitem, gpointer user_d
 				
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_menu), show);
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_button), show);	
-	
+#if USE_OLD_FILEBROWSER       	
 	GtkWidget* hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);	
 	if(show) gtk_widget_show(hpaned3);
 	else gtk_widget_hide(hpaned3);
+#else
+    if(show) gtk_widget_show(filechooser);
+    else gtk_widget_hide(filechooser);
+#endif    
 }
 
 
@@ -117,7 +124,21 @@ gnomebaker_new()
 	glade_xml_signal_autoconnect(xml);			
 
 	/* set up the tree and lists */	
-	filebrowser_new();	
+#if USE_OLD_FILEBROWSER             
+	filebrowser_new();
+#else     
+    filechooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_OPEN);
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filechooser), TRUE);
+    gtk_widget_show(filechooser);
+    GtkWidget* vpane = glade_xml_get_widget(xml, "vpaned1");
+    GtkWidget* hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);   
+    GtkWidget* tabs = glade_xml_get_widget(xml, "vbox18");
+    g_object_ref(tabs);
+    gtk_container_remove(GTK_CONTAINER(vpane), hpaned3);
+    gtk_container_remove(GTK_CONTAINER(vpane), tabs);            
+    gtk_paned_pack1(GTK_PANED(vpane), filechooser, TRUE, TRUE);
+    gtk_paned_pack2(GTK_PANED(vpane), tabs, TRUE, TRUE);
+#endif    
 	datacd_new();
 	audiocd_new();
         
@@ -426,7 +447,31 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
     we press + */
     if(preferences_get_bool(GB_SHOW_FILE_BROWSER))
     {
+#if USE_OLD_FILEBROWSER       
         selection_data = filebrowser_get_selection(FALSE);        
+#else
+        GSList* file = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(filechooser));
+        int index = 0;
+        GString* text = g_string_new("");
+        for(; file != NULL; file = file->next)
+        {
+            /* hand ownership of the data to the gchar** which we free later */
+            GB_TRACE("gnomebaker_on_add_files - index [%d] file [%s]\n", index, (gchar*)file->data);
+            g_string_append(text, (gchar*)file->data);
+            g_string_append(text, "\n");
+            g_free((gchar*)file->data);
+            /*uris[index++] = (gchar*)file->data;*/
+        }
+        
+        /*gtk_selection_data_set_uris(selection_data, uris);*/
+        selection_data = g_new0(GtkSelectionData, 1);                    
+        gtk_selection_data_set(selection_data, selection_data->target, 8, 
+            (const guchar*)text->str, strlen(text->str) * sizeof(gchar));
+        GB_TRACE("gnomebaker_on_add_files - [%s]\n", selection_data->data);
+        g_slist_free(file);
+        g_string_free(text, TRUE);
+#endif
+        
     }
     else
     {
@@ -747,12 +792,15 @@ gnomebaker_on_open_project(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC   
     
-    GtkFileFilter *imagefilter = gtk_file_filter_new();
-    gtk_file_filter_add_custom(imagefilter, GTK_FILE_FILTER_FILENAME,
-        gnomebaker_playlist_file_filter, NULL, NULL);
-    gtk_file_filter_set_name(imagefilter,_("Project files"));
-    gchar* file = gbcommon_show_file_chooser(_("Please select a project file."), GTK_FILE_CHOOSER_ACTION_OPEN, imagefilter, FALSE, NULL);
-    if(file != NULL);
+    GtkFileFilter *projectfilter = gtk_file_filter_new();
+    gtk_file_filter_add_custom(projectfilter, GTK_FILE_FILTER_FILENAME,
+        gnomebaker_project_file_filter, NULL, NULL);
+    gtk_file_filter_set_name(projectfilter,_("Project files"));
+    gchar* file = gbcommon_show_file_chooser(_("Please select a project file."), GTK_FILE_CHOOSER_ACTION_OPEN, projectfilter, FALSE, NULL);
+    if(file != NULL)
+    {
+        GB_TRACE("gnomebaker_on_open_project - opening [%s]\n", file);        
+    }
     g_free(file);
 }
 
@@ -767,7 +815,7 @@ gnomebaker_on_save_project(gpointer widget, gpointer user_data)
     switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
     {
         case 0:   
-            datacd_save();
+            datacd_save_project();
             break;
         case 1:            
             break;
