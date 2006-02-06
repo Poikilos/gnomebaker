@@ -258,7 +258,7 @@ media_info_get_mediafile_info(MediaInfo* info, const gchar* mediafile)
 }
 
 
-static PluginStatus
+PluginStatus
 media_get_plugin_status(const gchar* mimetype)
 {
     GB_LOG_FUNC
