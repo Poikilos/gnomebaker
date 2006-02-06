@@ -783,11 +783,12 @@ datacd_save_project()
     GtkTreeModel* datamodel = gtk_tree_view_get_model(GTK_TREE_VIEW(datatree));
     g_return_if_fail(datamodel != NULL);
     
-    /* TODO - show a save dialog and select a file */
+    /* TODO - show a save dialog and select a file 
     FILE *project = fopen("test.gbp", "w");
     fprintf(project, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<GnomeBakerProject Version=\""PACKAGE_VERSION"\" Type=\"0\">\n");
     gtk_tree_model_foreach(datamodel, (GtkTreeModelForeachFunc) datacd_foreach_save_project, project);
     fprintf(project, "</GnomeBakerProject>\n");
     fclose(project);
+    */
 }
 
