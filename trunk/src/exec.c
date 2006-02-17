@@ -23,6 +23,10 @@
 #include <sys/wait.h>
 #include "gbcommon.h"
 
+#if defined (__FreeBSD__)
+#include <signal.h>
+#endif
+
 
 static gint child_child_pipe[2];
 
