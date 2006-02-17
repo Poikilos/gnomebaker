@@ -5,6 +5,7 @@ Version 0.5.2
 * Fix Bug #1418811 Copying with single drive fails
 * Use a GtkFileChooser for the file browser
 * Filter the file chooser and only show audio files for an audio project.
+* Apply patch #1430548 from domg - Fix compilation on FreeBSD 
  
 
 Version 0.5.1
