@@ -6,7 +6,7 @@ Version 0.5.2
 * Use a GtkFileChooser for the file browser
 * Filter the file chooser and only show audio files for an audio project.
 * Apply patch #1430548 from domg - Fix compilation on FreeBSD 
- 
+* Apply patch from gamehack to enable libnotify support ( ./configure --enable-libnotify ) 
 
 Version 0.5.1
 

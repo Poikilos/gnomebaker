@@ -1,4 +1,5 @@
 AM_CPPFLAGS =	                                 \
+	 $(LIBNOTIFY_CFLAGS) \
 	-I$(top_srcdir)                          \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
 	-DPREFIX="\"$(prefix)"\"		\
@@ -9,11 +10,13 @@ AM_CPPFLAGS =	                                 \
 	-DIMAGEDIR=\"$(datadir)/gnomebaker\"	\
 	-DMEDIADIR=\"$(datadir)/gnomebaker\"	\
 	@GNOMEBAKER_CFLAGS@
+	
 
 bin_PROGRAMS = gnomebaker
 
 gnomebaker_SOURCES =					\
 	main.c						\
+	gblibnotify.c gblibnotify.h \
 	progressdlg.c		progressdlg.h		\
 	burn.c			burn.h			\
 	exec.c			exec.h			\
@@ -32,3 +35,9 @@ gnomebaker_SOURCES =					\
 	media.c			media.h
 
 gnomebaker_LDADD =  @GNOMEBAKER_LIBS@
+				
+if HAVE_LIBNOTIFY
+gnomebaker_LDADD +=				\
+	$(LIBNOTIFY_LIBS)				\
+	$(NULL)
+endif

@@ -24,6 +24,7 @@
 #include <glib/gprintf.h>
 #include "preferences.h"
 #include "media.h"
+#include "gblibnotify.h"
 
 /* Progress dialog glade widget names */
 static const gchar* const widget_progdlg = "progDlg";
@@ -366,6 +367,7 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
             if(preferences_get_bool(GB_PLAY_SOUND))
                 media_start_playing(MEDIADIR"/BurnOk.wav");
             progressdlg_set_icon(12);
+            gblibnotify_notification(_("Completed"), _("Gnomebaker completed successfully!"));
         }
         else if(ex->outcome == FAILED) 
         {
@@ -377,6 +379,11 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
             if(ex->err != NULL)
                 progressdlg_append_output(ex->err->message);
             progressdlg_set_icon(13);
+            gblibnotify_notification(_("Failed"), _("Gnomebaker <b>failed</b> to complete the action!"));
+        }
+        else
+        {
+            gblibnotify_notification("Cancelled", "Gnomebaker <b>failed</b> to complete the action!");
         }
         /* Scrub out he closefunction callback as whatever exec was doing is finished */
         closefunction = NULL;
