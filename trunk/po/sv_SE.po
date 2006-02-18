@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
-"Report-Msgid-Bugs-To:\n"
-"POT-Creation-Date: 2006-01-12 10:15+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-18 01:46+0000\n"
 "PO-Revision-Date: 2005-01-18 22:52+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: Swedish (Sweden) <sv_SE@li.org>\n"
@@ -65,37 +65,37 @@ msgid ""
 "or m3u file."
 msgstr "Filen du valt är inte en cd-avbild. Välj en cd-avbild att bränna."
 
-#: ../src/audiocd.c:723 ../src/audiocd.c:759
+#: ../src/audiocd.c:724 ../src/audiocd.c:761
 msgid "Failed to write playlist file"
 msgstr ""
 
-#: ../src/audiocd.c:808
+#: ../src/audiocd.c:810
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:841
+#: ../src/audiocd.c:843
 msgid "Track"
 msgstr "Spår"
 
-#: ../src/audiocd.c:854
+#: ../src/audiocd.c:856
 msgid "Duration"
 msgstr "Varaktighet"
 
-#: ../src/audiocd.c:871
+#: ../src/audiocd.c:873
 msgid "Artist"
 msgstr "Artist"
 
-#: ../src/audiocd.c:880
+#: ../src/audiocd.c:882
 msgid "Album"
 msgstr "Album"
 
-#: ../src/audiocd.c:889
+#: ../src/audiocd.c:891
 msgid "Title"
 msgstr "Titel"
 
-#: ../src/audiocd.c:898
+#: ../src/audiocd.c:900
 msgid "Info"
 msgstr ""
 
@@ -200,8 +200,7 @@ msgstr "Kopiera Data CD"
 
 #: ../src/burn.c:322
 #, fuzzy
-msgid ""
-"Please wait while the data CD image is extracted and then burned to CD."
+msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr "Välj en isofil..."
 
 #: ../src/burn.c:342
@@ -234,34 +233,38 @@ msgstr "Formatera DVDRW"
 msgid "Please wait while the DVD is formatted."
 msgstr "Välj en isofil..."
 
-#: ../src/burn.c:394
+#: ../src/burn.c:395
 #, fuzzy
 msgid "Creating data DVD image"
 msgstr "<b>Skapar datadiskavbild...<b>"
 
-#: ../src/burn.c:394
+#: ../src/burn.c:395
 #, fuzzy
 msgid "Please wait while the data DVD image is created."
 msgstr "Välj en isofil..."
 
-#: ../src/burn.c:400
+#: ../src/burn.c:401
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:400
+#: ../src/burn.c:401
 #, fuzzy
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Välj en isofil..."
 
-#: ../src/burn.c:418
+#: ../src/burn.c:419 ../src/burn.c:481
 #, fuzzy
 msgid "Appending to data DVD"
 msgstr "Kopiera Data CD"
 
-#: ../src/burn.c:418
+#: ../src/burn.c:419 ../src/burn.c:481
 #, fuzzy
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Välj en isofil..."
+
+#: ../src/burn.c:446 ../src/execfunctions.c:1458
+msgid "Verifying the disk content"
+msgstr ""
 
 #: ../src/datacd.c:147
 #, c-format
@@ -269,8 +272,7 @@ msgid "%s used - %s remaining"
 msgstr ""
 
 #: ../src/datacd.c:203
-msgid ""
-"File or directory is too large to fit in the remaining space on the CD"
+msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr ""
 "Fil eller katalog är för stor för att få plats på kvarvarande plats på CDn"
 
@@ -282,7 +284,7 @@ msgstr ""
 msgid "Clear"
 msgstr "Rensa"
 
-#: ../src/datacd.c:514 ../gnomebaker.glade.h:45
+#: ../src/datacd.c:514 ../gnomebaker.glade.h:42
 msgid "Contents"
 msgstr "Innehåll"
 
@@ -309,11 +311,11 @@ msgstr ""
 "Misslyckades att hämta sessionsinformationen.\n"
 "%s"
 
-#: ../src/datacd.c:613 ../src/devices.c:657
+#: ../src/datacd.c:613 ../src/devices.c:664
 msgid "unknown error"
 msgstr "okänt fel"
 
-#: ../src/datacd.c:686
+#: ../src/datacd.c:687
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -322,7 +324,7 @@ msgstr ""
 "Kunde inte importera session från [%s]. Kontrollera enhetens "
 "konfigurationsinställningar"
 
-#: ../src/devices.c:646
+#: ../src/devices.c:653
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
@@ -332,44 +334,45 @@ msgstr ""
 "vänlig kontrollera att brännarenheten har ett inlägg i /etc/fstab och gå "
 "sedan till inställningarna för att göra en ny enhets-sökning."
 
-#: ../src/devices.c:656
-#, fuzzy
+#: ../src/devices.c:663
+#, c-format
 msgid ""
 "Error mounting %s.\n"
 "\n"
 "%s"
 msgstr ""
 
-#: ../src/devices.c:785
-#, fuzzy
+#: ../src/devices.c:792
+#, c-format
 msgid "Please insert a disk into the %s"
 msgstr ""
 
-#: ../src/execfunctions.c:94
+#: ../src/execfunctions.c:87
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:137
+#: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#: ../src/execfunctions.c:194
+#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
+#: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
+#: ../src/execfunctions.c:253 ../src/execfunctions.c:1002
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
+#: ../src/startdlg.c:199 ../gnomebaker.glade.h:108
 msgid "default"
 msgstr "grundinställning"
 
-#: ../src/execfunctions.c:397
+#: ../src/execfunctions.c:405
 msgid "Preparing to extract audio tracks"
 msgstr ""
 
-#: ../src/execfunctions.c:408
+#: ../src/execfunctions.c:416
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -377,22 +380,22 @@ msgstr ""
 "Ljudspår från en föregående session finns redan på hårddisken, vill du "
 "använda dessa?"
 
-#: ../src/execfunctions.c:465
+#: ../src/execfunctions.c:473
 #, c-format
 msgid "Extracting audio track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:535
+#: ../src/execfunctions.c:543
 #, fuzzy
 msgid "Calculating data disk image size"
 msgstr "<b>Skapar datadiskavbild...<b>"
 
-#: ../src/execfunctions.c:573
+#: ../src/execfunctions.c:581
 #, fuzzy
 msgid "Creating data disk image"
 msgstr "<b>Skapar datadiskavbild...<b>"
 
-#: ../src/execfunctions.c:580
+#: ../src/execfunctions.c:588
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -400,38 +403,34 @@ msgstr ""
 "En avbildning av en tidigare session finns redan, vill du använda den "
 "existerande avbildningen?"
 
-#: ../src/execfunctions.c:810
+#: ../src/execfunctions.c:818
 #, fuzzy
 msgid "Formatting DVD"
 msgstr "Formatera DVDRW"
 
-#: ../src/execfunctions.c:891
+#: ../src/execfunctions.c:899
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
+#: ../src/execfunctions.c:930 ../src/execfunctions.c:955
 #, fuzzy
 msgid "Writing DVD"
 msgstr "Skriv DVD-RAM"
 
-#: ../src/execfunctions.c:1056
+#: ../src/execfunctions.c:1068
 #, fuzzy
 msgid "Reading CD image"
 msgstr "Bränn CD-avbild"
 
-#: ../src/execfunctions.c:1064
+#: ../src/execfunctions.c:1076
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1327
-#, fuzzy
+#: ../src/execfunctions.c:1341
+#, c-format
 msgid "Converting %s to cd audio"
-msgstr ""
-
-#: ../src/execfunctions.c:1439
-msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
@@ -462,7 +461,7 @@ msgstr "Lägg till katalog"
 msgid "_Add file(s)"
 msgstr "Lägg till file(er)"
 
-#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:94
+#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
 msgid "_Burn CD Image"
 msgstr "Bränn CD-avbildning"
 
@@ -488,84 +487,107 @@ msgstr "Typ"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:468
+#: ../src/gbcommon.c:469
 msgid "All files"
 msgstr "Lägg till file(er)"
 
-#: ../src/gbcommon.c:480
+#: ../src/gbcommon.c:477
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:102
+#: ../src/gnomebaker.c:125
 msgid "Loading preferences..."
 msgstr "Laddar egenskaper..."
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:128
 msgid "Detecting devices..."
 msgstr "Upptäcker enheter..."
 
-#: ../src/gnomebaker.c:108
+#: ../src/gnomebaker.c:131
 msgid "Registering gstreamer plugins..."
 msgstr "Registrerar gstreamer plugins..."
 
-#: ../src/gnomebaker.c:111
+#: ../src/gnomebaker.c:134
 msgid "Loading GUI..."
 msgstr "Laddar GUI..."
 
-#: ../src/gnomebaker.c:201
+#: ../src/gnomebaker.c:159
+#, fuzzy
+msgid "Audio files"
+msgstr "Lägg till file(r)"
+
+#: ../src/gnomebaker.c:243
 msgid "Are you sure you want to quit?"
 msgstr "Är du säker på att du vill avsluta?"
 
-#: ../src/gnomebaker.c:278
+#: ../src/gnomebaker.c:320
 #, fuzzy
 msgid "CD Image files"
 msgstr "Lägg till file(er)"
 
-#: ../src/gnomebaker.c:279
+#: ../src/gnomebaker.c:321
 #, fuzzy
 msgid "Please select a CD image file."
 msgstr "Välj en isofil att spara till..."
 
-#: ../src/gnomebaker.c:292
+#: ../src/gnomebaker.c:336
 #, fuzzy
 msgid "DVD Image files"
 msgstr "Lägg till file(er)"
 
-#: ../src/gnomebaker.c:293
+#: ../src/gnomebaker.c:337
 #, fuzzy
 msgid "Please select a DVD image file."
 msgstr "Välj en isofil att spara till..."
 
-#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:408 ../gnomebaker.glade.h:53
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:364
+#: ../src/gnomebaker.c:409
 #, fuzzy
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "Enkel CD-bränning för Gnome"
 
-#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:409 ../gnomebaker.glade.h:113
 msgid "translator_credits"
 msgstr "translator_credits"
 
-#: ../src/gnomebaker.c:429
+#: ../src/gnomebaker.c:498
 #, fuzzy
 msgid "Please select files to add to the disk."
 msgstr "Välj en isofil att spara till..."
 
-#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
+#: ../src/gnomebaker.c:775 ../src/gnomebaker.c:798
 #, fuzzy
 msgid "Playlist files"
 msgstr "Lägg till file(er)"
 
-#: ../src/gnomebaker.c:690
+#: ../src/gnomebaker.c:776
 #, fuzzy
 msgid "Please select a playlist."
 msgstr "Välj en isofil att spara till..."
 
-#: ../src/gnomebaker.c:711
+#: ../src/gnomebaker.c:805
 msgid "Save playlist as..."
+msgstr ""
+
+#: ../src/gnomebaker.c:828
+#, fuzzy
+msgid "Project files"
+msgstr "Mata ut CD"
+
+#: ../src/gnomebaker.c:829
+#, fuzzy
+msgid "Please select a project file."
+msgstr "Välj en isofil att spara till..."
+
+#: ../src/main.c:41
+msgid "Show tracing information (useful when debugging)"
+msgstr ""
+
+#: ../src/main.c:50
+msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -605,23 +627,56 @@ msgstr "Skriv DVD-R"
 msgid "Write DVD-RAM"
 msgstr "Skriv DVD-RAM"
 
-#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
+#: ../src/progressdlg.c:80
+#, fuzzy, c-format
+msgid "%d minutes %d seconds"
+msgstr "%d min %d sek"
+
+#: ../src/progressdlg.c:82
+#, fuzzy, c-format
+msgid "%d minute %d seconds"
+msgstr "%d min %d sek"
+
+#: ../src/progressdlg.c:84
+#, c-format
+msgid "%d seconds"
+msgstr ""
+
+#: ../src/progressdlg.c:224
+#, c-format
+msgid "%s remaining"
+msgstr ""
+
+#: ../src/progressdlg.c:279 ../gnomebaker.glade.h:79
 #, fuzzy
 msgid "Show output"
 msgstr "Granska output"
 
-#: ../src/progressdlg.c:188
+#: ../src/progressdlg.c:279
 #, fuzzy
 msgid "Hide output"
 msgstr "Granska output"
 
-#: ../src/progressdlg.c:262
+#: ../src/progressdlg.c:358
+#, c-format
+msgid "Elapsed time %s"
+msgstr ""
+
+#: ../src/progressdlg.c:364
 msgid "Completed"
 msgstr "Färdigställd"
 
-#: ../src/progressdlg.c:270
+#: ../src/progressdlg.c:370
+msgid "Gnomebaker completed successfully!"
+msgstr ""
+
+#: ../src/progressdlg.c:374
 msgid "Failed"
 msgstr "Misslyckades"
+
+#: ../src/progressdlg.c:382
+msgid "Gnomebaker <b>failed</b> to complete the action!"
+msgstr ""
 
 #: ../src/startdlg.c:98
 #, fuzzy
@@ -665,7 +720,7 @@ msgstr ""
 msgid "<b>Options</b>"
 msgstr "<b>Alternativ</b>"
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:103
+#: ../src/startdlg.c:246 ../gnomebaker.glade.h:104
 msgid "_Start"
 msgstr "_Starta"
 
@@ -715,81 +770,81 @@ msgstr "Skriv DVD-RAM"
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:495
+#: ../src/startdlg.c:496
 msgid "Dummy write"
 msgstr "Provbränning"
 
-#: ../src/startdlg.c:496
+#: ../src/startdlg.c:497
 msgid "Eject disk"
 msgstr "Mata ut CD"
 
-#: ../src/startdlg.c:497
+#: ../src/startdlg.c:498
 msgid "Fast blank"
 msgstr "Snabbtöm"
 
-#: ../src/startdlg.c:498
+#: ../src/startdlg.c:499
 msgid "BurnFree"
 msgstr "BrännFri"
 
-#: ../src/startdlg.c:499
+#: ../src/startdlg.c:500
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:501
-msgid "Create ISO only"
-msgstr "Skapa Endast ISO"
-
-#: ../src/startdlg.c:504
-msgid "Force format"
+#: ../src/startdlg.c:502
+msgid "Only create image"
 msgstr ""
 
 #: ../src/startdlg.c:505
+msgid "Force format"
+msgstr ""
+
+#: ../src/startdlg.c:506
 msgid "Finalize"
 msgstr "Slutför"
 
-#: ../src/startdlg.c:506
+#: ../src/startdlg.c:507
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:508
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:509
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:509
-msgid "On The Fly"
+#: ../src/startdlg.c:510
+msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:519
+#: ../src/startdlg.c:520
 msgid "_Browse..."
 msgstr ""
 
-#: ../src/startdlg.c:521
+#: ../src/startdlg.c:522
 #, fuzzy
 msgid "GnomeBaker data disk"
 msgstr "GnomeBaker"
 
-#: ../src/burn.h:65 ../gnomebaker.glade.h:32
+#: ../src/burn.h:65
 #, fuzzy
 msgid "Blank CD-RW"
 msgstr "Tom CDRW"
 
-#: ../src/burn.h:66 ../gnomebaker.glade.h:47
+#: ../src/burn.h:66
 msgid "Copy Data CD"
 msgstr "Kopiera Data CD"
 
-#: ../src/burn.h:67 ../gnomebaker.glade.h:46
+#: ../src/burn.h:67
 msgid "Copy Audio CD"
 msgstr "Kopiera Audio CD"
 
-#: ../src/burn.h:68 ../gnomebaker.glade.h:36
+#: ../src/burn.h:68
 msgid "Burn CD Image"
 msgstr "Bränn CD-avbild"
 
-#: ../src/burn.h:69 ../gnomebaker.glade.h:37
+#: ../src/burn.h:69
 #, fuzzy
 msgid "Burn DVD Image"
 msgstr "Bränn CD-avbild"
@@ -917,7 +972,8 @@ msgid "Add file(s)"
 msgstr "Lägg till file(r)"
 
 #: ../gnomebaker.glade.h:25
-msgid "Add the selected files to the CD"
+#, fuzzy
+msgid "Add the selected files to the disk"
 msgstr "Lägg till de valda filerna till CDn"
 
 #: ../gnomebaker.glade.h:26
@@ -946,250 +1002,273 @@ msgstr "Bakar CD"
 msgid "Bl_ank CD-RW"
 msgstr "Tom CDRW"
 
-#: ../gnomebaker.glade.h:33
+#: ../gnomebaker.glade.h:32
 msgid "Boot Image"
 msgstr "Boot image"
 
-#: ../gnomebaker.glade.h:34
+#: ../gnomebaker.glade.h:33
 msgid "Boot Image list"
 msgstr "Boot-avbildningslista"
 
-#: ../gnomebaker.glade.h:35
+#: ../gnomebaker.glade.h:34
 msgid "Boot catalog"
 msgstr "Boot katalog"
 
-#: ../gnomebaker.glade.h:38
+#: ../gnomebaker.glade.h:35
 #, fuzzy
 msgid "Burn _DVD Image"
 msgstr "Bränn CD-avbild"
 
-#: ../gnomebaker.glade.h:39
+#: ../gnomebaker.glade.h:36
 msgid "C_opy Data CD"
 msgstr "Kopiera Data CD"
 
-#: ../gnomebaker.glade.h:40
+#: ../gnomebaker.glade.h:37
 msgid "Clean temporary directory on exit"
 msgstr "Rensa temporär katalog vid avslut"
 
-#: ../gnomebaker.glade.h:41
-msgid "Clear the contents of the CD"
+#: ../gnomebaker.glade.h:38
+#, fuzzy
+msgid "Clear the contents of the disk"
 msgstr "Rensa innehållet på CDn"
 
-#: ../gnomebaker.glade.h:42
+#: ../gnomebaker.glade.h:39
 msgid "Click to begin the process of creating a data disk."
 msgstr "Klicka för att börja skapa en datadisk"
 
-#: ../gnomebaker.glade.h:43
+#: ../gnomebaker.glade.h:40
 msgid "Click to begin the process of creating an audio cd"
 msgstr "Klicka för att börja skapa en audiodisk"
 
-#: ../gnomebaker.glade.h:44
+#: ../gnomebaker.glade.h:41
 msgid "Co_py Audio CD"
 msgstr "kopiera Audio CD"
 
-#: ../gnomebaker.glade.h:48
+#: ../gnomebaker.glade.h:43
 msgid "Create Audio Disk"
 msgstr "Skapa Audiodisk"
 
-#: ../gnomebaker.glade.h:49
+#: ../gnomebaker.glade.h:44
 msgid "Create Data Disk"
 msgstr "Skapa Datadisk"
 
-#: ../gnomebaker.glade.h:50
+#: ../gnomebaker.glade.h:45
 #, fuzzy
 msgid "Create Video Disk"
 msgstr "Skapa Video CD"
 
-#: ../gnomebaker.glade.h:51
+#: ../gnomebaker.glade.h:46
+msgid "Create a new project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:47
 msgid "Created by username"
 msgstr "Skapad av användarnamn"
 
-#: ../gnomebaker.glade.h:52
+#: ../gnomebaker.glade.h:48
 msgid "Devices"
 msgstr "Enheter"
 
-#: ../gnomebaker.glade.h:53
-msgid "Edit GnomeBaker's preferences"
-msgstr "Redigera GnomeBakers egenskaper"
-
-#: ../gnomebaker.glade.h:54
+#: ../gnomebaker.glade.h:49
 msgid "Floppy disk image"
 msgstr "Floppydisk image"
 
-#: ../gnomebaker.glade.h:55
+#: ../gnomebaker.glade.h:50
 msgid "Force"
 msgstr "Tvinga"
 
-#: ../gnomebaker.glade.h:56
-#, fuzzy
-msgid "Format DVD±RW"
-msgstr "Formatera DVDRW"
-
-#: ../gnomebaker.glade.h:57
+#: ../gnomebaker.glade.h:51
 msgid "GPL"
 msgstr "GPL"
 
-#: ../gnomebaker.glade.h:58
+#: ../gnomebaker.glade.h:52
 msgid "General"
 msgstr "Allmänt"
 
-#: ../gnomebaker.glade.h:60
+#: ../gnomebaker.glade.h:54
 msgid "GnomeBaker Preferences"
 msgstr "Redigera GnomeBakers egenskaper"
 
-#: ../gnomebaker.glade.h:61
+#: ../gnomebaker.glade.h:55
 msgid "GnomeBaker data cd"
 msgstr "GnomeBaker data cd"
 
-#: ../gnomebaker.glade.h:62
+#: ../gnomebaker.glade.h:56
 msgid "Hard disk image"
 msgstr "Hårddisk image"
 
-#: ../gnomebaker.glade.h:63
+#: ../gnomebaker.glade.h:57
 msgid "ISO filesystem details"
 msgstr "ISO filsystem detaljer"
 
-#: ../gnomebaker.glade.h:64
-msgid "Import"
-msgstr "Importera"
-
-#: ../gnomebaker.glade.h:65
+#: ../gnomebaker.glade.h:58
 #, fuzzy
 msgid "Import Session"
 msgstr "Importera Session"
 
-#: ../gnomebaker.glade.h:66
-msgid "Import existing session"
-msgstr "Importera existerande session"
-
-#: ../gnomebaker.glade.h:67
+#: ../gnomebaker.glade.h:59
 msgid "Mode"
 msgstr "Läge"
 
-#: ../gnomebaker.glade.h:68
+#: ../gnomebaker.glade.h:60
+#, fuzzy
+msgid "Move Selected Files _Down"
+msgstr "Ta bort markerad"
+
+#: ../gnomebaker.glade.h:61
+#, fuzzy
+msgid "Move Selected Files _Up"
+msgstr "Ta bort markerad"
+
+#: ../gnomebaker.glade.h:62
 msgid "Move audio tracks down"
 msgstr ""
 
-#: ../gnomebaker.glade.h:69
+#: ../gnomebaker.glade.h:63
 msgid "Move audio tracks up"
 msgstr ""
 
-#: ../gnomebaker.glade.h:70
-#, fuzzy
-msgid "Move selection _down"
-msgstr "Ta bort markerad"
-
-#: ../gnomebaker.glade.h:71
-#, fuzzy
-msgid "Move selection _up"
-msgstr "Ta bort markerad"
-
-#: ../gnomebaker.glade.h:72
+#: ../gnomebaker.glade.h:64
 msgid "Not bootable"
 msgstr "Inte bootbar"
 
-#: ../gnomebaker.glade.h:73
+#: ../gnomebaker.glade.h:65
+msgid "Open an existing project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:66
 msgid "PC bootable"
 msgstr "PC bootbar"
 
-#: ../gnomebaker.glade.h:74
+#: ../gnomebaker.glade.h:67
 msgid "Play sound when burning is complete"
 msgstr ""
 
-#: ../gnomebaker.glade.h:75
+#: ../gnomebaker.glade.h:68
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:76
+#: ../gnomebaker.glade.h:69
 msgid "Reader"
 msgstr "Läsare"
 
-#: ../gnomebaker.glade.h:77
+#: ../gnomebaker.glade.h:70
 msgid "Refresh the file browser file list"
 msgstr "Uppdatera filbläddrarlistan"
 
-#: ../gnomebaker.glade.h:78
+#: ../gnomebaker.glade.h:71
 msgid "Remove selected"
 msgstr "Ta bort markerad"
 
-#: ../gnomebaker.glade.h:79
-msgid "Remove the selected files from the CD"
+#: ../gnomebaker.glade.h:72
+#, fuzzy
+msgid "Remove the selected files from the disk"
 msgstr "Ta bort markerade filer från CDn"
 
-#: ../gnomebaker.glade.h:80
+#: ../gnomebaker.glade.h:73
+msgid "Save All"
+msgstr ""
+
+#: ../gnomebaker.glade.h:74
+msgid "Save Project _As"
+msgstr ""
+
+#: ../gnomebaker.glade.h:75
+msgid "Save project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:76
 msgid "Sc_an for devices"
 msgstr "Sök efter enheter"
 
-#: ../gnomebaker.glade.h:81
+#: ../gnomebaker.glade.h:77
 msgid "Show hidden files"
 msgstr "Visa gömda filer"
 
-#: ../gnomebaker.glade.h:82
+#: ../gnomebaker.glade.h:78
 msgid "Show humanreadable filesizes"
 msgstr "Visa gömda filer"
 
-#: ../gnomebaker.glade.h:84
+#: ../gnomebaker.glade.h:80
 msgid "Simple CD burning for Gnome."
 msgstr "Enkel CD-bränning för Gnome."
 
-#: ../gnomebaker.glade.h:85
+#: ../gnomebaker.glade.h:81
 msgid "Speed"
 msgstr "Hastighet"
 
-#: ../gnomebaker.glade.h:86
+#: ../gnomebaker.glade.h:82
 msgid "Splash window"
 msgstr "Splashfönster"
 
-#: ../gnomebaker.glade.h:87
+#: ../gnomebaker.glade.h:83
 msgid "Start burning..."
 msgstr "Starta bränning..."
 
-#: ../gnomebaker.glade.h:88
+#: ../gnomebaker.glade.h:84
 msgid "Starting GnomeBaker..."
 msgstr "Startar GnomeBaker..."
 
-#: ../gnomebaker.glade.h:89
+#: ../gnomebaker.glade.h:85
 msgid "Sun workstation bootable"
 msgstr "Sun arbetsstation bootbar"
 
-#: ../gnomebaker.glade.h:90
+#: ../gnomebaker.glade.h:86
 msgid "Writer"
 msgstr "Skrivare"
 
-#: ../gnomebaker.glade.h:91
-msgid "_Actions"
-msgstr "Åtgärder"
+#: ../gnomebaker.glade.h:87
+#, fuzzy
+msgid "_Add Selected Files"
+msgstr "Lägg till katalog"
 
-#: ../gnomebaker.glade.h:92
+#: ../gnomebaker.glade.h:88
 msgid "_Add device"
 msgstr "Lägg till enhet"
 
-#: ../gnomebaker.glade.h:93
+#: ../gnomebaker.glade.h:89
 #, fuzzy
-msgid "_Add selection"
-msgstr "Lägg till katalog"
+msgid "_Audio Disk"
+msgstr "<b>Audiodisk</b>"
 
-#: ../gnomebaker.glade.h:95
+#: ../gnomebaker.glade.h:91
+#, fuzzy
+msgid "_Data Disk"
+msgstr "Skapa Datadisk"
+
+#: ../gnomebaker.glade.h:92
 msgid "_Export"
 msgstr ""
 
-#: ../gnomebaker.glade.h:96
+#: ../gnomebaker.glade.h:93
 #, fuzzy
 msgid "_Format DVD±RW"
 msgstr "Formatera DVDRW"
 
-#: ../gnomebaker.glade.h:97
+#: ../gnomebaker.glade.h:94
 msgid "_Import"
 msgstr ""
 
-#: ../gnomebaker.glade.h:98
+#: ../gnomebaker.glade.h:95
 msgid "_Import Session"
 msgstr "Importera Session"
 
-#: ../gnomebaker.glade.h:99
+#: ../gnomebaker.glade.h:96
+msgid "_New Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:97
+msgid "_Open Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:98
 msgid "_Playlist"
+msgstr ""
+
+#: ../gnomebaker.glade.h:99
+msgid "_Project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:100
@@ -1198,42 +1277,84 @@ msgstr "Uppdatera"
 
 #: ../gnomebaker.glade.h:101
 #, fuzzy
-msgid "_Remove selection"
+msgid "_Remove Selected Files"
 msgstr "Ta bort markerad"
 
 #: ../gnomebaker.glade.h:102
+msgid "_Save Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:103
 msgid "_Show File Browser"
 msgstr "<b> Filbläddrare </b>"
 
-#: ../gnomebaker.glade.h:104
-msgid "_View"
-msgstr "_Visa"
-
 #: ../gnomebaker.glade.h:105
+msgid "_Tools"
+msgstr ""
+
+#: ../gnomebaker.glade.h:106
+msgid "_Window"
+msgstr ""
+
+#: ../gnomebaker.glade.h:107
 msgid "dao"
 msgstr "dao"
 
-#: ../gnomebaker.glade.h:107
+#: ../gnomebaker.glade.h:109
 msgid "raw16"
 msgstr "raw16"
 
-#: ../gnomebaker.glade.h:108
+#: ../gnomebaker.glade.h:110
 msgid "raw96p"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:109
+#: ../gnomebaker.glade.h:111
 #, fuzzy
 msgid "raw96r"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:110
+#: ../gnomebaker.glade.h:112
 msgid "tao"
 msgstr "tao"
 
+#~ msgid "Create ISO only"
+#~ msgstr "Skapa Endast ISO"
+
+#~ msgid "Edit GnomeBaker's preferences"
+#~ msgstr "Redigera GnomeBakers egenskaper"
+
+#, fuzzy
+#~ msgid "Format DVD±RW"
+#~ msgstr "Formatera DVDRW"
+
+#~ msgid "Import"
+#~ msgstr "Importera"
+
+#~ msgid "Import existing session"
+#~ msgstr "Importera existerande session"
+
+#, fuzzy
+#~ msgid "Move selection _down"
+#~ msgstr "Ta bort markerad"
+
+#, fuzzy
+#~ msgid "Move selection _up"
+#~ msgstr "Ta bort markerad"
+
+#~ msgid "_Actions"
+#~ msgstr "Åtgärder"
+
+#, fuzzy
+#~ msgid "_Remove selection"
+#~ msgstr "Ta bort markerad"
+
+#~ msgid "_View"
+#~ msgstr "_Visa"
+
 #, fuzzy
 #~ msgid ""
-#~ "The file you have selected is not a DVD image. Please select a DVD image to "
-#~ "burn."
+#~ "The file you have selected is not a DVD image. Please select a DVD image "
+#~ "to burn."
 #~ msgstr "Filen du valt är inte en cd-avbild. Välj en cd-avbild att bränna."
 
 #~ msgid ""
@@ -1246,10 +1367,6 @@ msgstr "tao"
 
 #~ msgid "unmounting"
 #~ msgstr "avmonterar"
-
-#, c-format
-#~ msgid "%d mins %d secs"
-#~ msgstr "%d min %d sek"
 
 #~ msgid "Fast"
 #~ msgstr "Snabb"
@@ -1293,7 +1410,6 @@ msgstr "tao"
 #~ msgid "ALBUM="
 #~ msgstr "ALBUM="
 
-#, c-format
 #~ msgid "File %s was not opened \n"
 #~ msgstr "File %s was not opened \n"
 
@@ -1306,7 +1422,6 @@ msgstr "tao"
 #~ msgid "Stereo"
 #~ msgstr "Stereo"
 
-#, c-format
 #~ msgid "burn - [%s]"
 #~ msgstr "bränn - [%s]"
 
@@ -1316,34 +1431,27 @@ msgstr "tao"
 #~ msgid "Error unmounting writer device"
 #~ msgstr "Fel vid avmontering av skrivenhet"
 
-#, c-format
 #~ msgid "Failed to open %s"
 #~ msgstr "Misslyckades att öppna %s"
 
-#, c-format
 #~ msgid "looking for device [%d]"
 #~ msgstr "letar efter enhet [%d]"
 
 #~ msgid "Failed to open /proc/sys/dev/cdrom/info"
 #~ msgstr "Misslyckades att öppna /proc/sys/dev/cdrom/info"
 
-#, c-format
 #~ msgid "creating [%s]"
 #~ msgstr "skapar [%s]"
 
-#, c-format
 #~ msgid "failed to create temp %d"
 #~ msgstr "misslyckades att skapa temp %d"
 
-#, c-format
 #~ msgid "adding [%s]"
 #~ msgstr "lägger till [%s]"
 
-#, c-format
 #~ msgid "returning [%s]"
 #~ msgstr "returnerar [%s]"
 
-#, c-format
 #~ msgid "file is %s"
 #~ msgstr "fil är %s"
 
@@ -1368,19 +1476,15 @@ msgstr "tao"
 #~ msgid "Eject CD"
 #~ msgstr "Mata ut CD"
 
-#, c-format
 #~ msgid "*** model [%p]\n"
 #~ msgstr "*** modell [%p]\n"
 
-#, c-format
 #~ msgid "*** name [%s]\n"
 #~ msgstr "*** namn [%s]\n"
 
-#, c-format
 #~ msgid "*** mime [%s]\n"
 #~ msgstr "*** mim [%s]\n"
 
-#, c-format
 #~ msgid "*** size [%ld]\n"
 #~ msgstr "*** storlek [%ld]\n"
 

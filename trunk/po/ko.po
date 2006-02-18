@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GTK2/Gnome cd burning application\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2006-01-12 10:15+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-18 01:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -59,38 +59,38 @@ msgid ""
 "or m3u file."
 msgstr ""
 
-#: ../src/audiocd.c:723 ../src/audiocd.c:759
+#: ../src/audiocd.c:724 ../src/audiocd.c:761
 msgid "Failed to write playlist file"
 msgstr ""
 
-#: ../src/audiocd.c:808
+#: ../src/audiocd.c:810
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:841
+#: ../src/audiocd.c:843
 msgid "Track"
 msgstr "트랙"
 
-#: ../src/audiocd.c:854
+#: ../src/audiocd.c:856
 #, fuzzy
 msgid "Duration"
 msgstr "시간"
 
-#: ../src/audiocd.c:871
+#: ../src/audiocd.c:873
 msgid "Artist"
 msgstr "가수"
 
-#: ../src/audiocd.c:880
+#: ../src/audiocd.c:882
 msgid "Album"
 msgstr "앨범"
 
-#: ../src/audiocd.c:889
+#: ../src/audiocd.c:891
 msgid "Title"
 msgstr "제목"
 
-#: ../src/audiocd.c:898
+#: ../src/audiocd.c:900
 msgid "Info"
 msgstr ""
 
@@ -181,8 +181,7 @@ msgid "Copying data CD"
 msgstr ""
 
 #: ../src/burn.c:322
-msgid ""
-"Please wait while the data CD image is extracted and then burned to CD."
+msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 
 #: ../src/burn.c:342
@@ -210,28 +209,32 @@ msgstr ""
 msgid "Please wait while the DVD is formatted."
 msgstr ""
 
-#: ../src/burn.c:394
+#: ../src/burn.c:395
 msgid "Creating data DVD image"
 msgstr ""
 
-#: ../src/burn.c:394
+#: ../src/burn.c:395
 msgid "Please wait while the data DVD image is created."
 msgstr ""
 
-#: ../src/burn.c:400
+#: ../src/burn.c:401
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:400
+#: ../src/burn.c:401
 msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
 
-#: ../src/burn.c:418
+#: ../src/burn.c:419 ../src/burn.c:481
 msgid "Appending to data DVD"
 msgstr ""
 
-#: ../src/burn.c:418
+#: ../src/burn.c:419 ../src/burn.c:481
 msgid "Please wait while the data is appended directly to the DVD."
+msgstr ""
+
+#: ../src/burn.c:446 ../src/execfunctions.c:1458
+msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/datacd.c:147
@@ -240,8 +243,7 @@ msgid "%s used - %s remaining"
 msgstr ""
 
 #: ../src/datacd.c:203
-msgid ""
-"File or directory is too large to fit in the remaining space on the CD"
+msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr "파일 혹은 디렉토리가 CD의 남은 공간보다 너무 큽니다."
 
 #: ../src/datacd.c:475
@@ -252,7 +254,7 @@ msgstr ""
 msgid "Clear"
 msgstr "초기화"
 
-#: ../src/datacd.c:514 ../gnomebaker.glade.h:45
+#: ../src/datacd.c:514 ../gnomebaker.glade.h:42
 msgid "Contents"
 msgstr "내용"
 
@@ -280,28 +282,30 @@ msgstr ""
 "\\n\n"
 "%s"
 
-#: ../src/datacd.c:613 ../src/devices.c:657
+#: ../src/datacd.c:613 ../src/devices.c:664
 msgid "unknown error"
 msgstr "알수 없는 오류"
 
-#: ../src/datacd.c:686
+#: ../src/datacd.c:687
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
-msgstr "[%s] 로 부터 세션 가져오기 오기. 기본 설정에 있는 장치 구성을 확인해 주십시오"
+msgstr ""
+"[%s] 로 부터 세션 가져오기 오기. 기본 설정에 있는 장치 구성을 확인해 주십시오"
 
-#: ../src/devices.c:646
+#: ../src/devices.c:653
 #, fuzzy
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
-"쓰기 장치를 위한 마운트 포인트(예를 들어 /mnt/cdrom)를 얻는데 실패했습니다. /etc/fstab내에 쓰기 장치가 등록되어 있는 "
-"확인한 후에 기본설정에서 장치를 다시 검색하십시오."
+"쓰기 장치를 위한 마운트 포인트(예를 들어 /mnt/cdrom)를 얻는데 실패했습니다. /"
+"etc/fstab내에 쓰기 장치가 등록되어 있는 확인한 후에 기본설정에서 장치를 다시 "
+"검색하십시오."
 
-#: ../src/devices.c:656
+#: ../src/devices.c:663
 #, c-format
 msgid ""
 "Error mounting %s.\n"
@@ -309,91 +313,91 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../src/devices.c:785
+#: ../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
 msgstr ""
 
-#: ../src/execfunctions.c:94
+#: ../src/execfunctions.c:87
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:137
+#: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#: ../src/execfunctions.c:194
+#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
+#: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
+#: ../src/execfunctions.c:253 ../src/execfunctions.c:1002
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
+#: ../src/startdlg.c:199 ../gnomebaker.glade.h:108
 #, fuzzy
 msgid "default"
 msgstr "기본"
 
-#: ../src/execfunctions.c:397
+#: ../src/execfunctions.c:405
 msgid "Preparing to extract audio tracks"
 msgstr ""
 
-#: ../src/execfunctions.c:408
+#: ../src/execfunctions.c:416
 #, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
-msgstr "이미 이전 세션의 오디오 트랙이 디스크에 존재합니다. 기존 트랙을 사용할까요?"
+msgstr ""
+"이미 이전 세션의 오디오 트랙이 디스크에 존재합니다. 기존 트랙을 사용할까요?"
 
-#: ../src/execfunctions.c:465
+#: ../src/execfunctions.c:473
 #, c-format
 msgid "Extracting audio track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:535
+#: ../src/execfunctions.c:543
 msgid "Calculating data disk image size"
 msgstr ""
 
-#: ../src/execfunctions.c:573
+#: ../src/execfunctions.c:581
 msgid "Creating data disk image"
 msgstr ""
 
-#: ../src/execfunctions.c:580
+#: ../src/execfunctions.c:588
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
-msgstr "이미 이전 세션의 데이터 CD 이미지가 디스크에 존재합니다, 기존 이미지를 이용하시겠습니까?"
+msgstr ""
+"이미 이전 세션의 데이터 CD 이미지가 디스크에 존재합니다, 기존 이미지를 이용하"
+"시겠습니까?"
 
-#: ../src/execfunctions.c:810
+#: ../src/execfunctions.c:818
 msgid "Formatting DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:891
+#: ../src/execfunctions.c:899
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
+#: ../src/execfunctions.c:930 ../src/execfunctions.c:955
 msgid "Writing DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:1056
+#: ../src/execfunctions.c:1068
 msgid "Reading CD image"
 msgstr ""
 
-#: ../src/execfunctions.c:1064
+#: ../src/execfunctions.c:1076
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1327
+#: ../src/execfunctions.c:1341
 #, c-format
 msgid "Converting %s to cd audio"
-msgstr ""
-
-#: ../src/execfunctions.c:1439
-msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
@@ -421,7 +425,7 @@ msgstr ""
 msgid "_Add file(s)"
 msgstr ""
 
-#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:94
+#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
 msgid "_Burn CD Image"
 msgstr "CD 이미지 굽기(_B)"
 
@@ -430,7 +434,7 @@ msgid "_Burn DVD Image"
 msgstr ""
 
 #: ../src/filebrowser.c:714
-#, fuzzy
+#, fuzzy, c-format
 msgid "%s's home"
 msgstr "%의 홈 폴더"
 
@@ -446,76 +450,97 @@ msgstr "형식"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:468
+#: ../src/gbcommon.c:469
 msgid "All files"
 msgstr ""
 
-#: ../src/gbcommon.c:480
+#: ../src/gbcommon.c:477
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:102
+#: ../src/gnomebaker.c:125
 msgid "Loading preferences..."
 msgstr "기본 설정 불러오는 중..."
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:128
 msgid "Detecting devices..."
 msgstr "장치 찾는중..."
 
-#: ../src/gnomebaker.c:108
+#: ../src/gnomebaker.c:131
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: ../src/gnomebaker.c:111
+#: ../src/gnomebaker.c:134
 msgid "Loading GUI..."
 msgstr "GUI 불어오는중..."
 
-#: ../src/gnomebaker.c:201
+#: ../src/gnomebaker.c:159
+#, fuzzy
+msgid "Audio files"
+msgstr "파일(들) 추가"
+
+#: ../src/gnomebaker.c:243
 msgid "Are you sure you want to quit?"
 msgstr "정말로 끝내시겠습니까?"
 
-#: ../src/gnomebaker.c:278
+#: ../src/gnomebaker.c:320
 msgid "CD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:279
+#: ../src/gnomebaker.c:321
 msgid "Please select a CD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:292
+#: ../src/gnomebaker.c:336
 msgid "DVD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:293
+#: ../src/gnomebaker.c:337
 msgid "Please select a DVD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:408 ../gnomebaker.glade.h:53
 msgid "GnomeBaker"
 msgstr "그놈베이커"
 
-#: ../src/gnomebaker.c:364
+#: ../src/gnomebaker.c:409
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr ""
 
-#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:409 ../gnomebaker.glade.h:113
 msgid "translator_credits"
 msgstr "oseb\\n엄주관 <zugwan at gmail.com>"
 
-#: ../src/gnomebaker.c:429
+#: ../src/gnomebaker.c:498
 msgid "Please select files to add to the disk."
 msgstr ""
 
-#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
+#: ../src/gnomebaker.c:775 ../src/gnomebaker.c:798
 msgid "Playlist files"
 msgstr ""
 
-#: ../src/gnomebaker.c:690
+#: ../src/gnomebaker.c:776
 msgid "Please select a playlist."
 msgstr ""
 
-#: ../src/gnomebaker.c:711
+#: ../src/gnomebaker.c:805
 msgid "Save playlist as..."
+msgstr ""
+
+#: ../src/gnomebaker.c:828
+msgid "Project files"
+msgstr ""
+
+#: ../src/gnomebaker.c:829
+msgid "Please select a project file."
+msgstr ""
+
+#: ../src/main.c:41
+msgid "Show tracing information (useful when debugging)"
+msgstr ""
+
+#: ../src/main.c:50
+msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -555,21 +580,54 @@ msgstr "DVD-R 굽기"
 msgid "Write DVD-RAM"
 msgstr "DVD-RAM 굽기"
 
-#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
+#: ../src/progressdlg.c:80
+#, fuzzy, c-format
+msgid "%d minutes %d seconds"
+msgstr "0 분 0 초"
+
+#: ../src/progressdlg.c:82
+#, fuzzy, c-format
+msgid "%d minute %d seconds"
+msgstr "0 분 0 초"
+
+#: ../src/progressdlg.c:84
+#, c-format
+msgid "%d seconds"
+msgstr ""
+
+#: ../src/progressdlg.c:224
+#, c-format
+msgid "%s remaining"
+msgstr ""
+
+#: ../src/progressdlg.c:279 ../gnomebaker.glade.h:79
 msgid "Show output"
 msgstr ""
 
-#: ../src/progressdlg.c:188
+#: ../src/progressdlg.c:279
 msgid "Hide output"
 msgstr ""
 
-#: ../src/progressdlg.c:262
+#: ../src/progressdlg.c:358
+#, c-format
+msgid "Elapsed time %s"
+msgstr ""
+
+#: ../src/progressdlg.c:364
 msgid "Completed"
 msgstr "완료"
 
-#: ../src/progressdlg.c:270
+#: ../src/progressdlg.c:370
+msgid "Gnomebaker completed successfully!"
+msgstr ""
+
+#: ../src/progressdlg.c:374
 msgid "Failed"
 msgstr "실패"
+
+#: ../src/progressdlg.c:382
+msgid "Gnomebaker <b>failed</b> to complete the action!"
+msgstr ""
 
 #: ../src/startdlg.c:98
 msgid "Please select an image file to save to."
@@ -607,7 +665,7 @@ msgstr ""
 msgid "<b>Options</b>"
 msgstr "<b>옵션</b>"
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:103
+#: ../src/startdlg.c:246 ../gnomebaker.glade.h:104
 msgid "_Start"
 msgstr "시작(_S)"
 
@@ -655,80 +713,80 @@ msgstr ""
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:495
+#: ../src/startdlg.c:496
 msgid "Dummy write"
 msgstr "가상 굽기"
 
-#: ../src/startdlg.c:496
+#: ../src/startdlg.c:497
 msgid "Eject disk"
 msgstr ""
 
-#: ../src/startdlg.c:497
+#: ../src/startdlg.c:498
 msgid "Fast blank"
 msgstr ""
 
-#: ../src/startdlg.c:498
+#: ../src/startdlg.c:499
 msgid "BurnFree"
 msgstr ""
 
-#: ../src/startdlg.c:499
+#: ../src/startdlg.c:500
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:501
-msgid "Create ISO only"
-msgstr ""
-
-#: ../src/startdlg.c:504
-msgid "Force format"
+#: ../src/startdlg.c:502
+msgid "Only create image"
 msgstr ""
 
 #: ../src/startdlg.c:505
+msgid "Force format"
+msgstr ""
+
+#: ../src/startdlg.c:506
 #, fuzzy
 msgid "Finalize"
 msgstr "마무리"
 
-#: ../src/startdlg.c:506
+#: ../src/startdlg.c:507
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:508
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:509
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:509
-msgid "On The Fly"
+#: ../src/startdlg.c:510
+msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:519
+#: ../src/startdlg.c:520
 msgid "_Browse..."
 msgstr ""
 
-#: ../src/startdlg.c:521
+#: ../src/startdlg.c:522
 msgid "GnomeBaker data disk"
 msgstr ""
 
-#: ../src/burn.h:65 ../gnomebaker.glade.h:32
+#: ../src/burn.h:65
 msgid "Blank CD-RW"
 msgstr ""
 
-#: ../src/burn.h:66 ../gnomebaker.glade.h:47
+#: ../src/burn.h:66
 msgid "Copy Data CD"
 msgstr "데이타 CD 복사하기"
 
-#: ../src/burn.h:67 ../gnomebaker.glade.h:46
+#: ../src/burn.h:67
 msgid "Copy Audio CD"
 msgstr "오디오 CD 복사하기"
 
-#: ../src/burn.h:68 ../gnomebaker.glade.h:36
+#: ../src/burn.h:68
 msgid "Burn CD Image"
 msgstr "CD 이미지 굽기"
 
-#: ../src/burn.h:69 ../gnomebaker.glade.h:37
+#: ../src/burn.h:69
 msgid "Burn DVD Image"
 msgstr ""
 
@@ -851,7 +909,8 @@ msgid "Add file(s)"
 msgstr "파일(들) 추가"
 
 #: ../gnomebaker.glade.h:25
-msgid "Add the selected files to the CD"
+#, fuzzy
+msgid "Add the selected files to the disk"
 msgstr "선택한 파일들을 CD에 더하기"
 
 #: ../gnomebaker.glade.h:26
@@ -878,246 +937,271 @@ msgstr ""
 msgid "Bl_ank CD-RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:33
+#: ../gnomebaker.glade.h:32
 msgid "Boot Image"
 msgstr "부트 이미지"
 
-#: ../gnomebaker.glade.h:34
+#: ../gnomebaker.glade.h:33
 msgid "Boot Image list"
 msgstr "부트 이미지 목록"
 
-#: ../gnomebaker.glade.h:35
+#: ../gnomebaker.glade.h:34
 msgid "Boot catalog"
 msgstr ""
 
-#: ../gnomebaker.glade.h:38
+#: ../gnomebaker.glade.h:35
 msgid "Burn _DVD Image"
 msgstr ""
 
-#: ../gnomebaker.glade.h:39
+#: ../gnomebaker.glade.h:36
 msgid "C_opy Data CD"
 msgstr "데이터 CD 복사(_O)"
 
-#: ../gnomebaker.glade.h:40
+#: ../gnomebaker.glade.h:37
 msgid "Clean temporary directory on exit"
 msgstr "종료할때 임시 디렉토리 정리하기"
 
-#: ../gnomebaker.glade.h:41
-msgid "Clear the contents of the CD"
+#: ../gnomebaker.glade.h:38
+#, fuzzy
+msgid "Clear the contents of the disk"
 msgstr "CD 내용 초기화"
 
-#: ../gnomebaker.glade.h:42
+#: ../gnomebaker.glade.h:39
 msgid "Click to begin the process of creating a data disk."
 msgstr "데이터 디스크를 생성을 시작하기 위해 클릭하십시오."
 
-#: ../gnomebaker.glade.h:43
+#: ../gnomebaker.glade.h:40
 msgid "Click to begin the process of creating an audio cd"
 msgstr "오디오 CD  생성을 시작하기 위해 클릭하십시오."
 
-#: ../gnomebaker.glade.h:44
+#: ../gnomebaker.glade.h:41
 msgid "Co_py Audio CD"
 msgstr "오디오 CD 복사(_P)"
 
-#: ../gnomebaker.glade.h:48
+#: ../gnomebaker.glade.h:43
 msgid "Create Audio Disk"
 msgstr "오디오 디스크 생성"
 
-#: ../gnomebaker.glade.h:49
+#: ../gnomebaker.glade.h:44
 msgid "Create Data Disk"
 msgstr "데이터 디스크 생성"
 
-#: ../gnomebaker.glade.h:50
+#: ../gnomebaker.glade.h:45
 msgid "Create Video Disk"
 msgstr ""
 
-#: ../gnomebaker.glade.h:51
+#: ../gnomebaker.glade.h:46
+msgid "Create a new project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:47
 msgid "Created by username"
 msgstr ""
 
-#: ../gnomebaker.glade.h:52
+#: ../gnomebaker.glade.h:48
 #, fuzzy
 msgid "Devices"
 msgstr "장치"
 
-#: ../gnomebaker.glade.h:53
-msgid "Edit GnomeBaker's preferences"
-msgstr "그놈베이커 기본설정 고치기"
-
-#: ../gnomebaker.glade.h:54
+#: ../gnomebaker.glade.h:49
 msgid "Floppy disk image"
 msgstr "플로피 디스크 이미지"
 
-#: ../gnomebaker.glade.h:55
+#: ../gnomebaker.glade.h:50
 #, fuzzy
 msgid "Force"
 msgstr "강제"
 
-#: ../gnomebaker.glade.h:56
-msgid "Format DVD±RW"
-msgstr ""
-
-#: ../gnomebaker.glade.h:57
+#: ../gnomebaker.glade.h:51
 msgid "GPL"
 msgstr "GPL"
 
-#: ../gnomebaker.glade.h:58
+#: ../gnomebaker.glade.h:52
 #, fuzzy
 msgid "General"
 msgstr "일반"
 
-#: ../gnomebaker.glade.h:60
+#: ../gnomebaker.glade.h:54
 msgid "GnomeBaker Preferences"
 msgstr ""
 
-#: ../gnomebaker.glade.h:61
+#: ../gnomebaker.glade.h:55
 msgid "GnomeBaker data cd"
 msgstr "그놈베이커 데이터 CD"
 
-#: ../gnomebaker.glade.h:62
+#: ../gnomebaker.glade.h:56
 msgid "Hard disk image"
 msgstr "하드 디스크 이미지"
 
-#: ../gnomebaker.glade.h:63
+#: ../gnomebaker.glade.h:57
 #, fuzzy
 msgid "ISO filesystem details"
 msgstr "ISO 파일시스템 세부"
 
-#: ../gnomebaker.glade.h:64
-msgid "Import"
-msgstr "가져오기"
-
-#: ../gnomebaker.glade.h:65
+#: ../gnomebaker.glade.h:58
 msgid "Import Session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:66
-msgid "Import existing session"
-msgstr "기존 세션 가져오기"
-
-#: ../gnomebaker.glade.h:67
+#: ../gnomebaker.glade.h:59
 msgid "Mode"
 msgstr "모드"
 
-#: ../gnomebaker.glade.h:68
+#: ../gnomebaker.glade.h:60
+msgid "Move Selected Files _Down"
+msgstr ""
+
+#: ../gnomebaker.glade.h:61
+msgid "Move Selected Files _Up"
+msgstr ""
+
+#: ../gnomebaker.glade.h:62
 msgid "Move audio tracks down"
 msgstr ""
 
-#: ../gnomebaker.glade.h:69
+#: ../gnomebaker.glade.h:63
 msgid "Move audio tracks up"
 msgstr ""
 
-#: ../gnomebaker.glade.h:70
-msgid "Move selection _down"
-msgstr ""
-
-#: ../gnomebaker.glade.h:71
-msgid "Move selection _up"
-msgstr ""
-
-#: ../gnomebaker.glade.h:72
+#: ../gnomebaker.glade.h:64
 msgid "Not bootable"
 msgstr "부팅 불가능"
 
-#: ../gnomebaker.glade.h:73
+#: ../gnomebaker.glade.h:65
+msgid "Open an existing project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:66
 msgid "PC bootable"
 msgstr "PC 부팅 가능"
 
-#: ../gnomebaker.glade.h:74
+#: ../gnomebaker.glade.h:67
 msgid "Play sound when burning is complete"
 msgstr ""
 
-#: ../gnomebaker.glade.h:75
+#: ../gnomebaker.glade.h:68
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:76
+#: ../gnomebaker.glade.h:69
 msgid "Reader"
 msgstr ""
 
-#: ../gnomebaker.glade.h:77
+#: ../gnomebaker.glade.h:70
 msgid "Refresh the file browser file list"
 msgstr "파일 브라우저 파일 목록 새로 고침"
 
-#: ../gnomebaker.glade.h:78
+#: ../gnomebaker.glade.h:71
 msgid "Remove selected"
 msgstr "선택 항목 제거"
 
-#: ../gnomebaker.glade.h:79
-msgid "Remove the selected files from the CD"
+#: ../gnomebaker.glade.h:72
+#, fuzzy
+msgid "Remove the selected files from the disk"
 msgstr "선택한 파일들을 CD에서 지우기"
 
-#: ../gnomebaker.glade.h:80
+#: ../gnomebaker.glade.h:73
+msgid "Save All"
+msgstr ""
+
+#: ../gnomebaker.glade.h:74
+msgid "Save Project _As"
+msgstr ""
+
+#: ../gnomebaker.glade.h:75
+msgid "Save project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:76
 msgid "Sc_an for devices"
 msgstr "장치 검색(_A)"
 
-#: ../gnomebaker.glade.h:81
+#: ../gnomebaker.glade.h:77
 msgid "Show hidden files"
 msgstr "숨긴 파일 보기"
 
-#: ../gnomebaker.glade.h:82
+#: ../gnomebaker.glade.h:78
 msgid "Show humanreadable filesizes"
 msgstr ""
 
-#: ../gnomebaker.glade.h:84
+#: ../gnomebaker.glade.h:80
 msgid "Simple CD burning for Gnome."
 msgstr "그놈용 간단한 CD 굽기 프로그램"
 
-#: ../gnomebaker.glade.h:85
+#: ../gnomebaker.glade.h:81
 msgid "Speed"
 msgstr "속도"
 
-#: ../gnomebaker.glade.h:86
+#: ../gnomebaker.glade.h:82
 msgid "Splash window"
 msgstr ""
 
-#: ../gnomebaker.glade.h:87
+#: ../gnomebaker.glade.h:83
 msgid "Start burning..."
 msgstr "굽기 시작..."
 
-#: ../gnomebaker.glade.h:88
+#: ../gnomebaker.glade.h:84
 msgid "Starting GnomeBaker..."
 msgstr "그놈베이커 시작중..."
 
-#: ../gnomebaker.glade.h:89
+#: ../gnomebaker.glade.h:85
 msgid "Sun workstation bootable"
 msgstr "Sun 워크스테이션 부팅 가능"
 
-#: ../gnomebaker.glade.h:90
+#: ../gnomebaker.glade.h:86
 msgid "Writer"
 msgstr ""
 
-#: ../gnomebaker.glade.h:91
-msgid "_Actions"
-msgstr "실행(_A)"
+#: ../gnomebaker.glade.h:87
+#, fuzzy
+msgid "_Add Selected Files"
+msgstr "선택한 파일들을 CD에 더하기"
 
-#: ../gnomebaker.glade.h:92
+#: ../gnomebaker.glade.h:88
 msgid "_Add device"
 msgstr "장치 더하기(_A)"
 
-#: ../gnomebaker.glade.h:93
-msgid "_Add selection"
-msgstr ""
+#: ../gnomebaker.glade.h:89
+#, fuzzy
+msgid "_Audio Disk"
+msgstr "<b>오디오 디스크</b>"
 
-#: ../gnomebaker.glade.h:95
+#: ../gnomebaker.glade.h:91
+#, fuzzy
+msgid "_Data Disk"
+msgstr "데이터 디스크 생성"
+
+#: ../gnomebaker.glade.h:92
 msgid "_Export"
 msgstr ""
 
-#: ../gnomebaker.glade.h:96
+#: ../gnomebaker.glade.h:93
 msgid "_Format DVD±RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:97
+#: ../gnomebaker.glade.h:94
 msgid "_Import"
 msgstr ""
 
-#: ../gnomebaker.glade.h:98
+#: ../gnomebaker.glade.h:95
 msgid "_Import Session"
 msgstr "세션 가져오기(_I)"
 
-#: ../gnomebaker.glade.h:99
+#: ../gnomebaker.glade.h:96
+msgid "_New Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:97
+msgid "_Open Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:98
 msgid "_Playlist"
+msgstr ""
+
+#: ../gnomebaker.glade.h:99
+msgid "_Project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:100
@@ -1125,33 +1209,57 @@ msgid "_Refresh"
 msgstr "새로 고침(_R)"
 
 #: ../gnomebaker.glade.h:101
-msgid "_Remove selection"
-msgstr ""
+#, fuzzy
+msgid "_Remove Selected Files"
+msgstr "선택 항목 제거"
 
 #: ../gnomebaker.glade.h:102
+msgid "_Save Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:103
 msgid "_Show File Browser"
 msgstr ""
 
-#: ../gnomebaker.glade.h:104
-msgid "_View"
-msgstr "보기(_V)"
-
 #: ../gnomebaker.glade.h:105
+msgid "_Tools"
+msgstr ""
+
+#: ../gnomebaker.glade.h:106
+msgid "_Window"
+msgstr ""
+
+#: ../gnomebaker.glade.h:107
 msgid "dao"
 msgstr "dao"
 
-#: ../gnomebaker.glade.h:107
+#: ../gnomebaker.glade.h:109
 msgid "raw16"
 msgstr "raw16"
 
-#: ../gnomebaker.glade.h:108
+#: ../gnomebaker.glade.h:110
 msgid "raw96p"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:109
+#: ../gnomebaker.glade.h:111
 msgid "raw96r"
 msgstr ""
 
-#: ../gnomebaker.glade.h:110
+#: ../gnomebaker.glade.h:112
 msgid "tao"
 msgstr "tao"
+
+#~ msgid "Edit GnomeBaker's preferences"
+#~ msgstr "그놈베이커 기본설정 고치기"
+
+#~ msgid "Import"
+#~ msgstr "가져오기"
+
+#~ msgid "Import existing session"
+#~ msgstr "기존 세션 가져오기"
+
+#~ msgid "_Actions"
+#~ msgstr "실행(_A)"
+
+#~ msgid "_View"
+#~ msgstr "보기(_V)"

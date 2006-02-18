@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
-"Report-Msgid-Bugs-To:\n"
-"POT-Creation-Date: 2006-01-12 10:15+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-18 01:46+0000\n"
 "PO-Revision-Date: 2005-05-05 12:51+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
@@ -63,37 +63,37 @@ msgstr ""
 "A kiválasztott fájl nem egy támogatott lejátszólista. Kérem válasszon egy "
 "pls vagy m3u fájlt."
 
-#: ../src/audiocd.c:723 ../src/audiocd.c:759
+#: ../src/audiocd.c:724 ../src/audiocd.c:761
 msgid "Failed to write playlist file"
 msgstr ""
 
-#: ../src/audiocd.c:808
+#: ../src/audiocd.c:810
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:841
+#: ../src/audiocd.c:843
 msgid "Track"
 msgstr "Sáv"
 
-#: ../src/audiocd.c:854
+#: ../src/audiocd.c:856
 msgid "Duration"
 msgstr "Időtartam"
 
-#: ../src/audiocd.c:871
+#: ../src/audiocd.c:873
 msgid "Artist"
 msgstr "Előadó"
 
-#: ../src/audiocd.c:880
+#: ../src/audiocd.c:882
 msgid "Album"
 msgstr "Album"
 
-#: ../src/audiocd.c:889
+#: ../src/audiocd.c:891
 msgid "Title"
 msgstr "Cím"
 
-#: ../src/audiocd.c:898
+#: ../src/audiocd.c:900
 msgid "Info"
 msgstr "Info"
 
@@ -117,8 +117,7 @@ msgstr "DVD képfájl írása"
 
 #: ../src/burn.c:121
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr ""
-"Kérem várjon, amíg a kiválasztott DVD képfájl kiírásra kerül a DVD-re."
+msgstr "Kérem várjon, amíg a kiválasztott DVD képfájl kiírásra kerül a DVD-re."
 
 #: ../src/burn.c:164
 msgid ""
@@ -185,8 +184,7 @@ msgid "Copying data CD"
 msgstr "Adat CD másolása"
 
 #: ../src/burn.c:322
-msgid ""
-"Please wait while the data CD image is extracted and then burned to CD."
+msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 
 #: ../src/burn.c:342
@@ -214,28 +212,32 @@ msgstr "Újraírható DVD formázása"
 msgid "Please wait while the DVD is formatted."
 msgstr "Kérem várjon, amíg a DVD formázása tart."
 
-#: ../src/burn.c:394
+#: ../src/burn.c:395
 msgid "Creating data DVD image"
 msgstr "Adat DVD képfájl készítése"
 
-#: ../src/burn.c:394
+#: ../src/burn.c:395
 msgid "Please wait while the data DVD image is created."
 msgstr "Kérem várjon, amíg a DVD képfájl elkészül."
 
-#: ../src/burn.c:400
+#: ../src/burn.c:401
 msgid "Burning data DVD"
 msgstr "Adat DVD írása"
 
-#: ../src/burn.c:400
+#: ../src/burn.c:401
 msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
 
-#: ../src/burn.c:418
+#: ../src/burn.c:419 ../src/burn.c:481
 msgid "Appending to data DVD"
 msgstr ""
 
-#: ../src/burn.c:418
+#: ../src/burn.c:419 ../src/burn.c:481
 msgid "Please wait while the data is appended directly to the DVD."
+msgstr ""
+
+#: ../src/burn.c:446 ../src/execfunctions.c:1458
+msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/datacd.c:147
@@ -244,8 +246,7 @@ msgid "%s used - %s remaining"
 msgstr ""
 
 #: ../src/datacd.c:203
-msgid ""
-"File or directory is too large to fit in the remaining space on the CD"
+msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr "A fájl vagy könyvtár túl nagy, nem fér rá a CD-n hátralévő helyre"
 
 #: ../src/datacd.c:475
@@ -256,7 +257,7 @@ msgstr ""
 msgid "Clear"
 msgstr "Törlés"
 
-#: ../src/datacd.c:514 ../gnomebaker.glade.h:45
+#: ../src/datacd.c:514 ../gnomebaker.glade.h:42
 msgid "Contents"
 msgstr "Tartalom"
 
@@ -284,11 +285,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/datacd.c:613 ../src/devices.c:657
+#: ../src/datacd.c:613 ../src/devices.c:664
 msgid "unknown error"
 msgstr "ismeretlen hiba"
 
-#: ../src/datacd.c:686
+#: ../src/datacd.c:687
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -297,17 +298,17 @@ msgstr ""
 "Hiba a szakasz [%s] helyről való importálása közben. Kérem ellenőrizze az "
 "eszköz beállításait a beállításoknál."
 
-#: ../src/devices.c:646
+#: ../src/devices.c:653
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
 "Az íróeszköz csatlakoztatási pontját (például /mnt/cdrom) nem sikerült "
-"elérni. Kérem ellenőrizze, hogy az íróeszköznek van-e bejegyzése az "
-"/etc/fstab-ban, ezután a beállítások ablakban kerestesse újra az eszközt."
+"elérni. Kérem ellenőrizze, hogy az íróeszköznek van-e bejegyzése az /etc/"
+"fstab-ban, ezután a beállítások ablakban kerestesse újra az eszközt."
 
-#: ../src/devices.c:656
+#: ../src/devices.c:663
 #, c-format
 msgid ""
 "Error mounting %s.\n"
@@ -315,36 +316,37 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../src/devices.c:785
+#: ../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
 msgstr ""
 
-#: ../src/execfunctions.c:94
+#: ../src/execfunctions.c:87
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:137
+#: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
 msgstr "Felkészülés a lemez írására"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#: ../src/execfunctions.c:194
+#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
+#: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
+#: ../src/execfunctions.c:253 ../src/execfunctions.c:1002
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
+#: ../src/startdlg.c:199 ../gnomebaker.glade.h:108
 msgid "default"
 msgstr "alapértelmezett"
 
-#: ../src/execfunctions.c:397
+#: ../src/execfunctions.c:405
 msgid "Preparing to extract audio tracks"
 msgstr "Felkészülés az audio számok kibontására"
 
-#: ../src/execfunctions.c:408
+#: ../src/execfunctions.c:416
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -352,20 +354,20 @@ msgstr ""
 "Egy előző szakaszból már léteznek zeneszámok a lemezen, szeretné a létező "
 "számokat használni?"
 
-#: ../src/execfunctions.c:465
+#: ../src/execfunctions.c:473
 #, c-format
 msgid "Extracting audio track %d"
 msgstr "%d. audio fájl kibontása"
 
-#: ../src/execfunctions.c:535
+#: ../src/execfunctions.c:543
 msgid "Calculating data disk image size"
 msgstr "Adat lemez méretének kiszámolása"
 
-#: ../src/execfunctions.c:573
+#: ../src/execfunctions.c:581
 msgid "Creating data disk image"
 msgstr "Adat lemez képfájl készítése"
 
-#: ../src/execfunctions.c:580
+#: ../src/execfunctions.c:588
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -373,35 +375,31 @@ msgstr ""
 "Egy előző szakaszból már létezik egy adat CD kép a lemezen, szeretné a "
 "létező képet használni?"
 
-#: ../src/execfunctions.c:810
+#: ../src/execfunctions.c:818
 msgid "Formatting DVD"
 msgstr "DVD formázása"
 
-#: ../src/execfunctions.c:891
+#: ../src/execfunctions.c:899
 msgid "Preparing to burn DVD"
 msgstr "Felkészülés a DVD írására"
 
-#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
+#: ../src/execfunctions.c:930 ../src/execfunctions.c:955
 msgid "Writing DVD"
 msgstr "DVD írása"
 
-#: ../src/execfunctions.c:1056
+#: ../src/execfunctions.c:1068
 msgid "Reading CD image"
 msgstr "CD képfájl olvasása"
 
-#: ../src/execfunctions.c:1064
+#: ../src/execfunctions.c:1076
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1327
+#: ../src/execfunctions.c:1341
 #, c-format
 msgid "Converting %s to cd audio"
-msgstr ""
-
-#: ../src/execfunctions.c:1439
-msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
@@ -429,7 +427,7 @@ msgstr ""
 msgid "_Add file(s)"
 msgstr ""
 
-#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:94
+#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
 msgid "_Burn CD Image"
 msgstr "CD kép í_rása"
 
@@ -454,76 +452,99 @@ msgstr "Típus"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:468
+#: ../src/gbcommon.c:469
 msgid "All files"
 msgstr "Minden fájl"
 
-#: ../src/gbcommon.c:480
+#: ../src/gbcommon.c:477
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:102
+#: ../src/gnomebaker.c:125
 msgid "Loading preferences..."
 msgstr "Beállítások betöltése..."
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:128
 msgid "Detecting devices..."
 msgstr "Eszközök keresése..."
 
-#: ../src/gnomebaker.c:108
+#: ../src/gnomebaker.c:131
 msgid "Registering gstreamer plugins..."
 msgstr "A gstreamer beépülők regisztrációja..."
 
-#: ../src/gnomebaker.c:111
+#: ../src/gnomebaker.c:134
 msgid "Loading GUI..."
 msgstr "GUI betöltése..."
 
-#: ../src/gnomebaker.c:201
+#: ../src/gnomebaker.c:159
+#, fuzzy
+msgid "Audio files"
+msgstr "Fájl(ok) hozzáadása"
+
+#: ../src/gnomebaker.c:243
 msgid "Are you sure you want to quit?"
 msgstr "Biztosan ki szeretne lépni?"
 
-#: ../src/gnomebaker.c:278
+#: ../src/gnomebaker.c:320
 msgid "CD Image files"
 msgstr "CD képfájlok"
 
-#: ../src/gnomebaker.c:279
+#: ../src/gnomebaker.c:321
 msgid "Please select a CD image file."
 msgstr "Kérem válasszon egy CD képfájlt."
 
-#: ../src/gnomebaker.c:292
+#: ../src/gnomebaker.c:336
 msgid "DVD Image files"
 msgstr "DVD képfájlok"
 
-#: ../src/gnomebaker.c:293
+#: ../src/gnomebaker.c:337
 msgid "Please select a DVD image file."
 msgstr "Kérem válasszon egy DVD képfájlt."
 
-#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:408 ../gnomebaker.glade.h:53
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:364
+#: ../src/gnomebaker.c:409
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "Egyszerű CD/DVD író program a GNOME munkaasztalhoz"
 
-#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:409 ../gnomebaker.glade.h:113
 msgid "translator_credits"
 msgstr "Kelemen Gábor <kelemeng@gnome.hu>"
 
-#: ../src/gnomebaker.c:429
+#: ../src/gnomebaker.c:498
 msgid "Please select files to add to the disk."
 msgstr "Kérem válasszon lemezhez adandó fájlokat."
 
-#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
+#: ../src/gnomebaker.c:775 ../src/gnomebaker.c:798
 msgid "Playlist files"
 msgstr "Lejátszólista fájlok"
 
-#: ../src/gnomebaker.c:690
+#: ../src/gnomebaker.c:776
 msgid "Please select a playlist."
 msgstr "Kérem válasszon egy lejátszólistát."
 
-#: ../src/gnomebaker.c:711
+#: ../src/gnomebaker.c:805
 msgid "Save playlist as..."
+msgstr ""
+
+#: ../src/gnomebaker.c:828
+#, fuzzy
+msgid "Project files"
+msgstr "Lemez kiadása"
+
+#: ../src/gnomebaker.c:829
+#, fuzzy
+msgid "Please select a project file."
+msgstr "Kérem válasszon egy iso fájlt..."
+
+#: ../src/main.c:41
+msgid "Show tracing information (useful when debugging)"
+msgstr ""
+
+#: ../src/main.c:50
+msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -563,21 +584,54 @@ msgstr "DVD-R írás"
 msgid "Write DVD-RAM"
 msgstr "DVD-RAM írás"
 
-#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
+#: ../src/progressdlg.c:80
+#, fuzzy, c-format
+msgid "%d minutes %d seconds"
+msgstr "%d perc %d másodperc"
+
+#: ../src/progressdlg.c:82
+#, fuzzy, c-format
+msgid "%d minute %d seconds"
+msgstr "%d perc %d másodperc"
+
+#: ../src/progressdlg.c:84
+#, c-format
+msgid "%d seconds"
+msgstr ""
+
+#: ../src/progressdlg.c:224
+#, c-format
+msgid "%s remaining"
+msgstr ""
+
+#: ../src/progressdlg.c:279 ../gnomebaker.glade.h:79
 msgid "Show output"
 msgstr "Kimenet mutatása"
 
-#: ../src/progressdlg.c:188
+#: ../src/progressdlg.c:279
 msgid "Hide output"
 msgstr ""
 
-#: ../src/progressdlg.c:262
+#: ../src/progressdlg.c:358
+#, c-format
+msgid "Elapsed time %s"
+msgstr ""
+
+#: ../src/progressdlg.c:364
 msgid "Completed"
 msgstr "Befejezve"
 
-#: ../src/progressdlg.c:270
+#: ../src/progressdlg.c:370
+msgid "Gnomebaker completed successfully!"
+msgstr ""
+
+#: ../src/progressdlg.c:374
 msgid "Failed"
 msgstr "Sikertelen"
+
+#: ../src/progressdlg.c:382
+msgid "Gnomebaker <b>failed</b> to complete the action!"
+msgstr ""
 
 #: ../src/startdlg.c:98
 msgid "Please select an image file to save to."
@@ -615,7 +669,7 @@ msgstr ""
 msgid "<b>Options</b>"
 msgstr "<b>Beállítások</b>"
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:103
+#: ../src/startdlg.c:246 ../gnomebaker.glade.h:104
 msgid "_Start"
 msgstr "Indítá_s"
 
@@ -663,79 +717,79 @@ msgstr "Írás"
 msgid "Disk Information"
 msgstr "Lemezinformáció"
 
-#: ../src/startdlg.c:495
+#: ../src/startdlg.c:496
 msgid "Dummy write"
 msgstr "Szimuláció"
 
-#: ../src/startdlg.c:496
+#: ../src/startdlg.c:497
 msgid "Eject disk"
 msgstr "Lemez kiadása"
 
-#: ../src/startdlg.c:497
+#: ../src/startdlg.c:498
 msgid "Fast blank"
 msgstr "Gyors törlés"
 
-#: ../src/startdlg.c:498
+#: ../src/startdlg.c:499
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: ../src/startdlg.c:499
+#: ../src/startdlg.c:500
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:501
-msgid "Create ISO only"
-msgstr "ISO létrehozása"
-
-#: ../src/startdlg.c:504
-msgid "Force format"
+#: ../src/startdlg.c:502
+msgid "Only create image"
 msgstr ""
 
 #: ../src/startdlg.c:505
+msgid "Force format"
+msgstr ""
+
+#: ../src/startdlg.c:506
 msgid "Finalize"
 msgstr "Befejezés"
 
-#: ../src/startdlg.c:506
+#: ../src/startdlg.c:507
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:508
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:509
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:509
-msgid "On The Fly"
+#: ../src/startdlg.c:510
+msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:519
+#: ../src/startdlg.c:520
 msgid "_Browse..."
 msgstr ""
 
-#: ../src/startdlg.c:521
+#: ../src/startdlg.c:522
 msgid "GnomeBaker data disk"
 msgstr "GnomeBaker adatlemez"
 
-#: ../src/burn.h:65 ../gnomebaker.glade.h:32
+#: ../src/burn.h:65
 msgid "Blank CD-RW"
 msgstr "CD-RW törlése"
 
-#: ../src/burn.h:66 ../gnomebaker.glade.h:47
+#: ../src/burn.h:66
 msgid "Copy Data CD"
 msgstr "Adat CD másolása"
 
-#: ../src/burn.h:67 ../gnomebaker.glade.h:46
+#: ../src/burn.h:67
 msgid "Copy Audio CD"
 msgstr "Hang CD másolása"
 
-#: ../src/burn.h:68 ../gnomebaker.glade.h:36
+#: ../src/burn.h:68
 msgid "Burn CD Image"
 msgstr "CD kép írása"
 
-#: ../src/burn.h:69 ../gnomebaker.glade.h:37
+#: ../src/burn.h:69
 msgid "Burn DVD Image"
 msgstr "DVD képfájl írása"
 
@@ -857,7 +911,8 @@ msgid "Add file(s)"
 msgstr "Fájl(ok) hozzáadása"
 
 #: ../gnomebaker.glade.h:25
-msgid "Add the selected files to the CD"
+#, fuzzy
+msgid "Add the selected files to the disk"
 msgstr "A kijelölt fájlok hozzáadása a CD-hez"
 
 #: ../gnomebaker.glade.h:26
@@ -884,242 +939,267 @@ msgstr "Sütés"
 msgid "Bl_ank CD-RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:33
+#: ../gnomebaker.glade.h:32
 msgid "Boot Image"
 msgstr "Boot kép"
 
-#: ../gnomebaker.glade.h:34
+#: ../gnomebaker.glade.h:33
 msgid "Boot Image list"
 msgstr "Bootolható képek listája"
 
-#: ../gnomebaker.glade.h:35
+#: ../gnomebaker.glade.h:34
 msgid "Boot catalog"
 msgstr "Boot katalógus"
 
-#: ../gnomebaker.glade.h:38
+#: ../gnomebaker.glade.h:35
 msgid "Burn _DVD Image"
 msgstr "_DVD képfájl írása"
 
-#: ../gnomebaker.glade.h:39
+#: ../gnomebaker.glade.h:36
 msgid "C_opy Data CD"
 msgstr "A_dat CD másolása"
 
-#: ../gnomebaker.glade.h:40
+#: ../gnomebaker.glade.h:37
 msgid "Clean temporary directory on exit"
 msgstr "Átmeneti könyvtár törlése kilépéskor"
 
-#: ../gnomebaker.glade.h:41
-msgid "Clear the contents of the CD"
+#: ../gnomebaker.glade.h:38
+#, fuzzy
+msgid "Clear the contents of the disk"
 msgstr "A CD tartalmának törlése"
 
-#: ../gnomebaker.glade.h:42
+#: ../gnomebaker.glade.h:39
 msgid "Click to begin the process of creating a data disk."
 msgstr "Kattintson az adatlemez létrehozásának elkezdéséhez"
 
-#: ../gnomebaker.glade.h:43
+#: ../gnomebaker.glade.h:40
 msgid "Click to begin the process of creating an audio cd"
 msgstr "Kattintson a hanglemez létrehozásának elkezdéséhez"
 
-#: ../gnomebaker.glade.h:44
+#: ../gnomebaker.glade.h:41
 msgid "Co_py Audio CD"
 msgstr "_Hang CD másolása"
 
-#: ../gnomebaker.glade.h:48
+#: ../gnomebaker.glade.h:43
 msgid "Create Audio Disk"
 msgstr "Hanglemez létrehozása"
 
-#: ../gnomebaker.glade.h:49
+#: ../gnomebaker.glade.h:44
 msgid "Create Data Disk"
 msgstr "Adatlemez létrehozása"
 
-#: ../gnomebaker.glade.h:50
+#: ../gnomebaker.glade.h:45
 msgid "Create Video Disk"
 msgstr "Videolemez készítése"
 
-#: ../gnomebaker.glade.h:51
+#: ../gnomebaker.glade.h:46
+msgid "Create a new project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:47
 msgid "Created by username"
 msgstr "Létrehozta: felhasználónév"
 
-#: ../gnomebaker.glade.h:52
+#: ../gnomebaker.glade.h:48
 msgid "Devices"
 msgstr "Eszközök"
 
-#: ../gnomebaker.glade.h:53
-msgid "Edit GnomeBaker's preferences"
-msgstr "A GnomeBaker tulajdonságainak szerkesztése"
-
-#: ../gnomebaker.glade.h:54
+#: ../gnomebaker.glade.h:49
 msgid "Floppy disk image"
 msgstr "Hajlékonylemez kép"
 
-#: ../gnomebaker.glade.h:55
+#: ../gnomebaker.glade.h:50
 msgid "Force"
 msgstr "Kényszerítés"
 
-#: ../gnomebaker.glade.h:56
-msgid "Format DVD±RW"
-msgstr "DVD±RW formázása"
-
-#: ../gnomebaker.glade.h:57
+#: ../gnomebaker.glade.h:51
 msgid "GPL"
 msgstr "GPL"
 
-#: ../gnomebaker.glade.h:58
+#: ../gnomebaker.glade.h:52
 msgid "General"
 msgstr "Általános"
 
-#: ../gnomebaker.glade.h:60
+#: ../gnomebaker.glade.h:54
 msgid "GnomeBaker Preferences"
 msgstr "A GnomeBaker beállításai"
 
-#: ../gnomebaker.glade.h:61
+#: ../gnomebaker.glade.h:55
 msgid "GnomeBaker data cd"
 msgstr "GnomeBaker adat CD"
 
-#: ../gnomebaker.glade.h:62
+#: ../gnomebaker.glade.h:56
 msgid "Hard disk image"
 msgstr "Merevlemez kép"
 
-#: ../gnomebaker.glade.h:63
+#: ../gnomebaker.glade.h:57
 msgid "ISO filesystem details"
 msgstr "ISO fájlrendszer részletei"
 
-#: ../gnomebaker.glade.h:64
-msgid "Import"
-msgstr "Importálás"
-
-#: ../gnomebaker.glade.h:65
+#: ../gnomebaker.glade.h:58
 msgid "Import Session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:66
-msgid "Import existing session"
-msgstr "Létező szakasz importálása"
-
-#: ../gnomebaker.glade.h:67
+#: ../gnomebaker.glade.h:59
 msgid "Mode"
 msgstr "Mód"
 
-#: ../gnomebaker.glade.h:68
+#: ../gnomebaker.glade.h:60
+msgid "Move Selected Files _Down"
+msgstr ""
+
+#: ../gnomebaker.glade.h:61
+msgid "Move Selected Files _Up"
+msgstr ""
+
+#: ../gnomebaker.glade.h:62
 msgid "Move audio tracks down"
 msgstr ""
 
-#: ../gnomebaker.glade.h:69
+#: ../gnomebaker.glade.h:63
 msgid "Move audio tracks up"
 msgstr ""
 
-#: ../gnomebaker.glade.h:70
-msgid "Move selection _down"
-msgstr ""
-
-#: ../gnomebaker.glade.h:71
-msgid "Move selection _up"
-msgstr ""
-
-#: ../gnomebaker.glade.h:72
+#: ../gnomebaker.glade.h:64
 msgid "Not bootable"
 msgstr "Nem bootolható"
 
-#: ../gnomebaker.glade.h:73
+#: ../gnomebaker.glade.h:65
+msgid "Open an existing project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:66
 msgid "PC bootable"
 msgstr "PC bootolható"
 
-#: ../gnomebaker.glade.h:74
+#: ../gnomebaker.glade.h:67
 msgid "Play sound when burning is complete"
 msgstr ""
 
-#: ../gnomebaker.glade.h:75
+#: ../gnomebaker.glade.h:68
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:76
+#: ../gnomebaker.glade.h:69
 msgid "Reader"
 msgstr "Olvasó"
 
-#: ../gnomebaker.glade.h:77
+#: ../gnomebaker.glade.h:70
 msgid "Refresh the file browser file list"
 msgstr "A fájlböngésző listájának frissítése"
 
-#: ../gnomebaker.glade.h:78
+#: ../gnomebaker.glade.h:71
 msgid "Remove selected"
 msgstr "Kijelölt eltávolítása"
 
-#: ../gnomebaker.glade.h:79
-msgid "Remove the selected files from the CD"
+#: ../gnomebaker.glade.h:72
+#, fuzzy
+msgid "Remove the selected files from the disk"
 msgstr "A kijelölt fájlok eltávolítása a CD-ről"
 
-#: ../gnomebaker.glade.h:80
+#: ../gnomebaker.glade.h:73
+msgid "Save All"
+msgstr ""
+
+#: ../gnomebaker.glade.h:74
+msgid "Save Project _As"
+msgstr ""
+
+#: ../gnomebaker.glade.h:75
+msgid "Save project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:76
 msgid "Sc_an for devices"
 msgstr "Eszközök _keresése"
 
-#: ../gnomebaker.glade.h:81
+#: ../gnomebaker.glade.h:77
 msgid "Show hidden files"
 msgstr "Rejtett fájlok megjelenítése"
 
-#: ../gnomebaker.glade.h:82
+#: ../gnomebaker.glade.h:78
 msgid "Show humanreadable filesizes"
 msgstr "Emberek által olvasható fájlméretek mutatása"
 
-#: ../gnomebaker.glade.h:84
+#: ../gnomebaker.glade.h:80
 msgid "Simple CD burning for Gnome."
 msgstr "Egyszerű CD írás GNOME alatt."
 
-#: ../gnomebaker.glade.h:85
+#: ../gnomebaker.glade.h:81
 msgid "Speed"
 msgstr "Sebesség"
 
-#: ../gnomebaker.glade.h:86
+#: ../gnomebaker.glade.h:82
 msgid "Splash window"
 msgstr "Indítóképernyő"
 
-#: ../gnomebaker.glade.h:87
+#: ../gnomebaker.glade.h:83
 msgid "Start burning..."
 msgstr "Írás indítása..."
 
-#: ../gnomebaker.glade.h:88
+#: ../gnomebaker.glade.h:84
 msgid "Starting GnomeBaker..."
 msgstr "A GnomeBaker indítása..."
 
-#: ../gnomebaker.glade.h:89
+#: ../gnomebaker.glade.h:85
 msgid "Sun workstation bootable"
 msgstr "Sun munkaállomás bootolható"
 
-#: ../gnomebaker.glade.h:90
+#: ../gnomebaker.glade.h:86
 msgid "Writer"
 msgstr "Író"
 
-#: ../gnomebaker.glade.h:91
-msgid "_Actions"
-msgstr "_Műveletek"
+#: ../gnomebaker.glade.h:87
+#, fuzzy
+msgid "_Add Selected Files"
+msgstr "A kijelölt fájlok hozzáadása a CD-hez"
 
-#: ../gnomebaker.glade.h:92
+#: ../gnomebaker.glade.h:88
 msgid "_Add device"
 msgstr "_Eszköz hozzáadása"
 
-#: ../gnomebaker.glade.h:93
-msgid "_Add selection"
-msgstr ""
+#: ../gnomebaker.glade.h:89
+#, fuzzy
+msgid "_Audio Disk"
+msgstr "<b>Hanglemez</b>"
 
-#: ../gnomebaker.glade.h:95
+#: ../gnomebaker.glade.h:91
+#, fuzzy
+msgid "_Data Disk"
+msgstr "Adatlemez létrehozása"
+
+#: ../gnomebaker.glade.h:92
 msgid "_Export"
 msgstr ""
 
-#: ../gnomebaker.glade.h:96
+#: ../gnomebaker.glade.h:93
 msgid "_Format DVD±RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:97
+#: ../gnomebaker.glade.h:94
 msgid "_Import"
 msgstr ""
 
-#: ../gnomebaker.glade.h:98
+#: ../gnomebaker.glade.h:95
 msgid "_Import Session"
 msgstr "Szakasz _importálása"
 
-#: ../gnomebaker.glade.h:99
+#: ../gnomebaker.glade.h:96
+msgid "_New Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:97
+msgid "_Open Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:98
 msgid "_Playlist"
+msgstr ""
+
+#: ../gnomebaker.glade.h:99
+msgid "_Project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:100
@@ -1127,50 +1207,73 @@ msgid "_Refresh"
 msgstr "_Frissítés"
 
 #: ../gnomebaker.glade.h:101
-msgid "_Remove selection"
-msgstr ""
+#, fuzzy
+msgid "_Remove Selected Files"
+msgstr "Kijelölt eltávolítása"
 
 #: ../gnomebaker.glade.h:102
+msgid "_Save Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:103
 msgid "_Show File Browser"
 msgstr "Fájlböngésző m_utatása"
 
-#: ../gnomebaker.glade.h:104
-msgid "_View"
-msgstr "_Nézet"
-
 #: ../gnomebaker.glade.h:105
+msgid "_Tools"
+msgstr ""
+
+#: ../gnomebaker.glade.h:106
+msgid "_Window"
+msgstr ""
+
+#: ../gnomebaker.glade.h:107
 msgid "dao"
 msgstr "dao"
 
-#: ../gnomebaker.glade.h:107
+#: ../gnomebaker.glade.h:109
 msgid "raw16"
 msgstr "raw16"
 
-#: ../gnomebaker.glade.h:108
+#: ../gnomebaker.glade.h:110
 msgid "raw96p"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:109
+#: ../gnomebaker.glade.h:111
 msgid "raw96r"
 msgstr "raw96r"
 
-#: ../gnomebaker.glade.h:110
+#: ../gnomebaker.glade.h:112
 msgid "tao"
 msgstr "tao"
 
-#, c-format
-#~ msgid "%d mins %d secs"
-#~ msgstr "%d perc %d másodperc"
+#~ msgid "Create ISO only"
+#~ msgstr "ISO létrehozása"
 
-#, c-format
+#~ msgid "Edit GnomeBaker's preferences"
+#~ msgstr "A GnomeBaker tulajdonságainak szerkesztése"
+
+#~ msgid "Format DVD±RW"
+#~ msgstr "DVD±RW formázása"
+
+#~ msgid "Import"
+#~ msgstr "Importálás"
+
+#~ msgid "Import existing session"
+#~ msgstr "Létező szakasz importálása"
+
+#~ msgid "_Actions"
+#~ msgstr "_Műveletek"
+
+#~ msgid "_View"
+#~ msgstr "_Nézet"
+
 #~ msgid "mime type is %s for %s %s"
 #~ msgstr "a mime-típus: %s a következőhöz: %s %s"
 
-#, c-format
 #~ msgid "File %s was not opened \n"
 #~ msgstr "A(z) %s fájl nem lett megnyitva \n"
 
-#, c-format
 #~ msgid "Error reading wav header for file [%s]"
 #~ msgstr "Hiba a(z) [%s] fájl wav fejlécének beolvasása közben"
 
@@ -1183,7 +1286,6 @@ msgstr "tao"
 #~ msgid "Tracktitle"
 #~ msgstr "Szám címe"
 
-#, c-format
 #~ msgid "File %s was not opened"
 #~ msgstr "A(z) %s fájl nem lett megnyitva"
 
@@ -1214,20 +1316,16 @@ msgstr "tao"
 #~ msgid "Please select an iso file to save to..."
 #~ msgstr "Kérem válasszon egy iso fájlt a mentéshez..."
 
-#, c-format
 #~ msgid "burn - [%s]"
 #~ msgstr "írás - [%s]"
 
-#, c-format
 #~ msgid "failed to stat file [%s] with ret code [%d] error no [%s]"
 #~ msgstr ""
 #~ "[%s] fájl elérése nem sikerült, visszatérési érték: [%d], hibaszám: [%s]"
 
-#, c-format
 #~ msgid "received sel %s"
 #~ msgstr "%s kiválasztás érkezett"
 
-#, c-format
 #~ msgid "datacd next session is [%s]"
 #~ msgstr "az adat CD következő szakasza: [%s]"
 
@@ -1240,15 +1338,12 @@ msgstr "tao"
 #~ msgid "Error unmounting writer device"
 #~ msgstr "Hiba az íróeszköz leválasztásakor"
 
-#, c-format
 #~ msgid "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
 #~ msgstr "devices_write_device_to_gconf - hozzáadva [%s] [%s] [%s] [%s]"
 
-#, c-format
 #~ msgid "node [%s] mount [%s]"
 #~ msgstr "[%s] csomópont [%s] alá csatlakoztatva"
 
-#, c-format
 #~ msgid "node [%s] is link to [%s]"
 #~ msgstr "[%s] csomópont egy link a következőre: [%s]"
 
@@ -1258,15 +1353,12 @@ msgstr "tao"
 #~ msgid "devices_probe_bus - failed to parse cdrecord output"
 #~ msgstr "devices_probe_bus - a cdrecord kimenetének feldolgozása sikertelen"
 
-#, c-format
 #~ msgid "devices_add_ide_device - probing [%s]"
 #~ msgstr "devices_add_ide_device - [%s] vizsgálata"
 
-#, c-format
 #~ msgid "Failed to open %s"
 #~ msgstr "%s megnyitása sikertelen"
 
-#, c-format
 #~ msgid "devices_add_scsi_device - probing [%s]"
 #~ msgstr "devices_add_scsi_device - [%s] vizsgálata"
 
@@ -1279,15 +1371,12 @@ msgstr "tao"
 #~ msgid "Error reading scsi information from /proc/scsi/sg/devices"
 #~ msgstr "Hiba az információk /proc/scsi/sg/devices-ből való olvasása közben"
 
-#, c-format
 #~ msgid "---- key [%s], value [%s]"
 #~ msgstr "---- kulcs [%s], érték: [%s]"
 
-#, c-format
 #~ msgid "looking for device [%d]"
 #~ msgstr "[%d.] eszköz keresése"
 
-#, c-format
 #~ msgid ""
 #~ "Requested device index [%d] is out of bounds. All devices have been read."
 #~ msgstr ""
@@ -1297,7 +1386,6 @@ msgstr "tao"
 #~ msgid "Failed to open /proc/sys/dev/cdrom/info"
 #~ msgstr "A /proc/sys/dev/cdrom/info megnyitása sikertelen"
 
-#, c-format
 #~ msgid ""
 #~ "Error %s %s.\n"
 #~ "\n"
@@ -1319,15 +1407,12 @@ msgstr "tao"
 #~ msgid "subdir from GValue is NULL"
 #~ msgstr "az alkönyvtár a GValue-ból NULL"
 
-#, c-format
 #~ msgid "Stat of file [%s] failed"
 #~ msgstr "[%s] fájl elérése sikertelen"
 
-#, c-format
 #~ msgid "selection data is %s\n"
 #~ msgstr "a kiválasztott adat: %s\n"
 
-#, c-format
 #~ msgid "exec_thread - parent created child with pid %d"
 #~ msgstr "exec_thread - a szülő létrehozta a gyermeket %d pid-del"
 
@@ -1337,67 +1422,51 @@ msgstr "tao"
 #~ msgid "exec_thread - Exec failed"
 #~ msgstr "exec_thread - a végrehajtás sikertelen"
 
-#, c-format
 #~ msgid "exec_thread - child exited with code [%d]\n"
 #~ msgstr "exec_thread - a gyermek [%d] kóddal kilépett\n"
 
 #~ msgid "exec_thread - exiting"
 #~ msgstr "exec_thread - kilépés"
 
-#, c-format
 #~ msgid "exec_go - failed to create thread [%d] [%s]"
 #~ msgstr "exec_go - nem sikerült szálat létrehozni [%d] [%s]"
 
-#, c-format
 #~ msgid "exec_cancel - killing %d"
 #~ msgstr "exec_cancel - %d kilövése"
 
 #~ msgid "exec_cancel - complete"
 #~ msgstr "exec_cancel - befejezve"
 
-#, c-format
 #~ msgid "exec_run_cmd - %s"
 #~ msgstr "exec_run_cmd - %s"
 
-#, c-format
 #~ msgid "error [%s] spawning command [%s]"
 #~ msgstr "[%s] hiba [%s] parancs indítása közben"
 
-#, c-format
 #~ msgid "Uknown error spawning command [%s]"
 #~ msgstr "Ismeretlen hiba [%s] parancs indítása közben"
 
-#, c-format
 #~ msgid "returning [%s]"
 #~ msgstr "[%s] visszaadása"
 
-#, c-format
 #~ msgid "creating [%s]"
 #~ msgstr "[%s] létrehozása"
 
-#, c-format
 #~ msgid "failed to create temp %d"
 #~ msgstr "átmeneti %d létrehozás sikertelen"
 
-#, c-format
 #~ msgid "Failed to get contents of file [%s]"
 #~ msgstr "[%s] fájl tartalmának lekérése sikertelen"
 
-#, c-format
 #~ msgid "MessageDialog message [%s]"
 #~ msgstr "Üzenetablak üzenet [%s]"
-
-#~ msgid "Please select an iso file..."
-#~ msgstr "Kérem válasszon egy iso fájlt..."
 
 #~ msgid "ISO files"
 #~ msgstr "ISO fájlok"
 
-#, c-format
 #~ msgid "file is %s"
 #~ msgstr "a fájl %s"
 
-#, c-format
 #~ msgid "mime type is %s for %s"
 #~ msgstr "a mime típus %s a következőhöz: %s"
 
@@ -1414,7 +1483,6 @@ msgstr "tao"
 #~ msgid "Failed to initialise gconf"
 #~ msgstr "A GConf inicializálása sikertelen"
 
-#, c-format
 #~ msgid "toolbar style [%s] [%d]"
 #~ msgstr "eszköztár stílusa [%s] [%d]"
 
@@ -1439,11 +1507,9 @@ msgstr "tao"
 #~ msgid "Fixating"
 #~ msgstr "Rögzítés"
 
-#, c-format
 #~ msgid "cdrecord - adding create audio data [%s]"
 #~ msgstr "cdrecord - audio adatok létrehozása hozzáadása [%s]"
 
-#, c-format
 #~ msgid "adding [%s]"
 #~ msgstr "[%s] hozzáadása"
 
@@ -1456,7 +1522,6 @@ msgstr "tao"
 #~ msgid "Tracks:"
 #~ msgstr "Számok:"
 
-#, c-format
 #~ msgid "cdda2wav_read_proc - total tracks %d"
 #~ msgstr "cdda2wav_read_proc - összesen %d szám"
 
@@ -1475,18 +1540,15 @@ msgstr "tao"
 #~ msgid "Please insert a writable DVD into the DVD writer"
 #~ msgstr "Kérem helyezzen be egy írható DVD-t a DVD íróba"
 
-#, c-format
 #~ msgid "growisofs: progress: %d"
 #~ msgstr "growisofs: folyamat: %d"
 
-#, c-format
 #~ msgid "growisofs: fraction: %f"
 #~ msgstr "growisofs: hányad: %f"
 
 #~ msgid "<b>Converting mp3 to cd audio...</b>"
 #~ msgstr "<b>MP3 átalakítása CD hanggá...</b>"
 
-#, c-format
 #~ msgid "Converted file is [%s]"
 #~ msgstr "Az átalakított fájl: [%s]"
 
@@ -1505,7 +1567,6 @@ msgstr "tao"
 #~ msgid "Format DVD+RW"
 #~ msgstr "DVD+RW formázása"
 
-#, c-format
 #~ msgid "Entering [%s] [%s] [%d]\n"
 #~ msgstr "Belépés [%s] [%s] [%d]\n"
 
@@ -1555,8 +1616,8 @@ msgstr "tao"
 #~ msgstr "Válasszon írót..."
 
 #~ msgid ""
-#~ "<b>Please select the writing device from the list below and insert the disk "
-#~ "containing the existing session.</b>"
+#~ "<b>Please select the writing device from the list below and insert the "
+#~ "disk containing the existing session.</b>"
 #~ msgstr ""
 #~ "<b>Kérem válassza ki az íróeszközt az alábbi listából és helyezze be a "
 #~ "létező szakaszokat tartalmazó lemezt.</b>"

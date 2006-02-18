@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To:\n"
-"POT-Creation-Date: 2006-01-12 10:15+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-18 01:46+0000\n"
 "PO-Revision-Date: 2005-02-14 09:58+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -61,37 +61,37 @@ msgid ""
 "or m3u file."
 msgstr ""
 
-#: ../src/audiocd.c:723 ../src/audiocd.c:759
+#: ../src/audiocd.c:724 ../src/audiocd.c:761
 msgid "Failed to write playlist file"
 msgstr ""
 
-#: ../src/audiocd.c:808
+#: ../src/audiocd.c:810
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:841
+#: ../src/audiocd.c:843
 msgid "Track"
 msgstr "Κομμάτι"
 
-#: ../src/audiocd.c:854
+#: ../src/audiocd.c:856
 msgid "Duration"
 msgstr "Διάρκεια"
 
-#: ../src/audiocd.c:871
+#: ../src/audiocd.c:873
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
-#: ../src/audiocd.c:880
+#: ../src/audiocd.c:882
 msgid "Album"
 msgstr "Άλμπουμ"
 
-#: ../src/audiocd.c:889
+#: ../src/audiocd.c:891
 msgid "Title"
 msgstr "Τίτλος"
 
-#: ../src/audiocd.c:898
+#: ../src/audiocd.c:900
 msgid "Info"
 msgstr ""
 
@@ -182,8 +182,7 @@ msgid "Copying data CD"
 msgstr ""
 
 #: ../src/burn.c:322
-msgid ""
-"Please wait while the data CD image is extracted and then burned to CD."
+msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 
 #: ../src/burn.c:342
@@ -211,28 +210,32 @@ msgstr ""
 msgid "Please wait while the DVD is formatted."
 msgstr ""
 
-#: ../src/burn.c:394
+#: ../src/burn.c:395
 msgid "Creating data DVD image"
 msgstr ""
 
-#: ../src/burn.c:394
+#: ../src/burn.c:395
 msgid "Please wait while the data DVD image is created."
 msgstr ""
 
-#: ../src/burn.c:400
+#: ../src/burn.c:401
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:400
+#: ../src/burn.c:401
 msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
 
-#: ../src/burn.c:418
+#: ../src/burn.c:419 ../src/burn.c:481
 msgid "Appending to data DVD"
 msgstr ""
 
-#: ../src/burn.c:418
+#: ../src/burn.c:419 ../src/burn.c:481
 msgid "Please wait while the data is appended directly to the DVD."
+msgstr ""
+
+#: ../src/burn.c:446 ../src/execfunctions.c:1458
+msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/datacd.c:147
@@ -242,8 +245,7 @@ msgstr ""
 
 #: ../src/datacd.c:203
 #, fuzzy
-msgid ""
-"File or directory is too large to fit in the remaining space on the CD"
+msgid "File or directory is too large to fit in the remaining space on the CD"
 msgstr ""
 "Το αρχείο ή ο κατάλογος είναι πολύ μεγάλα για να χωρέσουν στον εναπομείναντα "
 "χώρο του CD"
@@ -256,7 +258,7 @@ msgstr ""
 msgid "Clear"
 msgstr "Εκκαθάριση"
 
-#: ../src/datacd.c:514 ../gnomebaker.glade.h:45
+#: ../src/datacd.c:514 ../gnomebaker.glade.h:42
 msgid "Contents"
 msgstr "Περιεχόμενα"
 
@@ -284,11 +286,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/datacd.c:613 ../src/devices.c:657
+#: ../src/datacd.c:613 ../src/devices.c:664
 msgid "unknown error"
 msgstr "άγνωστο σφάλμα"
 
-#: ../src/datacd.c:686
+#: ../src/datacd.c:687
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -297,7 +299,7 @@ msgstr ""
 "Σφάλμα εισαγωγής συνεδρίας από [%s]. Παρακαλώ ελέγξτε τις ρυθμίσεις συσκευών "
 "στις προτιμήσεις."
 
-#: ../src/devices.c:646
+#: ../src/devices.c:653
 #, fuzzy
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
@@ -308,7 +310,7 @@ msgstr ""
 "λειτουργεί. Παρακαλώ ελέγξτε ότι υπάρχει αναφορά στο /etc/fstab για τη "
 "συσκευή εγγραφής και μετά πηγαίνετε στις προτιμήσεις και ανανέωση συσκευών"
 
-#: ../src/devices.c:656
+#: ../src/devices.c:663
 #, c-format
 msgid ""
 "Error mounting %s.\n"
@@ -316,36 +318,37 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../src/devices.c:785
+#: ../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
 msgstr ""
 
-#: ../src/execfunctions.c:94
+#: ../src/execfunctions.c:87
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:137
+#: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#: ../src/execfunctions.c:194
+#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
+#: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:245 ../src/execfunctions.c:990
+#: ../src/execfunctions.c:253 ../src/execfunctions.c:1002
 #: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:106
+#: ../src/startdlg.c:199 ../gnomebaker.glade.h:108
 msgid "default"
 msgstr "προεπιλογή"
 
-#: ../src/execfunctions.c:397
+#: ../src/execfunctions.c:405
 msgid "Preparing to extract audio tracks"
 msgstr ""
 
-#: ../src/execfunctions.c:408
+#: ../src/execfunctions.c:416
 #, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
@@ -354,20 +357,20 @@ msgstr ""
 "Υπάρχουν μουσικά δεδομένα στον δίσκο από προηγούμενη συνεδρία, θέλεις να "
 "χρησιμοποιήσεις τα υπάρχοντα δεδομένα;"
 
-#: ../src/execfunctions.c:465
+#: ../src/execfunctions.c:473
 #, c-format
 msgid "Extracting audio track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:535
+#: ../src/execfunctions.c:543
 msgid "Calculating data disk image size"
 msgstr ""
 
-#: ../src/execfunctions.c:573
+#: ../src/execfunctions.c:581
 msgid "Creating data disk image"
 msgstr ""
 
-#: ../src/execfunctions.c:580
+#: ../src/execfunctions.c:588
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -375,35 +378,31 @@ msgstr ""
 "Μια εικόνα CD δεδομένων υπάρχει ήδη στον δίσκο από μια προηγούμενη συνεδρία, "
 "θέλετε να χρησιμοποιήσετε την υπάρχουσα εικόνα;"
 
-#: ../src/execfunctions.c:810
+#: ../src/execfunctions.c:818
 msgid "Formatting DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:891
+#: ../src/execfunctions.c:899
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:922 ../src/execfunctions.c:946
+#: ../src/execfunctions.c:930 ../src/execfunctions.c:955
 msgid "Writing DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:1056
+#: ../src/execfunctions.c:1068
 msgid "Reading CD image"
 msgstr ""
 
-#: ../src/execfunctions.c:1064
+#: ../src/execfunctions.c:1076
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1327
+#: ../src/execfunctions.c:1341
 #, c-format
 msgid "Converting %s to cd audio"
-msgstr ""
-
-#: ../src/execfunctions.c:1439
-msgid "Verifying the disk content"
 msgstr ""
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
@@ -431,7 +430,7 @@ msgstr ""
 msgid "_Add file(s)"
 msgstr ""
 
-#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:94
+#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
 msgid "_Burn CD Image"
 msgstr "Εγγρα_φή εικόνας CD"
 
@@ -456,76 +455,99 @@ msgstr "Είδος"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:468
+#: ../src/gbcommon.c:469
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
-#: ../src/gbcommon.c:480
+#: ../src/gbcommon.c:477
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:102
+#: ../src/gnomebaker.c:125
 msgid "Loading preferences..."
 msgstr "Φόρτωμα προτιμήσεων.."
 
-#: ../src/gnomebaker.c:105
+#: ../src/gnomebaker.c:128
 msgid "Detecting devices..."
 msgstr "Εντοπισμός συσκευών..."
 
-#: ../src/gnomebaker.c:108
+#: ../src/gnomebaker.c:131
 msgid "Registering gstreamer plugins..."
 msgstr "Καταχώρηση των gstreamer plugins..."
 
-#: ../src/gnomebaker.c:111
+#: ../src/gnomebaker.c:134
 msgid "Loading GUI..."
 msgstr "Φόρτωση GUI..."
 
-#: ../src/gnomebaker.c:201
+#: ../src/gnomebaker.c:159
+#, fuzzy
+msgid "Audio files"
+msgstr "Προσθήκη αρχείων"
+
+#: ../src/gnomebaker.c:243
 msgid "Are you sure you want to quit?"
 msgstr "Είστε σίγουροι ότι θέλετε έξοδο;"
 
-#: ../src/gnomebaker.c:278
+#: ../src/gnomebaker.c:320
 msgid "CD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:279
+#: ../src/gnomebaker.c:321
 msgid "Please select a CD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:292
+#: ../src/gnomebaker.c:336
 msgid "DVD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:293
+#: ../src/gnomebaker.c:337
 msgid "Please select a DVD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:363 ../gnomebaker.glade.h:59
+#: ../src/gnomebaker.c:408 ../gnomebaker.glade.h:53
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:364
+#: ../src/gnomebaker.c:409
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr ""
 
-#: ../src/gnomebaker.c:364 ../gnomebaker.glade.h:111
+#: ../src/gnomebaker.c:409 ../gnomebaker.glade.h:113
 msgid "translator_credits"
 msgstr "Κώστας Παπαδήμας <pkst@gmx.net>"
 
-#: ../src/gnomebaker.c:429
+#: ../src/gnomebaker.c:498
 msgid "Please select files to add to the disk."
 msgstr ""
 
-#: ../src/gnomebaker.c:689 ../src/gnomebaker.c:710
+#: ../src/gnomebaker.c:775 ../src/gnomebaker.c:798
 msgid "Playlist files"
 msgstr ""
 
-#: ../src/gnomebaker.c:690
+#: ../src/gnomebaker.c:776
 msgid "Please select a playlist."
 msgstr ""
 
-#: ../src/gnomebaker.c:711
+#: ../src/gnomebaker.c:805
 msgid "Save playlist as..."
+msgstr ""
+
+#: ../src/gnomebaker.c:828
+#, fuzzy
+msgid "Project files"
+msgstr "Εξαγωγή δίσκου"
+
+#: ../src/gnomebaker.c:829
+#, fuzzy
+msgid "Please select a project file."
+msgstr "Παρακαλώ επιλέξτε ένα αρχείο iso..."
+
+#: ../src/main.c:41
+msgid "Show tracing information (useful when debugging)"
+msgstr ""
+
+#: ../src/main.c:50
+msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/media.c:397
@@ -565,21 +587,54 @@ msgstr "Εγγραφή DVD-R"
 msgid "Write DVD-RAM"
 msgstr "Εγγραφή DVD-RAM"
 
-#: ../src/progressdlg.c:188 ../gnomebaker.glade.h:83
+#: ../src/progressdlg.c:80
+#, fuzzy, c-format
+msgid "%d minutes %d seconds"
+msgstr "%d λεπτά %d δευτ"
+
+#: ../src/progressdlg.c:82
+#, fuzzy, c-format
+msgid "%d minute %d seconds"
+msgstr "%d λεπτά %d δευτ"
+
+#: ../src/progressdlg.c:84
+#, c-format
+msgid "%d seconds"
+msgstr ""
+
+#: ../src/progressdlg.c:224
+#, c-format
+msgid "%s remaining"
+msgstr ""
+
+#: ../src/progressdlg.c:279 ../gnomebaker.glade.h:79
 msgid "Show output"
 msgstr ""
 
-#: ../src/progressdlg.c:188
+#: ../src/progressdlg.c:279
 msgid "Hide output"
 msgstr ""
 
-#: ../src/progressdlg.c:262
+#: ../src/progressdlg.c:358
+#, c-format
+msgid "Elapsed time %s"
+msgstr ""
+
+#: ../src/progressdlg.c:364
 msgid "Completed"
 msgstr "Ολοκληρώθηκε"
 
-#: ../src/progressdlg.c:270
+#: ../src/progressdlg.c:370
+msgid "Gnomebaker completed successfully!"
+msgstr ""
+
+#: ../src/progressdlg.c:374
 msgid "Failed"
 msgstr "Απέτυχε"
+
+#: ../src/progressdlg.c:382
+msgid "Gnomebaker <b>failed</b> to complete the action!"
+msgstr ""
 
 #: ../src/startdlg.c:98
 msgid "Please select an image file to save to."
@@ -617,7 +672,7 @@ msgstr ""
 msgid "<b>Options</b>"
 msgstr "<b>Επιλογές</b>"
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:103
+#: ../src/startdlg.c:246 ../gnomebaker.glade.h:104
 msgid "_Start"
 msgstr "Ένα_ρξη"
 
@@ -665,79 +720,79 @@ msgstr ""
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:495
+#: ../src/startdlg.c:496
 msgid "Dummy write"
 msgstr "Εικονική εγγραφή"
 
-#: ../src/startdlg.c:496
+#: ../src/startdlg.c:497
 msgid "Eject disk"
 msgstr "Εξαγωγή δίσκου"
 
-#: ../src/startdlg.c:497
+#: ../src/startdlg.c:498
 msgid "Fast blank"
 msgstr "Γρήγορη εκκαθάριση"
 
-#: ../src/startdlg.c:498
+#: ../src/startdlg.c:499
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: ../src/startdlg.c:499
+#: ../src/startdlg.c:500
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:501
-msgid "Create ISO only"
-msgstr "Δημιουργία μόνο ISO"
-
-#: ../src/startdlg.c:504
-msgid "Force format"
+#: ../src/startdlg.c:502
+msgid "Only create image"
 msgstr ""
 
 #: ../src/startdlg.c:505
+msgid "Force format"
+msgstr ""
+
+#: ../src/startdlg.c:506
 msgid "Finalize"
 msgstr "Κλείδωμα"
 
-#: ../src/startdlg.c:506
+#: ../src/startdlg.c:507
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:508
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:509
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:509
-msgid "On The Fly"
+#: ../src/startdlg.c:510
+msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:519
+#: ../src/startdlg.c:520
 msgid "_Browse..."
 msgstr ""
 
-#: ../src/startdlg.c:521
+#: ../src/startdlg.c:522
 msgid "GnomeBaker data disk"
 msgstr ""
 
-#: ../src/burn.h:65 ../gnomebaker.glade.h:32
+#: ../src/burn.h:65
 msgid "Blank CD-RW"
 msgstr ""
 
-#: ../src/burn.h:66 ../gnomebaker.glade.h:47
+#: ../src/burn.h:66
 msgid "Copy Data CD"
 msgstr "Αντιγραφή CD δεδομένων"
 
-#: ../src/burn.h:67 ../gnomebaker.glade.h:46
+#: ../src/burn.h:67
 msgid "Copy Audio CD"
 msgstr "Αντιγραφή CD ήχου"
 
-#: ../src/burn.h:68 ../gnomebaker.glade.h:36
+#: ../src/burn.h:68
 msgid "Burn CD Image"
 msgstr "Εγγραφή εικόνας CD"
 
-#: ../src/burn.h:69 ../gnomebaker.glade.h:37
+#: ../src/burn.h:69
 msgid "Burn DVD Image"
 msgstr ""
 
@@ -859,7 +914,8 @@ msgid "Add file(s)"
 msgstr "Προσθήκη αρχείων"
 
 #: ../gnomebaker.glade.h:25
-msgid "Add the selected files to the CD"
+#, fuzzy
+msgid "Add the selected files to the disk"
 msgstr "Προσθήκη των επιλεγμένων αρχείων στο CD"
 
 #: ../gnomebaker.glade.h:26
@@ -886,243 +942,268 @@ msgstr ""
 msgid "Bl_ank CD-RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:33
+#: ../gnomebaker.glade.h:32
 msgid "Boot Image"
 msgstr "Εικόνα Εκκίνησης"
 
-#: ../gnomebaker.glade.h:34
+#: ../gnomebaker.glade.h:33
 msgid "Boot Image list"
 msgstr "Λίστα εικόνας Boot"
 
-#: ../gnomebaker.glade.h:35
+#: ../gnomebaker.glade.h:34
 msgid "Boot catalog"
 msgstr "Κατάλογος Boot"
 
-#: ../gnomebaker.glade.h:38
+#: ../gnomebaker.glade.h:35
 msgid "Burn _DVD Image"
 msgstr ""
 
-#: ../gnomebaker.glade.h:39
+#: ../gnomebaker.glade.h:36
 msgid "C_opy Data CD"
 msgstr "Αντι_γραφή CD δεδομένων"
 
-#: ../gnomebaker.glade.h:40
+#: ../gnomebaker.glade.h:37
 msgid "Clean temporary directory on exit"
 msgstr "Εκκαθάριση προσωρινού καταλόγου κατά την έξοδο"
 
-#: ../gnomebaker.glade.h:41
-msgid "Clear the contents of the CD"
+#: ../gnomebaker.glade.h:38
+#, fuzzy
+msgid "Clear the contents of the disk"
 msgstr "Εκκαθάριση των περιεχομένων του CD"
 
-#: ../gnomebaker.glade.h:42
+#: ../gnomebaker.glade.h:39
 msgid "Click to begin the process of creating a data disk."
 msgstr "Πατήστε για να ξεκινήσει η διεργασία δημιουργίας ενός CD δεδομένων"
 
-#: ../gnomebaker.glade.h:43
+#: ../gnomebaker.glade.h:40
 msgid "Click to begin the process of creating an audio cd"
 msgstr "Πατήστε για να ξεκινήσει η διαδικασία της δημιουργίας ενός cd ήχου"
 
-#: ../gnomebaker.glade.h:44
+#: ../gnomebaker.glade.h:41
 msgid "Co_py Audio CD"
 msgstr "Αντιγραφή CD ήχου"
 
-#: ../gnomebaker.glade.h:48
+#: ../gnomebaker.glade.h:43
 msgid "Create Audio Disk"
 msgstr "Δημιουργία δίσκου ήχου"
 
-#: ../gnomebaker.glade.h:49
+#: ../gnomebaker.glade.h:44
 msgid "Create Data Disk"
 msgstr "Δημιουργία δίσκου δεδομένων"
 
-#: ../gnomebaker.glade.h:50
+#: ../gnomebaker.glade.h:45
 msgid "Create Video Disk"
 msgstr ""
 
-#: ../gnomebaker.glade.h:51
+#: ../gnomebaker.glade.h:46
+msgid "Create a new project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:47
 msgid "Created by username"
 msgstr "Δημιουργήθηκε από username"
 
-#: ../gnomebaker.glade.h:52
+#: ../gnomebaker.glade.h:48
 msgid "Devices"
 msgstr "Συσκευές"
 
-#: ../gnomebaker.glade.h:53
-msgid "Edit GnomeBaker's preferences"
-msgstr "Επεξεργασία προτιμήσεων GnomeBaker"
-
-#: ../gnomebaker.glade.h:54
+#: ../gnomebaker.glade.h:49
 msgid "Floppy disk image"
 msgstr "Eικόνα δισκέτας"
 
-#: ../gnomebaker.glade.h:55
+#: ../gnomebaker.glade.h:50
 msgid "Force"
 msgstr "Εξαναγκασμός"
 
-#: ../gnomebaker.glade.h:56
-msgid "Format DVD±RW"
-msgstr ""
-
-#: ../gnomebaker.glade.h:57
+#: ../gnomebaker.glade.h:51
 msgid "GPL"
 msgstr "GPL"
 
-#: ../gnomebaker.glade.h:58
+#: ../gnomebaker.glade.h:52
 msgid "General"
 msgstr "Γενικά"
 
-#: ../gnomebaker.glade.h:60
+#: ../gnomebaker.glade.h:54
 msgid "GnomeBaker Preferences"
 msgstr "Προτιμήσεις GnomeBaker"
 
-#: ../gnomebaker.glade.h:61
+#: ../gnomebaker.glade.h:55
 msgid "GnomeBaker data cd"
 msgstr "CD δεδομένων GnomeBaker"
 
-#: ../gnomebaker.glade.h:62
+#: ../gnomebaker.glade.h:56
 msgid "Hard disk image"
 msgstr "Εικόνα σκληρού δίσκου"
 
-#: ../gnomebaker.glade.h:63
+#: ../gnomebaker.glade.h:57
 msgid "ISO filesystem details"
 msgstr "Λεπτομέρειες συστήματος αρχείων ISO"
 
-#: ../gnomebaker.glade.h:64
-msgid "Import"
-msgstr "Εισαγωγή"
-
-#: ../gnomebaker.glade.h:65
+#: ../gnomebaker.glade.h:58
 msgid "Import Session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:66
-msgid "Import existing session"
-msgstr "Εισαγωγή υπάρχουσας συνεδρίας"
-
-#: ../gnomebaker.glade.h:67
+#: ../gnomebaker.glade.h:59
 msgid "Mode"
 msgstr "Λειτουργία"
 
-#: ../gnomebaker.glade.h:68
+#: ../gnomebaker.glade.h:60
+msgid "Move Selected Files _Down"
+msgstr ""
+
+#: ../gnomebaker.glade.h:61
+msgid "Move Selected Files _Up"
+msgstr ""
+
+#: ../gnomebaker.glade.h:62
 msgid "Move audio tracks down"
 msgstr ""
 
-#: ../gnomebaker.glade.h:69
+#: ../gnomebaker.glade.h:63
 msgid "Move audio tracks up"
 msgstr ""
 
-#: ../gnomebaker.glade.h:70
-msgid "Move selection _down"
-msgstr ""
-
-#: ../gnomebaker.glade.h:71
-msgid "Move selection _up"
-msgstr ""
-
-#: ../gnomebaker.glade.h:72
+#: ../gnomebaker.glade.h:64
 msgid "Not bootable"
 msgstr "'Οχι εκκινήσιμο"
 
-#: ../gnomebaker.glade.h:73
+#: ../gnomebaker.glade.h:65
+msgid "Open an existing project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:66
 msgid "PC bootable"
 msgstr "PC εκκινήσιμο"
 
-#: ../gnomebaker.glade.h:74
+#: ../gnomebaker.glade.h:67
 msgid "Play sound when burning is complete"
 msgstr ""
 
-#: ../gnomebaker.glade.h:75
+#: ../gnomebaker.glade.h:68
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:76
+#: ../gnomebaker.glade.h:69
 msgid "Reader"
 msgstr "Reader"
 
-#: ../gnomebaker.glade.h:77
+#: ../gnomebaker.glade.h:70
 msgid "Refresh the file browser file list"
 msgstr "Ανανέωση της λίστας αρχείων στον περιηγητή"
 
-#: ../gnomebaker.glade.h:78
+#: ../gnomebaker.glade.h:71
 msgid "Remove selected"
 msgstr "Αφαίρεση επιλεγμένων"
 
-#: ../gnomebaker.glade.h:79
-msgid "Remove the selected files from the CD"
+#: ../gnomebaker.glade.h:72
+#, fuzzy
+msgid "Remove the selected files from the disk"
 msgstr "Αφαίρεση των επιλεγμένων αρχείων από το ·CD"
 
-#: ../gnomebaker.glade.h:80
+#: ../gnomebaker.glade.h:73
+msgid "Save All"
+msgstr ""
+
+#: ../gnomebaker.glade.h:74
+msgid "Save Project _As"
+msgstr ""
+
+#: ../gnomebaker.glade.h:75
+msgid "Save project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:76
 msgid "Sc_an for devices"
 msgstr "'Ελεγ_χος για συσκευές"
 
-#: ../gnomebaker.glade.h:81
+#: ../gnomebaker.glade.h:77
 msgid "Show hidden files"
 msgstr "Εμφάνιση κρυφών αρχείων"
 
-#: ../gnomebaker.glade.h:82
+#: ../gnomebaker.glade.h:78
 #, fuzzy
 msgid "Show humanreadable filesizes"
 msgstr "Εμφάνιση ευανάγνωστων μεγεθών αρχείων"
 
-#: ../gnomebaker.glade.h:84
+#: ../gnomebaker.glade.h:80
 msgid "Simple CD burning for Gnome."
 msgstr "Απλή εφαρμογή εγγραφής CD για το Gnome."
 
-#: ../gnomebaker.glade.h:85
+#: ../gnomebaker.glade.h:81
 msgid "Speed"
 msgstr "Ταχύτητα"
 
-#: ../gnomebaker.glade.h:86
+#: ../gnomebaker.glade.h:82
 msgid "Splash window"
 msgstr "Παράθυρο εκκίνησης"
 
-#: ../gnomebaker.glade.h:87
+#: ../gnomebaker.glade.h:83
 msgid "Start burning..."
 msgstr "Έναρξη εγγραφής..."
 
-#: ../gnomebaker.glade.h:88
+#: ../gnomebaker.glade.h:84
 msgid "Starting GnomeBaker..."
 msgstr "Εκκίνηση GnomeBaker..."
 
-#: ../gnomebaker.glade.h:89
+#: ../gnomebaker.glade.h:85
 msgid "Sun workstation bootable"
 msgstr "Sun workstation bootable"
 
-#: ../gnomebaker.glade.h:90
+#: ../gnomebaker.glade.h:86
 msgid "Writer"
 msgstr "Writer"
 
-#: ../gnomebaker.glade.h:91
-msgid "_Actions"
-msgstr "Ε_νέργειες"
+#: ../gnomebaker.glade.h:87
+#, fuzzy
+msgid "_Add Selected Files"
+msgstr "Προσθήκη των επιλεγμένων αρχείων στο CD"
 
-#: ../gnomebaker.glade.h:92
+#: ../gnomebaker.glade.h:88
 msgid "_Add device"
 msgstr "Προσ_θήκη συσκευής"
 
-#: ../gnomebaker.glade.h:93
-msgid "_Add selection"
-msgstr ""
+#: ../gnomebaker.glade.h:89
+#, fuzzy
+msgid "_Audio Disk"
+msgstr "<b>Δίσκος ήχου</b>"
 
-#: ../gnomebaker.glade.h:95
+#: ../gnomebaker.glade.h:91
+#, fuzzy
+msgid "_Data Disk"
+msgstr "Δημιουργία δίσκου δεδομένων"
+
+#: ../gnomebaker.glade.h:92
 msgid "_Export"
 msgstr ""
 
-#: ../gnomebaker.glade.h:96
+#: ../gnomebaker.glade.h:93
 msgid "_Format DVD±RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:97
+#: ../gnomebaker.glade.h:94
 msgid "_Import"
 msgstr ""
 
-#: ../gnomebaker.glade.h:98
+#: ../gnomebaker.glade.h:95
 msgid "_Import Session"
 msgstr "Ε_ισαγωγή συνεδρίας"
 
-#: ../gnomebaker.glade.h:99
+#: ../gnomebaker.glade.h:96
+msgid "_New Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:97
+msgid "_Open Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:98
 msgid "_Playlist"
+msgstr ""
+
+#: ../gnomebaker.glade.h:99
+msgid "_Project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:100
@@ -1130,51 +1211,71 @@ msgid "_Refresh"
 msgstr "Α_νανέωση"
 
 #: ../gnomebaker.glade.h:101
-msgid "_Remove selection"
-msgstr ""
+#, fuzzy
+msgid "_Remove Selected Files"
+msgstr "Αφαίρεση επιλεγμένων"
 
 #: ../gnomebaker.glade.h:102
+msgid "_Save Project"
+msgstr ""
+
+#: ../gnomebaker.glade.h:103
 #, fuzzy
 msgid "_Show File Browser"
 msgstr "Εμφάνιση Περιηγητή Αρχείων"
 
-#: ../gnomebaker.glade.h:104
-msgid "_View"
-msgstr "Προ_βολή"
-
 #: ../gnomebaker.glade.h:105
+msgid "_Tools"
+msgstr ""
+
+#: ../gnomebaker.glade.h:106
+msgid "_Window"
+msgstr ""
+
+#: ../gnomebaker.glade.h:107
 msgid "dao"
 msgstr "dao"
 
-#: ../gnomebaker.glade.h:107
+#: ../gnomebaker.glade.h:109
 msgid "raw16"
 msgstr "raw16"
 
-#: ../gnomebaker.glade.h:108
+#: ../gnomebaker.glade.h:110
 msgid "raw96p"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:109
+#: ../gnomebaker.glade.h:111
 msgid "raw96r"
 msgstr ""
 
-#: ../gnomebaker.glade.h:110
+#: ../gnomebaker.glade.h:112
 msgid "tao"
 msgstr "tao"
 
-#, c-format
+#~ msgid "Create ISO only"
+#~ msgstr "Δημιουργία μόνο ISO"
+
+#~ msgid "Edit GnomeBaker's preferences"
+#~ msgstr "Επεξεργασία προτιμήσεων GnomeBaker"
+
+#~ msgid "Import"
+#~ msgstr "Εισαγωγή"
+
+#~ msgid "Import existing session"
+#~ msgstr "Εισαγωγή υπάρχουσας συνεδρίας"
+
+#~ msgid "_Actions"
+#~ msgstr "Ε_νέργειες"
+
+#~ msgid "_View"
+#~ msgstr "Προ_βολή"
+
 #~ msgid "Duration %f Fraction is %f"
 #~ msgstr "Διάρκεια %f κομμάτι είναι %f"
 
-#, c-format
-#~ msgid "%d mins %d secs"
-#~ msgstr "%d λεπτά %d δευτ"
-
-#, c-format
 #~ msgid "mime type is %s for %s %s"
 #~ msgstr "ο τύπος mime είναι %s για %s %s"
 
-#, c-format
 #~ msgid "File %s was not opened \n"
 #~ msgstr "Το αρχείο %s δεν ανοίχθηκε \n"
 
@@ -1191,7 +1292,6 @@ msgstr "tao"
 #~ msgid "Tracktitle"
 #~ msgstr "Όνομα κομματιού"
 
-#, c-format
 #~ msgid "File %s was not opened"
 #~ msgstr "Το αρχείο %s δεν ανοίχθηκε"
 
@@ -1226,7 +1326,6 @@ msgstr "tao"
 #~ msgid "Please select an iso file to save to..."
 #~ msgstr "Παρακαλώ επιλέξτε ένα αρχείο iso για αποθήκευση σε..."
 
-#, c-format
 #~ msgid "burn - [%s]"
 #~ msgstr "εγγραφή - [%s]"
 
@@ -1245,7 +1344,6 @@ msgstr "tao"
 #~ msgid "Tracks:"
 #~ msgstr "Κομμάτια:"
 
-#, c-format
 #~ msgid "cdda2wav_read_proc - total tracks %d"
 #~ msgstr "cdda2wav_read_proc - σύνολο κομματιών %d"
 
@@ -1265,19 +1363,15 @@ msgstr "tao"
 #~ msgid "Fixating"
 #~ msgstr "Κλείδωμα"
 
-#, c-format
 #~ msgid "cdrecord - adding create audio data [%s]"
 #~ msgstr "cdrecord - προσθήκη δημιουργίας δεδομένων ήχου [%s]"
 
-#, c-format
 #~ msgid "adding [%s]"
 #~ msgstr "προσθήκη [%s]"
 
-#, c-format
 #~ msgid "File size %f disksize %f Fraction is %f"
 #~ msgstr "Μέγεθος αρχείου %f μέγεθος δίσκου %f κομμάτι είναι %f"
 
-#, c-format
 #~ msgid "received sel %s"
 #~ msgstr "λήψη sel %s"
 
@@ -1294,30 +1388,24 @@ msgstr "tao"
 #~ msgid "Error unmounting writer device"
 #~ msgstr "Σφάλμα·αποπροσάρτησης·συσκευής·εγγραφής"
 
-#, c-format
 #~ msgid "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
 #~ msgstr "devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]"
 
-#, c-format
 #~ msgid "node [%s] mount [%s]"
 #~ msgstr "node [%s] mount [%s]"
 
-#, c-format
 #~ msgid "node [%s] is link to [%s]"
 #~ msgstr "node [%s] is link to [%s]"
 
 #~ msgid "devices_probe_bus - Failed to scan the scsi bus"
 #~ msgstr "devices_probe_bus -Αποτυχία σάρωσης του διάυλου scsi"
 
-#, c-format
 #~ msgid "devices_add_ide_device - probing [%s]"
 #~ msgstr "devices_add_ide_device - probing [%s]"
 
-#, c-format
 #~ msgid "Failed to open %s"
 #~ msgstr "Αποτυχία ανοίγματος %s"
 
-#, c-format
 #~ msgid "devices_add_scsi_device - probing [%s]"
 #~ msgstr "devices_add_scsi_device - probing [%s]"
 
@@ -1327,18 +1415,15 @@ msgstr "tao"
 #~ msgid "Failed to open /proc/scsi/sg/device_strs"
 #~ msgstr "Αποτυχία·ανοίγματος /proc/scsi/sg/device_strs"
 
-#, c-format
 #~ msgid "---- key [%s], value [%s]"
 #~ msgstr "---- key [%s], value [%s]"
 
-#, c-format
 #~ msgid "looking for device [%d]"
 #~ msgstr "αναζήτηση για συσκευή [%d]"
 
 #~ msgid "Failed to open /proc/sys/dev/cdrom/info"
 #~ msgstr "Αποτυχία ανοίγματος·/proc/sys/dev/cdrom/info"
 
-#, c-format
 #~ msgid ""
 #~ "Error %s %s.\n"
 #~ "\n"
@@ -1369,15 +1454,12 @@ msgstr "tao"
 #~ msgid "Please insert a writable DVD into the DVD writer"
 #~ msgstr "Παρακαλώ εισάγετε ένα εγγράψιμο DVD στον εγγραφέα DVD"
 
-#, c-format
 #~ msgid "growisofs: progress: %d"
 #~ msgstr "growisofs: progress: %d"
 
-#, c-format
 #~ msgid "growisofs: fraction: %f"
 #~ msgstr "growisofs: fraction: %f"
 
-#, c-format
 #~ msgid "exec_thread - parent created child with pid %d"
 #~ msgstr "exec_thread - parent created child with pid %d"
 
@@ -1387,33 +1469,27 @@ msgstr "tao"
 #~ msgid "exec_thread - Exec failed"
 #~ msgstr "exec_thread - Exec failed"
 
-#, c-format
 #~ msgid "exec_thread - child exited with code [%d]\n"
 #~ msgstr "exec_thread - child exited with code [%d]\n"
 
 #~ msgid "exec_thread - exiting"
 #~ msgstr "exec_thread - exiting"
 
-#, c-format
 #~ msgid "exec_go - failed to create thread [%d] [%s]"
 #~ msgstr "exec_go - failed to create thread [%d] [%s]"
 
-#, c-format
 #~ msgid "exec_cancel - killing %d"
 #~ msgstr "exec_cancel - killing %d"
 
 #~ msgid "exec_cancel - complete"
 #~ msgstr "exec_cancel - ολοκληρώθηκε"
 
-#, c-format
 #~ msgid "exec_run_cmd - %s"
 #~ msgstr "exec_run_cmd - %s"
 
-#, c-format
 #~ msgid "error [%s] spawning command [%s]"
 #~ msgstr "error [%s] spawning command [%s]"
 
-#, c-format
 #~ msgid "Uknown error spawning command [%s]"
 #~ msgstr "Άγνωστο σφάλμα spawning command [%s]"
 
@@ -1423,7 +1499,6 @@ msgstr "tao"
 #~ msgid "subdir from GValue is NULL"
 #~ msgstr "subdir from GValue is NULL"
 
-#, c-format
 #~ msgid "*** iter is [%s]\n"
 #~ msgstr "*** iter is [%s]\n"
 
@@ -1433,54 +1508,39 @@ msgstr "tao"
 #~ msgid "invalid"
 #~ msgstr "μη έγκυρο"
 
-#, c-format
 #~ msgid "*** model [%p]\n"
 #~ msgstr "*** model [%p]\n"
 
-#, c-format
 #~ msgid "*** name [%s]\n"
 #~ msgstr "*** όνομα [%s]\n"
 
-#, c-format
 #~ msgid "*** mime [%s]\n"
 #~ msgstr "*** mime [%s]\n"
 
-#, c-format
 #~ msgid "*** size [%ld]\n"
 #~ msgstr "*** μέγεθος [%ld]\n"
 
-#, c-format
 #~ msgid "Stat of file [%s] failed"
 #~ msgstr "Stat of file [%s] failed"
 
-#, c-format
 #~ msgid "%s was double clicked"
 #~ msgstr "έγινε διπλό κλικ στο %s"
 
-#, c-format
 #~ msgid "creating [%s]"
 #~ msgstr "δημιουργία [%s]"
 
-#, c-format
 #~ msgid "failed to create temp %d"
 #~ msgstr "αποτυχία δημιουργίας ·temp·%d"
 
-#, c-format
 #~ msgid "Failed to get contents of file [%s]"
 #~ msgstr "Αποτυχία λήψης περιεχομένων του αρχείου [%s]"
 
-#, c-format
 #~ msgid "MessageDialog message [%s]"
 #~ msgstr "MessageDialog message [%s]"
 
-#~ msgid "Please select an iso file..."
-#~ msgstr "Παρακαλώ επιλέξτε ένα αρχείο iso..."
-
-#, c-format
 #~ msgid "file is %s"
 #~ msgstr "αρχείο είναι %s"
 
-#, c-format
 #~ msgid "mime type is %s for %s"
 #~ msgstr "ο τύπος mime είναι %s·για·%s"
 
@@ -1488,8 +1548,8 @@ msgstr "tao"
 #~ "The file you have selected is not a cd image. Please select a cd image to "
 #~ "burn."
 #~ msgstr ""
-#~ "Το αρχείο που επιλέξατε δεν είναι εικόνα cd. Παρακαλώ επιλέξτε μια εικόνα cd "
-#~ "για εγγραφή."
+#~ "Το αρχείο που επιλέξατε δεν είναι εικόνα cd. Παρακαλώ επιλέξτε μια εικόνα "
+#~ "cd για εγγραφή."
 
 #~ msgid "Simple CD Burning for Gnome"
 #~ msgstr "Μία απλή εφαρμογή αντιγραφής CD του Gnome"
@@ -1500,7 +1560,6 @@ msgstr "tao"
 #~ msgid "<b>Converting mp3 to cd audio...</b>"
 #~ msgstr "<b>Μετατροπή mp3 σε cd audio...</b>"
 
-#, c-format
 #~ msgid "Converted file is [%s]"
 #~ msgstr "Το αρχείο που μετατράπηκε είναι ·[%s]"
 
@@ -1510,7 +1569,6 @@ msgstr "tao"
 #~ msgid "Failed to initialise gconf"
 #~ msgstr "Αποτυχία εκκίνησης gconf"
 
-#, c-format
 #~ msgid "toolbar style [%s] [%d]"
 #~ msgstr "στυλ εργαλειοθήκης [%s] [%d]"
 
@@ -1523,7 +1581,6 @@ msgstr "tao"
 #~ msgid "<b>Converting wav to cd audio...</b>"
 #~ msgstr "<b>Μετατροπή wav σε cd audio...</b>"
 
-#, c-format
 #~ msgid "Writer is: %s"
 #~ msgstr "Writer είναι: %s"
 

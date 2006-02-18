@@ -105,8 +105,7 @@ main(gint argc, gchar *argv[])
     gnomebaker_delete(app);
     g_object_unref(prog);
     prog = NULL;
-    if(gblibnotify_clear())
-    	GB_TRACE("Global notification closed");
+    gblibnotify_clear();
 	return 0;
 }
 
