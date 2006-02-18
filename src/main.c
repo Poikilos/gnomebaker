@@ -31,6 +31,7 @@
 #include <libintl.h>
 #include <locale.h>
 #include <gst/gst.h>
+#include "gblibnotify.h"
 
 const gchar* glade_file;
 gboolean showtrace = FALSE;
@@ -58,15 +59,20 @@ main(gint argc, gchar *argv[])
 	g_option_context_free(context);
     if(error != NULL) g_error_free(error);   
     
+    if (gblibnotify_init("Gnomebaker"))
+		GB_TRACE("Libnotify initialised");
+	else
+		GB_TRACE("Failed to initialise libnotify");
+    
     g_thread_init(NULL);
 	gdk_threads_init();
 	
-	#ifdef ENABLE_NLS
+#ifdef ENABLE_NLS
 		setlocale(LC_ALL,"");		
 		bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
 		bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 		textdomain (GETTEXT_PACKAGE);
-	#endif
+#endif
 	
 	struct poptOption options[] = 
 	{
@@ -75,7 +81,7 @@ main(gint argc, gchar *argv[])
 	};
 
 	/* init GStreamer and GNOME using the GStreamer popt tables */
-	options[0].arg = (void *) gst_init_get_popt_table ();
+	options[0].arg = (void *) gst_init_get_popt_table ();	
 
     GnomeProgram* prog = gnome_program_init ("gnomebaker", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, 
         GNOME_PARAM_POPT_TABLE, options, GNOME_PARAM_APP_DATADIR, DATADIR, NULL);
@@ -102,6 +108,8 @@ main(gint argc, gchar *argv[])
     gnomebaker_delete(app);
     g_object_unref(prog);
     prog = NULL;
+    if(gblibnotify_clear())
+    	GB_TRACE("Global notification closed");
 	return 0;
 }
 
