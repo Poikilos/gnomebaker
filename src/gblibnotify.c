@@ -176,7 +176,7 @@ gblibnotify_clear (void)
  *		gb_libnotify_notification are made.
  */
 gboolean
-gblibnotify_init (const gchar *nicename)
+gblibnotify_init(const gchar *nicename)
 {
     GB_LOG_FUNC
     g_return_val_if_fail(nicename != NULL, FALSE);
@@ -188,7 +188,9 @@ gblibnotify_init (const gchar *nicename)
 #elif (LIBNOTIFY_VERSION_MINOR == 2)    
     ret = notify_glib_init (nicename, NULL);
 #endif
-#endif	
+    if(!ret)    
+        GB_TRACE("gblibnotify_init - Failed to initialise libnotify");
+#endif
 	return ret;
 }
 
