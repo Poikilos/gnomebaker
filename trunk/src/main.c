@@ -59,10 +59,7 @@ main(gint argc, gchar *argv[])
 	g_option_context_free(context);
     if(error != NULL) g_error_free(error);   
     
-    if (gblibnotify_init("Gnomebaker"))
-		GB_TRACE("Libnotify initialised");
-	else
-		GB_TRACE("Failed to initialise libnotify");
+    gblibnotify_init("GnomeBaker");
     
     g_thread_init(NULL);
 	gdk_threads_init();
