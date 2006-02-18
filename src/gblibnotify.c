@@ -92,10 +92,7 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
 	/* not sure if we have to free the pixbuf since it could be used internally in libnotify
 	   have to investigate further also need supply the full path of the filename 
        with the auto* magic stuff*/
-    gchar* fullfilename = g_build_filename(IMAGEDIR, "gnomebaker-48.png", NULL);
-    GdkPixbuf *icon_pixbuf = gdk_pixbuf_new_from_file(fullfilename, NULL);
-    g_free(fullfilename);    
-    
+    GdkPixbuf *icon_pixbuf = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
 	notify_notification_set_icon_from_pixbuf (globalnotify, icon_pixbuf);
     notify_notification_set_timeout (globalnotify, timeout_seconds * MILISECONDS_IN_SECOND);
 
@@ -124,9 +121,7 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
     }*/
 
     /* the path for the icon, this really should use the auto* stuff and not being hardcoded */
-    gchar* fullfilename = g_build_filename(IMAGEDIR, "gnomebaker-48.png", NULL);
-    NotifyIcon *icon = gdk_pixbuf_new_from_file(fullfilename, NULL);
-    g_free(fullfilename);    
+    NotifyIcon *icon = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
     globalnotify = notify_send_notification (globalnotify, /* replaces all */
                NULL,
                NOTIFY_URGENCY_NORMAL,
