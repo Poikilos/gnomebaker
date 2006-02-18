@@ -182,7 +182,7 @@ something appropriate as you have to do something in the if.
 
 
 
-6. Function names begin with the filename
+6. Function names begin with the filename and words are separated with _
 -------------------------------------------------------------------------------
 
 Where practical, function names should begin with the file they are implemented
@@ -212,6 +212,7 @@ ie
 	void datacd_add_selection(GtkSelectionData* selection);
 	void datacd_import_session();
 
+Note that the names are all lower case and the word separation is with _.
 
 
 7. Don't forward declare functions
@@ -253,4 +254,16 @@ anything until it compiles without warnings unless there's a good reason.
 --------------------------------------------------------------------------------
 
 All code comments are to use proper c style comments /* */ rather than //.
+
+
+12. Variable naming
+--------------------------------------------------------------------------------
+
+Although the majority of existing GnomeBaker code does not follow this at the moment,
+please name all variables in lower case and separate words using _.
+
+eg.
+
+const gint count_of_items;
+static char a_random_char;
 
