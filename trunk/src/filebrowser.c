@@ -864,6 +864,10 @@ filebrowser_refresh()
     GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(dirtree));
     g_return_if_fail(sel != NULL);
     
+    /* TODO - this is a hack to force the filebrowser to think the selection has
+     * changed so it will reload the directory, think of something better */
+    gtk_tree_path_free(dirtreeselected);
+    dirtreeselected = NULL;    
     g_signal_emit_by_name (sel, "changed", sel, filelist);
 }
 
