@@ -453,18 +453,18 @@ datacd_update_progress_bar()
 		if(datacd_compilation_size > disksize)
 		{
 			gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 1.0);	
+            gnomebaker_enable_widget(widget_datacd_create, FALSE);
 		}
 		else
 		{
 			gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
+            gnomebaker_enable_widget(widget_datacd_create, TRUE);
 		}
 	
         gchar *buf = datacd_format_progress_text(datacd_compilation_size);
         gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
         g_free(buf);
-		gnomebaker_enable_widget(widget_datacd_create, TRUE);
 	}
-
 }
 
 

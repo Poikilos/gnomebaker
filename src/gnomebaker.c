@@ -561,7 +561,7 @@ gnomebaker_on_remove(gpointer widget, gpointer user_data)
 	switch(gtk_notebook_get_current_page(GTK_NOTEBOOK(notebook)))
 	{
 		case 0:
-			datacd_remove();
+			datacd_remove(NULL);
 			break;
 		case 1:
 			audiocd_remove();
