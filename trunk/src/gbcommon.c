@@ -21,54 +21,51 @@
  
 #include "gbcommon.h" 
 #include "gnomebaker.h"
+#include "preferences.h"
 #include <sys/stat.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
-static GList *g_tempFileList = NULL;
+static GList *temp_file_list = NULL;
 
 
 /* creates and opens a temp file*/
 /* when it is no longer used it can be deleted with gbcommon_delete_temp_file
  * or at the end of the program it will be deleted as long as gbcommon_delete_all_temp_files*/
-GBTempFile *
-gbcommon_create_open_temp_file(const gchar * prefix)
+GBTempFile*
+gbcommon_create_open_temp_file()
 {
 	GB_LOG_FUNC
-	g_return_if_fail(prefix != NULL);
 	
-    GBTempFile *tmpFile = NULL;
-	gchar *tmpFileName = g_strconcat(prefix,"-XXXXXX",NULL);
-	gchar *tmpFilePath = NULL;
+    GBTempFile *tmp_file = NULL;
+    gchar *temp_dir = preferences_get_string(GB_TEMP_DIR);
+	gchar *tmp_file_name = g_build_filename(temp_dir, "gnomebaker-XXXXXX", NULL);
+    g_free(temp_dir);    
     FILE *stream = NULL;
 	
-	gint fd = g_file_open_tmp(tmpFileName, &tmpFilePath, NULL);
+	gint fd = g_mkstemp(tmp_file_name);
 	if(fd == -1)
 	{
 		g_critical("gbcommon_create_open_temp_file - Failed when trying to create the temporary file [%s]",
-                 tmpFilePath);
+                 tmp_file_name);
 	}
 	else if((stream = fdopen (fd, "w")) == NULL)
 	{
-		g_critical("gbcommon_create_open_temp_file - Could not open [%s] for writing", tmpFilePath);
+		g_critical("gbcommon_create_open_temp_file - Could not open [%s] for writing", tmp_file_name);
         close(fd);
 	}
     else 
     {
-    	tmpFile = (GBTempFile*)g_new0(GBTempFile, 1);
-    	tmpFile->fileDescriptor = fd;
-    	tmpFile->fileStream = stream;
-    	tmpFile->fileName = g_strdup(tmpFilePath); /*necesary for unlink*/
-            
-    	/*register temp file*/	
-    	g_tempFileList = g_list_prepend(g_tempFileList, tmpFile);
+    	tmp_file = (GBTempFile*)g_new0(GBTempFile, 1);
+    	tmp_file->file_descriptor = fd;
+    	tmp_file->file_stream = stream;
+    	tmp_file->file_name = g_strdup(tmp_file_name); /*necesary for unlink*/
+    	temp_file_list = g_list_prepend(temp_file_list, tmp_file);
     }
+    g_free(tmp_file_name);
     
-    g_free(tmpFileName);
-    g_free(tmpFilePath);
-    
-	return tmpFile;	
+	return tmp_file;	
 }
 
 
@@ -79,19 +76,19 @@ gbcommon_close_temp_file(GBTempFile *tmpFile)
 	GB_LOG_FUNC
 	g_return_if_fail(tmpFile != NULL);
 
-	if(tmpFile->fileStream != NULL)
+	if(tmpFile->file_stream != NULL)
 	{
-		if(fclose(tmpFile->fileStream) != 0)
-			g_critical("gbcommon_close_temp_file - Temporary file stream [%s] could not be closed", tmpFile->fileName);
+		if(fclose(tmpFile->file_stream) != 0)
+			g_critical("gbcommon_close_temp_file - Temporary file stream [%s] could not be closed", tmpFile->file_name);
 	}
-	if(tmpFile->fileDescriptor >= 0)
+	if(tmpFile->file_descriptor >= 0)
 	{
-		if(close(tmpFile->fileDescriptor) != 0)
-			g_critical("gbcommon_close_temp_file - Temporary file descriptor [%s] could not be closed", tmpFile->fileName);
+		if(close(tmpFile->file_descriptor) != 0)
+			g_critical("gbcommon_close_temp_file - Temporary file descriptor [%s] could not be closed", tmpFile->file_name);
 	}
     
-    tmpFile->fileStream = NULL;
-    tmpFile->fileDescriptor = -1;
+    tmpFile->file_stream = NULL;
+    tmpFile->file_descriptor = -1;
 }
 
 
@@ -102,25 +99,25 @@ gbcommon_delete_all_temp_files()
 	GB_LOG_FUNC
 	GList *node = NULL;
     
-	for(node = g_tempFileList; node != NULL; node = node->next)
+	for(node = temp_file_list; node != NULL; node = node->next)
 	{
 		if(node->data != NULL)
 		{
 			GBTempFile *tmpFile = (GBTempFile*)node->data;
 			gbcommon_close_temp_file(tmpFile);
-			if(tmpFile->fileName != NULL)
+			if(tmpFile->file_name != NULL)
 			{
                 /* TODO g_unlink requires gtk 2.6 */
-				if(unlink(tmpFile->fileName) == -1)
+				if(unlink(tmpFile->file_name) == -1)
 				{
-					g_critical("gbcommon_delete_all_temp_files - File [%s] could not be deleted", tmpFile->fileName);
+					g_critical("gbcommon_delete_all_temp_files - File [%s] could not be deleted", tmpFile->file_name);
 				}
-				g_free(tmpFile->fileName);
+				g_free(tmpFile->file_name);
 			}
 			g_free(tmpFile);
 		}
 	}
-	g_list_free(g_tempFileList);
+	g_list_free(temp_file_list);
 }
 
 

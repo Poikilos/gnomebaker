@@ -1608,7 +1608,7 @@ datacd_build_filepaths(GtkTreeModel *model)
         
     GList *compilation_list = NULL;
     
-    GBTempFile *tmpFile = gbcommon_create_open_temp_file("gnomebaker");
+    GBTempFile *tmpFile = gbcommon_create_open_temp_file();
     if(tmpFile == NULL)
     {
         g_critical("datacd_build_filepaths - Error. Temp file was not created. Image will not be created");
@@ -1682,7 +1682,7 @@ datacd_build_filepaths(GtkTreeModel *model)
             if(!item->existing_session)
             {
                 /*GB_TRACE("datacd_build_filepaths - Data to Burn [%s]=[%s]\n",item->path_to_burn , item->path_in_filesystem);*/
-                fprintf(tmpFile->fileStream, "%s=%s\n", item->path_to_burn , item->path_in_filesystem);
+                fprintf(tmpFile->file_stream, "%s=%s\n", item->path_to_burn , item->path_in_filesystem);
                 /*free memory*/
                 g_free(item->path_in_filesystem);
                 g_free(item->path_to_burn);
@@ -1715,14 +1715,14 @@ datacd_on_create_datadisk(gpointer widget, gpointer user_data)
 	if(datadisksize >= datadisksizes[DVD_4GB].size)
     {
         if(msinfo != NULL)
-            burn_append_data_dvd(tmp_file->fileName, msinfo);
+            burn_append_data_dvd(tmp_file->file_name, msinfo);
         else
-		    burn_create_data_dvd(tmp_file->fileName);
+		    burn_create_data_dvd(tmp_file->file_name);
     }
 	else if(msinfo != NULL)
-        burn_append_data_cd(tmp_file->fileName, msinfo);
+        burn_append_data_cd(tmp_file->file_name, msinfo);
     else
-	    burn_create_data_cd(tmp_file->fileName);
+	    burn_create_data_cd(tmp_file->file_name);
        
     /* TODO - we should delete the temp file here */
 }
