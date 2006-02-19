@@ -215,6 +215,7 @@ ie
 Note that the names are all lower case and the word separation is with _.
 
 
+
 7. Don't forward declare functions
 -------------------------------------------------------------------------------
 
@@ -234,11 +235,13 @@ reflect all the strings in the source files. A translator needs to copy that
 file to a locale file, eg. pt_BR.po. In this file he can translate the strings.
 
 
+
 9. Compiler warnings
 --------------------------------------------------------------------------------
 
 As far as I am concerned, compiler warnings are errors. Please do not commit
 anything until it compiles without warnings unless there's a good reason.
+
 
 
 10. Adding translation files
@@ -250,10 +253,12 @@ anything until it compiles without warnings unless there's a good reason.
 * run 'make update-po' in the po directory to make sure that the po file does not contain errors.
 
 
+
 11. Comments
 --------------------------------------------------------------------------------
 
 All code comments are to use proper c style comments /* */ rather than //.
+
 
 
 12. Variable naming
@@ -267,3 +272,29 @@ eg.
 const gint count_of_items;
 static char a_random_char;
 
+
+
+13. Operator use
+--------------------------------------------------------------------------------
+
+When using a conditional operator please use spaces.
+
+eg.
+
+Use:
+
+if(count_of_items > 0)
+
+rather than:
+
+if(count_of_items>0)
+
+
+
+14. Library versions
+--------------------------------------------------------------------------------
+
+GnomeBaker currently only requires GTK 2.4. When writing code please 
+avoid using functions from newer GTK versions as we want to stay as distro
+friendly as possible. If that function is necessary and avoids writing a whole
+bunch of code then we will up the required version of GTK.

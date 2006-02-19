@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-18 01:46+0000\n"
+"POT-Creation-Date: 2006-02-19 01:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Persian <fa@li.org>\n"
@@ -16,38 +16,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/audiocd.c:117
+#: ../src/audiocd.c:119
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
 msgstr "%d دقیقه و %d ثانیه استفاده شده - %d دقیقه و %d ثانیه باقی مانده"
 
-#: ../src/audiocd.c:165
+#: ../src/audiocd.c:147
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr ""
 "شیار انتخاب شده بسیار بزرگتر از آن است که در فضای باقی مانده لوح فشرده قرار "
 "گیرد."
 
-#: ../src/audiocd.c:256 ../src/filebrowser.c:584
+#: ../src/audiocd.c:280 ../src/filebrowser.c:584
 msgid "_Open"
 msgstr "گشودن"
 
-#: ../src/audiocd.c:261
+#: ../src/audiocd.c:285
 msgid "Move selected _up"
 msgstr "انتقال گزینه انتخاب‌شده به بالا"
 
-#: ../src/audiocd.c:263
+#: ../src/audiocd.c:287
 msgid "Move selected _down"
 msgstr "انتقال گزینه انتخاب‌شده به پایین"
 
-#: ../src/audiocd.c:266 ../src/datacd.c:479
+#: ../src/audiocd.c:290 ../src/datacd.c:1030 ../src/datacd.c:1058
 msgid "_Remove selected"
 msgstr "حذف گزینه انتخاب‌شده"
 
-#: ../src/audiocd.c:268
+#: ../src/audiocd.c:292
 msgid "_Clear"
 msgstr "پاک کردن"
 
-#: ../src/audiocd.c:358
+#: ../src/audiocd.c:382
 #, c-format
 msgid ""
 "The file [%s] referred to in the playlist could not be imported as it does "
@@ -56,7 +56,11 @@ msgstr ""
 "به کارگیری فایل [%s] که لیست پخش قرار دارد، امکان پذیر نیست، زیرا این فایل "
 "وجود ندارد."
 
-#: ../src/audiocd.c:706
+#: ../src/audiocd.c:523
+msgid "Not enough space on the CD"
+msgstr ""
+
+#: ../src/audiocd.c:745
 msgid ""
 "The file you have selected is not a supported playlist. Please select a pls "
 "or m3u file."
@@ -64,11 +68,11 @@ msgstr ""
 "فایلی که شما انتخاب کرده‌اید یک فایل لیست پخش پشتیبانی شده نیست. لطفا یک فایل "
 "pls یا m3u را انتخاب کنید."
 
-#: ../src/audiocd.c:724 ../src/audiocd.c:761
+#: ../src/audiocd.c:763 ../src/audiocd.c:800
 msgid "Failed to write playlist file"
 msgstr "نوشتن فایل لیست‌پخش ممکن نشد."
 
-#: ../src/audiocd.c:810
+#: ../src/audiocd.c:849
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
@@ -76,27 +80,27 @@ msgstr ""
 "لیست‌پخش در حال حاضر موجود است\n"
 " آیا می‌خواهید آنرا جایگزین کنید ؟"
 
-#: ../src/audiocd.c:843
+#: ../src/audiocd.c:884
 msgid "Track"
 msgstr "شیار"
 
-#: ../src/audiocd.c:856
+#: ../src/audiocd.c:897
 msgid "Duration"
 msgstr "مدت زمان"
 
-#: ../src/audiocd.c:873
+#: ../src/audiocd.c:914
 msgid "Artist"
 msgstr "هنرمند"
 
-#: ../src/audiocd.c:882
+#: ../src/audiocd.c:923
 msgid "Album"
 msgstr "آلبوم"
 
-#: ../src/audiocd.c:891
+#: ../src/audiocd.c:932
 msgid "Title"
 msgstr "عنوان"
 
-#: ../src/audiocd.c:900
+#: ../src/audiocd.c:941
 msgid "Info"
 msgstr "اطلاعات"
 
@@ -163,17 +167,17 @@ msgstr ""
 "شود، صبر کنید. این عملیات ممکن است بسته به سرعت دستگاه سوزاننده لوح فشرده‌(CD-"
 "Writer) شما، کمی طول بکشد. "
 
-#: ../src/burn.c:221 ../src/burn.c:231
+#: ../src/burn.c:222 ../src/burn.c:232
 msgid "Appending to data CD"
 msgstr "افزودن به لوح فشرده اطلاعاتی"
 
-#: ../src/burn.c:221
+#: ../src/burn.c:222
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr ""
 "لطفا تا زمانی که اطلاعات اضافه به صورت مستقیم در لوح فشرده سوزانده(ذخیره) "
 "شود، صبر کنید."
 
-#: ../src/burn.c:231
+#: ../src/burn.c:232
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
@@ -182,11 +186,11 @@ msgstr ""
 "کنید. این عملیات ممکن است بسته به سرعت دستگاه سوزاننده لوح فشرده‌(CD-Writer) "
 "شما، کمی طول بکشد. "
 
-#: ../src/burn.c:253
+#: ../src/burn.c:254
 msgid "Burning audio CD"
 msgstr "سوزاندن(ذخیره) لوح فشرده صوتی"
 
-#: ../src/burn.c:253
+#: ../src/burn.c:254
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
@@ -194,116 +198,131 @@ msgstr ""
 "لطفا تا زمانی که شیارهای انتخاب شده به لوح فشرده صوتی تبدیل شده، سپس در لوح "
 "فشرده سوزانده(ذخیره) شود، صبر کنید."
 
-#: ../src/burn.c:316
+#: ../src/burn.c:317
 msgid "Extracting CD image"
 msgstr "استخراج تصویر لوح فشرده"
 
-#: ../src/burn.c:316
+#: ../src/burn.c:317
 msgid "Please wait while the data CD image is extracted."
 msgstr "لطفا تا زمانی که تصویر اطلاعات لوح فشرده استخراج شود، صبر کنید."
 
-#: ../src/burn.c:322
+#: ../src/burn.c:323
 msgid "Copying data CD"
 msgstr "نسخه برداری لوح فشرده اطلاعاتی"
 
-#: ../src/burn.c:322
+#: ../src/burn.c:323
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 "لطفا تا زمانی که تصویر اطلاعات لوح فشرده استخراج شود و در لوح فشرده سوزانده"
 "(ذخیره) شود، صبر کنید."
 
-#: ../src/burn.c:342
+#: ../src/burn.c:343
 msgid "Copying audio CD"
 msgstr "نسخه برداری لوح فشرده صوتی"
 
-#: ../src/burn.c:342
+#: ../src/burn.c:343
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr ""
 "لطفا تا زمانی که شیارهای لوح فشرده صوتی استخراج شود و در لوح فشرده سوزانده"
 "(ذخیره) شود، صبر کنید."
 
-#: ../src/burn.c:359
+#: ../src/burn.c:360
 msgid "Blanking CD"
 msgstr "خالی‌ کردن لوح فشرده"
 
-#: ../src/burn.c:359
+#: ../src/burn.c:360
 msgid "Please wait while the CD is blanked."
 msgstr "لطفا تا خالی شدن لوح فشرده صبر کنید."
 
-#: ../src/burn.c:375
+#: ../src/burn.c:376
 #, fuzzy
 msgid "Formatting re-writeable DVD"
 msgstr "طبقه بندی RRW-DVD"
 
-#: ../src/burn.c:375
+#: ../src/burn.c:376
 msgid "Please wait while the DVD is formatted."
 msgstr "لطفا تا زمانی که DVD طبقه‌‌بندی(فرمت) شود، صبر کنید."
 
-#: ../src/burn.c:395
+#: ../src/burn.c:396
 msgid "Creating data DVD image"
 msgstr "ایجاد تصویر DVD اطلاعاتی"
 
-#: ../src/burn.c:395
+#: ../src/burn.c:396
 msgid "Please wait while the data DVD image is created."
 msgstr "لطفا تا زمانی که تصویر DVD اطلاعاتی ایجاد شود، صبر کنید."
 
-#: ../src/burn.c:401
+#: ../src/burn.c:402
 msgid "Burning data DVD"
 msgstr "سوزاندن(ذخیره) DVD اطلاعاتی"
 
-#: ../src/burn.c:401
+#: ../src/burn.c:402
 msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
 "لطفا تا زمانی که اطلاعات به صورت مستقیم در DVD سوزانده(ذخیره) شود، صبر کنید."
 
-#: ../src/burn.c:419 ../src/burn.c:481
+#: ../src/burn.c:421 ../src/burn.c:483
 msgid "Appending to data DVD"
 msgstr "افزودن به DVD اطلاعاتی"
 
-#: ../src/burn.c:419 ../src/burn.c:481
+#: ../src/burn.c:421 ../src/burn.c:483
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "لطفا تا زمانی که اطلاعات به صورت مستقیم در DVD افزوده شود، صبر کنید."
 
-#: ../src/burn.c:446 ../src/execfunctions.c:1458
+#: ../src/burn.c:448 ../src/execfunctions.c:1464
 msgid "Verifying the disk content"
 msgstr "بازبینی کردن محتویات دیسک"
 
-#: ../src/datacd.c:147
+#: ../src/datacd.c:187 ../src/startdlg.c:523
+msgid "GnomeBaker data disk"
+msgstr "دیسک اطلاعاتی GnomeBaker"
+
+#: ../src/datacd.c:403
 #, c-format
 msgid "%s used - %s remaining"
 msgstr "%s استفاده شده - %s باقیمانده"
 
-#: ../src/datacd.c:203
-msgid "File or directory is too large to fit in the remaining space on the CD"
-msgstr "فایل یا پوشه بسیار بزرگتر از فضای باقی مانده در لوح فشرده است"
+#: ../src/datacd.c:410
+#, c-format
+msgid "%s of %s used. Disk full"
+msgstr ""
 
-#: ../src/datacd.c:475
+#: ../src/datacd.c:978
+#, fuzzy
+msgid "New Folder"
+msgstr "پوشه"
+
+#: ../src/datacd.c:1018
+#, fuzzy
+msgid "_Add Folder"
+msgstr "پوشه"
+
+#: ../src/datacd.c:1026
 msgid "_Edit name"
 msgstr "تغییر نام"
 
-#: ../src/datacd.c:481
+#: ../src/datacd.c:1032
 msgid "Clear"
 msgstr "تمیز"
 
-#: ../src/datacd.c:514 ../gnomebaker.glade.h:42
+#: ../src/datacd.c:1190 ../src/datacd.c:1288 ../gnomebaker.glade.h:42
 msgid "Contents"
 msgstr "محتوی"
 
-#: ../src/datacd.c:538 ../src/datacd.c:548 ../src/filebrowser.c:797
+#: ../src/datacd.c:1312 ../src/datacd.c:1322 ../src/filebrowser.c:797
 #: ../src/filebrowser.c:807
 msgid "Size"
 msgstr "حجم"
 
-#: ../src/datacd.c:558
+#: ../src/datacd.c:1332
 msgid "Full Path"
 msgstr "آدرس کامل"
 
-#: ../src/datacd.c:567
+#: ../src/datacd.c:1341
 msgid "Session"
 msgstr "نشست"
 
-#: ../src/datacd.c:612
+#: ../src/datacd.c:1427
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -314,16 +333,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/datacd.c:613 ../src/devices.c:664
+#: ../src/datacd.c:1428 ../src/devices.c:664
 msgid "unknown error"
 msgstr "اشکال شناخته نشده"
 
-#: ../src/datacd.c:687
+#: ../src/datacd.c:1507
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
 msgstr ""
+
+#: ../src/datacd.c:1709
+#, fuzzy
+msgid "Compilation exeeds the capacity or the remaining space of the disk"
+msgstr ""
+"شیار انتخاب شده بسیار بزرگتر از آن است که در فضای باقی مانده لوح فشرده قرار "
+"گیرد."
 
 #: ../src/devices.c:653
 msgid ""
@@ -360,9 +386,9 @@ msgstr "آماده شدن برای سوزاندن(ذخیره کردن) دیسک"
 msgid "Writing track %d"
 msgstr "نوشتن شیار %d"
 
-#: ../src/execfunctions.c:253 ../src/execfunctions.c:1002
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:108
+#: ../src/execfunctions.c:253 ../src/execfunctions.c:1008
+#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:199
+#: ../src/startdlg.c:200 ../gnomebaker.glade.h:108
 msgid "default"
 msgstr "پیش‌فرض"
 
@@ -399,23 +425,23 @@ msgstr ""
 "یک تصویر لوح فشرده از نشست قبلی در دیسک موجود می‌باشد. آیا می‌خواهید از تصویر "
 "موجود استفاده کنید ؟"
 
-#: ../src/execfunctions.c:818
+#: ../src/execfunctions.c:825
 msgid "Formatting DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:899
+#: ../src/execfunctions.c:906
 msgid "Preparing to burn DVD"
 msgstr "آماده شدن برای سوزاندن(ذخیره کردن) DVD"
 
-#: ../src/execfunctions.c:930 ../src/execfunctions.c:955
+#: ../src/execfunctions.c:937 ../src/execfunctions.c:962
 msgid "Writing DVD"
 msgstr "نوشتن در DVD"
 
-#: ../src/execfunctions.c:1068
+#: ../src/execfunctions.c:1074
 msgid "Reading CD image"
 msgstr "خواندن تصویر لوح فشرده"
 
-#: ../src/execfunctions.c:1076
+#: ../src/execfunctions.c:1082
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
@@ -423,13 +449,13 @@ msgstr ""
 "یک تصویر لوح فشرده از نشست قبلی موجود در دیسک موجود است. آیا می‌خواهید از "
 "تصویر موجود استفاده کنید ؟"
 
-#: ../src/execfunctions.c:1341
+#: ../src/execfunctions.c:1347
 #, c-format
 msgid "Converting %s to cd audio"
 msgstr "تبدیل %s به لوح فشرده صوتی"
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
-#: ../src/startdlg.c:408
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:381
+#: ../src/startdlg.c:409
 msgid "Filesystem"
 msgstr "فایل‌سیستم"
 
@@ -478,89 +504,89 @@ msgstr "نوع"
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:469
+#: ../src/gbcommon.c:583
 msgid "All files"
 msgstr "تمام فایل‌ها"
 
-#: ../src/gbcommon.c:477
+#: ../src/gbcommon.c:591
 msgid "Save file as type:"
 msgstr "ذخیره فایل با نوع:"
 
-#: ../src/gnomebaker.c:125
+#: ../src/gnomebaker.c:127
 msgid "Loading preferences..."
 msgstr "بارگذاری تنظیمات..."
 
-#: ../src/gnomebaker.c:128
+#: ../src/gnomebaker.c:130
 msgid "Detecting devices..."
 msgstr "شناختن دستگاه‌ها..."
 
-#: ../src/gnomebaker.c:131
+#: ../src/gnomebaker.c:133
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: ../src/gnomebaker.c:134
+#: ../src/gnomebaker.c:136
 msgid "Loading GUI..."
 msgstr "بارگذاری محیط گرافیکی..."
 
-#: ../src/gnomebaker.c:159
+#: ../src/gnomebaker.c:161
 #, fuzzy
 msgid "Audio files"
 msgstr "اضافه کردن فایل(ها)"
 
-#: ../src/gnomebaker.c:243
+#: ../src/gnomebaker.c:245
 msgid "Are you sure you want to quit?"
 msgstr "آیا مطمئن هستید که می‌خواهید خارج شوید؟"
 
-#: ../src/gnomebaker.c:320
+#: ../src/gnomebaker.c:322
 msgid "CD Image files"
 msgstr "فایل‌های تصویر لوح فشرده"
 
-#: ../src/gnomebaker.c:321
+#: ../src/gnomebaker.c:323
 msgid "Please select a CD image file."
 msgstr "لطفا یک فایل تصویر لوح فشرده انتخاب کنید."
 
-#: ../src/gnomebaker.c:336
+#: ../src/gnomebaker.c:338
 msgid "DVD Image files"
 msgstr "فایل‌های تصویرdvd"
 
-#: ../src/gnomebaker.c:337
+#: ../src/gnomebaker.c:339
 msgid "Please select a DVD image file."
 msgstr "لطفا یک فایل تصویر DVD انتخاب کنید."
 
-#: ../src/gnomebaker.c:408 ../gnomebaker.glade.h:53
+#: ../src/gnomebaker.c:410 ../gnomebaker.glade.h:53
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:409
+#: ../src/gnomebaker.c:411
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "سوزاندن آسان لوح فشرده و DVD برای گنوم"
 
-#: ../src/gnomebaker.c:409 ../gnomebaker.glade.h:113
+#: ../src/gnomebaker.c:411 ../gnomebaker.glade.h:113
 msgid "translator_credits"
 msgstr "معین علی‌نقیان <masoft@users.sourceforge.net>"
 
-#: ../src/gnomebaker.c:498
+#: ../src/gnomebaker.c:500
 msgid "Please select files to add to the disk."
 msgstr "لطفا فایل‌ها را برای اضافه به دیسک انتخاب کنید."
 
-#: ../src/gnomebaker.c:775 ../src/gnomebaker.c:798
+#: ../src/gnomebaker.c:777 ../src/gnomebaker.c:800
 msgid "Playlist files"
 msgstr "فایل‌های لیست پخش"
 
-#: ../src/gnomebaker.c:776
+#: ../src/gnomebaker.c:778
 msgid "Please select a playlist."
 msgstr "لطفا یک لیست پخش انتخاب کنید."
 
-#: ../src/gnomebaker.c:805
+#: ../src/gnomebaker.c:807
 msgid "Save playlist as..."
 msgstr "ذخیره لیست‌پخش با عنوان ..."
 
-#: ../src/gnomebaker.c:828
+#: ../src/gnomebaker.c:830
 #, fuzzy
 msgid "Project files"
 msgstr "خروج دیسک"
 
-#: ../src/gnomebaker.c:829
+#: ../src/gnomebaker.c:831
 #, fuzzy
 msgid "Please select a project file."
 msgstr "لطفا یک فایل تصویر لوح فشرده انتخاب کنید."
@@ -663,145 +689,141 @@ msgstr "خراب شد"
 msgid "Gnomebaker <b>failed</b> to complete the action!"
 msgstr ""
 
-#: ../src/startdlg.c:98
+#: ../src/startdlg.c:99
 msgid "Please select an image file to save to."
 msgstr "لطفا یک فایل تصویر برای ذخیره انتخاب کنید."
 
-#: ../src/startdlg.c:120
+#: ../src/startdlg.c:121
 msgid "CD/DVD Image files"
 msgstr "فایل‌های تصویر لوح فشرده\\DVD"
 
-#: ../src/startdlg.c:178 ../gnomebaker.glade.h:14
+#: ../src/startdlg.c:179 ../gnomebaker.glade.h:14
 msgid "<b>Devices</b>"
 msgstr "<b>دستگاه‌ها</b>"
 
-#: ../src/startdlg.c:179
+#: ../src/startdlg.c:180
 msgid "<b>Device</b>"
 msgstr "<b>دستگاه</b>"
 
-#: ../src/startdlg.c:183
+#: ../src/startdlg.c:184
 msgid "Reader:"
 msgstr "خواننده:"
 
-#: ../src/startdlg.c:187
+#: ../src/startdlg.c:188
 msgid "Writer:"
 msgstr "نویسنده:"
 
-#: ../src/startdlg.c:190
+#: ../src/startdlg.c:191
 msgid "Speed:"
 msgstr "سرعت:"
 
-#: ../src/startdlg.c:194
+#: ../src/startdlg.c:195
 msgid "Mode:"
 msgstr "سبک:"
 
-#: ../src/startdlg.c:217 ../gnomebaker.glade.h:16
+#: ../src/startdlg.c:218 ../gnomebaker.glade.h:16
 msgid "<b>Options</b>"
 msgstr "<b>تنظیمات</b>"
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:104
+#: ../src/startdlg.c:247 ../gnomebaker.glade.h:104
 msgid "_Start"
 msgstr "شروع"
 
-#: ../src/startdlg.c:310
+#: ../src/startdlg.c:311
 msgid "<b>Disk Information</b>"
 msgstr "<b>اطلاعات دیسک</b>"
 
-#: ../src/startdlg.c:312
+#: ../src/startdlg.c:313
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/startdlg.c:315
+#: ../src/startdlg.c:316
 msgid "Application ID:"
 msgstr ""
 
-#: ../src/startdlg.c:318
+#: ../src/startdlg.c:319
 msgid "Preparer:"
 msgstr "آماده ساز:"
 
-#: ../src/startdlg.c:321
+#: ../src/startdlg.c:322
 msgid "Publisher:"
 msgstr "ناشر:"
 
-#: ../src/startdlg.c:324
+#: ../src/startdlg.c:325
 msgid "Copyright:"
 msgstr "حق نسخه‌برداری:"
 
-#: ../src/startdlg.c:327
+#: ../src/startdlg.c:328
 msgid "Abstract:"
 msgstr ""
 
-#: ../src/startdlg.c:330
+#: ../src/startdlg.c:331
 msgid "Bibliography:"
 msgstr ""
 
-#: ../src/startdlg.c:341
+#: ../src/startdlg.c:342
 msgid "<b>Filesystem</b>"
 msgstr "<b>فایل سیستم</b>"
 
-#: ../src/startdlg.c:379 ../src/startdlg.c:407
+#: ../src/startdlg.c:380 ../src/startdlg.c:408
 msgid "Writing"
 msgstr "نوشتن"
 
-#: ../src/startdlg.c:381 ../src/startdlg.c:409
+#: ../src/startdlg.c:382 ../src/startdlg.c:410
 msgid "Disk Information"
 msgstr "اطلاعات دیسک"
 
-#: ../src/startdlg.c:496
+#: ../src/startdlg.c:497
 msgid "Dummy write"
 msgstr ""
 
-#: ../src/startdlg.c:497
+#: ../src/startdlg.c:498
 msgid "Eject disk"
 msgstr "خروج دیسک"
 
-#: ../src/startdlg.c:498
+#: ../src/startdlg.c:499
 msgid "Fast blank"
 msgstr ""
 
-#: ../src/startdlg.c:499
+#: ../src/startdlg.c:500
 msgid "BurnFree"
 msgstr ""
 
-#: ../src/startdlg.c:500
+#: ../src/startdlg.c:501
 msgid "Burn the disk"
 msgstr "سوزاندن(ذخیره) دیسک"
 
-#: ../src/startdlg.c:502
+#: ../src/startdlg.c:503
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:505
+#: ../src/startdlg.c:506
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:506
+#: ../src/startdlg.c:507
 msgid "Finalize"
 msgstr "پایان دادن"
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:508
 msgid "Fast format"
 msgstr "طبقه‌بندی سریع"
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:509
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:509
+#: ../src/startdlg.c:510
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:510
+#: ../src/startdlg.c:511
 msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:520
+#: ../src/startdlg.c:521
 msgid "_Browse..."
 msgstr "مرور"
-
-#: ../src/startdlg.c:522
-msgid "GnomeBaker data disk"
-msgstr "دیسک اطلاعاتی GnomeBaker"
 
 #: ../src/burn.h:65
 #, fuzzy
@@ -1281,6 +1303,10 @@ msgstr ""
 #: ../gnomebaker.glade.h:112
 msgid "tao"
 msgstr ""
+
+#~ msgid ""
+#~ "File or directory is too large to fit in the remaining space on the CD"
+#~ msgstr "فایل یا پوشه بسیار بزرگتر از فضای باقی مانده در لوح فشرده است"
 
 #~ msgid "Create ISO only"
 #~ msgstr "تنها ایجاد ISO"

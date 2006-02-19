@@ -168,10 +168,10 @@ burn_cd_image_file(const gchar* file)
 
 
 void
-burn_create_data_cd(GtkTreeModel* datamodel)
+burn_create_data_cd(const gchar* arguments_file)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(datamodel != NULL);
+    g_return_if_fail(arguments_file != NULL);
     
     StartDlg* dlg = burn_show_start_dlg(create_data_cd);
 	if(dlg != NULL)
@@ -179,24 +179,24 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
             burnargs = exec_new(_("Creating data CD image"), _("Please wait while the data CD image is created."));
-			mkisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg, FALSE);
+			mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL, FALSE);
             burn_run_process();
 		}
         else if(preferences_get_bool(GB_ONTHEFLY))
         {
             burnargs = exec_new(_("Burning data CD"), _("Please wait while the data is burned directly to CD."));
-            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg, TRUE);
+            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL, TRUE);
             ExecCmd* cmd = exec_cmd_new(burnargs);
             cmd->piped = TRUE;
-            mkisofs_add_args(cmd, datamodel, dlg, FALSE);
+            mkisofs_add_args(cmd, dlg, arguments_file, NULL, FALSE);
             cdrecord_add_iso_args(exec_cmd_new(burnargs), NULL);
             burn_run_process();
         }
 		else
 		{
             burnargs = exec_new(_("Burning data CD"), _("Please wait while the data disk image is created and then burned to CD. Depending on the speed of your CD writer, this may take some time. "));
-            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg,  TRUE);			
-            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg, FALSE);
+            mkisofs_add_args(exec_cmd_new(burnargs), dlg,  arguments_file, NULL, TRUE);			
+            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL, FALSE);
             gchar* file = preferences_get_create_data_cd_image();
             cdrecord_add_iso_args(exec_cmd_new(burnargs), file);            
             g_free(file);
@@ -208,10 +208,11 @@ burn_create_data_cd(GtkTreeModel* datamodel)
 
 
 void
-burn_append_data_cd(GtkTreeModel* datamodel)
+burn_append_data_cd(const gchar* arguments_file, const gchar* msinfo)
 {
     GB_LOG_FUNC
-    g_return_if_fail(datamodel != NULL);
+    g_return_if_fail(arguments_file != NULL);
+    g_return_if_fail(msinfo != NULL);    
     
     StartDlg* dlg = burn_show_start_dlg(append_data_cd);
     if(dlg != NULL)
@@ -219,18 +220,18 @@ burn_append_data_cd(GtkTreeModel* datamodel)
         if(preferences_get_bool(GB_ONTHEFLY))
         {
             burnargs = exec_new(_("Appending to data CD"), _("Please wait while the additional data is burned directly to CD."));
-            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg, TRUE);
+            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, msinfo, TRUE);
             ExecCmd* cmd = exec_cmd_new(burnargs);
             cmd->piped = TRUE;
-            mkisofs_add_args(cmd, datamodel, dlg, FALSE);
+            mkisofs_add_args(cmd, dlg, arguments_file, msinfo, FALSE);
             cdrecord_add_iso_args(exec_cmd_new(burnargs), NULL);
             burn_run_process();
         }
         else
         {
             burnargs = exec_new(_("Appending to data CD"), _("Please wait while the data disk image is created and then appended to the CD. Depending on the speed of your CD writer, this may take some time. "));
-            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg,  TRUE);
-            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg, FALSE);
+            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, msinfo, TRUE);
+            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, msinfo, FALSE);
             gchar* file = preferences_get_create_data_cd_image();            
             cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
             g_free(file);      
@@ -382,10 +383,10 @@ burn_format_dvdrw()
 
 
 void
-burn_create_data_dvd(GtkTreeModel* datamodel)
+burn_create_data_dvd(const gchar* arguments_file)
 {
 	GB_LOG_FUNC
-    g_return_if_fail(datamodel != NULL);
+    g_return_if_fail(arguments_file != NULL);
     
     StartDlg* dlg = burn_show_start_dlg(create_data_dvd);
     if(dlg != NULL)
@@ -393,13 +394,13 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
         if(preferences_get_bool(GB_CREATEISOONLY))
         {
             burnargs = exec_new(_("Creating data DVD image"), _("Please wait while the data DVD image is created."));
-            mkisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg, FALSE);
+            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL, FALSE);
             burn_run_process();
         }
         else
         {
             burnargs = exec_new(_("Burning data DVD"), _("Please wait while the data is burned directly to DVD."));
-            growisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg);
+            growisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL);
             burn_run_process();
         }
         startdlg_delete(dlg);
@@ -408,16 +409,17 @@ burn_create_data_dvd(GtkTreeModel* datamodel)
 
 
 void
-burn_append_data_dvd(GtkTreeModel* datamodel)
+burn_append_data_dvd(const gchar* arguments_file, const gchar* msinfo)
 {
     GB_LOG_FUNC
-    g_return_if_fail(datamodel != NULL);
+    g_return_if_fail(arguments_file != NULL);
+    g_return_if_fail(msinfo != NULL);
     
     StartDlg* dlg = burn_show_start_dlg(append_data_dvd);
     if(dlg != NULL)
     {   
         burnargs = exec_new(_("Appending to data DVD"), _("Please wait while the data is appended directly to the DVD."));
-        growisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg);
+        growisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, msinfo);
         burn_run_process();
         startdlg_delete(dlg);
     }

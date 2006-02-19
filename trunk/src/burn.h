@@ -32,13 +32,13 @@
 gboolean burn_init ();
 void burn_cd_image_file(const gchar* file);
 void burn_dvd_iso(const gchar* file);
-void burn_create_data_cd (GtkTreeModel* datamodel);
-void burn_append_data_cd (GtkTreeModel* datamodel);
-void burn_copy_data_cd ();
-void burn_copy_audio_cd ();
-void burn_blank_cdrw ();
-void burn_create_data_dvd (GtkTreeModel* datamodel);
-void burn_append_data_dvd (GtkTreeModel* datamodel);
+void burn_create_data_cd(const gchar* arguments_file);
+void burn_append_data_cd(const gchar* arguments_file, const gchar* msinfo);
+void burn_copy_data_cd();
+void burn_copy_audio_cd();
+void burn_blank_cdrw();
+void burn_create_data_dvd(const gchar* arguments_file);
+void burn_append_data_dvd(const gchar* arguments_file, const gchar* msinfo);
 void burn_format_dvdrw();
 void burn_create_audio_cd(GtkTreeModel* audiomodel);
 

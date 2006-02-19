@@ -54,6 +54,9 @@ static const gchar* const widget_add_button = "buttonAddFiles";
 static const gchar* const widget_refresh_menu = "refresh1";
 static const gchar* const widget_refresh_button = "toolbutton4";
 
+/* Uncomment this to use gb's internal file browser rather than the standard gtk widget */
+#define USE_OLD_FILEBROWSER 1
+
 #ifndef USE_OLD_FILEBROWSER
 static GtkWidget* filechooser = NULL;
 static GtkFileFilter *audiofilter = NULL;
@@ -61,8 +64,7 @@ static GtkFileFilter *audiofilter = NULL;
 
 static GladeXML *xml = NULL;
 
-/* Uncomment this to use gb's internal file browser rather than the standard gtk widget */
-/*#define USE_OLD_FILEBROWSER 1*/
+
 
 void /* libglade callback */
 gnomebaker_on_show_file_browser(GtkCheckMenuItem *checkmenuitem, gpointer user_data)

@@ -35,90 +35,90 @@ static GList *g_tempFileList = NULL;
 GBTempFile *
 gbcommon_create_open_temp_file(const gchar * prefix)
 {
-		GB_LOG_FUNC
-		g_return_if_fail(prefix!=NULL);
-		
-		char *tmpFileName = g_strconcat(prefix,"-XXXXXX",NULL);
-		char *tmpFilePath = g_build_filename(g_get_tmp_dir(),tmpFileName,NULL);
-		g_free(tmpFileName);
-		
-		/*get the file descriptor*/
-		int fd = mkstemp(tmpFilePath);
-		if(fd==-1)
-		{
-			GB_TRACE("Failed when trying to create the temporary file: %s", tmpFilePath);
-			return NULL;
-		}
-		
-		FILE *stream = fdopen (fd, "w");
-		if(!stream)
-		{
-			GB_TRACE("Could not open %s for writing", tmpFilePath);
-	 		return NULL;
-		}
-		
-
-		GBTempFile *tmpFile = g_slice_new(GBTempFile);
-		
-		tmpFile->fileDescriptor = fd;
-		tmpFile->fileStream = stream;
-		tmpFile->fileName = tmpFilePath; /*necesary for unlink*/
-		
-		/*register temp file*/		
-		g_tempFileList = g_list_prepend(g_tempFileList,tmpFile);
-		
-		return tmpFile;	
+	GB_LOG_FUNC
+	g_return_if_fail(prefix != NULL);
 	
+	gchar *tmpFileName = g_strconcat(prefix,"-XXXXXX",NULL);
+	gchar *tmpFilePath = g_build_filename(g_get_tmp_dir(), tmpFileName, NULL);
+	g_free(tmpFileName);
+	
+	/*get the file descriptor*/
+	int fd = mkstemp(tmpFilePath);
+	if(fd==-1)
+	{
+		GB_TRACE("Failed when trying to create the temporary file: %s", tmpFilePath);
+        g_free(tmpFilePath);
+		return NULL;
+	}
+	
+	FILE *stream = fdopen (fd, "w");
+	if(!stream)
+	{
+		GB_TRACE("Could not open %s for writing", tmpFilePath);
+        g_free(tmpFilePath);
+ 		return NULL;
+	}
+
+	GBTempFile *tmpFile = (GBTempFile*)g_new0(GBTempFile, 1);
+	tmpFile->fileDescriptor = fd;
+	tmpFile->fileStream = stream;
+	tmpFile->fileName = tmpFilePath; /*necesary for unlink*/
+	
+	/*register temp file*/		
+	g_tempFileList = g_list_prepend(g_tempFileList,tmpFile);
+	return tmpFile;	
 }
+
 
 /*this only closes the file*/
 void
 gbcommon_close_temp_file(GBTempFile *tmpFile)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(tmpFile!=NULL);
+	g_return_if_fail(tmpFile != NULL);
 
-	if(tmpFile->fileStream!=NULL)
+	if(tmpFile->fileStream != NULL)
 	{
-		if(fclose(tmpFile->fileStream)!=0)
+		if(fclose(tmpFile->fileStream) != 0)
 		{
 			GB_TRACE("Temporary file stream could not be closed");
 		}
 		tmpFile->fileStream = NULL;
 	}
-	if(tmpFile->fileDescriptor>=0)
+	if(tmpFile->fileDescriptor >= 0)
 	{
-		if(close(tmpFile->fileDescriptor)!=0)
+		if(close(tmpFile->fileDescriptor) != 0)
 		{
 			GB_TRACE("Temporary file descriptor could not be closed");
 		}
 		tmpFile->fileDescriptor = -1;
 	}
-	
 }
+
+
 /*closes and deletes all the temp files created with gbcommon_create_temp_file*/
 void
 gbcommon_delete_all_temp_files()
 {
 	GB_LOG_FUNC
 	GList *node = NULL;
-	for(node = g_tempFileList; node!=NULL; node = node->next)
+    
+	for(node = g_tempFileList; node != NULL; node = node->next)
 	{
-		if(node->data!=NULL)
+		if(node->data != NULL)
 		{
 			GBTempFile *tmpFile = (GBTempFile*)node->data;
-			
-			if(tmpFile->fileStream!=NULL)
+			if(tmpFile->fileStream != NULL)
 			{
-				if(fclose(tmpFile->fileStream)!=0)
+				if(fclose(tmpFile->fileStream) != 0)
 				{
 					GB_TRACE("Temporary file stream could not be closed");
 				}
 				tmpFile->fileStream = NULL;
 			}
-			if(tmpFile->fileDescriptor>=0)
+			if(tmpFile->fileDescriptor >= 0)
 			{
-				if(close(tmpFile->fileDescriptor)!=0)
+				if(close(tmpFile->fileDescriptor) != 0)
 				{
 					GB_TRACE("Temporary file descriptor could not be closed");
 				}
@@ -128,17 +128,14 @@ gbcommon_delete_all_temp_files()
 			{
 				if(g_unlink(tmpFile->fileName))
 				{
-					GB_TRACE("File %s could not be deleted",tmpFile->fileName);
+					GB_TRACE("File %s could not be deleted", tmpFile->fileName);
 				}
-				
 				g_free(tmpFile->fileName);
 			}
-			
-			g_slice_free(GBTempFile, tmpFile);
+			g_free(tmpFile);
 		}
 	}
 	g_list_free(g_tempFileList);
-	
 }
 
 
@@ -640,6 +637,7 @@ gbcommon_str_has_suffix(const gchar* str, const gchar* suffix)
     g_return_val_if_fail(suffix != NULL, FALSE);
     return (g_ascii_strcasecmp(str + strlen(str) - strlen(suffix), suffix) == 0);
 }
+
 
 gboolean
 gbcommon_iso_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)

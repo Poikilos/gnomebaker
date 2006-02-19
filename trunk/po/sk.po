@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-18 01:46+0000\n"
+"POT-Creation-Date: 2006-02-19 01:10+0000\n"
 "PO-Revision-Date: 2005-02-13 21:42+0100\n"
 "Last-Translator: Peter Chabada <sk-i18n_chabada_sk>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -19,43 +19,47 @@ msgstr ""
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 
-#: ../src/audiocd.c:117
+#: ../src/audiocd.c:119
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
 msgstr "%d m %d s (zostáva %d m %d s)"
 
-#: ../src/audiocd.c:165
+#: ../src/audiocd.c:147
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "Stopa je väčšia ako zostávajúce miesto na CD"
 
-#: ../src/audiocd.c:256 ../src/filebrowser.c:584
+#: ../src/audiocd.c:280 ../src/filebrowser.c:584
 msgid "_Open"
 msgstr "_Otvoriť"
 
-#: ../src/audiocd.c:261
+#: ../src/audiocd.c:285
 msgid "Move selected _up"
 msgstr "Posunúť _vyššie"
 
-#: ../src/audiocd.c:263
+#: ../src/audiocd.c:287
 msgid "Move selected _down"
 msgstr "Posunúť _nižšie"
 
-#: ../src/audiocd.c:266 ../src/datacd.c:479
+#: ../src/audiocd.c:290 ../src/datacd.c:1030 ../src/datacd.c:1058
 msgid "_Remove selected"
 msgstr "O_dobrať vybrané zo zoznamu"
 
-#: ../src/audiocd.c:268
+#: ../src/audiocd.c:292
 msgid "_Clear"
 msgstr "Odobrať všetky zo _zoznamu"
 
-#: ../src/audiocd.c:358
+#: ../src/audiocd.c:382
 #, c-format
 msgid ""
 "The file [%s] referred to in the playlist could not be imported as it does "
 "not exist."
 msgstr "Súbor [%s] z playlistu nemohol byť importovaný pretože neexistuje."
 
-#: ../src/audiocd.c:706
+#: ../src/audiocd.c:523
+msgid "Not enough space on the CD"
+msgstr ""
+
+#: ../src/audiocd.c:745
 msgid ""
 "The file you have selected is not a supported playlist. Please select a pls "
 "or m3u file."
@@ -63,37 +67,37 @@ msgstr ""
 "Súbor, čo ste vybrali, nie je podporovaným zoznamom skladieb. Vyberte prosím "
 "súbor typu pls alebo m3u."
 
-#: ../src/audiocd.c:724 ../src/audiocd.c:761
+#: ../src/audiocd.c:763 ../src/audiocd.c:800
 msgid "Failed to write playlist file"
 msgstr ""
 
-#: ../src/audiocd.c:810
+#: ../src/audiocd.c:849
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:843
+#: ../src/audiocd.c:884
 msgid "Track"
 msgstr "Stopa"
 
-#: ../src/audiocd.c:856
+#: ../src/audiocd.c:897
 msgid "Duration"
 msgstr "Dĺžka"
 
-#: ../src/audiocd.c:873
+#: ../src/audiocd.c:914
 msgid "Artist"
 msgstr "Interpret"
 
-#: ../src/audiocd.c:882
+#: ../src/audiocd.c:923
 msgid "Album"
 msgstr "Album"
 
-#: ../src/audiocd.c:891
+#: ../src/audiocd.c:932
 msgid "Title"
 msgstr "Skladba"
 
-#: ../src/audiocd.c:900
+#: ../src/audiocd.c:941
 msgid "Info"
 msgstr "Informácie"
 
@@ -149,15 +153,15 @@ msgstr ""
 "Prosím počkajte, kým sa vytvorí obraz disku a potom napáli na CD. Toto môže "
 "chvíľu trvať v závislosti od rýchlosti vašej napaľovačky. "
 
-#: ../src/burn.c:221 ../src/burn.c:231
+#: ../src/burn.c:222 ../src/burn.c:232
 msgid "Appending to data CD"
 msgstr "Pridávam dáta na CD"
 
-#: ../src/burn.c:221
+#: ../src/burn.c:222
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr "Prosím počkajte, kým sa dáta pridajú na CD."
 
-#: ../src/burn.c:231
+#: ../src/burn.c:232
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
@@ -165,11 +169,11 @@ msgstr ""
 "Prosím počkajte, kým sa vytvorí obraz disku a potom pridá na CD. Toto môže "
 "chvíľu trvať v závislosti od rýchlosti vašej napaľovačky. "
 
-#: ../src/burn.c:253
+#: ../src/burn.c:254
 msgid "Burning audio CD"
 msgstr "Napaľujem audio CD"
 
-#: ../src/burn.c:253
+#: ../src/burn.c:254
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
@@ -177,110 +181,125 @@ msgstr ""
 "Prosím počkajte, kým sa označené zvukové stopy skonvertujú na CD audio a "
 "napália na CD."
 
-#: ../src/burn.c:316
+#: ../src/burn.c:317
 msgid "Extracting CD image"
 msgstr "Vytváram obraz CD"
 
-#: ../src/burn.c:316
+#: ../src/burn.c:317
 msgid "Please wait while the data CD image is extracted."
 msgstr "Prosím počkajte, kým sa z CD vytvorí obraz disku."
 
-#: ../src/burn.c:322
+#: ../src/burn.c:323
 msgid "Copying data CD"
 msgstr "Kopírujem dátové CD"
 
-#: ../src/burn.c:322
+#: ../src/burn.c:323
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr "Prosím počkajte, kým sa z CD vytvorí obraz disku a potom napáli na CD."
 
-#: ../src/burn.c:342
+#: ../src/burn.c:343
 msgid "Copying audio CD"
 msgstr "Kopírujem audio CD"
 
-#: ../src/burn.c:342
+#: ../src/burn.c:343
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr "Prosím počkajte, kým sa zvukové stopy stiahnu a napália na CD."
 
-#: ../src/burn.c:359
+#: ../src/burn.c:360
 msgid "Blanking CD"
 msgstr "Mažem CD"
 
-#: ../src/burn.c:359
+#: ../src/burn.c:360
 msgid "Please wait while the CD is blanked."
 msgstr "Prosím počkajte, kým bude CD vymazané."
 
-#: ../src/burn.c:375
+#: ../src/burn.c:376
 msgid "Formatting re-writeable DVD"
 msgstr "Formátujem DVD RW"
 
-#: ../src/burn.c:375
+#: ../src/burn.c:376
 msgid "Please wait while the DVD is formatted."
 msgstr "Prosím počkajte, kým bude DVD naformátované."
 
-#: ../src/burn.c:395
+#: ../src/burn.c:396
 msgid "Creating data DVD image"
 msgstr "Vytváram obrazu disku DVD"
 
-#: ../src/burn.c:395
+#: ../src/burn.c:396
 msgid "Please wait while the data DVD image is created."
 msgstr "Prosím počkajte, kým sa vytvorí obraz dátového DVD."
 
-#: ../src/burn.c:401
+#: ../src/burn.c:402
 msgid "Burning data DVD"
 msgstr "Napaľujem dátové DVD"
 
-#: ../src/burn.c:401
+#: ../src/burn.c:402
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Prosím počkajte, kým sa dátové DVD napáli."
 
-#: ../src/burn.c:419 ../src/burn.c:481
+#: ../src/burn.c:421 ../src/burn.c:483
 msgid "Appending to data DVD"
 msgstr "Pridávam dáta na DVD"
 
-#: ../src/burn.c:419 ../src/burn.c:481
+#: ../src/burn.c:421 ../src/burn.c:483
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Prosím počkajte, kým sa dáta pridajú na DVD."
 
-#: ../src/burn.c:446 ../src/execfunctions.c:1458
+#: ../src/burn.c:448 ../src/execfunctions.c:1464
 msgid "Verifying the disk content"
 msgstr "Kontrolujem obsah disku"
 
-#: ../src/datacd.c:147
+#: ../src/datacd.c:187 ../src/startdlg.c:523
+msgid "GnomeBaker data disk"
+msgstr "Dátový disk"
+
+#: ../src/datacd.c:403
 #, c-format
 msgid "%s used - %s remaining"
 msgstr "%s (zostáva %s)"
 
-#: ../src/datacd.c:203
-msgid "File or directory is too large to fit in the remaining space on the CD"
-msgstr "Súbor alebo priečinok je príliš veľký na to, aby sa zmestil na CD"
+#: ../src/datacd.c:410
+#, c-format
+msgid "%s of %s used. Disk full"
+msgstr ""
 
-#: ../src/datacd.c:475
+#: ../src/datacd.c:978
+#, fuzzy
+msgid "New Folder"
+msgstr "Priečinok"
+
+#: ../src/datacd.c:1018
+#, fuzzy
+msgid "_Add Folder"
+msgstr "Priečinok"
+
+#: ../src/datacd.c:1026
 msgid "_Edit name"
 msgstr "_Upraviť názov"
 
-#: ../src/datacd.c:481
+#: ../src/datacd.c:1032
 msgid "Clear"
 msgstr "Odobrať všetky zo _zoznamu"
 
-#: ../src/datacd.c:514 ../gnomebaker.glade.h:42
+#: ../src/datacd.c:1190 ../src/datacd.c:1288 ../gnomebaker.glade.h:42
 msgid "Contents"
 msgstr "Obsah"
 
-#: ../src/datacd.c:538 ../src/datacd.c:548 ../src/filebrowser.c:797
+#: ../src/datacd.c:1312 ../src/datacd.c:1322 ../src/filebrowser.c:797
 #: ../src/filebrowser.c:807
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../src/datacd.c:558
+#: ../src/datacd.c:1332
 msgid "Full Path"
 msgstr "Kompletná cesta"
 
-#: ../src/datacd.c:567
+#: ../src/datacd.c:1341
 msgid "Session"
 msgstr "Sekcia"
 
-#: ../src/datacd.c:612
+#: ../src/datacd.c:1427
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -291,11 +310,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/datacd.c:613 ../src/devices.c:664
+#: ../src/datacd.c:1428 ../src/devices.c:664
 msgid "unknown error"
 msgstr "neznáma chyba"
 
-#: ../src/datacd.c:687
+#: ../src/datacd.c:1507
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -303,6 +322,11 @@ msgid ""
 msgstr ""
 "Chyba počas importu sekcie z [%s]. Skontrolujte prosím konfiguráciu "
 "zariadenia v predvoľbách."
+
+#: ../src/datacd.c:1709
+#, fuzzy
+msgid "Compilation exeeds the capacity or the remaining space of the disk"
+msgstr "Stopa je väčšia ako zostávajúce miesto na CD"
 
 #: ../src/devices.c:653
 msgid ""
@@ -345,9 +369,9 @@ msgstr "Pripravujem napálenie disku"
 msgid "Writing track %d"
 msgstr "Zapisujem stopu %d"
 
-#: ../src/execfunctions.c:253 ../src/execfunctions.c:1002
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:108
+#: ../src/execfunctions.c:253 ../src/execfunctions.c:1008
+#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:199
+#: ../src/startdlg.c:200 ../gnomebaker.glade.h:108
 msgid "default"
 msgstr "predvolený"
 
@@ -384,35 +408,35 @@ msgstr ""
 "Obraz CD predchádzajúcej sekcie existuje na pevnom disku. Chcete použiť "
 "existujúci obraz?"
 
-#: ../src/execfunctions.c:818
+#: ../src/execfunctions.c:825
 msgid "Formatting DVD"
 msgstr "Formátujem DVD"
 
-#: ../src/execfunctions.c:899
+#: ../src/execfunctions.c:906
 msgid "Preparing to burn DVD"
 msgstr "Pripravujem napaľovanie DVD"
 
-#: ../src/execfunctions.c:930 ../src/execfunctions.c:955
+#: ../src/execfunctions.c:937 ../src/execfunctions.c:962
 msgid "Writing DVD"
 msgstr "Napaľujem DVD"
 
-#: ../src/execfunctions.c:1068
+#: ../src/execfunctions.c:1074
 msgid "Reading CD image"
 msgstr "Čítam obraz CD"
 
-#: ../src/execfunctions.c:1076
+#: ../src/execfunctions.c:1082
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1341
+#: ../src/execfunctions.c:1347
 #, c-format
 msgid "Converting %s to cd audio"
 msgstr "Konvertujem %s na CD audio"
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:380
-#: ../src/startdlg.c:408
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:381
+#: ../src/startdlg.c:409
 msgid "Filesystem"
 msgstr "Systém súborov"
 
@@ -461,89 +485,89 @@ msgstr "Typ"
 msgid "Mime"
 msgstr "Mime"
 
-#: ../src/gbcommon.c:469
+#: ../src/gbcommon.c:583
 msgid "All files"
 msgstr "Všetky súbory"
 
-#: ../src/gbcommon.c:477
+#: ../src/gbcommon.c:591
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:125
+#: ../src/gnomebaker.c:127
 msgid "Loading preferences..."
 msgstr "Načítavam predvoľby..."
 
-#: ../src/gnomebaker.c:128
+#: ../src/gnomebaker.c:130
 msgid "Detecting devices..."
 msgstr "Detegujem zariadenia..."
 
-#: ../src/gnomebaker.c:131
+#: ../src/gnomebaker.c:133
 msgid "Registering gstreamer plugins..."
 msgstr "Načítavam rozšírenia gstreamer..."
 
-#: ../src/gnomebaker.c:134
+#: ../src/gnomebaker.c:136
 msgid "Loading GUI..."
 msgstr "Načítavam používateľské rozhranie..."
 
-#: ../src/gnomebaker.c:159
+#: ../src/gnomebaker.c:161
 #, fuzzy
 msgid "Audio files"
 msgstr "Pridať súbory"
 
-#: ../src/gnomebaker.c:243
+#: ../src/gnomebaker.c:245
 msgid "Are you sure you want to quit?"
 msgstr "Naozaj chcete skončiť?"
 
-#: ../src/gnomebaker.c:320
+#: ../src/gnomebaker.c:322
 msgid "CD Image files"
 msgstr "Súbory obrazov diskov CD"
 
-#: ../src/gnomebaker.c:321
+#: ../src/gnomebaker.c:323
 msgid "Please select a CD image file."
 msgstr "Vyberte prosím súbor s obrazom disku CD"
 
-#: ../src/gnomebaker.c:336
+#: ../src/gnomebaker.c:338
 msgid "DVD Image files"
 msgstr "Súbory obrazov diskov DVD"
 
-#: ../src/gnomebaker.c:337
+#: ../src/gnomebaker.c:339
 msgid "Please select a DVD image file."
 msgstr "Vyberte prosím súbor s obrazom disku DVD"
 
-#: ../src/gnomebaker.c:408 ../gnomebaker.glade.h:53
+#: ../src/gnomebaker.c:410 ../gnomebaker.glade.h:53
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:409
+#: ../src/gnomebaker.c:411
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "Jednoduchá aplikácia na napaľovanie"
 
-#: ../src/gnomebaker.c:409 ../gnomebaker.glade.h:113
+#: ../src/gnomebaker.c:411 ../gnomebaker.glade.h:113
 msgid "translator_credits"
 msgstr "Peter Chabada"
 
-#: ../src/gnomebaker.c:498
+#: ../src/gnomebaker.c:500
 msgid "Please select files to add to the disk."
 msgstr "Vyberte prosím súbory, ktoré chcete pridať na disk"
 
-#: ../src/gnomebaker.c:775 ../src/gnomebaker.c:798
+#: ../src/gnomebaker.c:777 ../src/gnomebaker.c:800
 msgid "Playlist files"
 msgstr "Súbory zoznamov skladieb"
 
-#: ../src/gnomebaker.c:776
+#: ../src/gnomebaker.c:778
 msgid "Please select a playlist."
 msgstr "Vyberte prosím súbor so zoznamom skladieb"
 
-#: ../src/gnomebaker.c:805
+#: ../src/gnomebaker.c:807
 msgid "Save playlist as..."
 msgstr ""
 
-#: ../src/gnomebaker.c:828
+#: ../src/gnomebaker.c:830
 #, fuzzy
 msgid "Project files"
 msgstr "Vysunúť disk"
 
-#: ../src/gnomebaker.c:829
+#: ../src/gnomebaker.c:831
 #, fuzzy
 msgid "Please select a project file."
 msgstr "Vyberte obraz disku..."
@@ -642,146 +666,142 @@ msgstr "Zlyhanie"
 msgid "Gnomebaker <b>failed</b> to complete the action!"
 msgstr ""
 
-#: ../src/startdlg.c:98
+#: ../src/startdlg.c:99
 msgid "Please select an image file to save to."
 msgstr "Prosím zadajte názov súboru, do ktorého mám uložiť obraz disku"
 
-#: ../src/startdlg.c:120
+#: ../src/startdlg.c:121
 msgid "CD/DVD Image files"
 msgstr "Súbory obrazov diskov CD/DVD"
 
-#: ../src/startdlg.c:178 ../gnomebaker.glade.h:14
+#: ../src/startdlg.c:179 ../gnomebaker.glade.h:14
 msgid "<b>Devices</b>"
 msgstr "<b>Zariadenia</b>"
 
-#: ../src/startdlg.c:179
+#: ../src/startdlg.c:180
 msgid "<b>Device</b>"
 msgstr "<b>Zariadenie</b>"
 
-#: ../src/startdlg.c:183
+#: ../src/startdlg.c:184
 msgid "Reader:"
 msgstr "Čítať z:"
 
-#: ../src/startdlg.c:187
+#: ../src/startdlg.c:188
 msgid "Writer:"
 msgstr "Zapisovať na:"
 
-#: ../src/startdlg.c:190
+#: ../src/startdlg.c:191
 msgid "Speed:"
 msgstr "Rýchlosť:"
 
-#: ../src/startdlg.c:194
+#: ../src/startdlg.c:195
 msgid "Mode:"
 msgstr "Mód:"
 
-#: ../src/startdlg.c:217 ../gnomebaker.glade.h:16
+#: ../src/startdlg.c:218 ../gnomebaker.glade.h:16
 msgid "<b>Options</b>"
 msgstr "<b>Nastavenia</b>"
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:104
+#: ../src/startdlg.c:247 ../gnomebaker.glade.h:104
 msgid "_Start"
 msgstr "Štar_t"
 
-#: ../src/startdlg.c:310
+#: ../src/startdlg.c:311
 msgid "<b>Disk Information</b>"
 msgstr "<b>Informácie o disku</b>"
 
-#: ../src/startdlg.c:312
+#: ../src/startdlg.c:313
 msgid "Volume ID:"
 msgstr "ID disku:"
 
-#: ../src/startdlg.c:315
+#: ../src/startdlg.c:316
 msgid "Application ID:"
 msgstr "ID aplikácie:"
 
-#: ../src/startdlg.c:318
+#: ../src/startdlg.c:319
 msgid "Preparer:"
 msgstr "Pripravil:"
 
-#: ../src/startdlg.c:321
+#: ../src/startdlg.c:322
 msgid "Publisher:"
 msgstr "Vydavateľ:"
 
-#: ../src/startdlg.c:324
+#: ../src/startdlg.c:325
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../src/startdlg.c:327
+#: ../src/startdlg.c:328
 msgid "Abstract:"
 msgstr "Abstrakt:"
 
-#: ../src/startdlg.c:330
+#: ../src/startdlg.c:331
 msgid "Bibliography:"
 msgstr "Bibliografia:"
 
-#: ../src/startdlg.c:341
+#: ../src/startdlg.c:342
 msgid "<b>Filesystem</b>"
 msgstr "<b>Systém súborov</b>"
 
-#: ../src/startdlg.c:379 ../src/startdlg.c:407
+#: ../src/startdlg.c:380 ../src/startdlg.c:408
 msgid "Writing"
 msgstr "Napaľujem"
 
-#: ../src/startdlg.c:381 ../src/startdlg.c:409
+#: ../src/startdlg.c:382 ../src/startdlg.c:410
 msgid "Disk Information"
 msgstr "Informácie o disku"
 
-#: ../src/startdlg.c:496
+#: ../src/startdlg.c:497
 msgid "Dummy write"
 msgstr "Simulácia"
 
-#: ../src/startdlg.c:497
+#: ../src/startdlg.c:498
 msgid "Eject disk"
 msgstr "Vysunúť disk"
 
-#: ../src/startdlg.c:498
+#: ../src/startdlg.c:499
 msgid "Fast blank"
 msgstr "Rýchle vymazanie"
 
-#: ../src/startdlg.c:499
+#: ../src/startdlg.c:500
 msgid "BurnFree"
 msgstr "Ochrana BurnFree"
 
-#: ../src/startdlg.c:500
+#: ../src/startdlg.c:501
 msgid "Burn the disk"
 msgstr "Napáliť disk"
 
-#: ../src/startdlg.c:502
+#: ../src/startdlg.c:503
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:505
+#: ../src/startdlg.c:506
 msgid "Force format"
 msgstr "Vnútiť formát"
 
-#: ../src/startdlg.c:506
+#: ../src/startdlg.c:507
 msgid "Finalize"
 msgstr "Finalizovať"
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:508
 msgid "Fast format"
 msgstr "Rýchle formátovanie"
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:509
 msgid "Joliet"
 msgstr "Joliet"
 
-#: ../src/startdlg.c:509
+#: ../src/startdlg.c:510
 msgid "Rock Ridge"
 msgstr "Rock Ridge"
 
-#: ../src/startdlg.c:510
+#: ../src/startdlg.c:511
 #, fuzzy
 msgid "On the fly"
 msgstr "On The Fly"
 
-#: ../src/startdlg.c:520
+#: ../src/startdlg.c:521
 msgid "_Browse..."
 msgstr "_Prehliadať..."
-
-#: ../src/startdlg.c:522
-msgid "GnomeBaker data disk"
-msgstr "Dátový disk"
 
 #: ../src/burn.h:65
 msgid "Blank CD-RW"
@@ -1264,6 +1284,10 @@ msgstr "raw96r"
 #: ../gnomebaker.glade.h:112
 msgid "tao"
 msgstr "TAO"
+
+#~ msgid ""
+#~ "File or directory is too large to fit in the remaining space on the CD"
+#~ msgstr "Súbor alebo priečinok je príliš veľký na to, aby sa zmestil na CD"
 
 #~ msgid "Create ISO only"
 #~ msgstr "Iba vytvoriť obraz ISO"
