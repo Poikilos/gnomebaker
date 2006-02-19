@@ -38,35 +38,36 @@ gbcommon_create_open_temp_file(const gchar * prefix)
 	GB_LOG_FUNC
 	g_return_if_fail(prefix != NULL);
 	
+    GBTempFile *tmpFile = NULL;
 	gchar *tmpFileName = g_strconcat(prefix,"-XXXXXX",NULL);
-	gchar *tmpFilePath = g_build_filename(g_get_tmp_dir(), tmpFileName, NULL);
-	g_free(tmpFileName);
+	gchar *tmpFilePath = NULL;
+    FILE *stream = NULL;
 	
-	/*get the file descriptor*/
-	int fd = mkstemp(tmpFilePath);
-	if(fd==-1)
+	gint fd = g_file_open_tmp(tmpFileName, &tmpFilePath, NULL);
+	if(fd == -1)
 	{
 		g_critical("gbcommon_create_open_temp_file - Failed when trying to create the temporary file [%s]",
                  tmpFilePath);
-        g_free(tmpFilePath);
-		return NULL;
 	}
-	
-	FILE *stream = fdopen (fd, "w");
-	if(!stream)
+	else if((stream = fdopen (fd, "w")) == NULL)
 	{
 		g_critical("gbcommon_create_open_temp_file - Could not open [%s] for writing", tmpFilePath);
-        g_free(tmpFilePath);
- 		return NULL;
+        close(fd);
 	}
-
-	GBTempFile *tmpFile = (GBTempFile*)g_new0(GBTempFile, 1);
-	tmpFile->fileDescriptor = fd;
-	tmpFile->fileStream = stream;
-	tmpFile->fileName = tmpFilePath; /*necesary for unlink*/
-	
-	/*register temp file*/		
-	g_tempFileList = g_list_prepend(g_tempFileList,tmpFile);
+    else 
+    {
+    	tmpFile = (GBTempFile*)g_new0(GBTempFile, 1);
+    	tmpFile->fileDescriptor = fd;
+    	tmpFile->fileStream = stream;
+    	tmpFile->fileName = g_strdup(tmpFilePath); /*necesary for unlink*/
+            
+    	/*register temp file*/	
+    	g_tempFileList = g_list_prepend(g_tempFileList, tmpFile);
+    }
+    
+    g_free(tmpFileName);
+    g_free(tmpFilePath);
+    
 	return tmpFile;	
 }
 
@@ -81,19 +82,16 @@ gbcommon_close_temp_file(GBTempFile *tmpFile)
 	if(tmpFile->fileStream != NULL)
 	{
 		if(fclose(tmpFile->fileStream) != 0)
-		{
-			g_critical("gbcommon_close_temp_file - Temporary file stream [%s] could not be closed", tmpFile->fileStream);
-		}
-		tmpFile->fileStream = NULL;
+			g_critical("gbcommon_close_temp_file - Temporary file stream [%s] could not be closed", tmpFile->fileName);
 	}
 	if(tmpFile->fileDescriptor >= 0)
 	{
 		if(close(tmpFile->fileDescriptor) != 0)
-		{
-			g_critical("gbcommon_close_temp_file - Temporary file descriptor [%s] could not be closed", tmpFile->fileStream);
-		}
-		tmpFile->fileDescriptor = -1;
+			g_critical("gbcommon_close_temp_file - Temporary file descriptor [%s] could not be closed", tmpFile->fileName);
 	}
+    
+    tmpFile->fileStream = NULL;
+    tmpFile->fileDescriptor = -1;
 }
 
 
