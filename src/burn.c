@@ -415,7 +415,7 @@ burn_append_data_dvd(GtkTreeModel* datamodel)
     
     StartDlg* dlg = burn_show_start_dlg(append_data_dvd);
     if(dlg != NULL)
-    {               
+    {   
         burnargs = exec_new(_("Appending to data DVD"), _("Please wait while the data is appended directly to the DVD."));
         growisofs_add_args(exec_cmd_new(burnargs), datamodel, dlg);
         burn_run_process();

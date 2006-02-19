@@ -38,11 +38,11 @@ enum
 	DATACD_COL_HUMANSIZE,
 	DATACD_COL_PATH,
 	DATACD_COL_SESSION,
+	DATACD_COL_ISFOLDER,
     DATACD_NUM_COLS
 };
 
-#define DATACD_EXISTING_SESSION_ICON GNOME_STOCK_PIXMAP_CDROM
-#define DATACD_EXISTING_SESSION "msinfo"
+static const gchar* const DATACD_EXISTING_SESSION = "msinfo";
 
 void datacd_new();
 void datacd_clear();
@@ -51,5 +51,6 @@ void datacd_add_selection(GtkSelectionData* selection);
 void datacd_import_session();
 void datacd_open_project();
 void datacd_save_project();
+gchar* datacd_compilation_get_volume_id();
 
 #endif	/*_DATACD_H_*/

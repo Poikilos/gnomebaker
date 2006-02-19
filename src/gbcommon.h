@@ -35,7 +35,17 @@ typedef struct
 	gchar* label;
 } DiskSize;
 
+typedef struct 
+{
+	int fileDescriptor;
+	FILE * fileStream;
+	char * fileName;
+	
+}GBTempFile;
 
+GBTempFile * gbcommon_create_open_temp_file(const gchar * prefix);
+void gbcommon_close_temp_file(GBTempFile *tmpFile);
+void gbcommon_delete_all_temp_files();
 void gbcommon_start_busy_cursor(GtkWidget* window);
 void gbcommon_start_busy_cursor1(GladeXML* xml, const gchar* windowname);
 void gbcommon_end_busy_cursor(GtkWidget* window);
