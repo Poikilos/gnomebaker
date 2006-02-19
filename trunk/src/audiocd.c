@@ -133,11 +133,11 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 	GtkWidget* progbar = glade_xml_get_widget(xml, widget_audiocd_progressbar);
 	g_return_if_fail(progbar != NULL);
 	
-	const gdouble disksize = audiocd_get_audiocd_size()*60;
+	const gdouble disksize = audiocd_get_audiocd_size() * 60;
 	
 	if(add)
 	{
-		if((audiocd_compilation_seconds +  seconds)<=disksize)
+		if((audiocd_compilation_seconds +  seconds) <= disksize)
 		{
 			audiocd_compilation_seconds += seconds;
 		}
@@ -163,8 +163,6 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 		
 		/* disable the create button as there's nothing on the disk */
 		gnomebaker_enable_widget(widget_audiocd_create, FALSE);
-		
-		/* remove the multisession flag as there's nothing on the disk */
 	}	
 	else
 	{
@@ -177,17 +175,16 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 		{
 			gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 1.0);
 			gnomebaker_enable_widget(widget_audiocd_create, FALSE);
-
 		}
 		else
 		{
 			gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
+            gnomebaker_enable_widget(widget_audiocd_create, TRUE);
 		}
 	
         gchar *buf = audiocd_format_progress_text(audiocd_compilation_seconds);
         gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
         g_free(buf);
-		gnomebaker_enable_widget(widget_audiocd_create, TRUE);
 	}
 	
 	return ok;

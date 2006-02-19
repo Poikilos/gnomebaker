@@ -32,7 +32,7 @@
 
 void datacd_new();
 void datacd_clear();
-void datacd_remove();
+void datacd_remove(GtkTreeView *widget);
 void datacd_add_selection(GtkSelectionData* selection);
 void datacd_import_session();
 void datacd_open_project();

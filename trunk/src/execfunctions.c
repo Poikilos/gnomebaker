@@ -27,7 +27,6 @@
 #include "progressdlg.h"
 #include "gbcommon.h"
 #include "devices.h"
-#include "datacd.h"
 #include <gst/gst.h>
 #include "media.h"
 
