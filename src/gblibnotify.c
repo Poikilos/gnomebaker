@@ -69,7 +69,7 @@ glibnotify_get_widget_position(GtkWidget *widget, gint *x, gint *y)
 	*x += widget->allocation.width / 2;
 	*y += widget->allocation.height;
 
-	GB_TRACE("glibnotify_get_widget_position - widget position x=%i, y=%i\n", *x, *y);
+	GB_TRACE("glibnotify_get_widget_position - widget position x=[%i], y=[%i]\n", *x, *y);
 	return TRUE;
 }
 

@@ -46,7 +46,8 @@ gbcommon_create_open_temp_file(const gchar * prefix)
 	int fd = mkstemp(tmpFilePath);
 	if(fd==-1)
 	{
-		GB_TRACE("Failed when trying to create the temporary file: %s", tmpFilePath);
+		g_critical("gbcommon_create_open_temp_file - Failed when trying to create the temporary file [%s]",
+                 tmpFilePath);
         g_free(tmpFilePath);
 		return NULL;
 	}
@@ -54,7 +55,7 @@ gbcommon_create_open_temp_file(const gchar * prefix)
 	FILE *stream = fdopen (fd, "w");
 	if(!stream)
 	{
-		GB_TRACE("Could not open %s for writing", tmpFilePath);
+		g_critical("gbcommon_create_open_temp_file - Could not open [%s] for writing", tmpFilePath);
         g_free(tmpFilePath);
  		return NULL;
 	}
@@ -81,7 +82,7 @@ gbcommon_close_temp_file(GBTempFile *tmpFile)
 	{
 		if(fclose(tmpFile->fileStream) != 0)
 		{
-			GB_TRACE("Temporary file stream could not be closed");
+			g_critical("gbcommon_close_temp_file - Temporary file stream [%s] could not be closed", tmpFile->fileStream);
 		}
 		tmpFile->fileStream = NULL;
 	}
@@ -89,7 +90,7 @@ gbcommon_close_temp_file(GBTempFile *tmpFile)
 	{
 		if(close(tmpFile->fileDescriptor) != 0)
 		{
-			GB_TRACE("Temporary file descriptor could not be closed");
+			g_critical("gbcommon_close_temp_file - Temporary file descriptor [%s] could not be closed", tmpFile->fileStream);
 		}
 		tmpFile->fileDescriptor = -1;
 	}
@@ -108,27 +109,13 @@ gbcommon_delete_all_temp_files()
 		if(node->data != NULL)
 		{
 			GBTempFile *tmpFile = (GBTempFile*)node->data;
-			if(tmpFile->fileStream != NULL)
-			{
-				if(fclose(tmpFile->fileStream) != 0)
-				{
-					GB_TRACE("Temporary file stream could not be closed");
-				}
-				tmpFile->fileStream = NULL;
-			}
-			if(tmpFile->fileDescriptor >= 0)
-			{
-				if(close(tmpFile->fileDescriptor) != 0)
-				{
-					GB_TRACE("Temporary file descriptor could not be closed");
-				}
-				tmpFile->fileDescriptor = -1;
-			}
+			gbcommon_close_temp_file(tmpFile);
 			if(tmpFile->fileName != NULL)
 			{
-				if(g_unlink(tmpFile->fileName))
+                /* TODO g_unlink requires gtk 2.6 */
+				if(unlink(tmpFile->fileName) == -1)
 				{
-					GB_TRACE("File %s could not be deleted", tmpFile->fileName);
+					g_critical("gbcommon_delete_all_temp_files - File [%s] could not be deleted", tmpFile->fileName);
 				}
 				g_free(tmpFile->fileName);
 			}
