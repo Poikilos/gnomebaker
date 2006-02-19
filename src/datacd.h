@@ -30,20 +30,6 @@
 #include <gnome.h>
 
 
-enum
-{    
-	DATACD_COL_ICON = 0,
-    DATACD_COL_FILE,
-	DATACD_COL_SIZE,
-	DATACD_COL_HUMANSIZE,
-	DATACD_COL_PATH,
-	DATACD_COL_SESSION,
-	DATACD_COL_ISFOLDER,
-    DATACD_NUM_COLS
-};
-
-static const gchar* const DATACD_EXISTING_SESSION = "msinfo";
-
 void datacd_new();
 void datacd_clear();
 void datacd_remove();

@@ -773,7 +773,7 @@
 		<widget class="GtkHPaned" id="hpaned3">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="position">300</property>
+		  <property name="position">250</property>
 
 		  <child>
 		    <widget class="GtkScrolledWindow" id="scrolledwindow4">
@@ -981,14 +981,14 @@
 			    <widget class="GtkHPaned" id="hpaned4">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="position">300</property>
+			      <property name="position">250</property>
 
 			      <child>
 				<widget class="GtkScrolledWindow" id="scrolledwindow18">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
-				  <property name="hscrollbar_policy">GTK_POLICY_ALWAYS</property>
-				  <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
+				  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+				  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 				  <property name="shadow_type">GTK_SHADOW_NONE</property>
 				  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 

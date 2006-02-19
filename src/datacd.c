@@ -40,8 +40,24 @@ static const gchar* const widget_datacd_size = "optionmenu1";
 static const gchar* const widget_datacd_progressbar = "progressbar2";
 static const gchar* const widget_datacd_create = "createDataCDBtn";
 
+static const gchar* const DATACD_EXISTING_SESSION = "msinfo";
+
 gdouble datadisksize = 0.0;
 GtkCellRenderer* contentrenderer = NULL;
+
+
+enum
+{    
+    DATACD_COL_ICON = 0,
+    DATACD_COL_FILE,
+    DATACD_COL_SIZE,
+    DATACD_COL_HUMANSIZE,
+    DATACD_COL_PATH,
+    DATACD_COL_SESSION,
+    DATACD_COL_ISFOLDER,
+    DATACD_NUM_COLS
+};
+
 
 enum
 {
@@ -1514,32 +1530,200 @@ datacd_on_datadisk_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 }
 
 
+
+/* this should be better to be moved to datacd
+ * so that from outside of datacd only the Glist is
+ * available
+ * */
+
+struct BurnItem
+{
+    guint64 size;
+    gboolean existing_session;
+    gchar *path_to_burn;
+    gchar *path_in_filesystem;
+};
+
+
+
+/* Adds  to the burning list all the contents recursively. This could be improved checking for depth,
+ * as mkisofs only accepts a max depth o 6 directories */
+static void
+datacd_build_filepaths_recursive(GtkTreeModel *model, GtkTreeIter *parent_iter, const char * filepath ,GList **compilation_list)
+{
+    GB_LOG_FUNC
+
+    int nCount = 0;
+    GB_DECLARE_STRUCT(GtkTreeIter, iter);
+    while(gtk_tree_model_iter_nth_child(model,&iter,parent_iter,nCount))
+    {
+        guint64 size;
+        gboolean isFolder = FALSE, existing_session = FALSE;
+        gchar *filename = NULL, *path_in_system = NULL;
+
+        gtk_tree_model_get(model, &iter,
+                           DATACD_COL_FILE, &filename,
+                           DATACD_COL_SIZE, &size,
+                           DATACD_COL_PATH, &path_in_system,
+                           DATACD_COL_SESSION, &existing_session,
+                           DATACD_COL_ISFOLDER, & isFolder,
+                           -1 );
+        
+        /*it is not a folder, add it to the list*/
+        if(!isFolder)
+        {
+            struct BurnItem *item = (struct BurnItem*)g_new0(struct BurnItem, 1);
+            
+            /*we will free memory when we delete the list*/
+            item->existing_session = existing_session;
+            item->path_in_filesystem = path_in_system; 
+            item->path_to_burn = g_build_filename(filepath, filename, NULL); 
+            item->size = size;
+            
+            /*this is faster than g_list_append*/
+            *compilation_list = g_list_prepend(*compilation_list,item);             
+        }
+        else /*it is a folder, add its contents recursively building the filepaths to burn*/
+        {
+            gchar * filepath_new = g_build_filename(filepath,filename,NULL); 
+            datacd_build_filepaths_recursive(model, &iter, filepath_new ,compilation_list);
+            
+            /*delete the data as it´s not used*/
+            g_free(filepath_new);
+            g_free(path_in_system);
+            g_free(filename);
+        }       
+        ++nCount;
+    }
+}
+
+
+/*
+ * Creates a temporary file wich stores the graft-points.
+ * This way we avoid the "too many arguments" error.
+ */
+static const GBTempFile* 
+datacd_build_filepaths(GtkTreeModel *model)
+{
+    GB_LOG_FUNC
+        
+    GList *compilation_list = NULL;
+    
+    GBTempFile *tmpFile = gbcommon_create_open_temp_file("gnomebaker");
+    if(tmpFile == NULL)
+    {
+        GB_TRACE("Error. Temp file was not created. Image will not be created");
+        return NULL;
+    }
+
+    /* Get the root iter.It should be the name of the compilation,
+     * but for the moment we don´t do anything with it
+     * All will start from here
+     */
+     
+     GB_DECLARE_STRUCT(GtkTreeIter, root_iter);
+     gtk_tree_model_get_iter_first(model, &root_iter);
+     if(gtk_tree_model_iter_has_child(model, &root_iter))
+     {
+        int nCount = 0;
+        GB_DECLARE_STRUCT(GtkTreeIter, iter);
+        while(gtk_tree_model_iter_nth_child(model,&iter,&root_iter,nCount))
+        {
+            guint64 size;
+            gboolean isFolder = FALSE, existing_session = FALSE;
+            gchar *filename = NULL, *path_in_system = NULL;
+
+            gtk_tree_model_get(model, &iter,
+                               DATACD_COL_FILE, &filename,
+                               DATACD_COL_SIZE, &size,
+                               DATACD_COL_PATH, &path_in_system,
+                               DATACD_COL_SESSION, &existing_session,
+                               DATACD_COL_ISFOLDER, & isFolder,
+                               -1 );
+            
+            /*it is not a folder, add it to the list*/
+            if(!isFolder)
+            {
+                struct BurnItem *item = (struct BurnItem*)g_new0(struct BurnItem, 1);
+                
+                /*we will free memory when we delete the list*/
+                item->existing_session = existing_session;
+                item->path_in_filesystem = path_in_system; 
+                item->path_to_burn = filename;/*this is the first level, do not concatenate nothing*/
+                item->size = size;
+                
+                /*this is faster than g_list_append*/
+                compilation_list = g_list_prepend(compilation_list,item);
+            }
+            else /*it is a folder, add its contents recursively building the filepaths to burn*/
+            {
+                datacd_build_filepaths_recursive(model, &iter, filename ,&compilation_list);
+                
+                /*delete the data as it´s not used*/
+                g_free(path_in_system);
+                g_free(filename);
+            }
+            ++nCount;
+        }
+    }
+    else
+    {
+        /*compilation is empty! What should we do?*/
+    }    
+    
+    /* once we have all the items, transverse all and add them to the arguments.
+     * Calculate also the total size. We could aso look for invalid paths */     
+    GList *node =NULL;
+    for (node = compilation_list; node != NULL; node = node->next )
+    {
+        if(node->data!=NULL)
+        {
+            struct BurnItem *item = (struct BurnItem *)node->data;
+            /*Only add files that are not part of an existing session*/
+            if(!item->existing_session)
+            {
+                /*GB_TRACE("Data to Burn: %s=%s",item->path_to_burn , item->path_in_filesystem);*/
+                fprintf(tmpFile->fileStream, "%s=%s\n", item->path_to_burn , item->path_in_filesystem);
+                /*free memory*/
+                g_free(item->path_in_filesystem);
+                g_free(item->path_to_burn);
+                g_free(item);
+            }   
+        }
+    }
+    g_list_free(compilation_list);
+    gbcommon_close_temp_file(tmpFile); /*close, but don´t delete. It must be readed by mkisofs*/
+    return tmpFile;
+}
+
+
 void /* libglade callback */
 datacd_on_create_datadisk(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC	
     g_return_if_fail(datacd_compilation_store != NULL);
     
-    if(datacd_compilation_size <=0|| datacd_compilation_size > datacd_get_datadisk_size())
+    if(datacd_compilation_size <= 0 || datacd_compilation_size > datacd_get_datadisk_size())
     {
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
            _("Compilation exeeds the capacity or the remaining space of the disk"));       
        return;
     }
     
+    const GBTempFile* tmp_file = datacd_build_filepaths(GTK_TREE_MODEL(datacd_compilation_store));    
     gchar* msinfo = (gchar*)g_object_get_data(G_OBJECT(datacd_compilation_store), DATACD_EXISTING_SESSION);
 
 	if(datadisksize >= datadisksizes[DVD_4GB].size)
     {
         if(msinfo != NULL)
-            burn_append_data_dvd(GTK_TREE_MODEL(datacd_compilation_store));
+            burn_append_data_dvd(tmp_file->fileName, msinfo);
         else
-		    burn_create_data_dvd(GTK_TREE_MODEL(datacd_compilation_store));
+		    burn_create_data_dvd(tmp_file->fileName);
     }
 	else if(msinfo != NULL)
-        burn_append_data_cd(GTK_TREE_MODEL(datacd_compilation_store));
+        burn_append_data_cd(tmp_file->fileName, msinfo);
     else
-	    burn_create_data_cd(GTK_TREE_MODEL(datacd_compilation_store));
+	    burn_create_data_cd(tmp_file->fileName);
 }
 
 
