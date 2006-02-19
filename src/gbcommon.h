@@ -37,13 +37,13 @@ typedef struct
 
 typedef struct 
 {
-	int fileDescriptor;
-	FILE * fileStream;
-	char * fileName;
+	int file_descriptor;
+	FILE * file_stream;
+	char * file_name;
 	
 }GBTempFile;
 
-GBTempFile * gbcommon_create_open_temp_file(const gchar * prefix);
+GBTempFile* gbcommon_create_open_temp_file();
 void gbcommon_close_temp_file(GBTempFile *tmpFile);
 void gbcommon_delete_all_temp_files();
 void gbcommon_start_busy_cursor(GtkWidget* window);
