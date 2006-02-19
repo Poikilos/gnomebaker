@@ -6,8 +6,11 @@ Version 0.5.2
 * Apply patch #1430548 from domg - Fix compilation on FreeBSD 
 * Apply patch from gamehack to enable libnotify support ( ./configure --enable-libnotify ) 
 * Apply patch from Ignacio Martin:
-		Data disk contents can be edited and folders added etc.
-		You can now add files which exceed the disk size and choose which to remove.
+		- Data disk contents can be edited and folders added etc.
+		- You can now add files which exceed the disk size and choose which to remove.
+		Fixes RFE #1286697 - Files And Directories editing ....		
+		Fixes RFE #1210821 - Browsible CD
+		Fixes RFE #1211475 - Virtual Folders
 
 
 Version 0.5.1
