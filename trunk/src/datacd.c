@@ -677,7 +677,7 @@ datacd_add_recursive_reference_list(GtkTreeIter *parent_iter,
 		/*and finally add*/
 		if(rowreference!=NULL)
 		{
-			GB_TRACE("Added to remove: %s",gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(datacd_compilation_store), &child_iter));
+			GB_TRACE("datacd_add_recursive_reference_list - Added to remove [%s]\n",gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(datacd_compilation_store), &child_iter));
 			*rref_list = g_list_prepend(*rref_list, rowreference);
 		}
 
@@ -720,7 +720,7 @@ datacd_foreach_fileselection(GtkTreeModel *filemodel,
 			GB_DECLARE_STRUCT(GtkTreeIter, global_iter);
 			if(gtk_tree_model_get_iter(GTK_TREE_MODEL(datacd_compilation_store),&global_iter, global_path))
 			{
-				GB_TRACE("Added to remove: %s",gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(datacd_compilation_store), &global_iter));
+				GB_TRACE("datacd_foreach_fileselection - Added to remove [%s]\n",gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(datacd_compilation_store), &global_iter));
 				datacd_add_recursive_reference_list(&global_iter,rowref_list);
 			}
 			gtk_tree_path_free(global_path);
@@ -807,7 +807,7 @@ datacd_remove(GtkTreeView *widget)
 						
 						g_value_unset(&value);
 						
-						GB_TRACE("Removed: %s",gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(datacd_compilation_store), &iter));									
+						GB_TRACE("datacd_remove - Removed [%s]\n",gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(datacd_compilation_store), &iter));									
 						gtk_tree_store_remove(datacd_compilation_store, &iter);
 					}
 					g_value_unset(&sessionvalue);
@@ -855,7 +855,6 @@ datacd_clear()
 	GladeXML* xml = gnomebaker_getxml();
 
 	/* Fastest way, clear all and add a new root node */
-	GB_TRACE("clearing the whow tree store");
 	gtk_tree_store_clear(datacd_compilation_store);	
 	datacd_compilation_root_add();
 	
@@ -1612,7 +1611,7 @@ datacd_build_filepaths(GtkTreeModel *model)
     GBTempFile *tmpFile = gbcommon_create_open_temp_file("gnomebaker");
     if(tmpFile == NULL)
     {
-        GB_TRACE("Error. Temp file was not created. Image will not be created");
+        g_critical("datacd_build_filepaths - Error. Temp file was not created. Image will not be created");
         return NULL;
     }
 
@@ -1682,7 +1681,7 @@ datacd_build_filepaths(GtkTreeModel *model)
             /*Only add files that are not part of an existing session*/
             if(!item->existing_session)
             {
-                /*GB_TRACE("Data to Burn: %s=%s",item->path_to_burn , item->path_in_filesystem);*/
+                /*GB_TRACE("datacd_build_filepaths - Data to Burn [%s]=[%s]\n",item->path_to_burn , item->path_in_filesystem);*/
                 fprintf(tmpFile->fileStream, "%s=%s\n", item->path_to_burn , item->path_in_filesystem);
                 /*free memory*/
                 g_free(item->path_in_filesystem);
@@ -1724,6 +1723,8 @@ datacd_on_create_datadisk(gpointer widget, gpointer user_data)
         burn_append_data_cd(tmp_file->fileName, msinfo);
     else
 	    burn_create_data_cd(tmp_file->fileName);
+       
+    /* TODO - we should delete the temp file here */
 }
 
 
