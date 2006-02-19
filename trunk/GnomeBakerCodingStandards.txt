@@ -9,9 +9,14 @@ The first line in any function should be GB_LOG_FUNC. It is a really simple
 macro which when enabled logs the function entry to a console. It's pretty
 noddy but helps when debugging people's problems remotely. 
 
-Also, when wishing to output debugging info, please use the GB_TRACE macro. eg.
+Also, when wishing to output debugging info, please use the GB_TRACE macro. Please 
+apply the following rules when using GB_TRACE as shown below:
 
-GB_TRACE("burn - [%s]", convertedfile);
+	* Put the function name first in the trace.
+	* Place square brackets around parameters so you can see the exact contents
+	  of the arguments. 
+	  
+	GB_TRACE("burn_create_data_cd - [%s]\n", convertedfile);
 
 
 Both macros are enabled by starting the app with the flag --trace-on.
