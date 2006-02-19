@@ -23,6 +23,7 @@
 #include "preferences.h"
 #include "devices.h"
 #include "gbcommon.h"
+#include "datacd.h"
 
 static const guint xpad = 12;
 static const guint ypad = 0;
@@ -529,7 +530,9 @@ startdlg_new(const BurnType burntype)
     start_dlg->abstract = GTK_ENTRY(gtk_entry_new_with_max_length(37));
     start_dlg->bibliography = GTK_ENTRY(gtk_entry_new_with_max_length(37));
     g_signal_connect ((gpointer) start_dlg->browse, "clicked", G_CALLBACK (startdlg_on_browse_clicked), start_dlg);
-            			
+    
+    gchar *vol_id = datacd_compilation_get_volume_id();
+    			
 	switch(burntype)
 	{		
 		case blank_cdrw:		
@@ -552,10 +555,13 @@ startdlg_new(const BurnType burntype)
             /* not supported yet */	
 			break;
 		case create_data_cd:
+			if(vol_id!=NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
             startdlg_create_data_disk_section(start_dlg);
             break;		
         case append_data_cd:        
+			if(vol_id!=NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
             startdlg_append_data_disk_section(start_dlg);
+            g_free(vol_id);
 			break;
 		case copy_audio_cd:
 			startdlg_copy_audio_cd_section(start_dlg);            
@@ -568,16 +574,21 @@ startdlg_new(const BurnType burntype)
             startdlg_format_dvdrw_section(start_dlg);
 			break;
 		case create_data_dvd:
+			if(vol_id!=NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
             start_dlg->dvdmode = TRUE;
             startdlg_create_data_disk_section(start_dlg);
             break;
         case append_data_dvd:
+			if(vol_id!=NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
             start_dlg->dvdmode = TRUE;
             startdlg_append_data_disk_section(start_dlg);
 			break;
 		default:
 			break;
 	};
+	
+	g_free(vol_id);
+	
     startdlg_add_action_area(start_dlg);	
     
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(start_dlg->write_speed), 

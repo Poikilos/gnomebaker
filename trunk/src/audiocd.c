@@ -33,8 +33,10 @@ static const gchar* const widget_audiocd_size = "optionmenu2";
 static const gchar* const widget_audiocd_progressbar = "progressbar3";
 static const gchar* const widget_audiocd_create = "button14";
 
+static gdouble audiocd_selected_size = 0.0;
 
-static gdouble audiocdsize = 0.0;
+/*I think this is better than relying in the progressbar to store the length*/
+static gdouble audiocd_compilation_seconds = 0;
 
 static DiskSize audiodisksizes[] = 
 {
@@ -99,8 +101,8 @@ audiocd_get_audiocd_size()
 	GB_LOG_FUNC
 	GtkWidget* optmen = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_size);
 	g_return_val_if_fail(optmen != NULL, 0);
-	audiocdsize = audiodisksizes[gtk_option_menu_get_history(GTK_OPTION_MENU(optmen))].size;	
-	return audiocdsize;
+	audiocd_selected_size = audiodisksizes[gtk_option_menu_get_history(GTK_OPTION_MENU(optmen))].size;	
+	return audiocd_selected_size;
 }
 
 
@@ -108,12 +110,12 @@ static gchar*
 audiocd_format_progress_text(gdouble currentsecs)
 {
     GB_LOG_FUNC
-    g_return_val_if_fail(currentsecs < (audiocdsize * 60), NULL);
+    g_return_val_if_fail(currentsecs < (audiocd_selected_size * 60), NULL);
     
     gint ss1 = ((gint)currentsecs)%60;
     gint m1 = (((gint)currentsecs)-ss1)/60;
-    gint ss2 = ((gint)((audiocdsize * 60) - currentsecs))%60;
-    gint m2 = (((gint)((audiocdsize * 60) - currentsecs))-ss2)/60;        
+    gint ss2 = ((gint)((audiocd_selected_size * 60) - currentsecs))%60;
+    gint m2 = (((gint)((audiocd_selected_size * 60) - currentsecs))-ss2)/60;        
     return g_strdup_printf(_("%d mins %d secs used - %d mins %d secs remaining"), m1, ss1, m2, ss2);    
 }   
 
@@ -126,46 +128,68 @@ audiocd_update_progress_bar(gboolean add, gdouble seconds)
 	
 	/* Now update the progress bar with the cd size */
 	GladeXML* xml = gnomebaker_getxml();
-	g_return_val_if_fail(xml != NULL, FALSE);
+	g_return_if_fail(xml != NULL);
 	
-	GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
-	g_return_val_if_fail(progbar != NULL, FALSE);
+	GtkWidget* progbar = glade_xml_get_widget(xml, widget_audiocd_progressbar);
+	g_return_if_fail(progbar != NULL);
 	
-	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
-	const gdouble cdsize = audiocd_get_audiocd_size();	
-	gdouble currentsecs = fraction * cdsize * 60;
+	const gdouble disksize = audiocd_get_audiocd_size()*60;
 	
 	if(add)
-		currentsecs += seconds;
+	{
+		if((audiocd_compilation_seconds +  seconds)<=disksize)
+		{
+			audiocd_compilation_seconds += seconds;
+		}
+		else /*do not add*/
+		{
+			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+			_("Track is too large to fit in the remaining space on the CD"));
+			ok = FALSE;
+		}
+	}
 	else
-		currentsecs -= seconds;
-	
-	fraction = currentsecs / (cdsize * 60);
-	
-	if(fraction < 0.0 || fraction == -0.0)
 	{
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
-        gchar* buf = audiocd_format_progress_text(0.0);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
-        g_free(buf);
-		gnomebaker_enable_widget(widget_audiocd_create, FALSE);
+		audiocd_compilation_seconds -= seconds;
 	}	
-	/* If the file is too large then we don't allow the user to add it */
-	else if(fraction <= 1.0)
+    
+	if (audiocd_compilation_seconds < 0.0 || audiocd_compilation_seconds == 0.0)
 	{
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
-        gchar* buf = audiocd_format_progress_text(currentsecs);
+		audiocd_compilation_seconds = 0;
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 0.0);
+		gchar* buf = audiocd_format_progress_text(audiocd_compilation_seconds);
+        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+        g_free(buf);
+		
+		/* disable the create button as there's nothing on the disk */
+		gnomebaker_enable_widget(widget_audiocd_create, FALSE);
+		
+		/* remove the multisession flag as there's nothing on the disk */
+	}	
+	else
+	{
+		gdouble fraction = 0.0;
+	
+		if(disksize > 0)
+	 		fraction = (gdouble)audiocd_compilation_seconds/disksize;
+	 		
+		if(audiocd_compilation_seconds > disksize)
+		{
+			gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 1.0);
+			gnomebaker_enable_widget(widget_audiocd_create, FALSE);
+
+		}
+		else
+		{
+			gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
+		}
+	
+        gchar *buf = audiocd_format_progress_text(audiocd_compilation_seconds);
         gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
         g_free(buf);
 		gnomebaker_enable_widget(widget_audiocd_create, TRUE);
 	}
-	else
-	{
-		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-			_("Track is too large to fit in the remaining space on the CD"));
-		ok = FALSE;
-	}
-
+	
 	return ok;
 }
 
@@ -490,17 +514,30 @@ audiocd_on_audiocd_size_changed(GtkOptionMenu *optionmenu, gpointer user_data)
 	GtkWidget* progbar = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_progressbar);
 	g_return_if_fail(progbar != NULL);
 	
-	gdouble fraction = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(progbar));	
-	gdouble previoussize = audiocdsize;
-	audiocdsize = audiocd_get_audiocd_size();
+	audiocd_selected_size = audiocd_get_audiocd_size();		
+	gdouble fraction  = (audiocd_compilation_seconds)/(audiocd_selected_size*60);
+
+    if(fraction>1.0)
+    {
+    	 gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
+			_("Not enough space on the CD"));
 		
-	fraction = (fraction * previoussize)/audiocdsize;
-	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);	
-    gchar* buf = audiocd_format_progress_text(fraction * audiocdsize* 60);
+		/* disable the create button*/
+		gnomebaker_enable_widget(widget_audiocd_create, FALSE);	
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), 1.0);	
+
+	}
+	else
+	{
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progbar), fraction);
+		gnomebaker_enable_widget(widget_audiocd_create, TRUE);		
+	}
+	
+    gchar* buf = audiocd_format_progress_text(audiocd_compilation_seconds);
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progbar), buf);
+    preferences_set_int(GB_AUDIO_DISK_SIZE, gtk_option_menu_get_history(optionmenu));
     g_free(buf);
     
-    preferences_set_int(GB_AUDIO_DISK_SIZE, gtk_option_menu_get_history(optionmenu));
 }
 
 
@@ -650,6 +687,8 @@ audiocd_clear()
     GB_LOG_FUNC
     
     gnomebaker_show_busy_cursor(TRUE);
+    
+    audiocd_compilation_seconds = 0.0;
     
     GtkWidget *audiotree = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree);
     GtkTreeModel* filemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(audiotree));    
@@ -826,6 +865,8 @@ audiocd_new()
 {
     GB_LOG_FUNC
     
+    audiocd_compilation_seconds = 0.0;
+    
     GtkTreeView *filelist = 
         GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_tree));
     g_return_if_fail(filelist != NULL);
@@ -921,6 +962,6 @@ audiocd_new()
         
     GtkWidget* optmenu = glade_xml_get_widget(gnomebaker_getxml(), widget_audiocd_size);
     gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(optmenu), audiodisksizes, 
-        (sizeof(audiodisksizes)/sizeof(DiskSize)), preferences_get_int(GB_AUDIO_DISK_SIZE));
+        (sizeof(audiodisksizes)/sizeof(DiskSize)), preferences_get_int(GB_AUDIO_DISK_SIZE));      
 }
 
