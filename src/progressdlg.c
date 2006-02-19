@@ -340,8 +340,8 @@ progressdlg_increment_exec_number()
 	gtk_text_buffer_get_start_iter(textBuffer, &startIter);	
 	gtk_text_buffer_delete(textBuffer, &startIter, &endIter);		
     
-    if(timer != NULL)
-        g_timer_start(timer);
+/*    if(timer != NULL)
+        g_timer_start(timer);*/
 }
 
 
@@ -367,7 +367,7 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
             if(preferences_get_bool(GB_PLAY_SOUND))
                 media_start_playing(MEDIADIR"/BurnOk.wav");
             progressdlg_set_icon(12);
-            gblibnotify_notification(completed, _("Gnomebaker completed successfully!"));
+            gblibnotify_notification(completed, ex->processtitle);
         }
         else if(ex->outcome == FAILED) 
         {
@@ -379,7 +379,7 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
             if(ex->err != NULL)
                 progressdlg_append_output(ex->err->message);
             progressdlg_set_icon(13);
-            gblibnotify_notification(failed, _("Gnomebaker <b>failed</b> to complete the action!"));
+            gblibnotify_notification(failed, ex->processtitle);
         }
         /* Scrub out he closefunction callback as whatever exec was doing is finished */
         closefunction = NULL;
