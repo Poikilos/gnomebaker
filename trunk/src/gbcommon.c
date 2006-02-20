@@ -71,24 +71,24 @@ gbcommon_create_open_temp_file()
 
 /*this only closes the file*/
 void
-gbcommon_close_temp_file(GBTempFile *tmpFile)
+gbcommon_close_temp_file(GBTempFile *tmp_file)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(tmpFile != NULL);
+	g_return_if_fail(tmp_file != NULL);
 
-	if(tmpFile->file_stream != NULL)
+	if(tmp_file->file_stream != NULL)
 	{
-		if(fclose(tmpFile->file_stream) != 0)
-			g_critical("gbcommon_close_temp_file - Temporary file stream [%s] could not be closed", tmpFile->file_name);
+		if(fclose(tmp_file->file_stream) != 0)
+			g_critical("gbcommon_close_temp_file - Temporary file stream [%s] could not be closed", tmp_file->file_name);
 	}
-	if(tmpFile->file_descriptor >= 0)
+	if(tmp_file->file_descriptor >= 0)
 	{
-		if(close(tmpFile->file_descriptor) != 0)
-			g_critical("gbcommon_close_temp_file - Temporary file descriptor [%s] could not be closed", tmpFile->file_name);
+		if(close(tmp_file->file_descriptor) != 0)
+			g_critical("gbcommon_close_temp_file - Temporary file descriptor [%s] could not be closed", tmp_file->file_name);
 	}
     
-    tmpFile->file_stream = NULL;
-    tmpFile->file_descriptor = -1;
+    tmp_file->file_stream = NULL;
+    tmp_file->file_descriptor = -1;
 }
 
 
@@ -103,18 +103,18 @@ gbcommon_delete_all_temp_files()
 	{
 		if(node->data != NULL)
 		{
-			GBTempFile *tmpFile = (GBTempFile*)node->data;
-			gbcommon_close_temp_file(tmpFile);
-			if(tmpFile->file_name != NULL)
+			GBTempFile *tmp_file = (GBTempFile*)node->data;
+			gbcommon_close_temp_file(tmp_file);
+			if(tmp_file->file_name != NULL)
 			{
                 /* TODO g_unlink requires gtk 2.6 */
-				if(unlink(tmpFile->file_name) == -1)
+				if(unlink(tmp_file->file_name) == -1)
 				{
-					g_critical("gbcommon_delete_all_temp_files - File [%s] could not be deleted", tmpFile->file_name);
+					g_critical("gbcommon_delete_all_temp_files - File [%s] could not be deleted", tmp_file->file_name);
 				}
-				g_free(tmpFile->file_name);
+				g_free(tmp_file->file_name);
 			}
-			g_free(tmpFile);
+			g_free(tmp_file);
 		}
 	}
 	g_list_free(temp_file_list);
@@ -139,13 +139,13 @@ gb_common_finalise()
 
 
 void 
-gbcommon_start_busy_cursor(GtkWidget* window)
+gbcommon_start_busy_cursor(GtkWidget *window)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(window != NULL);
     if(GTK_WIDGET_REALIZED(window))
     {
-    	GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
+    	GdkCursor *cursor = gdk_cursor_new(GDK_WATCH);
     	gdk_window_set_cursor(GDK_WINDOW(window->window), cursor);
     	gdk_cursor_destroy(cursor);/* safe because cursor is just a handle */
     	gdk_flush();
@@ -154,19 +154,19 @@ gbcommon_start_busy_cursor(GtkWidget* window)
 
 
 void 
-gbcommon_start_busy_cursor1(GladeXML* xml, const gchar* windowname)
+gbcommon_start_busy_cursor1(GladeXML *xml, const gchar *window_name)
 {
 	GB_LOG_FUNC
     g_return_if_fail(xml != NULL);
-    g_return_if_fail(windowname != NULL);    
-	GtkWidget* dlg = glade_xml_get_widget(xml, windowname);
+    g_return_if_fail(window_name != NULL);    
+	GtkWidget *dlg = glade_xml_get_widget(xml, window_name);
 	g_return_if_fail(dlg != NULL);
 	gbcommon_start_busy_cursor(dlg);
 }
 
 
 void 
-gbcommon_end_busy_cursor(GtkWidget* window)
+gbcommon_end_busy_cursor(GtkWidget *window)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(window != NULL);
@@ -179,44 +179,44 @@ gbcommon_end_busy_cursor(GtkWidget* window)
 
 
 void 
-gbcommon_end_busy_cursor1(GladeXML* xml, const gchar* windowname)
+gbcommon_end_busy_cursor1(GladeXML *xml, const gchar *window_name)
 {
 	GB_LOG_FUNC
     g_return_if_fail(xml != NULL);
-    g_return_if_fail(windowname != NULL);        
-	GtkWidget* dlg = glade_xml_get_widget(xml, windowname);
+    g_return_if_fail(window_name != NULL);        
+	GtkWidget *dlg = glade_xml_get_widget(xml, window_name);
 	g_return_if_fail(dlg != NULL);
 	gbcommon_end_busy_cursor(dlg);
 }
 
 
 guint64
-gbcommon_calc_dir_size(const gchar* dirname)
+gbcommon_calc_dir_size(const gchar *dir_name)
 {
 	/*GB_LOG_FUNC*/
-    g_return_val_if_fail(dirname != NULL, 0);
+    g_return_val_if_fail(dir_name != NULL, 0);
     
 	guint64 size = 0;	
-	GDir *dir = g_dir_open(dirname, 0, NULL);
+	GDir *dir = g_dir_open(dir_name, 0, NULL);
 	if(dir != NULL)
 	{
 		const gchar *name = g_dir_read_name(dir);	
 		while(name != NULL)
 		{
 			/* build up the full path to the name */
-			gchar* fullname = g_build_filename(dirname, name, NULL);
+			gchar *full_name = g_build_filename(dir_name, name, NULL);
 	
 			GB_DECLARE_STRUCT(struct stat, s);
-			if(stat(fullname, &s) == 0)
+			if(stat(full_name, &s) == 0)
 			{
 				/* see if the name is actually a directory or a regular file */
 				if(s.st_mode & S_IFDIR)
-					size += gbcommon_calc_dir_size(fullname);
+					size += gbcommon_calc_dir_size(full_name);
 				else if(s.st_mode & S_IFREG)
 					size += (guint64)s.st_size;
 			}
 			
-			g_free(fullname);			
+			g_free(full_name);			
 			name = g_dir_read_name(dir);
 		}
 	
@@ -227,25 +227,25 @@ gbcommon_calc_dir_size(const gchar* dirname)
 }
 
 void 
-gbcommon_mkdir(const gchar* dirname)
+gbcommon_mkdir(const gchar *dir_name)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(dirname != NULL);
+	g_return_if_fail(dir_name != NULL);
 		
-	GB_TRACE("gbcommon_mkdir - creating [%s]\n", dirname);
+	GB_TRACE("gbcommon_mkdir - creating [%s]\n", dir_name);
 
-	gchar *dirs = g_strdup(dirname);
+	gchar *dirs = g_strdup(dir_name);
 	GString *dir = g_string_new("");
 	
-	gchar* currentdir = strtok(dirs, "/");
-	while(currentdir != NULL)
+	gchar *current_dir = strtok(dirs, "/");
+	while(current_dir != NULL)
 	{
-		g_string_append_printf(dir, "/%s", currentdir);
+		g_string_append_printf(dir, "/%s", current_dir);
 		if((g_file_test(dir->str, G_FILE_TEST_IS_DIR) == FALSE) && 
 				(mkdir(dir->str, 0775) == -1))
 			g_critical("gbcommon_mkdir - failed to create [%d]", errno);
 
-		currentdir = strtok(NULL, "/");
+		current_dir = strtok(NULL, "/");
 	}
 	
 	g_string_free(dir, TRUE);
@@ -254,13 +254,13 @@ gbcommon_mkdir(const gchar* dirname)
 
 
 gchar** 
-gbcommon_get_file_as_list(const gchar* file)
+gbcommon_get_file_as_list(const gchar *file)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(file != NULL, NULL);
 	
-	gchar** ret = NULL;	
-	gchar* contents = NULL;	
+	gchar **ret = NULL;	
+	gchar *contents = NULL;	
 	if(g_file_get_contents(file, &contents, NULL, NULL))
 		ret = g_strsplit(contents, "\n", 0);
 	else
@@ -272,16 +272,16 @@ gbcommon_get_file_as_list(const gchar* file)
 
 
 gchar* 
-gbcommon_get_option_menu_selection(GtkOptionMenu* optmen)
+gbcommon_get_option_menu_selection(GtkOptionMenu *option_menu)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(optmen != NULL, NULL);
+	g_return_val_if_fail(option_menu != NULL, NULL);
 	
-	gchar* ret = NULL;
-	GtkWidget* mode = GTK_BIN(optmen)->child;
+	gchar *ret = NULL;
+	GtkWidget *mode = GTK_BIN(option_menu)->child;
 	if(mode != NULL && GTK_IS_LABEL(mode))
 	{
-		gchar* text = NULL;
+		gchar *text = NULL;
 		gtk_label_get(GTK_LABEL(mode), &text);
 		/*g_free(text);*/
 		ret = g_strdup(text);
@@ -291,13 +291,13 @@ gbcommon_get_option_menu_selection(GtkOptionMenu* optmen)
 
 
 void 
-gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection)
+gbcommon_set_option_menu_selection(GtkOptionMenu *option_menu, const gchar *selection)
 {	
 	GB_LOG_FUNC
-	g_return_if_fail(optmen != NULL);
+	g_return_if_fail(option_menu != NULL);
 	g_return_if_fail(selection != NULL);
 	
-	GList* items = GTK_MENU_SHELL(gtk_option_menu_get_menu(optmen))->children;	
+	GList *items = GTK_MENU_SHELL(gtk_option_menu_get_menu(option_menu))->children;	
 	gint index = 0;
 	for(; items != NULL; items = items->next)
 	{
@@ -310,7 +310,7 @@ gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection
 				gtk_label_get(GTK_LABEL(child), &text);
 				if(g_ascii_strcasecmp(text, selection) == 0)
 				{
-					gtk_option_menu_set_history(optmen, index);	
+					gtk_option_menu_set_history(option_menu, index);	
 					break;
 				}
 			}
@@ -319,12 +319,13 @@ gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection
 	}
 }
 
+
 gchar*
 gbcommon_humanreadable_filesize(guint64 size)
 {
 	GB_LOG_FUNC
-	gchar* ret = NULL;
-	const gchar* unit_list[5] = {"B ", "KB", "MB", "GB", "TB"};
+	gchar *ret = NULL;
+	const gchar *unit_list[5] = {"B ", "KB", "MB", "GB", "TB"};
 	gint unit = 0;
 	gdouble human_size = (gdouble) size;
 	
@@ -343,17 +344,17 @@ gbcommon_humanreadable_filesize(guint64 size)
 
 
 GdkPixbuf*
-gbcommon_get_icon_for_mime(const gchar* mime, gint size)
+gbcommon_get_icon_for_mime(const gchar *mime, gint size)
 {
 	GB_LOG_FUNC	
     g_return_val_if_fail(mime != NULL, NULL);
     
-	GtkIconTheme* theme = gtk_icon_theme_get_default();
+	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	g_return_val_if_fail(theme != NULL, NULL);
 
-	gchar* icon_name = gnome_icon_lookup(
+	gchar *icon_name = gnome_icon_lookup(
 		theme ,NULL, NULL, NULL, NULL, mime, GNOME_ICON_LOOKUP_FLAGS_NONE, NULL);
-	GdkPixbuf* ret = gtk_icon_theme_load_icon(theme, icon_name, size, 0, NULL);
+	GdkPixbuf *ret = gtk_icon_theme_load_icon(theme, icon_name, size, 0, NULL);
 	g_free(icon_name);
 
 	if (ret == NULL) 
@@ -363,30 +364,30 @@ gbcommon_get_icon_for_mime(const gchar* mime, gint size)
 
 
 GdkPixbuf*
-gbcommon_get_icon_for_name(const gchar* icon, gint size)
+gbcommon_get_icon_for_name(const gchar *icon, gint size)
 {
 	GB_LOG_FUNC
     g_return_val_if_fail(icon != NULL, NULL);
-	GtkIconTheme* theme = gtk_icon_theme_get_default();
+	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	g_return_val_if_fail(theme != NULL, NULL);
 	return gtk_icon_theme_load_icon(theme, icon, 16, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
 }
 
 
 void
-gbcommon_launch_app_for_file(const gchar* file)
+gbcommon_launch_app_for_file(const gchar *file)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(file != NULL);
 	
-	gchar* mime = gbcommon_get_mime_type(file);
+	gchar *mime = gbcommon_get_mime_type(file);
 	if(mime != NULL)
 	{		
-		GnomeVFSMimeApplication* app = gnome_vfs_mime_get_default_application(mime);
+		GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application(mime);
 		if(app != NULL)
 		{			
-			gchar* uri = gnome_vfs_get_uri_from_local_path(file);
-			GList* uris = g_list_append(NULL, uri);
+			gchar *uri = gnome_vfs_get_uri_from_local_path(file);
+			GList *uris = g_list_append(NULL, uri);
 			gnome_vfs_mime_application_launch(app, uris);
 			g_free(uri);
 			g_list_free(uris);
@@ -398,40 +399,40 @@ gbcommon_launch_app_for_file(const gchar* file)
 
 
 void 
-gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[], 
-										const gint sizecount, const gint history)
+gbcommon_populate_disk_size_option_menu(GtkOptionMenu *option_menu, DiskSize sizes[], 
+										const gint size_count, const gint history)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(optmen != NULL);
+	g_return_if_fail(option_menu != NULL);
 	g_return_if_fail(sizes != NULL);
 	
-	GtkWidget* menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(optmen));
+	GtkWidget *menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(option_menu));
 	if(menu != NULL)
 		gtk_widget_destroy(menu);
 	menu = gtk_menu_new();
 	gtk_widget_show(menu);
 	
 	gint i = 0; 
-	for(; i < sizecount; ++i)
+	for(; i < size_count; ++i)
 	{
-		GtkWidget* menuitem = gtk_menu_item_new_with_label(sizes[i].label);
-		gtk_widget_show(menuitem);
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		GtkWidget *menu_item = gtk_menu_item_new_with_label(sizes[i].label);
+		gtk_widget_show(menu_item);
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
 	}
 	
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(optmen), menu);	
-	gtk_option_menu_set_history(GTK_OPTION_MENU(optmen), history);
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(option_menu), menu);	
+	gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), history);
 }
 
 
 gchar* 
-gbcommon_get_mime_description(const gchar* mime)
+gbcommon_get_mime_description(const gchar *mime)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(mime != NULL, NULL);
 	
-	gchar* ret = NULL;
-	const gchar* desc = gnome_vfs_mime_get_description(mime);
+	gchar *ret = NULL;
+	const gchar *desc = gnome_vfs_mime_get_description(mime);
 	if(desc != NULL)
 		ret = g_strdup(desc);
 	else
@@ -443,13 +444,13 @@ gbcommon_get_mime_description(const gchar* mime)
 
 
 gchar*
-gbcommon_get_mime_type(const gchar* file)
+gbcommon_get_mime_type(const gchar *file)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(file != NULL, NULL);	
 	
-	gchar* uri = gbcommon_get_uri(file);	
-	gchar* mime = gnome_vfs_get_mime_type(uri);
+	gchar *uri = gbcommon_get_uri(file);	
+	gchar *mime = gnome_vfs_get_mime_type(uri);
 	GB_TRACE("gbcommon_get_mime_type - uri [%s] mime [%s]\n", uri, mime);
 	g_free(uri);	
 	return mime;
@@ -457,29 +458,29 @@ gbcommon_get_mime_type(const gchar* file)
 
 
 gchar* 
-gbcommon_get_local_path(const gchar* uri)
+gbcommon_get_local_path(const gchar *uri)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(uri != NULL, NULL);	
 	
-	gchar* fileuri = g_strdup(uri);
-	g_strstrip(fileuri); /* We sometimes get files with /r etc on the end */
-	if(g_ascii_strncasecmp(fileuri, "file:", 5) == 0)
+	gchar *file_uri = g_strdup(uri);
+	g_strstrip(file_uri); /* We sometimes get files with /r etc on the end */
+	if(g_ascii_strncasecmp(file_uri, "file:", 5) == 0)
 	{
-		gchar* localpath = gnome_vfs_get_local_path_from_uri(fileuri);
-		g_free(fileuri);
-		return localpath;
+		gchar* local_path = gnome_vfs_get_local_path_from_uri(file_uri);
+		g_free(file_uri);
+		return local_path;
 	}
-	return fileuri;		
+	return file_uri;		
 }
 
 
 gchar* 
-gbcommon_get_uri(const gchar* localpath)
+gbcommon_get_uri(const gchar *local_path)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(localpath != NULL, NULL);	
-	return gnome_vfs_get_uri_from_local_path(localpath);
+	g_return_val_if_fail(local_path != NULL, NULL);	
+	return gnome_vfs_get_uri_from_local_path(local_path);
 }
 
 
@@ -491,63 +492,63 @@ gbcommon_get_first_selected_row(GtkTreeModel *model,
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(user_data != NULL, TRUE);
-	GtkTreeIter* treeiter = (GtkTreeIter*)user_data;
+	GtkTreeIter *treeiter = (GtkTreeIter*)user_data;
 	*treeiter = *iter;
 	return TRUE; /* only process the first selected item */
 }
 
 
 void 
-gbcommon_append_menu_item(GtkWidget* menu, const gchar* menuitemlabel, GtkWidget* image,
-						  GCallback activated, gpointer userdata)
+gbcommon_append_menu_item(GtkWidget *menu, const gchar *menu_item_label, GtkWidget *image,
+						  GCallback activated, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(menu != NULL);
-	g_return_if_fail(menuitemlabel != NULL);
+	g_return_if_fail(menu_item_label != NULL);
 	g_return_if_fail(image != NULL);
 	g_return_if_fail(activated != NULL);
-	g_return_if_fail(userdata != NULL);
+	g_return_if_fail(user_data != NULL);
 	
-	GtkWidget* menuitem = gtk_image_menu_item_new_with_mnemonic(menuitemlabel);	
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem), image);
-	g_signal_connect(menuitem, "activate",
-		(GCallback)activated, userdata);	
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);	
+	GtkWidget *menu_item = gtk_image_menu_item_new_with_mnemonic(menu_item_label);	
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menu_item), image);
+	g_signal_connect(menu_item, "activate",
+		(GCallback)activated, user_data);	
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);	
 }
 
 
 void 
-gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel, const gchar* stockid,
-								GCallback activated, gpointer userdata)
+gbcommon_append_menu_item_stock(GtkWidget *menu, const gchar *menu_item_label, const gchar *stock_id,
+								GCallback activated, gpointer user_data)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(stockid != NULL);
+	g_return_if_fail(stock_id != NULL);
 	
-	GtkWidget* image = gtk_image_new_from_stock(stockid, GTK_ICON_SIZE_MENU);
-	gbcommon_append_menu_item(menu, menuitemlabel, image, activated, userdata);	
+	GtkWidget *image = gtk_image_new_from_stock(stock_id, GTK_ICON_SIZE_MENU);
+	gbcommon_append_menu_item(menu, menu_item_label, image, activated, user_data);	
 }
 
 
 void 
-gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel, const gchar* filename,
-								GCallback activated, gpointer userdata)
+gbcommon_append_menu_item_file(GtkWidget *menu, const gchar *menu_item_label, const gchar *file_name,
+								GCallback activated, gpointer user_data)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(filename != NULL);
+	g_return_if_fail(file_name != NULL);
 	
-	gchar* fullfilename = g_build_filename(IMAGEDIR, filename, NULL);
-	GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file(fullfilename, NULL);
-	GtkWidget* image = gtk_image_new_from_pixbuf(pixbuf);
-	gbcommon_append_menu_item(menu, menuitemlabel, image, activated, userdata);	
-	g_free(fullfilename);
+	gchar *full_file_name = g_build_filename(IMAGEDIR, file_name, NULL);
+	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(full_file_name, NULL);
+	GtkWidget *image = gtk_image_new_from_pixbuf(pixbuf);
+	gbcommon_append_menu_item(menu, menu_item_label, image, activated, user_data);	
+	g_free(full_file_name);
 	g_object_unref(pixbuf);
 }
 
 
 gchar*
-gbcommon_show_file_chooser(const gchar* title, GtkFileChooserAction action,
-                           GtkFileFilter* customfilter, const gboolean showallfilefilter,
-                           GtkComboBox* saveasoptions)
+gbcommon_show_file_chooser(const gchar *title, GtkFileChooserAction action,
+                           GtkFileFilter *custom_filter, const gboolean show_all_file_filter,
+                           GtkComboBox *save_as_options)
 {
     GB_LOG_FUNC
     g_return_val_if_fail(title != NULL, NULL);
@@ -557,35 +558,35 @@ gbcommon_show_file_chooser(const gchar* title, GtkFileChooserAction action,
     GtkWidget *filesel = gtk_file_chooser_dialog_new( title , NULL, action, GTK_STOCK_CANCEL, 
             GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
-    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), customfilter);
-    if(showallfilefilter || customfilter == NULL)
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), custom_filter);
+    if(show_all_file_filter || custom_filter == NULL)
     {
-        GtkFileFilter *allfilter = gtk_file_filter_new();
-        gtk_file_filter_add_pattern (allfilter, "*");
-        gtk_file_filter_set_name(allfilter,_("All files"));    
-        gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), allfilter);
+        GtkFileFilter *all_filter = gtk_file_filter_new();
+        gtk_file_filter_add_pattern (all_filter, "*");
+        gtk_file_filter_set_name(all_filter,_("All files"));    
+        gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), all_filter);
     }
     
-    if(action == GTK_FILE_CHOOSER_ACTION_SAVE && saveasoptions != NULL)
+    if(action == GTK_FILE_CHOOSER_ACTION_SAVE && save_as_options != NULL)
     {
-        GtkWidget* pulldown_hbox = gtk_hbox_new(FALSE, 15);
+        GtkWidget *pulldown_hbox = gtk_hbox_new(FALSE, 15);
         gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(filesel), pulldown_hbox);
-        GtkWidget* filetypes_label = gtk_label_new(_("Save file as type:"));
+        GtkWidget *filetypes_label = gtk_label_new(_("Save file as type:"));
         gtk_box_pack_start(GTK_BOX(pulldown_hbox),filetypes_label, FALSE, TRUE, 0);
-        gtk_box_pack_end(GTK_BOX(pulldown_hbox), GTK_WIDGET(saveasoptions), TRUE, TRUE, 0);
+        gtk_box_pack_end(GTK_BOX(pulldown_hbox), GTK_WIDGET(save_as_options), TRUE, TRUE, 0);
         gtk_widget_show_all(pulldown_hbox);
     }
 
-    gchar* file = NULL;
+    gchar *file = NULL;
     if (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)
     {
         file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));
-        if(action == GTK_FILE_CHOOSER_ACTION_SAVE && saveasoptions != NULL)
+        if(action == GTK_FILE_CHOOSER_ACTION_SAVE && save_as_options != NULL)
         {
-            gchar* ext = gtk_combo_box_get_active_text(saveasoptions);
+            gchar *ext = gtk_combo_box_get_active_text(save_as_options);
             if(strlen(file) > 3 && !gbcommon_str_has_suffix(file, ext))
             {
-                gchar* tmp = file;
+                gchar *tmp = file;
                 file = g_strconcat(tmp, ext, NULL);
                 g_free(tmp);
             }
@@ -598,7 +599,7 @@ gbcommon_show_file_chooser(const gchar* title, GtkFileChooserAction action,
 
 
 void 
-gbcommon_center_window_on_parent(GtkWidget* window)
+gbcommon_center_window_on_parent(GtkWidget *window)
 {
     GB_LOG_FUNC    
     g_return_if_fail(window != NULL);
@@ -606,13 +607,13 @@ gbcommon_center_window_on_parent(GtkWidget* window)
     gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(gnomebaker_get_window()));
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_widget_realize(window);
-    gdk_window_set_functions(window->window, GDK_FUNC_RESIZE|GDK_FUNC_MOVE|GDK_FUNC_CLOSE);
+    gdk_window_set_functions(window->window, GDK_FUNC_RESIZE | GDK_FUNC_MOVE | GDK_FUNC_CLOSE);
     gtk_widget_show(window);
 }
 
 
 gboolean 
-gbcommon_str_has_suffix(const gchar* str, const gchar* suffix)
+gbcommon_str_has_suffix(const gchar *str, const gchar *suffix)
 {
     GB_LOG_FUNC
     g_return_val_if_fail(str != NULL, FALSE);
