@@ -44,44 +44,44 @@ typedef struct
 }GBTempFile;
 
 GBTempFile* gbcommon_create_open_temp_file();
-void gbcommon_close_temp_file(GBTempFile *tmpFile);
+void gbcommon_close_temp_file(GBTempFile *tmp_file);
 void gbcommon_delete_all_temp_files();
-void gbcommon_start_busy_cursor(GtkWidget* window);
-void gbcommon_start_busy_cursor1(GladeXML* xml, const gchar* windowname);
-void gbcommon_end_busy_cursor(GtkWidget* window);
-void gbcommon_end_busy_cursor1(GladeXML* xml, const gchar* windowname);
-guint64 gbcommon_calc_dir_size(const gchar* dirname);
-void gbcommon_mkdir(const gchar* dir);
-gchar** gbcommon_get_file_as_list(const gchar* file);
-gchar* gbcommon_get_option_menu_selection(GtkOptionMenu* optmen);
-void gbcommon_set_option_menu_selection(GtkOptionMenu* optmen, const gchar* selection);
+void gbcommon_start_busy_cursor(GtkWidget *window);
+void gbcommon_start_busy_cursor1(GladeXML *xml, const gchar *window_name);
+void gbcommon_end_busy_cursor(GtkWidget *window);
+void gbcommon_end_busy_cursor1(GladeXML *xml, const gchar *window_name);
+guint64 gbcommon_calc_dir_size(const gchar *dir_name);
+void gbcommon_mkdir(const gchar *dir);
+gchar** gbcommon_get_file_as_list(const gchar *file);
+gchar* gbcommon_get_option_menu_selection(GtkOptionMenu *option_menu);
+void gbcommon_set_option_menu_selection(GtkOptionMenu *option_menu, const gchar *selection);
 gchar* gbcommon_humanreadable_filesize(guint64 size);
-GdkPixbuf* gbcommon_get_icon_for_mime(const gchar* mime, gint size);
-GdkPixbuf* gbcommon_get_icon_for_name(const gchar* mime, gint size);
-void gbcommon_launch_app_for_file(const gchar* file);
-void gbcommon_populate_disk_size_option_menu(GtkOptionMenu* optmen, DiskSize sizes[],
-            const gint sizecount, const gint history);
-gchar* gbcommon_get_mime_description(const gchar* mime);
-gchar* gbcommon_get_mime_type(const gchar* file);
-gchar* gbcommon_get_local_path(const gchar* uri);
+GdkPixbuf* gbcommon_get_icon_for_mime(const gchar *mime, gint size);
+GdkPixbuf* gbcommon_get_icon_for_name(const gchar *mime, gint size);
+void gbcommon_launch_app_for_file(const gchar *file);
+void gbcommon_populate_disk_size_option_menu(GtkOptionMenu *option_menu, DiskSize sizes[],
+            const gint size_count, const gint history);
+gchar* gbcommon_get_mime_description(const gchar *mime);
+gchar* gbcommon_get_mime_type(const gchar *file);
+gchar* gbcommon_get_local_path(const gchar *uri);
 gchar* gbcommon_get_uri(const gchar* localpath);
-gboolean gbcommon_get_first_selected_row(GtkTreeModel *model, GtkTreePath  *path,
-            GtkTreeIter  *iter, gpointer user_data);
-void gbcommon_append_menu_item_file(GtkWidget* menu, const gchar* menuitemlabel,
-			const gchar* filename, GCallback activated, gpointer userdata);
-void gbcommon_append_menu_item_stock(GtkWidget* menu, const gchar* menuitemlabel,
-			const gchar* stockid, GCallback activated, gpointer userdata);
+gboolean gbcommon_get_first_selected_row(GtkTreeModel *model, GtkTreePath *path,
+            GtkTreeIter *iter, gpointer user_data);
+void gbcommon_append_menu_item_file(GtkWidget *menu, const gchar *menu_item_label,
+			const gchar *filename, GCallback activated, gpointer user_data);
+void gbcommon_append_menu_item_stock(GtkWidget *menu, const gchar *menu_item_label,
+			const gchar *stock_id, GCallback activated, gpointer user_data);
 
-gchar* gbcommon_show_file_chooser(const gchar* title, GtkFileChooserAction action, 
-            GtkFileFilter* customfilter, const gboolean showallfilefilter, GtkComboBox* saveasoptions);
+gchar* gbcommon_show_file_chooser(const gchar *title, GtkFileChooserAction action, 
+           GtkFileFilter *custom_filter, const gboolean show_all_file_filter, GtkComboBox *save_as_options);
 void gb_common_finalise();
 gboolean gbcommon_init();
-void gbcommon_center_window_on_parent(GtkWidget* window);
-gboolean gbcommon_str_has_suffix(const gchar* str, const gchar* suffix);
+void gbcommon_center_window_on_parent(GtkWidget *window);
+gboolean gbcommon_str_has_suffix(const gchar *str, const gchar *suffix);
 gboolean gbcommon_iso_file_filter(const GtkFileFilterInfo *filter_info, gpointer data);
 
 /* defined in main.c */
-extern const gchar* glade_file;
+extern const gchar *glade_file;
 extern gboolean showtrace;
 
 
