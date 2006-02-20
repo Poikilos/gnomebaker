@@ -37,18 +37,18 @@
 #include "media.h"
 
 
-static Exec *burnargs = NULL;
+static Exec *burn_args = NULL;
 
 
 static StartDlg*
-burn_show_start_dlg(const BurnType burntype)
+burn_show_start_dlg(const BurnType burn_type)
 {
 	GB_LOG_FUNC
-	if(burnargs != NULL)
-		exec_delete(burnargs);
-	burnargs = NULL;	
+	if(burn_args != NULL)
+		exec_delete(burn_args);
+	burn_args = NULL;	
 
-	StartDlg* dlg = startdlg_new(burntype);	
+	StartDlg *dlg = startdlg_new(burn_type);	
 	if(gtk_dialog_run(dlg->dialog) != GTK_RESPONSE_OK)	
     {
 	   startdlg_delete(dlg);
@@ -64,7 +64,7 @@ static gboolean
 burn_stop_process()
 {
     GB_LOG_FUNC
-    exec_stop(burnargs);
+    exec_stop(burn_args);
     return TRUE;
 }
 
@@ -75,25 +75,25 @@ burn_run_process()
 	GB_LOG_FUNC
 	/* Create the dlg before we start the thread as callbacks from the
 	 * thread may need to use the controls.*/
-	GtkWidget *dlg = progressdlg_new(burnargs, gnomebaker_get_window(), G_CALLBACK(burn_stop_process));
-    exec_run(burnargs);
-    progressdlg_finish(dlg, burnargs);
+	GtkWidget *dlg = progressdlg_new(burn_args, gnomebaker_get_window(), G_CALLBACK(burn_stop_process));
+    exec_run(burn_args);
+    progressdlg_finish(dlg, burn_args);
 	progressdlg_delete(dlg);
 }
 
 
 static void
-burn_cd_iso(const gchar* file)
+burn_cd_iso(const gchar *file)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(file != NULL);
 
-    StartDlg* dlg = burn_show_start_dlg(burn_cd_image);
+    StartDlg *dlg = burn_show_start_dlg(burn_cd_image);
 	if(dlg != NULL)
 	{        
-		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
-        mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);
-		cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
+		burn_args = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
+        mkisofs_add_calc_iso_size_args(exec_cmd_new(burn_args), file);
+		cdrecord_add_iso_args(exec_cmd_new(burn_args), file);
 		burn_run_process();
         startdlg_delete(dlg);
 	}
@@ -101,7 +101,7 @@ burn_cd_iso(const gchar* file)
 
 
 void
-burn_dvd_iso(const gchar* file)
+burn_dvd_iso(const gchar *file)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(file != NULL);
@@ -110,16 +110,16 @@ burn_dvd_iso(const gchar* file)
         When gnomevfs is fixed, we'll go back to the previous code.
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
         _("The file you have selected is not a DVD image. Please select a DVD image to burn."));*/
-    gchar* mime = gbcommon_get_mime_type(file);
+    gchar *mime = gbcommon_get_mime_type(file);
     if((g_ascii_strcasecmp(mime, "application/x-cd-image") == 0) || 
         (gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE, 
             _("The file you have selected seems not to be a DVD image. Do you really want to write it to DVD?")) == GTK_RESPONSE_YES))
     {
-        StartDlg* dlg = burn_show_start_dlg(burn_dvd_image);
+        StartDlg *dlg = burn_show_start_dlg(burn_dvd_image);
         if(dlg != NULL)
         {
-            burnargs = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to DVD."));
-            growisofs_add_iso_args(exec_cmd_new(burnargs),file);
+            burn_args = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to DVD."));
+            growisofs_add_iso_args(exec_cmd_new(burn_args),file);
             burn_run_process();
             startdlg_delete(dlg);
         }
@@ -129,16 +129,16 @@ burn_dvd_iso(const gchar* file)
 
 
 void
-burn_cue_or_toc(const gchar* file)
+burn_cue_or_toc(const gchar *file)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(file != NULL);
 
-    StartDlg* dlg = burn_show_start_dlg(burn_cd_image);
+    StartDlg *dlg = burn_show_start_dlg(burn_cd_image);
 	if(dlg != NULL)
 	{
-		burnargs = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
-		cdrdao_add_image_args(exec_cmd_new(burnargs), file);
+		burn_args = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
+		cdrdao_add_image_args(exec_cmd_new(burn_args), file);
 		burn_run_process(FALSE);
         startdlg_delete(dlg);        
 	}
@@ -146,7 +146,7 @@ burn_cue_or_toc(const gchar* file)
 
 
 void
-burn_cd_image_file(const gchar* file)
+burn_cd_image_file(const gchar *file)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(file != NULL);
@@ -155,7 +155,7 @@ burn_cd_image_file(const gchar* file)
         When gnomevfs is fixed, we'll go back to the previous code.
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
         _("The file you have selected is not a cd image. Please select a cd image to burn."));*/
-    gchar* mime = gbcommon_get_mime_type(file);            
+    gchar *mime = gbcommon_get_mime_type(file);            
     if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
         burn_cd_iso(file);
     else if(gbcommon_str_has_suffix(file, ".cue") || gbcommon_str_has_suffix(file, ".toc"))
@@ -168,37 +168,37 @@ burn_cd_image_file(const gchar* file)
 
 
 void
-burn_create_data_cd(const gchar* arguments_file)
+burn_create_data_cd(const gchar *arguments_file)
 {
 	GB_LOG_FUNC
     g_return_if_fail(arguments_file != NULL);
     
-    StartDlg* dlg = burn_show_start_dlg(create_data_cd);
+    StartDlg *dlg = burn_show_start_dlg(create_data_cd);
 	if(dlg != NULL)
 	{	                     
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
-            burnargs = exec_new(_("Creating data CD image"), _("Please wait while the data CD image is created."));
-			mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL, FALSE);
+            burn_args = exec_new(_("Creating data CD image"), _("Please wait while the data CD image is created."));
+			mkisofs_add_args(exec_cmd_new(burn_args), dlg, arguments_file, NULL, FALSE);
             burn_run_process();
 		}
         else if(preferences_get_bool(GB_ONTHEFLY))
         {
-            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data is burned directly to CD."));
-            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL, TRUE);
-            ExecCmd* cmd = exec_cmd_new(burnargs);
+            burn_args = exec_new(_("Burning data CD"), _("Please wait while the data is burned directly to CD."));
+            mkisofs_add_args(exec_cmd_new(burn_args), dlg, arguments_file, NULL, TRUE);
+            ExecCmd *cmd = exec_cmd_new(burn_args);
             cmd->piped = TRUE;
             mkisofs_add_args(cmd, dlg, arguments_file, NULL, FALSE);
-            cdrecord_add_iso_args(exec_cmd_new(burnargs), NULL);
+            cdrecord_add_iso_args(exec_cmd_new(burn_args), NULL);
             burn_run_process();
         }
 		else
 		{
-            burnargs = exec_new(_("Burning data CD"), _("Please wait while the data disk image is created and then burned to CD. Depending on the speed of your CD writer, this may take some time. "));
-            mkisofs_add_args(exec_cmd_new(burnargs), dlg,  arguments_file, NULL, TRUE);			
-            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL, FALSE);
-            gchar* file = preferences_get_create_data_cd_image();
-            cdrecord_add_iso_args(exec_cmd_new(burnargs), file);            
+            burn_args = exec_new(_("Burning data CD"), _("Please wait while the data disk image is created and then burned to CD. Depending on the speed of your CD writer, this may take some time. "));
+            mkisofs_add_args(exec_cmd_new(burn_args), dlg,  arguments_file, NULL, TRUE);			
+            mkisofs_add_args(exec_cmd_new(burn_args), dlg, arguments_file, NULL, FALSE);
+            gchar *file = preferences_get_create_data_cd_image();
+            cdrecord_add_iso_args(exec_cmd_new(burn_args), file);            
             g_free(file);
             burn_run_process();
 		}
@@ -208,32 +208,32 @@ burn_create_data_cd(const gchar* arguments_file)
 
 
 void
-burn_append_data_cd(const gchar* arguments_file, const gchar* msinfo)
+burn_append_data_cd(const gchar *arguments_file, const gchar *msinfo)
 {
     GB_LOG_FUNC
     g_return_if_fail(arguments_file != NULL);
     g_return_if_fail(msinfo != NULL);    
     
-    StartDlg* dlg = burn_show_start_dlg(append_data_cd);
+    StartDlg *dlg = burn_show_start_dlg(append_data_cd);
     if(dlg != NULL)
     {                        
         if(preferences_get_bool(GB_ONTHEFLY))
         {
-            burnargs = exec_new(_("Appending to data CD"), _("Please wait while the additional data is burned directly to CD."));
-            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, msinfo, TRUE);
-            ExecCmd* cmd = exec_cmd_new(burnargs);
+            burn_args = exec_new(_("Appending to data CD"), _("Please wait while the additional data is burned directly to CD."));
+            mkisofs_add_args(exec_cmd_new(burn_args), dlg, arguments_file, msinfo, TRUE);
+            ExecCmd *cmd = exec_cmd_new(burn_args);
             cmd->piped = TRUE;
             mkisofs_add_args(cmd, dlg, arguments_file, msinfo, FALSE);
-            cdrecord_add_iso_args(exec_cmd_new(burnargs), NULL);
+            cdrecord_add_iso_args(exec_cmd_new(burn_args), NULL);
             burn_run_process();
         }
         else
         {
-            burnargs = exec_new(_("Appending to data CD"), _("Please wait while the data disk image is created and then appended to the CD. Depending on the speed of your CD writer, this may take some time. "));
-            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, msinfo, TRUE);
-            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, msinfo, FALSE);
-            gchar* file = preferences_get_create_data_cd_image();            
-            cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
+            burn_args = exec_new(_("Appending to data CD"), _("Please wait while the data disk image is created and then appended to the CD. Depending on the speed of your CD writer, this may take some time. "));
+            mkisofs_add_args(exec_cmd_new(burn_args), dlg, arguments_file, msinfo, TRUE);
+            mkisofs_add_args(exec_cmd_new(burn_args), dlg, arguments_file, msinfo, FALSE);
+            gchar *file = preferences_get_create_data_cd_image();            
+            cdrecord_add_iso_args(exec_cmd_new(burn_args), file);
             g_free(file);      
             burn_run_process();
         }
@@ -243,59 +243,59 @@ burn_append_data_cd(const gchar* arguments_file, const gchar* msinfo)
 
 
 void
-burn_create_audio_cd(GtkTreeModel* model)
+burn_create_audio_cd(GtkTreeModel *model)
 {
     GB_LOG_FUNC
     g_return_if_fail(model != NULL);
     
-    StartDlg* dlg = burn_show_start_dlg(create_audio_cd);
+    StartDlg *dlg = burn_show_start_dlg(create_audio_cd);
     if(dlg != NULL)
     {       
-        burnargs = exec_new(_("Burning audio CD"), _("Please wait while the selected tracks are converted to CD audio and then burned to CD."));
-        const gboolean onthefly = FALSE;/*preferences_get_bool(GB_ONTHEFLY);*/
+        burn_args = exec_new(_("Burning audio CD"), _("Please wait while the selected tracks are converted to CD audio and then burned to CD."));
+        const gboolean on_the_fly = FALSE;/*preferences_get_bool(GB_ONTHEFLY);*/
         
         GtkTreeIter iter;
         if(gtk_tree_model_get_iter_first(model, &iter))
         {
-            gchar* trackdir = preferences_get_convert_audio_track_dir();
-            GList *audiofiles = NULL;
+            gchar *track_dir = preferences_get_convert_audio_track_dir();
+            GList *audio_files = NULL;
             gint i = 0, sectors = 0;            
             do
             {
-                ExecCmd* cmd = exec_cmd_new(burnargs);
-                cmd->piped = onthefly;
-                MediaInfo* info = NULL;
+                ExecCmd *cmd = exec_cmd_new(burn_args);
+                cmd->piped = on_the_fly;
+                MediaInfo *info = NULL;
                 gtk_tree_model_get (model, &iter, AUDIOCD_COL_INFO, &info, -1);
                 
-                gchar* filename = g_strdup_printf("gbtrack_%.2d.wav", i + 1);
-                gchar* convertedfile = g_build_filename(trackdir, filename, NULL);
-                if(!onthefly)                                   
-                    audiofiles = g_list_append(audiofiles, convertedfile);  
+                gchar *file_name = g_strdup_printf("gbtrack_%.2d.wav", i + 1);
+                gchar *converted_file = g_build_filename(track_dir, file_name, NULL);
+                if(!on_the_fly)                                   
+                    audio_files = g_list_append(audio_files, converted_file);  
                 else 
-                    g_free(convertedfile);                    
-                gstreamer_add_args(cmd, info->filename, convertedfile);
+                    g_free(converted_file);                    
+                gstreamer_add_args(cmd, info->filename, converted_file);
                 
-                gchar* inffilename = g_strdup_printf("gbtrack_%.2d.inf", i + 1);
-                gchar* inffile = g_build_filename(trackdir, inffilename, NULL);
-                media_info_create_inf_file(info, i + 1, inffile, &sectors);
-                if(onthefly) 
-                    audiofiles = g_list_append(audiofiles, inffile);  
+                gchar *inf_file_name = g_strdup_printf("gbtrack_%.2d.inf", i + 1);
+                gchar *inf_file = g_build_filename(track_dir, inf_file_name, NULL);
+                media_info_create_inf_file(info, i + 1, inf_file, &sectors);
+                if(on_the_fly) 
+                    audio_files = g_list_append(audio_files, inf_file);  
                 else 
-                    g_free(inffile);                    
+                    g_free(inf_file);                    
                     
-                g_free(filename);
-                g_free(inffilename);
+                g_free(file_name);
+                g_free(inf_file_name);
 
                 ++i;
             } while (gtk_tree_model_iter_next(model, &iter));
             
-            ExecCmd* cmd = exec_cmd_new(burnargs);
-            cdrecord_add_create_audio_cd_args(cmd, audiofiles);                
-            cmd->workingdir = trackdir;
+            ExecCmd *cmd = exec_cmd_new(burn_args);
+            cdrecord_add_create_audio_cd_args(cmd, audio_files);                
+            cmd->workingdir = track_dir;
             
-            for(; audiofiles != NULL; audiofiles = audiofiles->next)
-                g_free(audiofiles->data);
-            g_list_free(audiofiles);
+            for(; audio_files != NULL; audio_files = audio_files->next)
+                g_free(audio_files->data);
+            g_list_free(audio_files);
             
             burn_run_process();
             startdlg_delete(dlg);
@@ -309,22 +309,22 @@ burn_copy_data_cd()
 {
 	GB_LOG_FUNC
 
-    StartDlg* dlg = burn_show_start_dlg(copy_data_cd);
+    StartDlg *dlg = burn_show_start_dlg(copy_data_cd);
 	if(dlg != NULL)
 	{        
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
-            burnargs = exec_new(_("Extracting CD image"), _("Please wait while the data CD image is extracted."));
-			readcd_add_copy_args(exec_cmd_new(burnargs), dlg);
+            burn_args = exec_new(_("Extracting CD image"), _("Please wait while the data CD image is extracted."));
+			readcd_add_copy_args(exec_cmd_new(burn_args), dlg);
             burn_run_process();
 		}
 		else
 		{
-            burnargs = exec_new(_("Copying data CD"), _("Please wait while the data CD image is extracted and then burned to CD."));
-            readcd_add_copy_args(exec_cmd_new(burnargs), dlg);
-            gchar* file = preferences_get_copy_data_cd_image();
-            mkisofs_add_calc_iso_size_args(exec_cmd_new(burnargs), file);            
-            cdrecord_add_iso_args(exec_cmd_new(burnargs), file);
+            burn_args = exec_new(_("Copying data CD"), _("Please wait while the data CD image is extracted and then burned to CD."));
+            readcd_add_copy_args(exec_cmd_new(burn_args), dlg);
+            gchar *file = preferences_get_copy_data_cd_image();
+            mkisofs_add_calc_iso_size_args(exec_cmd_new(burn_args), file);            
+            cdrecord_add_iso_args(exec_cmd_new(burn_args), file);
             g_free(file);
             burn_run_process();
 		}
@@ -337,12 +337,12 @@ void
 burn_copy_audio_cd()
 {
 	GB_LOG_FUNC
-    StartDlg* dlg = burn_show_start_dlg(copy_audio_cd);
+    StartDlg *dlg = burn_show_start_dlg(copy_audio_cd);
 	if(dlg != NULL)
 	{
-		burnargs = exec_new(_("Copying audio CD"), _("Please wait while the audio CD tracks are extracted and then burned to CD."));
-		cdda2wav_add_copy_args(exec_cmd_new(burnargs));
-		cdrecord_add_audio_args(exec_cmd_new(burnargs));
+		burn_args = exec_new(_("Copying audio CD"), _("Please wait while the audio CD tracks are extracted and then burned to CD."));
+		cdda2wav_add_copy_args(exec_cmd_new(burn_args));
+		cdrecord_add_audio_args(exec_cmd_new(burn_args));
 		burn_run_process();
         startdlg_delete(dlg);
 	}
@@ -354,11 +354,11 @@ burn_blank_cdrw()
 {
 	GB_LOG_FUNC
 	
-    StartDlg* dlg = burn_show_start_dlg(blank_cdrw);
+    StartDlg *dlg = burn_show_start_dlg(blank_cdrw);
 	if(dlg != NULL)
 	{		
-		burnargs = exec_new(_("Blanking CD"), _("Please wait while the CD is blanked."));
-		cdrecord_add_blank_args(exec_cmd_new(burnargs));
+		burn_args = exec_new(_("Blanking CD"), _("Please wait while the CD is blanked."));
+		cdrecord_add_blank_args(exec_cmd_new(burn_args));
 		burn_run_process();
         startdlg_delete(dlg);
 	}
@@ -370,11 +370,11 @@ burn_format_dvdrw()
 {
 	GB_LOG_FUNC
 	
-    StartDlg* dlg = burn_show_start_dlg(format_dvdrw);
+    StartDlg *dlg = burn_show_start_dlg(format_dvdrw);
     if(dlg != NULL)
 	{		
-		burnargs = exec_new(_("Formatting re-writeable DVD"), _("Please wait while the DVD is formatted."));
-		dvdformat_add_args(exec_cmd_new(burnargs));
+		burn_args = exec_new(_("Formatting re-writeable DVD"), _("Please wait while the DVD is formatted."));
+		dvdformat_add_args(exec_cmd_new(burn_args));
 		burn_run_process();
         startdlg_delete(dlg);
 	}
@@ -383,24 +383,24 @@ burn_format_dvdrw()
 
 
 void
-burn_create_data_dvd(const gchar* arguments_file)
+burn_create_data_dvd(const gchar *arguments_file)
 {
 	GB_LOG_FUNC
     g_return_if_fail(arguments_file != NULL);
     
-    StartDlg* dlg = burn_show_start_dlg(create_data_dvd);
+    StartDlg *dlg = burn_show_start_dlg(create_data_dvd);
     if(dlg != NULL)
 	{	            
         if(preferences_get_bool(GB_CREATEISOONLY))
         {
-            burnargs = exec_new(_("Creating data DVD image"), _("Please wait while the data DVD image is created."));
-            mkisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL, FALSE);
+            burn_args = exec_new(_("Creating data DVD image"), _("Please wait while the data DVD image is created."));
+            mkisofs_add_args(exec_cmd_new(burn_args), dlg, arguments_file, NULL, FALSE);
             burn_run_process();
         }
         else
         {
-            burnargs = exec_new(_("Burning data DVD"), _("Please wait while the data is burned directly to DVD."));
-            growisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, NULL);
+            burn_args = exec_new(_("Burning data DVD"), _("Please wait while the data is burned directly to DVD."));
+            growisofs_add_args(exec_cmd_new(burn_args), dlg, arguments_file, NULL);
             burn_run_process();
         }
         startdlg_delete(dlg);
@@ -409,17 +409,17 @@ burn_create_data_dvd(const gchar* arguments_file)
 
 
 void
-burn_append_data_dvd(const gchar* arguments_file, const gchar* msinfo)
+burn_append_data_dvd(const gchar *arguments_file, const gchar *msinfo)
 {
     GB_LOG_FUNC
     g_return_if_fail(arguments_file != NULL);
     g_return_if_fail(msinfo != NULL);
     
-    StartDlg* dlg = burn_show_start_dlg(append_data_dvd);
+    StartDlg *dlg = burn_show_start_dlg(append_data_dvd);
     if(dlg != NULL)
     {   
-        burnargs = exec_new(_("Appending to data DVD"), _("Please wait while the data is appended directly to the DVD."));
-        growisofs_add_args(exec_cmd_new(burnargs), dlg, arguments_file, msinfo);
+        burn_args = exec_new(_("Appending to data DVD"), _("Please wait while the data is appended directly to the DVD."));
+        growisofs_add_args(exec_cmd_new(burn_args), dlg, arguments_file, msinfo);
         burn_run_process();
         startdlg_delete(dlg);
     }
@@ -442,7 +442,7 @@ burn_init()
 static gint total_time = 10;
 
 static void
-test_pre_proc(void* ex, void* buffer)
+test_pre_proc(void *ex, void *buffer)
 {
     GB_LOG_FUNC
     progressdlg_set_status(_("Verifying the disk content"));
@@ -452,7 +452,7 @@ test_pre_proc(void* ex, void* buffer)
 
 
 static void
-test_lib_proc(void* ex, void* buffer)
+test_lib_proc(void *ex, void *buffer)
 {
     GB_LOG_FUNC
     static gint interval = 50000;
@@ -469,7 +469,7 @@ test_lib_proc(void* ex, void* buffer)
 
 
 static void
-test_post_proc(void* ex, void* buffer)
+test_post_proc(void *ex, void *buffer)
 {
     GB_LOG_FUNC
     progressdlg_stop_approximation();
@@ -480,8 +480,8 @@ void
 burn_test()
 {
     GB_LOG_FUNC
-    burnargs = exec_new(_("Appending to data DVD"), _("Please wait while the data is appended directly to the DVD."));
-    ExecCmd* cmd = exec_cmd_new(burnargs);
+    burn_args = exec_new(_("Appending to data DVD"), _("Please wait while the data is appended directly to the DVD."));
+    ExecCmd *cmd = exec_cmd_new(burn_args);
     cmd->preProc = test_pre_proc;
     cmd->libProc = test_lib_proc;
     cmd->postProc = test_post_proc;
