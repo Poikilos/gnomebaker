@@ -701,9 +701,9 @@ filebrowser_setup_tree(GtkTreeView *dir_tree, GtkTreeView *file_list)
 
 	/* Add in a root file system label as the base of our tree */
 	GdkPixbuf *icon = gbcommon_get_icon_for_name("gnome-dev-harddisk", 16);
-	GB_DECLARE_STRUCT(GtkTreeIter, rootiter);
-    gtk_tree_store_append(store, &rootiter, NULL);
-    gtk_tree_store_set(store, &rootiter, DT_COL_ICON, icon, DT_COL_NAME, ROOT_LABEL, -1);		
+	GB_DECLARE_STRUCT(GtkTreeIter, root_iter);
+    gtk_tree_store_append(store, &root_iter, NULL);
+    gtk_tree_store_set(store, &root_iter, DT_COL_ICON, icon, DT_COL_NAME, ROOT_LABEL, -1);		
 	g_object_unref(icon);
 
 	/* Add in a home label as the base of our tree */
@@ -743,7 +743,7 @@ filebrowser_setup_tree(GtkTreeView *dir_tree, GtkTreeView *file_list)
 	/* Force the populate of the filesystem node so that it shows an expander. We
 	   must do this before we force selection of the home dir so that the list
 	   correctly shows the contents of the home dir. */
-	filebrowser_populate(GTK_TREE_MODEL(store), &rootiter, dir_tree, file_list);
+	filebrowser_populate(GTK_TREE_MODEL(store), &root_iter, dir_tree, file_list);
 	
 	/* force the selection of the home node so we initially populate the home tree and file list */
 	gtk_tree_selection_select_iter(selection, &home_iter);
