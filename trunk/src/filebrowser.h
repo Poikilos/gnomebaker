@@ -30,6 +30,6 @@
 
 void filebrowser_refresh (void);
 void filebrowser_new();
-GtkSelectionData* filebrowser_get_selection(gboolean fromtree);
+GtkSelectionData *filebrowser_get_selection(gboolean fromtree);
 
 #endif	/*_FILEBROWSER_H_*/
