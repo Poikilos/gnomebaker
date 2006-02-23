@@ -34,11 +34,11 @@
 #include "gblibnotify.h"
 
 const gchar* glade_file;
-gboolean showtrace = FALSE;
+gboolean show_trace = FALSE;
 
 static GOptionEntry entries[] = 
 {
-    { "trace-on", 0, 0, G_OPTION_ARG_NONE, &showtrace, N_("Show tracing information (useful when debugging)"), 0 },
+    { "trace-on", 0, 0, G_OPTION_ARG_NONE, &show_trace, N_("Show tracing information (useful when debugging)"), 0 },
     { NULL }
 };
 

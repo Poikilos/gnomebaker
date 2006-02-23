@@ -35,7 +35,7 @@ static void
 exec_print_cmd(const ExecCmd *e)
 {
     g_return_if_fail(e != NULL);
-	if(showtrace)
+	if(show_trace)
 	{
 		gint i = 0;
 		for(; i < e->args->len; i++)
