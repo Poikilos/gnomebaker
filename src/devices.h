@@ -38,17 +38,17 @@ static const gint DC_WRITE_DVDRAM = 0x8;
 
 gboolean devices_probe_busses();
 gboolean devices_init();
-void devices_populate_optionmenu(GtkWidget* option_menu, const gchar* defaultselect, const gboolean addwritersonly);
-gchar* devices_get_device_config(const gchar* devicekey, const gchar* deviceitem);
-void devices_write_device_to_gconf(const gint devicenumber, const gchar* devicename, 
-	const gchar* deviceid, const gchar* devicenode, const gchar* mountpoint,
+void devices_populate_optionmenu(GtkWidget *option_menu, const gchar *default_select, const gboolean add_writers_only);
+gchar *devices_get_device_config(const gchar *device_key, const gchar *device_item);
+void devices_write_device_to_gconf(const gint device_number, const gchar *device_name, 
+	const gchar *device_id, const gchar *device_node, const gchar *mount_point,
 	const gint capabilities);
-gboolean devices_mount_device(const gchar* devicekey, gchar** mountpoint);
-void devices_unmount_device(const gchar* devicekey);
-void devices_save_optionmenu(GtkOptionMenu* optmen, const gchar* devicekey);
-gboolean devices_eject_disk(const gchar* devicekey);
-gint devices_prompt_for_disk(GtkWindow* parent, const gchar* devicekey);
-gint devices_prompt_for_blank_disk(GtkWindow* parent, const gchar* devicekey);
+gboolean devices_mount_device(const gchar *device_key, gchar* *mount_point);
+void devices_unmount_device(const gchar *device_key);
+void devices_save_optionmenu(GtkOptionMenu *option_menu, const gchar *device_key);
+gboolean devices_eject_disk(const gchar *device_key);
+gint devices_prompt_for_disk(GtkWindow *parent, const gchar *device_key);
+gint devices_prompt_for_blank_disk(GtkWindow *parent, const gchar *device_key);
 gboolean devices_reader_is_also_writer();
 
 #endif	/*_DEVICES_H_*/
