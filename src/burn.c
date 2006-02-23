@@ -291,7 +291,7 @@ burn_create_audio_cd(GtkTreeModel *model)
             
             ExecCmd *cmd = exec_cmd_new(burn_args);
             cdrecord_add_create_audio_cd_args(cmd, audio_files);                
-            cmd->workingdir = track_dir;
+            cmd->working_dir = track_dir;
             
             for(; audio_files != NULL; audio_files = audio_files->next)
                 g_free(audio_files->data);
@@ -482,9 +482,9 @@ burn_test()
     GB_LOG_FUNC
     burn_args = exec_new(_("Appending to data DVD"), _("Please wait while the data is appended directly to the DVD."));
     ExecCmd *cmd = exec_cmd_new(burn_args);
-    cmd->preProc = test_pre_proc;
-    cmd->libProc = test_lib_proc;
-    cmd->postProc = test_post_proc;
+    cmd->pre_proc = test_pre_proc;
+    cmd->lib_proc = test_lib_proc;
+    cmd->post_proc = test_post_proc;
     burn_run_process();
 }
 

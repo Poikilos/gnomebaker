@@ -67,7 +67,7 @@ static void
 execfunctions_prompt_for_disk_post_proc(void* ex, void* buffer)
 {
     GB_LOG_FUNC   
-    if(((ExecCmd*)ex)->exitCode == 0 && devices_reader_is_also_writer())
+    if(((ExecCmd*)ex)->exit_code == 0 && devices_reader_is_also_writer())
     {
         devices_eject_disk(GB_WRITER);
         devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER);
@@ -276,8 +276,8 @@ cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles)
         GB_TRACE("cdrecord_add_create_audio_cd_args - adding [%s]\n", (gchar*)audiofile->data);
         cdrecord_totaltrackstowrite++;
     }		
-	e->readProc = cdrecord_read_proc;
-	e->preProc = cdrecord_pre_proc;
+	e->read_proc = cdrecord_read_proc;
+	e->pre_proc = cdrecord_pre_proc;
 }
 
 
@@ -303,8 +303,8 @@ cdrecord_add_iso_args(ExecCmd* cdBurn, const gchar* iso)
 	else 
 	    exec_cmd_add_arg(cdBurn, "-"); /* no filename so we're on the fly */
 	
-	cdBurn->readProc = cdrecord_read_proc;
-	cdBurn->preProc = cdrecord_pre_proc;
+	cdBurn->read_proc = cdrecord_read_proc;
+	cdBurn->pre_proc = cdrecord_pre_proc;
 }
 
 
@@ -353,8 +353,8 @@ cdrecord_add_audio_args(ExecCmd* cdBurn)
 	exec_cmd_add_arg(cdBurn, "-audio");
 	exec_cmd_add_arg(cdBurn, "-pad");
 	  
-	cdBurn->readProc = cdrecord_read_proc;
-	cdBurn->preProc = cdrecord_copy_audio_cd_pre_proc;	
+	cdBurn->read_proc = cdrecord_read_proc;
+	cdBurn->pre_proc = cdrecord_copy_audio_cd_pre_proc;	
 }
 
 
@@ -364,9 +364,9 @@ cdrecord_add_blank_args(ExecCmd* cdBurn)
 	GB_LOG_FUNC
 	g_return_if_fail(cdBurn != NULL);	   
 	
-	cdBurn->readProc = cdrecord_blank_read_proc;
-	cdBurn->preProc = cdrecord_blank_pre_proc;
-	cdBurn->postProc = cdrecord_blank_post_proc;
+	cdBurn->read_proc = cdrecord_blank_read_proc;
+	cdBurn->pre_proc = cdrecord_blank_pre_proc;
+	cdBurn->post_proc = cdrecord_blank_post_proc;
 
 	exec_cmd_add_arg(cdBurn, "cdrecord");
 	
@@ -508,9 +508,9 @@ cdda2wav_add_copy_args(ExecCmd* e)
 	exec_cmd_add_arg(e, "%s/gbtrack", tmp);
 	g_free(tmp);
 
-	e->preProc = cdda2wav_pre_proc;
-	e->readProc = cdda2wav_read_proc;
-    e->postProc = execfunctions_prompt_for_disk_post_proc;
+	e->pre_proc = cdda2wav_pre_proc;
+	e->read_proc = cdda2wav_read_proc;
+    e->post_proc = execfunctions_prompt_for_disk_post_proc;
 }
 
 
@@ -774,14 +774,14 @@ mkisofs_add_args(ExecCmd* e, StartDlg* start_dlg, const gchar* arguments_file, c
     if(calculatesize)
     {
         exec_cmd_add_arg(e, "--print-size");      
-        e->preProc = mkisofs_calc_size_pre_proc;
-        e->readProc = mkisofs_calc_size_read_proc;
-        e->postProc = mkisofs_calc_size_post_proc;
+        e->pre_proc = mkisofs_calc_size_pre_proc;
+        e->read_proc = mkisofs_calc_size_read_proc;
+        e->post_proc = mkisofs_calc_size_post_proc;
     }
     else
     {
-        e->preProc = mkisofs_pre_proc;
-        e->readProc = mkisofs_read_proc;
+        e->pre_proc = mkisofs_pre_proc;
+        e->read_proc = mkisofs_read_proc;
     }
     
     mkisofs_add_common_args(e, start_dlg, arguments_file);
@@ -800,9 +800,9 @@ mkisofs_add_calc_iso_size_args(ExecCmd* e, const gchar* iso)
     exec_cmd_add_arg(e, "mkisofs");       
     exec_cmd_add_arg(e, "--print-size");
     exec_cmd_add_arg(e, iso);
-    e->preProc = mkisofs_calc_size_pre_proc;
-    e->readProc = mkisofs_calc_size_read_proc;
-    e->postProc = mkisofs_calc_size_post_proc;
+    e->pre_proc = mkisofs_calc_size_pre_proc;
+    e->read_proc = mkisofs_calc_size_read_proc;
+    e->post_proc = mkisofs_calc_size_post_proc;
 }
 
 
@@ -860,9 +860,9 @@ dvdformat_add_args(ExecCmd* dvdFormat)
 	GB_LOG_FUNC
 	g_return_if_fail(dvdFormat != NULL);
 	
-	dvdFormat->readProc = dvdformat_read_proc;
-	dvdFormat->preProc = dvdformat_pre_proc;
-	dvdFormat->postProc = dvdformat_post_proc;
+	dvdFormat->read_proc = dvdformat_read_proc;
+	dvdFormat->pre_proc = dvdformat_pre_proc;
+	dvdFormat->post_proc = dvdformat_post_proc;
 	
 	exec_cmd_add_arg(dvdFormat, "dvd+rw-format");
 	
@@ -1018,9 +1018,9 @@ growisofs_add_args(ExecCmd* e, StartDlg* start_dlg, const gchar* arguments_file,
     
     mkisofs_add_common_args(e, start_dlg, arguments_file);
 			
-	e->readProc = growisofs_read_proc;
-    e->preProc = growisofs_pre_proc;
-    e->postProc = growisofs_post_proc;
+	e->read_proc = growisofs_read_proc;
+    e->pre_proc = growisofs_pre_proc;
+    e->post_proc = growisofs_post_proc;
 	
 	/* We don't own the msinfo gchar datacd does 
 	g_free(msinfo);*/
@@ -1033,9 +1033,9 @@ growisofs_add_iso_args(ExecCmd* growisofs, const gchar *iso)
 	g_return_if_fail(growisofs != NULL);
 	g_return_if_fail(iso != NULL);
 	
-	growisofs->readProc = growisofs_read_iso_proc;
-	growisofs->preProc = growisofs_pre_proc;
-	growisofs->postProc = growisofs_post_proc;
+	growisofs->read_proc = growisofs_read_iso_proc;
+	growisofs->pre_proc = growisofs_pre_proc;
+	growisofs->post_proc = growisofs_post_proc;
 	exec_cmd_add_arg(growisofs, "growisofs");
 	exec_cmd_add_arg(growisofs, "-dvd-compat");
 	
@@ -1153,14 +1153,14 @@ readcd_add_copy_args(ExecCmd* e, StartDlg* start_dlg)
        gchar* file = preferences_get_copy_data_cd_image();
        exec_cmd_add_arg(e, "f=%s", file);    
        g_free(file);   
-       e->postProc = execfunctions_prompt_for_disk_post_proc;
+       e->post_proc = execfunctions_prompt_for_disk_post_proc;
     }
 	/*exec_cmd_add_arg(e, "-notrunc");
 	exec_cmd_add_arg(e, "-clone");
 	exec_cmd_add_arg(e, "-silent");*/
 
-	e->preProc = readcd_pre_proc;	
-	e->readProc = readcd_read_proc;    
+	e->pre_proc = readcd_pre_proc;	
+	e->read_proc = readcd_read_proc;    
 }
 
 /*******************************************************************************
@@ -1231,10 +1231,10 @@ cdrdao_add_image_args(ExecCmd* cmd, const gchar* toc_or_cue)
 	g_return_if_fail(cmd != NULL);
 	g_return_if_fail(toc_or_cue != NULL);	
     
-    cmd->workingdir = g_path_get_dirname(toc_or_cue);
+    cmd->working_dir = g_path_get_dirname(toc_or_cue);
 	
-	cmd->preProc = cdrecord_pre_proc;	
-	cmd->readProc = cdrdao_write_image_read_proc;
+	cmd->pre_proc = cdrecord_pre_proc;	
+	cmd->read_proc = cdrdao_write_image_read_proc;
 	
 	exec_cmd_add_arg(cmd, "cdrdao");
 	exec_cmd_add_arg(cmd, "write");
@@ -1448,8 +1448,8 @@ gstreamer_add_args(ExecCmd* cmd, const gchar* from, const gchar* to)
     exec_cmd_add_arg(cmd, from);
     exec_cmd_add_arg(cmd, to);
     
-    cmd->libProc = gstreamer_lib_proc;
-    cmd->preProc = gstreamer_pre_proc;   
+    cmd->lib_proc = gstreamer_lib_proc;
+    cmd->pre_proc = gstreamer_pre_proc;   
 }
 
 
@@ -1489,8 +1489,8 @@ md5sum_add_args(ExecCmd* cmd, const gchar* md5)
     g_free(writer);
     exec_cmd_add_arg(cmd, md5);
     
-    cmd->preProc = md5sum_pre_proc;
-    cmd->postProc = md5sum_post_proc;
+    cmd->pre_proc = md5sum_pre_proc;
+    cmd->post_proc = md5sum_post_proc;
 }
 
 

@@ -43,39 +43,39 @@ typedef enum
 
 typedef struct
 {
-	GPtrArray* args;
+	GPtrArray *args;
 	pid_t pid;
-	gint exitCode;    
+	gint exit_code;    
 	ExecState state;
-    GMutex* statemutex;
-    ExecFunc libProc;
-	ExecFunc preProc;
-	ExecFunc readProc;
-	ExecFunc postProc;	
-    gchar* workingdir;
+    GMutex *state_mutex;
+    ExecFunc lib_proc;
+	ExecFunc pre_proc;
+	ExecFunc read_proc;
+	ExecFunc post_proc;	
+    gchar *working_dir;
     gboolean piped;
 } ExecCmd;
 
 typedef struct
 {
-    gchar* processtitle;
-    gchar* processdescription;
-	GList* cmds;
+    gchar *process_title;
+    gchar *process_description;
+	GList *cmds;
 	GError *err;
     ExecState outcome;
 } Exec;
 
 
-Exec* exec_new(const gchar* processtitle, const gchar* processdescription);
-ExecCmd* exec_cmd_new(Exec* e);
-void exec_delete(Exec* self);
-void exec_run(Exec* e);
-void exec_stop(Exec* e);
-void exec_cmd_add_arg(ExecCmd* e, const gchar* format, ...);
-void exec_cmd_update_arg(ExecCmd* e, const gchar* argstart, const gchar* format, ...);
-gint exec_run_cmd(const gchar* cmd, gchar** output);
-ExecState exec_cmd_get_state(ExecCmd* e);
-ExecState exec_cmd_set_state(ExecCmd* e, ExecState state);
-gint exec_count_operations(const Exec* e);
+Exec *exec_new(const gchar *process_title, const gchar *process_description);
+ExecCmd *exec_cmd_new(Exec *e);
+void exec_delete(Exec *self);
+void exec_run(Exec *e);
+void exec_stop(Exec *e);
+void exec_cmd_add_arg(ExecCmd *e, const gchar *format, ...);
+void exec_cmd_update_arg(ExecCmd *e, const gchar *arg_start, const gchar *format, ...);
+gint exec_run_cmd(const gchar *cmd, gchar **output);
+ExecState exec_cmd_get_state(ExecCmd *e);
+ExecState exec_cmd_set_state(ExecCmd *e, ExecState state);
+gint exec_count_operations(const Exec *e);
 
 #endif	/*_EXEC_H_*/
