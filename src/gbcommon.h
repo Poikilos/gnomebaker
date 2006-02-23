@@ -82,14 +82,14 @@ gboolean gbcommon_iso_file_filter(const GtkFileFilterInfo *filter_info, gpointer
 
 /* defined in main.c */
 extern const gchar *glade_file;
-extern gboolean showtrace;
+extern gboolean show_trace;
 
 
 #define GB_LOG_FUNC											\
-	if(showtrace) g_print("[%p] [%s] [%s] [%d]\n", (gpointer)g_thread_self(), __FUNCTION__, __FILE__, __LINE__);	\
+	if(show_trace) g_print("[%p] [%s] [%s] [%d]\n", (gpointer)g_thread_self(), __FUNCTION__, __FILE__, __LINE__);	\
 
 #define GB_TRACE			\
-	if(showtrace) g_print	\
+	if(show_trace) g_print	\
 
 #define GB_DECLARE_STRUCT(STRUCT, INSTANCE)			\
 	STRUCT INSTANCE; memset(&INSTANCE, 0x0, sizeof(STRUCT));	\
