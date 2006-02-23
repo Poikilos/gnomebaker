@@ -24,7 +24,7 @@
 #ifndef GB_LIBNOTITFY_H
 #define GB_LIBNOTITFY_H
 
-gboolean gblibnotify_init (const gchar *nicename);
+gboolean gblibnotify_init (const gchar *nice_name);
 gboolean gblibnotify_clear (void);
 gboolean gblibnotify_notification(const gchar *subject, const gchar *content);
 

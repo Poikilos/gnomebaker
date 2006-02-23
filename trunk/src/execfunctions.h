@@ -30,19 +30,19 @@
 #include "exec.h"
 #include "startdlg.h"
 
-void cdda2wav_add_copy_args(ExecCmd* e);
-void cdrecord_add_iso_args(ExecCmd* cdBurn, const gchar* iso);
-void cdrecord_add_audio_args(ExecCmd* cdBurn);
-void cdrecord_add_blank_args(ExecCmd* cdBurn);
-void cdrecord_add_create_audio_cd_args(ExecCmd* e, const GList* audiofiles);
-void dvdformat_add_args(ExecCmd* dvdFormat);
-void growisofs_add_args(ExecCmd* e, StartDlg* start_dlg, const gchar* arguments_file, const gchar* msinfo);
-void growisofs_add_iso_args(ExecCmd* growisofs, const gchar *iso);
-void mkisofs_add_args(ExecCmd* e, StartDlg* start_dlg, const gchar* arguments_file, const gchar* msinfo, const gboolean calculatesize);
-void mkisofs_add_calc_iso_size_args(ExecCmd* e, const gchar* iso);
-void readcd_add_copy_args(ExecCmd* e, StartDlg* start_dlg);
-void cdrdao_add_image_args(ExecCmd* cmd, const gchar* toc_or_cue);
-void gstreamer_add_args(ExecCmd* cmd, const gchar* from, const gchar* to);
-void md5sum_add_args(ExecCmd* cmd, const gchar* md5);
+void cdda2wav_add_copy_args(ExecCmd *e);
+void cdrecord_add_iso_args(ExecCmd *cmd, const gchar *iso);
+void cdrecord_add_audio_args(ExecCmd *cmd);
+void cdrecord_add_blank_args(ExecCmd *cmd);
+void cdrecord_add_create_audio_cd_args(ExecCmd *e, const GList *audio_files);
+void dvdformat_add_args(ExecCmd *cmd);
+void growisofs_add_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_file, const gchar *msinfo);
+void growisofs_add_iso_args(ExecCmd *cmd, const gchar *iso);
+void mkisofs_add_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_file, const gchar *msinfo, const gboolean calculate_size);
+void mkisofs_add_calc_iso_size_args(ExecCmd *e, const gchar *iso);
+void readcd_add_copy_args(ExecCmd *e, StartDlg *start_dlg);
+void cdrdao_add_image_args(ExecCmd *cmd, const gchar *toc_or_cue);
+void gstreamer_add_args(ExecCmd *cmd, const gchar *from, const gchar *to);
+void md5sum_add_args(ExecCmd *cmd, const gchar *md5);
 
 #endif	/*_EXECFUNCTIONS_H_*/
