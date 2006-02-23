@@ -30,17 +30,17 @@
 #include <gnome.h>
 
 
-GtkWidget* gnomebaker_new();
-void gnomebaker_delete(GtkWidget* self);
-gint gnomebaker_show_msg_dlg(GtkWindow* parent, GtkMessageType type, GtkButtonsType buttons,
-		  			GtkButtonsType additional, const gchar * message);
-GladeXML* gnomebaker_getxml();
-void gnomebaker_show_busy_cursor(gboolean isbusy);
+GtkWidget *gnomebaker_new();
+void gnomebaker_delete(GtkWidget *self);
+gint gnomebaker_show_msg_dlg(GtkWindow *parent, GtkMessageType type, GtkButtonsType buttons,
+		  			GtkButtonsType additional, const gchar  *message);
+GladeXML *gnomebaker_getxml();
+void gnomebaker_show_busy_cursor(gboolean is_busy);
 void gnomebaker_on_add_dir(gpointer widget, gpointer user_data);
 void gnomebaker_on_add_files(gpointer widget, gpointer user_data);
-void gnomebaker_update_status(const gchar* status);
-void gnomebaker_enable_widget(const gchar* widgetname, gboolean enabled);
-void gnomebaker_on_help(gpointer widget,gpointer user_data);
-GtkWindow* gnomebaker_get_window();
+void gnomebaker_update_status(const gchar *status);
+void gnomebaker_enable_widget(const gchar *widget_name, gboolean enabled);
+void gnomebaker_on_help(gpointer widget, gpointer user_data);
+GtkWindow *gnomebaker_get_window();
 
 #endif	/*_GNOMEBAKER_H_*/
