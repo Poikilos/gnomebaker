@@ -40,9 +40,9 @@ static const gint MILISECONDS_IN_SECOND = 1000;
 
 #ifdef HAVE_LIBNOTIFY    
 #if (LIBNOTIFY_VERSION_MINOR >= 3)
-static NotifyNotification *globalnotify = NULL;
+static NotifyNotification *global_notify = NULL;
 #elif (LIBNOTIFY_VERSION_MINOR == 2)
-static NotifyHandle *globalnotify = NULL;
+static NotifyHandle *global_notify = NULL;
 #endif
 #endif
 
@@ -88,22 +88,22 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
 #ifdef HAVE_LIBNOTIFY    
 #if (LIBNOTIFY_VERSION_MINOR >= 3)
 	gint x, y;
-	globalnotify = notify_notification_new (subject, content, "", NULL);
+	global_notify = notify_notification_new (subject, content, "", NULL);
 	/* not sure if we have to free the pixbuf since it could be used internally in libnotify
 	   have to investigate further also need supply the full path of the filename 
        with the auto* magic stuff*/
     GdkPixbuf *icon_pixbuf = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
-	notify_notification_set_icon_from_pixbuf (globalnotify, icon_pixbuf);
-    notify_notification_set_timeout (globalnotify, timeout_seconds * MILISECONDS_IN_SECOND);
+	notify_notification_set_icon_from_pixbuf (global_notify, icon_pixbuf);
+    notify_notification_set_timeout (global_notify, timeout_seconds * MILISECONDS_IN_SECOND);
 
 	/*if (point) 
     {
 		glibnotify_get_widget_position (point, &x, &y);
-		notify_notification_set_hint_int32 (globalnotify, "x", x);
-		notify_notification_set_hint_int32 (globalnotify, "y", y);
+		notify_notification_set_hint_int32 (global_notify, "x", x);
+		notify_notification_set_hint_int32 (global_notify, "y", y);
 	}*/
 
-	if (!notify_notification_show(globalnotify, NULL)) 
+	if (!notify_notification_show(global_notify, NULL)) 
     {
 		GB_TRACE("gb_libnotify_notification - failed to send notification [%s]\n", content);
 		return FALSE;
@@ -122,7 +122,7 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
 
     /* the path for the icon, this really should use the auto* stuff and not being hardcoded */
     NotifyIcon *icon = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
-    globalnotify = notify_send_notification (globalnotify, /* replaces all */
+    global_notify = notify_send_notification (global_notify, /* replaces all */
                NULL,
                NOTIFY_URGENCY_NORMAL,
                subject, content,
@@ -132,7 +132,7 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
                NULL, /* no user data */
                0);   /* no actions */
     notify_icon_destroy(icon);
-    if(!globalnotify) 
+    if(!global_notify) 
     {
         GB_TRACE("gb_libnotify_notification - failed to send notification [%s]\n", content);
         return FALSE;
@@ -152,11 +152,11 @@ gblibnotify_clear (void)
     GB_LOG_FUNC
 #ifdef HAVE_LIBNOTIFY    
 #if (LIBNOTIFY_VERSION_MINOR >= 3)    
-    if (globalnotify)
-        notify_notification_close (globalnotify, NULL);
+    if (global_notify)
+        notify_notification_close (global_notify, NULL);
 #elif (LIBNOTIFY_VERSION_MINOR == 2)	
-    if (globalnotify)
-        notify_close (globalnotify);
+    if (global_notify)
+        notify_close (global_notify);
 #endif
 #endif
 	return TRUE;
@@ -164,24 +164,24 @@ gblibnotify_clear (void)
 
 /** Initialiser for libnotify
  *
- *  @param	nicename	The nicename, e.g. "Gnomebaker"
+ *  @param	nice_name	The nice_name, e.g. "Gnomebaker"
  *  @return			If we initialised correctly.
  *
  *  @note	This function must be called before any calls to
  *		gb_libnotify_notification are made.
  */
 gboolean
-gblibnotify_init(const gchar *nicename)
+gblibnotify_init(const gchar *nice_name)
 {
     GB_LOG_FUNC
-    g_return_val_if_fail(nicename != NULL, FALSE);
+    g_return_val_if_fail(nice_name != NULL, FALSE);
     gboolean ret = TRUE;
 #ifdef HAVE_LIBNOTIFY        
-    globalnotify = NULL;
+    global_notify = NULL;
 #if (LIBNOTIFY_VERSION_MINOR >= 3)        
-	ret = notify_init (nicename);
+	ret = notify_init (nice_name);
 #elif (LIBNOTIFY_VERSION_MINOR == 2)    
-    ret = notify_glib_init (nicename, NULL);
+    ret = notify_glib_init (nice_name, NULL);
 #endif
     if(!ret)    
         GB_TRACE("gblibnotify_init - Failed to initialise libnotify");
