@@ -33,7 +33,7 @@
 #include <gst/gst.h>
 #include "gblibnotify.h"
 
-const gchar* glade_file;
+const gchar *glade_file;
 gboolean show_trace = FALSE;
 
 static GOptionEntry entries[] = 
@@ -46,8 +46,8 @@ static GOptionEntry entries[] =
 gint 
 main(gint argc, gchar *argv[])
 {	    	
-	GError* error = NULL;
-	GOptionContext* context = g_option_context_new(_(" - GNOME CD/DVD burning application"));
+	GError *error = NULL;
+	GOptionContext *context = g_option_context_new(_(" - GNOME CD/DVD burning application"));
 	/* add main entries */
 	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
 	/* recognise gtk/gdk/gstreamer options */
@@ -78,9 +78,9 @@ main(gint argc, gchar *argv[])
 	};
 
 	/* init GStreamer and GNOME using the GStreamer popt tables */
-	options[0].arg = (void *) gst_init_get_popt_table ();	
+	options[0].arg = (void*) gst_init_get_popt_table ();	
 
-    GnomeProgram* prog = gnome_program_init ("gnomebaker", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, 
+    GnomeProgram *prog = gnome_program_init ("gnomebaker", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, 
         GNOME_PARAM_POPT_TABLE, options, GNOME_PARAM_APP_DATADIR, DATADIR, NULL);
 	glade_gnome_init();
 	
@@ -88,12 +88,12 @@ main(gint argc, gchar *argv[])
 					"gnomebaker/gnomebaker.glade", FALSE, NULL);                
 
 #if !defined(__linux__)
-	GtkWidget* dlg = splashdlg_new();		
+	GtkWidget *dlg = splashdlg_new();		
 #endif
 
 	while(g_main_context_pending(NULL))
 		g_main_context_iteration(NULL, TRUE);	
-	GtkWidget* app = gnomebaker_new();
+	GtkWidget *app = gnomebaker_new();
     
 #if !defined(__linux__)    
 	splashdlg_delete(dlg);

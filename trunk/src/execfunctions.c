@@ -1327,7 +1327,7 @@ gstreamer_new_decoded_pad(GstElement *element,
     gst_element_link(mip->decoder, mip->converter);
     
     gst_bin_add_many(GST_BIN(mip->pipeline), mip->converter,
-        mip->scale, mip->endianconverter, mip->encoder, mip->dest, NULL);
+        mip->scale, mip->endian_converter, mip->encoder, mip->dest, NULL);
 
     /* This function synchronizes a bins state on all of its contained children. */
     gst_bin_sync_children_state(GST_BIN(mip->pipeline));
@@ -1380,8 +1380,8 @@ gstreamer_lib_proc(void *ex, void *data)
     
     /* Another audio converter. It is needed on big endian machines, otherwise
        the audioscale can't be connected to the wavenc due to incompatible endianness. */
-    media_pipeline->endianconverter = gst_element_factory_make ("audioconvert", "endianconverter");
-    gst_element_link(media_pipeline->scale, media_pipeline->endianconverter);
+    media_pipeline->endian_converter = gst_element_factory_make ("audioconvert", "endianconverter");
+    gst_element_link(media_pipeline->scale, media_pipeline->endian_converter);
     
     GstCaps *filter_caps = gst_caps_new_simple("audio/x-raw-int",
                                           "channels", G_TYPE_INT, 2,
@@ -1391,7 +1391,7 @@ gstreamer_lib_proc(void *ex, void *data)
                                           NULL);
     /* and an wav encoder */
     media_pipeline->encoder = gst_element_factory_make("wavenc", "encoder");
-    gst_element_link_filtered(media_pipeline->endianconverter, media_pipeline->encoder, filter_caps);
+    gst_element_link_filtered(media_pipeline->endian_converter, media_pipeline->encoder, filter_caps);
     gst_caps_free(filter_caps);
     
     /* finally the output filesink */   
