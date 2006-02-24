@@ -273,7 +273,7 @@ burn_create_audio_cd(GtkTreeModel *model)
                     audio_files = g_list_append(audio_files, converted_file);  
                 else 
                     g_free(converted_file);                    
-                gstreamer_add_args(cmd, info->filename, converted_file);
+                gstreamer_add_args(cmd, info->file_name, converted_file);
                 
                 gchar *inf_file_name = g_strdup_printf("gbtrack_%.2d.inf", i + 1);
                 gchar *inf_file = g_build_filename(track_dir, inf_file_name, NULL);

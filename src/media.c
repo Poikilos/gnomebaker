@@ -24,70 +24,70 @@
 #include "media.h"
 
 static GSList *media_registered_plugins = NULL;
-static MediaPipeline* mediaplayer = NULL;
+static MediaPipeline *media_player = NULL;
 
 
 static PluginInfo* 
-media_plugininfo_new(const gchar* mimetype, const gchar* pluginname)
+media_plugininfo_new(const gchar *mime_type, const gchar *plugin_name)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(mimetype != NULL,NULL);
-	g_return_val_if_fail(pluginname != NULL,NULL);
+	g_return_val_if_fail(mime_type != NULL,NULL);
+	g_return_val_if_fail(plugin_name != NULL,NULL);
 	
-	PluginInfo* info = g_new0(PluginInfo,1);
-	info->mimetype = g_string_new(mimetype);
-	info->gst_plugin_name = g_string_new(pluginname);
+	PluginInfo *info = g_new0(PluginInfo,1);
+	info->mime_type = g_string_new(mime_type);
+	info->gst_plugin_name = g_string_new(plugin_name);
 	info->status = NOT_INSTALLED;
 	return info;
 }
 
 
 static void
-media_plugininfo_delete(PluginInfo* info)
+media_plugininfo_delete(PluginInfo *info)
 {
     GB_LOG_FUNC   
     g_return_if_fail(info != NULL);
     
-    g_string_free(info->mimetype, TRUE);
+    g_string_free(info->mime_type, TRUE);
     g_string_free(info->gst_plugin_name, TRUE);
     g_free(info);
 }
 
 
 static void 
-media_info_get_wav_info(MediaInfo* info, const gchar* wavfile)
+media_info_get_wav_info(MediaInfo *info, const gchar *wav_file)
 {
     GB_LOG_FUNC
     g_return_if_fail(NULL != info);
-    g_return_if_fail(NULL != wavfile);
+    g_return_if_fail(NULL != wav_file);
     
-    /* Have a look for a .inf file corresponding to the wavfile
+    /* Have a look for a .inf file corresponding to the wav_file
        so we can display the artist, album and track */
-    gchar* inffile = g_strdup(wavfile);
-    gchar* extension = strstr(inffile, ".wav");
+    gchar *inf_file = g_strdup(wav_file);
+    gchar *extension = strstr(inf_file, ".wav");
     if(extension != NULL)
     {
         strcpy(extension, ".inf");
-        gchar* infcontents = NULL;
+        gchar *inf_contents = NULL;
         gsize length = 0;
         
         /* read in the entire inf file */
-        if(g_file_get_contents(inffile, &infcontents, &length, NULL))
+        if(g_file_get_contents(inf_file, &inf_contents, &length, NULL))
         {
-            const gint numlabels = 3;
-            const gchar* labels[3] = 
+            const gint num_labels = 3;
+            const gchar *labels[3] = 
                 { "Performer", "Albumtitle", "Tracktitle" };
             
-            GString* copyto[3] = 
+            GString *copy_to[3] = 
                 { info->artist, info->album, info->title };                 
                 
             gint i = 0;
-            for(; i < numlabels; i++)
+            for(; i < num_labels; i++)
             {
-                const gchar* label = strstr(infcontents, labels[i]);
+                const gchar *label = strstr(inf_contents, labels[i]);
                 if(label != NULL)
                 {
-                    const gchar* ptr = label;
+                    const gchar *ptr = label;
                     gboolean reading = FALSE;
                     while(*ptr != '\n')
                     {
@@ -101,51 +101,51 @@ media_info_get_wav_info(MediaInfo* info, const gchar* wavfile)
                         }
                         
                         if(reading)
-                            g_string_append_c(copyto[i], *ptr);
+                            g_string_append_c(copy_to[i], *ptr);
                         
                         ptr++;
                     }
                 }               
             }
         }       
-        g_free(infcontents);            
+        g_free(inf_contents);            
     }
 }
 
 
 static void 
-media_info_set_formatted_length(MediaInfo* info) 
+media_info_set_formatted_length(MediaInfo *info) 
 {
     GB_LOG_FUNC
     g_return_if_fail(info != NULL);
     
     gint seconds = info->duration % 60;
     gint minutes = (info->duration-seconds) / 60;
-    g_string_printf(info->formattedduration, "%d:%.2d", minutes, seconds);
+    g_string_printf(info->formatted_duration, "%d:%.2d", minutes, seconds);
 }
 
 
 static void
-media_fakesink_handoff(GstElement* element, GstBuffer* buffer, GstPad* pad, gboolean* handoff)
+media_fakesink_hand_off(GstElement *element, GstBuffer *buffer, GstPad *pad, gboolean *hand_off)
 {
     GB_LOG_FUNC
-    g_return_if_fail(handoff != NULL);
-    *handoff = TRUE;
+    g_return_if_fail(hand_off != NULL);
+    *hand_off = TRUE;
 }
 
 
 static void
-media_fakesink_endofstream(GstElement* element, gboolean* endofstream)
+media_fakesink_end_of_stream(GstElement *element, gboolean *end_of_stream)
 {
     GB_LOG_FUNC
-    g_return_if_fail(endofstream != NULL);
-    *endofstream = TRUE;
+    g_return_if_fail(end_of_stream != NULL);
+    *end_of_stream = TRUE;
 }
 
 
 static void
-media_fakesink_error(GstElement* element, GstElement* source,
-             GError* error, gchar* debug, GError** gberror)
+media_fakesink_error(GstElement *element, GstElement *source,
+             GError *error, gchar *debug, GError **gberror)
 {
     GB_LOG_FUNC
     g_return_if_fail(error != NULL);
@@ -156,7 +156,7 @@ media_fakesink_error(GstElement* element, GstElement* source,
 
 
 static void
-media_tags_foreach(const GstTagList *list, const gchar *tag, MediaInfo* info)
+media_tags_foreach(const GstTagList *list, const gchar *tag, MediaInfo *info)
 {
    GB_LOG_FUNC
    int count = gst_tag_list_get_tag_size(list, tag);
@@ -173,12 +173,12 @@ media_tags_foreach(const GstTagList *list, const gchar *tag, MediaInfo* info)
    else if (g_ascii_strcasecmp (tag, GST_TAG_ALBUM) == 0)
        g_string_assign(info->album, g_value_get_string (val));
    else if (g_ascii_strcasecmp (tag, GST_TAG_BITRATE) == 0)
-       info->bitrate = g_value_get_uint (val);
+       info->bit_rate = g_value_get_uint (val);
 }
 
 
 static void
-media_fakesink_tag(GObject *pipeline, GstElement *source, GstTagList *tags, MediaInfo* info)
+media_fakesink_tag(GObject *pipeline, GstElement *source, GstTagList *tags, MediaInfo *info)
 {
     gst_tag_list_foreach (tags, (GstTagForeachFunc) media_tags_foreach, info); 
 }
@@ -191,7 +191,7 @@ media_type_found(GstElement *typefind,
           gpointer    data)
 {
     GB_LOG_FUNC
-    gchar* type = gst_caps_to_string (caps);
+    gchar *type = gst_caps_to_string (caps);
     GB_TRACE("media_type_found - [%s] found, probability [%d%%]\n", type, probability);
     g_free (type);
     /*((MediaInfo*)data)->status = INSTALLED;*/
@@ -199,41 +199,41 @@ media_type_found(GstElement *typefind,
 
 
 static void
-media_info_get_mediafile_info(MediaInfo* info, const gchar* mediafile)
+media_info_get_mediafile_info(MediaInfo *info, const gchar *media_file)
 {
     GB_LOG_FUNC
     g_return_if_fail(NULL != info);
-    g_return_if_fail(NULL != mediafile);
+    g_return_if_fail(NULL != media_file);
    
     GstElement *pipeline = gst_pipeline_new ("pipeline");
     GstElement *spider = gst_element_factory_make ("spider", "spider");
     g_assert (spider);
     GstElement *source = gst_element_factory_make ("filesrc", "source");
     g_assert (source);
-    GstElement *typefind = gst_element_factory_make ("typefind", "typefind");
-    g_assert (typefind);
-    g_object_set (G_OBJECT (source), "location", mediafile, NULL);
+    GstElement *type_find = gst_element_factory_make ("typefind", "typefind");
+    g_assert (type_find);
+    g_object_set (G_OBJECT (source), "location", media_file, NULL);
     GstElement *destination = gst_element_factory_make ("fakesink", "fakesink");
     g_assert (destination);
     
-    gst_bin_add_many(GST_BIN (pipeline), source, typefind, spider, destination, NULL);    
-    gst_element_link_many (source, typefind, spider, NULL);
+    gst_bin_add_many(GST_BIN (pipeline), source, type_find, spider, destination, NULL);    
+    gst_element_link_many (source, type_find, spider, NULL);
 
-    GstCaps* filtercaps = gst_caps_new_simple ("audio/x-raw-int", NULL);
+    GstCaps *filtercaps = gst_caps_new_simple ("audio/x-raw-int", NULL);
     gst_element_link_filtered (spider, destination, filtercaps);
     gst_caps_free (filtercaps);
     
-    gboolean handoff = FALSE, endofstream = FALSE; 
+    gboolean hand_off = FALSE, end_of_stream = FALSE; 
     g_signal_connect(pipeline, "found-tag", G_CALLBACK(media_fakesink_tag), info);
     g_signal_connect(pipeline, "error", G_CALLBACK(media_fakesink_error), &info->error);
     g_object_set(G_OBJECT(destination), "signal-handoffs", TRUE, NULL);
-    g_signal_connect(destination, "handoff", G_CALLBACK(media_fakesink_handoff), &handoff);
-    g_signal_connect(destination, "eos", G_CALLBACK(media_fakesink_endofstream), &endofstream);
-    g_signal_connect (typefind, "have-type", G_CALLBACK (media_type_found), info);
+    g_signal_connect(destination, "handoff", G_CALLBACK(media_fakesink_hand_off), &hand_off);
+    g_signal_connect(destination, "eos", G_CALLBACK(media_fakesink_end_of_stream), &end_of_stream);
+    g_signal_connect (type_find, "have-type", G_CALLBACK (media_type_found), info);
        
     gst_element_set_state (pipeline, GST_STATE_PLAYING);
-    /* have to iterate a few times before the total time is set - signalled by handoff */    
-    while(gst_bin_iterate (GST_BIN (pipeline)) && (info->error == NULL) && !handoff && !endofstream);
+    /* have to iterate a few times before the total time is set - signalled by hand_off */    
+    while(gst_bin_iterate (GST_BIN (pipeline)) && (info->error == NULL) && !hand_off && !end_of_stream);
     if(info->duration == 0)
     {
         GstFormat format = GST_FORMAT_TIME;
@@ -250,8 +250,8 @@ media_info_get_mediafile_info(MediaInfo* info, const gchar* mediafile)
     }
     else 
     {
-        if(g_ascii_strcasecmp(info->mimetype, "audio/x-wav") == 0)
-            media_info_get_wav_info(info, mediafile);        
+        if(g_ascii_strcasecmp(info->mime_type, "audio/x-wav") == 0)
+            media_info_get_wav_info(info, media_file);        
         media_info_set_formatted_length(info);
     }
     g_object_unref(pipeline);        
@@ -259,20 +259,20 @@ media_info_get_mediafile_info(MediaInfo* info, const gchar* mediafile)
 
 
 PluginStatus
-media_get_plugin_status(const gchar* mimetype)
+media_get_plugin_status(const gchar *mime_type)
 {
     GB_LOG_FUNC
     PluginStatus status = NOT_INSTALLED;
-    g_return_val_if_fail(mimetype != NULL, status);
+    g_return_val_if_fail(mime_type != NULL, status);
     
-    const GSList* node = media_registered_plugins;
+    const GSList *node = media_registered_plugins;
     for(; node != NULL; node = node->next)
     {
-        PluginInfo* plugininfo = (PluginInfo*)node->data;
-        GB_TRACE("media_get_plugin_status - plugin mimetype [%s] requested [%s]\n", plugininfo->mimetype->str, mimetype);
-        if(g_ascii_strcasecmp(plugininfo->mimetype->str, mimetype) == 0)
+        PluginInfo *plugin_info = (PluginInfo*)node->data;
+        GB_TRACE("media_get_plugin_status - plugin mime_type [%s] requested [%s]\n", plugin_info->mime_type->str, mime_type);
+        if(g_ascii_strcasecmp(plugin_info->mime_type->str, mime_type) == 0)
         {
-            status = plugininfo->status;
+            status = plugin_info->status;
             break;
         }
     }
@@ -281,14 +281,14 @@ media_get_plugin_status(const gchar* mimetype)
 
 
 static void 
-media_register_plugin(const gchar* mimetype, const gchar* pluginname)
+media_register_plugin(const gchar *mime_type, const gchar *plugin_name)
 {
     GB_LOG_FUNC
-    g_return_if_fail(mimetype != NULL);
-    g_return_if_fail(pluginname != NULL);
+    g_return_if_fail(mime_type != NULL);
+    g_return_if_fail(plugin_name != NULL);
     
-    PluginInfo* info = media_plugininfo_new(mimetype, pluginname);
-    GstElement* element = gst_element_factory_make(pluginname, pluginname);
+    PluginInfo *info = media_plugininfo_new(mime_type, plugin_name);
+    GstElement *element = gst_element_factory_make(plugin_name, plugin_name);
     if(element != NULL)
     {
         info->status = INSTALLED;
@@ -299,7 +299,7 @@ media_register_plugin(const gchar* mimetype, const gchar* pluginname)
 
 
 static void
-media_player_pipeline_eos(GstElement* gstelement, gpointer user_data)
+media_player_pipeline_eos(GstElement *gst_element, gpointer user_data)
 {
     GB_LOG_FUNC
     media_stop_playing();
@@ -307,10 +307,10 @@ media_player_pipeline_eos(GstElement* gstelement, gpointer user_data)
 
 
 static void
-media_player_pipeline_error(GstElement* gstelement,
-                        GstElement* element,
-                        GError* error,
-                        gchar* message,
+media_player_pipeline_error(GstElement *gst_element,
+                        GstElement *element,
+                        GError *error,
+                        gchar *message,
                         gpointer user_data)
 {
     GB_LOG_FUNC
@@ -342,70 +342,70 @@ media_finalise()
 {
     GB_LOG_FUNC        
     
-    const GSList* node = media_registered_plugins;
+    const GSList *node = media_registered_plugins;
     for(; node != NULL; node = node->next)
         media_plugininfo_delete((PluginInfo*)node->data);
     g_slist_free(media_registered_plugins);
-    if(mediaplayer != NULL)
+    if(media_player != NULL)
     {
-        gst_object_unref (GST_OBJECT (mediaplayer->pipeline));
-        g_free(mediaplayer);
+        gst_object_unref (GST_OBJECT (media_player->pipeline));
+        g_free(media_player);
     }
 }
 
 
 void 
-media_info_delete(MediaInfo* info)
+media_info_delete(MediaInfo *info)
 {
     GB_LOG_FUNC
     g_return_if_fail(NULL != info);
         
-    g_free(info->filename);
-    g_free(info->mimetype);
+    g_free(info->file_name);
+    g_free(info->mime_type);
     g_string_free(info->artist, TRUE);
     g_string_free(info->album, TRUE);
     g_string_free(info->title, TRUE);
     info->duration = 0;
-    info->bitrate = 0;
-    g_string_free(info->formattedduration, TRUE);
+    info->bit_rate = 0;
+    g_string_free(info->formatted_duration, TRUE);
     if(info->error != NULL) g_error_free(info->error);
     g_free(info);
 }
 
 
-MediaInfo*  
-media_info_new(const gchar* mediafile)
+MediaInfo* 
+media_info_new(const gchar *media_file)
 {
     GB_LOG_FUNC 
-    g_return_val_if_fail(mediafile != NULL, NULL);
+    g_return_val_if_fail(media_file != NULL, NULL);
     
-    MediaInfo* info = g_new0(MediaInfo, 1);
-    info->filename = g_strdup(mediafile);
+    MediaInfo *info = g_new0(MediaInfo, 1);
+    info->file_name = g_strdup(media_file);
     info->status = NOT_INSTALLED;
     info->artist = g_string_new("");
     info->album = g_string_new("");
     info->title = g_string_new("");
     info->duration = 0;
-    info->bitrate = 0;
-    info->formattedduration = g_string_new("");    
-    info->mimetype = gbcommon_get_mime_type(mediafile);
-    info->status = media_get_plugin_status(info->mimetype);
+    info->bit_rate = 0;
+    info->formatted_duration = g_string_new("");    
+    info->mime_type = gbcommon_get_mime_type(media_file);
+    info->status = media_get_plugin_status(info->mime_type);
     if(info->status == INSTALLED)
-        media_info_get_mediafile_info(info, mediafile);
+        media_info_get_mediafile_info(info, media_file);
     else 
         info->error = g_error_new(MEDIA_ERROR, MEDIA_ERROR_MISSING_PLUGIN, 
-            _("The plugin to handle a file of type %s is not installed."), info->mimetype); 
+            _("The plugin to handle a file of type %s is not installed."), info->mime_type); 
     return info;
 }
 
 
 void 
-media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar* inffile, int* trackstart)
+media_info_create_inf_file(const MediaInfo *info, const int track_no, const gchar *inf_file, int *track_start)
 {
     GB_LOG_FUNC
     const gint sectors = info->duration * 75;
     
-    gchar* contents = g_strdup_printf(
+    gchar *contents = g_strdup_printf(
         "#created by GnomeBaker\n"
         "#\n"
         /*"CDINDEX_DISCID= 'JGlmiKWbkdhpVbENfKkJNnr37e8-'\n"*/
@@ -431,13 +431,13 @@ media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar
         info->artist->str,
         info->album->str,
         info->title->str,
-        trackno,
-        *trackstart,
+        track_no,
+        *track_start,
         sectors);
         
-    *trackstart = sectors;
-    /* g_file_set_contents(inffile, contents, -1, NULL); glib 2.8 */
-    FILE* file = fopen(inffile, "w");
+    *track_start = sectors;
+    /* g_file_set_contents(inf_file, contents, -1, NULL); glib 2.8 */
+    FILE *file = fopen(inf_file, "w");
     if(file != NULL)
     {
         fwrite(contents, sizeof(gchar), strlen(contents), file);
@@ -449,33 +449,33 @@ media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar
 
 
 void
-media_start_playing(const gchar* file) 
+media_start_playing(const gchar *file) 
 {
     GB_LOG_FUNC
     g_return_if_fail(file != NULL);
     
-    gchar* mimetype = gbcommon_get_mime_type(file);
-    if(media_get_plugin_status(mimetype) == INSTALLED)
+    gchar *mime_type = gbcommon_get_mime_type(file);
+    if(media_get_plugin_status(mime_type) == INSTALLED)
     {
-        if(mediaplayer != NULL)
+        if(media_player != NULL)
         {              
             media_stop_playing();
-            gst_object_unref (GST_OBJECT (mediaplayer->pipeline));
-            g_free(mediaplayer);            
+            gst_object_unref (GST_OBJECT (media_player->pipeline));
+            g_free(media_player);            
         }
         
-        mediaplayer = g_new0(MediaPipeline, 1);
-        mediaplayer->pipeline = gst_thread_new ("mediaplayer");
-        mediaplayer->source = gst_element_factory_make ("filesrc", "source");
-        g_object_set(G_OBJECT(mediaplayer->source), "location", file, NULL);
-        GstElement* spider = gst_element_factory_make ("spider", "spider");
-        mediaplayer->dest = gst_element_factory_make ("osssink", "destination");
-        gst_bin_add_many(GST_BIN (mediaplayer->pipeline), mediaplayer->source, 
-            spider, mediaplayer->dest, NULL);    
-        gst_element_link_many(mediaplayer->source, spider, mediaplayer->dest, NULL);
-        g_signal_connect (mediaplayer->pipeline, "error", G_CALLBACK(media_player_pipeline_error), NULL);
-        g_signal_connect (mediaplayer->pipeline, "eos", G_CALLBACK (media_player_pipeline_eos), NULL);
-        gst_element_set_state(mediaplayer->pipeline, GST_STATE_PLAYING); 
+        media_player = g_new0(MediaPipeline, 1);
+        media_player->pipeline = gst_thread_new ("media_player");
+        media_player->source = gst_element_factory_make ("filesrc", "source");
+        g_object_set(G_OBJECT(media_player->source), "location", file, NULL);
+        GstElement *spider = gst_element_factory_make ("spider", "spider");
+        media_player->dest = gst_element_factory_make ("osssink", "destination");
+        gst_bin_add_many(GST_BIN (media_player->pipeline), media_player->source, 
+            spider, media_player->dest, NULL);    
+        gst_element_link_many(media_player->source, spider, media_player->dest, NULL);
+        g_signal_connect (media_player->pipeline, "error", G_CALLBACK(media_player_pipeline_error), NULL);
+        g_signal_connect (media_player->pipeline, "eos", G_CALLBACK (media_player_pipeline_eos), NULL);
+        gst_element_set_state(media_player->pipeline, GST_STATE_PLAYING); 
     }
 }
 
@@ -484,8 +484,8 @@ void
 media_stop_playing()
 {
     GB_LOG_FUNC
-    if(mediaplayer != NULL)
-        gst_element_set_state (mediaplayer->pipeline, GST_STATE_NULL); 
+    if(media_player != NULL)
+        gst_element_set_state (media_player->pipeline, GST_STATE_NULL); 
 }
 
 

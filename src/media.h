@@ -39,14 +39,14 @@ enum
 
 typedef struct 
 {
-	GstElement* pipeline;
-    GstElement* source;
-	GstElement* decoder;
-	GstElement* converter;
-    GstElement* endianconverter;
-	GstElement* scale;
-	GstElement* encoder;
-	GstElement* dest;
+	GstElement *pipeline;
+    GstElement *source;
+	GstElement *decoder;
+	GstElement *converter;
+    GstElement *endian_converter;
+	GstElement *scale;
+	GstElement *encoder;
+	GstElement *dest;
 } MediaPipeline;
 
 typedef enum
@@ -57,7 +57,7 @@ typedef enum
 
 typedef struct
 {
-	GString *mimetype;
+	GString *mime_type;
 	GString *gst_plugin_name;
 	PluginStatus status;	
 } PluginInfo;
@@ -66,25 +66,25 @@ typedef struct
 typedef struct 
 {
     PluginStatus status;
-    gchar* mimetype;
-    gchar* filename;
-    GString* artist;
-    GString* album;
-    GString* title; 
+    gchar *mime_type;
+    gchar *file_name;
+    GString *artist;
+    GString *album;
+    GString *title; 
     gulong duration;
-    gulong bitrate;
-    GString* formattedduration;
-    GError* error;
+    gulong bit_rate;
+    GString *formatted_duration;
+    GError *error;
 } MediaInfo;
  
  
 void media_init();
 void media_finalise();
-MediaInfo* media_info_new(const gchar* mediafile);
-void media_info_delete(MediaInfo* info);
-void media_info_create_inf_file(const MediaInfo* info, const int trackno, const gchar* inffile, int* trackstart);
-void media_start_playing(const gchar* file);
+MediaInfo *media_info_new(const gchar *media_file);
+void media_info_delete(MediaInfo *info);
+void media_info_create_inf_file(const MediaInfo *info, const int track_no, const gchar *inf_file, int *track_start);
+void media_start_playing(const gchar *file);
 void media_stop_playing();
-PluginStatus media_get_plugin_status(const gchar* mimetype);
+PluginStatus media_get_plugin_status(const gchar *mime_type);
 
 #endif	/* _MEDIA_H_ */

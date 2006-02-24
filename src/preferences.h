@@ -84,21 +84,21 @@
 gboolean preferences_init();
 void preferences_finalise();
 
-gchar* preferences_get_copy_data_cd_image();
-gchar* preferences_get_create_data_cd_image();
-gchar* preferences_get_convert_audio_track_dir();
-gchar* preferences_get_default_iso();
+gchar *preferences_get_copy_data_cd_image();
+gchar *preferences_get_create_data_cd_image();
+gchar *preferences_get_convert_audio_track_dir();
+gchar *preferences_get_default_iso();
 GtkToolbarStyle preferences_get_toolbar_style();
 
-gchar* preferences_get_string(const gchar* key);
-gboolean preferences_get_bool(const gchar* key);
-gint preferences_get_int(const gchar* key);
-gboolean preferences_set_string(const gchar* key, const gchar* value);
-gboolean preferences_set_bool(const gchar* key, const gboolean value);
-gboolean preferences_set_int(const gchar* key, const gint value);
-gboolean preferences_key_exists(const gchar* key);
-GSList* preferences_get_key_subkeys(const gchar* key);
-gboolean preferences_delete_key(const gchar* key);
-void preferences_register_notify(const gchar* key, GConfClientNotifyFunc func);
+gchar *preferences_get_string(const gchar *key);
+gboolean preferences_get_bool(const gchar *key);
+gint preferences_get_int(const gchar *key);
+gboolean preferences_set_string(const gchar *key, const gchar *value);
+gboolean preferences_set_bool(const gchar *key, const gboolean value);
+gboolean preferences_set_int(const gchar *key, const gint value);
+gboolean preferences_key_exists(const gchar *key);
+GSList* preferences_get_key_subkeys(const gchar *key);
+gboolean preferences_delete_key(const gchar *key);
+void preferences_register_notify(const gchar *key, GConfClientNotifyFunc func);
 
 #endif

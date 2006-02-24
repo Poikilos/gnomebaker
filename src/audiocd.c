@@ -321,7 +321,7 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
             {
                 if(audiocd_update_progress_bar(TRUE, (gdouble)info->duration))
                 {
-                    GdkPixbuf* icon = gbcommon_get_icon_for_mime(info->mimetype, 16);
+                    GdkPixbuf* icon = gbcommon_get_icon_for_mime(info->mime_type, 16);
             
                     GB_DECLARE_STRUCT(GtkTreeIter, iter);		
                     gtk_list_store_append(GTK_LIST_STORE(model), &iter);
@@ -329,7 +329,7 @@ audiocd_add_file(const gchar* filename, GtkTreeModel* model)
                         GTK_LIST_STORE(model), &iter, 
                         AUDIOCD_COL_ICON, icon, 
                         AUDIOCD_COL_FILE, (gchar*)filename, 
-                        AUDIOCD_COL_DURATION, info->formattedduration->str,
+                        AUDIOCD_COL_DURATION, info->formatted_duration->str,
                         /*AUDIOCD_COL_SIZE, info->filesize,*/
                         AUDIOCD_COL_ARTIST, info->artist->str, 
                         AUDIOCD_COL_ALBUM, info->album->str,

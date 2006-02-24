@@ -28,7 +28,7 @@
 #include "gbcommon.h"
 
 
-GConfClient* gconf_client = NULL;
+GConfClient *gconf_client = NULL;
 	
 
 gboolean
@@ -45,11 +45,11 @@ preferences_init()
 	}
 	else
 	{
-		gchar* tempdir = preferences_get_string(GB_TEMP_DIR);
-		if(tempdir == NULL)
+		gchar *temp_dir = preferences_get_string(GB_TEMP_DIR);
+		if(temp_dir == NULL)
 		{		
-		    gchar* temp_string = g_strdup_printf("GnomeBaker-%s", g_get_user_name());
-			tempdir = g_build_filename(g_get_tmp_dir(), temp_string, NULL);		
+		    gchar *temp_string = g_strdup_printf("GnomeBaker-%s", g_get_user_name());
+			temp_dir = g_build_filename(g_get_tmp_dir(), temp_string, NULL);		
 			g_free(temp_string);
             temp_string = NULL;
 					
@@ -60,7 +60,7 @@ preferences_init()
 			preferences_set_int(GB_DVDWRITE_SPEED, 2);
 			preferences_set_bool(GB_DUMMY, FALSE);
 			preferences_set_bool(GB_EJECT, TRUE);
-			preferences_set_string(GB_TEMP_DIR, tempdir);
+			preferences_set_string(GB_TEMP_DIR, temp_dir);
 			preferences_set_bool(GB_FAST_BLANK, FALSE);
 			preferences_set_bool(GB_BURNFREE, FALSE);
 			preferences_set_bool(GB_SHOWHIDDEN, FALSE);
@@ -81,13 +81,13 @@ preferences_init()
             preferences_set_int(GB_AUDIO_DISK_SIZE, 0);
             preferences_set_bool(GB_CDRECORD_FORCE, FALSE);
             
-            gchar* last_iso = preferences_get_default_iso();
+            gchar *last_iso = preferences_get_default_iso();
             preferences_set_string(GB_LAST_ISO, last_iso);
             g_free(last_iso);
 		}		
 		
-		gbcommon_mkdir(tempdir);
-		g_free(tempdir);			
+		gbcommon_mkdir(temp_dir);
+		g_free(temp_dir);			
 		ok = TRUE;
 	}
 		
@@ -103,36 +103,36 @@ preferences_finalise()
 }
 
 
-gchar* 
+gchar *
 preferences_get_copy_data_cd_image()
 {
 	GB_LOG_FUNC
-	gchar* tempdir = preferences_get_string(GB_TEMP_DIR);
-	gchar* ret = g_build_filename(tempdir, "gnomebaker_copy_data_cd.iso", NULL);
-	g_free(tempdir);
+	gchar *temp_dir = preferences_get_string(GB_TEMP_DIR);
+	gchar *ret = g_build_filename(temp_dir, "gnomebaker_copy_data_cd.iso", NULL);
+	g_free(temp_dir);
 	return ret;
 }
 
 
-gchar* 
+gchar *
 preferences_get_create_data_cd_image()
 {
 	GB_LOG_FUNC
-	gchar* tempdir = preferences_get_string(GB_TEMP_DIR);
-	gchar* ret = g_build_filename(tempdir, "gnomebaker_create_data_cd.iso", NULL);
-	g_free(tempdir);
+	gchar *temp_dir = preferences_get_string(GB_TEMP_DIR);
+	gchar *ret = g_build_filename(temp_dir, "gnomebaker_create_data_cd.iso", NULL);
+	g_free(temp_dir);
 	return ret;
 }
 
 
-gchar* 
+gchar *
 preferences_get_convert_audio_track_dir()
 {
 	GB_LOG_FUNC
-	gchar* tempdir = preferences_get_string(GB_TEMP_DIR);
-	gchar* path = g_build_filename(tempdir, "create_audiocd", NULL);
+	gchar *temp_dir = preferences_get_string(GB_TEMP_DIR);
+	gchar *path = g_build_filename(temp_dir, "create_audiocd", NULL);
 	gbcommon_mkdir(path);
-	g_free(tempdir);
+	g_free(temp_dir);
 	return path;
 }
 
@@ -151,7 +151,7 @@ preferences_get_toolbar_style()
 	GB_LOG_FUNC
 	GtkToolbarStyle ret = GTK_TOOLBAR_BOTH;
 	
-	gchar* style = gconf_client_get_string(gconf_client, GNOME_TOOLBAR_STYLE, NULL);
+	gchar *style = gconf_client_get_string(gconf_client, GNOME_TOOLBAR_STYLE, NULL);
 	g_return_val_if_fail(style != NULL, ret);		
 			
 	if(g_ascii_strcasecmp(style, "both-horiz") == 0)
@@ -170,8 +170,8 @@ preferences_get_toolbar_style()
 }
 
 
-gchar* 
-preferences_get_string(const gchar* key)
+gchar *
+preferences_get_string(const gchar *key)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, NULL);
@@ -180,7 +180,7 @@ preferences_get_string(const gchar* key)
 
 
 gboolean 
-preferences_get_bool(const gchar* key)
+preferences_get_bool(const gchar *key)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, FALSE);
@@ -189,7 +189,7 @@ preferences_get_bool(const gchar* key)
 
 
 gint 
-preferences_get_int(const gchar* key)
+preferences_get_int(const gchar *key)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, -1);
@@ -198,7 +198,7 @@ preferences_get_int(const gchar* key)
 
 
 gboolean 
-preferences_set_string(const gchar* key, const gchar* value)
+preferences_set_string(const gchar *key, const gchar *value)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, FALSE);
@@ -207,7 +207,7 @@ preferences_set_string(const gchar* key, const gchar* value)
 
 
 gboolean 
-preferences_set_bool(const gchar* key, const gboolean value)
+preferences_set_bool(const gchar *key, const gboolean value)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, FALSE);
@@ -216,7 +216,7 @@ preferences_set_bool(const gchar* key, const gboolean value)
 
 
 gboolean 
-preferences_set_int(const gchar* key, const gint value)
+preferences_set_int(const gchar *key, const gint value)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, FALSE);
@@ -225,7 +225,7 @@ preferences_set_int(const gchar* key, const gint value)
 
 
 gboolean 
-preferences_key_exists(const gchar* key)
+preferences_key_exists(const gchar *key)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, FALSE);	
@@ -234,7 +234,7 @@ preferences_key_exists(const gchar* key)
 
 
 GSList* 
-preferences_get_key_subkeys(const gchar* key)
+preferences_get_key_subkeys(const gchar *key)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, NULL);	
@@ -243,7 +243,7 @@ preferences_get_key_subkeys(const gchar* key)
 
 
 gboolean 
-preferences_delete_key(const gchar* key)
+preferences_delete_key(const gchar *key)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, FALSE);	
@@ -252,7 +252,7 @@ preferences_delete_key(const gchar* key)
 
 
 void
-preferences_register_notify(const gchar* key, GConfClientNotifyFunc func)
+preferences_register_notify(const gchar *key, GConfClientNotifyFunc func)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(key != NULL);	
