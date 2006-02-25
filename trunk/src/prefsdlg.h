@@ -29,7 +29,7 @@
 #include <gnome.h>
 #include <glade/glade.h>
 
-GtkWidget* prefsdlg_new(void);
-void prefsdlg_delete(GtkWidget* self);
+GtkWidget *prefsdlg_new(void);
+void prefsdlg_delete(GtkWidget *self);
 
 #endif	/*_PREFSDLG_H_*/

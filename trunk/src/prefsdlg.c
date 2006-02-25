@@ -27,18 +27,17 @@
 
 
 /* Prefs dialog glade widget names */
-static const gchar* const widget_prefsdlg = "prefsDlg";
-static const gchar* const widget_prefsdlg_tempdir = "tmpDirEntry";
-static const gchar* const widget_prefsdlg_cdrecordarg = "cdrecordargentry";
-static const gchar* const widget_prefsdlg_cleantempdir = "checkCleanTmp";
-static const gchar* const widget_prefsdlg_showhidden = "checkHiddenFiles";
-static const gchar* const widget_prefsdlg_askonquit = "checkAskOnQuit";
-static const gchar* const widget_prefsdlg_playsound = "checkPlaySound";
-static const gchar* const widget_prefsdlg_showhumansize = "checkShowHumanSizes";
-static const gchar* const widget_prefsdlg_alwaysscan = "checkAlwaysScan";
-static const gchar* const widget_prefsdlg_devicelist = "treeview12";
-static const gchar* const widget_prefsdlg_scrolloutput = "checkScrollOutput";
-static const gchar* const widget_prefsdlg_cdrecordforce = "checkCDRecordForce";
+static const gchar *const widget_prefsdlg = "prefsDlg";
+static const gchar *const widget_prefsdlg_temp_dir = "tmpDirEntry";
+static const gchar *const widget_prefsdlg_clean_temp_dir = "checkCleanTmp";
+static const gchar *const widget_prefsdlg_show_hidden = "checkHiddenFiles";
+static const gchar *const widget_prefsdlg_ask_on_quit = "checkAskOnQuit";
+static const gchar *const widget_prefsdlg_play_sound = "checkPlaySound";
+static const gchar *const widget_prefsdlg_show_human_size = "checkShowHumanSizes";
+static const gchar *const widget_prefsdlg_always_scan = "checkAlwaysScan";
+static const gchar *const widget_prefsdlg_devicelist = "treeview12";
+static const gchar *const widget_prefsdlg_scroll_output = "checkScrollOutput";
+static const gchar *const widget_prefsdlg_cdrecord_force = "checkCDRecordForce";
 
 
 static const gint DEVICELIST_COL_ICON = 0;
@@ -53,13 +52,13 @@ static const gint DEVICELIST_WRITE_DVDRAM = 8;
 static const gint DEVICELIST_NUM_COLS = 9;
 
 
-static GladeXML* prefsdlg_xml = NULL;
+static GladeXML *prefsdlg_xml = NULL;
 
 
 static void
 prefsdlg_device_cell_edited(GtkCellRendererText *cell,
-							gchar* path_string,
-							gchar* new_text,
+							gchar *path_string,
+							gchar *new_text,
 							gpointer user_data)
 {
 	GB_LOG_FUNC
@@ -69,23 +68,21 @@ prefsdlg_device_cell_edited(GtkCellRendererText *cell,
 	g_return_if_fail(new_text != NULL);
 	g_return_if_fail(user_data != NULL);
 	
-	gint* columnnum = (gint*)user_data;
+	gint *column_num = (gint*)user_data;
 	
 	g_return_if_fail(prefsdlg_xml != NULL);
-	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
-	g_return_if_fail(devicelist != NULL);
-	GtkListStore* devicemodel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist)));
-	g_return_if_fail(devicemodel != NULL);	
+	GtkWidget *device_list = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
+	g_return_if_fail(device_list != NULL);
+	GtkListStore *device_model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(device_list)));
+	g_return_if_fail(device_model != NULL);	
 	
 	GB_DECLARE_STRUCT(GtkTreeIter, iter);
-	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(devicemodel), &iter, path_string))
+	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(device_model), &iter, path_string))
 	{
 		GValue val = {0};
 		g_value_init(&val, G_TYPE_STRING);
 		g_value_set_string(&val, new_text);
-
-		gtk_list_store_set_value(devicemodel, &iter, *columnnum, &val);
-		
+		gtk_list_store_set_value(device_model, &iter, *column_num, &val);
 		g_value_unset(&val);
 	}
 }
@@ -101,23 +98,21 @@ prefsdlg_device_capability_edited(GtkCellRendererToggle *cell,
 	g_return_if_fail(path != NULL);
 	g_return_if_fail(user_data != NULL);
 	
-	gint* columnnum = (gint*)user_data;
+	gint *column_num = (gint*)user_data;
 
 	g_return_if_fail(prefsdlg_xml != NULL);
-	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
-	g_return_if_fail(devicelist != NULL);
-	GtkListStore* devicemodel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist)));
-	g_return_if_fail(devicemodel != NULL);	
+	GtkWidget *device_list = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
+	g_return_if_fail(device_list != NULL);
+	GtkListStore *device_model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(device_list)));
+	g_return_if_fail(device_model != NULL);	
 	
 	GB_DECLARE_STRUCT(GtkTreeIter, iter);
-	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(devicemodel), &iter, path))
+	if(gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(device_model), &iter, path))
 	{	
 		GValue val = {0};
 		g_value_init(&val, G_TYPE_BOOLEAN);
 		g_value_set_boolean(&val, !gtk_cell_renderer_toggle_get_active(cell));
-
-		gtk_list_store_set_value(devicemodel, &iter, *columnnum, &val);
-		
+		gtk_list_store_set_value(device_model, &iter, *column_num, &val);
 		g_value_unset(&val);
 	}
 }
@@ -129,12 +124,12 @@ prefsdlg_create_device_list()
 	GB_LOG_FUNC
 	
 	g_return_if_fail(prefsdlg_xml != NULL);
-	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
+	GtkWidget *device_list = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
 		
 	GtkListStore *store = gtk_list_store_new(DEVICELIST_NUM_COLS, 
 		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
 		G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
-    gtk_tree_view_set_model(GTK_TREE_VIEW(devicelist), GTK_TREE_MODEL(store));
+    gtk_tree_view_set_model(GTK_TREE_VIEW(device_list), GTK_TREE_MODEL(store));
     g_object_unref(store);
 	
 	GValue value = { 0 };
@@ -154,7 +149,7 @@ prefsdlg_create_device_list()
 		(gpointer)&DEVICELIST_COL_NAME);
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DEVICELIST_COL_NAME, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 
 	/* Second column to display the device id */
 	renderer = gtk_cell_renderer_text_new();
@@ -163,7 +158,7 @@ prefsdlg_create_device_list()
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
 		(gpointer)&DEVICELIST_COL_ID);
-	gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 			
 	/* Third column to display the device node */
 	renderer = gtk_cell_renderer_text_new();
@@ -172,7 +167,7 @@ prefsdlg_create_device_list()
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
 		(gpointer)&DEVICELIST_COL_NODE);
-	gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);	
+	gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);	
 	
 	/* Fourth column to display the mount point */
 	renderer = gtk_cell_renderer_text_new();
@@ -181,7 +176,7 @@ prefsdlg_create_device_list()
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
 		(gpointer)&DEVICELIST_COL_MOUNT);
-	gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 	
 	/* Fifth column for writing cdr */
 	renderer = gtk_cell_renderer_toggle_new();
@@ -190,7 +185,7 @@ prefsdlg_create_device_list()
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
 		(gpointer)&DEVICELIST_WRITE_CDR);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 	
 	/* Sixth column for writing cdrw */
 	renderer = gtk_cell_renderer_toggle_new();
@@ -199,7 +194,7 @@ prefsdlg_create_device_list()
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
 		(gpointer)&DEVICELIST_WRITE_CDRW);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 	
 	/* 7th column for writing dvdr */
 	renderer = gtk_cell_renderer_toggle_new();
@@ -208,7 +203,7 @@ prefsdlg_create_device_list()
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
 		(gpointer)&DEVICELIST_WRITE_DVDR);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 	
 	/* 8th column for writing dvdrw */
 	renderer = gtk_cell_renderer_toggle_new();
@@ -217,43 +212,43 @@ prefsdlg_create_device_list()
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
 		(gpointer)&DEVICELIST_WRITE_DVDRAM);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(devicelist), col);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 
 	g_value_unset(&value);
 }
 
 
 static gboolean
-prefsdlg_foreach_device(GtkTreeModel *devicemodel,
+prefsdlg_foreach_device(GtkTreeModel *device_model,
 					  GtkTreePath *path,
 					  GtkTreeIter *iter,
 					  gpointer userdata)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(devicemodel != NULL, TRUE);
+	g_return_val_if_fail(device_model != NULL, TRUE);
 	g_return_val_if_fail(iter != NULL, TRUE);
 	
-	gint* devicecount = (gint*)userdata; 
-	++(*devicecount);
+	gint *device_count = (gint*)userdata; 
+	++(*device_count);
 	
 	gchar *icon = NULL, *name = NULL, *id = NULL, *node = NULL, *mount = NULL;
-	gboolean writecdr = FALSE, writecdrw = FALSE, writedvdr = FALSE, writedvdram = FALSE;
-	gtk_tree_model_get(devicemodel, iter, DEVICELIST_COL_ICON, &icon, 
+	gboolean write_cdr = FALSE, write_cdrw = FALSE, write_dvdr = FALSE, write_dvdram = FALSE;
+	gtk_tree_model_get(device_model, iter, DEVICELIST_COL_ICON, &icon, 
 		DEVICELIST_COL_NAME, &name, DEVICELIST_COL_ID, &id, 
 		DEVICELIST_COL_NODE, &node, DEVICELIST_COL_MOUNT, &mount,
-		DEVICELIST_WRITE_CDR, &writecdr, DEVICELIST_WRITE_CDRW, &writecdrw,
-		DEVICELIST_WRITE_DVDR, &writedvdr, DEVICELIST_WRITE_DVDRAM, &writedvdram, -1);
+		DEVICELIST_WRITE_CDR, &write_cdr, DEVICELIST_WRITE_CDRW, &write_cdrw,
+		DEVICELIST_WRITE_DVDR, &write_dvdr, DEVICELIST_WRITE_DVDRAM, &write_dvdram, -1);
 	
 	gint capabilities = 0;
-	if(writecdr) capabilities |= DC_WRITE_CDR;
-	if(writecdrw) capabilities |= DC_WRITE_CDRW;
-	if(writedvdr) capabilities |= DC_WRITE_DVDR;
-	if(writedvdram) capabilities |= DC_WRITE_DVDRAM;	
+	if(write_cdr) capabilities |= DC_WRITE_CDR;
+	if(write_cdrw) capabilities |= DC_WRITE_CDRW;
+	if(write_dvdr) capabilities |= DC_WRITE_DVDR;
+	if(write_dvdram) capabilities |= DC_WRITE_DVDRAM;	
 	
 	if((name == NULL) || (id == NULL) || (node == NULL))
 		g_critical("prefsdlg_foreach_device - Invalid row in device list");	
 	else
-		devices_write_device_to_gconf(*devicecount, name, id, node, mount, capabilities);
+		devices_write_device_to_gconf(*device_count, name, id, node, mount, capabilities);
 	
 	g_free(icon);
 	g_free(name);	
@@ -266,47 +261,47 @@ prefsdlg_foreach_device(GtkTreeModel *devicemodel,
 
 	
 void /* libglade callback */
-prefsdlg_on_ok(GtkButton* button, gpointer user_data)
+prefsdlg_on_ok(GtkButton *button, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(prefsdlg_xml != NULL);
 	
-	GtkWidget* entry = glade_xml_get_widget(prefsdlg_xml, "tmpDirEntry");
-	const gchar* tempdir = gtk_entry_get_text(GTK_ENTRY(entry));
-	preferences_set_string(GB_TEMP_DIR, tempdir);
-	gbcommon_mkdir(tempdir);
+	GtkWidget *entry = glade_xml_get_widget(prefsdlg_xml, "tmpDirEntry");
+	const gchar *temp_dir = gtk_entry_get_text(GTK_ENTRY(entry));
+	preferences_set_string(GB_TEMP_DIR, temp_dir);
+	gbcommon_mkdir(temp_dir);
 
 	// this is for the cdrecord additional arguments
-	GtkWidget* checkCDRecordForce = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cdrecordforce);
-	preferences_set_bool(GB_CDRECORD_FORCE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkCDRecordForce)));
+	GtkWidget *cdrecord_force = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cdrecord_force);
+	preferences_set_bool(GB_CDRECORD_FORCE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cdrecord_force)));
 	
-	GtkWidget* checkCleanTmp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cleantempdir);
-	preferences_set_bool(GB_CLEANTEMPDIR, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkCleanTmp)));
+	GtkWidget *clean_temp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_clean_temp_dir);
+	preferences_set_bool(GB_CLEANTEMPDIR, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(clean_temp)));
 	
-	GtkWidget* checkShowHidden = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhidden);
-	preferences_set_bool(GB_SHOWHIDDEN, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkShowHidden)));
+	GtkWidget *show_hidden_files = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_show_hidden);
+	preferences_set_bool(GB_SHOWHIDDEN, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(show_hidden_files)));
 
-	GtkWidget* checkShowHumanSize = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhumansize);
+	GtkWidget *checkShowHumanSize = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_show_human_size);
 	preferences_set_bool(GB_SHOWHUMANSIZE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkShowHumanSize)));
 	
-	GtkWidget* checkAlwaysScan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_alwaysscan);
-	preferences_set_bool(GB_ALWAYS_SCAN, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkAlwaysScan)));
+	GtkWidget *always_scan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_always_scan);
+	preferences_set_bool(GB_ALWAYS_SCAN, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(always_scan)));
 	
-	GtkWidget* checkPlaySound = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_playsound);
-	preferences_set_bool(GB_PLAY_SOUND, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkPlaySound)));
+	GtkWidget *play_sound = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_play_sound);
+	preferences_set_bool(GB_PLAY_SOUND, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(play_sound)));
     
-    GtkWidget* checkAskOnQuit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_askonquit);
-    preferences_set_bool(GB_ASK_ON_QUIT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkAskOnQuit)));
+    GtkWidget *ask_on_quit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_ask_on_quit);
+    preferences_set_bool(GB_ASK_ON_QUIT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ask_on_quit)));
 
-	GtkWidget* checkOutputScroll = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_scrolloutput);
-	preferences_set_bool(GB_SCROLL_OUTPUT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkOutputScroll)));
+	GtkWidget *scroll_output = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_scroll_output);
+	preferences_set_bool(GB_SCROLL_OUTPUT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(scroll_output)));
 	
-	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
-	g_return_if_fail(devicelist != NULL);
-	GtkTreeModel* devicemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist));
-	g_return_if_fail(devicemodel != NULL);
-	gint devicecount = 0;
-	gtk_tree_model_foreach(devicemodel, prefsdlg_foreach_device, &devicecount);
+	GtkWidget *device_list = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
+	g_return_if_fail(device_list != NULL);
+	GtkTreeModel *device_model = gtk_tree_view_get_model(GTK_TREE_VIEW(device_list));
+	g_return_if_fail(device_model != NULL);
+	gint device_count = 0;
+	gtk_tree_model_foreach(device_model, prefsdlg_foreach_device, &device_count);
 }
 
 
@@ -316,38 +311,37 @@ prefsdlg_populate_device_list()
 	GB_LOG_FUNC
 	
 	g_return_if_fail(prefsdlg_xml != NULL);
-	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
-	g_return_if_fail(devicelist != NULL);
-	GtkListStore* devicemodel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist)));
-	g_return_if_fail(devicemodel != NULL);
+	GtkWidget *device_list = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
+	g_return_if_fail(device_list != NULL);
+	GtkListStore *device_model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(device_list)));
+	g_return_if_fail(device_model != NULL);
 
-	GSList* devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
-	GSList* item = devices;	
+	GSList *devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
+	GSList *item = devices;	
 	for(; item != NULL; item = item->next)
 	{
-		gchar* devicekey = (gchar*)item->data;				
-		gchar* devicenamekey = g_strconcat(devicekey, GB_DEVICE_NAME_LABEL, NULL);
-		gchar* deviceidkey = g_strconcat(devicekey, GB_DEVICE_ID_LABEL, NULL);		
-		gchar* devicenodekey = g_strconcat(devicekey, GB_DEVICE_NODE_LABEL, NULL);
-		gchar* devicemountkey = g_strconcat(devicekey, GB_DEVICE_MOUNT_LABEL, NULL);
-		gchar* devicecapabilitieskey = g_strconcat(devicekey, GB_DEVICE_CAPABILITIES_LABEL, NULL);
-		
-		gchar* devicename = preferences_get_string(devicenamekey);
-		gchar* deviceid = preferences_get_string(deviceidkey);
-		gchar* devicenode = preferences_get_string(devicenodekey);
-		gchar* devicemount = preferences_get_string(devicemountkey);
+		gchar *device_key = (gchar*)item->data;				
+		gchar *device_name_key = g_strconcat(device_key, GB_DEVICE_NAME_LABEL, NULL);
+		gchar *device_id_key = g_strconcat(device_key, GB_DEVICE_ID_LABEL, NULL);		
+		gchar *device_node_key = g_strconcat(device_key, GB_DEVICE_NODE_LABEL, NULL);
+		gchar *device_mount_key = g_strconcat(device_key, GB_DEVICE_MOUNT_LABEL, NULL);
+		gchar *devicecapabilitieskey = g_strconcat(device_key, GB_DEVICE_CAPABILITIES_LABEL, NULL);
+		gchar *device_name = preferences_get_string(device_name_key);
+		gchar *device_id = preferences_get_string(device_id_key);
+		gchar *device_node = preferences_get_string(device_node_key);
+		gchar *device_mount = preferences_get_string(device_mount_key);
 		gint capabilities = preferences_get_int(devicecapabilitieskey);
 		
-		if((devicename != NULL) && (strlen(devicename) > 0))
+		if((device_name != NULL) && (strlen(device_name) > 0))
 		{		
 			GB_DECLARE_STRUCT(GtkTreeIter, iter);
-			gtk_list_store_append(devicemodel, &iter);		
-			gtk_list_store_set(devicemodel, &iter, 
+			gtk_list_store_append(device_model, &iter);		
+			gtk_list_store_set(device_model, &iter, 
 				DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
-				DEVICELIST_COL_NAME, devicename,
-				DEVICELIST_COL_ID, deviceid,
-				DEVICELIST_COL_NODE, devicenode, 
-				DEVICELIST_COL_MOUNT, devicemount,
+				DEVICELIST_COL_NAME, device_name,
+				DEVICELIST_COL_ID, device_id,
+				DEVICELIST_COL_NODE, device_node, 
+				DEVICELIST_COL_MOUNT, device_mount,
 				DEVICELIST_WRITE_CDR, capabilities & DC_WRITE_CDR,
 				DEVICELIST_WRITE_CDRW, capabilities & DC_WRITE_CDRW,
 				DEVICELIST_WRITE_DVDR, capabilities & DC_WRITE_DVDR,
@@ -355,16 +349,15 @@ prefsdlg_populate_device_list()
 				-1);
 		}
 		
-		g_free(deviceidkey);
-		g_free(devicenamekey);		
-		g_free(devicenodekey);
-		g_free(devicekey);
-		g_free(devicemountkey);
-		
-		g_free(deviceid);
-		g_free(devicename);		
-		g_free(devicenode);
-		g_free(devicemount);
+		g_free(device_id_key);
+		g_free(device_name_key);		
+		g_free(device_node_key);
+		g_free(device_key);
+		g_free(device_mount_key);
+		g_free(device_id);
+		g_free(device_name);		
+		g_free(device_node);
+		g_free(device_mount);
 	}
 	
 	g_slist_free(devices);			
@@ -377,16 +370,16 @@ prefsdlg_clear_device_list()
 	GB_LOG_FUNC
 
 	g_return_if_fail(prefsdlg_xml != NULL);
-	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
-	g_return_if_fail(devicelist != NULL);
-	GtkListStore* devicemodel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist)));
-	g_return_if_fail(devicemodel != NULL);	
-	gtk_list_store_clear(devicemodel);
+	GtkWidget *device_list = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
+	g_return_if_fail(device_list != NULL);
+	GtkListStore *device_model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(device_list)));
+	g_return_if_fail(device_model != NULL);	
+	gtk_list_store_clear(device_model);
 }
 
 
 void /* libglade callback */
-prefsdlg_on_scan(GtkButton * button, gpointer user_data)
+prefsdlg_on_scan(GtkButton  *button, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(prefsdlg_xml != NULL);		
@@ -401,18 +394,18 @@ prefsdlg_on_scan(GtkButton * button, gpointer user_data)
 
 
 void /* libglade callback */
-prefsdlg_on_add(GtkButton * button, gpointer user_data)
+prefsdlg_on_add(GtkButton  *button, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(prefsdlg_xml != NULL);
-	GtkWidget* devicelist = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
-	g_return_if_fail(devicelist != NULL);
-	GtkListStore* devicemodel = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(devicelist)));
-	g_return_if_fail(devicemodel != NULL);
+	GtkWidget *device_list = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
+	g_return_if_fail(device_list != NULL);
+	GtkListStore *device_model = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(device_list)));
+	g_return_if_fail(device_model != NULL);
 
 	GB_DECLARE_STRUCT(GtkTreeIter, iter);
-	gtk_list_store_append(devicemodel, &iter);		
-	gtk_list_store_set(devicemodel, &iter, 
+	gtk_list_store_append(device_model, &iter);		
+	gtk_list_store_set(device_model, &iter, 
 		DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
 		DEVICELIST_COL_NAME, "New CD Burner",
 		DEVICELIST_COL_ID, "1,0,0",
@@ -422,7 +415,7 @@ prefsdlg_on_add(GtkButton * button, gpointer user_data)
 
 
 gboolean /* libglade callback */
-prefsdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data)
+prefsdlg_on_delete(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
 	GB_LOG_FUNC
 	prefsdlg_on_ok(NULL, NULL);	
@@ -437,54 +430,54 @@ prefsdlg_new(void)
 	prefsdlg_xml = glade_xml_new(glade_file, widget_prefsdlg, NULL);
 	glade_xml_signal_autoconnect(prefsdlg_xml);		
 	
-	gchar* tempdir = preferences_get_string(GB_TEMP_DIR);
-	GtkWidget* entry = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_tempdir);
-	gtk_entry_set_text(GTK_ENTRY(entry), tempdir);
-	g_free(tempdir);
+	gchar *temp_dir = preferences_get_string(GB_TEMP_DIR);
+	GtkWidget *entry = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_temp_dir);
+	gtk_entry_set_text(GTK_ENTRY(entry), temp_dir);
+	g_free(temp_dir);
 	
 	// cdrecord additional arguments
-	GtkWidget* checkCDRecordForce = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cdrecordforce);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkCDRecordForce), 
+	GtkWidget *cdrecord_force = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cdrecord_force);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cdrecord_force), 
         preferences_get_bool(GB_CDRECORD_FORCE));
 	
-	GtkWidget* checkCleanTmp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cleantempdir);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkCleanTmp), 
+	GtkWidget *clean_temp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_clean_temp_dir);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(clean_temp), 
 		preferences_get_bool(GB_CLEANTEMPDIR));
 	
-	GtkWidget* checkShowHidden = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhidden);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkShowHidden), 
+	GtkWidget *show_hidden_files = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_show_hidden);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(show_hidden_files), 
 		preferences_get_bool(GB_SHOWHIDDEN));
 
-	GtkWidget* checkOutputScroll = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_scrolloutput);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkOutputScroll),
+	GtkWidget *scroll_output = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_scroll_output);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(scroll_output),
 		preferences_get_bool(GB_SCROLL_OUTPUT));
 	
-	GtkWidget* checkShowHumanSizes = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_showhumansize);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkShowHumanSizes),
+	GtkWidget *show_human_readable_sizes = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_show_human_size);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(show_human_readable_sizes),
 		preferences_get_bool(GB_SHOWHUMANSIZE));
 
-	GtkWidget* checkAlwaysScan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_alwaysscan);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkAlwaysScan), 
+	GtkWidget *always_scan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_always_scan);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(always_scan), 
 		preferences_get_bool(GB_ALWAYS_SCAN));
 		
-    GtkWidget* checkPlaySound = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_playsound);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkPlaySound), 
+    GtkWidget *play_sound = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_play_sound);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(play_sound), 
         preferences_get_bool(GB_PLAY_SOUND));
         
-	GtkWidget* checkAskOnQuit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_askonquit);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkAskOnQuit), 
+	GtkWidget *ask_on_quit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_ask_on_quit);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ask_on_quit), 
 		preferences_get_bool(GB_ASK_ON_QUIT));
 	
 	prefsdlg_create_device_list();
 	prefsdlg_populate_device_list();
-	GtkWidget* dlg = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg);
+	GtkWidget *dlg = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg);
     gbcommon_center_window_on_parent(dlg);
 	return dlg;
 }
 
 
 void 
-prefsdlg_delete(GtkWidget* self)
+prefsdlg_delete(GtkWidget *self)
 {
 	GB_LOG_FUNC
 	gtk_widget_hide(self);
