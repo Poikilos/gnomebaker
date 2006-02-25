@@ -105,7 +105,7 @@ devices_add_device(const gchar *device_name, const gchar *device_id,
 		
 	/* Look for the device in /etc/fstab */
 	gchar* *fstab = gbcommon_get_file_as_list("/etc/fstab");
-	gchar** line = fstab;
+	gchar **line = fstab;
 	while((line != NULL) && (*line != NULL))
 	{
 		g_strstrip(*line);
@@ -288,8 +288,8 @@ devices_parse_cdrecord_output(const gchar *buffer, const gchar *bus_name)
 	g_return_val_if_fail(bus_name != NULL, FALSE);
 	gboolean ok = TRUE;		
 		
-	gchar** lines = g_strsplit(buffer, "\n", 0);
-	gchar** line = lines;
+	gchar **lines = g_strsplit(buffer, "\n", 0);
+	gchar **line = lines;
 	while(*line != NULL)
 	{
 		/*	Ignore stuff like my camera which cdrecord detects...
@@ -340,8 +340,8 @@ devices_parse_cdrecord_max_speed(const gchar *buffer, const gchar *bus_name)
 	g_return_val_if_fail(bus_name != NULL, FALSE);
 	gboolean ok = TRUE;		
 		
-	gchar** lines = g_strsplit(buffer, "\n", 0);
-	gchar** line = lines;
+	gchar **lines = g_strsplit(buffer, "\n", 0);
+	gchar **line = lines;
 	while(*line != NULL)
 	{
 		

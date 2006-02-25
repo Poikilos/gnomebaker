@@ -555,22 +555,22 @@ gbcommon_show_file_chooser(const gchar *title, GtkFileChooserAction action,
     g_return_val_if_fail(action == GTK_FILE_CHOOSER_ACTION_OPEN ||
             action == GTK_FILE_CHOOSER_ACTION_SAVE, NULL);
     
-    GtkWidget *filesel = gtk_file_chooser_dialog_new( title , NULL, action, GTK_STOCK_CANCEL, 
+    GtkWidget *file_chooser = gtk_file_chooser_dialog_new( title , NULL, action, GTK_STOCK_CANCEL, 
             GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
-    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(filesel), FALSE);
-    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), custom_filter);
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), FALSE);
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), custom_filter);
     if(show_all_file_filter || custom_filter == NULL)
     {
         GtkFileFilter *all_filter = gtk_file_filter_new();
         gtk_file_filter_add_pattern (all_filter, "*");
         gtk_file_filter_set_name(all_filter,_("All files"));    
-        gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filesel), all_filter);
+        gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), all_filter);
     }
     
     if(action == GTK_FILE_CHOOSER_ACTION_SAVE && save_as_options != NULL)
     {
         GtkWidget *pulldown_hbox = gtk_hbox_new(FALSE, 15);
-        gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(filesel), pulldown_hbox);
+        gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(file_chooser), pulldown_hbox);
         GtkWidget *filetypes_label = gtk_label_new(_("Save file as type:"));
         gtk_box_pack_start(GTK_BOX(pulldown_hbox),filetypes_label, FALSE, TRUE, 0);
         gtk_box_pack_end(GTK_BOX(pulldown_hbox), GTK_WIDGET(save_as_options), TRUE, TRUE, 0);
@@ -578,9 +578,9 @@ gbcommon_show_file_chooser(const gchar *title, GtkFileChooserAction action,
     }
 
     gchar *file = NULL;
-    if (gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_OK)
+    if (gtk_dialog_run(GTK_DIALOG(file_chooser)) == GTK_RESPONSE_OK)
     {
-        file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel)));
+        file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser)));
         if(action == GTK_FILE_CHOOSER_ACTION_SAVE && save_as_options != NULL)
         {
             gchar *ext = gtk_combo_box_get_active_text(save_as_options);
@@ -593,7 +593,7 @@ gbcommon_show_file_chooser(const gchar *title, GtkFileChooserAction action,
             g_free(ext);
         }            
     }
-    gtk_widget_destroy(filesel);
+    gtk_widget_destroy(file_chooser);
     return file;
 }
 

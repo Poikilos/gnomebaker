@@ -505,7 +505,7 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
         {
             
             GSList *files = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(file_chooser));
-            /*gchar** uris = g_malloc0(g_slist_length(files) * sizeof(gchar*));*/
+            /*gchar **uris = g_malloc0(g_slist_length(files) * sizeof(gchar*));*/
             
             GSList *file = files;
             int index = 0;
