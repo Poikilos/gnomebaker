@@ -701,7 +701,7 @@ datacd_foreach_fileselection(GtkTreeModel *file_model,
 	g_return_if_fail(iter != NULL);
 	g_return_if_fail(user_data != NULL);
 	
-	GList** rowref_list = (GList**)user_data;
+	GList **rowref_list = (GList**)user_data;
 
 	/*obtain the row reference*/
 	if(GTK_IS_LIST_STORE(file_model))
@@ -1408,7 +1408,7 @@ datacd_new()
 
 
 static gboolean 
-datacd_get_msinfo(gchar** msinfo)
+datacd_get_msinfo(gchar **msinfo)
 {
 	GB_LOG_FUNC
 	gboolean ok = FALSE;
