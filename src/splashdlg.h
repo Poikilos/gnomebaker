@@ -29,8 +29,8 @@
 #include <gnome.h>
 #include <glade/glade.h>
 
-GtkWidget* splashdlg_new(void);
-void splashdlg_delete(GtkWidget* self);
-void splashdlg_set_text(const gchar* text);
+GtkWidget *splashdlg_new(void);
+void splashdlg_delete(GtkWidget *self);
+void splashdlg_set_text(const gchar *text);
 
 #endif	/*_SPLASHDLG_H_*/
