@@ -27,11 +27,10 @@
 
 
 /* Select device dialog widget names */
-static const gchar* const widget_select_writer = "optmenWriter";
-static const gchar* const widget_select_device_dlg = "selectDeviceDlg";
+static const gchar *const widget_select_writer = "optmenWriter";
+static const gchar *const widget_select_device_dlg = "selectDeviceDlg";
 
-
-GladeXML* selectdevicedlgdlg_xml = NULL;
+static GladeXML *selectdevicedlgdlg_xml = NULL;
 
 
 GtkWidget* 
@@ -41,17 +40,17 @@ selectdevicedlg_new(void)
 	selectdevicedlgdlg_xml = glade_xml_new(glade_file, widget_select_device_dlg, NULL);
 	glade_xml_signal_autoconnect(selectdevicedlgdlg_xml);		
 	
-	GtkWidget *optmenWriteDev = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
-	devices_populate_optionmenu(optmenWriteDev, GB_WRITER, TRUE);
+	GtkWidget *option_menu = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
+	devices_populate_optionmenu(option_menu, GB_WRITER, TRUE);
 	
-    GtkWidget* dlg = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_device_dlg); 
+    GtkWidget *dlg = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_device_dlg); 
     gbcommon_center_window_on_parent(dlg);
 	return dlg;
 }
 
 
 void 
-selectdevicedlg_delete(GtkWidget* self)
+selectdevicedlg_delete(GtkWidget *self)
 {
 	g_return_if_fail(NULL != self);
 	gtk_widget_destroy(self);
@@ -61,11 +60,11 @@ selectdevicedlg_delete(GtkWidget* self)
 
 
 void 
-selectdevicedlg_on_ok_clicked(GtkButton* button, gpointer user_data)
+selectdevicedlg_on_ok_clicked(GtkButton *button, gpointer user_data)
 {
 	GB_LOG_FUNC	
 	g_return_if_fail(selectdevicedlgdlg_xml != NULL);
 	
-	GtkWidget* optmenWriteDev = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
-	devices_save_optionmenu(GTK_OPTION_MENU(optmenWriteDev), GB_WRITER);
+	GtkWidget *option_menu = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
+	devices_save_optionmenu(GTK_OPTION_MENU(option_menu), GB_WRITER);
 }

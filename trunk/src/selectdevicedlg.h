@@ -31,9 +31,8 @@
 #include <glade/glade.h>
 
 
-
-GtkWidget* selectdevicedlg_new(void);
-void selectdevicedlg_delete(GtkWidget* self);
+GtkWidget *selectdevicedlg_new(void);
+void selectdevicedlg_delete(GtkWidget *self);
 
 
 #endif	/*_SELECTDEVICEDLG_H_*/
