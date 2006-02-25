@@ -31,39 +31,39 @@
 
 typedef struct 
 {
-    GtkDialog* dialog;
-    GtkOptionMenu* reader;
-    GtkOptionMenu* writer;
-    GtkSpinButton* write_speed;
-    GtkOptionMenu* write_mode;
-    GtkCheckButton* dummy;
-    GtkCheckButton* eject;    
-    GtkCheckButton* fast_erase;
-    GtkCheckButton* burn_free;
-    GtkRadioButton* burn_disk; 
-    GtkCheckButton* force_format;  
-    GtkCheckButton* finalize;
-    GtkCheckButton* fast_format;
-    GtkCheckButton* joliet;
-    GtkCheckButton* rock_ridge;
-    GtkCheckButton* on_the_fly;    
-    GtkRadioButton* iso_only;  
-    GtkEntry* iso_file;
-    GtkButton* browse;
-    GtkEntry* volume_id;
-    GtkEntry* app_id;
-    GtkEntry* preparer;
-    GtkEntry* publisher;
-    GtkEntry* copyright;
-    GtkEntry* abstract;
-    GtkEntry* bibliography;
+    GtkDialog *dialog;
+    GtkOptionMenu *reader;
+    GtkOptionMenu *writer;
+    GtkSpinButton *write_speed;
+    GtkOptionMenu *write_mode;
+    GtkCheckButton *dummy;
+    GtkCheckButton *eject;    
+    GtkCheckButton *fast_erase;
+    GtkCheckButton *burn_free;
+    GtkRadioButton *burn_disk; 
+    GtkCheckButton *force_format;  
+    GtkCheckButton *finalize;
+    GtkCheckButton *fast_format;
+    GtkCheckButton *joliet;
+    GtkCheckButton *rock_ridge;
+    GtkCheckButton *on_the_fly;    
+    GtkRadioButton *iso_only;  
+    GtkEntry *iso_file;
+    GtkButton *browse;
+    GtkEntry *volume_id;
+    GtkEntry *app_id;
+    GtkEntry *preparer;
+    GtkEntry *publisher;
+    GtkEntry *copyright;
+    GtkEntry *abstract;
+    GtkEntry *bibliography;
     gboolean dvdmode;
 } StartDlg;
 
 
 
-StartDlg* startdlg_new(const BurnType burntype);
-void startdlg_delete(StartDlg* self);
+StartDlg *startdlg_new(const BurnType burn_type);
+void startdlg_delete(StartDlg *self);
 
 
 #endif	/*_STARTDLG_H_*/
