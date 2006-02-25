@@ -27,33 +27,33 @@
 #include "gblibnotify.h"
 
 /* Progress dialog glade widget names */
-static const gchar* const widget_progdlg = "progDlg";
-static const gchar* const widget_progdlg_progbar = "progressbar6";
-static const gchar* const widget_progdlg_output = "textview1";
-static const gchar* const widget_progdlg_output_scroll = "scrolledwindow17";
-static const gchar* const widget_progdlg_toggleoutputlabel = "label297";
-static const gchar* const widget_progdlg_processtitle = "label295";
-static const gchar* const widget_progdlg_processdescription = "label296";
+static const gchar *const widget_progdlg = "progDlg";
+static const gchar *const widget_progdlg_progbar = "progressbar6";
+static const gchar *const widget_progdlg_output = "textview1";
+static const gchar *const widget_progdlg_output_scroll = "scrolledwindow17";
+static const gchar *const widget_progdlg_toggle_output_label = "label297";
+static const gchar *const widget_progdlg_process_title = "label295";
+static const gchar *const widget_progdlg_process_description = "label296";
 
-static GladeXML* progdlg_xml = NULL;
-static GtkProgressBar* progbar = NULL;
-static GtkTextView* textview = NULL;
-static GtkTextBuffer* textBuffer = NULL;
-static GtkWidget* textviewScroll = NULL;
-static GtkLabel* statuslabel = NULL;
-static GtkWindow* parentwindow = NULL;
-static gchar* originalparentwindowtitle = NULL;
-static GdkPixbuf* originalparenticon = NULL;
-static gint iconindex = 0;
-static gint timertag = 0;
-static gint numberofexecs = 0;
-static gint currentexec = -1;
-static GCallback closefunction = NULL;
-static GHashTable* statusicons = NULL;
-static gdouble approximationinterval = 0.0;
-static gdouble approximationfraction = 0.0;
-static GTimer* timer = NULL;
-static gboolean scrolloutput = TRUE;
+static GladeXML *progdlg_xml = NULL;
+static GtkProgressBar *progress_bar = NULL;
+static GtkTextView *text_view = NULL;
+static GtkTextBuffer *text_buffer = NULL;
+static GtkWidget *text_view_scroll = NULL;
+static GtkLabel *status_label = NULL;
+static GtkWindow *parent_window = NULL;
+static gchar *original_parent_window_title = NULL;
+static GdkPixbuf *original_parent_icon = NULL;
+static gint icon_index = 0;
+static gint timer_tag = 0;
+static gint number_of_execs = 0;
+static gint current_exec = -1;
+static GCallback close_function = NULL;
+static GHashTable *status_icons = NULL;
+static gdouble approximation_interval = 0.0;
+static gdouble approximation_fraction = 0.0;
+static GTimer *timer = NULL;
+static gboolean scroll_output = TRUE;
 
 
 static void 
@@ -63,8 +63,8 @@ progressdlg_set_icon(const gint index)
     g_return_if_fail(index >= 0  && index <= 13);
     
     /*GB_TRACE("progressdlg_set_icon - using icon [%d]\n", index);*/
-    GdkPixbuf* icon = (GdkPixbuf*)g_hash_table_lookup(statusicons, (gpointer)index);
-    gtk_window_set_icon(parentwindow, icon);
+    GdkPixbuf *icon = (GdkPixbuf*)g_hash_table_lookup(status_icons, (gpointer)index);
+    gtk_window_set_icon(parent_window, icon);
     gtk_window_set_icon(progressdlg_get_window(), icon);
 }
 
@@ -74,71 +74,71 @@ progressdlg_format_time(gint seconds)
 {
     GB_LOG_FUNC   
     
-    const gint remainingseconds = seconds % 60;
-    const gint minutes = (seconds - remainingseconds) / 60;
+    const gint remaining_seconds = seconds % 60;
+    const gint minutes = (seconds - remaining_seconds) / 60;
     if(minutes > 1)
-        return g_strdup_printf(_("%d minutes %d seconds"), minutes, remainingseconds);
+        return g_strdup_printf(_("%d minutes %d seconds"), minutes, remaining_seconds);
     else if(minutes > 0)
-        return g_strdup_printf(_("%d minute %d seconds"), minutes, remainingseconds);
+        return g_strdup_printf(_("%d minute %d seconds"), minutes, remaining_seconds);
     else 
         return g_strdup_printf(_("%d seconds"), seconds);
 }
 
 
 GtkWidget* 
-progressdlg_new(const Exec* exec, GtkWindow* parent, GCallback callonprematureclose)
+progressdlg_new(const Exec *exec, GtkWindow *parent, GCallback call_on_premature_close)
 {		
 	GB_LOG_FUNC
     g_return_val_if_fail(exec != NULL, NULL);
     g_return_val_if_fail(parent != NULL, NULL);
     
-    iconindex = 0;
-    closefunction = callonprematureclose;
-	numberofexecs = exec_count_operations(exec);
-	currentexec = -1;
-    timertag = 0;
-    approximationfraction = 0.0;
-    approximationinterval = 0.0;
-    scrolloutput = preferences_get_bool(GB_SCROLL_OUTPUT);
+    icon_index = 0;
+    close_function = call_on_premature_close;
+	number_of_execs = exec_count_operations(exec);
+	current_exec = -1;
+    timer_tag = 0;
+    approximation_fraction = 0.0;
+    approximation_interval = 0.0;
+    scroll_output = preferences_get_bool(GB_SCROLL_OUTPUT);
     
-    if(statusicons == NULL) 
+    if(status_icons == NULL) 
     {
-        statusicons = g_hash_table_new(g_direct_hash, g_direct_equal);
+        status_icons = g_hash_table_new(g_direct_hash, g_direct_equal);
         gint i = 0;     
         for(; i < 14; ++i)
         {
-            gchar* filename = g_strdup_printf(IMAGEDIR"/state%.2d.png", i);
-            GB_TRACE("progressdlg_new - loading icon [%s]\n", filename);
-            GdkPixbuf* icon = gdk_pixbuf_new_from_file(filename, NULL);
-            g_hash_table_insert(statusicons, (gpointer)i, icon);
-            g_free(filename);    
+            gchar *file_name = g_strdup_printf(IMAGEDIR"/state%.2d.png", i);
+            GB_TRACE("progressdlg_new - loading icon [%s]\n", file_name);
+            GdkPixbuf *icon = gdk_pixbuf_new_from_file(file_name, NULL);
+            g_hash_table_insert(status_icons, (gpointer)i, icon);
+            g_free(file_name);    
         }
     }
     
 	progdlg_xml = glade_xml_new(glade_file, widget_progdlg, NULL);
 	glade_xml_signal_autoconnect(progdlg_xml);		
-    GtkWidget* widget = glade_xml_get_widget(progdlg_xml, widget_progdlg); 
+    GtkWidget *widget = glade_xml_get_widget(progdlg_xml, widget_progdlg); 
 	
-	progbar = GTK_PROGRESS_BAR(glade_xml_get_widget(progdlg_xml, widget_progdlg_progbar));	
-    gtk_progress_bar_set_text(progbar, " ");
-	textview = GTK_TEXT_VIEW(glade_xml_get_widget(progdlg_xml, widget_progdlg_output));
-	textBuffer = gtk_text_view_get_buffer(textview);	
-	textviewScroll = glade_xml_get_widget(progdlg_xml, widget_progdlg_output_scroll);
-    statuslabel = GTK_LABEL(glade_xml_get_widget(progdlg_xml, widget_progdlg_toggleoutputlabel));
+	progress_bar = GTK_PROGRESS_BAR(glade_xml_get_widget(progdlg_xml, widget_progdlg_progbar));	
+    gtk_progress_bar_set_text(progress_bar, " ");
+	text_view = GTK_TEXT_VIEW(glade_xml_get_widget(progdlg_xml, widget_progdlg_output));
+	text_buffer = gtk_text_view_get_buffer(text_view);	
+	text_view_scroll = glade_xml_get_widget(progdlg_xml, widget_progdlg_output_scroll);
+    status_label = GTK_LABEL(glade_xml_get_widget(progdlg_xml, widget_progdlg_toggle_output_label));
     
-    GtkWidget* processtitle = glade_xml_get_widget(progdlg_xml, widget_progdlg_processtitle);      
-    gchar* markup = g_markup_printf_escaped("<b><big>%s</big></b>", exec->processtitle);
-    gtk_label_set_text(GTK_LABEL(processtitle), markup);
-    gtk_label_set_use_markup(GTK_LABEL(processtitle), TRUE);
+    GtkWidget *process_title = glade_xml_get_widget(progdlg_xml, widget_progdlg_process_title);      
+    gchar *markup = g_markup_printf_escaped("<b><big>%s</big></b>", exec->process_title);
+    gtk_label_set_text(GTK_LABEL(process_title), markup);
+    gtk_label_set_use_markup(GTK_LABEL(process_title), TRUE);
     g_free(markup);
     
-    GtkWidget* processdesc = glade_xml_get_widget(progdlg_xml, widget_progdlg_processdescription);
-    gtk_label_set_text(GTK_LABEL(processdesc), exec->processdescription);
+    GtkWidget *process_description = glade_xml_get_widget(progdlg_xml, widget_progdlg_process_description);
+    gtk_label_set_text(GTK_LABEL(process_description), exec->process_description);
     
-    parentwindow = parent;
-    originalparentwindowtitle = g_strdup(gtk_window_get_title(parentwindow));
-    originalparenticon = gtk_window_get_icon(parentwindow);
-    gdk_pixbuf_ref(originalparenticon);
+    parent_window = parent;
+    original_parent_window_title = g_strdup(gtk_window_get_title(parent_window));
+    original_parent_icon = gtk_window_get_icon(parent_window);
+    gdk_pixbuf_ref(original_parent_icon);
 	progressdlg_set_icon(0);
     /* Center the window on the main window and then pump the events so it's
      * visible quickly ready for feedback from the exec layer */
@@ -153,26 +153,26 @@ progressdlg_new(const Exec* exec, GtkWindow* parent, GCallback callonprematurecl
 
 
 void 
-progressdlg_delete(GtkWidget* self)
+progressdlg_delete(GtkWidget *self)
 {
 	GB_LOG_FUNC
     g_return_if_fail(self != NULL);        
 	gtk_widget_hide(self);
 	gtk_widget_destroy(self);
 	g_object_unref(progdlg_xml);	
-	progbar = NULL;
-	textview = NULL;
-	textBuffer = NULL;
-	textviewScroll = NULL;
+	progress_bar = NULL;
+	text_view = NULL;
+	text_buffer = NULL;
+	text_view_scroll = NULL;
 	progdlg_xml = NULL;
-    statuslabel = NULL;
-    gtk_window_set_title(parentwindow, originalparentwindowtitle);
-    g_free(originalparentwindowtitle);
-    originalparentwindowtitle = NULL;
+    status_label = NULL;
+    gtk_window_set_title(parent_window, original_parent_window_title);
+    g_free(original_parent_window_title);
+    original_parent_window_title = NULL;
     g_timer_destroy(timer);
-    gtk_window_set_icon(parentwindow, originalparenticon);
-    gdk_pixbuf_unref(originalparenticon);
-    originalparenticon = NULL;
+    gtk_window_set_icon(parent_window, original_parent_icon);
+    gdk_pixbuf_unref(original_parent_icon);
+    original_parent_icon = NULL;
     timer = NULL;
 }
 
@@ -190,28 +190,28 @@ void
 progressdlg_set_fraction(gfloat fraction)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(progbar != NULL);
+	g_return_if_fail(progress_bar != NULL);
 	
 	/* work out the overall fraction using our knowledge of the 
 	   number of operations we are performing */
-	fraction *= (1.0/(gfloat)numberofexecs);			
-	fraction += ((gfloat)currentexec *(1.0/(gfloat)numberofexecs));
-	gchar* percnt = g_strdup_printf("%d%%",(gint)(fraction * 100));
-	gtk_progress_bar_set_fraction(progbar, fraction);
-	/*gtk_progress_bar_set_text(progbar, percnt);		*/
-    gtk_window_set_title(parentwindow, percnt);
+	fraction *= (1.0/(gfloat)number_of_execs);			
+	fraction += ((gfloat)current_exec *(1.0/(gfloat)number_of_execs));
+	gchar *percnt = g_strdup_printf("%d%%",(gint)(fraction * 100));
+	gtk_progress_bar_set_fraction(progress_bar, fraction);
+	/*gtk_progress_bar_set_text(progress_bar, percnt);		*/
+    gtk_window_set_title(parent_window, percnt);
     g_free(percnt);
     
     int i = 0;
     for(; i <= 11; ++i)
     {
-        const gfloat lowerbound = (1.0/11.0) * (gfloat)i;
-        const gfloat upperbound = (1.0/11.0) * (gfloat)(i + 1);
-        /*GB_TRACE("progressdlg_set_fraction - fraction is [%f] lowerbound is [%f] upperbound is [%f]\n", 
-            fraction, lowerbound, upperbound);*/
-        if(fraction > lowerbound && fraction < upperbound && i > iconindex)
+        const gfloat lower_bound = (1.0/11.0) * (gfloat)i;
+        const gfloat upper_bound = (1.0/11.0) * (gfloat)(i + 1);
+        /*GB_TRACE("progressdlg_set_fraction - fraction is [%f] lower_bound is [%f] upper_bound is [%f]\n", 
+            fraction, lower_bound, upper_bound);*/
+        if(fraction > lower_bound && fraction < upper_bound && i > icon_index)
         {
-            iconindex = i;
+            icon_index = i;
             progressdlg_set_icon(i);
             break;
         }
@@ -220,9 +220,9 @@ progressdlg_set_fraction(gfloat fraction)
     if(fraction > 0.0)
     {
         gdouble time = (g_timer_elapsed(timer, NULL) / fraction) * (1.0 - fraction); 
-        gchar* formatted = progressdlg_format_time((gint)time + 1.0);
-        gchar* text = g_strdup_printf(_("%s remaining"), formatted);
-        gtk_progress_bar_set_text(progbar, text); 
+        gchar *formatted = progressdlg_format_time((gint)time + 1.0);
+        gchar *text = g_strdup_printf(_("%s remaining"), formatted);
+        gtk_progress_bar_set_text(progress_bar, text); 
         g_free(formatted);
         g_free(text);
     }
@@ -230,58 +230,58 @@ progressdlg_set_fraction(gfloat fraction)
 
 
 void 
-progressdlg_append_output(const gchar* output)
+progressdlg_append_output(const gchar *output)
 {
     /*GB_LOG_FUNC*/
-	g_return_if_fail(textview != NULL);
-	g_return_if_fail(textBuffer != NULL);
+	g_return_if_fail(text_view != NULL);
+	g_return_if_fail(text_buffer != NULL);
     
-	GtkTextIter textIter;
-    gtk_text_buffer_get_end_iter(textBuffer, &textIter);
-	gtk_text_buffer_insert(textBuffer, &textIter, output, strlen(output));	
-	if(scrolloutput)
+	GtkTextIter text_iter;
+    gtk_text_buffer_get_end_iter(text_buffer, &text_iter);
+	gtk_text_buffer_insert(text_buffer, &text_iter, output, strlen(output));	
+	if(scroll_output)
 	{
-		gtk_text_buffer_get_end_iter(textBuffer, &textIter);
-		GtkTextMark* mark = gtk_text_buffer_create_mark(textBuffer, "end of buffer", &textIter, TRUE);
-		gtk_text_view_scroll_to_mark(textview, mark, 0.1, FALSE, 0.0, 0.0);
-		gtk_text_buffer_delete_mark(textBuffer, mark);
+		gtk_text_buffer_get_end_iter(text_buffer, &text_iter);
+		GtkTextMark *mark = gtk_text_buffer_create_mark(text_buffer, "end of buffer", &text_iter, TRUE);
+		gtk_text_view_scroll_to_mark(text_view, mark, 0.1, FALSE, 0.0, 0.0);
+		gtk_text_buffer_delete_mark(text_buffer, mark);
 	}
 }
 
 
 void 
-progressdlg_on_close(GtkButton * button, gpointer user_data)
+progressdlg_on_close(GtkButton  *button, gpointer user_data)
 {
 	GB_LOG_FUNC
-	if(closefunction != NULL)
-        closefunction();
+	if(close_function != NULL)
+        close_function();
 }
 
 
 void 
-progressdlg_set_status(const gchar* status)
+progressdlg_set_status(const gchar *status)
 {
 	GB_LOG_FUNC	
-    gchar* markup = g_markup_printf_escaped("<i>%s</i>", status);	
-	gtk_label_set_text(statuslabel, markup);
-	gtk_label_set_use_markup(statuslabel, TRUE);	
+    gchar *markup = g_markup_printf_escaped("<i>%s</i>", status);	
+	gtk_label_set_text(status_label, markup);
+	gtk_label_set_use_markup(status_label, TRUE);	
     g_free(markup);
 }
 
 
 void 
-progressdlg_on_output(GtkExpander* expander, gpointer user_data)
+progressdlg_on_output(GtkExpander *expander, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(progdlg_xml != NULL);
-    GtkWidget* label = gtk_expander_get_label_widget(expander);
+    GtkWidget *label = gtk_expander_get_label_widget(expander);
     gtk_label_set_text(GTK_LABEL(label), 
         gtk_expander_get_expanded(expander) ? _("Show output"): _("Hide output"));
 }
 
 
 gboolean
-progressdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data)
+progressdlg_on_delete(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {	
 	GB_LOG_FUNC
 	progressdlg_on_close(NULL, user_data);
@@ -290,15 +290,15 @@ progressdlg_on_delete(GtkWidget* widget, GdkEvent* event, gpointer user_data)
 
 
 gboolean 
-progressdlg_pulse_ontimer(gpointer userdata)
+progressdlg_pulse_ontimer(gpointer user_data)
 {
 	/*GB_LOG_FUNC*/
-	g_return_val_if_fail(progbar != NULL, TRUE);
-	gtk_progress_bar_pulse(progbar);
-    /*++iconindex;
-    if(iconindex > 11) 
-        iconindex = 0;
-    progressdlg_set_icon(iconindex);*/
+	g_return_val_if_fail(progress_bar != NULL, TRUE);
+	gtk_progress_bar_pulse(progress_bar);
+    /*++icon_index;
+    if(icon_index > 11) 
+        icon_index = 0;
+    progressdlg_set_icon(icon_index);*/
 	return TRUE;
 }
 
@@ -307,10 +307,10 @@ void
 progressdlg_pulse_start()
 {
 	GB_LOG_FUNC
-	g_return_if_fail(progbar != NULL);
-    gtk_progress_bar_set_text(progbar, " ");
-	gtk_progress_bar_set_pulse_step(progbar, 0.01);		
-	timertag = gtk_timeout_add(40, (GtkFunction)progressdlg_pulse_ontimer, NULL);
+	g_return_if_fail(progress_bar != NULL);
+    gtk_progress_bar_set_text(progress_bar, " ");
+	gtk_progress_bar_set_pulse_step(progress_bar, 0.01);		
+	timer_tag = gtk_timeout_add(40, (GtkFunction)progressdlg_pulse_ontimer, NULL);
 }
 
 
@@ -318,8 +318,8 @@ void
 progressdlg_pulse_stop()
 {
 	GB_LOG_FUNC
-	gtk_timeout_remove(timertag);
-	timertag = 0;
+	gtk_timeout_remove(timer_tag);
+	timer_tag = 0;
 }
 
 
@@ -327,18 +327,18 @@ void
 progressdlg_increment_exec_number()
 {
 	GB_LOG_FUNC
-	g_return_if_fail(textview != NULL);
-	g_return_if_fail(textBuffer != NULL);
+	g_return_if_fail(text_view != NULL);
+	g_return_if_fail(text_buffer != NULL);
 	
 	/* Force the fraction to be at the start of the current portion */
-	if(++currentexec > 0)
+	if(++current_exec > 0)
 		progressdlg_set_fraction(0.0);
 	
 	/* Clear out the text buffer so it only contains the current exec output */
-	GtkTextIter endIter, startIter;
-	gtk_text_buffer_get_end_iter(textBuffer, &endIter);		
-	gtk_text_buffer_get_start_iter(textBuffer, &startIter);	
-	gtk_text_buffer_delete(textBuffer, &startIter, &endIter);		
+	GtkTextIter end_iter, start_iter;
+	gtk_text_buffer_get_end_iter(text_buffer, &end_iter);		
+	gtk_text_buffer_get_start_iter(text_buffer, &start_iter);	
+	gtk_text_buffer_delete(text_buffer, &start_iter, &end_iter);		
     
 /*    if(timer != NULL)
         g_timer_start(timer);*/
@@ -346,43 +346,43 @@ progressdlg_increment_exec_number()
 
 
 void 
-progressdlg_finish(GtkWidget* self, const Exec* ex)
+progressdlg_finish(GtkWidget *self, const Exec *ex)
 {
     GB_LOG_FUNC
     g_return_if_fail(self != NULL);       
     
     if(ex->outcome != CANCELLED)
     {
-        gtk_progress_bar_set_fraction(progbar, 1.0);
-        gchar* formatted = progressdlg_format_time((gint)g_timer_elapsed(timer, NULL));
-        gchar* text = g_strdup_printf(_("Elapsed time %s"), formatted);
-        gtk_progress_bar_set_text(progbar, text); 
+        gtk_progress_bar_set_fraction(progress_bar, 1.0);
+        gchar *formatted = progressdlg_format_time((gint)g_timer_elapsed(timer, NULL));
+        gchar *text = g_strdup_printf(_("Elapsed time %s"), formatted);
+        gtk_progress_bar_set_text(progress_bar, text); 
         g_free(formatted);
         g_free(text);
         if(ex->outcome == COMPLETED)
         {
-            const gchar* completed = _("Completed");
+            const gchar *completed = _("Completed");
             progressdlg_set_status(completed);
-            gtk_window_set_title(parentwindow, completed);
+            gtk_window_set_title(parent_window, completed);
             if(preferences_get_bool(GB_PLAY_SOUND))
                 media_start_playing(MEDIADIR"/BurnOk.wav");
             progressdlg_set_icon(12);
-            gblibnotify_notification(completed, ex->processtitle);
+            gblibnotify_notification(completed, ex->process_title);
         }
         else if(ex->outcome == FAILED) 
         {
-            const gchar* failed = _("Failed");
+            const gchar *failed = _("Failed");
             progressdlg_set_status(failed);
-            gtk_window_set_title(parentwindow, failed);
+            gtk_window_set_title(parent_window, failed);
             if(preferences_get_bool(GB_PLAY_SOUND))
                media_start_playing(MEDIADIR"/BurnFailed.wav");
             if(ex->err != NULL)
                 progressdlg_append_output(ex->err->message);
             progressdlg_set_icon(13);
-            gblibnotify_notification(failed, ex->processtitle);
+            gblibnotify_notification(failed, ex->process_title);
         }
-        /* Scrub out he closefunction callback as whatever exec was doing is finished */
-        closefunction = NULL;
+        /* Scrub out he close_function callback as whatever exec was doing is finished */
+        close_function = NULL;
         /* Now we wait for the user to close the dialog */
         gtk_dialog_run(GTK_DIALOG(self));
     }
@@ -390,13 +390,13 @@ progressdlg_finish(GtkWidget* self, const Exec* ex)
 
 
 static gboolean 
-progressdlg_approximation_ontimer(gpointer userdata)
+progressdlg_approximation_ontimer(gpointer user_data)
 {
     /*GB_LOG_FUNC*/
-    approximationfraction = approximationfraction + approximationinterval;
-    if(approximationfraction > (1.0 - approximationinterval))
-        approximationfraction = 0.99;                 
-    progressdlg_set_fraction(approximationfraction);
+    approximation_fraction = approximation_fraction + approximation_interval;
+    if(approximation_fraction > (1.0 - approximation_interval))
+        approximation_fraction = 0.99;                 
+    progressdlg_set_fraction(approximation_fraction);
     return TRUE;
 }
 
@@ -405,13 +405,12 @@ void
 progressdlg_start_approximation(gint seconds)
 {    
     GB_LOG_FUNC
-    g_return_if_fail(progbar != NULL);
     
     gint timeout = (seconds * 1000) / 100;
-    approximationinterval = 1.0 / (((gdouble)seconds) * (1000/timeout));        
+    approximation_interval = 1.0 / (((gdouble)seconds) * (1000/timeout));        
     GB_TRACE("progressdlg_start_approximation - seconds [%d] timeout [%d] interval [%f]\n", 
-            seconds, timeout, approximationinterval);
-    timertag = gtk_timeout_add(timeout, (GtkFunction)progressdlg_approximation_ontimer, NULL);
+            seconds, timeout, approximation_interval);
+    timer_tag = gtk_timeout_add(timeout, (GtkFunction)progressdlg_approximation_ontimer, NULL);
 }
 
 
@@ -419,24 +418,23 @@ void
 progressdlg_stop_approximation()
 {    
     GB_LOG_FUNC
-    g_return_if_fail(progbar != NULL);
-    gtk_timeout_remove(timertag);
-    timertag = 0;    
     
+    gtk_timeout_remove(timer_tag);
+    timer_tag = 0;        
     /* now wind the progress bar to 100% */
-    const gdouble remaining = 1.0 - approximationfraction;   
+    const gdouble remaining = 1.0 - approximation_fraction;   
     const gint iterations = 2000 / 40;
     const gdouble portion = remaining / (gdouble)iterations;
     gint i = 0;
     for(; i < iterations; ++i)
     {
-        approximationfraction += portion;
-        progressdlg_set_fraction(approximationfraction);
+        approximation_fraction += portion;
+        progressdlg_set_fraction(approximation_fraction);
         while(gtk_events_pending())
             gtk_main_iteration();
         g_usleep(40000);
     }
-    approximationfraction = 0.0;
-    approximationinterval = 0.0;
+    approximation_fraction = 0.0;
+    approximation_interval = 0.0;
 }
 
