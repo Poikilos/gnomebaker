@@ -24,7 +24,12 @@
 #include "media.h"
 
 static GSList *media_registered_plugins = NULL;
+
+#ifdef GST_010
+static GstElement *play = NULL;
+#else
 static MediaPipeline *media_player = NULL;
+#endif
 
 
 static PluginInfo* 
@@ -126,13 +131,78 @@ media_info_set_formatted_length(MediaInfo *info)
 
 
 static void
-media_fakesink_hand_off(GstElement *element, GstBuffer *buffer, GstPad *pad, gboolean *hand_off)
+media_tags_foreach(const GstTagList *list, const gchar *tag, MediaInfo *info)
 {
-    GB_LOG_FUNC
-    g_return_if_fail(hand_off != NULL);
-    *hand_off = TRUE;
+   GB_LOG_FUNC
+   int count = gst_tag_list_get_tag_size(list, tag);
+   if (count < 1)
+       return;
+
+   const GValue *val  = gst_tag_list_get_value_index (list, tag, 0);
+   if (g_ascii_strcasecmp (tag, GST_TAG_TITLE) == 0)
+       g_string_assign(info->title, g_value_get_string (val));
+   else if (g_ascii_strcasecmp (tag, GST_TAG_ARTIST) == 0)
+       g_string_assign(info->artist, g_value_get_string (val));
+   else if (g_ascii_strcasecmp (tag, GST_TAG_DURATION) == 0)
+       info->duration = g_value_get_uint64 (val) / GST_SECOND;
+   else if (g_ascii_strcasecmp (tag, GST_TAG_ALBUM) == 0)
+       g_string_assign(info->album, g_value_get_string (val));
+   else if (g_ascii_strcasecmp (tag, GST_TAG_BITRATE) == 0)
+       info->bit_rate = g_value_get_uint (val);
 }
 
+
+#ifdef GST_010
+
+static gboolean eos = FALSE;
+
+static gboolean
+media_bus_callback(GstBus *bus, GstMessage *message, MediaInfo *info)
+{
+    switch (GST_MESSAGE_TYPE (message)) 
+    {
+    case GST_MESSAGE_ERROR: 
+    {
+        g_print("error\n");
+        gchar *debug = NULL;        
+        gst_message_parse_error(message, &info->error, &debug);
+        g_critical("media_bus_callback - Error [%s] Debug [%s]\n", info->error->message, debug);
+        g_free(debug);              
+        break;
+    }
+    case GST_MESSAGE_EOS:
+        g_print("eos\n");
+        eos = TRUE;          
+        break;
+    case GST_MESSAGE_TAG:
+        g_print("tag\n");
+        GstTagList   *tag_list = NULL;
+        gst_message_parse_tag (message, &tag_list);
+        gst_tag_list_foreach (tag_list, (GstTagForeachFunc) media_tags_foreach, info); 
+        break;
+    default:
+        /* unhandled message */
+        break;
+    }
+    return TRUE;
+}
+
+static void
+media_new_decoded_pad(GstElement *decodebin, GstPad *pad, gboolean last, GstElement* destination)
+{
+    GB_LOG_FUNC
+    
+    GstCaps *caps = gst_pad_get_caps (pad);
+    GstStructure *structure = gst_caps_get_structure (caps, 0);
+    const gchar *mimetype = gst_structure_get_name (structure);
+    if (g_str_has_prefix(mimetype, "audio/x-raw")) {
+        g_print("linking new decoded pad of type %s to fakesink", mimetype);
+        GstPad *sink_pad = gst_element_get_pad (destination, "sink");
+        gst_pad_link (pad, sink_pad);
+    }
+}
+
+#else
 
 static void
 media_fakesink_end_of_stream(GstElement *element, gboolean *end_of_stream)
@@ -156,28 +226,6 @@ media_fakesink_error(GstElement *element, GstElement *source,
 
 
 static void
-media_tags_foreach(const GstTagList *list, const gchar *tag, MediaInfo *info)
-{
-   GB_LOG_FUNC
-   int count = gst_tag_list_get_tag_size(list, tag);
-   if (count < 1)
-       return;
-
-   const GValue *val  = gst_tag_list_get_value_index (list, tag, 0);
-   if (g_ascii_strcasecmp (tag, GST_TAG_TITLE) == 0)
-       g_string_assign(info->title, g_value_get_string (val));
-   else if (g_ascii_strcasecmp (tag, GST_TAG_ARTIST) == 0)
-       g_string_assign(info->artist, g_value_get_string (val));
-   else if (g_ascii_strcasecmp (tag, GST_TAG_DURATION) == 0)
-       info->duration = g_value_get_uint64 (val) / GST_SECOND;
-   else if (g_ascii_strcasecmp (tag, GST_TAG_ALBUM) == 0)
-       g_string_assign(info->album, g_value_get_string (val));
-   else if (g_ascii_strcasecmp (tag, GST_TAG_BITRATE) == 0)
-       info->bit_rate = g_value_get_uint (val);
-}
-
-
-static void
 media_fakesink_tag(GObject *pipeline, GstElement *source, GstTagList *tags, MediaInfo *info)
 {
     gst_tag_list_foreach (tags, (GstTagForeachFunc) media_tags_foreach, info); 
@@ -185,10 +233,7 @@ media_fakesink_tag(GObject *pipeline, GstElement *source, GstTagList *tags, Medi
 
 
 static void
-media_type_found(GstElement *typefind,
-          guint       probability,
-          GstCaps    *caps,
-          gpointer    data)
+media_type_found(GstElement *typefind, guint probability, GstCaps *caps, gpointer data)
 {
     GB_LOG_FUNC
     gchar *type = gst_caps_to_string (caps);
@@ -199,12 +244,57 @@ media_type_found(GstElement *typefind,
 
 
 static void
+media_fakesink_hand_off(GstElement *element, GstBuffer *buffer, GstPad *pad, gboolean *hand_off)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(hand_off != NULL);
+    *hand_off = TRUE;
+}
+
+
+#endif
+
+
+static void
 media_info_get_mediafile_info(MediaInfo *info, const gchar *media_file)
 {
     GB_LOG_FUNC
     g_return_if_fail(NULL != info);
     g_return_if_fail(NULL != media_file);
-   
+    
+#ifdef GST_010    
+    GstElement *pipeline = gst_pipeline_new("pipeline");
+    g_assert(pipeline);
+    gst_bus_add_watch (gst_pipeline_get_bus (GST_PIPELINE (pipeline)), (GstBusFunc)media_bus_callback, info);
+    GstElement *source = gst_element_factory_make ("filesrc", "source");
+    g_assert(source);
+    g_object_set (G_OBJECT (source), "location", media_file, NULL);
+    GstElement *decodebin = gst_element_factory_make ("decodebin", "decodebin");    
+    g_assert(decodebin);
+    GstElement *destination = gst_element_factory_make ("fakesink", "fakesink");
+    g_assert(destination);
+    g_signal_connect_object(decodebin, "new-decoded-pad", G_CALLBACK (media_new_decoded_pad), destination, 0);
+    gst_bin_add_many(GST_BIN (pipeline), source, decodebin, destination, NULL);        
+    gst_element_link(source, decodebin);
+
+    gst_element_set_state (pipeline, GST_STATE_PAUSED);
+    while ((GST_STATE(pipeline) != GST_STATE_PAUSED) && (info->error == NULL))
+    {
+        while(gtk_events_pending())
+            gtk_main_iteration();
+    }
+        
+    if(info->duration == 0)
+    {
+        GstFormat format = GST_FORMAT_TIME;
+        gint64 total = 0;
+        gst_element_query_duration(destination, &format, &total);
+        GB_TRACE("media_info_get_mediafile_info - track length [%ld]\n", (long int)(total / GST_SECOND));    
+        info->duration = total / GST_SECOND;
+    }
+    gst_element_set_state (pipeline, GST_STATE_NULL);
+    gst_object_unref(pipeline); 
+#else
     GstElement *pipeline = gst_pipeline_new ("pipeline");
     GstElement *spider = gst_element_factory_make ("spider", "spider");
     g_assert (spider);
@@ -221,8 +311,8 @@ media_info_get_mediafile_info(MediaInfo *info, const gchar *media_file)
 
     GstCaps *filtercaps = gst_caps_new_simple ("audio/x-raw-int", NULL);
     gst_element_link_filtered (spider, destination, filtercaps);
-    gst_caps_free (filtercaps);
-    
+    gst_caps_free(filtercaps);
+
     gboolean hand_off = FALSE, end_of_stream = FALSE; 
     g_signal_connect(pipeline, "found-tag", G_CALLBACK(media_fakesink_tag), info);
     g_signal_connect(pipeline, "error", G_CALLBACK(media_fakesink_error), &info->error);
@@ -232,6 +322,7 @@ media_info_get_mediafile_info(MediaInfo *info, const gchar *media_file)
     g_signal_connect (type_find, "have-type", G_CALLBACK (media_type_found), info);
        
     gst_element_set_state (pipeline, GST_STATE_PLAYING);
+    
     /* have to iterate a few times before the total time is set - signalled by hand_off */    
     while(gst_bin_iterate (GST_BIN (pipeline)) && (info->error == NULL) && !hand_off && !end_of_stream);
     if(info->duration == 0)
@@ -243,6 +334,8 @@ media_info_get_mediafile_info(MediaInfo *info, const gchar *media_file)
         info->duration = total / GST_SECOND;
     }
     gst_element_set_state (pipeline, GST_STATE_NULL);
+    g_object_unref(pipeline);        
+#endif    
     
     if(info->error != NULL)
     {
@@ -254,7 +347,7 @@ media_info_get_mediafile_info(MediaInfo *info, const gchar *media_file)
             media_info_get_wav_info(info, media_file);        
         media_info_set_formatted_length(info);
     }
-    g_object_unref(pipeline);        
+
 }
 
 
@@ -346,11 +439,16 @@ media_finalise()
     for(; node != NULL; node = node->next)
         media_plugininfo_delete((PluginInfo*)node->data);
     g_slist_free(media_registered_plugins);
+#ifdef GST_010    
+    if(play != NULL)    
+        gst_object_unref (GST_OBJECT (play));
+#else        
     if(media_player != NULL)
     {
         gst_object_unref (GST_OBJECT (media_player->pipeline));
         g_free(media_player);
     }
+#endif    
 }
 
 
@@ -457,13 +555,26 @@ media_start_playing(const gchar *file)
     gchar *mime_type = gbcommon_get_mime_type(file);
     if(media_get_plugin_status(mime_type) == INSTALLED)
     {
+#ifdef GST_010        
+        if(play != NULL)
+        {
+            media_stop_playing();
+            gst_object_unref (GST_OBJECT (play));
+        }
+        play = gst_element_factory_make ("playbin", "play");
+        gchar *uri = g_strdup_printf("file://%s", file);
+        g_object_set (G_OBJECT (play), "uri", uri, NULL);
+        /*gst_bus_add_watch (gst_pipeline_get_bus (GST_PIPELINE (play)),
+                     my_bus_callback, loop);*/
+        gst_element_set_state (play, GST_STATE_PLAYING);
+        g_free(uri);
+#else        
         if(media_player != NULL)
         {              
             media_stop_playing();
             gst_object_unref (GST_OBJECT (media_player->pipeline));
             g_free(media_player);            
         }
-        
         media_player = g_new0(MediaPipeline, 1);
         media_player->pipeline = gst_thread_new ("media_player");
         media_player->source = gst_element_factory_make ("filesrc", "source");
@@ -475,7 +586,8 @@ media_start_playing(const gchar *file)
         gst_element_link_many(media_player->source, spider, media_player->dest, NULL);
         g_signal_connect (media_player->pipeline, "error", G_CALLBACK(media_player_pipeline_error), NULL);
         g_signal_connect (media_player->pipeline, "eos", G_CALLBACK (media_player_pipeline_eos), NULL);
-        gst_element_set_state(media_player->pipeline, GST_STATE_PLAYING); 
+        gst_element_set_state(media_player->pipeline, GST_STATE_PLAYING);
+#endif        
     }
 }
 
@@ -484,8 +596,13 @@ void
 media_stop_playing()
 {
     GB_LOG_FUNC
+#ifdef GST_010    
+    if(play != NULL)
+        gst_element_set_state (play, GST_STATE_NULL); 
+#else
     if(media_player != NULL)
         gst_element_set_state (media_player->pipeline, GST_STATE_NULL); 
+#endif        
 }
 
 
