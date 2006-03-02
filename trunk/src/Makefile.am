@@ -1,5 +1,4 @@
-AM_CPPFLAGS =	                                 \
-	 $(LIBNOTIFY_CFLAGS) \
+AM_CPPFLAGS =	                             \
 	-I$(top_srcdir)                          \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
 	-DPREFIX="\"$(prefix)"\"		\
@@ -35,9 +34,3 @@ gnomebaker_SOURCES =					\
 	media.c			media.h
 
 gnomebaker_LDADD =  @GNOMEBAKER_LIBS@
-				
-if HAVE_LIBNOTIFY
-gnomebaker_LDADD +=				\
-	$(LIBNOTIFY_LIBS)				\
-	$(NULL)
-endif

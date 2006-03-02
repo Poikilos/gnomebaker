@@ -1270,16 +1270,24 @@ gstreamer_progress_timer(gpointer data)
     GB_LOG_FUNC   
     g_return_val_if_fail(data != NULL, FALSE);
     
+#ifdef GST_010
+    GstFormat fmt = GST_FORMAT_PERCENT;
+    gint64 percent = 0;
+    if(gst_element_query_position (GST_ELEMENT(data), &fmt, &percent))
+        progressdlg_set_fraction((gfloat)percent/100.0); 
+#else    
     GstFormat fmt = GST_FORMAT_BYTES;
     gint64 pos = 0, total = 0;
     if(gst_element_query(GST_ELEMENT(data), GST_QUERY_POSITION, &fmt, &pos) && 
-        gst_element_query(GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))
+        gst_element_query(GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))        
     {
         progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
     }
+#endif    
     return TRUE;
 }
  
+#ifndef GST_010
  
 static void
 gstreamer_pipeline_eos(GstElement *gstelement, gpointer user_data)
@@ -1306,6 +1314,9 @@ gstreamer_pipeline_error(GstElement *gstelement,
 }
  
 
+#endif
+ 
+
 static void
 gstreamer_new_decoded_pad(GstElement *element,
                            GstPad *pad,
@@ -1321,18 +1332,51 @@ gstreamer_new_decoded_pad(GstElement *element,
     GstStructure *str = gst_caps_get_structure(caps, 0);
     if (!g_strrstr(gst_structure_get_name(str), "audio"))
         return;
-    
+
     GstPad *decode_pad = gst_element_get_pad(mip->converter, "src"); 
     gst_pad_link(pad, decode_pad);
-    gst_element_link(mip->decoder, mip->converter);
-    
+    gst_element_link(mip->decoder, mip->converter);   
+
+#ifndef GST_010    
     gst_bin_add_many(GST_BIN(mip->pipeline), mip->converter,
         mip->scale, mip->endian_converter, mip->encoder, mip->dest, NULL);
 
     /* This function synchronizes a bins state on all of its contained children. */
     gst_bin_sync_children_state(GST_BIN(mip->pipeline));
+#endif    
 }
- 
+
+
+#ifdef GST_010
+
+static gboolean
+gstreamer_bus_callback(GstBus *bus, GstMessage *message, ExecCmd *cmd)
+{
+    switch (GST_MESSAGE_TYPE (message)) 
+    {
+    case GST_MESSAGE_ERROR: 
+    {
+        gchar *debug = NULL;        
+        GError *error = NULL;
+        gst_message_parse_error(message, &error, &debug);
+        g_critical("gstreamer_bus_callback - Error [%s] Debug [%s]\n", error->message, debug);
+        if(error != NULL)
+            progressdlg_append_output(error->message);
+        progressdlg_append_output(debug);
+        g_free(debug);              
+        exec_cmd_set_state(cmd, FAILED);
+        break;
+    }
+    case GST_MESSAGE_EOS:
+        exec_cmd_set_state(cmd, COMPLETED);
+        break;
+    default:
+        break;
+    }
+    return TRUE;
+}
+
+#endif 
  
 static void
 gstreamer_pre_proc(void *ex, void *buffer)
@@ -1352,7 +1396,7 @@ gstreamer_pre_proc(void *ex, void *buffer)
 
 static void 
 gstreamer_lib_proc(void *ex, void *data)
-{
+{    
     GB_LOG_FUNC
     g_return_if_fail(ex != NULL);  
     ExecCmd *cmd = (ExecCmd*)ex;
@@ -1360,6 +1404,94 @@ gstreamer_lib_proc(void *ex, void *data)
     
     GB_TRACE("gstreamer_lib_proc - converting [%s] to [%s]\n", (gchar*)g_ptr_array_index(cmd->args, 0), 
         (gchar*)g_ptr_array_index(cmd->args, 1));
+    
+#ifdef GST_010
+    MediaPipeline *media_pipeline = g_new0(MediaPipeline, 1);
+    
+    /* create a new pipeline to hold the elements */
+    media_pipeline->pipeline = gst_pipeline_new("gnomebaker-convert-to-wav-pipeline");
+    g_assert(media_pipeline->pipeline);
+    gst_bus_add_watch (gst_pipeline_get_bus (GST_PIPELINE (media_pipeline->pipeline)), (GstBusFunc)gstreamer_bus_callback, cmd);
+    
+    /* start with the source */
+    media_pipeline->source = gst_element_factory_make("filesrc", "file-source");
+    g_assert(media_pipeline->source);
+    g_object_set(G_OBJECT(media_pipeline->source), "location", g_ptr_array_index(cmd->args, 0), NULL);
+        
+    /* use a decode bin so we don't have to particularly care what the input format is */
+    media_pipeline->decoder = gst_element_factory_make("decodebin", "decoder");    
+    g_assert(media_pipeline->decoder);
+    g_signal_connect(media_pipeline->decoder, "new-decoded-pad", G_CALLBACK (gstreamer_new_decoded_pad), media_pipeline);
+    
+    /* create an audio converter */
+    media_pipeline->converter = gst_element_factory_make("audioconvert", "converter");
+    g_assert(media_pipeline->converter);
+    
+    /* audioscale resamples audio */
+    media_pipeline->scale = gst_element_factory_make("audioresample", "scale");
+    g_assert(media_pipeline->scale);
+    
+    /* Another audio converter. It is needed on big endian machines, otherwise
+       the audioscale can't be connected to the wavenc due to incompatible endianness. */
+    media_pipeline->endian_converter = gst_element_factory_make ("audioconvert", "endian-converter");
+    g_assert(media_pipeline->endian_converter);
+
+    /* and an wav encoder */
+    media_pipeline->encoder = gst_element_factory_make("wavenc", "encoder");
+    g_assert(media_pipeline->encoder);
+    
+    /* finally the output filesink or file descriptor dink */   
+    if(pipe != NULL)
+    {   
+         media_pipeline->dest = gst_element_factory_make("fdsink", "file-out");
+         g_object_set(G_OBJECT(media_pipeline->dest), "fd", pipe[1], NULL);
+    }
+    else
+    {
+        media_pipeline->dest = gst_element_factory_make("filesink","file-out");
+        g_object_set(G_OBJECT(media_pipeline->dest), "location", g_ptr_array_index(cmd->args, 1), NULL);
+    }
+    g_assert(media_pipeline->dest);
+
+    /* add all our elements to the bin */    
+    gst_bin_add_many(GST_BIN(media_pipeline->pipeline), media_pipeline->source, media_pipeline->decoder, 
+            media_pipeline->converter, media_pipeline->scale, media_pipeline->endian_converter, 
+            media_pipeline->encoder, media_pipeline->dest, NULL);
+
+    /* Now link all of our elements up */
+    gst_element_link(media_pipeline->source, media_pipeline->decoder);
+    /* don't make a link here between the decoder and the convertor as we will get that in new-decoded-pad signal */
+    gst_element_link_many(media_pipeline->converter, media_pipeline->scale, media_pipeline->endian_converter, NULL);
+    GstCaps *filter_caps = gst_caps_new_simple("audio/x-raw-int",
+                                          "channels", G_TYPE_INT, 2,
+                                          "rate",     G_TYPE_INT, 44100,
+                                          "width",    G_TYPE_INT, 16,
+                                          "depth",    G_TYPE_INT, 16,
+                                          NULL);
+    g_assert(filter_caps);
+    gst_element_link_filtered(media_pipeline->endian_converter, media_pipeline->encoder, filter_caps);
+    gst_object_unref(filter_caps);
+    gst_element_link(media_pipeline->encoder, media_pipeline->dest);
+    
+    /* If we're not writing to someone's pipe we update the progress bar in a timeout */        
+    if(pipe == NULL)
+        gstreamer_timer = g_timeout_add(1000, gstreamer_progress_timer, media_pipeline->dest);
+    
+    gst_element_set_state(media_pipeline->pipeline, GST_STATE_PLAYING);
+    while(exec_cmd_get_state(cmd) == RUNNING)
+    {                
+        /* Keep the GUI responsive by pumping all of the events if we're not writing
+         * to a pipe (as someone else will be pumping the event loop) */
+        while(pipe == NULL && gtk_events_pending())
+            gtk_main_iteration();
+    }
+    
+    if(pipe == NULL)
+        g_source_remove(gstreamer_timer);
+    gst_element_set_state(media_pipeline->pipeline, GST_STATE_NULL);
+    gst_object_unref(GST_OBJECT(media_pipeline->pipeline));
+    g_free(media_pipeline);
+#else        
     
     MediaPipeline *media_pipeline = g_new0(MediaPipeline, 1);
     
@@ -1433,6 +1565,8 @@ gstreamer_lib_proc(void *ex, void *data)
     gst_element_set_state(media_pipeline->pipeline, GST_STATE_NULL);
     gst_object_unref(GST_OBJECT(media_pipeline->pipeline));
     g_free(media_pipeline);
+    
+#endif    
 }
 
 

@@ -45,14 +45,16 @@ static GOptionEntry entries[] =
 
 gint 
 main(gint argc, gchar *argv[])
-{	    	
+{	    	    
 	GError *error = NULL;
 	GOptionContext *context = g_option_context_new(_(" - GNOME CD/DVD burning application"));
 	/* add main entries */
 	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
 	/* recognise gtk/gdk/gstreamer options */
 	g_option_context_add_group(context, gtk_get_option_group(TRUE));
-    /*g_option_context_add_group(context, gst_init_get_option_group());*/
+#ifdef GST_010
+    g_option_context_add_group(context, gst_init_get_option_group());
+#endif    
 	/* ignore unknown options */
 	g_option_context_set_ignore_unknown_options(context, TRUE);
 	g_option_context_parse(context, &argc, &argv, &error);
@@ -61,8 +63,6 @@ main(gint argc, gchar *argv[])
     
     gblibnotify_init("GnomeBaker");
     
-    g_thread_init(NULL);
-	gdk_threads_init();
 	
 #ifdef ENABLE_NLS
 		setlocale(LC_ALL,"");		
@@ -70,15 +70,22 @@ main(gint argc, gchar *argv[])
 		bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 		textdomain (GETTEXT_PACKAGE);
 #endif
-	
+    
+    
+#ifdef GST_010	
+    struct poptOption* options = NULL;
+#else     
+    g_thread_init(NULL);
+    gdk_threads_init();
+
 	struct poptOption options[] = 
 	{
     	{NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL},
     	POPT_TABLEEND
 	};
-
 	/* init GStreamer and GNOME using the GStreamer popt tables */
 	options[0].arg = (void*) gst_init_get_popt_table ();	
+#endif
 
     GnomeProgram *prog = gnome_program_init ("gnomebaker", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, 
         GNOME_PARAM_POPT_TABLE, options, GNOME_PARAM_APP_DATADIR, DATADIR, NULL);
