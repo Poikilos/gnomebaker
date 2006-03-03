@@ -154,7 +154,6 @@ media_tags_foreach(const GstTagList *list, const gchar *tag, MediaInfo *info)
 
 #ifdef GST_010
 
-static gboolean eos = FALSE;
 
 static gboolean
 media_bus_callback(GstBus *bus, GstMessage *message, MediaInfo *info)
@@ -163,23 +162,19 @@ media_bus_callback(GstBus *bus, GstMessage *message, MediaInfo *info)
     {
     case GST_MESSAGE_ERROR: 
     {
-        g_print("error\n");
         gchar *debug = NULL;        
         gst_message_parse_error(message, &info->error, &debug);
         g_critical("media_bus_callback - Error [%s] Debug [%s]\n", info->error->message, debug);
         g_free(debug);              
         break;
     }
-    case GST_MESSAGE_EOS:
-        g_print("eos\n");
-        eos = TRUE;          
-        break;
     case GST_MESSAGE_TAG:
-        g_print("tag\n");
-        GstTagList   *tag_list = NULL;
-        gst_message_parse_tag (message, &tag_list);
+    {
+        GstTagList *tag_list = NULL;
+        gst_message_parse_tag(message, &tag_list);
         gst_tag_list_foreach (tag_list, (GstTagForeachFunc) media_tags_foreach, info); 
         break;
+    }
     default:
         /* unhandled message */
         break;
@@ -187,19 +182,22 @@ media_bus_callback(GstBus *bus, GstMessage *message, MediaInfo *info)
     return TRUE;
 }
 
+
 static void
 media_new_decoded_pad(GstElement *decodebin, GstPad *pad, gboolean last, GstElement* destination)
 {
     GB_LOG_FUNC
     
     GstCaps *caps = gst_pad_get_caps (pad);
-    GstStructure *structure = gst_caps_get_structure (caps, 0);
-    const gchar *mimetype = gst_structure_get_name (structure);
-    if (g_str_has_prefix(mimetype, "audio/x-raw")) {
-        g_print("linking new decoded pad of type %s to fakesink", mimetype);
-        GstPad *sink_pad = gst_element_get_pad (destination, "sink");
+    GstStructure *structure = gst_caps_get_structure(caps, 0);
+    const gchar *mimetype = gst_structure_get_name(structure);
+    if(g_str_has_prefix(mimetype, "audio/x-raw")) 
+    {
+        GstPad *sink_pad = gst_element_get_pad(destination, "sink");
         gst_pad_link (pad, sink_pad);
+        gst_object_unref(sink_pad);
     }
+    gst_caps_unref(caps);
 }
 
 #else
