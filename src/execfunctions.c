@@ -1272,9 +1272,9 @@ gstreamer_progress_timer(gpointer data)
     
 #ifdef GST_010
     GstFormat fmt = GST_FORMAT_PERCENT;
-    gint64 percent = 0;
-    if(gst_element_query_position (GST_ELEMENT(data), &fmt, &percent))
-        progressdlg_set_fraction((gfloat)percent/100.0); 
+    gint64 pos = 0;
+    if(gst_element_query_position(GST_ELEMENT(data), &fmt, &pos))
+        progressdlg_set_fraction((gfloat)(pos/GST_FORMAT_PERCENT_SCALE)); 
 #else    
     GstFormat fmt = GST_FORMAT_BYTES;
     gint64 pos = 0, total = 0;
@@ -1329,21 +1329,26 @@ gstreamer_new_decoded_pad(GstElement *element,
     g_return_if_fail(pad != NULL);
     
     GstCaps *caps = gst_pad_get_caps(pad);
-    GstStructure *str = gst_caps_get_structure(caps, 0);
-    if (!g_strrstr(gst_structure_get_name(str), "audio"))
-        return;
-
-    GstPad *decode_pad = gst_element_get_pad(mip->converter, "src"); 
-    gst_pad_link(pad, decode_pad);
-    gst_element_link(mip->decoder, mip->converter);   
-
-#ifndef GST_010    
-    gst_bin_add_many(GST_BIN(mip->pipeline), mip->converter,
-        mip->scale, mip->endian_converter, mip->encoder, mip->dest, NULL);
-
-    /* This function synchronizes a bins state on all of its contained children. */
-    gst_bin_sync_children_state(GST_BIN(mip->pipeline));
+    GstStructure *structure = gst_caps_get_structure(caps, 0);
+    const gchar *mimetype = gst_structure_get_name(structure);
+    if(g_str_has_prefix(mimetype, "audio/x-raw")) 
+    {
+        GstPad *decode_pad = gst_element_get_pad(mip->converter, "src"); 
+        gst_pad_link(pad, decode_pad);
+        gst_element_link(mip->decoder, mip->converter);   
+#ifdef GST_010            
+        gst_object_unref(decode_pad);
+#else
+        gst_bin_add_many(GST_BIN(mip->pipeline), mip->converter,
+            mip->scale, mip->endian_converter, mip->encoder, mip->dest, NULL);
+    
+        /* This function synchronizes a bins state on all of its contained children. */
+        gst_bin_sync_children_state(GST_BIN(mip->pipeline));
 #endif    
+#ifdef GST_010            
+    gst_caps_unref(caps);
+#endif    
+    }
 }
 
 
@@ -1444,14 +1449,15 @@ gstreamer_lib_proc(void *ex, void *data)
     if(pipe != NULL)
     {   
          media_pipeline->dest = gst_element_factory_make("fdsink", "file-out");
+         g_assert(media_pipeline->dest);
          g_object_set(G_OBJECT(media_pipeline->dest), "fd", pipe[1], NULL);
     }
     else
     {
         media_pipeline->dest = gst_element_factory_make("filesink","file-out");
+        g_assert(media_pipeline->dest);
         g_object_set(G_OBJECT(media_pipeline->dest), "location", g_ptr_array_index(cmd->args, 1), NULL);
     }
-    g_assert(media_pipeline->dest);
 
     /* add all our elements to the bin */    
     gst_bin_add_many(GST_BIN(media_pipeline->pipeline), media_pipeline->source, media_pipeline->decoder, 
@@ -1470,7 +1476,7 @@ gstreamer_lib_proc(void *ex, void *data)
                                           NULL);
     g_assert(filter_caps);
     gst_element_link_filtered(media_pipeline->endian_converter, media_pipeline->encoder, filter_caps);
-    gst_object_unref(filter_caps);
+    gst_caps_unref(filter_caps);
     gst_element_link(media_pipeline->encoder, media_pipeline->dest);
     
     /* If we're not writing to someone's pipe we update the progress bar in a timeout */        
