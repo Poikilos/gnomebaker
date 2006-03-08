@@ -11,6 +11,9 @@ Version 0.5.2
 		Fixes RFE #1286697 - Files And Directories editing ....		
 		Fixes RFE #1210821 - Browsible CD
 		Fixes RFE #1211475 - Virtual Folders
+* Fix Bug #1442519 Can't compile gnomebaker with Fedora Core 5 libnotify 0.3.0
+* Fix Bug #1439059 Can't compile gnomebaker with gstreamer 0.10
+* Fix Bug #1429235 gnomebaker-1.9.0: compilation issue
 
 
 Version 0.5.1
