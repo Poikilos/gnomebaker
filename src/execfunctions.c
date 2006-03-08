@@ -1321,34 +1321,34 @@ static void
 gstreamer_new_decoded_pad(GstElement *element,
                            GstPad *pad,
                            gboolean last,
-                           MediaPipeline * mip)
+                           MediaPipeline *media_pipeline)
 {
-    GB_LOG_FUNC
-    g_return_if_fail(mip != NULL);
+    GB_LOG_FUNC    
     g_return_if_fail(element != NULL);
     g_return_if_fail(pad != NULL);
+    g_return_if_fail(media_pipeline != NULL);
     
     GstCaps *caps = gst_pad_get_caps(pad);
     GstStructure *structure = gst_caps_get_structure(caps, 0);
     const gchar *mimetype = gst_structure_get_name(structure);
     if(g_str_has_prefix(mimetype, "audio/x-raw")) 
     {
-        GstPad *decode_pad = gst_element_get_pad(mip->converter, "src"); 
-        gst_pad_link(pad, decode_pad);
-        gst_element_link(mip->decoder, mip->converter);   
+        GstPad *decode_pad = gst_element_get_pad(media_pipeline->converter, "src");         
+        gst_pad_link(decode_pad, pad);
+        gst_element_link(media_pipeline->decoder, media_pipeline->converter);   
 #ifdef GST_010            
         gst_object_unref(decode_pad);
 #else
-        gst_bin_add_many(GST_BIN(mip->pipeline), mip->converter,
-            mip->scale, mip->endian_converter, mip->encoder, mip->dest, NULL);
+        gst_bin_add_many(GST_BIN(media_pipeline->pipeline), media_pipeline->converter,
+            media_pipeline->scale, media_pipeline->endian_converter, media_pipeline->encoder, media_pipeline->dest, NULL);
     
         /* This function synchronizes a bins state on all of its contained children. */
-        gst_bin_sync_children_state(GST_BIN(mip->pipeline));
-#endif    
-#ifdef GST_010            
-    gst_caps_unref(caps);
+        gst_bin_sync_children_state(GST_BIN(media_pipeline->pipeline));
 #endif    
     }
+#ifdef GST_010            
+    gst_caps_unref(caps);
+#endif        
 }
 
 
@@ -1357,6 +1357,11 @@ gstreamer_new_decoded_pad(GstElement *element,
 static gboolean
 gstreamer_bus_callback(GstBus *bus, GstMessage *message, ExecCmd *cmd)
 {
+    GB_LOG_FUNC
+    g_return_val_if_fail(bus != NULL, FALSE);
+    g_return_val_if_fail(message != NULL, FALSE);
+    g_return_val_if_fail(cmd != NULL, FALSE);
+    
     switch (GST_MESSAGE_TYPE (message)) 
     {
     case GST_MESSAGE_ERROR: 
@@ -1466,7 +1471,10 @@ gstreamer_lib_proc(void *ex, void *data)
 
     /* Now link all of our elements up */
     gst_element_link(media_pipeline->source, media_pipeline->decoder);
-    /* don't make a link here between the decoder and the convertor as we will get that in new-decoded-pad signal */
+    
+    /* don't make a link here between the decoder and the convertor 
+     * as we will get that in new-decoded-pad signal */
+    
     gst_element_link_many(media_pipeline->converter, media_pipeline->scale, media_pipeline->endian_converter, NULL);
     GstCaps *filter_caps = gst_caps_new_simple("audio/x-raw-int",
                                           "channels", G_TYPE_INT, 2,
