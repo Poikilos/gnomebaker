@@ -380,9 +380,9 @@ devices_probe_bus(const gchar *bus)
 	gchar *buffer = NULL;
     exec_run_cmd(command, &buffer);
 	if(buffer == NULL)
-		g_critical("devices_probe_bus - Failed to scan the scsi bus");
+		g_warning("devices_probe_bus - Failed to scan the scsi bus");
 	else if(!devices_parse_cdrecord_output(buffer, bus))
-		g_critical("devices_probe_bus - failed to parse cdrecord output");
+		g_warning("devices_probe_bus - failed to parse cdrecord output");
 	else
 		ok = TRUE;	
 	g_free(buffer);
@@ -411,7 +411,7 @@ devices_get_ide_device(const gchar *device_node, const gchar *device_node_path,
 	}
 	else
 	{
-		g_critical("devices_get_ide_device - Failed to open %s", file);
+		g_warning("devices_get_ide_device - Failed to open %s", file);
 	}
 	g_free(file);
 }
@@ -430,11 +430,11 @@ devices_get_scsi_device(const gchar *device_node, const gchar *device_node_path,
 	gchar **device_strs = NULL, **devices = NULL;	
 	if((devices = gbcommon_get_file_as_list("/proc/scsi/sg/devices")) == NULL)
 	{
-		g_critical("devices_get_scsi_device - Failed to open /proc/scsi/sg/devices");
+		g_warning("devices_get_scsi_device - Failed to open /proc/scsi/sg/devices");
 	}
 	else if((device_strs = gbcommon_get_file_as_list("/proc/scsi/sg/device_strs")) == NULL)
 	{
-		g_critical("devices_get_scsi_device - Failed to open /proc/scsi/sg/device_strs");
+		g_warning("devices_get_scsi_device - Failed to open /proc/scsi/sg/device_strs");
 	}
 	else
 	{
@@ -450,7 +450,7 @@ devices_get_scsi_device(const gchar *device_node, const gchar *device_node_path,
 				if(sscanf(*device, "%d\t%*d\t%d\t%d\t%d", 
 					&scsihost, &scsiid, &scsilun, &scsitype) != 4)
 				{
-					g_critical("devices_get_scsi_device - Error reading scsi information from /proc/scsi/sg/devices");
+					g_warning("devices_get_scsi_device - Error reading scsi information from /proc/scsi/sg/devices");
 				}			
 				/* 5 is the magic number according to lib-nautilus-burn */
 				else if(scsitype == 5)
@@ -567,7 +567,7 @@ devices_probe_busses()
 	gchar **info = NULL;
 	if((info = gbcommon_get_file_as_list("/proc/sys/dev/cdrom/info")) == NULL)
 	{
-		g_critical("devices_probe_busses - Failed to open /proc/sys/dev/cdrom/info");
+		g_warning("devices_probe_busses - Failed to open /proc/sys/dev/cdrom/info");
 	}
 	else
 	{
@@ -693,7 +693,7 @@ devices_eject_disk(const gchar *device_key)
     g_free(device);
 	if(cdrom < 0)
 	{
-        g_critical("devices_eject_disk - Error opening device %s",device);
+        g_warning("devices_eject_disk - Error opening device %s",device);
    	}
     else
     {			
@@ -702,10 +702,10 @@ devices_eject_disk(const gchar *device_key)
         if(ioctl(cdrom, CDIOCEJECT, 0) < 0)
             ret = TRUE;
         else 
-            g_critical("devices_eject_disk - ioctl failed");
+            g_warning("devices_eject_disk - ioctl failed");
 #else        
         if(ioctl(cdrom, CDROMEJECT, 0) < 0)
-            g_critical("devices_eject_disk - ioctl failed");
+            g_warning("devices_eject_disk - ioctl failed");
         else
             ret = TRUE;
 #endif                
@@ -730,9 +730,9 @@ devices_get_max_speed_for_drive(const gchar *drive)
 	
 	GString *buffer = exec_run_cmd(command);
 	if(buffer == NULL)
-		g_critical("devices_get_max_speed_for_drive - Failed to scan the scsi bus");
+		g_warning("devices_get_max_speed_for_drive - Failed to scan the scsi bus");
 	else if(!devices_parse_cdrecord_output(buffer->str, bus))	
-		g_critical("devices_get_max_speed_for_drive - failed to parse cdrecord output");
+		g_warning("devices_get_max_speed_for_drive - failed to parse cdrecord output");
 	else
 		ok = TRUE;
 	
@@ -756,7 +756,7 @@ devices_is_disk_inserted(const gchar *device_key)
     close(fd);
     if (ret == -1)
 	{
-		g_critical("devices_is_disk_inserted - ioctl failed");
+		g_warning("devices_is_disk_inserted - ioctl failed");
     }
     else 
     {

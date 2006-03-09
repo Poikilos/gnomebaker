@@ -191,7 +191,7 @@ exec_spawn_process(ExecCmd *e, GSpawnChildSetupFunc child_setup)
 	}
 	else
 	{
-		g_critical("exec_spawn_process - failed to spawn process [%d] [%s]\n",
+		g_warning("exec_spawn_process - failed to spawn process [%d] [%s]\n",
 			err->code, err->message);			
         exec_cmd_set_state(e, FAILED);
         if(err != NULL) g_error_free(err);
@@ -478,12 +478,12 @@ exec_run_cmd(const gchar *cmd, gchar **output)
     }
     else if(error != NULL)
     {       
-        g_critical("exec_run_cmd - error [%s] spawning command [%s]", error->message, cmd);        
+        g_warning("exec_run_cmd - error [%s] spawning command [%s]", error->message, cmd);        
         g_error_free(error);
     }
     else
     {
-        g_critical("exec_run_cmd - Unknown error spawning command [%s]", cmd);     
+        g_warning("exec_run_cmd - Unknown error spawning command [%s]", cmd);     
     }
     GB_TRACE("exec_run_cmd - [%s] returned [%d]\n", cmd, exit_code);
     return exit_code;

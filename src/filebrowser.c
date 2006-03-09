@@ -176,7 +176,7 @@ filebrowser_build_path(GtkTreeModel *model, GtkTreeIter *iter)
 		}
 		else
 		{
-			g_critical("filebrowser_build_path - sub_dir from GValue is NULL");
+			g_warning("filebrowser_build_path - sub_dir from GValue is NULL");
 		}
 		
 		g_free(sub_dir);

@@ -214,6 +214,41 @@ cdrecord_read_proc(void *ex, void *buffer)
 }
 
 
+static void
+cdrecord_copy_audio_cd_pre_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+    
+    cdrecord_pre_proc(ex, buffer);
+    
+    GError *err = NULL; 
+    gchar *tmp = preferences_get_string(GB_TEMP_DIR);
+    GDir *dir = g_dir_open(tmp, 0, &err);
+    if(dir != NULL)
+    {
+        cdrecord_total_tracks_to_write = 0;
+        /* loop around reading the files in the directory */
+        const gchar *name = g_dir_read_name(dir); 
+        while(name != NULL)
+        {
+            if(g_str_has_suffix(name, ".wav"))
+            {
+                GB_TRACE("cdrecord_copy_audio_cd_pre_proc - adding [%s]\n", name);
+                gchar *full_path = g_build_filename(tmp, name, NULL);
+                exec_cmd_add_arg(ex, full_path);
+                cdrecord_total_tracks_to_write++;
+                g_free(full_path);
+            }
+            
+            name = g_dir_read_name(dir);
+        }
+        g_dir_close(dir);
+    }
+    g_free(tmp);    
+}
+
+
 /*
  *  Populates the common information required to burn a cd
  */
@@ -281,9 +316,6 @@ cdrecord_add_create_audio_cd_args(ExecCmd *cmd, const GList *audio_files)
 }
 
 
-/*
- *  ISO
- */
 void
 cdrecord_add_iso_args(ExecCmd *cmd, const gchar *iso)
 {
@@ -291,6 +323,8 @@ cdrecord_add_iso_args(ExecCmd *cmd, const gchar *iso)
 	g_return_if_fail(cmd != NULL);
 	
 	cdrecord_add_common_args(cmd);
+    
+    exec_cmd_add_arg(cmd, "-overburn");
 	
 	/*if(!prefs->multisession)*/
 		exec_cmd_add_arg(cmd, "-multi");
@@ -305,41 +339,6 @@ cdrecord_add_iso_args(ExecCmd *cmd, const gchar *iso)
 	
 	cmd->read_proc = cdrecord_read_proc;
 	cmd->pre_proc = cdrecord_pre_proc;
-}
-
-
-static void
-cdrecord_copy_audio_cd_pre_proc(void *ex, void *buffer)
-{
-    GB_LOG_FUNC
-    g_return_if_fail(ex != NULL);
-    
-    cdrecord_pre_proc(ex, buffer);
-    
-    GError *err = NULL; 
-    gchar *tmp = preferences_get_string(GB_TEMP_DIR);
-    GDir *dir = g_dir_open(tmp, 0, &err);
-    if(dir != NULL)
-    {
-        cdrecord_total_tracks_to_write = 0;
-        /* loop around reading the files in the directory */
-        const gchar *name = g_dir_read_name(dir); 
-        while(name != NULL)
-        {
-            if(g_str_has_suffix(name, ".wav"))
-            {
-                GB_TRACE("cdrecord_copy_audio_cd_pre_proc - adding [%s]\n", name);
-                gchar *full_path = g_build_filename(tmp, name, NULL);
-                exec_cmd_add_arg(ex, full_path);
-                cdrecord_total_tracks_to_write++;
-                g_free(full_path);
-            }
-            
-            name = g_dir_read_name(dir);
-        }
-        g_dir_close(dir);
-    }
-    g_free(tmp);    
 }
 
 
@@ -1369,7 +1368,7 @@ gstreamer_bus_callback(GstBus *bus, GstMessage *message, ExecCmd *cmd)
         gchar *debug = NULL;        
         GError *error = NULL;
         gst_message_parse_error(message, &error, &debug);
-        g_critical("gstreamer_bus_callback - Error [%s] Debug [%s]\n", error->message, debug);
+        g_warning("gstreamer_bus_callback - Error [%s] Debug [%s]\n", error->message, debug);
         if(error != NULL)
             progressdlg_append_output(error->message);
         progressdlg_append_output(debug);
