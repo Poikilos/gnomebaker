@@ -437,7 +437,7 @@ audiocd_import_pls_playlist(const gchar *pls_file, GtkTreeModel *model)
             }
             else
             {
-                g_critical("audiocd_import_pls_playlist - file [%s] contains invalid line [%s]", pls_file, entry);   
+                g_warning("audiocd_import_pls_playlist - file [%s] contains invalid line [%s]", pls_file, entry);   
             }
         }
         ++line;
@@ -755,7 +755,7 @@ audiocd_export_m3u(const gchar *play_list)
     FILE *file = NULL;   
     if ((file = fopen(play_list, "w")) == 0)
     {
-        g_critical("audiocd_export_m3u - Failed to write play_list [%s]", play_list);
+        g_warning("audiocd_export_m3u - Failed to write play_list [%s]", play_list);
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
             GTK_BUTTONS_NONE, _("Failed to write play_list file"));
     }
@@ -792,7 +792,7 @@ audiocd_export_pls(const gchar *play_list)
     FILE *file;   
     if ((file = fopen(play_list, "w")) == 0)
     {
-        g_critical("audiocd_export_pls - Failed to write play_list [%s]", play_list);
+        g_warning("audiocd_export_pls - Failed to write play_list [%s]", play_list);
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, 
             GTK_BUTTONS_NONE, _("Failed to write play_list file"));
     }

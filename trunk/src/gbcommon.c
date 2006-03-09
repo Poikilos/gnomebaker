@@ -47,12 +47,12 @@ gbcommon_create_open_temp_file()
 	gint fd = g_mkstemp(tmp_file_name);
 	if(fd == -1)
 	{
-		g_critical("gbcommon_create_open_temp_file - Failed when trying to create the temporary file [%s]",
+		g_warning("gbcommon_create_open_temp_file - Failed when trying to create the temporary file [%s]",
                  tmp_file_name);
 	}
 	else if((stream = fdopen (fd, "w")) == NULL)
 	{
-		g_critical("gbcommon_create_open_temp_file - Could not open [%s] for writing", tmp_file_name);
+		g_warning("gbcommon_create_open_temp_file - Could not open [%s] for writing", tmp_file_name);
         close(fd);
 	}
     else 
@@ -79,12 +79,12 @@ gbcommon_close_temp_file(GBTempFile *tmp_file)
 	if(tmp_file->file_stream != NULL)
 	{
 		if(fclose(tmp_file->file_stream) != 0)
-			g_critical("gbcommon_close_temp_file - Temporary file stream [%s] could not be closed", tmp_file->file_name);
+			g_warning("gbcommon_close_temp_file - Temporary file stream [%s] could not be closed", tmp_file->file_name);
 	}
 	if(tmp_file->file_descriptor >= 0)
 	{
 		if(close(tmp_file->file_descriptor) != 0)
-			g_critical("gbcommon_close_temp_file - Temporary file descriptor [%s] could not be closed", tmp_file->file_name);
+			g_warning("gbcommon_close_temp_file - Temporary file descriptor [%s] could not be closed", tmp_file->file_name);
 	}
     
     tmp_file->file_stream = NULL;
@@ -110,7 +110,7 @@ gbcommon_delete_all_temp_files()
                 /* TODO g_unlink requires gtk 2.6 */
 				if(unlink(tmp_file->file_name) == -1)
 				{
-					g_critical("gbcommon_delete_all_temp_files - File [%s] could not be deleted", tmp_file->file_name);
+					g_warning("gbcommon_delete_all_temp_files - File [%s] could not be deleted", tmp_file->file_name);
 				}
 				g_free(tmp_file->file_name);
 			}
@@ -243,7 +243,7 @@ gbcommon_mkdir(const gchar *dir_name)
 		g_string_append_printf(dir, "/%s", current_dir);
 		if((g_file_test(dir->str, G_FILE_TEST_IS_DIR) == FALSE) && 
 				(mkdir(dir->str, 0775) == -1))
-			g_critical("gbcommon_mkdir - failed to create [%d]", errno);
+			g_warning("gbcommon_mkdir - failed to create [%d]", errno);
 
 		current_dir = strtok(NULL, "/");
 	}
@@ -264,7 +264,7 @@ gbcommon_get_file_as_list(const gchar *file)
 	if(g_file_get_contents(file, &contents, NULL, NULL))
 		ret = g_strsplit(contents, "\n", 0);
 	else
-		g_critical("gbcommon_get_file_as_list - Failed to get contents of file [%s]", file);
+		g_warning("gbcommon_get_file_as_list - Failed to get contents of file [%s]", file);
 
 	g_free(contents);	
 	return ret;

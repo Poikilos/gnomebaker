@@ -1463,11 +1463,11 @@ datacd_import_session()
 	gchar *msinfo = NULL;    
     if(!datacd_get_msinfo(&msinfo))
 	{
-		g_critical("datacd_import_session - Error getting msinfo");
+		g_warning("datacd_import_session - Error getting msinfo");
 	}
 	else if(!devices_mount_device(GB_WRITER, &mount_point))
 	{
-		g_critical("datacd_import_session - Error mounting writer device");
+		g_warning("datacd_import_session - Error mounting writer device");
 	}
 	else	
 	{							
@@ -1609,7 +1609,7 @@ datacd_build_filepaths(GtkTreeModel *model)
     GBTempFile *tmp_file = gbcommon_create_open_temp_file();
     if(tmp_file == NULL)
     {
-        g_critical("datacd_build_filepaths - Error. Temp file was not created. Image will not be created");
+        g_warning("datacd_build_filepaths - Error. Temp file was not created. Image will not be created");
         return NULL;
     }
 

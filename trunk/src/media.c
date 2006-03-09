@@ -164,7 +164,7 @@ media_bus_callback(GstBus *bus, GstMessage *message, MediaInfo *info)
     {
         gchar *debug = NULL;        
         gst_message_parse_error(message, &info->error, &debug);
-        g_critical("media_bus_callback - Error [%s] Debug [%s]\n", info->error->message, debug);
+        g_warning("media_bus_callback - Error [%s] Debug [%s]\n", info->error->message, debug);
         g_free(debug);              
         break;
     }
@@ -218,7 +218,7 @@ media_fakesink_error(GstElement *element, GstElement *source,
     GB_LOG_FUNC
     g_return_if_fail(error != NULL);
     g_return_if_fail(gberror != NULL);
-    g_critical("media_fakesink_error - [%s]", error->message);
+    g_warning("media_fakesink_error - [%s]", error->message);
     *gberror = g_error_copy(error);
 }
 
@@ -406,7 +406,7 @@ media_player_pipeline_error(GstElement *gst_element,
 {
     GB_LOG_FUNC
     g_return_if_fail(error != NULL);
-    g_critical("media_player_pipeline_error - [%s] [%s]", error->message, message);
+    g_warning("media_player_pipeline_error - [%s] [%s]", error->message, message);
 }
 
 
