@@ -31,6 +31,8 @@ gnomebaker_SOURCES =					\
 	gbcommon.h		gbcommon.c		\
 	selectdevicedlg.c 	selectdevicedlg.h	\
 	execfunctions.c		execfunctions.h		\
-	media.c			media.h
-
+	media.c			media.h		\
+	project.c project.h			\
+	dataproject.c dataproject.h
+	
 gnomebaker_LDADD =  @GNOMEBAKER_LIBS@
