@@ -14,7 +14,7 @@ G_BEGIN_DECLS
 
 #define DATAPROJECT_WIDGET_CLASS(klass) \
     (G_TYPE_CHECK_CLASS_CAST((klass), \
-    DATAPROJECT_TYPE_WIDGET, DataProjectwClass))
+    DATAPROJECT_TYPE_WIDGET, DataProjectClass))
 
 #define DATAPROJECT_IS_WIDGET(obj) \
     (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
@@ -26,7 +26,7 @@ G_BEGIN_DECLS
 
 #define DATAPROJECT_WIDGET_GET_CLASS(obj) \
     (G_TYPE_INSTANCE_GET_CLASS((obj), \
-    DATAPROJECT_TYPE_WIDGET, DataProjectwClass))
+    DATAPROJECT_TYPE_WIDGET, DataProjectClass))
 
 
 typedef struct {
@@ -34,9 +34,6 @@ typedef struct {
     
     GtkTreeView *tree;
     GtkTreeView *list;
-    GtkOptionMenu *menu;
-    GtkButton *button;
-    GtkProgressBar *progress_bar;
     
     gdouble data_disk_size;
 } DataProject;
@@ -47,8 +44,8 @@ typedef struct {
 } DataProjectClass;
 
 
-GType dataproject_get_type(void);
-GtkWidget *dataproject_new(void);
+GType dataproject_get_type();
+GtkWidget *dataproject_new();
 
 
 G_END_DECLS
