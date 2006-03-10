@@ -1,9 +1,7 @@
 #ifndef _PROJECT_H
 #define _PROJECT_H
 
-
 #include <gtk/gtk.h>
-
 
 G_BEGIN_DECLS
 
@@ -15,7 +13,7 @@ G_BEGIN_DECLS
 
 #define PROJECT_WIDGET_CLASS(klass) \
  (G_TYPE_CHECK_CLASS_CAST((klass), \
-  PROJECT_TYPE_WIDGET, ProjectwClass))
+  PROJECT_TYPE_WIDGET, ProjectClass))
 
 #define PROJECT_IS_WIDGET(obj) \
  (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
@@ -27,7 +25,7 @@ G_BEGIN_DECLS
 
 #define PROJECT_WIDGET_GET_CLASS(obj) \
  (G_TYPE_INSTANCE_GET_CLASS((obj), \
-  PROJECT_TYPE_WIDGET, ProjectwClass))
+  PROJECT_TYPE_WIDGET, ProjectClass))
 
 
 typedef struct {
@@ -48,15 +46,25 @@ typedef struct {
     void (*remove)(Project *self);
     void (*add_selection)(Project *self, GtkSelectionData *selection);
     void (*import_session)(Project *self);
-    void (*open_project)(Project *self);
-    void (*save_project)(Project *self);
+    void (*open)(Project *self, const gchar *file_name);
+    void (*save)(Project *self);
+    void (*close)(Project *self);
     
 } ProjectClass;
 
 
-GType project_get_type(void);
-GtkWidget* project_new(void);
+GType project_get_type();
+GtkWidget* project_new();
 void project_set_title(Project* project, const gchar* name);
+void project_clear(Project *project);
+void project_remove(Project *project);
+void project_add_selection(Project *project, GtkSelectionData *selection);
+void project_import_session(Project *project);
+void project_open(Project *project, const gchar *file_name);
+void project_save(Project *project);
+void project_close(Project *project);
+
+
 
 G_END_DECLS
 
