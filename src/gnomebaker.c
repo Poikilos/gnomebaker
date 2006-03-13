@@ -36,6 +36,8 @@
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <gst/gst.h>
 #include "media.h"
+#include "dataproject.h"
+
 
 static const gchar *const widget_gnomebaker = "GnomeBaker";
 static const gchar *const widget_project_notebook = "notebook1";
@@ -55,7 +57,7 @@ static const gchar *const widget_refresh_menu = "refresh1";
 static const gchar *const widget_refresh_button = "toolbutton4";
 
 /* Uncomment this to use gb's internal file browser rather than the standard gtk widget */
-#define USE_OLD_FILEBROWSER 1
+//#define USE_OLD_FILEBROWSER 1
 
 #ifndef USE_OLD_FILEBROWSER
 static GtkWidget *file_chooser = NULL;
@@ -874,11 +876,23 @@ void /* libglade callback */
 gnomebaker_on_new_data_disk(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC   
+    GtkWidget *project = dataproject_new();
+    gtk_widget_show(project);
+    project_clear(PROJECT_WIDGET(project));
+    project_remove(PROJECT_WIDGET(project));
+    /*project_add_selection(project, GtkSelectionData *selection);*/
+    project_import_session(PROJECT_WIDGET(project));
+    project_open(PROJECT_WIDGET(project), "");
+    project_save(PROJECT_WIDGET(project));
+    project_close(PROJECT_WIDGET(project));
+    GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
+    gint index = gtk_notebook_append_page(GTK_NOTEBOOK(notebook), project, GTK_WIDGET(PROJECT_WIDGET(project)->title));
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), index);
 }
 
 
 void /* libglade callback */
 gnomebaker_on_new_audio_disk(gpointer widget, gpointer user_data)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
 }
