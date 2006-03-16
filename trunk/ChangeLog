@@ -15,6 +15,7 @@ Version 0.5.2
 * Fix Bug #1439059 Can't compile gnomebaker with gstreamer 0.10
 * Fix Bug #1429235 gnomebaker-1.9.0: compilation issue
 * Move the show hidden files and show human readable file size options to the main window menu.
+* Tidy up the menus when we are not showing the file browser
 
 
 Version 0.5.1

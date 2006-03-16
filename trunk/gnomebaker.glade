@@ -765,6 +765,111 @@
 		  <property name="homogeneous">True</property>
 		</packing>
 	      </child>
+
+	      <child>
+		<widget class="GtkSeparatorToolItem" id="separatortoolitem8">
+		  <property name="draw">True</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolButton" id="toolbutton12">
+		  <property name="tooltip" translatable="yes">Add the selected files to the disk</property>
+		  <property name="label" translatable="yes">Add file(s)</property>
+		  <property name="use_underline">True</property>
+		  <property name="stock_id">gtk-add</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">True</property>
+		  <signal name="clicked" handler="gnomebaker_on_add_files" last_modification_time="Mon, 05 Jul 2004 22:24:47 GMT"/>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolButton" id="toolbutton13">
+		  <property name="tooltip" translatable="yes">Remove the selected files from the disk</property>
+		  <property name="label" translatable="yes">Remove selected</property>
+		  <property name="use_underline">True</property>
+		  <property name="stock_id">gtk-remove</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">True</property>
+		  <signal name="clicked" handler="gnomebaker_on_remove" last_modification_time="Mon, 05 Jul 2004 22:25:48 GMT"/>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolButton" id="toolbutton14">
+		  <property name="tooltip" translatable="yes">Clear the contents of the disk</property>
+		  <property name="stock_id">gtk-clear</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">True</property>
+		  <signal name="clicked" handler="gnomebaker_on_clear" last_modification_time="Mon, 05 Jul 2004 22:26:08 GMT"/>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkSeparatorToolItem" id="separatortoolitem9">
+		  <property name="draw">True</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolButton" id="toolbutton15">
+		  <property name="sensitive">False</property>
+		  <property name="tooltip" translatable="yes">Move audio tracks up</property>
+		  <property name="stock_id">gtk-go-up</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+		  <signal name="clicked" handler="gnomebaker_on_up" last_modification_time="Tue, 16 Aug 2005 22:14:06 GMT"/>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolButton" id="toolbutton16">
+		  <property name="sensitive">False</property>
+		  <property name="tooltip" translatable="yes">Move audio tracks down</property>
+		  <property name="stock_id">gtk-go-down</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+		  <signal name="clicked" handler="gnomebaker_on_down" last_modification_time="Tue, 16 Aug 2005 22:14:20 GMT"/>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
 	    </widget>
 	  </child>
 	</widget>

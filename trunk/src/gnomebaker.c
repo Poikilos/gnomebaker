@@ -44,8 +44,10 @@ static const gchar *const widget_project_notebook = "notebook1";
 static const gchar *const widget_appbar = "appbar1";
 static const gchar *const widget_menu_import = "import_session1";
 static const gchar *const widget_up = "toolbutton8";
+static const gchar *const widget_up_alt = "toolbutton15";
 static const gchar *const widget_menu_up = "move_selection_up1";
 static const gchar *const widget_down = "toolbutton9";
+static const gchar *const widget_down_alt = "toolbutton16";
 static const gchar *const widget_menu_down = "move_selection_down1";
 static const gchar *const widget_top_toolbar_dock = "bonobodockitem4";
 static const gchar *const widget_top_toolbar = "toolbar3";
@@ -57,6 +59,10 @@ static const gchar *const widget_browser_hpane = "hpaned3";
 static const gchar *const widget_add_button = "buttonAddFiles";
 static const gchar *const widget_refresh_menu = "refresh1";
 static const gchar *const widget_refresh_button = "toolbutton4";
+static const gchar *const widget_add_button_alt = "toolbutton12";
+static const gchar *const widget_remove_button_alt = "toolbutton13";
+static const gchar *const widget_clear_button_alt = "toolbutton14";
+
 
 /* Comment this out to use gb's internal file browser rather than the standard gtk widget */
 /*#define USE_GTK_FILE_CHOOSER 1*/
@@ -99,6 +105,30 @@ gnomebaker_on_show_file_browser(GtkCheckMenuItem *check_menu_item, gpointer user
 	
 	gboolean show = gtk_check_menu_item_get_active(check_menu_item);
 	preferences_set_bool(GB_SHOW_FILE_BROWSER, show);
+    
+    if(show) gtk_widget_show(glade_xml_get_widget(xml, widget_middle_toolbar));
+    else gtk_widget_hide(glade_xml_get_widget(xml, widget_middle_toolbar));
+    
+    if(!show) gtk_widget_show(glade_xml_get_widget(xml, "separatortoolitem8"));
+    else gtk_widget_hide(glade_xml_get_widget(xml, "separatortoolitem8"));
+    
+    if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_add_button_alt));
+    else gtk_widget_hide(glade_xml_get_widget(xml, widget_add_button_alt));
+    
+    if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_remove_button_alt));
+    else gtk_widget_hide(glade_xml_get_widget(xml, widget_remove_button_alt));
+    
+    if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_clear_button_alt));
+    else gtk_widget_hide(glade_xml_get_widget(xml, widget_clear_button_alt));
+    
+    if(!show) gtk_widget_show(glade_xml_get_widget(xml, "separatortoolitem9"));
+    else gtk_widget_hide(glade_xml_get_widget(xml, "separatortoolitem9"));
+    
+    if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_up_alt));
+    else gtk_widget_hide(glade_xml_get_widget(xml, widget_up_alt));
+    
+    if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_down_alt));
+    else gtk_widget_hide(glade_xml_get_widget(xml, widget_down_alt));
 				
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_menu), show);
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_button), show);	
@@ -724,6 +754,8 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
     GtkWidget *menu_import = glade_xml_get_widget(xml, widget_menu_import);
     GtkWidget *up = glade_xml_get_widget(xml, widget_up);
     GtkWidget *down = glade_xml_get_widget(xml, widget_down);
+    GtkWidget *up_alt = glade_xml_get_widget(xml, widget_up_alt);
+    GtkWidget *down_alt = glade_xml_get_widget(xml, widget_down_alt);
     GtkWidget *menu_up = glade_xml_get_widget(xml, widget_menu_up);
     GtkWidget *menu_down = glade_xml_get_widget(xml, widget_menu_down);
     switch(page_num) 
@@ -732,6 +764,8 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(menu_import, TRUE);
             gtk_widget_set_sensitive(up, FALSE);
             gtk_widget_set_sensitive(down, FALSE);
+            gtk_widget_set_sensitive(up_alt, FALSE);
+            gtk_widget_set_sensitive(down_alt, FALSE);
             gtk_widget_set_sensitive(menu_up, FALSE);
             gtk_widget_set_sensitive(menu_down, FALSE);
 #ifdef USE_GTK_FILE_CHOOSER    
@@ -744,6 +778,8 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(menu_import, FALSE);
             gtk_widget_set_sensitive(up, TRUE);
             gtk_widget_set_sensitive(down, TRUE);
+            gtk_widget_set_sensitive(up_alt, TRUE);
+            gtk_widget_set_sensitive(down_alt, TRUE);
             gtk_widget_set_sensitive(menu_up, TRUE);
             gtk_widget_set_sensitive(menu_down, TRUE);
 #ifdef USE_GTK_FILE_CHOOSER    
