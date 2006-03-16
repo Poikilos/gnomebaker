@@ -75,13 +75,13 @@ project_new()
 
 
 void 
-project_set_title(Project* project, const gchar* name)
+project_set_title(Project *project, const gchar *title)
 {
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
-    g_return_if_fail(name != NULL);
+    g_return_if_fail(title != NULL);
     
-    gtk_label_set_label(project->title, name);
+    gtk_label_set_label(project->title, title);
     gtk_widget_show(GTK_WIDGET(project->title));
     gtk_label_set_use_markup(project->title, TRUE);
 }

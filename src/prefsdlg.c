@@ -30,10 +30,8 @@
 static const gchar *const widget_prefsdlg = "prefsDlg";
 static const gchar *const widget_prefsdlg_temp_dir = "tmpDirEntry";
 static const gchar *const widget_prefsdlg_clean_temp_dir = "checkCleanTmp";
-static const gchar *const widget_prefsdlg_show_hidden = "checkHiddenFiles";
 static const gchar *const widget_prefsdlg_ask_on_quit = "checkAskOnQuit";
 static const gchar *const widget_prefsdlg_play_sound = "checkPlaySound";
-static const gchar *const widget_prefsdlg_show_human_size = "checkShowHumanSizes";
 static const gchar *const widget_prefsdlg_always_scan = "checkAlwaysScan";
 static const gchar *const widget_prefsdlg_devicelist = "treeview12";
 static const gchar *const widget_prefsdlg_scroll_output = "checkScrollOutput";
@@ -277,13 +275,7 @@ prefsdlg_on_ok(GtkButton *button, gpointer user_data)
 	
 	GtkWidget *clean_temp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_clean_temp_dir);
 	preferences_set_bool(GB_CLEANTEMPDIR, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(clean_temp)));
-	
-	GtkWidget *show_hidden_files = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_show_hidden);
-	preferences_set_bool(GB_SHOWHIDDEN, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(show_hidden_files)));
-
-	GtkWidget *checkShowHumanSize = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_show_human_size);
-	preferences_set_bool(GB_SHOWHUMANSIZE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkShowHumanSize)));
-	
+		
 	GtkWidget *always_scan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_always_scan);
 	preferences_set_bool(GB_ALWAYS_SCAN, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(always_scan)));
 	
@@ -444,18 +436,10 @@ prefsdlg_new(void)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(clean_temp), 
 		preferences_get_bool(GB_CLEANTEMPDIR));
 	
-	GtkWidget *show_hidden_files = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_show_hidden);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(show_hidden_files), 
-		preferences_get_bool(GB_SHOWHIDDEN));
-
 	GtkWidget *scroll_output = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_scroll_output);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(scroll_output),
 		preferences_get_bool(GB_SCROLL_OUTPUT));
 	
-	GtkWidget *show_human_readable_sizes = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_show_human_size);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(show_human_readable_sizes),
-		preferences_get_bool(GB_SHOWHUMANSIZE));
-
 	GtkWidget *always_scan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_always_scan);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(always_scan), 
 		preferences_get_bool(GB_ALWAYS_SCAN));

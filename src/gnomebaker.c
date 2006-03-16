@@ -51,21 +51,44 @@ static const gchar *const widget_top_toolbar_dock = "bonobodockitem4";
 static const gchar *const widget_top_toolbar = "toolbar3";
 static const gchar *const widget_middle_toolbar = "toolbar4";
 static const gchar *const widget_show_browser_menu = "show_file_browser1";
+static const gchar *const widget_show_hidden_files = "show_hidden_files1";
+static const gchar *const widget_show_human_sizes = "show_human-readable_file_sizes1";
 static const gchar *const widget_browser_hpane = "hpaned3";
 static const gchar *const widget_add_button = "buttonAddFiles";
 static const gchar *const widget_refresh_menu = "refresh1";
 static const gchar *const widget_refresh_button = "toolbutton4";
 
-/* Uncomment this to use gb's internal file browser rather than the standard gtk widget */
-//#define USE_OLD_FILEBROWSER 1
+/* Comment this out to use gb's internal file browser rather than the standard gtk widget */
+/*#define USE_GTK_FILE_CHOOSER 1*/
 
-#ifndef USE_OLD_FILEBROWSER
+static GladeXML *xml = NULL;
+
+#ifdef USE_GTK_FILE_CHOOSER
 static GtkWidget *file_chooser = NULL;
 static GtkFileFilter *audio_filter = NULL;
 #endif
 
-static GladeXML *xml = NULL;
 
+void /* libglade callback */
+gnomebaker_on_show_human_readable_file_sizes(GtkCheckMenuItem *check_menu_item, gpointer user_data)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(check_menu_item != NULL);
+    
+    gboolean show = gtk_check_menu_item_get_active(check_menu_item);
+    preferences_set_bool(GB_SHOWHUMANSIZE, show);    
+}
+
+
+void /* libglade callback */
+gnomebaker_on_show_hidden_files(GtkCheckMenuItem *check_menu_item, gpointer user_data)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(check_menu_item != NULL);
+    
+    gboolean show = gtk_check_menu_item_get_active(check_menu_item);
+    preferences_set_bool(GB_SHOWHIDDEN, show);    
+}
 
 
 void /* libglade callback */
@@ -79,7 +102,7 @@ gnomebaker_on_show_file_browser(GtkCheckMenuItem *check_menu_item, gpointer user
 				
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_menu), show);
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_button), show);	
-#if USE_OLD_FILEBROWSER       	
+#ifndef USE_GTK_FILE_CHOOSER       	
 	GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);	
 	if(show) gtk_widget_show(hpaned3);
 	else gtk_widget_hide(hpaned3);
@@ -109,7 +132,7 @@ gnomebaker_on_toolbar_style_changed(GConfClient *client,
 }
 
 
-#ifndef USE_OLD_FILEBROWSER
+#ifdef USE_GTK_FILE_CHOOSER
 static gboolean
 gnomebaker_audio_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
 {
@@ -142,7 +165,7 @@ gnomebaker_new()
 	glade_xml_signal_autoconnect(xml);			
 
 	/* set up the tree and lists */	
-#if USE_OLD_FILEBROWSER             
+#ifndef USE_GTK_FILE_CHOOSER             
 	filebrowser_new();
 #else     
     file_chooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_OPEN);
@@ -161,6 +184,11 @@ gnomebaker_new()
     gtk_file_filter_add_custom(audio_filter, GTK_FILE_FILTER_MIME_TYPE,
         gnomebaker_audio_file_filter, NULL, NULL);
     gtk_file_filter_set_name(audio_filter,_("Audio files"));
+    
+    gtk_widget_hide(glade_xml_get_widget(xml, "separator4"));
+    gtk_widget_hide(glade_xml_get_widget(xml, widget_refresh_menu));
+    gtk_widget_hide(glade_xml_get_widget(xml, widget_refresh_button));   
+    
 #endif    
 	datacd_new();
 	audiocd_new();
@@ -196,6 +224,22 @@ gnomebaker_new()
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
 		preferences_get_bool(GB_SHOW_FILE_BROWSER));
 	g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);	
+
+    check_menu_item = glade_xml_get_widget(xml, widget_show_hidden_files);
+#ifdef USE_GTK_FILE_CHOOSER
+    gtk_widget_hide(check_menu_item);
+#else        
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
+        preferences_get_bool(GB_SHOWHIDDEN));
+    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
+#endif    
+    
+    check_menu_item = glade_xml_get_widget(xml, widget_show_human_sizes);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
+        preferences_get_bool(GB_SHOWHUMANSIZE));
+    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
+    
+
 
 	return main_window;
 }
@@ -470,7 +514,7 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
     we press + */
     if(preferences_get_bool(GB_SHOW_FILE_BROWSER))
     {
-#if USE_OLD_FILEBROWSER       
+#ifndef USE_GTK_FILE_CHOOSER       
         selection_data = filebrowser_get_selection(FALSE);        
 #else
         GSList *file = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(file_chooser));
@@ -690,7 +734,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(down, FALSE);
             gtk_widget_set_sensitive(menu_up, FALSE);
             gtk_widget_set_sensitive(menu_down, FALSE);
-#ifndef USE_OLD_FILEBROWSER    
+#ifdef USE_GTK_FILE_CHOOSER    
             /* We must ref before remove otherwise our filter gets destroyed */
             g_object_ref(audio_filter);
             gtk_file_chooser_remove_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);            
@@ -702,7 +746,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(down, TRUE);
             gtk_widget_set_sensitive(menu_up, TRUE);
             gtk_widget_set_sensitive(menu_down, TRUE);
-#ifndef USE_OLD_FILEBROWSER    
+#ifdef USE_GTK_FILE_CHOOSER    
             /* When switching to an audio project we filter the files available in the
              * file chooser according to the gstreamer plugins we have installed */
             gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);
