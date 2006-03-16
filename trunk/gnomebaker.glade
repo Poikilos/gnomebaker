@@ -60,7 +60,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1114">
+			    <widget class="GtkImage" id="image1194">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-new</property>
 			      <property name="icon_size">1</property>
@@ -105,7 +105,7 @@
 			  <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1115">
+			    <widget class="GtkImage" id="image1195">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-open</property>
 			      <property name="icon_size">1</property>
@@ -133,7 +133,7 @@
 			  <accelerator key="S" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1116">
+			    <widget class="GtkImage" id="image1196">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-save</property>
 			      <property name="icon_size">1</property>
@@ -154,7 +154,7 @@
 			  <signal name="activate" handler="gnomebaker_on_save_project_as" last_modification_time="Sat, 14 Jan 2006 22:21:12 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1117">
+			    <widget class="GtkImage" id="image1197">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-save-as</property>
 			      <property name="icon_size">1</property>
@@ -283,7 +283,7 @@
 			  <accelerator key="plus" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1118">
+			    <widget class="GtkImage" id="image1198">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-add</property>
 			      <property name="icon_size">1</property>
@@ -305,7 +305,7 @@
 			  <accelerator key="Delete" modifiers="0" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1119">
+			    <widget class="GtkImage" id="image1199">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-remove</property>
 			      <property name="icon_size">1</property>
@@ -342,7 +342,7 @@
 			  <accelerator key="Up" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1120">
+			    <widget class="GtkImage" id="image1200">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-up</property>
 			      <property name="icon_size">1</property>
@@ -365,7 +365,7 @@
 			  <accelerator key="Down" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1121">
+			    <widget class="GtkImage" id="image1201">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-down</property>
 			      <property name="icon_size">1</property>
@@ -392,7 +392,7 @@
 			  <signal name="activate" handler="gnomebaker_on_import" last_modification_time="Tue, 04 Jan 2005 00:49:21 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1122">
+			    <widget class="GtkImage" id="image1202">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-import-session.png</property>
 			      <property name="xalign">0.5</property>
@@ -425,7 +425,7 @@
 			  <signal name="activate" handler="gnomebaker_on_blank_cdrw" last_modification_time="Thu, 08 Apr 2004 20:55:06 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1123">
+			    <widget class="GtkImage" id="image1203">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-cdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -445,7 +445,7 @@
 			  <signal name="activate" handler="gnomebaker_on_format_dvdrw" last_modification_time="Wed, 05 Jan 2005 22:09:46 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1124">
+			    <widget class="GtkImage" id="image1204">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-dvdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -471,7 +471,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_datacd" last_modification_time="Fri, 09 Apr 2004 20:26:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1125">
+			    <widget class="GtkImage" id="image1205">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -491,7 +491,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_audiocd" last_modification_time="Fri, 09 Apr 2004 20:26:00 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1126">
+			    <widget class="GtkImage" id="image1206">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-audio-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -517,7 +517,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_iso" last_modification_time="Thu, 08 Apr 2004 21:00:53 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1127">
+			    <widget class="GtkImage" id="image1207">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-cd-iso.png</property>
 			      <property name="xalign">0.5</property>
@@ -537,7 +537,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_dvd_iso" last_modification_time="Fri, 04 Mar 2005 19:19:17 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1128">
+			    <widget class="GtkImage" id="image1208">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-dvd-iso.png</property>
 			      <property name="xalign">0.5</property>
@@ -571,7 +571,7 @@
 			  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1129">
+			    <widget class="GtkImage" id="image1209">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
 			      <property name="icon_size">1</property>
@@ -599,6 +599,26 @@
 			  <signal name="activate" handler="gnomebaker_on_show_file_browser" last_modification_time="Sat, 15 Jan 2005 00:45:27 GMT"/>
 			</widget>
 		      </child>
+
+		      <child>
+			<widget class="GtkCheckMenuItem" id="show_hidden_files1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">S_how hidden files</property>
+			  <property name="use_underline">True</property>
+			  <property name="active">False</property>
+			  <signal name="activate" handler="gnomebaker_on_show_hidden_files" last_modification_time="Thu, 16 Mar 2006 22:49:41 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkCheckMenuItem" id="show_human-readable_file_sizes1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Sh_ow human-readable file sizes</property>
+			  <property name="use_underline">True</property>
+			  <property name="active">False</property>
+			  <signal name="activate" handler="gnomebaker_on_show_human_readable_file_sizes" last_modification_time="Thu, 16 Mar 2006 22:49:41 GMT"/>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -620,7 +640,7 @@
 			  <signal name="activate" handler="gnomebaker_on_help" last_modification_time="Thu, 03 Feb 2005 21:13:55 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1130">
+			    <widget class="GtkImage" id="image1210">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -2015,7 +2035,7 @@
 	    <widget class="GtkTable" id="table4">
 	      <property name="border_width">12</property>
 	      <property name="visible">True</property>
-	      <property name="n_rows">9</property>
+	      <property name="n_rows">7</property>
 	      <property name="n_columns">3</property>
 	      <property name="homogeneous">False</property>
 	      <property name="row_spacing">12</property>
@@ -2052,7 +2072,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label256">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;b&gt;File Browser&lt;/b&gt;</property>
+		  <property name="label" translatable="yes">&lt;b&gt;Other&lt;/b&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2072,34 +2092,6 @@
 		  <property name="right_attach">3</property>
 		  <property name="top_attach">3</property>
 		  <property name="bottom_attach">4</property>
-		  <property name="x_options">fill</property>
-		  <property name="y_options"></property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkLabel" id="gbLabelPref">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;b&gt;Other&lt;/b&gt;</property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">True</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">0</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">0</property>
-		  <property name="right_attach">3</property>
-		  <property name="top_attach">6</property>
-		  <property name="bottom_attach">7</property>
 		  <property name="x_options">fill</property>
 		  <property name="y_options"></property>
 		</packing>
@@ -2162,10 +2154,10 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCheckButton" id="checkHiddenFiles">
+		<widget class="GtkCheckButton" id="checkPlaySound">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Show hidden files</property>
+		  <property name="label" translatable="yes">Notify me when burning is complete</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -2185,10 +2177,10 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCheckButton" id="checkShowHumanSizes">
+		<widget class="GtkCheckButton" id="checkAskOnQuit">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Show humanreadable filesizes</property>
+		  <property name="label" translatable="yes">Ask for confirmation when exiting GnomeBaker</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -2208,10 +2200,10 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkCheckButton" id="checkPlaySound">
+		<widget class="GtkCheckButton" id="checkScrollOutput">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Play sound when burning is complete</property>
+		  <property name="label" translatable="yes">Automatically scroll the progress window output</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -2222,31 +2214,8 @@
 		<packing>
 		  <property name="left_attach">0</property>
 		  <property name="right_attach">3</property>
-		  <property name="top_attach">7</property>
-		  <property name="bottom_attach">8</property>
-		  <property name="x_padding">12</property>
-		  <property name="x_options">fill</property>
-		  <property name="y_options"></property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkCheckButton" id="checkAskOnQuit">
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Ask on quit</property>
-		  <property name="use_underline">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
-		  <property name="active">False</property>
-		  <property name="inconsistent">False</property>
-		  <property name="draw_indicator">True</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">0</property>
-		  <property name="right_attach">3</property>
-		  <property name="top_attach">8</property>
-		  <property name="bottom_attach">9</property>
+		  <property name="top_attach">6</property>
+		  <property name="bottom_attach">7</property>
 		  <property name="x_padding">12</property>
 		  <property name="x_options">fill</property>
 		  <property name="y_options"></property>
@@ -2624,57 +2593,6 @@
 		  <property name="right_attach">1</property>
 		  <property name="top_attach">1</property>
 		  <property name="bottom_attach">2</property>
-		  <property name="x_padding">12</property>
-		  <property name="x_options">fill</property>
-		  <property name="y_options"></property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkLabel" id="label305">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;b&gt;Progress window&lt;/b&gt;</property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">True</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">0</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">0</property>
-		  <property name="right_attach">3</property>
-		  <property name="top_attach">2</property>
-		  <property name="bottom_attach">3</property>
-		  <property name="x_options">fill</property>
-		  <property name="y_options"></property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkCheckButton" id="checkScrollOutput">
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Automatically scroll output</property>
-		  <property name="use_underline">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
-		  <property name="active">False</property>
-		  <property name="inconsistent">False</property>
-		  <property name="draw_indicator">True</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">0</property>
-		  <property name="right_attach">1</property>
-		  <property name="top_attach">3</property>
-		  <property name="bottom_attach">4</property>
 		  <property name="x_padding">12</property>
 		  <property name="x_options">fill</property>
 		  <property name="y_options"></property>

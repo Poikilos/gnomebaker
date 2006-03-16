@@ -14,6 +14,7 @@ Version 0.5.2
 * Fix Bug #1442519 Can't compile gnomebaker with Fedora Core 5 libnotify 0.3.0
 * Fix Bug #1439059 Can't compile gnomebaker with gstreamer 0.10
 * Fix Bug #1429235 gnomebaker-1.9.0: compilation issue
+* Move the show hidden files and show human readable file size options to the main window menu.
 
 
 Version 0.5.1

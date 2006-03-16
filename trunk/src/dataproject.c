@@ -66,7 +66,7 @@ static void
 dataproject_class_init(DataProjectClass *klass)
 {
     GB_LOG_FUNC
-    g_return_if_fail(DATAPROJECT_IS_WIDGET_CLASS(klass));    
+    g_return_if_fail(PROJECT_IS_WIDGET_CLASS(klass));    
     
     ProjectClass *project_class = PROJECT_WIDGET_CLASS(klass);
     project_class->clear = dataproject_clear;

@@ -55,7 +55,7 @@ typedef struct {
 
 GType project_get_type();
 GtkWidget* project_new();
-void project_set_title(Project* project, const gchar* name);
+void project_set_title(Project *project, const gchar *title);
 void project_clear(Project *project);
 void project_remove(Project *project);
 void project_add_selection(Project *project, GtkSelectionData *selection);
