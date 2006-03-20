@@ -110,7 +110,7 @@ dataproject_init(DataProject *project)
     gtk_container_add(GTK_CONTAINER(scrolledwindow14), GTK_WIDGET(project->list));
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(project->list), TRUE);
 
-    project_set_title(PROJECT_WIDGET(project), _("<b>Data Disk</b>"));
+    project_set_title(PROJECT_WIDGET(project), _("<b>Data project</b>"));
 }
 
 

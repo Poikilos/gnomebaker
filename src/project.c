@@ -1,5 +1,6 @@
 #include "project.h"
 #include "gbcommon.h"
+#include "gnomebaker.h"
 
 G_DEFINE_ABSTRACT_TYPE(Project, project, GTK_TYPE_VBOX);
 
@@ -18,7 +19,24 @@ project_init(Project *project)
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     
-    project->title = GTK_LABEL(gtk_label_new(""));    
+    project->title = GTK_LABEL(gtk_label_new(""));
+
+    project->close_button = GTK_BUTTON(gtk_button_new());
+    g_signal_connect(G_OBJECT(project->close_button), "clicked", 
+            G_CALLBACK(gnomebaker_on_close_project), project);
+    gtk_button_set_relief(project->close_button, GTK_RELIEF_NONE);
+    gtk_button_set_focus_on_click(project->close_button, FALSE);
+    gtk_container_set_border_width(GTK_CONTAINER(project->close_button), 0);    
+    gtk_widget_show(GTK_WIDGET(project->close_button));
+    
+    GtkWidget *close_image = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+    gtk_widget_show(GTK_WIDGET(close_image));    
+    gtk_container_add(GTK_CONTAINER(project->close_button), close_image);
+
+    /* resize the close button so that it's only a couple of pixels bigger than the image */    
+    GtkRequisition req;        
+    gtk_widget_size_request(close_image, &req);
+    gtk_widget_set_size_request(GTK_WIDGET(project->close_button), req.width + 2, req.height + 2);
     
     GtkWidget *hbox5 = gtk_hbox_new(FALSE, 10);
     gtk_widget_show(hbox5);
@@ -60,7 +78,7 @@ project_init(Project *project)
     gtk_box_pack_start(GTK_BOX(hbox23), image, FALSE, FALSE, 0);
     g_object_unref(image105);
 
-    GtkWidget *label258 = gtk_label_new_with_mnemonic(_("Create Data Disk"));
+    GtkWidget *label258 = gtk_label_new_with_mnemonic(_("Burn project"));
     gtk_widget_show(label258);
     gtk_box_pack_end(GTK_BOX(hbox23), label258, FALSE, FALSE, 0);            
 }
@@ -84,6 +102,20 @@ project_set_title(Project *project, const gchar *title)
     gtk_label_set_label(project->title, title);
     gtk_widget_show(GTK_WIDGET(project->title));
     gtk_label_set_use_markup(project->title, TRUE);
+}
+
+
+GtkWidget*
+project_get_title_widget(Project *project)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(PROJECT_IS_WIDGET(project));
+    
+    GtkWidget *hbox = gtk_hbox_new(FALSE, 2);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(project->title), FALSE, FALSE, 0);
+    gtk_box_pack_end(GTK_BOX(hbox), GTK_WIDGET(project->close_button), FALSE, FALSE, 0);
+    return hbox;
 }
 
 
@@ -149,5 +181,21 @@ project_close(Project *project)
     GB_LOG_FUNC   
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->close(project);
+}
+
+
+void project_move_selected_up(Project *project)
+{
+    GB_LOG_FUNC   
+    g_return_if_fail(PROJECT_IS_WIDGET(project));
+    PROJECT_WIDGET_GET_CLASS(project)->move_selected_up(project);
+}
+
+
+void project_move_selected_down(Project *project)
+{
+    GB_LOG_FUNC   
+    g_return_if_fail(PROJECT_IS_WIDGET(project));
+    PROJECT_WIDGET_GET_CLASS(project)->move_selected_down(project);
 }
 

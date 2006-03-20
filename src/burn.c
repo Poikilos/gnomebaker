@@ -32,7 +32,6 @@
 #include "startdlg.h"
 #include "progressdlg.h"
 #include "gbcommon.h"
-#include "audiocd.h"
 #include "devices.h"
 #include "media.h"
 
@@ -243,10 +242,10 @@ burn_append_data_cd(const gchar *arguments_file, const gchar *msinfo)
 
 
 void
-burn_create_audio_cd(GtkTreeModel *model)
+burn_create_audio_cd(GSList *media_infos)
 {
     GB_LOG_FUNC
-    g_return_if_fail(model != NULL);
+    g_return_if_fail(media_infos != NULL);
     
     StartDlg *dlg = burn_show_start_dlg(create_audio_cd);
     if(dlg != NULL)
@@ -254,52 +253,48 @@ burn_create_audio_cd(GtkTreeModel *model)
         burn_args = exec_new(_("Burning audio CD"), _("Please wait while the selected tracks are converted to CD audio and then burned to CD."));
         const gboolean on_the_fly = FALSE;/*preferences_get_bool(GB_ONTHEFLY);*/
         
-        GtkTreeIter iter;
-        if(gtk_tree_model_get_iter_first(model, &iter))
+        gchar *track_dir = preferences_get_convert_audio_track_dir();
+        GList *audio_files = NULL;
+        gint i = 0, sectors = 0;            
+        GSList *media_info = media_infos; 
+        for(; media_info != NULL; media_info = media_info->next)
         {
-            gchar *track_dir = preferences_get_convert_audio_track_dir();
-            GList *audio_files = NULL;
-            gint i = 0, sectors = 0;            
-            do
-            {
-                ExecCmd *cmd = exec_cmd_new(burn_args);
-                cmd->piped = on_the_fly;
-                MediaInfo *info = NULL;
-                gtk_tree_model_get (model, &iter, AUDIOCD_COL_INFO, &info, -1);
-                
-                gchar *file_name = g_strdup_printf("gbtrack_%.2d.wav", i + 1);
-                gchar *converted_file = g_build_filename(track_dir, file_name, NULL);
-                if(!on_the_fly)                                   
-                    audio_files = g_list_append(audio_files, converted_file);  
-                else 
-                    g_free(converted_file);                    
-                gstreamer_add_args(cmd, info->file_name, converted_file);
-                
-                gchar *inf_file_name = g_strdup_printf("gbtrack_%.2d.inf", i + 1);
-                gchar *inf_file = g_build_filename(track_dir, inf_file_name, NULL);
-                media_info_create_inf_file(info, i + 1, inf_file, &sectors);
-                if(on_the_fly) 
-                    audio_files = g_list_append(audio_files, inf_file);  
-                else 
-                    g_free(inf_file);                    
-                    
-                g_free(file_name);
-                g_free(inf_file_name);
-
-                ++i;
-            } while (gtk_tree_model_iter_next(model, &iter));
-            
+            MediaInfo *info = (MediaInfo*)media_info->data;     
             ExecCmd *cmd = exec_cmd_new(burn_args);
-            cdrecord_add_create_audio_cd_args(cmd, audio_files);                
-            cmd->working_dir = track_dir;
+            cmd->piped = on_the_fly;
+
+            gchar *file_name = g_strdup_printf("gbtrack_%.2d.wav", i + 1);
+            gchar *converted_file = g_build_filename(track_dir, file_name, NULL);
+            if(!on_the_fly)                                   
+                audio_files = g_list_append(audio_files, converted_file);  
+            else 
+                g_free(converted_file);                    
+            gstreamer_add_args(cmd, info->file_name, converted_file);
             
-            for(; audio_files != NULL; audio_files = audio_files->next)
-                g_free(audio_files->data);
-            g_list_free(audio_files);
-            
-            burn_run_process();
-            startdlg_delete(dlg);
+            gchar *inf_file_name = g_strdup_printf("gbtrack_%.2d.inf", i + 1);
+            gchar *inf_file = g_build_filename(track_dir, inf_file_name, NULL);
+            media_info_create_inf_file(info, i + 1, inf_file, &sectors);
+            if(on_the_fly) 
+                audio_files = g_list_append(audio_files, inf_file);  
+            else 
+                g_free(inf_file);                    
+                
+            g_free(file_name);
+            g_free(inf_file_name);
+
+            ++i;
         }
+        
+        ExecCmd *cmd = exec_cmd_new(burn_args);
+        cdrecord_add_create_audio_cd_args(cmd, audio_files);                
+        cmd->working_dir = track_dir;
+        
+        for(; audio_files != NULL; audio_files = audio_files->next)
+            g_free(audio_files->data);
+        g_list_free(audio_files);
+        
+        burn_run_process();
+        startdlg_delete(dlg);
     }
 }
 

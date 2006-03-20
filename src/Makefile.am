@@ -33,6 +33,7 @@ gnomebaker_SOURCES =					\
 	execfunctions.c		execfunctions.h		\
 	media.c			media.h		\
 	project.c project.h			\
-	dataproject.c dataproject.h
+	dataproject.c dataproject.h \
+	audioproject.c audioproject.h
 	
 gnomebaker_LDADD =  @GNOMEBAKER_LIBS@

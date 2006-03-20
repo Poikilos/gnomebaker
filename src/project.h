@@ -35,6 +35,8 @@ typedef struct {
     GtkButton *button;
     GtkProgressBar *progress_bar;
     GtkLabel *title;
+    GtkButton *close_button;
+    gboolean is_dirty;
     
 } Project;
 
@@ -49,6 +51,8 @@ typedef struct {
     void (*open)(Project *self, const gchar *file_name);
     void (*save)(Project *self);
     void (*close)(Project *self);
+    void (*move_selected_up)(Project *self);
+    void (*move_selected_down)(Project *self);
     
 } ProjectClass;
 
@@ -63,7 +67,9 @@ void project_import_session(Project *project);
 void project_open(Project *project, const gchar *file_name);
 void project_save(Project *project);
 void project_close(Project *project);
-
+void project_move_selected_up(Project *project);
+void project_move_selected_down(Project *project);
+GtkWidget *project_get_title_widget(Project *project);
 
 
 G_END_DECLS
