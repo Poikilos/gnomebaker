@@ -28,6 +28,7 @@
 
 #include <glade/glade.h>
 #include <gnome.h>
+#include "project.h"
 
 
 GtkWidget *gnomebaker_new();
@@ -42,5 +43,6 @@ void gnomebaker_update_status(const gchar *status);
 void gnomebaker_enable_widget(const gchar *widget_name, gboolean enabled);
 void gnomebaker_on_help(gpointer widget, gpointer user_data);
 GtkWindow *gnomebaker_get_window();
+void gnomebaker_on_close_project(gpointer widget, Project *project);
 
 #endif	/*_GNOMEBAKER_H_*/

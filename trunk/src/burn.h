@@ -40,7 +40,7 @@ void burn_blank_cdrw();
 void burn_create_data_dvd(const gchar *arguments_file);
 void burn_append_data_dvd(const gchar *arguments_file, const gchar *msinfo);
 void burn_format_dvdrw();
-void burn_create_audio_cd(GtkTreeModel *audio_model);
+void burn_create_audio_cd(GSList *media_infos);
 
 typedef enum 
 {
