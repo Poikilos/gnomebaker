@@ -28,15 +28,15 @@ enum
 
 enum
 {
-    AUDIOCD_COL_ICON = 0,
-    AUDIOCD_COL_FILE,
-    AUDIOCD_COL_DURATION,
-    /*AUDIOCD_COL_SIZE,*/
-    AUDIOCD_COL_ARTIST,
-    AUDIOCD_COL_ALBUM,
-    AUDIOCD_COL_TITLE,
-    AUDIOCD_COL_INFO,
-    AUDIOCD_NUM_COLS
+    AUDIO_COL_ICON = 0,
+    AUDIO_COL_FILE,
+    AUDIO_COL_DURATION,
+    /*AUDIO_COL_SIZE,*/
+    AUDIO_COL_ARTIST,
+    AUDIO_COL_ALBUM,
+    AUDIO_COL_TITLE,
+    AUDIO_COL_INFO,
+    AUDIO_NUM_COLS
 };
 
 
@@ -196,7 +196,7 @@ audioproject_on_open(gpointer widget, gpointer user_data)
     gtk_tree_selection_selected_foreach(selection, 
         (GtkTreeSelectionForeachFunc)gbcommon_get_first_selected_row, &iter);   
     gchar *file = NULL;
-    gtk_tree_model_get(model, &iter, AUDIOCD_COL_FILE, &file, -1);
+    gtk_tree_model_get(model, &iter, AUDIO_COL_FILE, &file, -1);
     gbcommon_launch_app_for_file(file);
     g_free(file);
 }
@@ -260,14 +260,14 @@ audioproject_add_file(AudioProject *audio_project, const gchar *file_name)
                     gtk_list_store_append(model, &iter);
                     gtk_list_store_set(
                         model, &iter, 
-                        AUDIOCD_COL_ICON, icon, 
-                        AUDIOCD_COL_FILE, (gchar*)file_name, 
-                        AUDIOCD_COL_DURATION, info->formatted_duration->str,
-                        /*AUDIOCD_COL_SIZE, info->filesize,*/
-                        AUDIOCD_COL_ARTIST, info->artist->str, 
-                        AUDIOCD_COL_ALBUM, info->album->str,
-                        AUDIOCD_COL_TITLE, info->title->str, 
-                        AUDIOCD_COL_INFO, info,
+                        AUDIO_COL_ICON, icon, 
+                        AUDIO_COL_FILE, (gchar*)file_name, 
+                        AUDIO_COL_DURATION, info->formatted_duration->str,
+                        /*AUDIO_COL_SIZE, info->filesize,*/
+                        AUDIO_COL_ARTIST, info->artist->str, 
+                        AUDIO_COL_ALBUM, info->album->str,
+                        AUDIO_COL_TITLE, info->title->str, 
+                        AUDIO_COL_INFO, info,
                         -1);
                 
                     g_object_unref(icon);
@@ -414,7 +414,7 @@ audioproject_on_list_dbl_click(GtkTreeView *tree_view, GtkTreePath *path,
     gtk_tree_model_get_iter(model, &iter, path);
     
     gchar *file = NULL;
-    gtk_tree_model_get(model, &iter, AUDIOCD_COL_FILE, &file, -1);
+    gtk_tree_model_get(model, &iter, AUDIO_COL_FILE, &file, -1);
     gbcommon_launch_app_for_file(file);
     g_free(file);
 }
@@ -434,7 +434,7 @@ audioproject_on_audioproject_size_changed(GtkOptionMenu *option_menu, AudioProje
     if(fraction>1.0)
     {
          gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-            _("Not enough space on the CD"));
+            _("Not enough space on the disk"));
         
         /* disable the create button*/
         gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), FALSE);
@@ -462,7 +462,7 @@ audioproject_foreach_func(GtkTreeModel *audio_model,
                             GSList **infos)
 {
     MediaInfo *info = NULL;
-    gtk_tree_model_get (audio_model, iter, AUDIOCD_COL_INFO, &info, -1);
+    gtk_tree_model_get (audio_model, iter, AUDIO_COL_INFO, &info, -1);
     *infos = g_slist_append(*infos, info);
     return FALSE; /*do not stop walking the store, call us with next row*/
 }
@@ -538,7 +538,7 @@ audioproject_export_m3u(AudioProject *audio_project, const gchar *play_list)
         while (valid)
         {
             gchar *playlist_item = NULL;
-            gtk_tree_model_get (model, &iter,  AUDIOCD_COL_FILE, &playlist_item, -1);
+            gtk_tree_model_get (model, &iter,  AUDIO_COL_FILE, &playlist_item, -1);
             fprintf(file, "%s\n", playlist_item);
             g_free (playlist_item);
             valid = gtk_tree_model_iter_next (model, &iter);
@@ -577,9 +577,9 @@ audioproject_export_pls(AudioProject *audio_project, const gchar *play_list)
         {
             gchar *playlist_item = NULL, *title = NULL;
             MediaInfo *info = NULL;
-            gtk_tree_model_get (model, &iter, AUDIOCD_COL_FILE, &playlist_item, -1);
-            gtk_tree_model_get (model, &iter, AUDIOCD_COL_TITLE, &title, -1);
-            gtk_tree_model_get (model, &iter, AUDIOCD_COL_INFO, &info, -1);
+            gtk_tree_model_get (model, &iter, AUDIO_COL_FILE, &playlist_item, -1);
+            gtk_tree_model_get (model, &iter, AUDIO_COL_TITLE, &title, -1);
+            gtk_tree_model_get (model, &iter, AUDIO_COL_INFO, &info, -1);
             fprintf(file, "File%d=%s\n", track, playlist_item);
             fprintf(file, "Title%d=%s\n", track, title);
             fprintf(file, "Length%d=%ld\n", track, info->duration);
@@ -653,7 +653,7 @@ audioproject_clear(Project *project)
         do
         {
             MediaInfo *info = NULL;
-            gtk_tree_model_get (file_model, &iter, AUDIOCD_COL_INFO, &info, -1);
+            gtk_tree_model_get (file_model, &iter, AUDIO_COL_INFO, &info, -1);
             media_info_delete(info);
         } while (gtk_tree_model_iter_next(file_model, &iter));
     }    
@@ -691,7 +691,7 @@ audioproject_remove(Project *project)
                 if (gtk_tree_model_get_iter(file_model, &iter, path))
                 {
                     MediaInfo *info = NULL;
-                    gtk_tree_model_get (file_model, &iter, AUDIOCD_COL_INFO, &info, -1);
+                    gtk_tree_model_get (file_model, &iter, AUDIO_COL_INFO, &info, -1);
                     audioproject_update_progress_bar(audio_project, FALSE, (gdouble)info->duration);  
                     gtk_list_store_remove(GTK_LIST_STORE(file_model), &iter);
                     media_info_delete(info);
@@ -912,7 +912,7 @@ audioproject_init(AudioProject *audio_project)
     gtk_container_add(GTK_CONTAINER(scrolledwindow18), GTK_WIDGET(audio_project->tree));
   
     /* Create the list store for the file list */
-    GtkListStore *store = gtk_list_store_new(AUDIOCD_NUM_COLS, 
+    GtkListStore *store = gtk_list_store_new(AUDIO_NUM_COLS, 
         GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, /*G_TYPE_ULONG,*/
         G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
     gtk_tree_view_set_model(audio_project->tree, GTK_TREE_MODEL(store));
@@ -924,11 +924,11 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_set_title(col, _("Track"));
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", AUDIOCD_COL_ICON, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", AUDIO_COL_ICON, NULL);
     
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_FILE, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_FILE, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
 
     /* Second column to display the duration*/
@@ -937,7 +937,7 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_set_title(col, _("Duration"));
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_DURATION, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_DURATION, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
     
     /* Third column to display the size 
@@ -945,7 +945,7 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_set_title(col, "Size");
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_SIZE, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_SIZE, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);*/
         
     /* column to display the artist */
@@ -954,7 +954,7 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_set_title(col, _("Artist"));
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ARTIST, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_ARTIST, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
     
     /* column to display the album */
@@ -963,7 +963,7 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_set_title(col, _("Album"));
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_ALBUM, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_ALBUM, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
     
     /* column to display the title */
@@ -972,7 +972,7 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_set_title(col, _("Title"));
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIOCD_COL_TITLE, NULL);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_TITLE, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
     
     /* hidden column to store the MediaInfo pointer */
@@ -1002,6 +1002,9 @@ audioproject_init(AudioProject *audio_project)
             
     g_signal_connect(G_OBJECT(PROJECT_WIDGET(audio_project)->button), "clicked", 
             G_CALLBACK(audioproject_on_create_audiocd), audio_project);
+
+    g_signal_connect(G_OBJECT(PROJECT_WIDGET(audio_project)->menu), "changed", 
+            G_CALLBACK(audioproject_on_audioproject_size_changed), audio_project);                
             
     gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(audio_project)->menu, audio_disk_sizes, 
             (sizeof(audio_disk_sizes)/sizeof(DiskSize)), preferences_get_int(GB_AUDIO_DISK_SIZE));      
