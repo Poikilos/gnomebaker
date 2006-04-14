@@ -74,14 +74,6 @@ static GtkFileFilter *audio_filter = NULL;
 
 
 void /* libglade callback */
-gnomebaker_on_add_files_alt(gpointer widget, gpointer user_data)
-{
-    GB_LOG_FUNC
-    gtk_widget_show(glade_xml_get_widget(xml, "add_menu"));
-}
-
-
-void /* libglade callback */
 gnomebaker_on_show_human_readable_file_sizes(GtkCheckMenuItem *check_menu_item, gpointer user_data)
 {
     GB_LOG_FUNC
@@ -263,6 +255,7 @@ gnomebaker_new()
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
     gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
+    /*datacd_new();*/
     
     gtk_widget_show_all (main_window);
 	
@@ -286,8 +279,6 @@ gnomebaker_new()
         preferences_get_bool(GB_SHOWHUMANSIZE));
     g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
     
-
-
 	return main_window;
 }
 
@@ -574,51 +565,12 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
         g_slist_free(file);
         g_string_free(text, TRUE);
 #endif
-        
-    }
-    else
-    {
-        GtkWidget *file_chooser = gtk_file_chooser_dialog_new(
-	        _("Please select files to add to the disk."), NULL, GTK_FILE_CHOOSER_ACTION_OPEN , 
-	        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
-        
-        gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE);     
-        if(gtk_dialog_run(GTK_DIALOG(file_chooser)) == GTK_RESPONSE_OK)
+        if(selection_data != NULL)
         {
-            
-            GSList *files = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(file_chooser));
-            /*gchar **uris = g_malloc0(g_slist_length(files) * sizeof(gchar*));*/
-            
-            GSList *file = files;
-            int index = 0;
-            GString *text = g_string_new("");
-            for(; file != NULL; file = file->next)
-            {
-                /* hand ownership of the data to the gchar** which we free later */
-                GB_TRACE("gnomebaker_on_add_files - index [%d] file [%s]\n", index, (gchar*)file->data);
-                g_string_append(text, (gchar*)file->data);
-                g_string_append(text, "\n");
-                g_free((gchar*)file->data);
-                /*uris[index++] = (gchar*)file->data;*/
-            }
-            
-            /*gtk_selection_data_set_uris(selection_data, uris);*/
-            selection_data = g_new0(GtkSelectionData, 1);	                 
-            gtk_selection_data_set(selection_data, selection_data->target, 8, 
-                (const guchar*)text->str, strlen(text->str) * sizeof(gchar));
-            GB_TRACE("gnomebaker_on_add_files - [%s]\n", selection_data->data);
-            g_slist_free(files);
-            /*g_strfreev(uris);*/
-            g_string_free(text, TRUE);
+            project_add_selection(gnomebaker_get_current_project(), selection_data);        
+            gtk_selection_data_free(selection_data);
         }
-        gtk_widget_destroy(file_chooser);
-    }
-    
-    if(selection_data != NULL)
-    {
-        project_add_selection(gnomebaker_get_current_project(), selection_data);        
-        gtk_selection_data_free(selection_data);
-    }
+    }        
 }
 
 
@@ -965,3 +917,81 @@ gnomebaker_on_close_project(gpointer widget, Project *project)
 }
 
 
+static void 
+gnomebaker_select_files_or_folders(const gchar* text, GtkFileChooserAction action)
+{
+    GB_LOG_FUNC
+    
+    GtkSelectionData *selection_data = NULL;
+    GtkWidget *file_chooser = gtk_file_chooser_dialog_new(text, NULL, action, GTK_STOCK_CANCEL, 
+            GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+    
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE);     
+    if(gtk_dialog_run(GTK_DIALOG(file_chooser)) == GTK_RESPONSE_OK)
+    {
+        
+        GSList *files = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(file_chooser));
+        /*gchar **uris = g_malloc0(g_slist_length(files) * sizeof(gchar*));*/
+        
+        GSList *file = files;
+        int index = 0;
+        GString *text = g_string_new("");
+        for(; file != NULL; file = file->next)
+        {
+            /* hand ownership of the data to the gchar** which we free later */
+            GB_TRACE("gnomebaker_select_files_or_folders - index [%d] file [%s]\n", index, (gchar*)file->data);
+            g_string_append(text, (gchar*)file->data);
+            g_string_append(text, "\n");
+            g_free((gchar*)file->data);
+            /*uris[index++] = (gchar*)file->data;*/
+        }
+        
+        /*gtk_selection_data_set_uris(selection_data, uris);*/
+        selection_data = g_new0(GtkSelectionData, 1);                    
+        gtk_selection_data_set(selection_data, selection_data->target, 8, 
+            (const guchar*)text->str, strlen(text->str) * sizeof(gchar));
+        GB_TRACE("gnomebaker_select_files_or_folders - [%s]\n", selection_data->data);
+        g_slist_free(files);
+        /*g_strfreev(uris);*/
+        g_string_free(text, TRUE);
+    }
+    gtk_widget_destroy(file_chooser);
+    
+    if(selection_data != NULL)
+    {
+        project_add_selection(gnomebaker_get_current_project(), selection_data);        
+        gtk_selection_data_free(selection_data);
+    }   
+}
+
+
+static void
+gnomebaker_on_select_files(GtkWidget *menuitem, gpointer user_data)
+{   
+    GB_LOG_FUNC
+    gnomebaker_select_files_or_folders(_("Please select files to add to the disk."), 
+            GTK_FILE_CHOOSER_ACTION_OPEN);
+}
+
+
+static void
+gnomebaker_on_select_folders(GtkWidget *menuitem, gpointer user_data)
+{   
+    GB_LOG_FUNC
+    gnomebaker_select_files_or_folders(_("Please select folders to add to the disk."), 
+            GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+}
+
+
+void /* libglade callback */
+gnomebaker_on_add_files_alt(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC    
+    GtkWidget *menu = gtk_menu_new();
+    gbcommon_append_menu_item_stock(menu, _("_Add Folders"), GTK_STOCK_NEW, 
+            (GCallback)gnomebaker_on_select_folders, widget);
+    gbcommon_append_menu_item_stock(menu, _("_Add Files"), GTK_STOCK_FILE, 
+            (GCallback)gnomebaker_on_select_files, widget);
+    gtk_widget_show_all(menu);
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 0, gdk_event_get_time(NULL));
+}
