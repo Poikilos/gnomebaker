@@ -50,7 +50,8 @@ G_BEGIN_DECLS
     DATAPROJECT_TYPE_WIDGET, DataProjectClass))
 
 
-typedef struct {
+typedef struct 
+{
     Project parent;
     
     GtkTreeView *tree;
@@ -60,7 +61,8 @@ typedef struct {
 } DataProject;
 
 
-typedef struct {
+typedef struct 
+{
     ProjectClass parent_class;
 } DataProjectClass;
 

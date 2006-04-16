@@ -49,7 +49,8 @@ G_BEGIN_DECLS
   PROJECT_TYPE_WIDGET, ProjectClass))
 
 
-typedef struct {
+typedef struct 
+{
     GtkVBox parent;
     
     GtkOptionMenu *menu;
@@ -62,7 +63,8 @@ typedef struct {
 } Project;
 
 
-typedef struct {
+typedef struct 
+{
     GtkVBoxClass parent_class;
     
     void (*clear)(Project *self);

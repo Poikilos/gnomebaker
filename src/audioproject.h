@@ -50,7 +50,8 @@ G_BEGIN_DECLS
     AUDIOPROJECT_TYPE_WIDGET, AudioProjectClass))
 
 
-typedef struct {
+typedef struct 
+{
     Project parent;
     
     GtkTreeView *tree;    
@@ -60,7 +61,8 @@ typedef struct {
 } AudioProject;
 
 
-typedef struct {
+typedef struct 
+{
     ProjectClass parent_class;
 } AudioProjectClass;
 
