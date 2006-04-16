@@ -489,7 +489,8 @@ gnomebaker_on_about(GtkMenuItem *menu_item, gpointer user_data)
     }
 	else
 	{
-		const gchar *authors[] = {"Luke Biddell", "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", "Adam Biddell (Sounds)", NULL};
+		const gchar *authors[] = {"Luke Biddell", "Ignacio Martín", "Milen Dzhumerov", 
+            "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", "Adam Biddell (Sounds)", NULL};
 		const gchar *documenters[] = {"Milen Dzhumerov", NULL};
 		about = gnome_about_new(_("GnomeBaker"), PACKAGE_VERSION, "GPL", 
 			_("Simple CD/DVD Burning for Gnome"), authors, documenters, _("translator_credits"), 
