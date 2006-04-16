@@ -253,9 +253,9 @@ gnomebaker_new()
 	g_main_context_iteration(NULL, TRUE);
 	
 	GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
-	gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
+	/*gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);*/
     gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
-    /*datacd_new();*/
+    datacd_new();
     
     gtk_widget_show_all (main_window);
 	

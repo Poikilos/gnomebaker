@@ -73,6 +73,7 @@ static void
 audioproject_move_selected(AudioProject* audio_project, const gboolean up)
 {
     GB_LOG_FUNC
+    g_return_if_fail(audio_project != NULL);
     
     GtkTreeSelection *selection = gtk_tree_view_get_selection(audio_project->tree);
     GtkTreeModel *model = gtk_tree_view_get_model(audio_project->tree);
@@ -104,6 +105,8 @@ static gint
 audioproject_get_audioproject_size(AudioProject* audio_project)
 {
     GB_LOG_FUNC    
+    g_return_val_if_fail(audio_project != NULL, 0);
+    
     audio_project->selected_size = audio_disk_sizes[gtk_option_menu_get_history(PROJECT_WIDGET(audio_project)->menu)].size;   
     return audio_project->selected_size;
 }
@@ -113,6 +116,7 @@ static gchar*
 audioproject_format_progress_text(AudioProject *audio_project)
 {
     GB_LOG_FUNC
+    g_return_val_if_fail(audio_project != NULL, NULL);
     g_return_val_if_fail(audio_project->compilation_seconds < (audio_project->selected_size * 60), NULL);
     
     gint ss1 = ((gint)audio_project->compilation_seconds)%60;
@@ -127,8 +131,9 @@ static gboolean
 audioproject_update_progress_bar(AudioProject *audio_project, gboolean add, gdouble seconds)
 {
     GB_LOG_FUNC
-    gboolean ok = TRUE;
+    g_return_if_fail(audio_project != NULL);
     
+    gboolean ok = TRUE;    
     GtkProgressBar *progress_bar = PROJECT_WIDGET(audio_project)->progress_bar;
     const gdouble disk_size = audioproject_get_audioproject_size(audio_project) * 60;
     
@@ -196,6 +201,7 @@ audioproject_foreach_fileselection(GtkTreeModel *file_model,
 {
     GB_LOG_FUNC
     g_return_if_fail(file_model != NULL);
+    g_return_if_fail(path != NULL);
     g_return_if_fail(iter != NULL);
     
     GList **rowref_list = (GList**)user_data;   
@@ -228,6 +234,8 @@ static void
 audioproject_on_move_up(gpointer widget, AudioProject *audio_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(audio_project != NULL);
+    
     audioproject_move_selected(audio_project, TRUE);
 }
 
@@ -236,6 +244,8 @@ static void
 audioproject_move_selected_up(Project *project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(project != NULL);
+    
     audioproject_move_selected(AUDIOPROJECT_WIDGET(project), TRUE);
 }
 
@@ -244,6 +254,8 @@ static void
 audioproject_on_move_down(gpointer widget, AudioProject *audio_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(audio_project != NULL);
+    
     audioproject_move_selected(audio_project, FALSE);
 }
 
@@ -252,6 +264,8 @@ static void
 audioproject_move_selected_down(Project *project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(project != NULL);
+    
     audioproject_move_selected(AUDIOPROJECT_WIDGET(project), FALSE);
 }
 
@@ -318,6 +332,7 @@ audioproject_import_playlist_file(AudioProject *audio_project, const gchar *play
 {
     GB_LOG_FUNC
     g_return_val_if_fail(file != NULL, FALSE);
+    g_return_val_if_fail(play_list_dir != NULL, FALSE);
     g_return_val_if_fail(audio_project != NULL, FALSE);
     
     gboolean ret = TRUE;
@@ -407,6 +422,7 @@ static gboolean
 audioproject_import_supported_playlist(AudioProject *audio_project, const gchar *mime, const gchar *play_list)
 {
     GB_LOG_FUNC
+    g_return_val_if_fail(audio_project != NULL, FALSE);
     g_return_val_if_fail(mime != NULL, FALSE);
     g_return_val_if_fail(play_list != NULL, FALSE);
         
@@ -446,6 +462,8 @@ void /* libglade callback */
 audioproject_on_audioproject_size_changed(GtkOptionMenu *option_menu, AudioProject *audio_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(option_menu != NULL);
+    g_return_if_fail(audio_project != NULL);
         
     GtkProgressBar *progress_bar = PROJECT_WIDGET(audio_project)->progress_bar;
     g_return_if_fail(progress_bar != NULL);
@@ -472,8 +490,7 @@ audioproject_on_audioproject_size_changed(GtkOptionMenu *option_menu, AudioProje
     gchar *buf = audioproject_format_progress_text(audio_project);
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progress_bar), buf);
     preferences_set_int(GB_AUDIO_DISK_SIZE, gtk_option_menu_get_history(option_menu));
-    g_free(buf);
-    
+    g_free(buf);    
 }
 
 
@@ -494,6 +511,7 @@ void /* libglade callback */
 audioproject_on_create_audiocd(gpointer widget, AudioProject *audio_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(audio_project != NULL);
     
     /* Here we should get a glist of files to burn to the cd or something like that */
     GtkTreeModel *audio_model = gtk_tree_view_get_model(audio_project->tree);
@@ -542,6 +560,7 @@ static gboolean
 audioproject_export_m3u(AudioProject *audio_project, const gchar *play_list)
 {
     GB_LOG_FUNC
+    g_return_val_if_fail(audio_project != NULL, FALSE);
     g_return_val_if_fail(play_list != NULL, FALSE);
 
     gboolean ret = FALSE;
@@ -578,6 +597,7 @@ static gboolean
 audioproject_export_pls(AudioProject *audio_project, const gchar *play_list)
 {
     GB_LOG_FUNC
+    g_return_val_if_fail(audio_project != NULL, FALSE);
     g_return_val_if_fail(play_list != NULL, FALSE);
 
     gboolean ret = FALSE;
@@ -627,6 +647,7 @@ gboolean
 audioproject_export_playlist(AudioProject *audio_project, const gchar *play_list)
 {
     GB_LOG_FUNC
+    g_return_val_if_fail(audio_project != NULL, FALSE);
     g_return_val_if_fail(play_list != NULL, FALSE);
 
     gboolean ret = FALSE;
@@ -734,6 +755,8 @@ static void
 audioproject_on_remove_clicked(GtkWidget *menuitem, AudioProject *audio_project)
 {
     GB_LOG_FUNC 
+    g_return_if_fail(audio_project != NULL);
+    
     audioproject_remove(PROJECT_WIDGET(audio_project));
 }
 
@@ -742,6 +765,8 @@ static void
 audioproject_on_clear_clicked(GtkWidget *menuitem, AudioProject *audio_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(audio_project != NULL);
+    
     audioproject_clear(PROJECT_WIDGET(audio_project));
 }
 
@@ -750,6 +775,7 @@ static gboolean
 audioproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, AudioProject *audio_project)
 {
     GB_LOG_FUNC
+    g_return_val_if_fail(audio_project != NULL, FALSE);
     g_return_val_if_fail(widget != NULL, FALSE);
 
     /* look for a right click */    
