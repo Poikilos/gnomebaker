@@ -41,7 +41,7 @@ static const gchar *const widget_datacd_progressbar = "progressbar2";
 static const gchar *const widget_datacd_create = "createDataCDBtn";
 
 static const gchar *const DATACD_EXISTING_SESSION = "msinfo";
-
+static const gdouble overburn_percent = 1.02;
 static gdouble data_disk_size = 0.0;
 static GtkCellRenderer *content_renderer = NULL;
 
@@ -395,19 +395,26 @@ datacd_format_progress_text(gdouble current_size)
 {
     GB_LOG_FUNC
     
+    const gboolean is_cd = data_disk_size < data_disk_sizes[DVD_4GB].size;    
+    
     gchar *current = NULL, *remaining = NULL, *buf = NULL;    
-    if(current_size < data_disk_size)
+    if(is_cd && (current_size > data_disk_size) && (current_size < (data_disk_size * overburn_percent)))
+    {
+        current = gbcommon_humanreadable_filesize((guint64)current_size);
+        remaining = gbcommon_humanreadable_filesize((guint64)(data_disk_size));
+        buf = g_strdup_printf(_("%s of %s used. Overburning."), current, remaining);
+    }
+    else if(current_size < data_disk_size)
     {
    		current = gbcommon_humanreadable_filesize((guint64)current_size);
     	remaining = gbcommon_humanreadable_filesize((guint64)(data_disk_size - current_size));
-    	buf = g_strdup_printf(_("%s used - %s remaining"), current, remaining);
-
+    	buf = g_strdup_printf(_("%s used - %s remaining."), current, remaining);
     }
     else
     {
    	   	current = gbcommon_humanreadable_filesize((guint64)current_size);
     	remaining = gbcommon_humanreadable_filesize((guint64)(data_disk_size));
-    	buf = g_strdup_printf(_("%s of %s used. Disk full"), current, remaining);
+    	buf = g_strdup_printf(_("%s of %s used. Disk full."), current, remaining);
     }
     g_free(current);
     g_free(remaining);
@@ -445,12 +452,20 @@ datacd_update_progress_bar()
 	}	
 	else
 	{
+        const gboolean is_cd = data_disk_size < data_disk_sizes[DVD_4GB].size;
+        
 		gdouble fraction = 0.0;
 	
 		if(disk_size > 0)
 	 		fraction = (gdouble)datacd_compilation_size/disk_size;
 	 		
-		if(datacd_compilation_size > disk_size)
+        if(is_cd && (datacd_compilation_size > disk_size) && 
+                (datacd_compilation_size < (disk_size * overburn_percent)))
+        {
+            gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 1.0); 
+            gnomebaker_enable_widget(widget_datacd_create, TRUE);
+        }
+		else if(datacd_compilation_size > disk_size)
 		{
 			gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 1.0);	
             gnomebaker_enable_widget(widget_datacd_create, FALSE);
