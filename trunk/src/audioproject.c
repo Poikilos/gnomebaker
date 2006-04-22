@@ -458,7 +458,7 @@ audioproject_on_list_dbl_click(GtkTreeView *tree_view, GtkTreePath *path,
 }
 
 
-void /* libglade callback */
+void
 audioproject_on_audioproject_size_changed(GtkOptionMenu *option_menu, AudioProject *audio_project)
 {
     GB_LOG_FUNC
@@ -471,15 +471,14 @@ audioproject_on_audioproject_size_changed(GtkOptionMenu *option_menu, AudioProje
     audio_project->selected_size = audioproject_get_audioproject_size(audio_project);     
     gdouble fraction  = (audio_project->compilation_seconds)/(audio_project->selected_size*60);
 
-    if(fraction>1.0)
+    if(fraction > 1.0)
     {
          gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-            _("Not enough space on the disk"));
+                _("Not enough space on the disk"));
         
         /* disable the create button*/
         gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), FALSE);
         gtk_progress_bar_set_fraction(progress_bar, 1.0); 
-
     }
     else
     {
@@ -507,7 +506,7 @@ audioproject_foreach_func(GtkTreeModel *audio_model,
 }
 
 
-void /* libglade callback */
+void
 audioproject_on_create_audiocd(gpointer widget, AudioProject *audio_project)
 {
     GB_LOG_FUNC
