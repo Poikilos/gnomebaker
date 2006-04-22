@@ -155,7 +155,7 @@ audioproject_update_progress_bar(AudioProject *audio_project, gboolean add, gdou
         audio_project->compilation_seconds -= seconds;
     }   
     
-    if (audio_project->compilation_seconds < 0.0 || audio_project->compilation_seconds == 0.0)
+    if (audio_project->compilation_seconds <= 0.0)
     {
         audio_project->compilation_seconds = 0;
         gtk_progress_bar_set_fraction(progress_bar, 0.0);
@@ -480,10 +480,14 @@ audioproject_on_audioproject_size_changed(GtkOptionMenu *option_menu, AudioProje
         gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), FALSE);
         gtk_progress_bar_set_fraction(progress_bar, 1.0); 
     }
-    else
+    else if(fraction > 0.0)
     {
         gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), fraction);
         gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), TRUE);
+    }
+    else 
+    {
+        gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), FALSE);
     }
     
     gchar *buf = audioproject_format_progress_text(audio_project);
