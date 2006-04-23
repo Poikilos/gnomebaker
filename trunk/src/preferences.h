@@ -99,6 +99,6 @@ gboolean preferences_set_int(const gchar *key, const gint value);
 gboolean preferences_key_exists(const gchar *key);
 GSList* preferences_get_key_subkeys(const gchar *key);
 gboolean preferences_delete_key(const gchar *key);
-void preferences_register_notify(const gchar *key, GConfClientNotifyFunc func);
+void preferences_register_notify(const gchar *key, GConfClientNotifyFunc func, gpointer user_data);
 
 #endif

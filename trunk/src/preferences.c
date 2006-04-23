@@ -252,7 +252,7 @@ preferences_delete_key(const gchar *key)
 
 
 void
-preferences_register_notify(const gchar *key, GConfClientNotifyFunc func)
+preferences_register_notify(const gchar *key, GConfClientNotifyFunc func, gpointer user_data)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(key != NULL);	

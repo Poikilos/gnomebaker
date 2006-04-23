@@ -1645,7 +1645,7 @@ datacd_new()
 	datacd_compilation_root_get_iter(&root);
 	datacd_current_node_update(&root);
 
-	preferences_register_notify(GB_SHOWHUMANSIZE, datacd_on_show_humansize_changed);
+	preferences_register_notify(GB_SHOWHUMANSIZE, datacd_on_show_humansize_changed, NULL);
 	
 	GtkWidget *option_menu = glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_size);
 	gbcommon_populate_disk_size_option_menu(GTK_OPTION_MENU(option_menu), data_disk_sizes, 
