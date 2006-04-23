@@ -1909,19 +1909,19 @@ dataproject_setup_list(DataProject *data_project, GtkTreeView *file_list)
 
     /* Set the selection mode of the file list */
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(file_list),
-        GTK_SELECTION_MULTIPLE /*GTK_SELECTION_BROWSE*/);
+            GTK_SELECTION_MULTIPLE /*GTK_SELECTION_BROWSE*/);
 
     /* Enable the file list as a drag destination */    
-    gtk_drag_dest_set(GTK_WIDGET(file_list), GTK_DEST_DEFAULT_ALL,
-        target_entries, TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+    gtk_drag_dest_set(GTK_WIDGET(file_list), GTK_DEST_DEFAULT_ALL, target_entries, 
+            TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
     /* Connect the function to handle the drag data */
     g_signal_connect(file_list, "drag_data_received",
-        G_CALLBACK(dataproject_on_drag_data_received), data_project);
+            G_CALLBACK(dataproject_on_drag_data_received), data_project);
         
     /* connect the signal to handle right click */
     g_signal_connect (G_OBJECT(file_list), "button-press-event",
-        G_CALLBACK(dataproject_on_button_pressed), NULL);
+            G_CALLBACK(dataproject_on_button_pressed), data_project);
         
     /* handle double clicks. This should allow us to navigate through the contents */   
     g_signal_connect(G_OBJECT(file_list), "row-activated", G_CALLBACK(dataproject_on_tree_dbl_click), data_project);
