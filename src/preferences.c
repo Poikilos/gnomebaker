@@ -258,5 +258,5 @@ preferences_register_notify(const gchar *key, GConfClientNotifyFunc func, gpoint
 	g_return_if_fail(key != NULL);	
 	g_return_if_fail(func != NULL);	
 	gconf_client_add_dir(gconf_client, key, GCONF_CLIENT_PRELOAD_NONE, NULL);
-	gconf_client_notify_add(gconf_client, key, func, NULL, NULL, NULL);	
+	gconf_client_notify_add(gconf_client, key, func, user_data, NULL, NULL);	
 }
