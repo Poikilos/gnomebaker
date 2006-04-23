@@ -39,7 +39,6 @@ static const gchar *const widget_datacd_list = "treeview14";
 static const gchar *const widget_datacd_size = "optionmenu1";
 static const gchar *const widget_datacd_progressbar = "progressbar2";
 static const gchar *const widget_datacd_create = "createDataCDBtn";
-
 static const gchar *const DATACD_EXISTING_SESSION = "msinfo";
 static const gdouble overburn_percent = 1.02;
 static gdouble data_disk_size = 0.0;
@@ -69,6 +68,21 @@ enum
     DVD_8GB,
     DISK_SIZE_COUNT
 };
+
+
+/* this should be better to be moved to datacd
+ * so that from outside of datacd only the Glist is
+ * available
+ * */
+
+struct BurnItem
+{
+    guint64 size;
+    gboolean existing_session;
+    gchar *path_to_burn;
+    gchar *path_in_filesystem;
+};
+
 
 /*THINGS TO DO: -improve DnD within the datacd
  * 				-when we create a foder, we must start editing its name
@@ -102,6 +116,7 @@ static guint64 datacd_compilation_size = 0;
 /* callback id, so we can block it! */
 static gulong sel_changed_id;
 
+
 enum
 {    
 	DATACD_LIST_COL_ICON = 0,
@@ -114,6 +129,7 @@ enum
 	DATACD_LIST_COL_ROWREFERENCE,
     DATACD_LIST_NUM_COLS
 };
+
 
 static DiskSize data_disk_sizes[DISK_SIZE_COUNT] = 
 {
@@ -661,13 +677,145 @@ datacd_on_drag_data_received(
     guint time,
     gpointer user_data)
 {
-	GB_LOG_FUNC		
+	GB_LOG_FUNC
+	
+	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
+	if(GTK_IS_TREE_MODEL_FILTER(model))
+	{
+		GtkTreePath *path = NULL;
+		GtkTreeViewDropPosition pos;
+		
+		gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW(widget), x, y, &path, NULL);
+		if(path)
+		{
+			GB_DECLARE_STRUCT(GtkTreeIter, iter);
+			gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &iter,path);
+			GB_DECLARE_STRUCT(GtkTreeIter, global_iter);
+			gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(model),&global_iter,&iter);
+			datacd_current_node_update(&global_iter);
+			gtk_tree_path_free(path);
+
+		}	
+
+	
+	}		
  	datacd_add_selection(selection_data);
  	/*this model does not support automatic dnd. Disable the annoying message*/
  	if(GTK_IS_TREE_MODEL_FILTER(user_data))
  	{
  		g_signal_stop_emission_by_name(G_OBJECT(widget), "drag_data_received");
  	}
+}
+
+
+static gboolean
+datacd_drag_motion_expand_timeout (GtkTreePath **path)
+{
+	GB_LOG_FUNC
+	
+	gdk_threads_enter();
+    GtkTreeView *dir_tree = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree));
+    g_return_val_if_fail ( path != NULL, FALSE );
+    g_return_val_if_fail ( *path != NULL, FALSE ); 		
+    gtk_tree_view_expand_row(GTK_TREE_VIEW(dir_tree), *path, FALSE);
+    gdk_threads_leave();
+    return FALSE; /* only call once */
+}
+
+
+static gboolean
+datacd_drag_motion_scroll_timeout (guint *timeout_id)
+{
+
+	GB_LOG_FUNC
+	
+	GdkRectangle visible_rect;
+	gint y;
+	gint offset;
+	gfloat value;
+	gdouble adjust_value;
+	gdouble adjust_upper;
+	gdouble adjust_page_size;
+		
+	gdk_threads_enter();
+	GtkTreeView *dir_tree = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_datacd_tree));	
+	gdk_window_get_pointer (gtk_tree_view_get_bin_window(dir_tree), NULL, &y, NULL);	
+	GtkAdjustment* adjust = gtk_tree_view_get_vadjustment(dir_tree);    
+    g_object_get(G_OBJECT(adjust), "value",&adjust_value, "upper",&adjust_upper, "page-size", &adjust_page_size, NULL);
+    			
+    y+=adjust_value;	
+	gtk_tree_view_get_visible_rect (dir_tree, &visible_rect);
+	
+	  /* see if we are near the edge. */
+  	offset = y - (visible_rect.y + 2 * 15); /*15 is the edge size, acording to gtktreeview.c*/
+  	if (offset > 0)
+    {
+      	offset = y - (visible_rect.y + visible_rect.height - 2 * 15);
+      	if (offset < 0)
+      	{
+      		*timeout_id = 0;
+      		gdk_threads_leave();
+			return;
+      	}
+    }
+    
+    value =  CLAMP(adjust_value + offset, 0.0, adjust_upper - adjust_page_size);
+  	gtk_adjustment_set_value (adjust, value);
+	
+	/*reset*/
+	*timeout_id = 0;
+	gdk_threads_leave();
+	return FALSE; /* only call once */
+}
+
+
+static gboolean
+datacd_on_drag_motion(GtkWidget *widget,
+						GdkDragContext *context,
+						gint x,guint y,
+						guint time,
+						gpointer data)
+
+{
+	GB_LOG_FUNC
+	static GtkTreePath *lastpath; /* NULL */
+	static guint expand_timeout_id=0;
+	static guint autoscroll_timeout_id =0;
+	GtkTreePath          *path = NULL;
+	
+	gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y, &path, NULL);		
+	if (path)	{
+    	if (!lastpath || ((lastpath) && gtk_tree_path_compare(lastpath, path) != 0))
+    	{
+       		if(expand_timeout_id!=0)
+       		{
+       			g_source_remove(expand_timeout_id);
+       			expand_timeout_id=0;
+       		}
+       		
+       		gtk_tree_view_set_drag_dest_row (GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_AFTER);
+
+       		if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(widget), path))
+         		expand_timeout_id=g_timeout_add(750, (GSourceFunc) datacd_drag_motion_expand_timeout, &lastpath);
+       		
+       		if(autoscroll_timeout_id==0)
+       			autoscroll_timeout_id=g_timeout_add(150, (GSourceFunc) datacd_drag_motion_scroll_timeout, &autoscroll_timeout_id);
+    	}
+	}
+  	else
+  	{
+		if(expand_timeout_id!=0)
+       	{
+			g_source_remove(expand_timeout_id);
+			expand_timeout_id=0;
+       	}
+       	gtk_tree_view_set_drag_dest_row (GTK_TREE_VIEW(widget),NULL,0);
+  	}
+  	if (lastpath)
+  		gtk_tree_path_free(lastpath);
+ 	lastpath = path;
+  	return TRUE;
+	
 }
 
 
@@ -916,11 +1064,12 @@ datacd_contents_cell_edited(GtkCellRendererText *cell,
 		{
 			GValue reference_val = {0};
 			gtk_tree_model_get_value(GTK_TREE_MODEL(user_data),&iter,DATACD_LIST_COL_ROWREFERENCE, &reference_val);			
-			GtkTreeRowReference  *row_reference = g_value_get_pointer(&reference_val);			
+			GtkTreeRowReference  *row_reference = (GtkTreeRowReference*)g_value_get_pointer(&reference_val);			
 			g_value_unset(&reference_val);		
 			
 			/*we cannot free this reference because it continues existing in the list store*/
 			GtkTreePath *path = gtk_tree_row_reference_get_path (row_reference);
+
 			if(path!=NULL)
 			{
 				GB_DECLARE_STRUCT(GtkTreeIter, global_iter);
@@ -955,6 +1104,14 @@ datacd_contents_cell_edited(GtkCellRendererText *cell,
 	GB_DECLARE_STRUCT(GtkTreeIter, iter);
 	datacd_current_node_get_iter(&iter);
 	datacd_list_view_update(&iter);
+	
+	/*disable editing*/
+	GValue value = { 0 };
+	g_value_init(&value, G_TYPE_BOOLEAN);
+	g_value_set_boolean(&value, FALSE);	
+
+  	g_object_set_property(G_OBJECT(cell), "editable", &value);
+	
 }
 
 
@@ -962,8 +1119,41 @@ static void
 datacd_on_edit(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(user_data != NULL);        
-    /*g_signal_emit_by_name (content_renderer, "edited", NULL, NULL);*/    
+	g_return_if_fail(user_data != NULL);
+	
+	GtkTreeView *view = GTK_TREE_VIEW(user_data);
+	GtkTreeModel *model = gtk_tree_view_get_model(view);
+	
+
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
+	GtkTreePath* path = NULL;
+	GList* selected_path_list =  gtk_tree_selection_get_selected_rows(selection, NULL);
+	path = g_list_nth_data(selected_path_list,0);
+	
+	if(model!=NULL & path !=NULL)
+	{	
+	
+		GtkTreeViewColumn* column =NULL;
+	
+		column = gtk_tree_view_get_column (view,0);
+
+		GList * renderer_list = gtk_tree_view_column_get_cell_renderers(column);	
+		/*get the second renderer*/
+		GtkCellRenderer *text_renderer =  GTK_CELL_RENDERER(g_list_nth_data(renderer_list,1));
+
+		/*enable editing*/
+		GValue value = { 0 };
+		g_value_init(&value, G_TYPE_BOOLEAN);
+		g_value_set_boolean(&value, TRUE);	
+
+		g_object_set_property(G_OBJECT(text_renderer), "editable", &value);
+	
+		g_value_unset(&value);	
+
+		gtk_tree_view_set_cursor(view, path, column, TRUE); 
+	}       
+	g_list_foreach (selected_path_list, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free (selected_path_list);
 }
 
 
@@ -1005,12 +1195,37 @@ datacd_on_add_folder(gpointer widget, gpointer user_data)
 	gtk_tree_view_expand_row (dir_tree, path, FALSE);
 	
 	gtk_tree_path_free(global_path);
-	gtk_tree_path_free(path);
+	gtk_tree_path_free(path); 
 
 	datacd_list_view_update(&parent_iter);
 
-	/*TODO: we should edit the name of the new folder*/
+	/*we must edit the name of the new folder*/
+	GtkTreeViewColumn* column =NULL;
+	
+	column = gtk_tree_view_get_column (dir_tree,0);
+
+	GList * renderer_list = gtk_tree_view_column_get_cell_renderers(column);	
+	/*get the second renderer*/
+	GtkCellRenderer *text_renderer =  GTK_CELL_RENDERER(g_list_nth_data(renderer_list,1));
+
+	/*enable editing*/
+	GValue value = { 0 };
+	g_value_init(&value, G_TYPE_BOOLEAN);
+	g_value_set_boolean(&value, TRUE);	
+
+	g_object_set_property(G_OBJECT(text_renderer), "editable", &value);
+	
+	g_value_unset(&value);
+	
+	global_path = gtk_tree_model_get_path(GTK_TREE_MODEL(datacd_compilation_store),&iter);
+	path = gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER(model),global_path);	
+
+	gtk_tree_view_set_cursor(dir_tree, path, column, TRUE);
+	
+	gtk_tree_path_free(global_path);
+	gtk_tree_path_free(path); 
 }
+
 
 static gboolean
 datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
@@ -1064,18 +1279,33 @@ datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user
 				gtk_tree_selection_get_selected (selection, &tree_model ,&iter);
 				gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(tree_model),&global_iter,&iter);
 				
+				GtkWidget *menu = gtk_menu_new();
+				
+				gbcommon_append_menu_item_stock(menu, _("_Add Folder"), GTK_STOCK_NEW, 
+											(GCallback)datacd_on_add_folder, view);
+				gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+				
+				gbcommon_append_menu_item_stock(menu, _("_Edit name"), GTK_STOCK_DND, 
+												(GCallback)datacd_on_edit, view);
+
+			    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());		
 				if(!datacd_compilation_is_root(&global_iter))
 				{
-					GtkWidget *menu = gtk_menu_new();
+
 					gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
 													(GCallback)datacd_on_remove_clicked, view);
-					gtk_widget_show_all(menu);
-					gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-						   			(event != NULL) ? event->button : 0,
-					gdk_event_get_time((GdkEvent*)event));
-					
-				    return TRUE;
+
 				}
+				
+				gbcommon_append_menu_item_stock(menu, _("Clear"), GTK_STOCK_CLEAR, 
+												(GCallback)datacd_on_clear_clicked, view);		
+				
+				gtk_widget_show_all(menu);
+				gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+						   			(event != NULL) ? event->button : 0,
+				gdk_event_get_time((GdkEvent*)event));
+					
+				return TRUE;
 			}	
         }
 	}
@@ -1084,10 +1314,10 @@ datacd_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user
 
 
 static void
-datacd_on_tree_dbl_click  (	GtkTreeView *tree_view,
-							GtkTreePath *path,
-							GtkTreeViewColumn *column,
-							gpointer user_data)
+datacd_on_tree_dbl_click(GtkTreeView *tree_view,
+						 GtkTreePath *path,
+						 GtkTreeViewColumn *column,
+						 gpointer user_data)
 {
 	GB_LOG_FUNC
 	
@@ -1108,7 +1338,7 @@ datacd_on_tree_dbl_click  (	GtkTreeView *tree_view,
 				g_value_unset(&reference_val);
 			
 				GtkTreePath *global_path = gtk_tree_row_reference_get_path(row_reference);
-				
+					
 				GB_DECLARE_STRUCT(GtkTreeIter,global_iter);	
 				if(gtk_tree_model_get_iter(GTK_TREE_MODEL(datacd_compilation_store),&global_iter,global_path))
 				{
@@ -1206,7 +1436,7 @@ datacd_setup_tree( GtkTreeView *dir_tree)
 
 	GValue value = { 0 };
 	g_value_init(&value, G_TYPE_BOOLEAN);
-	g_value_set_boolean(&value, TRUE);	
+	g_value_set_boolean(&value, FALSE);	
 
     renderer = gtk_cell_renderer_text_new();
     g_object_set_property(G_OBJECT(renderer), "editable", &value);
@@ -1223,6 +1453,9 @@ datacd_setup_tree( GtkTreeView *dir_tree)
 	/* Connect the function to handle the drag data */
     g_signal_connect(dir_tree, "drag_data_received",
 		G_CALLBACK(datacd_on_drag_data_received), store);
+	/* Connect the function to handle the drag data */
+    g_signal_connect(dir_tree, "drag-motion",
+		G_CALLBACK(datacd_on_drag_motion), store);
 
 	/* Set the selection mode of the dir tree */
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(dir_tree);
@@ -1285,7 +1518,7 @@ datacd_setup_list( GtkTreeView *file_list)
 	/* Instead of a pointer to row reference we could use G_TYPE_TREE_ROW_REFERENCE
 	/* so that we do not need to delete it manually*/
     GtkListStore *store = gtk_list_store_new(DATACD_LIST_NUM_COLS, GDK_TYPE_PIXBUF, 
-			G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_POINTER);
+			G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_POINTER );
     gtk_tree_view_set_model(file_list, GTK_TREE_MODEL(store));
     
     /*show folders first*/
@@ -1304,7 +1537,7 @@ datacd_setup_list( GtkTreeView *file_list)
 	
 	GValue value = { 0 };
 	g_value_init(&value, G_TYPE_BOOLEAN);
-	g_value_set_boolean(&value, TRUE);	
+	g_value_set_boolean(&value, FALSE);	
 
     content_renderer = gtk_cell_renderer_text_new();
 	g_object_set_property(G_OBJECT(content_renderer), "editable", &value);
@@ -1540,22 +1773,6 @@ datacd_on_datadisk_size_changed(GtkOptionMenu *option_menu, gpointer user_data)
 	datacd_update_progress_bar();
     preferences_set_int(GB_DATA_DISK_SIZE, gtk_option_menu_get_history(option_menu));
 }
-
-
-
-/* this should be better to be moved to datacd
- * so that from outside of datacd only the Glist is
- * available
- * */
-
-struct BurnItem
-{
-    guint64 size;
-    gboolean existing_session;
-    gchar *path_to_burn;
-    gchar *path_in_filesystem;
-};
-
 
 
 /* Adds  to the burning list all the contents recursively. This could be improved checking for depth,
