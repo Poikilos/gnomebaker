@@ -751,8 +751,8 @@ filebrowser_setup_tree(GtkTreeView *dir_tree, GtkTreeView *file_list)
 	gtk_tree_view_expand_row(dir_tree, path, FALSE);
 	gtk_tree_path_free(path);	
 		
-	preferences_register_notify(GB_SHOWHIDDEN, filebrowser_on_show_hidden_changed);
-	preferences_register_notify(GB_SHOWHUMANSIZE, filebrowser_on_show_humansize_changed);
+	preferences_register_notify(GB_SHOWHIDDEN, filebrowser_on_show_hidden_changed, NULL);
+	preferences_register_notify(GB_SHOWHUMANSIZE, filebrowser_on_show_humansize_changed, NULL);
 }
 
 

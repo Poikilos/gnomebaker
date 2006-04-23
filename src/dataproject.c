@@ -242,7 +242,7 @@ dataproject_current_node_update(DataProject* data_project, GtkTreeIter *iter)
 
 
 static void
-dataproject_current_node_get_iter(DataProject* data_project, GtkTreeIter *iter)
+dataproject_current_node_get_iter(DataProject *data_project, GtkTreeIter *iter)
 {
     GB_LOG_FUNC
     
@@ -357,20 +357,11 @@ dataproject_on_show_humansize_changed( GConfClient *client,
                                     DataProject* data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
 
-    GtkTreeView *file_list = data_project->list;
-    g_return_if_fail(file_list != NULL);
-
-    GtkTreeViewColumn *size_column = 
-        gtk_tree_view_get_column(file_list, DATACD_COL_SIZE-1);
-    g_return_if_fail(size_column != NULL);
-
-    GtkTreeViewColumn *humansize_column = 
-        gtk_tree_view_get_column(file_list, DATACD_COL_HUMANSIZE-1);
-    g_return_if_fail(humansize_column != NULL);
-
+    GtkTreeViewColumn *size_column = gtk_tree_view_get_column(data_project->list, DATACD_COL_SIZE-1);
+    GtkTreeViewColumn *humansize_column = gtk_tree_view_get_column(data_project->list, DATACD_COL_HUMANSIZE-1);
     const gboolean show_human_size = preferences_get_bool(GB_SHOWHUMANSIZE);
-
     gtk_tree_view_column_set_visible(size_column, !show_human_size);
     gtk_tree_view_column_set_visible(humansize_column, show_human_size);
 }
@@ -2052,10 +2043,11 @@ dataproject_init(DataProject *project)
     dataproject_compilation_root_get_iter(project, &root);
     dataproject_current_node_update(DATAPROJECT_WIDGET(project), &root);
 
-    preferences_register_notify(GB_SHOWHUMANSIZE, dataproject_on_show_humansize_changed);
+    preferences_register_notify(GB_SHOWHUMANSIZE, 
+            (GConfClientNotifyFunc)dataproject_on_show_humansize_changed, project);
     
     gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(project)->menu, data_disk_sizes, 
-        DISK_SIZE_COUNT, preferences_get_int(GB_DATA_DISK_SIZE));
+            DISK_SIZE_COUNT, preferences_get_int(GB_DATA_DISK_SIZE));
         
     g_signal_connect(G_OBJECT(PROJECT_WIDGET(project)->button), "clicked", 
             G_CALLBACK(dataproject_on_create_datadisk), project);
