@@ -852,7 +852,7 @@ audioproject_add_selection(Project *project, GtkSelectionData *selection)
             {
                 gchar *full_name = g_build_filename(file_name, name, NULL);
                 if(!g_file_test(full_name, G_FILE_TEST_IS_DIR))
-                    cont = audioproject_add_file(audio_project, file_name);
+                    cont = audioproject_add_file(audio_project, full_name);
                 g_free(full_name);
                 name = g_dir_read_name(dir);                    
             }
