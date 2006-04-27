@@ -149,9 +149,8 @@ static void
 dataproject_compilation_root_get_iter(DataProject *data_project, GtkTreeIter *iter)
 {
     GB_LOG_FUNC
-    
-    /*g_return_if_fail(iter != NULL);*/
-    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(data_project->dataproject_compilation_store),iter);
+    g_return_if_fail(data_project != NULL);
+    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(data_project->dataproject_compilation_store), iter);
 }
 
 
@@ -159,6 +158,9 @@ dataproject_compilation_root_get_iter(DataProject *data_project, GtkTreeIter *it
 gchar* 
 dataproject_compilation_get_volume_id(DataProject *data_project)
 {
+    GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
+    
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
     if(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&iter))
     {
@@ -176,6 +178,7 @@ static void
 dataproject_compilation_root_add(DataProject *data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
     
     /* Add the compilation label as the base of our tree */
     GdkPixbuf *icon = gbcommon_get_icon_for_name("gnome-dev-disc-cdr", 16);
@@ -194,6 +197,8 @@ static gboolean
 dataproject_compilation_is_root(DataProject *data_project, GtkTreeIter *global_iter)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
+    g_return_if_fail(global_iter != NULL);
     
     gboolean ret = FALSE;
     /*check if iter is the root*/
@@ -220,6 +225,8 @@ static void
 dataproject_current_node_update(DataProject* data_project, GtkTreeIter *iter)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
+    g_return_if_fail(iter != NULL);
 
     GtkTreePath *child_path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store), iter);
     /* select the row in the tree view */
@@ -257,6 +264,7 @@ static void
 dataproject_list_view_clear(GtkTreeView *file_list)
 {
     GB_LOG_FUNC
+    g_return_if_fail(file_list != NULL);
 
     GtkListStore *store = GTK_LIST_STORE( gtk_tree_view_get_model(file_list) ); 
 
@@ -292,6 +300,8 @@ static void
 dataproject_list_view_update(DataProject *data_project, GtkTreeIter *parent_iter)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
+    g_return_if_fail(parent_iter != NULL);
     
     GtkTreeView *file_list = data_project->list;
     GtkListStore *store = GTK_LIST_STORE( gtk_tree_view_get_model(file_list) );     
@@ -342,6 +352,7 @@ static void
 dataproject_set_multisession(DataProject* data_project, const gchar *msinfo)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
         
     if(msinfo == NULL)
         g_free((gchar*)g_object_get_data(G_OBJECT(data_project->dataproject_compilation_store), DATACD_EXISTING_SESSION));
@@ -371,6 +382,8 @@ static gdouble
 dataproject_get_datadisk_size(DataProject* data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
+
     data_project->data_disk_size = data_disk_sizes[gtk_option_menu_get_history(PROJECT_WIDGET(data_project)->menu)].size;
     return data_project->data_disk_size;
 }
@@ -380,6 +393,7 @@ static gchar*
 dataproject_format_progress_text(DataProject* data_project, gdouble current_size)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
     
     const gboolean is_cd = data_project->data_disk_size < data_disk_sizes[DVD_4GB].size;    
     
@@ -412,6 +426,7 @@ static void
 dataproject_update_progress_bar(DataProject *data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
     
     /* Now update the progress bar with the cd size */
     GtkProgressBar *progress_bar = PROJECT_WIDGET(data_project)->progress_bar;
@@ -470,6 +485,7 @@ static gboolean
 dataproject_add_to_compilation(DataProject *data_project, const gchar *file, GtkTreeIter *parent_node, gboolean existing_session)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
     g_return_val_if_fail(file != NULL, FALSE);
     g_return_val_if_fail(parent_node != NULL, FALSE);
     gboolean ret = TRUE;
@@ -647,6 +663,8 @@ dataproject_on_drag_data_received(
     DataProject *data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
+    g_return_if_fail(widget != NULL);
     
     GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
     if(GTK_IS_TREE_MODEL_FILTER(model))
@@ -660,40 +678,37 @@ dataproject_on_drag_data_received(
             GB_DECLARE_STRUCT(GtkTreeIter, iter);
             gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &iter,path);
             GB_DECLARE_STRUCT(GtkTreeIter, global_iter);
-            gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(model),&global_iter,&iter);
+            gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(model), &global_iter, &iter);
             dataproject_current_node_update(data_project, &global_iter);
             gtk_tree_path_free(path);
         }   
     }       
     dataproject_add_selection(PROJECT_WIDGET(data_project), selection_data);
-    /* TODO Fix this
-     * this model does not support automatic dnd. Disable the annoying message
-    if(GTK_IS_TREE_MODEL_FILTER(user_data))
+    if(GTK_IS_TREE_MODEL_FILTER(model))
     {
         g_signal_stop_emission_by_name(G_OBJECT(widget), "drag_data_received");
-    }*/
+    }
 }
 
 
 static gboolean
-dataproject_drag_motion_expand_timeout(GtkTreePath **path)
+dataproject_drag_motion_expand_timeout(DataProject *data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
     
     gdk_threads_enter();
-    GtkTreeView *dir_tree = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_dataproject_tree));
-    g_return_val_if_fail ( path != NULL, FALSE );
-    g_return_val_if_fail ( *path != NULL, FALSE );      
-    gtk_tree_view_expand_row(GTK_TREE_VIEW(dir_tree), *path, FALSE);
+    gtk_tree_view_expand_row(data_project->tree, data_project->last_path, FALSE);
     gdk_threads_leave();
     return FALSE; /* only call once */
 }
 
 
 static gboolean
-dataproject_drag_motion_scroll_timeout(guint *timeout_id)
+dataproject_drag_motion_scroll_timeout(DataProject *data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
     
     GdkRectangle visible_rect;
     gint y;
@@ -705,12 +720,12 @@ dataproject_drag_motion_scroll_timeout(guint *timeout_id)
         
     gdk_threads_enter();
     /* TODO fix me */
-    GtkTreeView *dir_tree = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_dataproject_tree));   
+    GtkTreeView *dir_tree = data_project->tree;
     gdk_window_get_pointer (gtk_tree_view_get_bin_window(dir_tree), NULL, &y, NULL);    
     GtkAdjustment* adjust = gtk_tree_view_get_vadjustment(dir_tree);    
     g_object_get(G_OBJECT(adjust), "value",&adjust_value, "upper",&adjust_upper, "page-size", &adjust_page_size, NULL);
                 
-    y+=adjust_value;    
+    y += adjust_value;    
     gtk_tree_view_get_visible_rect (dir_tree, &visible_rect);
     
       /* see if we are near the edge. */
@@ -720,7 +735,7 @@ dataproject_drag_motion_scroll_timeout(guint *timeout_id)
         offset = y - (visible_rect.y + visible_rect.height - 2 * 15);
         if (offset < 0)
         {
-            *timeout_id = 0;
+            data_project->autoscroll_timeout_id = 0;
             gdk_threads_leave();
             return;
         }
@@ -730,7 +745,7 @@ dataproject_drag_motion_scroll_timeout(guint *timeout_id)
     gtk_adjustment_set_value (adjust, value);
     
     /*reset*/
-    *timeout_id = 0;
+    data_project->autoscroll_timeout_id = 0;
     gdk_threads_leave();
     return FALSE; /* only call once */
 }
@@ -741,47 +756,50 @@ dataproject_on_drag_motion(GtkWidget *widget,
                         GdkDragContext *context,
                         gint x,guint y,
                         guint time,
-                        gpointer data)
+                        DataProject *data_project)
 
 {
     GB_LOG_FUNC
-    static GtkTreePath *lastpath; /* NULL */
-    static guint expand_timeout_id = 0;
-    static guint autoscroll_timeout_id = 0;
+    g_return_if_fail(data_project != NULL);
+    
+    data_project->expand_timeout_id = 0;
+    data_project->autoscroll_timeout_id = 0;    
     GtkTreePath *path = NULL;
     
     gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y, &path, NULL);        
     if (path)   {
-        if (!lastpath || ((lastpath) && gtk_tree_path_compare(lastpath, path) != 0))
+        if (!data_project->last_path || ((data_project->last_path) && gtk_tree_path_compare(data_project->last_path, path) != 0))
         {
-            if(expand_timeout_id != 0)
+            if(data_project->expand_timeout_id != 0)
             {
-                g_source_remove(expand_timeout_id);
-                expand_timeout_id = 0;
+                g_source_remove(data_project->expand_timeout_id);
+                data_project->expand_timeout_id = 0;
             }
             
             gtk_tree_view_set_drag_dest_row (GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_AFTER);
 
             if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(widget), path))
-                expand_timeout_id = g_timeout_add(750, (GSourceFunc) dataproject_drag_motion_expand_timeout, &lastpath);
+                data_project->expand_timeout_id = g_timeout_add(750, (GSourceFunc) dataproject_drag_motion_expand_timeout, data_project);
             
-            if(autoscroll_timeout_id == 0)
-                autoscroll_timeout_id = g_timeout_add(150, (GSourceFunc) dataproject_drag_motion_scroll_timeout, 
-                        &autoscroll_timeout_id);
+            if(data_project->autoscroll_timeout_id == 0)
+            {
+                data_project->autoscroll_timeout_id = g_timeout_add(150, 
+                        (GSourceFunc)dataproject_drag_motion_scroll_timeout, data_project);
+            }
         }
     }
     else
     {
-        if(expand_timeout_id!=0)
+        if(data_project->expand_timeout_id != 0)
         {
-            g_source_remove(expand_timeout_id);
-            expand_timeout_id=0;
+            g_source_remove(data_project->expand_timeout_id);
+            data_project->expand_timeout_id = 0;
         }
         gtk_tree_view_set_drag_dest_row (GTK_TREE_VIEW(widget),NULL,0);
     }
-    if (lastpath)
-        gtk_tree_path_free(lastpath);
-    lastpath = path;
+    if (data_project->last_path)
+        gtk_tree_path_free(data_project->last_path);
+    data_project->last_path = path;
     return TRUE;
     
 }
@@ -793,6 +811,9 @@ dataproject_add_recursive_reference_list(DataProject *data_project, GtkTreeIter 
                                   GList **rref_list)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
+    g_return_if_fail(parent_iter != NULL);
+    g_return_if_fail(rref_list != NULL);
     
     int count=0;
     GB_DECLARE_STRUCT(GtkTreeIter, child_iter)
@@ -1110,21 +1131,14 @@ dataproject_on_edit(gpointer widget, gpointer user_data)
     
     GtkTreeView *view = GTK_TREE_VIEW(user_data);
     GtkTreeModel *model = gtk_tree_view_get_model(view);
-    
-
     GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
-    GtkTreePath* path = NULL;
-    GList* selected_path_list =  gtk_tree_selection_get_selected_rows(selection, NULL);
-    path = g_list_nth_data(selected_path_list,0);
+    GList *selected_path_list =  gtk_tree_selection_get_selected_rows(selection, NULL);
+    GtkTreePath *path = g_list_nth_data(selected_path_list,0);
     
-    if(model!=NULL & path !=NULL)
+    if(model != NULL && path != NULL)
     {   
-    
-        GtkTreeViewColumn* column =NULL;
-    
-        column = gtk_tree_view_get_column (view,0);
-
-        GList * renderer_list = gtk_tree_view_column_get_cell_renderers(column);    
+        GtkTreeViewColumn *column = gtk_tree_view_get_column (view,0);
+        GList *renderer_list = gtk_tree_view_column_get_cell_renderers(column);    
         /*get the second renderer*/
         GtkCellRenderer *text_renderer =  GTK_CELL_RENDERER(g_list_nth_data(renderer_list,1));
 
@@ -1132,11 +1146,8 @@ dataproject_on_edit(gpointer widget, gpointer user_data)
         GValue value = { 0 };
         g_value_init(&value, G_TYPE_BOOLEAN);
         g_value_set_boolean(&value, TRUE);  
-
         g_object_set_property(G_OBJECT(text_renderer), "editable", &value);
-    
         g_value_unset(&value);  
-
         gtk_tree_view_set_cursor(view, path, column, TRUE); 
     }       
     g_list_foreach (selected_path_list, (GFunc)gtk_tree_path_free, NULL);
@@ -1148,6 +1159,7 @@ static void
 dataproject_on_add_folder(gpointer widget, DataProject *data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
     
     GB_DECLARE_STRUCT(GtkTreeIter, parent_iter);
     dataproject_current_node_get_iter(data_project, &parent_iter);
@@ -1218,6 +1230,9 @@ static gboolean
 dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProject *data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(widget != NULL);
+    g_return_if_fail(data_project != NULL);
+    g_return_if_fail(event != NULL);
     
     /* look for a right click */    
     if(event->button == 3)
@@ -1307,6 +1322,10 @@ dataproject_on_tree_dbl_click(GtkTreeView *tree_view,
                          DataProject *data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(tree_view != NULL);
+    g_return_if_fail(path != NULL);
+    g_return_if_fail(column != NULL);
+    g_return_if_fail(data_project != NULL);
     
     GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
     if(model != NULL)
@@ -1346,6 +1365,7 @@ dataproject_treeview_filter_func(GtkTreeModel *model, GtkTreeIter *iter, DataPro
     GB_LOG_FUNC
     g_return_if_fail(model != NULL);
     g_return_if_fail(iter != NULL);
+    g_return_if_fail(data_project != NULL);
     
     gboolean ret = TRUE;
     GValue is_folder = {0};
@@ -1364,6 +1384,7 @@ dataproject_tree_sel_changed(GtkTreeSelection *selection, DataProject *data_proj
 {
     GB_LOG_FUNC
     g_return_if_fail(selection != NULL);
+    g_return_if_fail(data_project != NULL);
     
     GtkTreeModel *tree_model = NULL;
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
@@ -1467,10 +1488,13 @@ dataproject_get_msinfo(gchar **msinfo)
 }
 
 
-void /* libglade callback */
+/* TODO - fix this method as the option menu is part of the widget */
+void
 dataproject_on_datadisk_size_changed(GtkOptionMenu *option_menu, DataProject *data_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(option_menu != NULL);
+    g_return_if_fail(data_project != NULL);
         
     dataproject_update_progress_bar(data_project);
     preferences_set_int(GB_DATA_DISK_SIZE, gtk_option_menu_get_history(option_menu));
@@ -1480,9 +1504,13 @@ dataproject_on_datadisk_size_changed(GtkOptionMenu *option_menu, DataProject *da
 /* Adds  to the burning list all the contents recursively. This could be improved checking for depth,
  * as mkisofs only accepts a max depth o 6 directories */
 static void
-dataproject_build_filepaths_recursive(GtkTreeModel *model, GtkTreeIter *parent_iter, const char  *file_path ,GList **compilation_list)
+dataproject_build_filepaths_recursive(GtkTreeModel *model, GtkTreeIter *parent_iter, const char *file_path, GList **compilation_list)
 {
     GB_LOG_FUNC
+    g_return_if_fail(model != NULL);
+    g_return_if_fail(parent_iter != NULL);
+    g_return_if_fail(file_path != NULL);
+    g_return_if_fail(compilation_list != NULL);
 
     int count = 0;
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
@@ -1537,6 +1565,7 @@ static const GBTempFile*
 dataproject_build_filepaths(GtkTreeModel *model)
 {
     GB_LOG_FUNC
+    g_return_if_fail(model != NULL);
         
     GList *compilation_list = NULL;
     
@@ -1628,10 +1657,11 @@ dataproject_build_filepaths(GtkTreeModel *model)
 }
 
 
-void /* libglade callback */
+void
 dataproject_on_create_datadisk(gpointer widget, DataProject *data_project)
 {
     GB_LOG_FUNC 
+    g_return_if_fail(data_project != NULL);
     g_return_if_fail(data_project->dataproject_compilation_store != NULL);
     
     if(data_project->dataproject_compilation_size <= 0 || data_project->dataproject_compilation_size > dataproject_get_datadisk_size(data_project))
@@ -1670,6 +1700,12 @@ dataproject_open_project()
 static gboolean
 dataproject_foreach_save_project(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, FILE *project)
 {    
+    GB_LOG_FUNC
+    g_return_if_fail(model != NULL);
+    g_return_if_fail(path != NULL);
+    g_return_if_fail(iter != NULL);
+    g_return_if_fail(project != NULL);
+    
     gchar *file = NULL, *file_path = NULL;
     gboolean existing_session = FALSE;
         
@@ -1683,26 +1719,6 @@ dataproject_foreach_save_project(GtkTreeModel *model, GtkTreePath *path, GtkTree
     g_free(file);   
     g_free(file_path);
     return FALSE;
-}
-
-
-void 
-dataproject_save_project()
-{
-    GB_LOG_FUNC
-    
-    GtkWidget *data_tree = glade_xml_get_widget(gnomebaker_getxml(), widget_dataproject_tree);
-    g_return_if_fail(data_tree != NULL);
-    GtkTreeModel *data_model = gtk_tree_view_get_model(GTK_TREE_VIEW(data_tree));
-    g_return_if_fail(data_model != NULL);
-    
-    /* TODO - show a save dialog and select a file 
-    FILE *project = fopen("test.gbp", "w");
-    fprintf(project, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<GnomeBakerProject Version=\""PACKAGE_VERSION"\" Type=\"0\">\n");
-    gtk_tree_model_foreach(data_model, (GtkTreeModelForeachFunc) dataproject_foreach_save_project, project);
-    fprintf(project, "</GnomeBakerProject>\n");
-    fclose(project);
-    */
 }
 
 
@@ -1797,6 +1813,19 @@ dataproject_save(Project *project)
 {
     GB_LOG_FUNC
     g_return_if_fail(DATAPROJECT_IS_WIDGET(project));
+    
+    GtkWidget *data_tree = DATAPROJECT_WIDGET(project)->tree;
+    g_return_if_fail(data_tree != NULL);
+    GtkTreeModel *data_model = gtk_tree_view_get_model(GTK_TREE_VIEW(data_tree));
+    g_return_if_fail(data_model != NULL);
+    
+    /* TODO - show a save dialog and select a file 
+    FILE *project = fopen("test.gbp", "w");
+    fprintf(project, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<GnomeBakerProject Version=\""PACKAGE_VERSION"\" Type=\"0\">\n");
+    gtk_tree_model_foreach(data_model, (GtkTreeModelForeachFunc) dataproject_foreach_save_project, project);
+    fprintf(project, "</GnomeBakerProject>\n");
+    fclose(project);
+    */
 }
 
 
@@ -1963,15 +1992,15 @@ dataproject_setup_tree(DataProject *data_project, GtkTreeView *dir_tree)
     g_value_unset(&value);
     
     /* Enable the file list as a drag destination */    
-    gtk_drag_dest_set(GTK_WIDGET(dir_tree), GTK_DEST_DEFAULT_ALL,
-        target_entries, TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+    gtk_drag_dest_set(GTK_WIDGET(dir_tree), GTK_DEST_DEFAULT_ALL, target_entries, 
+            TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
     /* Connect the function to handle the drag data */
     g_signal_connect(dir_tree, "drag_data_received",
-        G_CALLBACK(dataproject_on_drag_data_received), data_project);
+            G_CALLBACK(dataproject_on_drag_data_received), data_project);
     /* Connect the function to handle the drag data */
     g_signal_connect(dir_tree, "drag-motion",
-        G_CALLBACK(dataproject_on_drag_motion), store);
+            G_CALLBACK(dataproject_on_drag_motion), data_project);
 
     /* Set the selection mode of the dir tree */
     GtkTreeSelection *selection = gtk_tree_view_get_selection(dir_tree);
@@ -1982,7 +2011,7 @@ dataproject_setup_tree(DataProject *data_project, GtkTreeView *dir_tree)
                 
     /* connect the signal to handle right click */
     g_signal_connect (G_OBJECT(dir_tree), "button-press-event",
-        G_CALLBACK(dataproject_on_button_pressed), data_project);
+            G_CALLBACK(dataproject_on_button_pressed), data_project);
         
     /*TODO double clicks should expand the node of the tree*/
     /* handle double clicks */  

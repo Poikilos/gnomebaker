@@ -78,13 +78,17 @@ typedef struct
     /*I think this is better than relying in the progressbar to store the size*/
     guint64 dataproject_compilation_size;
     
+    gdouble data_disk_size;
+    
     /* callback id, so we can block it! */
     gulong sel_changed_id;
     
-    gdouble data_disk_size;
-    
-    /* TODO fix this */
+    /* TODO these are something to do with drag motion - make private */
+    GtkTreePath *last_path; /* NULL */
+    guint expand_timeout_id;
+    guint autoscroll_timeout_id;
     GList *rowref_list;
+    
 } DataProject;
 
 
