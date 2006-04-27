@@ -230,13 +230,12 @@ dataproject_current_node_update(DataProject* data_project, GtkTreeIter *iter)
 
     GtkTreePath *child_path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store), iter);
     /* select the row in the tree view */
-    GtkTreeView *dir_tree = data_project->tree;
-    GtkTreeModelFilter *filter = GTK_TREE_MODEL_FILTER( gtk_tree_view_get_model(dir_tree) );    
+    GtkTreeModelFilter *filter = GTK_TREE_MODEL_FILTER( gtk_tree_view_get_model(data_project->tree) );    
     GtkTreePath *path = gtk_tree_model_filter_convert_child_path_to_path(filter, child_path);
     if(path!=NULL)
     {
-        gtk_tree_view_expand_to_path(dir_tree, path);
-        gtk_tree_view_set_cursor(dir_tree, path, NULL, FALSE);  
+        gtk_tree_view_expand_to_path(data_project->tree, path);
+        gtk_tree_view_set_cursor(data_project->tree, path, NULL, FALSE);  
         gtk_tree_path_free(path);
         
         /* only update current node if the path in the tree view is valid (if not, it is not a dir)*/
@@ -303,9 +302,8 @@ dataproject_list_view_update(DataProject *data_project, GtkTreeIter *parent_iter
     g_return_if_fail(data_project != NULL);
     g_return_if_fail(parent_iter != NULL);
     
-    GtkTreeView *file_list = data_project->list;
-    GtkListStore *store = GTK_LIST_STORE( gtk_tree_view_get_model(file_list) );     
-    dataproject_list_view_clear(file_list);
+    GtkListStore *store = GTK_LIST_STORE( gtk_tree_view_get_model(data_project->list) );     
+    dataproject_list_view_clear(data_project->list);
     
     GB_DECLARE_STRUCT(GtkTreeIter, child_iter); 
     int child_number = 0;
@@ -621,10 +619,7 @@ dataproject_add_selection(Project *project, GtkSelectionData *selection)
     }
    
     dataproject_current_node_get_iter(data_project, &parent_iter);
-   
-    GtkTreeView *dir_tree = DATAPROJECT_WIDGET(project)->tree;
-    GtkTreeModel *model = gtk_tree_view_get_model(dir_tree);
-   
+    GtkTreeModel *model = gtk_tree_view_get_model(data_project->tree);
    /* Do not disconnect the model from the view.
     * Disconnecting the tree model causes the tree view not to
     * behave as we want when we add elements
@@ -642,7 +637,7 @@ dataproject_add_selection(Project *project, GtkSelectionData *selection)
     /*expand node if posible*/
     GtkTreePath *global_path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&parent_iter);
     GtkTreePath *path = gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER(model),global_path);
-    gtk_tree_view_expand_to_path(dir_tree,path);   
+    gtk_tree_view_expand_to_path(data_project->tree,path);   
     gtk_tree_path_free(global_path);
     gtk_tree_path_free(path);   
     dataproject_list_view_update(DATAPROJECT_WIDGET(project), &parent_iter);  
@@ -720,13 +715,12 @@ dataproject_drag_motion_scroll_timeout(DataProject *data_project)
         
     gdk_threads_enter();
     /* TODO fix me */
-    GtkTreeView *dir_tree = data_project->tree;
-    gdk_window_get_pointer (gtk_tree_view_get_bin_window(dir_tree), NULL, &y, NULL);    
-    GtkAdjustment* adjust = gtk_tree_view_get_vadjustment(dir_tree);    
+    gdk_window_get_pointer (gtk_tree_view_get_bin_window(data_project->tree), NULL, &y, NULL);    
+    GtkAdjustment* adjust = gtk_tree_view_get_vadjustment(data_project->tree);    
     g_object_get(G_OBJECT(adjust), "value",&adjust_value, "upper",&adjust_upper, "page-size", &adjust_page_size, NULL);
                 
     y += adjust_value;    
-    gtk_tree_view_get_visible_rect (dir_tree, &visible_rect);
+    gtk_tree_view_get_visible_rect (data_project->tree, &visible_rect);
     
       /* see if we are near the edge. */
     offset = y - (visible_rect.y + 2 * 15); /*15 is the edge size, acording to gtktreeview.c*/
@@ -1187,11 +1181,10 @@ dataproject_on_add_folder(gpointer widget, DataProject *data_project)
     g_object_unref(icon);
 
     /*expand node if posible*/
-    GtkTreeView *dir_tree = data_project->tree;
     GtkTreeModel *model = gtk_tree_view_get_model(data_project->tree);
     GtkTreePath *global_path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &parent_iter);
     GtkTreePath *path = gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER(model), global_path);
-    gtk_tree_view_expand_row (dir_tree, path, FALSE);
+    gtk_tree_view_expand_row (data_project->tree, path, FALSE);
     
     gtk_tree_path_free(global_path);
     gtk_tree_path_free(path); 
@@ -1201,7 +1194,7 @@ dataproject_on_add_folder(gpointer widget, DataProject *data_project)
     /*we must edit the name of the new folder*/
     GtkTreeViewColumn* column =NULL;
     
-    column = gtk_tree_view_get_column (dir_tree,0);
+    column = gtk_tree_view_get_column (data_project->tree,0);
 
     GList * renderer_list = gtk_tree_view_column_get_cell_renderers(column);    
     /*get the second renderer*/
@@ -1219,7 +1212,7 @@ dataproject_on_add_folder(gpointer widget, DataProject *data_project)
     global_path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&iter);
     path = gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER(model),global_path);  
 
-    gtk_tree_view_set_cursor(dir_tree, path, column, TRUE);
+    gtk_tree_view_set_cursor(data_project->tree, path, column, TRUE);
     
     gtk_tree_path_free(global_path);
     gtk_tree_path_free(path); 
@@ -1814,9 +1807,7 @@ dataproject_save(Project *project)
     GB_LOG_FUNC
     g_return_if_fail(DATAPROJECT_IS_WIDGET(project));
     
-    GtkWidget *data_tree = DATAPROJECT_WIDGET(project)->tree;
-    g_return_if_fail(data_tree != NULL);
-    GtkTreeModel *data_model = gtk_tree_view_get_model(GTK_TREE_VIEW(data_tree));
+    GtkTreeModel *data_model = gtk_tree_view_get_model(DATAPROJECT_WIDGET(project)->tree);
     g_return_if_fail(data_model != NULL);
     
     /* TODO - show a save dialog and select a file 
@@ -1855,7 +1846,7 @@ dataproject_class_init(DataProjectClass *klass)
 
 
 static void
-dataproject_setup_list(DataProject *data_project, GtkTreeView *file_list)
+dataproject_setup_list(DataProject *data_project)
 {
     GB_LOG_FUNC
     g_return_if_fail(data_project->dataproject_compilation_store != NULL);
@@ -1865,7 +1856,7 @@ dataproject_setup_list(DataProject *data_project, GtkTreeView *file_list)
     /* so that we do not need to delete it manually*/
     GtkListStore *store = gtk_list_store_new(DATACD_LIST_NUM_COLS, GDK_TYPE_PIXBUF, 
             G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_POINTER );
-    gtk_tree_view_set_model(file_list, GTK_TREE_MODEL(store));
+    gtk_tree_view_set_model(data_project->list, GTK_TREE_MODEL(store));
     
     /*show folders first*/
     gtk_tree_sortable_set_default_sort_func(GTK_TREE_SORTABLE(store), dataproject_list_sortfunc, NULL, NULL);    
@@ -1891,7 +1882,7 @@ dataproject_setup_list(DataProject *data_project, GtkTreeView *file_list)
         (gpointer)store);
     gtk_tree_view_column_pack_start(col, content_renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, content_renderer, "text", DATACD_LIST_COL_FILE, NULL);
-    gtk_tree_view_append_column(file_list, col);    
+    gtk_tree_view_append_column(data_project->list, col);    
     
     g_value_unset(&value);
 
@@ -1905,7 +1896,7 @@ dataproject_setup_list(DataProject *data_project, GtkTreeView *file_list)
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_LIST_COL_SIZE, NULL);
     gtk_tree_view_column_set_visible(col, !show_human_size);
-    gtk_tree_view_append_column(file_list, col);
+    gtk_tree_view_append_column(data_project->list, col);
 
     /* Third column to display the human size of file/dir */
     col = gtk_tree_view_column_new();
@@ -1915,7 +1906,7 @@ dataproject_setup_list(DataProject *data_project, GtkTreeView *file_list)
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_LIST_COL_HUMANSIZE, NULL);
     gtk_tree_view_column_set_visible(col, show_human_size);
-    gtk_tree_view_append_column(file_list, col);
+    gtk_tree_view_append_column(data_project->list, col);
     
     /* Fourth column for the full path of the file/dir */
     col = gtk_tree_view_column_new();
@@ -1924,7 +1915,7 @@ dataproject_setup_list(DataProject *data_project, GtkTreeView *file_list)
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_LIST_COL_PATH, NULL);
-    gtk_tree_view_append_column(file_list, col);
+    gtk_tree_view_append_column(data_project->list, col);
     
     /* Fifth column for the session bool */
     col = gtk_tree_view_column_new();
@@ -1934,34 +1925,34 @@ dataproject_setup_list(DataProject *data_project, GtkTreeView *file_list)
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_LIST_COL_SESSION, NULL);
     gtk_tree_view_column_set_visible(col, FALSE);
-    gtk_tree_view_append_column(file_list, col);
+    gtk_tree_view_append_column(data_project->list, col);
 
     /* Set the selection mode of the file list */
-    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(file_list),
+    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(data_project->list),
             GTK_SELECTION_MULTIPLE /*GTK_SELECTION_BROWSE*/);
 
     /* Enable the file list as a drag destination */    
-    gtk_drag_dest_set(GTK_WIDGET(file_list), GTK_DEST_DEFAULT_ALL, target_entries, 
+    gtk_drag_dest_set(GTK_WIDGET(data_project->list), GTK_DEST_DEFAULT_ALL, target_entries, 
             TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
     /* Connect the function to handle the drag data */
-    g_signal_connect(file_list, "drag_data_received",
+    g_signal_connect(data_project->list, "drag_data_received",
             G_CALLBACK(dataproject_on_drag_data_received), data_project);
         
     /* connect the signal to handle right click */
-    g_signal_connect (G_OBJECT(file_list), "button-press-event",
+    g_signal_connect (G_OBJECT(data_project->list), "button-press-event",
             G_CALLBACK(dataproject_on_button_pressed), data_project);
         
     /* handle double clicks. This should allow us to navigate through the contents */   
-    g_signal_connect(G_OBJECT(file_list), "row-activated", G_CALLBACK(dataproject_on_tree_dbl_click), data_project);
+    g_signal_connect(G_OBJECT(data_project->list), "row-activated", G_CALLBACK(dataproject_on_tree_dbl_click), data_project);
 }
 
 
 static void
-dataproject_setup_tree(DataProject *data_project, GtkTreeView *dir_tree)
+dataproject_setup_tree(DataProject *data_project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(dir_tree != NULL);
+    g_return_if_fail(data_project != NULL);
     g_return_if_fail(data_project->dataproject_compilation_store != NULL);
     
     /* Create the tree store for the dir tree */
@@ -1969,7 +1960,7 @@ dataproject_setup_tree(DataProject *data_project, GtkTreeView *dir_tree)
     GtkTreeModel *store = gtk_tree_model_filter_new(GTK_TREE_MODEL(data_project->dataproject_compilation_store),NULL);
     gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER(store), 
             (GtkTreeModelFilterVisibleFunc)dataproject_treeview_filter_func, (gpointer)data_project, NULL);
-    gtk_tree_view_set_model(dir_tree, store);
+    gtk_tree_view_set_model(data_project->tree, store);
     g_object_unref(store);
     
     /* One column which has an icon renderer and a text renderer packed in */
@@ -1988,34 +1979,34 @@ dataproject_setup_tree(DataProject *data_project, GtkTreeView *dir_tree)
     g_signal_connect(renderer, "edited", (GCallback)dataproject_tree_contents_cell_edited, (gpointer)store);
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_FILE, NULL);
-    gtk_tree_view_append_column(dir_tree, col);
+    gtk_tree_view_append_column(data_project->tree, col);
     g_value_unset(&value);
     
     /* Enable the file list as a drag destination */    
-    gtk_drag_dest_set(GTK_WIDGET(dir_tree), GTK_DEST_DEFAULT_ALL, target_entries, 
+    gtk_drag_dest_set(GTK_WIDGET(data_project->tree), GTK_DEST_DEFAULT_ALL, target_entries, 
             TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
     /* Connect the function to handle the drag data */
-    g_signal_connect(dir_tree, "drag_data_received",
+    g_signal_connect(data_project->tree, "drag_data_received",
             G_CALLBACK(dataproject_on_drag_data_received), data_project);
     /* Connect the function to handle the drag data */
-    g_signal_connect(dir_tree, "drag-motion",
+    g_signal_connect(data_project->tree, "drag-motion",
             G_CALLBACK(dataproject_on_drag_motion), data_project);
 
     /* Set the selection mode of the dir tree */
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(dir_tree);
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(data_project->tree);
     gtk_tree_selection_set_mode(selection, GTK_SELECTION_BROWSE);
 
     /* Connect up the changed signal so we can populate the file list according to the selection in the dir tree */
     data_project->sel_changed_id = g_signal_connect((gpointer) selection, "changed", G_CALLBACK(dataproject_tree_sel_changed), data_project);
                 
     /* connect the signal to handle right click */
-    g_signal_connect (G_OBJECT(dir_tree), "button-press-event",
+    g_signal_connect (G_OBJECT(data_project->tree), "button-press-event",
             G_CALLBACK(dataproject_on_button_pressed), data_project);
         
     /*TODO double clicks should expand the node of the tree*/
     /* handle double clicks */  
-    /*g_signal_connect(G_OBJECT(dir_tree), "row-activated", G_CALLBACK(dataproject_on_tree_dbl_click), NULL);*/
+    /*g_signal_connect(G_OBJECT(data_project->tree), "row-activated", G_CALLBACK(dataproject_on_tree_dbl_click), NULL);*/
 }
 
 
@@ -2064,8 +2055,8 @@ dataproject_init(DataProject *project)
             
     project->dataproject_compilation_size = 0;
     
-    dataproject_setup_list(project, project->list);
-    dataproject_setup_tree(project, project->tree);
+    dataproject_setup_list(project);
+    dataproject_setup_tree(project);
     dataproject_compilation_root_add(project);
     
     GB_DECLARE_STRUCT(GtkTreeIter, root);
