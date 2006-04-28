@@ -712,7 +712,6 @@ dataproject_drag_motion_scroll_timeout(DataProject *data_project)
     gdouble adjust_page_size;
         
     gdk_threads_enter();
-    /* TODO fix me */
     gdk_window_get_pointer (gtk_tree_view_get_bin_window(data_project->tree), NULL, &y, NULL);    
     GtkAdjustment* adjust = gtk_tree_view_get_vadjustment(data_project->tree);    
     g_object_get(G_OBJECT(adjust), "value",&adjust_value, "upper",&adjust_upper, "page-size", &adjust_page_size, NULL);
@@ -1479,7 +1478,6 @@ dataproject_get_msinfo(gchar **msinfo)
 }
 
 
-/* TODO - fix this method as the option menu is part of the widget */
 void
 dataproject_on_datadisk_size_changed(GtkOptionMenu *option_menu, DataProject *data_project)
 {
