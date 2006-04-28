@@ -302,16 +302,14 @@ dataproject_list_view_update(DataProject *data_project, GtkTreeIter *parent_iter
     g_return_if_fail(data_project != NULL);
     g_return_if_fail(parent_iter != NULL);
     
-    GtkListStore *store = GTK_LIST_STORE( gtk_tree_view_get_model(data_project->list) );     
+    GtkListStore *store = GTK_LIST_STORE( gtk_tree_view_get_model(data_project->list) );
     dataproject_list_view_clear(data_project->list);
     
     GB_DECLARE_STRUCT(GtkTreeIter, child_iter); 
     int child_number = 0;
     /* Add the childrens of the parent iter to the */
     while(gtk_tree_model_iter_nth_child (GTK_TREE_MODEL(data_project->dataproject_compilation_store),
-                                             &child_iter,
-                                             parent_iter,
-                                            child_number))
+                                             &child_iter, parent_iter, child_number))
     {
         GdkPixbuf *icon = NULL;
         gchar *base_name = NULL, *human_readable = NULL, *file_name = NULL;
@@ -1095,12 +1093,14 @@ dataproject_tree_contents_cell_edited(GtkCellRendererText *cell,
     if(gtk_tree_model_get_iter_from_string(gtk_tree_view_get_model(data_project->tree), &iter1, path_string))
     {
         GB_DECLARE_STRUCT(GtkTreeIter, child_iter);
-        gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER(gtk_tree_view_get_model(data_project->tree)), &child_iter, &iter1);
+        gtk_tree_model_filter_convert_iter_to_child_iter(
+                GTK_TREE_MODEL_FILTER(gtk_tree_view_get_model(data_project->tree)), &child_iter, &iter1);
         
         GValue val = {0};
         g_value_init(&val, G_TYPE_STRING);
         g_value_set_string(&val, new_text);
-        gtk_tree_store_set_value(data_project->dataproject_compilation_store, &child_iter, DATACD_COL_FILE, &val);
+        gtk_tree_store_set_value(data_project->dataproject_compilation_store, &child_iter, 
+                DATACD_COL_FILE, &val);
         g_value_unset(&val);
     }
 
@@ -1118,20 +1118,18 @@ dataproject_tree_contents_cell_edited(GtkCellRendererText *cell,
 
 
 static void 
-dataproject_on_edit(gpointer widget, gpointer user_data)
+dataproject_on_edit(gpointer widget, GtkTreeView *tree_view)
 {
     GB_LOG_FUNC
-    g_return_if_fail(user_data != NULL);
+    g_return_if_fail(tree_view != NULL);
     
-    GtkTreeView *view = GTK_TREE_VIEW(user_data);
-    GtkTreeModel *model = gtk_tree_view_get_model(view);
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(tree_view);
     GList *selected_path_list =  gtk_tree_selection_get_selected_rows(selection, NULL);
-    GtkTreePath *path = g_list_nth_data(selected_path_list,0);
+    GtkTreePath *path = g_list_nth_data(selected_path_list, 0);
     
-    if(model != NULL && path != NULL)
+    if(path != NULL)
     {   
-        GtkTreeViewColumn *column = gtk_tree_view_get_column (view,0);
+        GtkTreeViewColumn *column = gtk_tree_view_get_column(tree_view, 0);
         GList *renderer_list = gtk_tree_view_column_get_cell_renderers(column);    
         /*get the second renderer*/
         GtkCellRenderer *text_renderer =  GTK_CELL_RENDERER(g_list_nth_data(renderer_list,1));
@@ -1142,7 +1140,7 @@ dataproject_on_edit(gpointer widget, gpointer user_data)
         g_value_set_boolean(&value, TRUE);  
         g_object_set_property(G_OBJECT(text_renderer), "editable", &value);
         g_value_unset(&value);  
-        gtk_tree_view_set_cursor(view, path, column, TRUE); 
+        gtk_tree_view_set_cursor(tree_view, path, column, TRUE); 
     }       
     g_list_foreach (selected_path_list, (GFunc)gtk_tree_path_free, NULL);
     g_list_free (selected_path_list);
@@ -1246,7 +1244,7 @@ dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProj
             if(count == 1)
             {
                 gbcommon_append_menu_item_stock(menu, _("_Edit name"), GTK_STOCK_DND, 
-                    (GCallback)dataproject_on_edit, data_project);
+                    (GCallback)dataproject_on_edit, data_project->list);
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
             }
             gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
@@ -1281,7 +1279,7 @@ dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProj
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
                 
                 gbcommon_append_menu_item_stock(menu, _("_Edit name"), GTK_STOCK_DND, 
-                                                (GCallback)dataproject_on_edit, data_project);
+                                                (GCallback)dataproject_on_edit, data_project->tree);
 
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());     
                 if(!dataproject_compilation_is_root(data_project, &global_iter))
@@ -1878,8 +1876,7 @@ dataproject_setup_list(DataProject *data_project)
 
     content_renderer = gtk_cell_renderer_text_new();
     g_object_set_property(G_OBJECT(content_renderer), "editable", &value);
-    g_signal_connect(content_renderer, "edited", (GCallback)dataproject_list_contents_cell_edited, 
-        (gpointer)store);
+    g_signal_connect(content_renderer, "edited", (GCallback)dataproject_list_contents_cell_edited, (gpointer)data_project);
     gtk_tree_view_column_pack_start(col, content_renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, content_renderer, "text", DATACD_LIST_COL_FILE, NULL);
     gtk_tree_view_append_column(data_project->list, col);    
@@ -1976,7 +1973,7 @@ dataproject_setup_tree(DataProject *data_project)
 
     renderer = gtk_cell_renderer_text_new();
     g_object_set_property(G_OBJECT(renderer), "editable", &value);
-    g_signal_connect(renderer, "edited", (GCallback)dataproject_tree_contents_cell_edited, (gpointer)store);
+    g_signal_connect(renderer, "edited", (GCallback)dataproject_tree_contents_cell_edited, (gpointer)data_project);
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATACD_COL_FILE, NULL);
     gtk_tree_view_append_column(data_project->tree, col);
