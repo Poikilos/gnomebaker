@@ -23,7 +23,6 @@
 #include "preferences.h"
 #include "devices.h"
 #include "gbcommon.h"
-#include "datacd.h"
 
 static const guint xpad = 12;
 static const guint ypad = 0;
@@ -530,7 +529,8 @@ startdlg_new(const BurnType burn_type)
     start_dlg->bibliography = GTK_ENTRY(gtk_entry_new_with_max_length(37));
     g_signal_connect ((gpointer) start_dlg->browse, "clicked", G_CALLBACK (startdlg_on_browse_clicked), start_dlg);
     
-    gchar *vol_id = datacd_compilation_get_volume_id();
+    /* FIXME - need to pass in the project */
+    gchar *vol_id = NULL;/*datacd_compilation_get_volume_id();*/
     			
 	switch(burn_type)
 	{		

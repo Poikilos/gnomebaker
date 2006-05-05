@@ -26,7 +26,6 @@ gnomebaker_SOURCES =					\
 	startdlg.c		startdlg.h		\
 	prefsdlg.c		prefsdlg.h		\
 	splashdlg.c		splashdlg.h		\
-	datacd.c		datacd.h		\
 	gbcommon.h		gbcommon.c		\
 	selectdevicedlg.c 	selectdevicedlg.h	\
 	execfunctions.c		execfunctions.h		\
