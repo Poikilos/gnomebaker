@@ -63,11 +63,17 @@ project_init(Project *project)
     gtk_widget_show(hbox5);
     gtk_box_pack_start(GTK_BOX(project), hbox5, FALSE, TRUE, 0);
     gtk_container_set_border_width(GTK_CONTAINER(hbox5), 5);
-    
+
+#ifndef CAIRO_WIDGETS
     project->progress_bar = GTK_PROGRESS_BAR(gtk_progress_bar_new());
     gtk_widget_show(GTK_WIDGET(project->progress_bar));
     gtk_box_pack_start(GTK_BOX(hbox5), GTK_WIDGET(project->progress_bar), TRUE, TRUE, 0);
     gtk_progress_bar_set_text(project->progress_bar, _("0%"));
+#else
+	project->progress_bar =  GB_CAIRO_FILLBAR(gb_cairo_fillbar_new()) ;
+	gtk_widget_show(GTK_WIDGET(project->progress_bar));
+	gtk_box_pack_start(GTK_BOX(hbox5), GTK_WIDGET(project->progress_bar), TRUE, TRUE, 0);
+#endif
 
     project->menu = GTK_OPTION_MENU(gtk_option_menu_new());
     gtk_widget_show(GTK_WIDGET(project->menu));
