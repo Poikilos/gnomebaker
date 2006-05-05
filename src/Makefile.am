@@ -26,7 +26,6 @@ gnomebaker_SOURCES =					\
 	startdlg.c		startdlg.h		\
 	prefsdlg.c		prefsdlg.h		\
 	splashdlg.c		splashdlg.h		\
-	audiocd.c		audiocd.h		\
 	datacd.c		datacd.h		\
 	gbcommon.h		gbcommon.c		\
 	selectdevicedlg.c 	selectdevicedlg.h	\
@@ -34,6 +33,7 @@ gnomebaker_SOURCES =					\
 	media.c			media.h		\
 	project.c project.h			\
 	dataproject.c dataproject.h \
-	audioproject.c audioproject.h
+	audioproject.c audioproject.h \
+	cairofillbar.c cairofillbar.h
 	
 gnomebaker_LDADD =  @GNOMEBAKER_LIBS@

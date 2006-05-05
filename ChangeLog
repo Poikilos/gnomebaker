@@ -17,6 +17,7 @@ Version 0.5.2
 * Move the show hidden files and show human readable file size options to the main window menu.
 * Tidy up the menus when we are not showing the file browser
 * Add overburning support for cds. Currently allows 2% overburning until I determine a more scientific approach.
+* Apply Ignacio's cairo progress bar patch.
 
 
 Version 0.5.1

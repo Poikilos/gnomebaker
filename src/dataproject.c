@@ -384,7 +384,7 @@ dataproject_get_datadisk_size(DataProject* data_project)
     return data_project->data_disk_size;
 }
 
-
+#ifndef CAIRO_WIDGETS
 static gchar*
 dataproject_format_progress_text(DataProject* data_project, gdouble current_size)
 {
@@ -416,7 +416,7 @@ dataproject_format_progress_text(DataProject* data_project, gdouble current_size
     g_free(remaining);
     return buf;
 }   
-
+#endif
 
 static void 
 dataproject_update_progress_bar(DataProject *data_project)
@@ -424,8 +424,13 @@ dataproject_update_progress_bar(DataProject *data_project)
     GB_LOG_FUNC
     g_return_if_fail(data_project != NULL);
     
+#ifndef CAIRO_WIDGETS   
     /* Now update the progress bar with the cd size */
-    GtkProgressBar *progress_bar = PROJECT_WIDGET(data_project)->progress_bar;
+    GtkProgressBar *progress_bar = PROJECT_WIDGET(data_project)->progress_bar;    
+#else
+	GBCairoFillBar *progress_bar = PROJECT_WIDGET(data_project)->progress_bar;
+#endif
+
     g_return_if_fail(progress_bar != NULL);
     
     const gdouble disk_size = dataproject_get_datadisk_size(data_project);   
@@ -433,10 +438,14 @@ dataproject_update_progress_bar(DataProject *data_project)
     if (data_project->dataproject_compilation_size < 0 || data_project->dataproject_compilation_size == 0)
     {
         data_project->dataproject_compilation_size = 0;
+#ifndef CAIRO_WIDGETS 
         gtk_progress_bar_set_fraction(progress_bar, 0.0);
         gchar *buf = dataproject_format_progress_text(data_project, 0.0);
         gtk_progress_bar_set_text(progress_bar, buf);
         g_free(buf);
+#else
+		gb_cairo_fillbar_set_project_total_size(progress_bar,0);
+#endif
         
         /* disable the create button as there's nothing on the disk */
         gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(data_project)->button), FALSE);
@@ -449,30 +458,39 @@ dataproject_update_progress_bar(DataProject *data_project)
         const gboolean is_cd = data_project->data_disk_size < data_disk_sizes[DVD_4GB].size;
         
         gdouble fraction = 0.0;
-    
+#ifndef CAIRO_WIDGETS     
         if(disk_size > 0)
             fraction = (gdouble)data_project->dataproject_compilation_size/disk_size;
-            
+#endif             
         if(is_cd && (data_project->dataproject_compilation_size > disk_size) && 
                 (data_project->dataproject_compilation_size < (disk_size * overburn_percent)))
         {
-            gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 1.0); 
+#ifndef CAIRO_WIDGETS 
+            gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 1.0);
+#endif 
             gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(data_project)->button), TRUE);
         }
         else if(data_project->dataproject_compilation_size > disk_size)
         {
-            gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 1.0); 
+#ifndef CAIRO_WIDGETS 
+            gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 1.0);
+#endif 
             gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(data_project)->button), FALSE);
         }
         else
         {
+#ifndef CAIRO_WIDGETS 
             gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), fraction);
+#endif
             gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(data_project)->button), TRUE);
         }
-    
+#ifndef CAIRO_WIDGETS     
         gchar *buf = dataproject_format_progress_text(data_project, data_project->dataproject_compilation_size);
         gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progress_bar), buf);
         g_free(buf);
+#else
+		gb_cairo_fillbar_set_project_total_size(progress_bar,data_project->dataproject_compilation_size);
+#endif
     }
 }
 
@@ -1484,6 +1502,12 @@ dataproject_on_datadisk_size_changed(GtkOptionMenu *option_menu, DataProject *da
     GB_LOG_FUNC
     g_return_if_fail(option_menu != NULL);
     g_return_if_fail(data_project != NULL);
+    
+#ifdef CAIRO_WIDGETS   
+    gb_cairo_fillbar_set_disk_size(PROJECT_WIDGET(data_project)->progress_bar,
+									dataproject_get_datadisk_size(data_project),
+									FALSE, overburn_percent, TRUE);
+#endif
         
     dataproject_update_progress_bar(data_project);
     preferences_set_int(GB_DATA_DISK_SIZE, gtk_option_menu_get_history(option_menu));
@@ -2035,7 +2059,7 @@ dataproject_init(DataProject *project)
     gtk_widget_show(GTK_WIDGET(project->list));
     gtk_container_add(GTK_CONTAINER(scrolledwindow14), GTK_WIDGET(project->list));
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(project->list), TRUE);
-    
+  
     
         /* Create the global store. It has the same structure as the list view, but it is a tree (*obvious*)
      * 1-icon 2-name
@@ -2070,9 +2094,21 @@ dataproject_init(DataProject *project)
     g_signal_connect(G_OBJECT(PROJECT_WIDGET(project)->menu), "changed", 
             G_CALLBACK(dataproject_on_datadisk_size_changed), project);
         
-    dataproject_update_progress_bar(project);
-
     project_set_title(PROJECT_WIDGET(project), _("<b>Data project</b>"));
+
+#ifdef CAIRO_WIDGETS
+
+	gb_cairo_fillbar_set_disk_size(PROJECT_WIDGET(project)->progress_bar,
+									dataproject_get_datadisk_size(project),
+									FALSE, overburn_percent, TRUE);
+
+#else
+	dataproject_get_datadisk_size(project);
+#endif
+
+	dataproject_update_progress_bar(project);
+    
+ 
 }
 
 

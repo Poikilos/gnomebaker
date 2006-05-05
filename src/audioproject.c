@@ -111,7 +111,7 @@ audioproject_get_audioproject_size(AudioProject* audio_project)
     return audio_project->selected_size;
 }
 
-
+#ifndef CAIRO_WIDGETS
 static gchar*
 audioproject_format_progress_text(AudioProject *audio_project)
 {
@@ -125,7 +125,7 @@ audioproject_format_progress_text(AudioProject *audio_project)
     gint m2 = (((gint)((audio_project->selected_size * 60) - audio_project->compilation_seconds))-ss2)/60;        
     return g_strdup_printf(_("%d mins %d secs used - %d mins %d secs remaining"), m1, ss1, m2, ss2);    
 }   
-
+#endif
 
 static gboolean 
 audioproject_update_progress_bar(AudioProject *audio_project, gboolean add, gdouble seconds)
@@ -133,8 +133,14 @@ audioproject_update_progress_bar(AudioProject *audio_project, gboolean add, gdou
     GB_LOG_FUNC
     g_return_if_fail(audio_project != NULL);
     
-    gboolean ok = TRUE;    
+    gboolean ok = TRUE;
+    
+#ifndef CAIRO_WIDGETS     
     GtkProgressBar *progress_bar = PROJECT_WIDGET(audio_project)->progress_bar;
+#else
+	GBCairoFillBar *progress_bar = PROJECT_WIDGET(audio_project)->progress_bar;
+#endif
+
     const gdouble disk_size = audioproject_get_audioproject_size(audio_project) * 60;
     
     if(add)
@@ -158,35 +164,45 @@ audioproject_update_progress_bar(AudioProject *audio_project, gboolean add, gdou
     if (audio_project->compilation_seconds <= 0.0)
     {
         audio_project->compilation_seconds = 0;
+#ifndef CAIRO_WIDGETS 
         gtk_progress_bar_set_fraction(progress_bar, 0.0);
         gchar *buf = audioproject_format_progress_text(audio_project);
         gtk_progress_bar_set_text(progress_bar, buf);
         g_free(buf);
-        
+#else
+		gb_cairo_fillbar_set_project_total_size(progress_bar,0);
+#endif        
         /* disable the create button as there's nothing on the disk */
         gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), FALSE);
     }   
     else
     {
         gdouble fraction = 0.0;
-    
+#ifndef CAIRO_WIDGETS    
         if(disk_size > 0)
             fraction = (gdouble)audio_project->compilation_seconds/disk_size;
-            
+#endif            
         if(audio_project->compilation_seconds > disk_size)
         {
+#ifndef CAIRO_WIDGETS 
             gtk_progress_bar_set_fraction(progress_bar, 1.0);
+#endif
             gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), FALSE);
         }
         else
         {
+#ifndef CAIRO_WIDGETS 
             gtk_progress_bar_set_fraction(progress_bar, fraction);
+#endif
             gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), TRUE);
         }
-    
+#ifndef CAIRO_WIDGETS     
         gchar *buf = audioproject_format_progress_text(audio_project);
         gtk_progress_bar_set_text(progress_bar, buf);
         g_free(buf);
+#else
+		gb_cairo_fillbar_set_project_total_size(progress_bar,audio_project->compilation_seconds);
+#endif
     }
     
     return ok;
@@ -464,8 +480,11 @@ audioproject_on_audioproject_size_changed(GtkOptionMenu *option_menu, AudioProje
     GB_LOG_FUNC
     g_return_if_fail(option_menu != NULL);
     g_return_if_fail(audio_project != NULL);
-        
+#ifndef CAIRO_WIDGETS        
     GtkProgressBar *progress_bar = PROJECT_WIDGET(audio_project)->progress_bar;
+#else
+	GBCairoFillBar *progress_bar = PROJECT_WIDGET(audio_project)->progress_bar;
+#endif
     g_return_if_fail(progress_bar != NULL);
     
     audio_project->selected_size = audioproject_get_audioproject_size(audio_project);     
@@ -478,22 +497,33 @@ audioproject_on_audioproject_size_changed(GtkOptionMenu *option_menu, AudioProje
         
         /* disable the create button*/
         gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), FALSE);
-        gtk_progress_bar_set_fraction(progress_bar, 1.0); 
+#ifndef CAIRO_WIDGETS
+        gtk_progress_bar_set_fraction(progress_bar, 1.0);
+#endif 
     }
     else if(fraction > 0.0)
     {
+#ifndef CAIRO_WIDGETS
         gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), fraction);
+#endif
         gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), TRUE);
     }
     else 
     {
         gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), FALSE);
     }
+#ifndef CAIRO_WIDGETS
     
     gchar *buf = audioproject_format_progress_text(audio_project);
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progress_bar), buf);
     preferences_set_int(GB_AUDIO_DISK_SIZE, gtk_option_menu_get_history(option_menu));
-    g_free(buf);    
+    g_free(buf);
+#else
+	gb_cairo_fillbar_set_disk_size(progress_bar,
+									audio_project->selected_size *60,
+									TRUE, 1, FALSE);
+	gb_cairo_fillbar_set_project_total_size(progress_bar,audio_project->compilation_seconds);
+#endif    
 }
 
 
@@ -684,11 +714,15 @@ audioproject_clear(Project *project)
     
     audio_project->compilation_seconds = 0.0;
     
-    GtkTreeModel *file_model = gtk_tree_view_get_model(audio_project->tree);    
+    GtkTreeModel *file_model = gtk_tree_view_get_model(audio_project->tree);
+#ifndef CAIRO_WIDGETS    
     gchar *buf = audioproject_format_progress_text(audio_project);
     gtk_progress_bar_set_text(project->progress_bar, buf);
     g_free(buf);
     gtk_progress_bar_set_fraction(project->progress_bar, 0.0);
+#else
+	gb_cairo_fillbar_set_project_total_size(project->progress_bar,0);
+#endif
 
     gtk_widget_set_sensitive(GTK_WIDGET(PROJECT_WIDGET(audio_project)->button), FALSE);
 
@@ -1059,10 +1093,19 @@ audioproject_init(AudioProject *audio_project)
             
     gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(audio_project)->menu, audio_disk_sizes, 
             (sizeof(audio_disk_sizes)/sizeof(DiskSize)), preferences_get_int(GB_AUDIO_DISK_SIZE));      
-            
-    audioproject_get_audioproject_size(audio_project);
         
     project_set_title(PROJECT_WIDGET(audio_project), _("<b>Audio project</b>"));
+    
+#ifdef CAIRO_WIDGETS
+
+	gb_cairo_fillbar_set_disk_size(PROJECT_WIDGET(audio_project)->progress_bar,
+									audioproject_get_audioproject_size(audio_project)*60,
+									TRUE, 1, FALSE);
+#else
+	audioproject_get_audioproject_size(audio_project);
+#endif
+
+    
 }
 
 

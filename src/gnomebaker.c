@@ -63,7 +63,7 @@ static const gchar *const widget_clear_button_alt = "toolbutton14";
 
 
 /* Comment this out to use gb's internal file browser rather than the standard gtk widget */
-/*#define USE_GTK_FILE_CHOOSER 1*/
+#define USE_GTK_FILE_CHOOSER 1
 
 static GladeXML *xml = NULL;
 
@@ -133,10 +133,10 @@ gnomebaker_on_show_file_browser(GtkCheckMenuItem *check_menu_item, gpointer user
 #ifndef USE_GTK_FILE_CHOOSER       	
 	GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);	
 	if(show) gtk_widget_show(hpaned3);
-	else gtk_widget_hide(hpaned3);
+	else gtk_widget_hide(hpaned3);    
 #else
     if(show) gtk_widget_show(file_chooser);
-    else gtk_widget_hide(file_chooser);
+    else gtk_widget_hide(file_chooser);    
 #endif    
 }
 
@@ -210,6 +210,7 @@ gnomebaker_new()
 #else     
     file_chooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_OPEN);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE);
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
     gtk_widget_show(file_chooser);
     GtkWidget *vpane = glade_xml_get_widget(xml, "vpaned1");
     GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);   

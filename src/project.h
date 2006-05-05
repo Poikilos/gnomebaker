@@ -22,7 +22,15 @@
 #ifndef _PROJECT_H
 #define _PROJECT_H
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <gtk/gtk.h>
+
+#ifdef CAIRO_WIDGETS
+#include "cairofillbar.h"
+#endif
 
 G_BEGIN_DECLS
 
@@ -55,7 +63,11 @@ typedef struct
     
     GtkOptionMenu *menu;
     GtkButton *button;
+#ifdef CAIRO_WIDGETS
+	GBCairoFillBar *progress_bar;
+#else
     GtkProgressBar *progress_bar;
+#endif
     GtkLabel *title;
     GtkButton *close_button;
     gboolean is_dirty;

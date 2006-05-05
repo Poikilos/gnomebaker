@@ -23,6 +23,7 @@ dnl Library Dependencies, uses pkg-config to detect correct version, etc
 dnl
 dnl --------------------------------------------------------------------
 
+AC_SUBST(GTK_CAIRO_REQUIRED, 2.8.0)
 AC_SUBST(LIBNOTIFY_REQUIRED, 0.2.1)
 AC_SUBST(LIBGNOME_REQUIRED, 2.8.1)
 AC_SUBST(GTK_REQUIRED, 2.4.0)
@@ -40,7 +41,13 @@ PKG_CHECK_MODULES(GNOMEBAKER,
 	libglade-2.0 >= $LIBGLADE_REQUIRED
 ])
 
-
+dnl ---------------------------------------------------------------------------
+dnl - Is cairo available?
+dnl ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(LIBNOTIFY, gtk+-2.0 >= $GTK_CAIRO_REQUIRED, have_gtk_cairo=yes, have_gtk_cairo=no)
+if test x$have_gtk_cairo = xyes; then
+	AC_DEFINE(CAIRO_WIDGETS,1,[cairo support])
+fi
 
 dnl ---------------------------------------------------------------------------
 dnl - Is libnotify available?
@@ -150,6 +157,7 @@ echo "
         compiler:                  ${CC}
         cflags:                    ${CFLAGS}
         libnotify support:         ${have_libnotify}
+        cairo support:             ${have_gtk_cairo}
         gstreamer 0.10:            ${have_gstreamer_010}
         gstreamer 0.8:             ${have_gstreamer_08}
         gnomebaker libs:           ${GNOMEBAKER_LIBS}
