@@ -100,7 +100,7 @@ typedef struct
 
 GType dataproject_get_type();
 GtkWidget *dataproject_new();
-
+gchar* dataproject_compilation_get_volume_id(DataProject *data_project);
 
 G_END_DECLS
 

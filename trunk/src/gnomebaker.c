@@ -251,13 +251,7 @@ gnomebaker_new()
 	if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED) == TRUE)
 		gtk_window_maximize(GTK_WINDOW(main_window));
 
-	g_main_context_iteration(NULL, TRUE);
-	
-	GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
-	gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
-    gtk_notebook_remove_page(GTK_NOTEBOOK(notebook), -1);
-    /*datacd_new();*/
-    
+	g_main_context_iteration(NULL, TRUE);	
     gtk_widget_show_all(main_window);
 	
     /* Check preferences to see if we'll show/hide the file browser */
