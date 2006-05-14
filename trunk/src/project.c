@@ -211,7 +211,8 @@ project_close(Project *project)
 }
 
 
-void project_move_selected_up(Project *project)
+void
+project_move_selected_up(Project *project)
 {
     GB_LOG_FUNC   
     g_return_if_fail(PROJECT_IS_WIDGET(project));
@@ -219,10 +220,32 @@ void project_move_selected_up(Project *project)
 }
 
 
-void project_move_selected_down(Project *project)
+void
+project_move_selected_down(Project *project)
 {
     GB_LOG_FUNC   
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->move_selected_down(project);
 }
+
+
+gboolean
+project_is_dirty(Project *project)
+{
+    GB_LOG_FUNC   
+    g_return_val_if_fail(PROJECT_IS_WIDGET(project), FALSE);
+    return project->is_dirty;
+}
+
+
+void
+project_set_dirty(Project *project, gboolean dirty)
+{
+    GB_LOG_FUNC   
+    g_return_if_fail(PROJECT_IS_WIDGET(project));
+    project->is_dirty = dirty;
+}
+
+
+
 

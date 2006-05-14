@@ -77,7 +77,7 @@ typedef struct
     
     /*I think this is better than relying in the progressbar to store the size*/
     guint64 dataproject_compilation_size;
-    
+    gchar *msinfo;    
     gdouble data_disk_size;
     
     /* callback id, so we can block it! */

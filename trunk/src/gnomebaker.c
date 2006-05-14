@@ -105,10 +105,7 @@ gnomebaker_on_show_file_browser(GtkCheckMenuItem *check_menu_item, gpointer user
 	preferences_set_bool(GB_SHOW_FILE_BROWSER, show);
     
     if(show) gtk_widget_show(glade_xml_get_widget(xml, widget_middle_toolbar));
-    else gtk_widget_hide(glade_xml_get_widget(xml, widget_middle_toolbar));
-    
-    if(!show) gtk_widget_show(glade_xml_get_widget(xml, "separatortoolitem8"));
-    else gtk_widget_hide(glade_xml_get_widget(xml, "separatortoolitem8"));
+    else gtk_widget_hide(glade_xml_get_widget(xml, widget_middle_toolbar));   
     
     if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_add_button_alt));
     else gtk_widget_hide(glade_xml_get_widget(xml, widget_add_button_alt));
@@ -131,10 +128,16 @@ gnomebaker_on_show_file_browser(GtkCheckMenuItem *check_menu_item, gpointer user
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_menu), show);
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_button), show);	
 #ifndef USE_GTK_FILE_CHOOSER       	
+
+    if(!show) gtk_widget_show(glade_xml_get_widget(xml, "separatortoolitem8"));
+    else gtk_widget_hide(glade_xml_get_widget(xml, "separatortoolitem8"));
+    
 	GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);	
 	if(show) gtk_widget_show(hpaned3);
 	else gtk_widget_hide(hpaned3);    
 #else
+    gtk_widget_hide(glade_xml_get_widget(xml, "separatortoolitem8"));
+
     if(show) gtk_widget_show(file_chooser);
     else gtk_widget_hide(file_chooser);    
 #endif    
@@ -700,9 +703,12 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(export_menu, FALSE);
 #ifdef USE_GTK_FILE_CHOOSER    
             /* We must ref before remove otherwise our filter gets destroyed */
-            g_object_ref(audio_filter);
-            gtk_file_chooser_remove_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);            
-#endif            
+            if(gtk_file_chooser_get_filter(GTK_FILE_CHOOSER(file_chooser)) == audio_filter)
+            {
+                g_object_ref(audio_filter);
+                gtk_file_chooser_remove_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);
+            }
+#endif
         } 
         else if(AUDIOPROJECT_IS_WIDGET(project))
         {
@@ -906,8 +912,9 @@ gnomebaker_on_close_project(gpointer widget, Project *project)
         project = gnomebaker_get_current_project();
     if(PROJECT_IS_WIDGET(project))
     {
-        gint index = gtk_notebook_page_num(notebook, GTK_WIDGET(project));
-        /*project_delete(project);*/
+        gint index = gtk_notebook_page_num(notebook, GTK_WIDGET(project));        
+        project_close(project);
+        gtk_widget_destroy(GTK_WIDGET(project));
         gtk_notebook_remove_page(notebook, index);
     }
 }
@@ -921,11 +928,10 @@ gnomebaker_select_files_or_folders(const gchar* text, GtkFileChooserAction actio
     GtkSelectionData *selection_data = NULL;
     GtkWidget *file_chooser = gtk_file_chooser_dialog_new(text, NULL, action, GTK_STOCK_CANCEL, 
             GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
-    
-    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE);     
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE);
     if(gtk_dialog_run(GTK_DIALOG(file_chooser)) == GTK_RESPONSE_OK)
     {
-        
         GSList *files = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(file_chooser));
         /*gchar **uris = g_malloc0(g_slist_length(files) * sizeof(gchar*));*/
         

@@ -557,6 +557,7 @@ gbcommon_show_file_chooser(const gchar *title, GtkFileChooserAction action,
     
     GtkWidget *file_chooser = gtk_file_chooser_dialog_new( title , NULL, action, GTK_STOCK_CANCEL, 
             GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), FALSE);
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), custom_filter);
     if(show_all_file_filter || custom_filter == NULL)
