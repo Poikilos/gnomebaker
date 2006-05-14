@@ -912,10 +912,18 @@ gnomebaker_on_close_project(gpointer widget, Project *project)
         project = gnomebaker_get_current_project();
     if(PROJECT_IS_WIDGET(project))
     {
-        gint index = gtk_notebook_page_num(notebook, GTK_WIDGET(project));        
-        project_close(project);
-        gtk_widget_destroy(GTK_WIDGET(project));
-        gtk_notebook_remove_page(notebook, index);
+        gboolean close = TRUE;
+        if(project_is_dirty(project))
+        {
+            /* show a message box */
+        }
+        if(close)
+        {
+            gint index = gtk_notebook_page_num(notebook, GTK_WIDGET(project));        
+            project_close(project);
+            gtk_widget_destroy(GTK_WIDGET(project));
+            gtk_notebook_remove_page(notebook, index);
+        }
     }
 }
 

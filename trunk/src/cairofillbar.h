@@ -55,6 +55,7 @@ typedef struct _GBCairoFillBar GBCairoFillBar;
 typedef struct _GBCairoFillBarClass GBCairoFillBarClass;
 typedef struct _GBCairoFillBarPrivate GBCairoFillBarPrivate;
 
+
 struct _GBCairoFillBar
 {
 	GtkDrawingArea parent;
@@ -63,27 +64,21 @@ struct _GBCairoFillBar
 	GBCairoFillBarPrivate *priv;
 };
 
+
 struct _GBCairoFillBarClass
 {
 	GtkDrawingAreaClass parent_class;
 };
 
 
-
 GtkWidget *gb_cairo_fillbar_new (void);
-
-gchar* gb_cairo_fillbar_get_current_text (GBCairoFillBar *bar);
-
-void gb_cairo_fillbar_set_project_total_size(GBCairoFillBar * bar, gdouble project_total_size);
-void gb_cairo_fillbar_set_disk_size(GBCairoFillBar * bar,
-							gdouble disk_size,
-							gboolean is_time,
-							gdouble tolerance_percent,
-							gboolean allow_overburn);
-							
-gdouble gb_cairo_fillbar_get_disk_size(GBCairoFillBar * bar);
-gboolean gb_cairo_fillbar_get_is_time(GBCairoFillBar * bar);
-gdouble gb_cairo_fillbar_get_project_total_size(GBCairoFillBar * bar);
+gchar *gb_cairo_fillbar_get_current_text (GBCairoFillBar *bar);
+void gb_cairo_fillbar_set_project_total_size(GBCairoFillBar *bar, gdouble project_total_size);
+void gb_cairo_fillbar_set_disk_size(GBCairoFillBar *bar, gdouble disk_size, gboolean is_time,
+        gdouble tolerance_percent, gboolean allow_overburn);
+gdouble gb_cairo_fillbar_get_disk_size(GBCairoFillBar *bar);
+gboolean gb_cairo_fillbar_get_is_time(GBCairoFillBar *bar);
+gdouble gb_cairo_fillbar_get_project_total_size(GBCairoFillBar *bar);
 
 
 G_END_DECLS
