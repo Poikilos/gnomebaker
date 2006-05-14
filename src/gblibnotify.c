@@ -93,11 +93,11 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
        with the auto* magic stuff*/
     GdkPixbuf *icon_pixbuf = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);    
     /* I think they changed the api between 0.3.0 and 0.3.1+ */
-#if (LIBNOTIFY_VERSION_MICRO >= 1)
-    notify_notification_set_icon_from_pixbuf (global_notify, icon_pixbuf);
+#if (LIBNOTIFY_VERSION_MINOR <= 3 && LIBNOTIFY_VERSION_MICRO < 2)
+    notify_notification_set_icon_data_from_pixbuf(global_notify, icon_pixbuf);
 #else
-    notify_notification_set_icon_data_from_pixbuf (global_notify, icon_pixbuf); 
-#endif    
+    notify_notification_set_icon_from_pixbuf(global_notify, icon_pixbuf);
+#endif
     notify_notification_set_timeout (global_notify, timeout_seconds * MILISECONDS_IN_SECOND);
 
 	/*if (point) 

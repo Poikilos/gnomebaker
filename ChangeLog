@@ -18,6 +18,9 @@ Version 0.5.2
 * Tidy up the menus when we are not showing the file browser
 * Add overburning support for cds. Currently allows 2% overburning until I determine a more scientific approach.
 * Apply Ignacio's cairo progress bar patch.
+* Apply patch from Joseph E. Sacco to support libnotify-0.4
+* Default all open and save file choosers to user's home dir
+* When not showing file browser, add button now allows selection of files or folders.
 
 
 Version 0.5.1

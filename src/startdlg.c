@@ -554,11 +554,11 @@ startdlg_new(const BurnType burn_type)
             /* not supported yet */	
 			break;
 		case create_data_cd:
-			if(vol_id!=NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
+			if(vol_id != NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
             startdlg_create_data_disk_section(start_dlg);
             break;		
         case append_data_cd:        
-			if(vol_id!=NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
+			if(vol_id != NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
             startdlg_append_data_disk_section(start_dlg);
             g_free(vol_id);
 			break;
@@ -573,12 +573,12 @@ startdlg_new(const BurnType burn_type)
             startdlg_format_dvdrw_section(start_dlg);
 			break;
 		case create_data_dvd:
-			if(vol_id!=NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
+			if(vol_id != NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
             start_dlg->dvdmode = TRUE;
             startdlg_create_data_disk_section(start_dlg);
             break;
         case append_data_dvd:
-			if(vol_id!=NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
+			if(vol_id != NULL)  gtk_entry_set_text(start_dlg->volume_id, vol_id );
             start_dlg->dvdmode = TRUE;
             startdlg_append_data_disk_section(start_dlg);
 			break;
