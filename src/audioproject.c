@@ -152,7 +152,7 @@ audioproject_update_progress_bar(AudioProject *audio_project, gboolean add, gdou
         else /*do not add*/
         {
             gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-            _("Track is too large to fit in the remaining space on the CD"));
+                    _("Track is too large to fit in the remaining space on the CD"));
             ok = FALSE;
         }
     }
@@ -238,7 +238,7 @@ audioproject_on_open(gpointer widget, gpointer user_data)
     GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
     gtk_tree_selection_selected_foreach(selection, 
-        (GtkTreeSelectionForeachFunc)gbcommon_get_first_selected_row, &iter);   
+            (GtkTreeSelectionForeachFunc)gbcommon_get_first_selected_row, &iter);   
     gchar *file = NULL;
     gtk_tree_model_get(model, &iter, AUDIO_COL_FILE, &file, -1);
     gbcommon_launch_app_for_file(file);
@@ -251,7 +251,6 @@ audioproject_on_move_up(gpointer widget, AudioProject *audio_project)
 {
     GB_LOG_FUNC
     g_return_if_fail(audio_project != NULL);
-    
     audioproject_move_selected(audio_project, TRUE);
 }
 
@@ -261,7 +260,6 @@ audioproject_move_selected_up(Project *project)
 {
     GB_LOG_FUNC
     g_return_if_fail(project != NULL);
-    
     audioproject_move_selected(AUDIOPROJECT_WIDGET(project), TRUE);
 }
 
@@ -271,7 +269,6 @@ audioproject_on_move_down(gpointer widget, AudioProject *audio_project)
 {
     GB_LOG_FUNC
     g_return_if_fail(audio_project != NULL);
-    
     audioproject_move_selected(audio_project, FALSE);
 }
 
@@ -281,7 +278,6 @@ audioproject_move_selected_down(Project *project)
 {
     GB_LOG_FUNC
     g_return_if_fail(project != NULL);
-    
     audioproject_move_selected(AUDIOPROJECT_WIDGET(project), FALSE);
 }
 
@@ -310,20 +306,13 @@ audioproject_add_file(AudioProject *audio_project, const gchar *file_name)
                     GB_DECLARE_STRUCT(GtkTreeIter, iter);      
                     GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(audio_project->tree));
                     gtk_list_store_append(model, &iter);
-                    gtk_list_store_set(
-                        model, &iter, 
-                        AUDIO_COL_ICON, icon, 
-                        AUDIO_COL_FILE, (gchar*)file_name, 
-                        AUDIO_COL_DURATION, info->formatted_duration->str,
-                        /*AUDIO_COL_SIZE, info->filesize,*/
-                        AUDIO_COL_ARTIST, info->artist->str, 
-                        AUDIO_COL_ALBUM, info->album->str,
-                        AUDIO_COL_TITLE, info->title->str, 
-                        AUDIO_COL_INFO, info,
-                        -1);
-                
+                    gtk_list_store_set(model, &iter, 
+                            AUDIO_COL_ICON, icon, AUDIO_COL_FILE, (gchar*)file_name, 
+                            AUDIO_COL_DURATION, info->formatted_duration->str,
+                            /*AUDIO_COL_SIZE, info->filesize,*/
+                            AUDIO_COL_ARTIST, info->artist->str, AUDIO_COL_ALBUM, info->album->str,
+                            AUDIO_COL_TITLE, info->title->str, AUDIO_COL_INFO, info, -1);
                     g_object_unref(icon);
-                    
                 }
                 else
                 {
@@ -519,9 +508,7 @@ audioproject_on_audioproject_size_changed(GtkOptionMenu *option_menu, AudioProje
     preferences_set_int(GB_AUDIO_DISK_SIZE, gtk_option_menu_get_history(option_menu));
     g_free(buf);
 #else
-	gb_cairo_fillbar_set_disk_size(progress_bar,
-									audio_project->selected_size *60,
-									TRUE, 1, FALSE);
+	gb_cairo_fillbar_set_disk_size(progress_bar, audio_project->selected_size *60, TRUE, 1, FALSE);
 	gb_cairo_fillbar_set_project_total_size(progress_bar,audio_project->compilation_seconds);
 #endif    
 }
@@ -564,8 +551,7 @@ audioproject_is_supported_playlist(const gchar *mime)
     GB_LOG_FUNC
     g_return_val_if_fail(mime != NULL, FALSE);           
     
-    if((g_ascii_strcasecmp(mime, "audio/x-mpegurl") == 0) || 
-            (g_ascii_strcasecmp(mime, "audio/x-scpls") == 0))
+    if((g_ascii_strcasecmp(mime, "audio/x-mpegurl") == 0) ||  (g_ascii_strcasecmp(mime, "audio/x-scpls") == 0))
         return TRUE;
     return FALSE;
 }
@@ -583,7 +569,7 @@ audioproject_import_playlist(AudioProject *audio_project, const gchar *play_list
         ret = audioproject_import_supported_playlist(audio_project, mime, play_list);
     else
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
-          _("The file you have selected is not a supported play_list. Please select a pls or m3u file."));
+                _("The file you have selected is not a supported play_list. Please select a pls or m3u file."));
     g_free(mime);
     return ret;
 }
@@ -602,7 +588,7 @@ audioproject_export_m3u(AudioProject *audio_project, const gchar *play_list)
     {
         g_warning("audioproject_export_m3u - Failed to write play_list [%s]", play_list);
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
-            GTK_BUTTONS_NONE, _("Failed to write play_list file"));
+                GTK_BUTTONS_NONE, _("Failed to write play_list file"));
     }
     else
     {
@@ -639,7 +625,7 @@ audioproject_export_pls(AudioProject *audio_project, const gchar *play_list)
     {
         g_warning("audioproject_export_pls - Failed to write play_list [%s]", play_list);
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, 
-            GTK_BUTTONS_NONE, _("Failed to write play_list file"));
+                GTK_BUTTONS_NONE, _("Failed to write play_list file"));
     }
     else
     {
@@ -793,7 +779,6 @@ audioproject_on_remove_clicked(GtkWidget *menuitem, AudioProject *audio_project)
 {
     GB_LOG_FUNC 
     g_return_if_fail(audio_project != NULL);
-    
     audioproject_remove(PROJECT_WIDGET(audio_project));
 }
 
@@ -803,7 +788,6 @@ audioproject_on_clear_clicked(GtkWidget *menuitem, AudioProject *audio_project)
 {
     GB_LOG_FUNC
     g_return_if_fail(audio_project != NULL);
-    
     audioproject_clear(PROJECT_WIDGET(audio_project));
 }
 
@@ -825,27 +809,26 @@ audioproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, AudioPr
         if(count == 1)
         {
             gbcommon_append_menu_item_stock(menu, _("_Open"), GTK_STOCK_OPEN, 
-                (GCallback)audioproject_on_open, view);
+                    (GCallback)audioproject_on_open, view);
             gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
         }
         
         gbcommon_append_menu_item_stock(menu, _("Move selected _up"), GTK_STOCK_GO_UP, 
-            (GCallback)audioproject_on_move_up, audio_project);
+                (GCallback)audioproject_on_move_up, audio_project);
         gbcommon_append_menu_item_stock(menu, _("Move selected _down"), GTK_STOCK_GO_DOWN,
-            (GCallback)audioproject_on_move_down, audio_project);   
+                (GCallback)audioproject_on_move_down, audio_project);   
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());        
         gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
-            (GCallback)audioproject_on_remove_clicked, audio_project);  
+                (GCallback)audioproject_on_remove_clicked, audio_project);  
         gbcommon_append_menu_item_stock(menu, _("_Clear"), GTK_STOCK_CLEAR,
-            (GCallback)audioproject_on_clear_clicked, audio_project);   
+                (GCallback)audioproject_on_clear_clicked, audio_project);   
             
         gtk_widget_show_all(menu);
     
         /* Note: event can be NULL here when called. However,
          *  gdk_event_get_time() accepts a NULL argument */
         gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-                       (event != NULL) ? event->button : 0,
-                       gdk_event_get_time((GdkEvent*)event));
+                (event != NULL) ? event->button : 0, gdk_event_get_time((GdkEvent*)event));
         return TRUE;
     }
     return FALSE;   
@@ -998,8 +981,8 @@ audioproject_init(AudioProject *audio_project)
   
     /* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(AUDIO_NUM_COLS, 
-        GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, /*G_TYPE_ULONG,*/
-        G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
+            GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, /*G_TYPE_ULONG,*/
+            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
     gtk_tree_view_set_model(audio_project->tree, GTK_TREE_MODEL(store));
     g_object_unref(store);
 
@@ -1072,7 +1055,7 @@ audioproject_init(AudioProject *audio_project)
 
     /* Enable the file list as a drag destination */    
     gtk_drag_dest_set(GTK_WIDGET(audio_project->tree), GTK_DEST_DEFAULT_ALL,
-        target_entries, TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+            target_entries, TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
     /* Connect the function to handle the drag data */
     g_signal_connect(audio_project->tree, "drag_data_received",
@@ -1097,10 +1080,8 @@ audioproject_init(AudioProject *audio_project)
     project_set_title(PROJECT_WIDGET(audio_project), _("<b>Audio project</b>"));
     
 #ifdef CAIRO_WIDGETS
-
 	gb_cairo_fillbar_set_disk_size(PROJECT_WIDGET(audio_project)->progress_bar,
-									audioproject_get_audioproject_size(audio_project)*60,
-									TRUE, 1, FALSE);
+			audioproject_get_audioproject_size(audio_project) * 60, TRUE, 1, FALSE);
 #else
 	audioproject_get_audioproject_size(audio_project);
 #endif
