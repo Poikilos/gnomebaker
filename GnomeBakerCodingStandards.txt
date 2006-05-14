@@ -296,10 +296,27 @@ if(count_of_items>0)
 
 
 
-14. Library versions
+14. Indenting
+--------------------------------------------------------------------------------
+
+Indents are 4 spaces in size except where a statement overflows a line and then
+we double indent. As a rule we overflow at 100 chars.
+
+eg.
+
+if(planets_aligned)
+	do_something();
+
+gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(project)->menu, data_disk_sizes, 
+		DISK_SIZE_COUNT, preferences_get_int(GB_DATA_DISK_SIZE));
+
+
+
+15. Library versions
 --------------------------------------------------------------------------------
 
 GnomeBaker currently only requires GTK 2.4. When writing code please 
 avoid using functions from newer GTK versions as we want to stay as distro
 friendly as possible. If that function is necessary and avoids writing a whole
 bunch of code then we will up the required version of GTK.
+
