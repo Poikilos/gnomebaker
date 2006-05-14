@@ -194,6 +194,7 @@ rgb_to_hls (gdouble *r, gdouble *g, gdouble *b)
 	*b = s;
 }
 
+
 static void 
 hls_to_rgb (gdouble *h, gdouble *l, gdouble *s)
 {
@@ -268,6 +269,7 @@ hls_to_rgb (gdouble *h, gdouble *l, gdouble *s)
 	}
 }
 
+
 static void
 rotate_mirror_translate (cairo_t *cr, double radius, double x, double y,
 			 gboolean mirror_horizontally, gboolean mirror_vertically)
@@ -280,16 +282,9 @@ rotate_mirror_translate (cairo_t *cr, double radius, double x, double y,
 	double r_cos = cos(radius);
 	double r_sin = sin(radius);
 	
-	cairo_matrix_init (&matrix_rotate, r_cos,
-	                                   r_sin,
-	                                   r_sin,
-	                                   r_cos,
-	                                   x, y);
-	cairo_matrix_init (&matrix_mirror, mirror_horizontally ? -1 : 1,
-	                                   0,
-	                                   0,
-	                                   mirror_vertically ? -1 : 1,
-									   0, 0);
+	cairo_matrix_init (&matrix_rotate, r_cos, r_sin, r_sin, r_cos, x, y);
+	cairo_matrix_init (&matrix_mirror, mirror_horizontally ? -1 : 1, 0, 0, 
+            mirror_vertically ? -1 : 1, 0, 0);
 	cairo_matrix_multiply (&matrix_result, &matrix_mirror, &matrix_rotate);
 	cairo_set_matrix (cr, &matrix_result);
 }
@@ -353,33 +348,18 @@ rounded_rectangle (cairo_t *cr,
 		cairo_line_to (cr, x + width, y);
 	
 	if (draw_corners & BOTTOM_RIGHT_CORNER)
-		cairo_arc (cr,
-					x + width - radius,
-					y + height - radius,
-					radius,
-					0,
-					M_PI * 0.5 );
+		cairo_arc (cr, x + width - radius, y + height - radius, radius, 0, M_PI * 0.5 );
 	else
 		cairo_line_to (cr, x + width, y + height);
 	
 	if (draw_corners & BOTTOM_LEFT_CORNER)
-		cairo_arc (cr,
-					x + radius,
-					y + height - radius, 
-					radius,
-					M_PI * 0.5,
-					M_PI );
+		cairo_arc (cr, x + radius, y + height - radius, radius, M_PI * 0.5, M_PI );
 	else
 		cairo_line_to (cr, x, y + height);
 	
 	/* close path */
 	if (draw_corners & TOP_LEFT_CORNER)
-		cairo_arc (cr,
-					x + radius,
-					y + radius,
-					radius,
-					M_PI,
-					M_PI * 1.5 );
+		cairo_arc (cr, x + radius, y + radius, radius, M_PI, M_PI * 1.5 );
 	else
 		cairo_line_to (cr, x, y);
 }
@@ -388,7 +368,7 @@ rounded_rectangle (cairo_t *cr,
 /* Sets the left edge of a GdkRectangle to x_pos.
  May change the width, but will never change the right edge of the rectangle. */
 static void
-rectangle_set_left(GdkRectangle * rect, gint x_pos)
+rectangle_set_left(GdkRectangle *rect, gint x_pos)
 {
     GB_LOG_FUNC
 	gint old_width = rect->width;
@@ -408,7 +388,7 @@ rectangle_set_left(GdkRectangle * rect, gint x_pos)
 /* Sets the right edge of a GdkRectangle to x_pos.
  May change the width, but will never change the left edge of the rectangle. */
 static void
-rectangle_set_right(GdkRectangle * rect, gint x_pos)
+rectangle_set_right(GdkRectangle *rect, gint x_pos)
 {
     GB_LOG_FUNC
 	rect->width = x_pos - rect->x;
@@ -431,9 +411,13 @@ gb_cairo_fillbar_draw_background (cairo_t *cr,
 	double y = style->ythickness;
 	double x = style->xthickness;
 	
-	CairoColor  border_color = {style->bg[GTK_STATE_NORMAL].red/65535.0,
-									  style->bg[GTK_STATE_NORMAL].green/65535.0,
-									  style->bg[GTK_STATE_NORMAL].blue/65535.0};								  
+	CairoColor  border_color = 
+    {
+        style->bg[GTK_STATE_NORMAL].red / 65535.0,
+		style->bg[GTK_STATE_NORMAL].green / 65535.0,
+		style->bg[GTK_STATE_NORMAL].blue / 65535.0
+    };
+    
 	CairoColor border_color_shaded;									  
 	shade(&border_color, &border_color_shaded, 0.5);
 	cairo_pattern_t *pattern;
@@ -441,27 +425,15 @@ gb_cairo_fillbar_draw_background (cairo_t *cr,
 	cairo_set_line_width (cr, 1.0);
 
 	/* Fill with bg color */
-	cairo_set_source_rgb (cr,
-						style->bg[state_type].red/65535.0,
-                        style->bg[state_type].green/65535.0,
-                        style->bg[state_type].blue/65535.0);
+	cairo_set_source_rgb (cr, style->bg[state_type].red/65535.0,
+            style->bg[state_type].green/65535.0, style->bg[state_type].blue/65535.0);
 
 	cairo_rectangle (cr, x, y, width, height);	
 	cairo_fill (cr);
 
 	/* Draw border */
-	rounded_rectangle (cr,
-					x + 0.5,
-					y +0.5,
-					width - 1,
-					height - 1,
-					1.5,
-					ALL_CORNERS );
-					
-	cairo_set_source_rgb (cr,
-				          border_color_shaded.r,
-                          border_color_shaded.g,
-                          border_color_shaded.b );
+	rounded_rectangle (cr, x + 0.5, y +0.5, width - 1, height - 1, 1.5, ALL_CORNERS );
+	cairo_set_source_rgb (cr, border_color_shaded.r, border_color_shaded.g, border_color_shaded.b );
 	cairo_stroke (cr);
 
 	/* Top shadow */
@@ -504,24 +476,12 @@ gb_cairo_fillbar_fill_rect(cairo_t *cr,
 	/*Draw gradient */
 	shade(fill_color, &shade_color, 1.2); /*"amplifies" */
 	pattern = cairo_pattern_create_linear (rect->x, rect->y, rect->x, rect->height);
-	cairo_pattern_add_color_stop_rgba(pattern,
-									0.0,
-									shade_color.r,
-									shade_color.g,
-									shade_color.b,
-									shade_color.a);
+	cairo_pattern_add_color_stop_rgba(pattern, 0.0, shade_color.r, shade_color.g,
+            shade_color.b, shade_color.a);
 	cairo_pattern_add_color_stop_rgba(pattern, /*this adds shininess (OMG, are we in kde? hehe)*/
-									0.6,
-									fill_color->r,
-									fill_color->g,
-									fill_color->b,
-									fill_color->a); 
-	cairo_pattern_add_color_stop_rgba(pattern,
-									0.0,
-									shade_color.r,
-									shade_color.g,
-									shade_color.b,
-									shade_color.a);
+            0.6, fill_color->r, fill_color->g, fill_color->b, fill_color->a); 
+	cairo_pattern_add_color_stop_rgba(pattern, 0.0, shade_color.r, shade_color.g,
+            shade_color.b,shade_color.a);
 	cairo_set_source(cr, pattern);
 	cairo_fill(cr);
 	cairo_pattern_destroy(pattern);	
@@ -560,7 +520,7 @@ gb_cairo_fillbar_draw_fill (cairo_t *cr,
 	
 	g_return_if_fail(max_value != 0);
 
-	gdouble one = (gdouble)real_width/max_value;
+	gdouble one = (gdouble)real_width / max_value;
 	gdouble max_size_minus_tolerance = max_disk_size - tolerance;
 	gdouble max_size_plus_tolerance = max_disk_size + tolerance;
 	
@@ -572,16 +532,13 @@ gb_cairo_fillbar_draw_fill (cairo_t *cr,
 	total_rect.y = real_y;
     
     /*this should not happen!*/
-    if(total_rect.width>real_width)
-        total_rect.width=real_width;
+    if(total_rect.width > real_width)
+        total_rect.width = real_width;
 
 	GdkRectangle green_rect = total_rect;
 	GdkRectangle warning_rect = total_rect;
 	GdkRectangle oversize_rect = total_rect;
-
-	gboolean paint_warning = FALSE;
-	gboolean paint_oversize = FALSE;
-	
+	gboolean paint_warning = FALSE, paint_oversize = FALSE;
 	
 	if(current_size > max_size_minus_tolerance)
 	{
@@ -596,7 +553,6 @@ gb_cairo_fillbar_draw_fill (cairo_t *cr,
 		if(current_size > max_size_plus_tolerance )
 		{			
 			rectangle_set_right( &warning_rect, real_x + (gint)(max_size_plus_tolerance*one) );
-			
 			rectangle_set_left( &oversize_rect, real_x + (gint)(max_size_plus_tolerance*one) );			
 			paint_oversize = TRUE;
 		}
@@ -610,85 +566,43 @@ gb_cairo_fillbar_draw_fill (cairo_t *cr,
 	if(paint_oversize)
 	{
 		gb_cairo_fillbar_fill_rect(cr, &oversize_rect, &FILL_RED);
-		cairo_set_source_rgba(cr,
-							BORDER_RED.r,
-							BORDER_RED.g,
-							BORDER_RED.b,
-							BORDER_RED.a);
-		cairo_move_to(cr,
-					oversize_rect.x,
-					oversize_rect.y + 0.5);			
-		cairo_line_to(cr,
-					oversize_rect.x + oversize_rect.width - 0.5,
-					oversize_rect.y + 0.5);			
-		cairo_line_to(cr,
-					oversize_rect.x + oversize_rect.width  - 0.5,
-					oversize_rect.y + oversize_rect.height - 0.5);			
-		cairo_line_to(cr,
-					oversize_rect.x,
-					oversize_rect.y + oversize_rect.height - 0.5);			
+		cairo_set_source_rgba(cr, BORDER_RED.r, BORDER_RED.g, BORDER_RED.b, BORDER_RED.a);
+		cairo_move_to(cr, oversize_rect.x, oversize_rect.y + 0.5);			
+		cairo_line_to(cr, oversize_rect.x + oversize_rect.width - 0.5, oversize_rect.y + 0.5);			
+		cairo_line_to(cr, oversize_rect.x + oversize_rect.width  - 0.5, oversize_rect.y + oversize_rect.height - 0.5);			
+		cairo_line_to(cr, oversize_rect.x, oversize_rect.y + oversize_rect.height - 0.5);			
 		cairo_stroke(cr);			
 	}
     
 	if(paint_warning)
 	{
 		gb_cairo_fillbar_fill_rect(cr, &warning_rect, &FILL_YELLOW);
-		cairo_set_source_rgba(cr,
-							BORDER_YELLOW.r,
-							BORDER_YELLOW.g,
-							BORDER_YELLOW.b,
-							BORDER_YELLOW.a);
-		cairo_move_to(cr,
-					warning_rect.x,
-					warning_rect.y + 0.5);			
-		cairo_line_to(cr,
-					warning_rect.x + warning_rect.width - 0.5,
-					warning_rect.y + 0.5);				
+		cairo_set_source_rgba(cr, BORDER_YELLOW.r, BORDER_YELLOW.g, BORDER_YELLOW.b, BORDER_YELLOW.a);
+		cairo_move_to(cr, warning_rect.x, warning_rect.y + 0.5);			
+		cairo_line_to(cr, warning_rect.x + warning_rect.width - 0.5, warning_rect.y + 0.5);				
 		if(paint_oversize)
 		{
 			cairo_stroke(cr);
-			cairo_move_to(cr,
-					warning_rect.x + warning_rect.width  - 0.5,
-					warning_rect.y + warning_rect.height - 0.5);
+			cairo_move_to(cr, warning_rect.x + warning_rect.width  - 0.5, warning_rect.y + warning_rect.height - 0.5);
 		}
 		else
 		{
-			cairo_line_to(cr,
-					warning_rect.x + warning_rect.width  - 0.5,
-					warning_rect.y + warning_rect.height - 0.5);
+			cairo_line_to(cr, warning_rect.x + warning_rect.width  - 0.5, warning_rect.y + warning_rect.height - 0.5);
 		}				
-		cairo_line_to(cr,
-					warning_rect.x,
-					warning_rect.y + warning_rect.height - 0.5);			
+		cairo_line_to(cr, warning_rect.x, warning_rect.y + warning_rect.height - 0.5);			
 		cairo_stroke(cr);	
 	}
 
 	gb_cairo_fillbar_fill_rect(cr, &green_rect, &FILL_GREEN);
 	
-	cairo_set_source_rgba(cr,
-							BORDER_GREEN.r,
-							BORDER_GREEN.g,
-							BORDER_GREEN.b,
-							BORDER_GREEN.a);
+	cairo_set_source_rgba(cr, BORDER_GREEN.r, BORDER_GREEN.g, BORDER_GREEN.b, BORDER_GREEN.a);
 		
-	cairo_move_to(cr,
-					green_rect.x + green_rect.width - 0.5,
-					green_rect.y + 0.5);			
-	cairo_line_to(cr,
-					green_rect.x + 0.5,
-					green_rect.y + 0.5);			
-	cairo_line_to(cr,
-					green_rect.x + 0.5,
-					green_rect.y + green_rect.height - 0.5);			
-	cairo_line_to(cr,
-					green_rect.x + green_rect.width  - 0.5,
-					green_rect.y + green_rect.height - 0.5);
+	cairo_move_to(cr, green_rect.x + green_rect.width - 0.5, green_rect.y + 0.5);			
+	cairo_line_to(cr, green_rect.x + 0.5, green_rect.y + 0.5);			
+	cairo_line_to(cr, green_rect.x + 0.5, green_rect.y + green_rect.height - 0.5);			
+	cairo_line_to(cr, green_rect.x + green_rect.width  - 0.5, green_rect.y + green_rect.height - 0.5);
 	if(!paint_warning)
-	{
-		cairo_line_to(cr,
-					green_rect.x + green_rect.width - 0.5,
-					green_rect.y + 0.5);
-	}
+		cairo_line_to(cr, green_rect.x + green_rect.width - 0.5, green_rect.y + 0.5);
 	cairo_stroke(cr);
 	
 	/*changes the coordinate origin (and mirrors)*/
@@ -714,23 +628,11 @@ gb_cairo_fillbar_draw_fill (cairo_t *cr,
 	cairo_move_to (cr, -0.5, 0);
 	cairo_line_to (cr, -0.5, total_rect.height);
 	if(paint_oversize)
-		cairo_set_source_rgba(cr, 
-							END_BORDER_RED.r,
-							END_BORDER_RED.g,
-							END_BORDER_RED.b,
-							END_BORDER_RED.a);
+		cairo_set_source_rgba(cr,  END_BORDER_RED.r, END_BORDER_RED.g, END_BORDER_RED.b, END_BORDER_RED.a);
 	else if(paint_warning)
-		cairo_set_source_rgba(cr, 
-							END_BORDER_YELLOW.r,
-							END_BORDER_YELLOW.g,
-							END_BORDER_YELLOW.b,
-							END_BORDER_YELLOW.a);
+		cairo_set_source_rgba(cr, END_BORDER_YELLOW.r, END_BORDER_YELLOW.g, END_BORDER_YELLOW.b, END_BORDER_YELLOW.a);
 	else
-		cairo_set_source_rgba(cr, 
-							END_BORDER_GREEN.r,
-							END_BORDER_GREEN.g,
-							END_BORDER_GREEN.b,
-							END_BORDER_GREEN.a);				
+		cairo_set_source_rgba(cr, END_BORDER_GREEN.r, END_BORDER_GREEN.g, END_BORDER_GREEN.b, END_BORDER_GREEN.a);
 	
 	cairo_stroke (cr);
 	cairo_restore(cr);
@@ -741,28 +643,16 @@ gb_cairo_fillbar_draw_fill (cairo_t *cr,
 	/* http://lists.freedesktop.org/archives/cairo/2005-July/004566.html 	*/
 	
 	cairo_set_line_width (cr, 1.0);
-	cairo_move_to(cr,
-				((gint)( one * max_disk_size ) + 0.5),
-				real_height);
-	cairo_line_to(cr,
-				((gint)( one * max_disk_size ) + 0.5),
-				real_height/2);
+	cairo_move_to(cr, ((gint)( one * max_disk_size ) + 0.5), real_height);
+	cairo_line_to(cr, ((gint)( one * max_disk_size ) + 0.5), real_height/2);
 	cairo_set_source_rgba (cr, 0.3,0.3,0.3,1);
 	cairo_stroke(cr);
 	
 	/* cairo_set_line_width (cr, 2.0);
-	
-		cairo_move_to(cr,
-				((int)( one * max_disk_size )) + 2,
-			   	real_height);
-	
-		cairo_line_to(cr,
-					((int)( one * max_disk_size )) + 2,
-					real_height/2);
-	
-	cairo_set_source_rgba (cr, 0.3,0.3,0.3,0.2);
-	cairo_stroke(cr);
-	*/
+	   cairo_move_to(cr, ((int)( one * max_disk_size )) + 2, real_height);
+	   cairo_line_to(cr, ((int)( one * max_disk_size )) + 2, real_height/2);
+	   cairo_set_source_rgba (cr, 0.3,0.3,0.3,0.2);
+	   cairo_stroke(cr);*/
 	cairo_restore(cr);
 }
 
@@ -775,22 +665,16 @@ gb_cairo_fillbar_get_current_text(GBCairoFillBar *bar)
     GB_LOG_FUNC
 	if(bar->priv->is_time)
 	{
-		  guint secs = (bar->priv->project_total_size)%60;
-  		  guint mins  = (bar->priv->project_total_size - secs)/60;
-		  guint secs_remaining = (bar->priv->disk_size - bar->priv->project_total_size)%60;
-		  guint mins_remaining = (bar->priv->disk_size - bar->priv->project_total_size - secs_remaining)/60;
-		
-		  return g_strdup_printf(_("%d mins %d secs used - %d mins %d secs remaining"),
-									mins, 
-									secs,
-									mins_remaining,
-									secs_remaining);
+		guint secs = (bar->priv->project_total_size)%60;
+  		guint mins  = (bar->priv->project_total_size - secs)/60;
+		guint secs_remaining = (bar->priv->disk_size - bar->priv->project_total_size)%60;
+        guint mins_remaining = (bar->priv->disk_size - bar->priv->project_total_size - secs_remaining)/60;
+		return g_strdup_printf(_("%d mins %d secs used - %d mins %d secs remaining"),
+            mins, secs, mins_remaining, secs_remaining);
 	}
 	else
 	{		        
-    	gchar *current = NULL;
-		gchar *remaining = NULL;
-		gchar *buf = NULL;    
+    	gchar *current = NULL, *remaining = NULL, *buf = NULL;
     	if(bar->priv->allow_overbun &&
 			(bar->priv->project_total_size > bar->priv->disk_size) &&
 			(bar->priv->project_total_size < ( bar->priv->disk_size *( 1 + bar->priv->tolerance_percent))))
@@ -864,24 +748,10 @@ gb_cairo_fillbar_paint_text(cairo_t *cr, GBCairoFillBar *bar,
  */   
 
 	/*TODO: should we change the detail ("progressbar")?*/
-	gtk_paint_layout(widget->style, widget->window,
-		    		GTK_STATE_PRELIGHT,
-		   		 	FALSE,
-		    		&prelight_clip,
-		    		widget,
-		    		"progressbar",
-		   			x, y,
-		    		layout);  
-
-	gtk_paint_layout(widget->style,	widget->window,
-		    		GTK_STATE_NORMAL,
-		    		FALSE,
-		    		&normal_clip,
-		    		widget,
-		    		"progressbar",
-		    		x, y,
-		    		layout);
-
+	gtk_paint_layout(widget->style, widget->window, GTK_STATE_PRELIGHT, FALSE, &prelight_clip,
+            widget, "progressbar", x, y, layout);  
+	gtk_paint_layout(widget->style,	widget->window, GTK_STATE_NORMAL, FALSE, &normal_clip,
+            widget, "progressbar", x, y, layout);
     g_object_unref (layout);
     g_free (text_buf);
 }
@@ -902,15 +772,9 @@ gb_cairo_fillbar_expose(GtkWidget *widget, GdkEventExpose *event)
 	cairo_clip(cr);
 
 	/*draw the widget´s background*/
-	gb_cairo_fillbar_draw_background(cr,
-									widget->style,
-									GTK_WIDGET_STATE(widget),
-									&widget->allocation);
-	
+	gb_cairo_fillbar_draw_background(cr, widget->style, GTK_WIDGET_STATE(widget), &widget->allocation);
 	GBCairoFillBar *bar = GB_CAIRO_FILLBAR(widget);
-	
 	gdouble max_value = 0.0, max_disk_size = 0.0, current_size = 0.0, tolerance = 0.0, bar_oversize = 0.0; 
-
 	if(bar->priv->is_time)
 	{
 		current_size = ((gdouble)bar->priv->project_total_size)/60.0;
@@ -936,14 +800,8 @@ gb_cairo_fillbar_expose(GtkWidget *widget, GdkEventExpose *event)
 	if(max_disk_size > 0.0)
 	{
 		if(current_size > 0.0)
-			gb_cairo_fillbar_draw_fill(cr,
-								widget->style,
-								&widget->allocation,
-								max_value,
-								max_disk_size,
-								current_size,
-								tolerance);
-
+			gb_cairo_fillbar_draw_fill(cr, widget->style, &widget->allocation, max_value,
+                    max_disk_size, current_size, tolerance);
         /*paint text*/
         gint amount = (widget->allocation.width - 2 * widget->style->xthickness) *
 				(gdouble)current_size/(gdouble)max_value;	
