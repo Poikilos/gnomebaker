@@ -452,6 +452,17 @@ startdlg_copy_data_cd_section(StartDlg *start_dlg)
 
 
 static void 
+startdlg_copy_cd_section(StartDlg *start_dlg)
+{
+    GtkTable *table = GTK_TABLE(startdlg_create_table());
+    guint row = startdlg_add_device_section(table, start_dlg, TRUE, FALSE);
+    ++row;
+    gtk_table_attach(table, GTK_WIDGET(start_dlg->on_the_fly), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
+    gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(table), FALSE, FALSE, xpad);
+}
+
+
+static void 
 startdlg_format_dvdrw_section(StartDlg *start_dlg)
 {
     GtkTable *table = GTK_TABLE(startdlg_create_table());
@@ -568,6 +579,9 @@ startdlg_new(const BurnType burn_type)
 		case copy_data_cd:		
             startdlg_copy_data_cd_section(start_dlg);
 			break;
+        case copy_cd:      
+            startdlg_copy_cd_section(start_dlg);
+            break;
 		case format_dvdrw:
             start_dlg->dvdmode = TRUE;
             startdlg_format_dvdrw_section(start_dlg);

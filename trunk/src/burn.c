@@ -345,6 +345,21 @@ burn_copy_audio_cd()
 
 
 void
+burn_copy_cd()
+{
+    GB_LOG_FUNC
+    StartDlg *dlg = burn_show_start_dlg(copy_cd);
+    if(dlg != NULL)
+    {
+        burn_args = exec_new(_("Copying CD"), _("Please wait while the CD is copied"));
+        cdrdao_add_copy_args(exec_cmd_new(burn_args));
+        burn_run_process();
+        startdlg_delete(dlg);
+    }
+}
+
+
+void
 burn_blank_cdrw()
 {
 	GB_LOG_FUNC
