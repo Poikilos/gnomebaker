@@ -1222,6 +1222,7 @@ cdrdao_write_image_read_proc(void *ex, void *buffer)
 }
 
 
+
 void
 cdrdao_add_image_args(ExecCmd *cmd, const gchar *toc_or_cue)
 {
@@ -1255,6 +1256,68 @@ cdrdao_add_image_args(ExecCmd *cmd, const gchar *toc_or_cue)
 		exec_cmd_add_arg(cmd, "--simulate");
     
     exec_cmd_add_arg(cmd, toc_or_cue);
+}
+
+
+static void
+cdrdao_copy_cd_read_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(buffer != NULL);
+    g_return_if_fail(ex != NULL);   
+    
+    const gchar *output = (gchar*)buffer;       
+    const gchar *wrote = strstr(output, "Wrote");
+    if(wrote != NULL)
+    {
+        gint current = 0, total = 0;
+        if(sscanf(wrote, "Wrote %d of %d", &current, &total) == 2)
+            progressdlg_set_fraction((gfloat)current/(gfloat)total);
+    }
+    else 
+    {
+        progressdlg_append_output(output);        
+        execfunctions_find_line_set_status(output, "Writing track", '(');
+    }
+}
+
+
+void
+cdrdao_add_copy_args(ExecCmd *cmd)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(cmd != NULL);
+
+    cmd->working_dir = preferences_get_string(GB_TEMP_DIR);
+    cmd->read_proc = cdrdao_copy_cd_read_proc;
+    
+    exec_cmd_add_arg(cmd, "cdrdao");
+    exec_cmd_add_arg(cmd, "copy");    
+    
+    gchar *reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
+    exec_cmd_add_arg(cmd, "--source-device");
+    exec_cmd_add_arg(cmd, reader);
+    g_free(reader); 
+    
+    gchar *writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+    exec_cmd_add_arg(cmd, "--device");
+    exec_cmd_add_arg(cmd, writer);
+    g_free(writer);
+    
+    if(preferences_get_bool(GB_ONTHEFLY))
+        exec_cmd_add_arg(cmd, "--on-the-fly");
+        
+    exec_cmd_add_arg(cmd, "--speed");
+    exec_cmd_add_arg(cmd, "%d", preferences_get_int(GB_CDWRITE_SPEED));
+    exec_cmd_add_arg(cmd, "--buffers");
+    exec_cmd_add_arg(cmd, "64");
+    exec_cmd_add_arg(cmd, "-n"); /* turn off the 10 second pause */
+    
+    if(preferences_get_bool(GB_EJECT))
+        exec_cmd_add_arg(cmd, "--eject");
+        
+    /*if(preferences_get_int(GB_OVERBURN))*/
+        exec_cmd_add_arg(cmd, "-overburn");
 }
 
 

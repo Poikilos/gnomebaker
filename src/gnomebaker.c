@@ -452,6 +452,14 @@ gnomebaker_on_copy_audiocd(gpointer widget, gpointer user_data)
 }
 
 
+void /* libglade callback */
+gnomebaker_on_copy_cd(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC
+    burn_copy_cd();
+}
+
+
 gboolean
 gnomebaker_on_delete(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {

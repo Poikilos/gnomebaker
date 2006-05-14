@@ -36,6 +36,7 @@ void burn_create_data_cd(const gchar *arguments_file);
 void burn_append_data_cd(const gchar *arguments_file, const gchar *msinfo);
 void burn_copy_data_cd();
 void burn_copy_audio_cd();
+void burn_copy_cd();
 void burn_blank_cdrw();
 void burn_create_data_dvd(const gchar *arguments_file);
 void burn_append_data_dvd(const gchar *arguments_file, const gchar *msinfo);
@@ -47,6 +48,7 @@ typedef enum
 	blank_cdrw = 0,
 	copy_data_cd,
 	copy_audio_cd,
+    copy_cd,
 	burn_cd_image,
 	burn_dvd_image,
 	create_data_cd,
@@ -65,6 +67,7 @@ static const gchar *BurnTypeText[BurnTypeCount] =
 	N_("Blank CD-RW"),
 	N_("Copy Data CD"),
 	N_("Copy Audio CD"),
+    N_("Copy CD"),
 	N_("Burn CD Image"),
 	N_("Burn DVD Image"),
 	N_("Create Data CD"),
