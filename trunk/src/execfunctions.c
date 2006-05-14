@@ -188,8 +188,8 @@ cdrecord_read_proc(void *ex, void *buffer)
                 cdrecord_first_track = current_track;			
     
             /* Figure out how many tracks we have written so far and calc the fraction */
-            gfloat total_fraction = 
-                ((gfloat)current_track - cdrecord_first_track) * (1.0 / cdrecord_total_tracks_to_write);
+            gfloat total_fraction =  ((gfloat)current_track - cdrecord_first_track) 
+                    * (1.0 / cdrecord_total_tracks_to_write);
             
             /* now add on the fraction of the track we are currently writing */
             total_fraction += ((current / total) * (1.0 / cdrecord_total_tracks_to_write));
@@ -411,8 +411,8 @@ cdda2wav_pre_proc(void *ex, void *buffer)
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
 		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
-			_("Audio tracks from a previous sesion already exist on disk, "
-			"do you wish to use the existing tracks?"));
+                _("Audio tracks from a previous sesion already exist on disk, "
+			    "do you wish to use the existing tracks?"));
 	}
 	
 	g_free(file);
@@ -583,8 +583,8 @@ mkisofs_pre_proc(void *ex, void *buffer)
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
 		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_OK,
-			_("A data CD image from a previous session already exists on disk, "
-			"do you wish to use the existing image?"));
+                _("A data CD image from a previous session already exists on disk, "
+                "do you wish to use the existing image?"));
 		
 		if(ret  == GTK_RESPONSE_YES)		
 			exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
@@ -610,7 +610,7 @@ mkisofs_read_proc(void *ex, void *buffer)
 			--percent;		
         gfloat progress = 0.0;
         if(sscanf(++percent, "%f%%", &progress) == 1)
-		  progressdlg_set_fraction(progress/100.0);
+            progressdlg_set_fraction(progress/100.0);
 	}
     else 
 	   progressdlg_append_output(buffer);
@@ -1076,8 +1076,8 @@ readcd_pre_proc(void *ex, void *buffer)
 	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
 	{
 		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
-			_("A CD image from a previous session already exists on disk, "
-			"do you wish to use the existing image?"));		
+                _("A CD image from a previous session already exists on disk, "
+                "do you wish to use the existing image?"));		
 	}
 	
 	g_free(file);
@@ -1278,7 +1278,7 @@ gstreamer_progress_timer(gpointer data)
     GstFormat fmt = GST_FORMAT_BYTES;
     gint64 pos = 0, total = 0;
     if(gst_element_query(GST_ELEMENT(data), GST_QUERY_POSITION, &fmt, &pos) && 
-        gst_element_query(GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))        
+            gst_element_query(GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))        
     {
         progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
     }
@@ -1412,7 +1412,7 @@ gstreamer_lib_proc(void *ex, void *data)
     gint *pipe = (gint*)data;
     
     GB_TRACE("gstreamer_lib_proc - converting [%s] to [%s]\n", (gchar*)g_ptr_array_index(cmd->args, 0), 
-        (gchar*)g_ptr_array_index(cmd->args, 1));
+            (gchar*)g_ptr_array_index(cmd->args, 1));
     
 #ifdef GST_010
     MediaPipeline *media_pipeline = g_new0(MediaPipeline, 1);
@@ -1475,12 +1475,9 @@ gstreamer_lib_proc(void *ex, void *data)
      * as we will get that in new-decoded-pad signal */
     
     gst_element_link_many(media_pipeline->converter, media_pipeline->scale, media_pipeline->endian_converter, NULL);
-    GstCaps *filter_caps = gst_caps_new_simple("audio/x-raw-int",
-                                          "channels", G_TYPE_INT, 2,
-                                          "rate",     G_TYPE_INT, 44100,
-                                          "width",    G_TYPE_INT, 16,
-                                          "depth",    G_TYPE_INT, 16,
-                                          NULL);
+    GstCaps *filter_caps = gst_caps_new_simple("audio/x-raw-int", 
+            "channels", G_TYPE_INT, 2, "rate", G_TYPE_INT, 44100, 
+            "width", G_TYPE_INT, 16, "depth", G_TYPE_INT, 16, NULL);
     g_assert(filter_caps);
     gst_element_link_filtered(media_pipeline->endian_converter, media_pipeline->encoder, filter_caps);
     gst_caps_unref(filter_caps);
@@ -1529,11 +1526,8 @@ gstreamer_lib_proc(void *ex, void *data)
     gst_element_link(media_pipeline->scale, media_pipeline->endian_converter);
     
     GstCaps *filter_caps = gst_caps_new_simple("audio/x-raw-int",
-                                          "channels", G_TYPE_INT, 2,
-                                          "rate",     G_TYPE_INT, 44100,
-                                          "width",    G_TYPE_INT, 16,
-                                          "depth",    G_TYPE_INT, 16,
-                                          NULL);
+            "channels", G_TYPE_INT, 2, "rate", G_TYPE_INT, 44100,
+            "width", G_TYPE_INT, 16, "depth", G_TYPE_INT, 16, NULL);
     /* and an wav encoder */
     media_pipeline->encoder = gst_element_factory_make("wavenc", "encoder");
     gst_element_link_filtered(media_pipeline->endian_converter, media_pipeline->encoder, filter_caps);

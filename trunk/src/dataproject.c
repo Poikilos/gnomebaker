@@ -1281,10 +1281,8 @@ dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProj
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());     
                 if(!dataproject_compilation_is_root(data_project, &global_iter))
                 {
-
                     gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE, 
                             (GCallback)dataproject_on_remove_clicked, data_project);
-
                 }
                 
                 gbcommon_append_menu_item_stock(menu, _("Clear"), GTK_STOCK_CLEAR, 
@@ -2063,17 +2061,13 @@ dataproject_init(DataProject *project)
     project_set_title(PROJECT_WIDGET(project), _("<b>Data project</b>"));
 
 #ifdef CAIRO_WIDGETS
-
 	gb_cairo_fillbar_set_disk_size(PROJECT_WIDGET(project)->progress_bar,
             dataproject_get_datadisk_size(project), FALSE, overburn_percent, TRUE);
-
 #else
 	dataproject_get_datadisk_size(project);
 #endif
 
 	dataproject_update_progress_bar(project);
-    
- 
 }
 
 

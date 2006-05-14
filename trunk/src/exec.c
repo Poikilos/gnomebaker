@@ -151,14 +151,14 @@ exec_spawn_process(ExecCmd *e, GSpawnChildSetupFunc child_setup)
 			g_io_channel_set_buffered(char_out, FALSE);
 			g_io_channel_set_flags(char_out, G_IO_FLAG_NONBLOCK, NULL );
 			chan_out_id = g_io_add_watch(char_out, G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_PRI | G_IO_NVAL,
-				exec_channel_callback, (gpointer)e);
+				    exec_channel_callback, (gpointer)e);
 		  
 			chan_err = g_io_channel_unix_new(std_err);
 			g_io_channel_set_encoding(chan_err, NULL, NULL);			
 			g_io_channel_set_buffered(chan_err, FALSE);			
 			g_io_channel_set_flags( chan_err, G_IO_FLAG_NONBLOCK, NULL );
 			chan_err_id = g_io_add_watch(chan_err, G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_PRI | G_IO_NVAL ,
-				exec_channel_callback, (gpointer)e);
+				    exec_channel_callback, (gpointer)e);
 
             while(exec_cmd_get_state(e) == RUNNING)
                 gtk_main_iteration();                               
@@ -191,8 +191,7 @@ exec_spawn_process(ExecCmd *e, GSpawnChildSetupFunc child_setup)
 	}
 	else
 	{
-		g_warning("exec_spawn_process - failed to spawn process [%d] [%s]\n",
-			err->code, err->message);			
+		g_warning("exec_spawn_process - failed to spawn process [%d] [%s]\n", err->code, err->message);			
         exec_cmd_set_state(e, FAILED);
         if(err != NULL) g_error_free(err);
 	}

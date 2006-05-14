@@ -125,8 +125,8 @@ prefsdlg_create_device_list()
 	GtkWidget *device_list = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_devicelist);
 		
 	GtkListStore *store = gtk_list_store_new(DEVICELIST_NUM_COLS, 
-		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
-		G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
+            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+            G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
     gtk_tree_view_set_model(GTK_TREE_VIEW(device_list), GTK_TREE_MODEL(store));
     g_object_unref(store);
 	
@@ -144,7 +144,7 @@ prefsdlg_create_device_list()
     renderer = gtk_cell_renderer_text_new();
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
-		(gpointer)&DEVICELIST_COL_NAME);
+            (gpointer)&DEVICELIST_COL_NAME);
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DEVICELIST_COL_NAME, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
@@ -152,64 +152,64 @@ prefsdlg_create_device_list()
 	/* Second column to display the device id */
 	renderer = gtk_cell_renderer_text_new();
 	col = gtk_tree_view_column_new_with_attributes(_("Id"), renderer, 
-		"text", DEVICELIST_COL_ID, NULL);
+            "text", DEVICELIST_COL_ID, NULL);
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
-		(gpointer)&DEVICELIST_COL_ID);
+            (gpointer)&DEVICELIST_COL_ID);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 			
 	/* Third column to display the device node */
 	renderer = gtk_cell_renderer_text_new();
 	col = gtk_tree_view_column_new_with_attributes(_("Node"), renderer, 
-		"text", DEVICELIST_COL_NODE, NULL);
+            "text", DEVICELIST_COL_NODE, NULL);
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
-		(gpointer)&DEVICELIST_COL_NODE);
+            (gpointer)&DEVICELIST_COL_NODE);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);	
 	
 	/* Fourth column to display the mount point */
 	renderer = gtk_cell_renderer_text_new();
 	col = gtk_tree_view_column_new_with_attributes(_("Mount point"), renderer, 
-		"text", DEVICELIST_COL_MOUNT, NULL);
+            "text", DEVICELIST_COL_MOUNT, NULL);
 	g_object_set_property(G_OBJECT(renderer), "editable", &value);
 	g_signal_connect(renderer, "edited", (GCallback)prefsdlg_device_cell_edited, 
-		(gpointer)&DEVICELIST_COL_MOUNT);
+            (gpointer)&DEVICELIST_COL_MOUNT);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 	
 	/* Fifth column for writing cdr */
 	renderer = gtk_cell_renderer_toggle_new();
 	col = gtk_tree_view_column_new_with_attributes(_("Write CD-R"), renderer, "active",
-		DEVICELIST_WRITE_CDR, NULL);
+            DEVICELIST_WRITE_CDR, NULL);
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
-		(gpointer)&DEVICELIST_WRITE_CDR);
+            (gpointer)&DEVICELIST_WRITE_CDR);
     gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 	
 	/* Sixth column for writing cdrw */
 	renderer = gtk_cell_renderer_toggle_new();
 	col = gtk_tree_view_column_new_with_attributes(_("Write CD-RW"), renderer, "active",
-		DEVICELIST_WRITE_CDRW, NULL);
+            DEVICELIST_WRITE_CDRW, NULL);
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
-		(gpointer)&DEVICELIST_WRITE_CDRW);
+            (gpointer)&DEVICELIST_WRITE_CDRW);
     gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 	
 	/* 7th column for writing dvdr */
 	renderer = gtk_cell_renderer_toggle_new();
 	col = gtk_tree_view_column_new_with_attributes(_("Write DVD-R"), renderer, "active",
-		DEVICELIST_WRITE_DVDR, NULL);
+            DEVICELIST_WRITE_DVDR, NULL);
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
-		(gpointer)&DEVICELIST_WRITE_DVDR);
+            (gpointer)&DEVICELIST_WRITE_DVDR);
     gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 	
 	/* 8th column for writing dvdrw */
 	renderer = gtk_cell_renderer_toggle_new();
 	col = gtk_tree_view_column_new_with_attributes(_("Write DVD-RAM"), renderer, "active",
-		DEVICELIST_WRITE_DVDRAM, NULL);
+            DEVICELIST_WRITE_DVDRAM, NULL);
 	g_object_set_property(G_OBJECT(renderer), "activatable", &value);
 	g_signal_connect(renderer, "toggled", (GCallback)prefsdlg_device_capability_edited, 
-		(gpointer)&DEVICELIST_WRITE_DVDRAM);
+            (gpointer)&DEVICELIST_WRITE_DVDRAM);
     gtk_tree_view_append_column(GTK_TREE_VIEW(device_list), col);
 
 	g_value_unset(&value);
@@ -232,10 +232,10 @@ prefsdlg_foreach_device(GtkTreeModel *device_model,
 	gchar *icon = NULL, *name = NULL, *id = NULL, *node = NULL, *mount = NULL;
 	gboolean write_cdr = FALSE, write_cdrw = FALSE, write_dvdr = FALSE, write_dvdram = FALSE;
 	gtk_tree_model_get(device_model, iter, DEVICELIST_COL_ICON, &icon, 
-		DEVICELIST_COL_NAME, &name, DEVICELIST_COL_ID, &id, 
-		DEVICELIST_COL_NODE, &node, DEVICELIST_COL_MOUNT, &mount,
-		DEVICELIST_WRITE_CDR, &write_cdr, DEVICELIST_WRITE_CDRW, &write_cdrw,
-		DEVICELIST_WRITE_DVDR, &write_dvdr, DEVICELIST_WRITE_DVDRAM, &write_dvdram, -1);
+            DEVICELIST_COL_NAME, &name, DEVICELIST_COL_ID, &id, 
+            DEVICELIST_COL_NODE, &node, DEVICELIST_COL_MOUNT, &mount,
+            DEVICELIST_WRITE_CDR, &write_cdr, DEVICELIST_WRITE_CDRW, &write_cdrw,
+            DEVICELIST_WRITE_DVDR, &write_dvdr, DEVICELIST_WRITE_DVDRAM, &write_dvdram, -1);
 	
 	gint capabilities = 0;
 	if(write_cdr) capabilities |= DC_WRITE_CDR;
@@ -273,7 +273,7 @@ prefsdlg_on_ok(GtkButton *button, gpointer user_data)
 	GtkWidget *cdrecord_force = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cdrecord_force);
 	preferences_set_bool(GB_CDRECORD_FORCE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cdrecord_force)));
 	
-	GtkWidget *clean_temp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_clean_temp_dir);
+	GtkWidget *clean_temp = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_clean_temp_dir);
 	preferences_set_bool(GB_CLEANTEMPDIR, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(clean_temp)));
 		
 	GtkWidget *always_scan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_always_scan);
@@ -329,16 +329,15 @@ prefsdlg_populate_device_list()
 			GB_DECLARE_STRUCT(GtkTreeIter, iter);
 			gtk_list_store_append(device_model, &iter);		
 			gtk_list_store_set(device_model, &iter, 
-				DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
-				DEVICELIST_COL_NAME, device_name,
-				DEVICELIST_COL_ID, device_id,
-				DEVICELIST_COL_NODE, device_node, 
-				DEVICELIST_COL_MOUNT, device_mount,
-				DEVICELIST_WRITE_CDR, capabilities & DC_WRITE_CDR,
-				DEVICELIST_WRITE_CDRW, capabilities & DC_WRITE_CDRW,
-				DEVICELIST_WRITE_DVDR, capabilities & DC_WRITE_DVDR,
-				DEVICELIST_WRITE_DVDRAM, capabilities & DC_WRITE_DVDRAM,
-				-1);
+    				DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
+    				DEVICELIST_COL_NAME, device_name,
+    				DEVICELIST_COL_ID, device_id,
+    				DEVICELIST_COL_NODE, device_node, 
+    				DEVICELIST_COL_MOUNT, device_mount,
+    				DEVICELIST_WRITE_CDR, capabilities & DC_WRITE_CDR,
+    				DEVICELIST_WRITE_CDRW, capabilities & DC_WRITE_CDRW,
+    				DEVICELIST_WRITE_DVDR, capabilities & DC_WRITE_DVDR,
+    				DEVICELIST_WRITE_DVDRAM, capabilities & DC_WRITE_DVDRAM, -1);
 		}
 		
 		g_free(device_id_key);
@@ -398,11 +397,11 @@ prefsdlg_on_add(GtkButton  *button, gpointer user_data)
 	GB_DECLARE_STRUCT(GtkTreeIter, iter);
 	gtk_list_store_append(device_model, &iter);		
 	gtk_list_store_set(device_model, &iter, 
-		DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
-		DEVICELIST_COL_NAME, "New CD Burner",
-		DEVICELIST_COL_ID, "1,0,0",
-		DEVICELIST_COL_NODE, "/dev/cdrom", 
-		DEVICELIST_COL_MOUNT, "/mnt/cdrom", -1);
+    		DEVICELIST_COL_ICON, GNOME_STOCK_PIXMAP_CDROM,
+    		DEVICELIST_COL_NAME, "New CD Burner",
+    		DEVICELIST_COL_ID, "1,0,0",
+    		DEVICELIST_COL_NODE, "/dev/cdrom", 
+    		DEVICELIST_COL_MOUNT, "/mnt/cdrom", -1);
 }
 
 
@@ -430,27 +429,27 @@ prefsdlg_new(void)
 	// cdrecord additional arguments
 	GtkWidget *cdrecord_force = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cdrecord_force);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cdrecord_force), 
-        preferences_get_bool(GB_CDRECORD_FORCE));
+            preferences_get_bool(GB_CDRECORD_FORCE));
 	
 	GtkWidget *clean_temp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_clean_temp_dir);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(clean_temp), 
-		preferences_get_bool(GB_CLEANTEMPDIR));
+            preferences_get_bool(GB_CLEANTEMPDIR));
 	
 	GtkWidget *scroll_output = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_scroll_output);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(scroll_output),
-		preferences_get_bool(GB_SCROLL_OUTPUT));
+            preferences_get_bool(GB_SCROLL_OUTPUT));
 	
 	GtkWidget *always_scan = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_always_scan);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(always_scan), 
-		preferences_get_bool(GB_ALWAYS_SCAN));
+            preferences_get_bool(GB_ALWAYS_SCAN));
 		
     GtkWidget *play_sound = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_play_sound);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(play_sound), 
-        preferences_get_bool(GB_PLAY_SOUND));
+            preferences_get_bool(GB_PLAY_SOUND));
         
 	GtkWidget *ask_on_quit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_ask_on_quit);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ask_on_quit), 
-		preferences_get_bool(GB_ASK_ON_QUIT));
+            preferences_get_bool(GB_ASK_ON_QUIT));
 	
 	prefsdlg_create_device_list();
 	prefsdlg_populate_device_list();

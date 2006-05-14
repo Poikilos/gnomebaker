@@ -89,7 +89,7 @@ devices_write_device_to_gconf(const gint device_number, const gchar *device_name
 	g_free(device_mount_key);
 	g_free(device_capabilities_key);
 	GB_TRACE("devices_write_device_to_gconf - Added [%s] [%s] [%s] [%s]\n", 
-		device_name, device_id, device_node, mount_point);
+		  device_name, device_id, device_node, mount_point);
 }
 
 
@@ -144,7 +144,7 @@ devices_add_device(const gchar *device_name, const gchar *device_id,
 
 	++device_addition_index;	
 	devices_write_device_to_gconf(device_addition_index, device_name, device_id,
-		device_node, mount_point, capabilities);
+		  device_node, mount_point, capabilities);
 	
 	g_free(mount_point);
 }
@@ -316,7 +316,7 @@ devices_parse_cdrecord_output(const gchar *buffer, const gchar *bus_name)
 					device = g_strconcat(bus_name, ":", device_id, NULL);
 				
 				gchar *displayname = g_strdup_printf("%s %s", g_strstrip(vendor), 
-					g_strstrip(model));
+					   g_strstrip(model));
 								
 				devices_add_device(displayname, device, "", 0);
 				
@@ -448,7 +448,7 @@ devices_get_scsi_device(const gchar *device_node, const gchar *device_node_path,
 			{
 				gint scsihost, scsiid, scsilun, scsitype;
 				if(sscanf(*device, "%d\t%*d\t%d\t%d\t%d", 
-					&scsihost, &scsiid, &scsilun, &scsitype) != 4)
+					   &scsihost, &scsiid, &scsilun, &scsitype) != 4)
 				{
 					g_warning("devices_get_scsi_device - Error reading scsi information from /proc/scsi/sg/devices");
 				}			
@@ -537,7 +537,7 @@ devices_get_cdrominfo(gchar **proccdrominfo, gint deviceindex)
 				if(columnindex <= deviceindex)
 				{
 					GB_TRACE("devices_get_cdrominfo - Requested device index [%d] is out of bounds. "
-						"All devices have been read.\n", deviceindex);
+						  "All devices have been read.\n", deviceindex);
 					g_hash_table_destroy(ret);
 					ret = NULL;
 					break;
@@ -650,9 +650,9 @@ devices_mount_device(const gchar *device_key, gchar* *mount_point)
 	if((mount == NULL) || (strlen(mount) == 0))
 	{
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE,
-            _("The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
-            "Please check that the writing device has an entry in /etc/fstab and then go "
-            "to preferences and rescan for devices."));
+                _("The mount point (e.g. /mnt/cdrom) for the writing device could not be obtained. "
+                "Please check that the writing device has an entry in /etc/fstab and then go "
+                "to preferences and rescan for devices."));
 	}
 	else
 	{
@@ -661,7 +661,7 @@ devices_mount_device(const gchar *device_key, gchar* *mount_point)
 		if(exec_run_cmd(mount_cmd, &output) != 0)
 		{
 			gchar *message = g_strdup_printf(_("Error mounting %s.\n\n%s"), 
-	            mount, output != NULL ? output : _("unknown error"));
+	               mount, output != NULL ? output : _("unknown error"));
 			gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
 			g_free(message);
 		}
@@ -795,8 +795,7 @@ devices_prompt_for_disk(GtkWindow *parent, const gchar *device_key)
     if(!devices_is_disk_inserted(device_key))
     {
         devices_eject_disk(device_key);
-        ret = gnomebaker_show_msg_dlg(parent, GTK_MESSAGE_INFO, 
-            GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE, message);
+        ret = gnomebaker_show_msg_dlg(parent, GTK_MESSAGE_INFO, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE, message);
     }
     g_free(device_name);
     g_free(message);

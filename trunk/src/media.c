@@ -580,7 +580,7 @@ media_start_playing(const gchar *file)
         GstElement *spider = gst_element_factory_make ("spider", "spider");
         media_player->dest = gst_element_factory_make ("osssink", "destination");
         gst_bin_add_many(GST_BIN (media_player->pipeline), media_player->source, 
-            spider, media_player->dest, NULL);    
+                spider, media_player->dest, NULL);    
         gst_element_link_many(media_player->source, spider, media_player->dest, NULL);
         g_signal_connect (media_player->pipeline, "error", G_CALLBACK(media_player_pipeline_error), NULL);
         g_signal_connect (media_player->pipeline, "eos", G_CALLBACK (media_player_pipeline_eos), NULL);

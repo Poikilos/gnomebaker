@@ -276,7 +276,7 @@ progressdlg_on_output(GtkExpander *expander, gpointer user_data)
 	g_return_if_fail(progdlg_xml != NULL);
     GtkWidget *label = gtk_expander_get_label_widget(expander);
     gtk_label_set_text(GTK_LABEL(label), 
-        gtk_expander_get_expanded(expander) ? _("Show output"): _("Hide output"));
+            gtk_expander_get_expanded(expander) ? _("Show output"): _("Hide output"));
 }
 
 

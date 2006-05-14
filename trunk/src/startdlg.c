@@ -96,7 +96,7 @@ startdlg_on_browse_clicked(GtkButton  *button, gpointer user_data)
     GB_LOG_FUNC
     StartDlg *start_dlg = (StartDlg*)user_data;        
     GtkWidget *file_chooser = gtk_file_chooser_dialog_new( _("Please select an image file to save to."), 
-        GTK_WINDOW(start_dlg->dialog), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);        
+            GTK_WINDOW(start_dlg->dialog), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);        
         
     const gchar *file = gtk_entry_get_text(start_dlg->iso_file);
     if(file != NULL && strlen(file) > 0)    
@@ -176,7 +176,7 @@ startdlg_add_device_section(GtkTable *table, StartDlg *start_dlg, gboolean show_
 {
     guint row = 0;    
     gtk_table_attach(table, show_reader ? startdlg_create_label(_("<b>Devices</b>")) : 
-        startdlg_create_label(_("<b>Device</b>")), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_1);
+            startdlg_create_label(_("<b>Device</b>")), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_1);
     if(show_reader)
     {
         ++row;
@@ -497,9 +497,9 @@ startdlg_new(const BurnType burn_type)
     start_dlg->fast_erase = startdlg_create_check_button(_("Fast blank"), GB_FAST_BLANK);       
     start_dlg->burn_free = startdlg_create_check_button(_("BurnFree"), GB_BURNFREE);    
     start_dlg->burn_disk = startdlg_create_radio_button(_("Burn the disk"), 
-        NULL, !preferences_get_bool(GB_CREATEISOONLY)); 
+            NULL, !preferences_get_bool(GB_CREATEISOONLY)); 
     start_dlg->iso_only = startdlg_create_radio_button(_("Only create image"), 
-        GTK_RADIO_BUTTON(start_dlg->burn_disk), preferences_get_bool(GB_CREATEISOONLY));    
+            GTK_RADIO_BUTTON(start_dlg->burn_disk), preferences_get_bool(GB_CREATEISOONLY));    
     g_signal_connect(G_OBJECT(start_dlg->iso_only), "toggled", (GCallback)startdlg_create_iso_toggled, start_dlg);
     start_dlg->force_format = startdlg_create_check_button(_("Force format"), GB_FORCE);       
     start_dlg->finalize = startdlg_create_check_button(_("Finalize"), GB_FINALIZE); 
@@ -591,7 +591,7 @@ startdlg_new(const BurnType burn_type)
     startdlg_add_action_area(start_dlg);	
     
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(start_dlg->write_speed), 
-        preferences_get_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED));
+            preferences_get_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED));
     
     gtk_widget_show_all(GTK_WIDGET(start_dlg->dialog));
     gbcommon_center_window_on_parent(GTK_WIDGET(start_dlg->dialog));

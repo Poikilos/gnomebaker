@@ -352,8 +352,8 @@ gbcommon_get_icon_for_mime(const gchar *mime, gint size)
 	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	g_return_val_if_fail(theme != NULL, NULL);
 
-	gchar *icon_name = gnome_icon_lookup(
-		theme ,NULL, NULL, NULL, NULL, mime, GNOME_ICON_LOOKUP_FLAGS_NONE, NULL);
+	gchar *icon_name = gnome_icon_lookup(theme ,NULL, NULL, NULL, NULL, 
+            mime, GNOME_ICON_LOOKUP_FLAGS_NONE, NULL);
 	GdkPixbuf *ret = gtk_icon_theme_load_icon(theme, icon_name, size, 0, NULL);
 	g_free(icon_name);
 
@@ -511,8 +511,7 @@ gbcommon_append_menu_item(GtkWidget *menu, const gchar *menu_item_label, GtkWidg
 	
 	GtkWidget *menu_item = gtk_image_menu_item_new_with_mnemonic(menu_item_label);	
 	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menu_item), image);
-	g_signal_connect(menu_item, "activate",
-		(GCallback)activated, user_data);	
+	g_signal_connect(menu_item, "activate", (GCallback)activated, user_data);	
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);	
 }
 
