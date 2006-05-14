@@ -159,7 +159,7 @@ gnomebaker_on_toolbar_style_changed(GConfClient *client,
 
 	GtkWidget *top_toolbar_dock = glade_xml_get_widget(xml, widget_top_toolbar_dock);
 	bonobo_dock_item_set_locked(BONOBO_DOCK_ITEM(top_toolbar_dock),
-		!preferences_get_bool(GNOME_TOOLBAR_DETACHABLE));
+            !preferences_get_bool(GNOME_TOOLBAR_DETACHABLE));
 }
 
 
@@ -226,7 +226,7 @@ gnomebaker_new()
     
     audio_filter = gtk_file_filter_new();
     gtk_file_filter_add_custom(audio_filter, GTK_FILE_FILTER_MIME_TYPE,
-        gnomebaker_audio_file_filter, NULL, NULL);
+            gnomebaker_audio_file_filter, NULL, NULL);
     gtk_file_filter_set_name(audio_filter,_("Audio files"));
     
     gtk_widget_hide(glade_xml_get_widget(xml, "separator4"));
@@ -260,7 +260,7 @@ gnomebaker_new()
     /* Check preferences to see if we'll show/hide the file browser */
 	GtkWidget *check_menu_item = glade_xml_get_widget(xml, widget_show_browser_menu);
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
-		preferences_get_bool(GB_SHOW_FILE_BROWSER));
+		  preferences_get_bool(GB_SHOW_FILE_BROWSER));
 	g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);	
 
     check_menu_item = glade_xml_get_widget(xml, widget_show_hidden_files);
@@ -268,13 +268,13 @@ gnomebaker_new()
     gtk_widget_hide(check_menu_item);
 #else        
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
-        preferences_get_bool(GB_SHOWHIDDEN));
+            preferences_get_bool(GB_SHOWHIDDEN));
     g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
 #endif    
     
     check_menu_item = glade_xml_get_widget(xml, widget_show_human_sizes);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
-        preferences_get_bool(GB_SHOWHUMANSIZE));
+            preferences_get_bool(GB_SHOWHUMANSIZE));
     g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
     
 	return main_window;
@@ -302,8 +302,8 @@ gnomebaker_show_msg_dlg(GtkWindow *parent, GtkMessageType type,
 	GB_TRACE("gnomebaker_show_msg_dlg - message [%s]\n", message);		
 	
 	GtkWidget *dialog = gtk_message_dialog_new(
-		parent == NULL ? GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker)) : parent, 
-		GTK_DIALOG_DESTROY_WITH_PARENT, type, buttons, message);
+            parent == NULL ? GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker)) : parent, 
+		    GTK_DIALOG_DESTROY_WITH_PARENT, type, buttons, message);
 	
 	/*if(additional != GTK_BUTTONS_NONE)
 		gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);*/
@@ -324,7 +324,7 @@ gnomebaker_on_quit(GtkMenuItem *menu_item, gpointer user_data)
 	if(preferences_get_bool(GB_ASK_ON_QUIT))
 	{
         response = gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-		 _("Are you sure you want to quit?"));
+                _("Are you sure you want to quit?"));
     }
     switch(response)
     {
@@ -400,10 +400,10 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
 	GB_LOG_FUNC
     GtkFileFilter *image_filter = gtk_file_filter_new();
     gtk_file_filter_add_custom(image_filter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
-        gnomebaker_cd_image_file_filter, NULL, NULL);
+            gnomebaker_cd_image_file_filter, NULL, NULL);
     gtk_file_filter_set_name(image_filter,_("CD Image files"));
 	gchar *file = gbcommon_show_file_chooser(_("Please select a CD image file."), 
-        GTK_FILE_CHOOSER_ACTION_OPEN, image_filter, TRUE, NULL);
+            GTK_FILE_CHOOSER_ACTION_OPEN, image_filter, TRUE, NULL);
 	if(file != NULL)
 		burn_cd_image_file(file);
     g_free(file);
@@ -416,10 +416,10 @@ gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
 	GB_LOG_FUNC
     GtkFileFilter *image_filter = gtk_file_filter_new();
     gtk_file_filter_add_custom(image_filter, GTK_FILE_FILTER_MIME_TYPE,
-        gbcommon_iso_file_filter, NULL, NULL);
+            gbcommon_iso_file_filter, NULL, NULL);
     gtk_file_filter_set_name(image_filter,_("DVD Image files"));
 	gchar *file = gbcommon_show_file_chooser(_("Please select a DVD image file."), 
-        GTK_FILE_CHOOSER_ACTION_OPEN, image_filter, TRUE, NULL);
+            GTK_FILE_CHOOSER_ACTION_OPEN, image_filter, TRUE, NULL);
 	if(file != NULL)
         burn_dvd_iso(file);
     g_free(file);
@@ -488,10 +488,10 @@ gnomebaker_on_about(GtkMenuItem *menu_item, gpointer user_data)
 	else
 	{
 		const gchar *authors[] = {"Luke Biddell", "Ignacio Martín", "Milen Dzhumerov", 
-            "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", "Adam Biddell (Sounds)", NULL};
+                "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", "Adam Biddell (Sounds)", NULL};
 		const gchar *documenters[] = {"Milen Dzhumerov", NULL};
 		about = gnome_about_new(_("GnomeBaker"), PACKAGE_VERSION, "GPL", 
-			_("Simple CD/DVD Burning for Gnome"), authors, documenters, _("translator_credits"), 
+                _("Simple CD/DVD Burning for Gnome"), authors, documenters, _("translator_credits"), 
 			gdk_pixbuf_new_from_file(IMAGEDIR"/splash_2.png", NULL));
 		g_object_add_weak_pointer(G_OBJECT(about), (void**)&about);
 		gtk_widget_show(about);	
@@ -559,7 +559,7 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
         /*gtk_selection_data_set_uris(selection_data, uris);*/
         selection_data = g_new0(GtkSelectionData, 1);                    
         gtk_selection_data_set(selection_data, selection_data->target, 8, 
-            (const guchar*)text->str, strlen(text->str) * sizeof(gchar));
+                (const guchar*)text->str, strlen(text->str) * sizeof(gchar));
         GB_TRACE("gnomebaker_on_add_files - [%s]\n", selection_data->data);
         g_slist_free(file);
         g_string_free(text, TRUE);
@@ -648,7 +648,7 @@ gnomebaker_on_help(gpointer widget, gpointer user_data)
 	if(error != NULL)
 	{
 		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,
-			GTK_BUTTONS_NONE, error->message);
+                GTK_BUTTONS_NONE, error->message);
 		g_error_free(error);
 	}	
 }
@@ -823,7 +823,7 @@ gnomebaker_on_open_project(gpointer widget, gpointer user_data)
     
     GtkFileFilter *project_filter = gtk_file_filter_new();
     gtk_file_filter_add_custom(project_filter, GTK_FILE_FILTER_FILENAME,
-        gnomebaker_project_file_filter, NULL, NULL);
+            gnomebaker_project_file_filter, NULL, NULL);
     gtk_file_filter_set_name(project_filter,_("Project files"));
     gchar *file = gbcommon_show_file_chooser(_("Please select a project file."), GTK_FILE_CHOOSER_ACTION_OPEN, project_filter, FALSE, NULL);
     if(file != NULL)
@@ -888,7 +888,7 @@ gnomebaker_on_import_playlist(gpointer widget, gpointer user_data)
         
     GtkFileFilter *image_filter = gtk_file_filter_new();
     gtk_file_filter_add_custom(image_filter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
-        gnomebaker_playlist_file_filter, NULL, NULL);
+            gnomebaker_playlist_file_filter, NULL, NULL);
     gtk_file_filter_set_name(image_filter,_("Playlist files"));
     gchar *file = gbcommon_show_file_chooser(_("Please select a playlist."), 
             GTK_FILE_CHOOSER_ACTION_OPEN, image_filter, TRUE, NULL);

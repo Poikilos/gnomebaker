@@ -113,20 +113,17 @@ filebrowser_on_show_humansize_changed(GConfClient *client,
 								   gpointer user_data)
 {
 	GB_LOG_FUNC
-	GtkTreeView *file_list = 
-		GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_filelist));
+	GtkTreeView *file_list =  GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_filelist));
 	g_return_if_fail(file_list != NULL);
 
 	GtkTreeViewColumn *size_column = 
 		gtk_tree_view_get_column(file_list, FL_COL_SIZE-1);
 	g_return_if_fail(size_column != NULL);
 
-	GtkTreeViewColumn *humansize_column = 
-		gtk_tree_view_get_column(file_list, FL_COL_HUMANSIZE-1);
+	GtkTreeViewColumn *humansize_column = gtk_tree_view_get_column(file_list, FL_COL_HUMANSIZE-1);
 	g_return_if_fail(humansize_column != NULL);
 
 	const gboolean show_human_size = preferences_get_bool(GB_SHOWHUMANSIZE);
-
 	gtk_tree_view_column_set_visible(size_column, !show_human_size);
 	gtk_tree_view_column_set_visible(humansize_column, show_human_size);
 }
@@ -293,20 +290,17 @@ filebrowser_populate(GtkTreeModel *tree_model,
 					if(add_to_tree)
 					{
 						GB_DECLARE_STRUCT(GtkTreeIter, sibling);
-						gtk_tree_store_insert_after
-							(GTK_TREE_STORE(tree_model), &sibling, iter, NULL);
+						gtk_tree_store_insert_after(GTK_TREE_STORE(tree_model), &sibling, iter, NULL);
 
 						GdkPixbuf *icon = gbcommon_get_icon_for_name("gnome-fs-directory", 16);
 						gtk_tree_store_set(GTK_TREE_STORE(tree_model), &sibling,
-							DT_COL_ICON, icon, DT_COL_NAME, name, -1);
+                                DT_COL_ICON, icon, DT_COL_NAME, name, -1);
 						g_object_unref(icon);
 
 						GB_DECLARE_STRUCT(GtkTreeIter, sibling_child);
-						gtk_tree_store_insert_after
-							(GTK_TREE_STORE(tree_model), &sibling_child, &sibling, NULL);
-
+						gtk_tree_store_insert_after(GTK_TREE_STORE(tree_model), &sibling_child, &sibling, NULL);
 						gtk_tree_store_set(GTK_TREE_STORE(tree_model), &sibling_child,
-							DT_COL_ICON, NULL, DT_COL_NAME, EMPTY_LABEL, -1);
+                                DT_COL_ICON, NULL, DT_COL_NAME, EMPTY_LABEL, -1);
 					}
 					/* need this when I improve the list to include dirs */
 					if(file_model != NULL)
@@ -315,9 +309,9 @@ filebrowser_populate(GtkTreeModel *tree_model,
 						gtk_list_store_append(GTK_LIST_STORE(file_model), &iter_right);
 						GdkPixbuf *icon = gbcommon_get_icon_for_name("gnome-fs-directory", 16);
 						gtk_list_store_set(GTK_LIST_STORE(file_model), &iter_right, 
-							FL_COL_ICON, icon, FL_COL_NAME, name,
-							FL_COL_SIZE, (guint64)4096, FL_COL_HUMANSIZE, "4 KB",
-							FL_COL_TYPE, DIRECTORY, FL_COL_MIME, "x-directory/normal", -1);
+                                FL_COL_ICON, icon, FL_COL_NAME, name,
+                                FL_COL_SIZE, (guint64)4096, FL_COL_HUMANSIZE, "4 KB",
+                                FL_COL_TYPE, DIRECTORY, FL_COL_MIME, "x-directory/normal", -1);
 						g_object_unref(icon);
 					}
 				}
@@ -333,9 +327,9 @@ filebrowser_populate(GtkTreeModel *tree_model,
   					gchar *human_size = gbcommon_humanreadable_filesize(s.st_size);
 					gchar *type = gbcommon_get_mime_description(mime);					
   					gtk_list_store_set(GTK_LIST_STORE(file_model), &iter_right, 
-  						FL_COL_ICON, icon, FL_COL_NAME, name,
- 						FL_COL_SIZE, (guint64)s.st_size, FL_COL_HUMANSIZE, human_size, 
-						FL_COL_TYPE, type, FL_COL_MIME, mime, -1);
+  						    FL_COL_ICON, icon, FL_COL_NAME, name,
+ 						    FL_COL_SIZE, (guint64)s.st_size, FL_COL_HUMANSIZE, human_size, 
+						    FL_COL_TYPE, type, FL_COL_MIME, mime, -1);
 					g_object_unref(icon);
 					g_free(mime);
   					g_free(type);
@@ -503,7 +497,7 @@ filebrowser_on_drag_data_get(GtkWidget *widget, GdkDragContext *context,
 	
 	/* Set the fully built path(s) as the selection data */
 	gtk_selection_data_set(selection_data, selection_data->target, 8, 
-        (const guchar*)file->str, strlen(file->str)  *sizeof(gchar));
+            (const guchar*)file->str, strlen(file->str)  *sizeof(gchar));
 	
 	g_string_free(file, TRUE);	
 }
@@ -512,8 +506,7 @@ filebrowser_on_drag_data_get(GtkWidget *widget, GdkDragContext *context,
 static void 
 filebrowser_select_directory(const gchar *directory)
 {
-	GtkTreeView *dir_tree = 
-		GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree));
+	GtkTreeView *dir_tree = GTK_TREE_VIEW(glade_xml_get_widget(gnomebaker_getxml(), widget_browser_dirtree));
 	GtkTreeModel *tree_model = NULL;
 	GB_DECLARE_STRUCT(GtkTreeIter, dir_iter);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(dir_tree);
@@ -573,7 +566,7 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 		if(GTK_IS_TREE_STORE(gtk_tree_view_get_model(view)))
 		{
 			gbcommon_append_menu_item_stock(menu, _("_Add directory"), GTK_STOCK_ADD, 
-				(GCallback)gnomebaker_on_add_dir, widget);
+				    (GCallback)gnomebaker_on_add_dir, widget);
 		}
 		else
 		{		
@@ -582,7 +575,7 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 			if(count == 1)
 			{
 				gbcommon_append_menu_item_stock(menu, _("_Open"), GTK_STOCK_OPEN, 
-					(GCallback)filebrowser_on_open, view);
+					   (GCallback)filebrowser_on_open, view);
 			}
             
             gbcommon_append_menu_item_stock(menu, _("_Add file(s)"), GTK_STOCK_ADD, 
@@ -593,18 +586,18 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 				GtkTreeModel *model = gtk_tree_view_get_model(view);
 				GB_DECLARE_STRUCT(GtkTreeIter, iter);
 				gtk_tree_selection_selected_foreach(selection, 
-					(GtkTreeSelectionForeachFunc)gbcommon_get_first_selected_row, &iter);	
+					   (GtkTreeSelectionForeachFunc)gbcommon_get_first_selected_row, &iter);	
 				gchar *name = NULL, *mime = NULL;
 				gtk_tree_model_get(model, &iter, FL_COL_NAME, &name, FL_COL_MIME, &mime, -1);
 				g_free(right_click_selection);
-					right_click_selection = filebrowser_build_filename(model, &iter);
+                right_click_selection = filebrowser_build_filename(model, &iter);
 				
 				if(gbcommon_str_has_suffix(name, ".cue") || gbcommon_str_has_suffix(name, ".toc") || (g_ascii_strcasecmp(mime, "application/x-cd-image") == 0))
-					gbcommon_append_menu_item_file(menu, _("_Burn CD Image"), 
-                        "baker-cd-iso.png", (GCallback)filebrowser_burn_cd_image, view);	
+                    gbcommon_append_menu_item_file(menu, _("_Burn CD Image"), 
+                            "baker-cd-iso.png", (GCallback)filebrowser_burn_cd_image, view);	
                 if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
                     gbcommon_append_menu_item_file(menu, _("_Burn DVD Image"), 
-						"baker-dvd-iso.png", (GCallback)filebrowser_burn_dvd_image, view);	
+                            "baker-dvd-iso.png", (GCallback)filebrowser_burn_dvd_image, view);	
 				g_free(name);
 				g_free(mime);
 			}							
@@ -615,8 +608,7 @@ filebrowser_on_button_pressed(GtkWidget *widget, GdkEventButton *event, gpointer
 		/* Note: event can be NULL here when called. However,
 		 *  gdk_event_get_time() accepts a NULL argument */
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-					   (event != NULL) ? event->button : 0,
-					   gdk_event_get_time((GdkEvent*)event));
+                (event != NULL) ? event->button : 0, gdk_event_get_time((GdkEvent*)event));
 		return TRUE;
 	}
 	return FALSE;
@@ -674,8 +666,7 @@ filebrowser_setup_tree(GtkTreeView *dir_tree, GtkTreeView *file_list)
 	/* Create the tree store for the dir tree */
     GtkTreeStore *store = gtk_tree_store_new(DT_NUM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING);
     gtk_tree_view_set_model(dir_tree, GTK_TREE_MODEL(store));
-	gtk_tree_sortable_set_sort_column_id(
-		GTK_TREE_SORTABLE(store), DT_COL_NAME, GTK_SORT_ASCENDING);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(store), DT_COL_NAME, GTK_SORT_ASCENDING);
     g_object_unref(store);
 		
 	/* One column which has an icon renderer and a text renderer packed in */
@@ -694,10 +685,9 @@ filebrowser_setup_tree(GtkTreeView *dir_tree, GtkTreeView *file_list)
 	    
 	/* Enable the file list as a drag source */	
     gtk_drag_source_set(GTK_WIDGET(dir_tree), GDK_BUTTON1_MASK, target_entries,
-		TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+            TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
-	g_signal_connect(dir_tree, "drag_data_get", 
-		G_CALLBACK(filebrowser_on_drag_data_get), store);
+	g_signal_connect(dir_tree, "drag_data_get", G_CALLBACK(filebrowser_on_drag_data_get), store);
 
 	/* Add in a root file system label as the base of our tree */
 	GdkPixbuf *icon = gbcommon_get_icon_for_name("gnome-dev-harddisk", 16);
@@ -727,18 +717,18 @@ filebrowser_setup_tree(GtkTreeView *dir_tree, GtkTreeView *file_list)
 	/* Connect up the changed signal so we can populate the file list according
 	   to the selection in the dir tree */
 	sel_changed_id = g_signal_connect((gpointer) selection, "changed",
-		G_CALLBACK(filebrowser_sel_changed), file_list);
+            G_CALLBACK(filebrowser_sel_changed), file_list);
 				
 	g_signal_connect((gpointer) dir_tree, "row-expanded",
-		G_CALLBACK(filebrowser_on_tree_expanding), file_list);
+            G_CALLBACK(filebrowser_on_tree_expanding), file_list);
 		
 	/* connect the signal to handle right click */
 	g_signal_connect (G_OBJECT(dir_tree), "button-press-event",
-        G_CALLBACK(filebrowser_on_button_pressed), NULL);
+            G_CALLBACK(filebrowser_on_button_pressed), NULL);
 	
 	/* handle double clicks */	
 	g_signal_connect(G_OBJECT(dir_tree), "row-activated", 
-		G_CALLBACK(filebrowser_on_tree_dbl_click), NULL);
+            G_CALLBACK(filebrowser_on_tree_dbl_click), NULL);
 		
 	/* Force the populate of the filesystem node so that it shows an expander. We
 	   must do this before we force selection of the home dir so that the list
@@ -764,15 +754,13 @@ filebrowser_setup_list(GtkTreeView *file_list)
 	
 	/* Create the list store for the file list */
     GtkListStore *store = gtk_list_store_new(
-		FL_NUM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, 
-		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+            FL_NUM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, 
+            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_view_set_model(file_list, GTK_TREE_MODEL(store));
 	
-	gtk_tree_sortable_set_default_sort_func(
-		GTK_TREE_SORTABLE(store), filebrowser_list_sortfunc, NULL, NULL);
-	
-	gtk_tree_sortable_set_sort_column_id(
-		GTK_TREE_SORTABLE(store), GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
+	gtk_tree_sortable_set_default_sort_func(GTK_TREE_SORTABLE(store), filebrowser_list_sortfunc, NULL, NULL);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(store), 
+            GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
 	
     g_object_unref(store);
 
@@ -831,23 +819,18 @@ filebrowser_setup_list(GtkTreeView *file_list)
     gtk_tree_view_append_column(file_list, col);
 
 	/* Set the selection mode of the file list */
-    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(file_list),
-		GTK_SELECTION_MULTIPLE);
+    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(file_list), GTK_SELECTION_MULTIPLE);
 
 	/* Enable the file list as a drag source */
     gtk_drag_source_set(GTK_WIDGET(file_list), GDK_BUTTON1_MASK, target_entries,
-        TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+            TARGET_COUNT, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
 	/* Connect the function to handle the drag data */
-    g_signal_connect(file_list, "drag_data_get",
-		G_CALLBACK(filebrowser_on_drag_data_get), store);
+    g_signal_connect(file_list, "drag_data_get", G_CALLBACK(filebrowser_on_drag_data_get), store);
 		
 	/* connect the signal to handle right click */
-	g_signal_connect (G_OBJECT(file_list), "button-press-event",
-        G_CALLBACK(filebrowser_on_button_pressed), NULL);
-		
-	g_signal_connect(G_OBJECT(file_list), "row-activated", 
-		G_CALLBACK(filebrowser_on_list_dbl_click), NULL);
+	g_signal_connect (G_OBJECT(file_list), "button-press-event", G_CALLBACK(filebrowser_on_button_pressed), NULL);
+	g_signal_connect(G_OBJECT(file_list), "row-activated",  G_CALLBACK(filebrowser_on_list_dbl_click), NULL);
 }
 
 
