@@ -33,10 +33,9 @@
 #include <unistd.h>
 #include <string.h>
 #include "selectdevicedlg.h"
+#include "gnomebaker.h"
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 
-
-#define gnomebaker_show_busy_cursor(busy)   \
 
 G_DEFINE_TYPE(DataProject, dataproject, PROJECT_TYPE_WIDGET);
 
