@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnomebaker (GTK2/Gnome cd burning) 0.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-19 01:10+0000\n"
+"POT-Creation-Date: 2006-05-16 22:59+0100\n"
 "PO-Revision-Date: 2005-08-08 15:05+0200\n"
 "Last-Translator: Carles Escrig 'simkin' <simkin@ono.com>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -17,279 +17,296 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/audiocd.c:119
+#: ../src/audioproject.c:126 ../src/cairofillbar.c:672
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
 msgstr ""
 
-#: ../src/audiocd.c:147
+#: ../src/audioproject.c:155
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "La pista és massa gran per a cabre en l'espai restant al CD"
 
-#: ../src/audiocd.c:280 ../src/filebrowser.c:584
-msgid "_Open"
-msgstr "_Obri"
-
-#: ../src/audiocd.c:285
-msgid "Move selected _up"
-msgstr ""
-
-#: ../src/audiocd.c:287
-msgid "Move selected _down"
-msgstr ""
-
-#: ../src/audiocd.c:290 ../src/datacd.c:1030 ../src/datacd.c:1058
-msgid "_Remove selected"
-msgstr "_Esborra selecció"
-
-#: ../src/audiocd.c:292
-msgid "_Clear"
-msgstr "_Neteja"
-
-#: ../src/audiocd.c:382
+#: ../src/audioproject.c:354
 #, c-format
 msgid ""
-"The file [%s] referred to in the playlist could not be imported as it does "
+"The file [%s] referred to in the play_list could not be imported as it does "
 "not exist."
 msgstr ""
 
-#: ../src/audiocd.c:523
-msgid "Not enough space on the CD"
+#: ../src/audioproject.c:485
+msgid "Not enough space on the disk"
 msgstr ""
 
-#: ../src/audiocd.c:745
+#: ../src/audioproject.c:572
+#, fuzzy
 msgid ""
-"The file you have selected is not a supported playlist. Please select a pls "
+"The file you have selected is not a supported play_list. Please select a pls "
 "or m3u file."
 msgstr ""
+"El fitxer que heu seleccionat no és una imatge de cd. Per favor seleccioneu "
+"una imatge de cd per a gravar."
 
-#: ../src/audiocd.c:763 ../src/audiocd.c:800
-msgid "Failed to write playlist file"
+#: ../src/audioproject.c:591 ../src/audioproject.c:628
+msgid "Failed to write play_list file"
 msgstr ""
 
-#: ../src/audiocd.c:849
+#: ../src/audioproject.c:677
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audiocd.c:884
+#: ../src/audioproject.c:811 ../src/filebrowser.c:577
+msgid "_Open"
+msgstr "_Obri"
+
+#: ../src/audioproject.c:816
+msgid "Move selected _up"
+msgstr ""
+
+#: ../src/audioproject.c:818
+msgid "Move selected _down"
+msgstr ""
+
+#: ../src/audioproject.c:821 ../src/dataproject.c:1252
+#: ../src/dataproject.c:1289
+msgid "_Remove selected"
+msgstr "_Esborra selecció"
+
+#: ../src/audioproject.c:823
+msgid "_Clear"
+msgstr "_Neteja"
+
+#: ../src/audioproject.c:992
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/audiocd.c:897
+#: ../src/audioproject.c:1005
 msgid "Duration"
 msgstr "Duració"
 
-#: ../src/audiocd.c:914
+#: ../src/audioproject.c:1022
 msgid "Artist"
 msgstr "Artista"
 
-#: ../src/audiocd.c:923
+#: ../src/audioproject.c:1031
 msgid "Album"
 msgstr "Àlbum"
 
-#: ../src/audiocd.c:932
+#: ../src/audioproject.c:1040
 msgid "Title"
 msgstr "Títol"
 
-#: ../src/audiocd.c:941
+#: ../src/audioproject.c:1049
 msgid "Info"
 msgstr ""
 
-#: ../src/burn.c:94 ../src/burn.c:140
+#: ../src/audioproject.c:1080
+#, fuzzy
+msgid "<b>Audio CD</b>"
+msgstr "<b>Disc d'Àudio</b>"
+
+#: ../src/burn.c:93 ../src/burn.c:139
 msgid "Burning CD image"
 msgstr ""
 
-#: ../src/burn.c:94 ../src/burn.c:140
+#: ../src/burn.c:93 ../src/burn.c:139
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr ""
 
-#: ../src/burn.c:116
+#: ../src/burn.c:115
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
 
-#: ../src/burn.c:121
+#: ../src/burn.c:120
 msgid "Burning DVD image"
 msgstr ""
 
-#: ../src/burn.c:121
+#: ../src/burn.c:120
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr ""
 
-#: ../src/burn.c:164
+#: ../src/burn.c:163
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
 
-#: ../src/burn.c:181
+#: ../src/burn.c:180
 msgid "Creating data CD image"
 msgstr ""
 
-#: ../src/burn.c:181
+#: ../src/burn.c:180
 msgid "Please wait while the data CD image is created."
 msgstr ""
 
-#: ../src/burn.c:187 ../src/burn.c:197
+#: ../src/burn.c:186 ../src/burn.c:196
 msgid "Burning data CD"
 msgstr ""
 
-#: ../src/burn.c:187
+#: ../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
 msgstr ""
 
-#: ../src/burn.c:197
+#: ../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:222 ../src/burn.c:232
+#: ../src/burn.c:221 ../src/burn.c:231
 msgid "Appending to data CD"
 msgstr ""
 
-#: ../src/burn.c:222
+#: ../src/burn.c:221
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr ""
 
-#: ../src/burn.c:232
+#: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:254
+#: ../src/burn.c:253
 msgid "Burning audio CD"
 msgstr ""
 
-#: ../src/burn.c:254
+#: ../src/burn.c:253
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr ""
 
-#: ../src/burn.c:317
+#: ../src/burn.c:312
 msgid "Extracting CD image"
 msgstr ""
 
-#: ../src/burn.c:317
+#: ../src/burn.c:312
 msgid "Please wait while the data CD image is extracted."
 msgstr ""
 
-#: ../src/burn.c:323
+#: ../src/burn.c:318
 msgid "Copying data CD"
 msgstr ""
 
-#: ../src/burn.c:323
+#: ../src/burn.c:318
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 
-#: ../src/burn.c:343
+#: ../src/burn.c:338
 msgid "Copying audio CD"
 msgstr ""
 
-#: ../src/burn.c:343
+#: ../src/burn.c:338
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr ""
 
-#: ../src/burn.c:360
+#: ../src/burn.c:354
+#, fuzzy
+msgid "Copying CD"
+msgstr "Copia CD d'àudio"
+
+#: ../src/burn.c:354
+#, fuzzy
+msgid "Please wait while the CD is copied"
+msgstr "Per favor inseriu el CD a la gravadora de CD"
+
+#: ../src/burn.c:370
 msgid "Blanking CD"
 msgstr ""
 
-#: ../src/burn.c:360
+#: ../src/burn.c:370
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:376
+#: ../src/burn.c:386
 msgid "Formatting re-writeable DVD"
 msgstr ""
 
-#: ../src/burn.c:376
+#: ../src/burn.c:386
 msgid "Please wait while the DVD is formatted."
 msgstr ""
 
-#: ../src/burn.c:396
+#: ../src/burn.c:406
 msgid "Creating data DVD image"
 msgstr ""
 
-#: ../src/burn.c:396
+#: ../src/burn.c:406
 msgid "Please wait while the data DVD image is created."
 msgstr ""
 
-#: ../src/burn.c:402
+#: ../src/burn.c:412
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:402
+#: ../src/burn.c:412
 msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
 
-#: ../src/burn.c:421 ../src/burn.c:483
+#: ../src/burn.c:431 ../src/burn.c:493
 msgid "Appending to data DVD"
 msgstr ""
 
-#: ../src/burn.c:421 ../src/burn.c:483
+#: ../src/burn.c:431 ../src/burn.c:493
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr ""
 
-#: ../src/burn.c:448 ../src/execfunctions.c:1464
+#: ../src/burn.c:458 ../src/execfunctions.c:1666
 msgid "Verifying the disk content"
 msgstr ""
 
-#: ../src/datacd.c:187 ../src/startdlg.c:523
+#: ../src/cairofillbar.c:684
+#, c-format
+msgid "%s of %s used. <b>Overburning</b>."
+msgstr ""
+
+#: ../src/cairofillbar.c:690 ../src/dataproject.c:398
+#, c-format
+msgid "%s used - %s remaining."
+msgstr ""
+
+#: ../src/cairofillbar.c:696
+#, c-format
+msgid "%s of %s used. <b>Disk full</b>."
+msgstr ""
+
+#: ../src/dataproject.c:180 ../src/startdlg.c:532
 msgid "GnomeBaker data disk"
 msgstr ""
 
-#: ../src/datacd.c:403
+#: ../src/dataproject.c:392
 #, c-format
-msgid "%s used - %s remaining"
+msgid "%s of %s used. Overburning."
 msgstr ""
 
-#: ../src/datacd.c:410
+#: ../src/dataproject.c:404
 #, c-format
-msgid "%s of %s used. Disk full"
+msgid "%s of %s used. Disk full."
 msgstr ""
 
-#: ../src/datacd.c:978
+#: ../src/dataproject.c:1176
 #, fuzzy
 msgid "New Folder"
 msgstr "Carpeta"
 
-#: ../src/datacd.c:1018
+#: ../src/dataproject.c:1240 ../src/dataproject.c:1279
 #, fuzzy
 msgid "_Add Folder"
 msgstr "Carpeta"
 
-#: ../src/datacd.c:1026
+#: ../src/dataproject.c:1248 ../src/dataproject.c:1283
 msgid "_Edit name"
 msgstr ""
 
-#: ../src/datacd.c:1032
+#: ../src/dataproject.c:1254 ../src/dataproject.c:1293
 msgid "Clear"
 msgstr "Neteja"
 
-#: ../src/datacd.c:1190 ../src/datacd.c:1288 ../gnomebaker.glade.h:42
-msgid "Contents"
-msgstr "Continguts"
-
-#: ../src/datacd.c:1312 ../src/datacd.c:1322 ../src/filebrowser.c:797
-#: ../src/filebrowser.c:807
-msgid "Size"
-msgstr "Mida"
-
-#: ../src/datacd.c:1332
-msgid "Full Path"
-msgstr "Camí sencer"
-
-#: ../src/datacd.c:1341
-msgid "Session"
-msgstr "Sessió"
-
-#: ../src/datacd.c:1427
+#: ../src/dataproject.c:1461
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -300,11 +317,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/datacd.c:1428 ../src/devices.c:664
+#: ../src/dataproject.c:1462 ../src/devices.c:664
 msgid "unknown error"
 msgstr "s'ha produït un error desconegut"
 
-#: ../src/datacd.c:1507
+#: ../src/dataproject.c:1657
+#, fuzzy
+msgid "Compilation exeeds the capacity or the remaining space of the disk"
+msgstr "La pista és massa gran per a cabre en l'espai restant al CD"
+
+#: ../src/dataproject.c:1765
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -313,10 +335,34 @@ msgstr ""
 "Error important sessió des de [%s]. Per favor comproveu la configuració del "
 "dispositiu a les preferències."
 
-#: ../src/datacd.c:1709
+#: ../src/dataproject.c:1859 ../src/dataproject.c:1956
+#: ../gnomebaker.glade.h:38
+msgid "Contents"
+msgstr "Continguts"
+
+#: ../src/dataproject.c:1882 ../src/dataproject.c:1892
+#: ../src/filebrowser.c:785 ../src/filebrowser.c:795
+msgid "Size"
+msgstr "Mida"
+
+#: ../src/dataproject.c:1902
+msgid "Full Path"
+msgstr "Camí sencer"
+
+#: ../src/dataproject.c:1911
+msgid "Session"
+msgstr "Sessió"
+
+#: ../src/dataproject.c:2084
 #, fuzzy
-msgid "Compilation exeeds the capacity or the remaining space of the disk"
-msgstr "La pista és massa gran per a cabre en l'espai restant al CD"
+msgid "<b>Data DVD</b>"
+msgstr "<b>Disc de Dades</b>"
+
+#. preferences_get_int(GB_DATA_DISK_SIZE)
+#: ../src/dataproject.c:2090
+#, fuzzy
+msgid "<b>Data CD</b>"
+msgstr "<b>Disc de Dades</b>"
 
 #: ../src/devices.c:653
 msgid ""
@@ -342,32 +388,32 @@ msgstr ""
 msgid "Please insert a disk into the %s"
 msgstr ""
 
-#: ../src/execfunctions.c:87
+#: ../src/execfunctions.c:86
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:144
+#: ../src/execfunctions.c:143
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#. currenttrack, cdrecord_firsttrack, current, total, totalfraction);
-#: ../src/execfunctions.c:201
+#. current_track, cdrecord_first_track, current, total, total_fraction);
+#: ../src/execfunctions.c:200
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:253 ../src/execfunctions.c:1008
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:199
-#: ../src/startdlg.c:200 ../gnomebaker.glade.h:108
+#: ../src/execfunctions.c:287 ../src/execfunctions.c:1006
+#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
+#: ../src/startdlg.c:199 ../gnomebaker.glade.h:105
 msgid "default"
 msgstr "per defecte"
 
-#: ../src/execfunctions.c:405
+#: ../src/execfunctions.c:403
 msgid "Preparing to extract audio tracks"
 msgstr ""
 
-#: ../src/execfunctions.c:416
+#: ../src/execfunctions.c:414
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -375,20 +421,20 @@ msgstr ""
 "Al disc existeixen pistes d'àudio d'una sessió anterior, Voleu usar les "
 "pistes existents?"
 
-#: ../src/execfunctions.c:473
+#: ../src/execfunctions.c:471
 #, c-format
 msgid "Extracting audio track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:543
+#: ../src/execfunctions.c:541
 msgid "Calculating data disk image size"
 msgstr ""
 
-#: ../src/execfunctions.c:581
+#: ../src/execfunctions.c:579
 msgid "Creating data disk image"
 msgstr ""
 
-#: ../src/execfunctions.c:588
+#: ../src/execfunctions.c:586
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -396,35 +442,35 @@ msgstr ""
 "Ja existeix al disc una imatge de CD de dades d'una sessió anterior, voleu "
 "usar la imatge existent?"
 
-#: ../src/execfunctions.c:825
+#: ../src/execfunctions.c:823
 msgid "Formatting DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:906
+#: ../src/execfunctions.c:904
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:937 ../src/execfunctions.c:962
+#: ../src/execfunctions.c:935 ../src/execfunctions.c:960
 msgid "Writing DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:1074
+#: ../src/execfunctions.c:1071
 msgid "Reading CD image"
 msgstr ""
 
-#: ../src/execfunctions.c:1082
+#: ../src/execfunctions.c:1079
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1347
+#: ../src/execfunctions.c:1461
 #, c-format
 msgid "Converting %s to cd audio"
 msgstr ""
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:683 ../src/startdlg.c:381
-#: ../src/startdlg.c:409
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:379
+#: ../src/startdlg.c:407
 msgid "Filesystem"
 msgstr "Sistema de fitxers"
 
@@ -440,125 +486,140 @@ msgstr "(buit)"
 msgid "Folder"
 msgstr "Carpeta"
 
-#: ../src/filebrowser.c:575
+#: ../src/filebrowser.c:568
 msgid "_Add directory"
 msgstr "_Afegeix directori"
 
-#: ../src/filebrowser.c:588
+#: ../src/filebrowser.c:581
 msgid "_Add file(s)"
 msgstr "_Afegeix fitxer(s)"
 
-#: ../src/filebrowser.c:603 ../gnomebaker.glade.h:90
+#: ../src/filebrowser.c:596 ../gnomebaker.glade.h:87
 msgid "_Burn CD Image"
 msgstr "_Grava Imatge de CD"
 
-#: ../src/filebrowser.c:606
+#: ../src/filebrowser.c:599
 msgid "_Burn DVD Image"
 msgstr "_Grava imatge de DVD"
 
-#: ../src/filebrowser.c:714
+#: ../src/filebrowser.c:704
 #, c-format
 msgid "%s's home"
 msgstr "directori de %s"
 
-#: ../src/filebrowser.c:782
+#: ../src/filebrowser.c:770
 msgid "File"
 msgstr "Fitxer"
 
-#: ../src/filebrowser.c:817
+#: ../src/filebrowser.c:805
 msgid "Type"
 msgstr "Tipus"
 
-#: ../src/filebrowser.c:826
+#: ../src/filebrowser.c:814
 msgid "Mime"
 msgstr "Mime"
 
-#: ../src/gbcommon.c:583
+#: ../src/gbcommon.c:566
 msgid "All files"
 msgstr "Tots els fitxers"
 
-#: ../src/gbcommon.c:591
+#: ../src/gbcommon.c:574
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:127
+#: ../src/gnomebaker.c:195
 msgid "Loading preferences..."
 msgstr "Carregant les preferències..."
 
-#: ../src/gnomebaker.c:130
+#: ../src/gnomebaker.c:198
 msgid "Detecting devices..."
 msgstr "Detectant els dispositius..."
 
-#: ../src/gnomebaker.c:133
+#: ../src/gnomebaker.c:201
 msgid "Registering gstreamer plugins..."
 msgstr "Registrant els connectors de gstreamer..."
 
-#: ../src/gnomebaker.c:136
+#: ../src/gnomebaker.c:204
 msgid "Loading GUI..."
 msgstr "Carregant GUI..."
 
-#: ../src/gnomebaker.c:161
+#: ../src/gnomebaker.c:230
 #, fuzzy
 msgid "Audio files"
 msgstr "Afegeix fitxer(s)"
 
-#: ../src/gnomebaker.c:245
+#: ../src/gnomebaker.c:327
 msgid "Are you sure you want to quit?"
 msgstr "Esteu segur que voleu eixir?"
 
-#: ../src/gnomebaker.c:322
+#: ../src/gnomebaker.c:404
 msgid "CD Image files"
 msgstr "fitxers d'Imatge de CD"
 
-#: ../src/gnomebaker.c:323
+#: ../src/gnomebaker.c:405
 msgid "Please select a CD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:338
+#: ../src/gnomebaker.c:420
 msgid "DVD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:339
+#: ../src/gnomebaker.c:421
 msgid "Please select a DVD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:410 ../gnomebaker.glade.h:53
+#: ../src/gnomebaker.c:501 ../gnomebaker.glade.h:50
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:411
+#: ../src/gnomebaker.c:502
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr ""
 
-#: ../src/gnomebaker.c:411 ../gnomebaker.glade.h:113
+#: ../src/gnomebaker.c:502 ../gnomebaker.glade.h:110
 msgid "translator_credits"
 msgstr "Carles Escrig 'simkin' <simkin@ono.com>"
 
-#: ../src/gnomebaker.c:500
-msgid "Please select files to add to the disk."
-msgstr ""
-
-#: ../src/gnomebaker.c:777 ../src/gnomebaker.c:800
+#: ../src/gnomebaker.c:804 ../src/gnomebaker.c:912
 msgid "Playlist files"
 msgstr ""
 
-#: ../src/gnomebaker.c:778
-msgid "Please select a playlist."
-msgstr ""
-
-#: ../src/gnomebaker.c:807
+#: ../src/gnomebaker.c:811
 msgid "Save playlist as..."
 msgstr ""
 
-#: ../src/gnomebaker.c:830
+#: ../src/gnomebaker.c:835
 #, fuzzy
 msgid "Project files"
 msgstr "Expulsa disc"
 
-#: ../src/gnomebaker.c:831
+#: ../src/gnomebaker.c:836
 #, fuzzy
 msgid "Please select a project file."
 msgstr "Per favor seleccioneu un fitxer iso..."
+
+#: ../src/gnomebaker.c:913
+msgid "Please select a playlist."
+msgstr ""
+
+#: ../src/gnomebaker.c:1002
+msgid "Please select files to add to the disk."
+msgstr ""
+
+#: ../src/gnomebaker.c:1011
+#, fuzzy
+msgid "Please select folders to add to the disk."
+msgstr "Per favor seleccioneu els fitxers a afegir al disc..."
+
+#: ../src/gnomebaker.c:1021
+#, fuzzy
+msgid "_Add Folders"
+msgstr "Carpeta"
+
+#: ../src/gnomebaker.c:1023
+#, fuzzy
+msgid "_Add Files"
+msgstr "_Afegeix fitxer(s)"
 
 #: ../src/main.c:41
 msgid "Show tracing information (useful when debugging)"
@@ -568,40 +629,40 @@ msgstr ""
 msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
-#: ../src/media.c:397
+#: ../src/media.c:493
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr "L'extensió per a gestionar amb fitxers %s no està instal·lada."
 
-#: ../src/prefsdlg.c:146
+#: ../src/prefsdlg.c:139
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/prefsdlg.c:161
+#: ../src/prefsdlg.c:154
 msgid "Id"
 msgstr "Id"
 
-#: ../src/prefsdlg.c:170
+#: ../src/prefsdlg.c:163
 msgid "Node"
 msgstr "Node"
 
-#: ../src/prefsdlg.c:179
+#: ../src/prefsdlg.c:172
 msgid "Mount point"
 msgstr "Punt de muntatge"
 
-#: ../src/prefsdlg.c:188
+#: ../src/prefsdlg.c:181
 msgid "Write CD-R"
 msgstr "Escriu CD-R"
 
-#: ../src/prefsdlg.c:197
+#: ../src/prefsdlg.c:190
 msgid "Write CD-RW"
 msgstr "Escriu CD-RW"
 
-#: ../src/prefsdlg.c:206
+#: ../src/prefsdlg.c:199
 msgid "Write DVD-R"
 msgstr "Escriu DVD-R"
 
-#: ../src/prefsdlg.c:215
+#: ../src/prefsdlg.c:208
 msgid "Write DVD-RAM"
 msgstr "Escriu DVD-RAM"
 
@@ -625,7 +686,7 @@ msgstr ""
 msgid "%s remaining"
 msgstr ""
 
-#: ../src/progressdlg.c:279 ../gnomebaker.glade.h:79
+#: ../src/progressdlg.c:279 ../gnomebaker.glade.h:76
 msgid "Show output"
 msgstr ""
 
@@ -642,204 +703,210 @@ msgstr ""
 msgid "Completed"
 msgstr "Finalitzat"
 
-#: ../src/progressdlg.c:370
-msgid "Gnomebaker completed successfully!"
-msgstr ""
-
 #: ../src/progressdlg.c:374
 msgid "Failed"
 msgstr "Fallat"
 
-#: ../src/progressdlg.c:382
-msgid "Gnomebaker <b>failed</b> to complete the action!"
-msgstr ""
+#: ../src/project.c:71
+msgid "0%"
+msgstr "0%"
 
-#: ../src/startdlg.c:99
+#: ../src/project.c:108
+#, fuzzy
+msgid "Burn"
+msgstr "BurnFree"
+
+#: ../src/startdlg.c:98
 msgid "Please select an image file to save to."
 msgstr ""
 
-#: ../src/startdlg.c:121
+#: ../src/startdlg.c:120
 msgid "CD/DVD Image files"
 msgstr ""
 
-#: ../src/startdlg.c:179 ../gnomebaker.glade.h:14
+#: ../src/startdlg.c:178 ../gnomebaker.glade.h:10
 msgid "<b>Devices</b>"
 msgstr "<b>Dispositius</b>"
 
-#: ../src/startdlg.c:180
+#: ../src/startdlg.c:179
 msgid "<b>Device</b>"
 msgstr ""
 
-#: ../src/startdlg.c:184
+#: ../src/startdlg.c:183
 msgid "Reader:"
 msgstr ""
 
-#: ../src/startdlg.c:188
+#: ../src/startdlg.c:187
 msgid "Writer:"
 msgstr ""
 
-#: ../src/startdlg.c:191
+#: ../src/startdlg.c:190
 msgid "Speed:"
 msgstr ""
 
-#: ../src/startdlg.c:195
+#: ../src/startdlg.c:194
 msgid "Mode:"
 msgstr ""
 
-#: ../src/startdlg.c:218 ../gnomebaker.glade.h:16
+#: ../src/startdlg.c:217 ../gnomebaker.glade.h:12
 msgid "<b>Options</b>"
 msgstr "<b>Opcions</b>"
 
-#: ../src/startdlg.c:247 ../gnomebaker.glade.h:104
+#: ../src/startdlg.c:246 ../gnomebaker.glade.h:101
 msgid "_Start"
 msgstr "_Comença"
 
-#: ../src/startdlg.c:311
+#: ../src/startdlg.c:309
 msgid "<b>Disk Information</b>"
 msgstr ""
 
-#: ../src/startdlg.c:313
+#: ../src/startdlg.c:311
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/startdlg.c:316
+#: ../src/startdlg.c:314
 msgid "Application ID:"
 msgstr ""
 
-#: ../src/startdlg.c:319
+#: ../src/startdlg.c:317
 msgid "Preparer:"
 msgstr ""
 
-#: ../src/startdlg.c:322
+#: ../src/startdlg.c:320
 msgid "Publisher:"
 msgstr ""
 
-#: ../src/startdlg.c:325
+#: ../src/startdlg.c:323
 msgid "Copyright:"
 msgstr ""
 
-#: ../src/startdlg.c:328
+#: ../src/startdlg.c:326
 msgid "Abstract:"
 msgstr ""
 
-#: ../src/startdlg.c:331
+#: ../src/startdlg.c:329
 msgid "Bibliography:"
 msgstr ""
 
-#: ../src/startdlg.c:342
+#: ../src/startdlg.c:340
 msgid "<b>Filesystem</b>"
 msgstr ""
 
-#: ../src/startdlg.c:380 ../src/startdlg.c:408
+#: ../src/startdlg.c:378 ../src/startdlg.c:406
 msgid "Writing"
 msgstr ""
 
-#: ../src/startdlg.c:382 ../src/startdlg.c:410
+#: ../src/startdlg.c:380 ../src/startdlg.c:408
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:497
+#: ../src/startdlg.c:506
 msgid "Dummy write"
 msgstr "Escriptura de prova"
 
-#: ../src/startdlg.c:498
+#: ../src/startdlg.c:507
 msgid "Eject disk"
 msgstr "Expulsa disc"
 
-#: ../src/startdlg.c:499
+#: ../src/startdlg.c:508
 msgid "Fast blank"
 msgstr "Esborrat ràpid"
 
-#: ../src/startdlg.c:500
+#: ../src/startdlg.c:509
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: ../src/startdlg.c:501
+#: ../src/startdlg.c:510
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:503
+#: ../src/startdlg.c:512
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:506
+#: ../src/startdlg.c:515
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:516
 msgid "Finalize"
 msgstr "Finalitza"
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:517
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:509
+#: ../src/startdlg.c:518
 msgid "Joliet"
 msgstr "Joliet"
 
-#: ../src/startdlg.c:510
+#: ../src/startdlg.c:519
 msgid "Rock Ridge"
 msgstr "Rock Ridge"
 
-#: ../src/startdlg.c:511
+#: ../src/startdlg.c:520
 #, fuzzy
 msgid "On the fly"
 msgstr "Al vol"
 
-#: ../src/startdlg.c:521
+#: ../src/startdlg.c:530
 msgid "_Browse..."
 msgstr ""
 
-#: ../src/burn.h:65
+#: ../src/burn.h:67
 msgid "Blank CD-RW"
 msgstr ""
 
-#: ../src/burn.h:66
+#: ../src/burn.h:68
 msgid "Copy Data CD"
 msgstr "Copia CD de dades"
 
-#: ../src/burn.h:67
+#: ../src/burn.h:69
 msgid "Copy Audio CD"
 msgstr "Copia CD d'àudio"
 
-#: ../src/burn.h:68
+#: ../src/burn.h:70
+#, fuzzy
+msgid "Copy CD"
+msgstr "Copia CD de dades"
+
+#: ../src/burn.h:71
 msgid "Burn CD Image"
 msgstr "Grava imatge de CD"
 
-#: ../src/burn.h:69
+#: ../src/burn.h:72
 msgid "Burn DVD Image"
 msgstr "Grava imatge de DVD"
 
-#: ../src/burn.h:70
+#: ../src/burn.h:73
 msgid "Create Data CD"
 msgstr "Crea CD de dades"
 
-#: ../src/burn.h:71
+#: ../src/burn.h:74
 msgid "Append to Data CD"
 msgstr ""
 
-#: ../src/burn.h:72
+#: ../src/burn.h:75
 msgid "Create Audio CD"
 msgstr "Crea CD d'àudio"
 
-#: ../src/burn.h:73
+#: ../src/burn.h:76
 msgid "Create Mixed CD"
 msgstr "Crea CD mixte"
 
-#: ../src/burn.h:74
+#: ../src/burn.h:77
 msgid "Create Video CD"
 msgstr "Crea CD de vídeo"
 
-#: ../src/burn.h:75
+#: ../src/burn.h:78
 msgid "Format DVD RW"
 msgstr ""
 
-#: ../src/burn.h:76
+#: ../src/burn.h:79
 msgid "Create Data DVD"
 msgstr "Crea DVD de dades"
 
-#: ../src/burn.h:77
+#: ../src/burn.h:80
 msgid "Append to Data DVD"
 msgstr ""
 
@@ -856,414 +923,447 @@ msgid "/tmp"
 msgstr "/tmp"
 
 #: ../gnomebaker.glade.h:4
-msgid "0 mins 0 secs"
-msgstr "0 minuts, 0 segons"
-
-#: ../gnomebaker.glade.h:6
-#, no-c-format
-msgid "0%"
-msgstr "0%"
-
-#: ../gnomebaker.glade.h:7
 msgid "<b><big>...</big></b>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:8
+#: ../gnomebaker.glade.h:5
 msgid "<b>Additional <i>cdrecord</i> options</b>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:9
-msgid "<b>Audio Disk</b>"
-msgstr "<b>Disc d'Àudio</b>"
-
-#: ../gnomebaker.glade.h:10
+#: ../gnomebaker.glade.h:6
 msgid "<b>Boot options</b>"
 msgstr "<b>Opcinos d'arrancada</b>"
 
-#: ../gnomebaker.glade.h:11
+#: ../gnomebaker.glade.h:7
+#, fuzzy
+msgid "<b>Create new project</b\t>"
+msgstr "<b>Creat per</b>"
+
+#: ../gnomebaker.glade.h:8
 msgid "<b>Created by</b>"
 msgstr "<b>Creat per</b>"
 
-#: ../gnomebaker.glade.h:12
-msgid "<b>Data Disk</b>"
-msgstr "<b>Disc de Dades</b>"
-
-#: ../gnomebaker.glade.h:13
+#: ../gnomebaker.glade.h:9
 msgid "<b>Detected devices</b>"
 msgstr "<b>Dispositius detectats</b>"
 
-#: ../gnomebaker.glade.h:15
-msgid "<b>File Browser</b>"
-msgstr "<b>Navegador de Fitxers</b>"
+#: ../gnomebaker.glade.h:11
+msgid "<b>Open existing project</b>"
+msgstr ""
 
-#: ../gnomebaker.glade.h:17
+#: ../gnomebaker.glade.h:13
 msgid "<b>Other</b>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:18
-msgid "<b>Progress window</b>"
-msgstr ""
-
-#: ../gnomebaker.glade.h:19
+#: ../gnomebaker.glade.h:14
 msgid "<b>Select Writer</b>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:20
+#: ../gnomebaker.glade.h:15
 msgid "<b>Temporary Directory</b>"
 msgstr "<b>Directori Temporal</b>"
 
-#: ../gnomebaker.glade.h:21
-msgid "<b>Video CD</b>"
-msgstr "<b>Vídeo CD</b>"
-
-#: ../gnomebaker.glade.h:22
+#: ../gnomebaker.glade.h:16
 msgid "<b>Volume label</b>"
 msgstr "<b>Etiqueta del volum</b>"
 
-#: ../gnomebaker.glade.h:23
+#: ../gnomebaker.glade.h:17
+#, fuzzy
+msgid "<b>Welcome</b>"
+msgstr "<b>Dispositius</b>"
+
+#: ../gnomebaker.glade.h:18
 msgid "<i>...</i>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:24
+#: ../gnomebaker.glade.h:19
+#, fuzzy
+msgid "Add directories"
+msgstr "Afegeix directori"
+
+#: ../gnomebaker.glade.h:20
 msgid "Add file(s)"
 msgstr "Afegeix fitxer(s)"
 
-#: ../gnomebaker.glade.h:25
+#: ../gnomebaker.glade.h:21
+#, fuzzy
+msgid "Add files"
+msgstr "Afegeix fitxer(s)"
+
+#: ../gnomebaker.glade.h:22
 #, fuzzy
 msgid "Add the selected files to the disk"
 msgstr "Afegeix els fitxers seleccionats al CD"
 
-#: ../gnomebaker.glade.h:26
+#: ../gnomebaker.glade.h:23
 msgid "Advanced"
 msgstr ""
 
-#: ../gnomebaker.glade.h:27
+#: ../gnomebaker.glade.h:24
 msgid "Always scan for devices on startup"
 msgstr "Buscar sempre els dispositus a l'inici."
 
-#: ../gnomebaker.glade.h:28
-msgid "Ask on quit"
-msgstr "Pregunta a l'eixir"
-
-#: ../gnomebaker.glade.h:29
-msgid "Automatically scroll output"
+#: ../gnomebaker.glade.h:25
+msgid "Ask for confirmation when exiting GnomeBaker"
 msgstr ""
 
-#: ../gnomebaker.glade.h:30
+#: ../gnomebaker.glade.h:26
+#, fuzzy
+msgid "Audio CD"
+msgstr "Copia CD d'àudio"
+
+#: ../gnomebaker.glade.h:27
+msgid "Automatically scroll the progress window output"
+msgstr ""
+
+#: ../gnomebaker.glade.h:28
 msgid "Baking"
 msgstr ""
 
-#: ../gnomebaker.glade.h:31
+#: ../gnomebaker.glade.h:29
 msgid "Bl_ank CD-RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:32
+#: ../gnomebaker.glade.h:30
 msgid "Boot Image"
 msgstr "Imatge d'arrancada"
 
-#: ../gnomebaker.glade.h:33
+#: ../gnomebaker.glade.h:31
 msgid "Boot Image list"
 msgstr "Llista d'Imatges d'Arrancada"
 
-#: ../gnomebaker.glade.h:34
+#: ../gnomebaker.glade.h:32
 msgid "Boot catalog"
 msgstr "Catàleg d'arrancada"
 
-#: ../gnomebaker.glade.h:35
+#: ../gnomebaker.glade.h:33
 msgid "Burn _DVD Image"
 msgstr "Grava imatge de _DVD"
 
-#: ../gnomebaker.glade.h:36
+#: ../gnomebaker.glade.h:34
 msgid "C_opy Data CD"
 msgstr "C_opia CD de dades"
 
-#: ../gnomebaker.glade.h:37
+#: ../gnomebaker.glade.h:35
 msgid "Clean temporary directory on exit"
 msgstr "Neteja el directori temporal en eixir"
 
-#: ../gnomebaker.glade.h:38
+#: ../gnomebaker.glade.h:36
 #, fuzzy
 msgid "Clear the contents of the disk"
 msgstr "Neteja els continguts del CD"
 
-#: ../gnomebaker.glade.h:39
-msgid "Click to begin the process of creating a data disk."
-msgstr "Premeu per a començar el procés de creació del disc de dades."
-
-#: ../gnomebaker.glade.h:40
-msgid "Click to begin the process of creating an audio cd"
-msgstr "Premeu per a començar el procés de creació del cd d'àudio"
-
-#: ../gnomebaker.glade.h:41
+#: ../gnomebaker.glade.h:37
 msgid "Co_py Audio CD"
 msgstr "Co_pia CD d'Àudio"
 
-#: ../gnomebaker.glade.h:43
-msgid "Create Audio Disk"
-msgstr "Crea Disc d'Àudio"
-
-#: ../gnomebaker.glade.h:44
-msgid "Create Data Disk"
-msgstr "Crea Disc de Dades"
-
-#: ../gnomebaker.glade.h:45
-msgid "Create Video Disk"
-msgstr "Crea disc de Vídeo"
-
-#: ../gnomebaker.glade.h:46
+#: ../gnomebaker.glade.h:39
 msgid "Create a new project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:47
+#: ../gnomebaker.glade.h:40
 msgid "Created by username"
 msgstr "Creat per username"
 
-#: ../gnomebaker.glade.h:48
+#: ../gnomebaker.glade.h:41
+#, fuzzy
+msgid "Data CD"
+msgstr "Copia CD de dades"
+
+#: ../gnomebaker.glade.h:42
+#, fuzzy
+msgid "Data DVD"
+msgstr "Crea DVD de dades"
+
+#: ../gnomebaker.glade.h:43
+#, fuzzy
+msgid "Data _CD"
+msgstr "Copia CD de dades"
+
+#: ../gnomebaker.glade.h:44
+#, fuzzy
+msgid "Data _DVD"
+msgstr "Crea DVD de dades"
+
+#: ../gnomebaker.glade.h:45
 msgid "Devices"
 msgstr "Dispositius"
 
-#: ../gnomebaker.glade.h:49
+#: ../gnomebaker.glade.h:46
 msgid "Floppy disk image"
 msgstr "Imatge de disquet"
 
-#: ../gnomebaker.glade.h:50
+#: ../gnomebaker.glade.h:47
 msgid "Force"
 msgstr "Força"
 
-#: ../gnomebaker.glade.h:51
+#: ../gnomebaker.glade.h:48
 msgid "GPL"
 msgstr "GPL"
 
-#: ../gnomebaker.glade.h:52
+#: ../gnomebaker.glade.h:49
 msgid "General"
 msgstr "General"
 
-#: ../gnomebaker.glade.h:54
+#: ../gnomebaker.glade.h:51
 msgid "GnomeBaker Preferences"
 msgstr "Preferències de GnomeBaker"
 
-#: ../gnomebaker.glade.h:55
+#: ../gnomebaker.glade.h:52
 msgid "GnomeBaker data cd"
 msgstr "CD de dades de GnomeBaker"
 
-#: ../gnomebaker.glade.h:56
+#: ../gnomebaker.glade.h:53
 msgid "Hard disk image"
 msgstr "Imatge de disc dur"
 
-#: ../gnomebaker.glade.h:57
+#: ../gnomebaker.glade.h:54
 msgid "ISO filesystem details"
 msgstr "detalls del sistema de fitxers ISO"
 
-#: ../gnomebaker.glade.h:58
+#: ../gnomebaker.glade.h:55
 msgid "Import Session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:59
+#: ../gnomebaker.glade.h:56
 msgid "Mode"
 msgstr "Mode"
 
-#: ../gnomebaker.glade.h:60
+#: ../gnomebaker.glade.h:57
 msgid "Move Selected Files _Down"
 msgstr ""
 
-#: ../gnomebaker.glade.h:61
+#: ../gnomebaker.glade.h:58
 msgid "Move Selected Files _Up"
 msgstr ""
 
-#: ../gnomebaker.glade.h:62
+#: ../gnomebaker.glade.h:59
 msgid "Move audio tracks down"
 msgstr ""
 
-#: ../gnomebaker.glade.h:63
+#: ../gnomebaker.glade.h:60
 msgid "Move audio tracks up"
 msgstr ""
 
-#: ../gnomebaker.glade.h:64
+#: ../gnomebaker.glade.h:61
 msgid "Not bootable"
 msgstr "No arrancable"
 
-#: ../gnomebaker.glade.h:65
+#: ../gnomebaker.glade.h:62
+msgid "Notify me when burning is complete"
+msgstr ""
+
+#: ../gnomebaker.glade.h:63
 msgid "Open an existing project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:66
+#: ../gnomebaker.glade.h:64
 msgid "PC bootable"
 msgstr "Arrancable per a PC"
 
-#: ../gnomebaker.glade.h:67
-msgid "Play sound when burning is complete"
-msgstr ""
-
-#: ../gnomebaker.glade.h:68
+#: ../gnomebaker.glade.h:65
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:69
+#: ../gnomebaker.glade.h:66
 msgid "Reader"
 msgstr "Lector"
 
-#: ../gnomebaker.glade.h:70
+#: ../gnomebaker.glade.h:67
 msgid "Refresh the file browser file list"
 msgstr "Refresca la llista de fitxers del navegador de fitxers"
 
-#: ../gnomebaker.glade.h:71
+#: ../gnomebaker.glade.h:68
 msgid "Remove selected"
 msgstr "Esborra selecció"
 
-#: ../gnomebaker.glade.h:72
+#: ../gnomebaker.glade.h:69
 #, fuzzy
 msgid "Remove the selected files from the disk"
 msgstr "Esborra els fitxers seleccionats del CD"
 
-#: ../gnomebaker.glade.h:73
+#: ../gnomebaker.glade.h:70
+#, fuzzy
+msgid "S_how hidden files"
+msgstr "Mostra els fitxers ocults"
+
+#: ../gnomebaker.glade.h:71
 msgid "Save All"
 msgstr ""
 
-#: ../gnomebaker.glade.h:74
+#: ../gnomebaker.glade.h:72
 msgid "Save Project _As"
 msgstr ""
 
-#: ../gnomebaker.glade.h:75
+#: ../gnomebaker.glade.h:73
 msgid "Save project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:76
+#: ../gnomebaker.glade.h:74
 msgid "Sc_an for devices"
 msgstr "Busc_ar dispositius"
 
-#: ../gnomebaker.glade.h:77
-msgid "Show hidden files"
-msgstr "Mostra els fitxers ocults"
-
-#: ../gnomebaker.glade.h:78
-msgid "Show humanreadable filesizes"
+#: ../gnomebaker.glade.h:75
+#, fuzzy
+msgid "Sh_ow human-readable file sizes"
 msgstr "Mostra les mides dels fitxers en format entenible"
 
-#: ../gnomebaker.glade.h:80
+#: ../gnomebaker.glade.h:77
 msgid "Simple CD burning for Gnome."
 msgstr "Gravació de CD simple per a Gnome"
 
-#: ../gnomebaker.glade.h:81
+#: ../gnomebaker.glade.h:78
 msgid "Speed"
 msgstr "Velocitat"
 
-#: ../gnomebaker.glade.h:82
+#: ../gnomebaker.glade.h:79
 msgid "Splash window"
 msgstr "Finestra de benvinguda"
 
-#: ../gnomebaker.glade.h:83
+#: ../gnomebaker.glade.h:80
 msgid "Start burning..."
 msgstr "Comença gravació..."
 
-#: ../gnomebaker.glade.h:84
+#: ../gnomebaker.glade.h:81
 msgid "Starting GnomeBaker..."
 msgstr "Iniciant GnomeBaker..."
 
-#: ../gnomebaker.glade.h:85
+#: ../gnomebaker.glade.h:82
 msgid "Sun workstation bootable"
 msgstr "Arrancable per a estació de treball Sun"
 
-#: ../gnomebaker.glade.h:86
+#: ../gnomebaker.glade.h:83
 msgid "Writer"
 msgstr "Gravadora"
 
-#: ../gnomebaker.glade.h:87
+#: ../gnomebaker.glade.h:84
 #, fuzzy
 msgid "_Add Selected Files"
 msgstr "Afegeix els fitxers seleccionats al CD"
 
-#: ../gnomebaker.glade.h:88
+#: ../gnomebaker.glade.h:85
 msgid "_Add device"
 msgstr "_Afegeix dispositiu"
 
-#: ../gnomebaker.glade.h:89
+#: ../gnomebaker.glade.h:86
 #, fuzzy
-msgid "_Audio Disk"
+msgid "_Audio CD"
 msgstr "<b>Disc d'Àudio</b>"
 
-#: ../gnomebaker.glade.h:91
+#: ../gnomebaker.glade.h:88
 #, fuzzy
-msgid "_Data Disk"
-msgstr "Crea Disc de Dades"
+msgid "_Copy CD"
+msgstr "Copia CD de dades"
 
-#: ../gnomebaker.glade.h:92
+#: ../gnomebaker.glade.h:89
 msgid "_Export"
 msgstr ""
 
-#: ../gnomebaker.glade.h:93
+#: ../gnomebaker.glade.h:90
 msgid "_Format DVD±RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:94
+#: ../gnomebaker.glade.h:91
 msgid "_Import"
 msgstr ""
 
-#: ../gnomebaker.glade.h:95
+#: ../gnomebaker.glade.h:92
 msgid "_Import Session"
 msgstr "_Importa Sessió"
 
-#: ../gnomebaker.glade.h:96
+#: ../gnomebaker.glade.h:93
 msgid "_New Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:97
+#: ../gnomebaker.glade.h:94
 msgid "_Open Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:98
+#: ../gnomebaker.glade.h:95
 msgid "_Playlist"
 msgstr ""
 
-#: ../gnomebaker.glade.h:99
+#: ../gnomebaker.glade.h:96
 msgid "_Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:100
+#: ../gnomebaker.glade.h:97
 msgid "_Refresh"
 msgstr "_Refresca"
 
-#: ../gnomebaker.glade.h:101
+#: ../gnomebaker.glade.h:98
 #, fuzzy
 msgid "_Remove Selected Files"
 msgstr "_Esborra selecció"
 
-#: ../gnomebaker.glade.h:102
+#: ../gnomebaker.glade.h:99
 msgid "_Save Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:103
+#: ../gnomebaker.glade.h:100
 msgid "_Show File Browser"
 msgstr "Mo_stra el Navegador de Fitxers"
 
-#: ../gnomebaker.glade.h:105
+#: ../gnomebaker.glade.h:102
 msgid "_Tools"
 msgstr ""
 
-#: ../gnomebaker.glade.h:106
+#: ../gnomebaker.glade.h:103
 msgid "_Window"
 msgstr ""
 
-#: ../gnomebaker.glade.h:107
+#: ../gnomebaker.glade.h:104
 msgid "dao"
 msgstr "dao"
 
-#: ../gnomebaker.glade.h:109
+#: ../gnomebaker.glade.h:106
 msgid "raw16"
 msgstr "raw16"
 
-#: ../gnomebaker.glade.h:110
+#: ../gnomebaker.glade.h:107
 msgid "raw96p"
 msgstr "raw96p"
 
-#: ../gnomebaker.glade.h:111
+#: ../gnomebaker.glade.h:108
 msgid "raw96r"
 msgstr ""
 
-#: ../gnomebaker.glade.h:112
+#: ../gnomebaker.glade.h:109
 msgid "tao"
 msgstr "tao"
+
+#~ msgid "0 mins 0 secs"
+#~ msgstr "0 minuts, 0 segons"
+
+#~ msgid "<b>File Browser</b>"
+#~ msgstr "<b>Navegador de Fitxers</b>"
+
+#~ msgid "<b>Video CD</b>"
+#~ msgstr "<b>Vídeo CD</b>"
+
+#~ msgid "Ask on quit"
+#~ msgstr "Pregunta a l'eixir"
+
+#~ msgid "Click to begin the process of creating a data disk."
+#~ msgstr "Premeu per a començar el procés de creació del disc de dades."
+
+#~ msgid "Click to begin the process of creating an audio cd"
+#~ msgstr "Premeu per a començar el procés de creació del cd d'àudio"
+
+#~ msgid "Create Audio Disk"
+#~ msgstr "Crea Disc d'Àudio"
+
+#~ msgid "Create Data Disk"
+#~ msgstr "Crea Disc de Dades"
+
+#~ msgid "Create Video Disk"
+#~ msgstr "Crea disc de Vídeo"
+
+#, fuzzy
+#~ msgid "_Data Disk"
+#~ msgstr "Crea Disc de Dades"
 
 #~ msgid ""
 #~ "File or directory is too large to fit in the remaining space on the CD"
@@ -1300,13 +1400,6 @@ msgstr "tao"
 #~ msgid "ALBUM="
 #~ msgstr "ALBUM="
 
-#~ msgid ""
-#~ "The file you have selected is not a cd image. Please select a cd image to "
-#~ "burn."
-#~ msgstr ""
-#~ "El fitxer que heu seleccionat no és una imatge de cd. Per favor "
-#~ "seleccioneu una imatge de cd per a gravar."
-
 #~ msgid "Please select an iso file to save to..."
 #~ msgstr "Per favor seleccioneu un fitxer iso on desar..."
 
@@ -1335,17 +1428,11 @@ msgstr "tao"
 #~ msgid "Simple CD Burning for Gnome"
 #~ msgstr "Gravació de CD Simple per a Gnome"
 
-#~ msgid "Please select files to add to the disk..."
-#~ msgstr "Per favor seleccioneu els fitxers a afegir al disc..."
-
 #~ msgid "Fast"
 #~ msgstr "Ràpid"
 
 #~ msgid "<b>Burning disk...</b>"
 #~ msgstr "<b>Gravant disc...</b>"
-
-#~ msgid "Please insert the CD into the CD writer"
-#~ msgstr "Per favor inseriu el CD a la gravadora de CD"
 
 #~ msgid "<b>Blanking disk...</b>"
 #~ msgstr "<b>Esborrant disc...</b>"
@@ -1403,9 +1490,6 @@ msgstr "tao"
 
 #~ msgid "Add the current directory to the CD"
 #~ msgstr "Afegeix el directori actual al CD"
-
-#~ msgid "Add directory"
-#~ msgstr "Afegeix directori"
 
 #~ msgid "Baking CD"
 #~ msgstr "Cuinant CD"
