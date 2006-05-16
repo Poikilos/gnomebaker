@@ -185,102 +185,6 @@ gnomebaker_get_current_project()
 }            
 
 
-GtkWidget* 
-gnomebaker_new()
-{
-	GB_LOG_FUNC	
-    
-    gbcommon_init();
-	
-	splashdlg_set_text(_("Loading preferences..."));
-	preferences_init();
-	
-	splashdlg_set_text(_("Detecting devices..."));
-	devices_init();
-
-	splashdlg_set_text(_("Registering gstreamer plugins..."));
-	media_init();
-
-	splashdlg_set_text(_("Loading GUI..."));
-	xml = glade_xml_new(glade_file, widget_gnomebaker, NULL);
-    
-	/* This is important */
-	glade_xml_signal_autoconnect(xml);			
-
-	/* set up the tree and lists */	
-#ifndef USE_GTK_FILE_CHOOSER             
-	filebrowser_new();
-#else     
-    file_chooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_OPEN);
-    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE);
-    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
-    gtk_widget_show(file_chooser);
-    GtkWidget *vpane = glade_xml_get_widget(xml, "vpaned1");
-    GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);   
-    GtkWidget *tabs = glade_xml_get_widget(xml, "vbox18");
-    g_object_ref(tabs);
-    gtk_container_remove(GTK_CONTAINER(vpane), hpaned3);
-    gtk_container_remove(GTK_CONTAINER(vpane), tabs);            
-    gtk_paned_pack1(GTK_PANED(vpane), file_chooser, TRUE, TRUE);
-    gtk_paned_pack2(GTK_PANED(vpane), tabs, TRUE, TRUE);
-    
-    audio_filter = gtk_file_filter_new();
-    gtk_file_filter_add_custom(audio_filter, GTK_FILE_FILTER_MIME_TYPE,
-            gnomebaker_audio_file_filter, NULL, NULL);
-    gtk_file_filter_set_name(audio_filter,_("Audio files"));
-    
-    gtk_widget_hide(glade_xml_get_widget(xml, "separator4"));
-    gtk_widget_hide(glade_xml_get_widget(xml, widget_refresh_menu));
-    gtk_widget_hide(glade_xml_get_widget(xml, widget_refresh_button));   
-    
-#endif    
-        
-	/* Get and set the default toolbar style */
-	gnomebaker_on_toolbar_style_changed(NULL, 0, NULL, NULL);
-	preferences_register_notify(GNOME_TOOLBAR_STYLE, gnomebaker_on_toolbar_style_changed, NULL);
-	preferences_register_notify(GNOME_TOOLBAR_DETACHABLE, gnomebaker_on_toolbar_style_changed, NULL);
-	
-	/* Resize and move the window to saved settings */
-	GtkWidget *main_window = glade_xml_get_widget(xml, widget_gnomebaker);
-	const gint x = preferences_get_int(GB_MAIN_WINDOW_POSITION_X);
-	const gint y = preferences_get_int(GB_MAIN_WINDOW_POSITION_Y);
-	const gint width = preferences_get_int(GB_MAIN_WINDOW_WIDTH);
-	const gint height = preferences_get_int(GB_MAIN_WINDOW_HEIGHT);
-
-	if((x > 0) && (y > 0))
-		gtk_window_move(GTK_WINDOW(main_window), x, y);
-	if((width > 0) && (height > 0))
-		gtk_window_resize(GTK_WINDOW(main_window), width, height);
-	if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED) == TRUE)
-		gtk_window_maximize(GTK_WINDOW(main_window));
-
-	g_main_context_iteration(NULL, TRUE);	
-    gtk_widget_show_all(main_window);
-	
-    /* Check preferences to see if we'll show/hide the file browser */
-	GtkWidget *check_menu_item = glade_xml_get_widget(xml, widget_show_browser_menu);
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
-		  preferences_get_bool(GB_SHOW_FILE_BROWSER));
-	g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);	
-
-    check_menu_item = glade_xml_get_widget(xml, widget_show_hidden_files);
-#ifdef USE_GTK_FILE_CHOOSER
-    gtk_widget_hide(check_menu_item);
-#else        
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
-            preferences_get_bool(GB_SHOWHIDDEN));
-    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
-#endif    
-    
-    check_menu_item = glade_xml_get_widget(xml, widget_show_human_sizes);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
-            preferences_get_bool(GB_SHOWHUMANSIZE));
-    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
-    
-	return main_window;
-}
-
-
 void
 gnomebaker_delete(GtkWidget *self)
 {
@@ -1025,3 +929,104 @@ gnomebaker_on_add_files_alt(gpointer widget, gpointer user_data)
     gtk_widget_show_all(menu);
     gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 0, gdk_event_get_time(NULL));
 }
+
+
+GtkWidget* 
+gnomebaker_new()
+{
+    GB_LOG_FUNC 
+    
+    gbcommon_init();
+    
+    splashdlg_set_text(_("Loading preferences..."));
+    preferences_init();
+    
+    splashdlg_set_text(_("Detecting devices..."));
+    devices_init();
+
+    splashdlg_set_text(_("Registering gstreamer plugins..."));
+    media_init();
+
+    splashdlg_set_text(_("Loading GUI..."));
+    xml = glade_xml_new(glade_file, widget_gnomebaker, NULL);
+    
+    /* This is important */
+    glade_xml_signal_autoconnect(xml);          
+
+    /* set up the tree and lists */ 
+#ifndef USE_GTK_FILE_CHOOSER             
+    filebrowser_new();
+#else     
+    file_chooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_OPEN);
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE);
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
+    gtk_widget_show(file_chooser);
+    GtkWidget *vpane = glade_xml_get_widget(xml, "vpaned1");
+    GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);   
+    GtkWidget *tabs = glade_xml_get_widget(xml, "vbox18");
+    g_object_ref(tabs);
+    gtk_container_remove(GTK_CONTAINER(vpane), hpaned3);
+    gtk_container_remove(GTK_CONTAINER(vpane), tabs);            
+    gtk_paned_pack1(GTK_PANED(vpane), file_chooser, TRUE, TRUE);
+    gtk_paned_pack2(GTK_PANED(vpane), tabs, TRUE, TRUE);
+    
+    audio_filter = gtk_file_filter_new();
+    gtk_file_filter_add_custom(audio_filter, GTK_FILE_FILTER_MIME_TYPE,
+            gnomebaker_audio_file_filter, NULL, NULL);
+    gtk_file_filter_set_name(audio_filter,_("Audio files"));
+    
+    gtk_widget_hide(glade_xml_get_widget(xml, "separator4"));
+    gtk_widget_hide(glade_xml_get_widget(xml, widget_refresh_menu));
+    gtk_widget_hide(glade_xml_get_widget(xml, widget_refresh_button));   
+    
+#endif    
+        
+    /* Get and set the default toolbar style */
+    gnomebaker_on_toolbar_style_changed(NULL, 0, NULL, NULL);
+    preferences_register_notify(GNOME_TOOLBAR_STYLE, gnomebaker_on_toolbar_style_changed, NULL);
+    preferences_register_notify(GNOME_TOOLBAR_DETACHABLE, gnomebaker_on_toolbar_style_changed, NULL);
+    
+    /* Resize and move the window to saved settings */
+    GtkWidget *main_window = glade_xml_get_widget(xml, widget_gnomebaker);
+    const gint x = preferences_get_int(GB_MAIN_WINDOW_POSITION_X);
+    const gint y = preferences_get_int(GB_MAIN_WINDOW_POSITION_Y);
+    const gint width = preferences_get_int(GB_MAIN_WINDOW_WIDTH);
+    const gint height = preferences_get_int(GB_MAIN_WINDOW_HEIGHT);
+
+    if((x > 0) && (y > 0))
+        gtk_window_move(GTK_WINDOW(main_window), x, y);
+    if((width > 0) && (height > 0))
+        gtk_window_resize(GTK_WINDOW(main_window), width, height);
+    if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED) == TRUE)
+        gtk_window_maximize(GTK_WINDOW(main_window));
+
+    g_main_context_iteration(NULL, TRUE);   
+    gtk_widget_show_all(main_window);
+    
+    /* Check preferences to see if we'll show/hide the file browser */
+    GtkWidget *check_menu_item = glade_xml_get_widget(xml, widget_show_browser_menu);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
+          preferences_get_bool(GB_SHOW_FILE_BROWSER));
+    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
+
+    check_menu_item = glade_xml_get_widget(xml, widget_show_hidden_files);
+#ifdef USE_GTK_FILE_CHOOSER
+    gtk_widget_hide(check_menu_item);
+#else        
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
+            preferences_get_bool(GB_SHOWHIDDEN));
+    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
+#endif    
+    
+    check_menu_item = glade_xml_get_widget(xml, widget_show_human_sizes);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
+            preferences_get_bool(GB_SHOWHUMANSIZE));
+    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);
+
+    /* Force the selection of the first page so we update menu enablement etc */
+    gnomebaker_on_notebook_switch_page(GTK_NOTEBOOK(glade_xml_get_widget(xml, widget_project_notebook))
+            , NULL, 0, NULL);
+    
+    return main_window;
+}
+
