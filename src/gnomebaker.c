@@ -866,10 +866,22 @@ gnomebaker_on_save_all(gpointer widget, gpointer user_data)
 
 
 void /* libglade callback */
-gnomebaker_on_new_data_project(gpointer widget, gpointer user_data)
+gnomebaker_on_new_data_dvd_project(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC   
-    GtkWidget *project = dataproject_new();
+    GtkWidget *project = dataproject_new(TRUE);
+    gtk_widget_show(project);
+    GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
+    gint index = gtk_notebook_append_page(GTK_NOTEBOOK(notebook), project, project_get_title_widget(PROJECT_WIDGET(project)));
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), index);
+}
+
+
+void /* libglade callback */
+gnomebaker_on_new_data_cd_project(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC   
+    GtkWidget *project = dataproject_new(FALSE);
     gtk_widget_show(project);
     GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
     gint index = gtk_notebook_append_page(GTK_NOTEBOOK(notebook), project, project_get_title_widget(PROJECT_WIDGET(project)));

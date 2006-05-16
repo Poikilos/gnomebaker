@@ -105,7 +105,7 @@ project_init(Project *project)
     gtk_box_pack_start(GTK_BOX(hbox23), image, FALSE, FALSE, 0);
     g_object_unref(image105);
 
-    GtkWidget *label258 = gtk_label_new_with_mnemonic(_("Burn project"));
+    GtkWidget *label258 = gtk_label_new_with_mnemonic(_("Burn"));
     gtk_widget_show(label258);
     gtk_box_pack_end(GTK_BOX(hbox23), label258, FALSE, FALSE, 0);            
 }

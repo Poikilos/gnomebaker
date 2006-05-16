@@ -88,6 +88,7 @@ typedef struct
     guint expand_timeout_id;
     guint autoscroll_timeout_id;
     GList *rowref_list;
+    gboolean is_dvd;
     
 } DataProject;
 
@@ -99,7 +100,7 @@ typedef struct
 
 
 GType dataproject_get_type();
-GtkWidget *dataproject_new();
+GtkWidget *dataproject_new(const gboolean is_dvd);
 gchar* dataproject_compilation_get_volume_id(DataProject *data_project);
 
 G_END_DECLS

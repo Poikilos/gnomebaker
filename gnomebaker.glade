@@ -60,7 +60,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1280">
+			    <widget class="GtkImage" id="image1384">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-new</property>
 			      <property name="icon_size">1</property>
@@ -75,18 +75,27 @@
 			    <widget class="GtkMenu" id="new_project1_menu">
 
 			      <child>
+				<widget class="GtkMenuItem" id="data_cd_project1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Data _CD</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="gnomebaker_on_new_data_cd_project" last_modification_time="Tue, 16 May 2006 18:49:09 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
 				<widget class="GtkMenuItem" id="data_disk1">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_Data Project</property>
+				  <property name="label" translatable="yes">Data _DVD</property>
 				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="gnomebaker_on_new_data_project" last_modification_time="Sun, 19 Mar 2006 21:15:12 GMT"/>
+				  <signal name="activate" handler="gnomebaker_on_new_data_dvd_project" last_modification_time="Tue, 16 May 2006 18:49:09 GMT"/>
 				</widget>
 			      </child>
 
 			      <child>
 				<widget class="GtkMenuItem" id="audio_disk1">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_Audio Project</property>
+				  <property name="label" translatable="yes">_Audio CD</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="gnomebaker_on_new_audio_project" last_modification_time="Sun, 19 Mar 2006 21:15:12 GMT"/>
 				</widget>
@@ -105,7 +114,7 @@
 			  <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1281">
+			    <widget class="GtkImage" id="image1385">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-open</property>
 			      <property name="icon_size">1</property>
@@ -133,7 +142,7 @@
 			  <accelerator key="S" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1282">
+			    <widget class="GtkImage" id="image1386">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-save</property>
 			      <property name="icon_size">1</property>
@@ -154,7 +163,7 @@
 			  <signal name="activate" handler="gnomebaker_on_save_project_as" last_modification_time="Sat, 14 Jan 2006 22:21:12 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1283">
+			    <widget class="GtkImage" id="image1387">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-save-as</property>
 			      <property name="icon_size">1</property>
@@ -283,7 +292,7 @@
 			  <accelerator key="plus" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1284">
+			    <widget class="GtkImage" id="image1388">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-add</property>
 			      <property name="icon_size">1</property>
@@ -305,7 +314,7 @@
 			  <accelerator key="Delete" modifiers="0" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1285">
+			    <widget class="GtkImage" id="image1389">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-remove</property>
 			      <property name="icon_size">1</property>
@@ -342,7 +351,7 @@
 			  <accelerator key="Up" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1286">
+			    <widget class="GtkImage" id="image1390">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-up</property>
 			      <property name="icon_size">1</property>
@@ -365,7 +374,7 @@
 			  <accelerator key="Down" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1287">
+			    <widget class="GtkImage" id="image1391">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-down</property>
 			      <property name="icon_size">1</property>
@@ -392,7 +401,7 @@
 			  <signal name="activate" handler="gnomebaker_on_import" last_modification_time="Tue, 04 Jan 2005 00:49:21 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1288">
+			    <widget class="GtkImage" id="image1392">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-import-session.png</property>
 			      <property name="xalign">0.5</property>
@@ -425,7 +434,7 @@
 			  <signal name="activate" handler="gnomebaker_on_blank_cdrw" last_modification_time="Thu, 08 Apr 2004 20:55:06 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1289">
+			    <widget class="GtkImage" id="image1393">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-cdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -445,7 +454,7 @@
 			  <signal name="activate" handler="gnomebaker_on_format_dvdrw" last_modification_time="Wed, 05 Jan 2005 22:09:46 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1290">
+			    <widget class="GtkImage" id="image1394">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-dvdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -471,7 +480,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_datacd" last_modification_time="Fri, 09 Apr 2004 20:26:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1291">
+			    <widget class="GtkImage" id="image1395">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -491,7 +500,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_audiocd" last_modification_time="Fri, 09 Apr 2004 20:26:00 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1292">
+			    <widget class="GtkImage" id="image1396">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-audio-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -511,7 +520,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_cd" last_modification_time="Sun, 14 May 2006 22:29:51 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1293">
+			    <widget class="GtkImage" id="image1397">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -537,7 +546,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_iso" last_modification_time="Thu, 08 Apr 2004 21:00:53 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1294">
+			    <widget class="GtkImage" id="image1398">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-cd-iso.png</property>
 			      <property name="xalign">0.5</property>
@@ -557,7 +566,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_dvd_iso" last_modification_time="Fri, 04 Mar 2005 19:19:17 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1295">
+			    <widget class="GtkImage" id="image1399">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-dvd-iso.png</property>
 			      <property name="xalign">0.5</property>
@@ -591,7 +600,7 @@
 			  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1296">
+			    <widget class="GtkImage" id="image1400">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
 			      <property name="icon_size">1</property>
@@ -660,7 +669,7 @@
 			  <signal name="activate" handler="gnomebaker_on_help" last_modification_time="Thu, 03 Feb 2005 21:13:55 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1297">
+			    <widget class="GtkImage" id="image1401">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -1174,22 +1183,22 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkHButtonBox" id="hbuttonbox5">
+				<widget class="GtkVButtonBox" id="vbuttonbox1">
 				  <property name="visible">True</property>
-				  <property name="layout_style">GTK_BUTTONBOX_SPREAD</property>
-				  <property name="spacing">0</property>
+				  <property name="layout_style">GTK_BUTTONBOX_DEFAULT_STYLE</property>
+				  <property name="spacing">12</property>
 
 				  <child>
-				    <widget class="GtkButton" id="button44">
+				    <widget class="GtkButton" id="button50">
 				      <property name="visible">True</property>
 				      <property name="can_default">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
 				      <property name="focus_on_click">True</property>
-				      <signal name="clicked" handler="gnomebaker_on_new_data_project" last_modification_time="Sun, 19 Mar 2006 21:22:02 GMT"/>
+				      <signal name="clicked" handler="gnomebaker_on_new_data_dvd_project" last_modification_time="Tue, 16 May 2006 18:50:39 GMT"/>
 
 				      <child>
-					<widget class="GtkAlignment" id="alignment22">
+					<widget class="GtkAlignment" id="alignment25">
 					  <property name="visible">True</property>
 					  <property name="xalign">0.5</property>
 					  <property name="yalign">0.5</property>
@@ -1201,13 +1210,13 @@
 					  <property name="right_padding">0</property>
 
 					  <child>
-					    <widget class="GtkHBox" id="hbox35">
+					    <widget class="GtkHBox" id="hbox38">
 					      <property name="visible">True</property>
 					      <property name="homogeneous">False</property>
 					      <property name="spacing">2</property>
 
 					      <child>
-						<widget class="GtkImage" id="image1213">
+						<widget class="GtkImage" id="image1402">
 						  <property name="visible">True</property>
 						  <property name="pixbuf">baker-data-copy.png</property>
 						  <property name="xalign">0.5</property>
@@ -1223,9 +1232,157 @@
 					      </child>
 
 					      <child>
-						<widget class="GtkLabel" id="label309">
+						<widget class="GtkLabel" id="label312">
 						  <property name="visible">True</property>
-						  <property name="label" translatable="yes">Data project</property>
+						  <property name="label" translatable="yes">Data DVD</property>
+						  <property name="use_underline">True</property>
+						  <property name="use_markup">False</property>
+						  <property name="justify">GTK_JUSTIFY_LEFT</property>
+						  <property name="wrap">False</property>
+						  <property name="selectable">False</property>
+						  <property name="xalign">0.5</property>
+						  <property name="yalign">0.5</property>
+						  <property name="xpad">0</property>
+						  <property name="ypad">0</property>
+						  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+						  <property name="width_chars">-1</property>
+						  <property name="single_line_mode">False</property>
+						  <property name="angle">0</property>
+						</widget>
+						<packing>
+						  <property name="padding">0</property>
+						  <property name="expand">False</property>
+						  <property name="fill">False</property>
+						</packing>
+					      </child>
+					    </widget>
+					  </child>
+					</widget>
+				      </child>
+				    </widget>
+				  </child>
+
+				  <child>
+				    <widget class="GtkButton" id="button51">
+				      <property name="visible">True</property>
+				      <property name="can_default">True</property>
+				      <property name="can_focus">True</property>
+				      <property name="relief">GTK_RELIEF_NORMAL</property>
+				      <property name="focus_on_click">True</property>
+				      <signal name="clicked" handler="gnomebaker_on_new_data_cd_project" last_modification_time="Tue, 16 May 2006 18:51:15 GMT"/>
+
+				      <child>
+					<widget class="GtkAlignment" id="alignment26">
+					  <property name="visible">True</property>
+					  <property name="xalign">0.5</property>
+					  <property name="yalign">0.5</property>
+					  <property name="xscale">0</property>
+					  <property name="yscale">0</property>
+					  <property name="top_padding">0</property>
+					  <property name="bottom_padding">0</property>
+					  <property name="left_padding">0</property>
+					  <property name="right_padding">0</property>
+
+					  <child>
+					    <widget class="GtkHBox" id="hbox39">
+					      <property name="visible">True</property>
+					      <property name="homogeneous">False</property>
+					      <property name="spacing">2</property>
+
+					      <child>
+						<widget class="GtkImage" id="image1403">
+						  <property name="visible">True</property>
+						  <property name="pixbuf">baker-data-copy.png</property>
+						  <property name="xalign">0.5</property>
+						  <property name="yalign">0.5</property>
+						  <property name="xpad">0</property>
+						  <property name="ypad">0</property>
+						</widget>
+						<packing>
+						  <property name="padding">0</property>
+						  <property name="expand">False</property>
+						  <property name="fill">False</property>
+						</packing>
+					      </child>
+
+					      <child>
+						<widget class="GtkLabel" id="label313">
+						  <property name="visible">True</property>
+						  <property name="label" translatable="yes">Data CD</property>
+						  <property name="use_underline">True</property>
+						  <property name="use_markup">False</property>
+						  <property name="justify">GTK_JUSTIFY_LEFT</property>
+						  <property name="wrap">False</property>
+						  <property name="selectable">False</property>
+						  <property name="xalign">0.5</property>
+						  <property name="yalign">0.5</property>
+						  <property name="xpad">0</property>
+						  <property name="ypad">0</property>
+						  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+						  <property name="width_chars">-1</property>
+						  <property name="single_line_mode">False</property>
+						  <property name="angle">0</property>
+						</widget>
+						<packing>
+						  <property name="padding">0</property>
+						  <property name="expand">False</property>
+						  <property name="fill">False</property>
+						</packing>
+					      </child>
+					    </widget>
+					  </child>
+					</widget>
+				      </child>
+				    </widget>
+				  </child>
+
+				  <child>
+				    <widget class="GtkButton" id="button52">
+				      <property name="visible">True</property>
+				      <property name="can_default">True</property>
+				      <property name="can_focus">True</property>
+				      <property name="relief">GTK_RELIEF_NORMAL</property>
+				      <property name="focus_on_click">True</property>
+				      <signal name="clicked" handler="gnomebaker_on_new_audio_project" last_modification_time="Sun, 19 Mar 2006 21:22:13 GMT"/>
+
+				      <child>
+					<widget class="GtkAlignment" id="alignment27">
+					  <property name="visible">True</property>
+					  <property name="xalign">0.5</property>
+					  <property name="yalign">0.5</property>
+					  <property name="xscale">0</property>
+					  <property name="yscale">0</property>
+					  <property name="top_padding">0</property>
+					  <property name="bottom_padding">0</property>
+					  <property name="left_padding">0</property>
+					  <property name="right_padding">0</property>
+
+					  <child>
+					    <widget class="GtkHBox" id="hbox40">
+					      <property name="visible">True</property>
+					      <property name="homogeneous">False</property>
+					      <property name="spacing">2</property>
+
+					      <child>
+						<widget class="GtkImage" id="image1404">
+						  <property name="visible">True</property>
+						  <property name="pixbuf">baker-audio-copy.png</property>
+						  <property name="xalign">0.5</property>
+						  <property name="yalign">0.5</property>
+						  <property name="xpad">0</property>
+						  <property name="ypad">0</property>
+						</widget>
+						<packing>
+						  <property name="padding">0</property>
+						  <property name="expand">False</property>
+						  <property name="fill">False</property>
+						</packing>
+					      </child>
+
+					      <child>
+						<widget class="GtkLabel" id="label314">
+						  <property name="visible">True</property>
+						  <property name="label" translatable="yes">Audio CD</property>
 						  <property name="use_underline">True</property>
 						  <property name="use_markup">False</property>
 						  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1257,93 +1414,6 @@
 				  <property name="padding">12</property>
 				  <property name="expand">False</property>
 				  <property name="fill">False</property>
-				</packing>
-			      </child>
-
-			      <child>
-				<widget class="GtkHButtonBox" id="hbuttonbox6">
-				  <property name="visible">True</property>
-				  <property name="layout_style">GTK_BUTTONBOX_SPREAD</property>
-				  <property name="spacing">0</property>
-
-				  <child>
-				    <widget class="GtkButton" id="button45">
-				      <property name="visible">True</property>
-				      <property name="can_default">True</property>
-				      <property name="can_focus">True</property>
-				      <property name="relief">GTK_RELIEF_NORMAL</property>
-				      <property name="focus_on_click">True</property>
-				      <signal name="clicked" handler="gnomebaker_on_new_audio_project" last_modification_time="Sun, 19 Mar 2006 21:22:13 GMT"/>
-
-				      <child>
-					<widget class="GtkAlignment" id="alignment23">
-					  <property name="visible">True</property>
-					  <property name="xalign">0.5</property>
-					  <property name="yalign">0.5</property>
-					  <property name="xscale">0</property>
-					  <property name="yscale">0</property>
-					  <property name="top_padding">0</property>
-					  <property name="bottom_padding">0</property>
-					  <property name="left_padding">0</property>
-					  <property name="right_padding">0</property>
-
-					  <child>
-					    <widget class="GtkHBox" id="hbox36">
-					      <property name="visible">True</property>
-					      <property name="homogeneous">False</property>
-					      <property name="spacing">2</property>
-
-					      <child>
-						<widget class="GtkImage" id="image1214">
-						  <property name="visible">True</property>
-						  <property name="pixbuf">baker-audio-copy.png</property>
-						  <property name="xalign">0.5</property>
-						  <property name="yalign">0.5</property>
-						  <property name="xpad">0</property>
-						  <property name="ypad">0</property>
-						</widget>
-						<packing>
-						  <property name="padding">0</property>
-						  <property name="expand">False</property>
-						  <property name="fill">False</property>
-						</packing>
-					      </child>
-
-					      <child>
-						<widget class="GtkLabel" id="label310">
-						  <property name="visible">True</property>
-						  <property name="label" translatable="yes">Audio project</property>
-						  <property name="use_underline">True</property>
-						  <property name="use_markup">False</property>
-						  <property name="justify">GTK_JUSTIFY_LEFT</property>
-						  <property name="wrap">False</property>
-						  <property name="selectable">False</property>
-						  <property name="xalign">0.5</property>
-						  <property name="yalign">0.5</property>
-						  <property name="xpad">0</property>
-						  <property name="ypad">0</property>
-						  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-						  <property name="width_chars">-1</property>
-						  <property name="single_line_mode">False</property>
-						  <property name="angle">0</property>
-						</widget>
-						<packing>
-						  <property name="padding">0</property>
-						  <property name="expand">False</property>
-						  <property name="fill">False</property>
-						</packing>
-					      </child>
-					    </widget>
-					  </child>
-					</widget>
-				      </child>
-				    </widget>
-				  </child>
-				</widget>
-				<packing>
-				  <property name="padding">12</property>
-				  <property name="expand">False</property>
-				  <property name="fill">True</property>
 				</packing>
 			      </child>
 			    </widget>
