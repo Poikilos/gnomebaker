@@ -1077,7 +1077,7 @@ audioproject_init(AudioProject *audio_project)
     gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(audio_project)->menu, audio_disk_sizes, 
             (sizeof(audio_disk_sizes)/sizeof(DiskSize)), preferences_get_int(GB_AUDIO_DISK_SIZE));      
         
-    project_set_title(PROJECT_WIDGET(audio_project), _("<b>Audio project</b>"));
+    project_set_title(PROJECT_WIDGET(audio_project), _("<b>Audio CD</b>"));
     
 #ifdef CAIRO_WIDGETS
 	gb_cairo_fillbar_set_disk_size(PROJECT_WIDGET(audio_project)->progress_bar,
@@ -1085,8 +1085,6 @@ audioproject_init(AudioProject *audio_project)
 #else
 	audioproject_get_audioproject_size(audio_project);
 #endif
-
-    
 }
 
 

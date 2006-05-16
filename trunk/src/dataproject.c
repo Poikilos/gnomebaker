@@ -101,14 +101,19 @@ struct BurnItem
 };
 
 
-static DiskSize data_disk_sizes[DISK_SIZE_COUNT] = 
+static DiskSize data_cd_disk_sizes[] = 
 {
     /* http://www.cdrfaq.org/faq07.html#S7-6 
         http://www.osta.org/technology/dvdqa/dvdqa6.htm */
     {94500.0 * 2048, "200MB CD"},
     {333000.0 * 2048, "650MB CD"},
     {360000.0 * 2048, "700MB CD"},
-    {405000.0 * 2048, "800MB CD"},
+    {405000.0 * 2048, "800MB CD"}
+};
+
+
+static DiskSize data_dvd_disk_sizes[] = 
+{
     {2294922.0 * 2048, "4.7GB DVD"}, 
     {8.5 * 1000 * 1000 * 1000, "8.5GB DVD"} /* DVDs are salesman's MegaByte ie 1000 not 1024 */
 };
@@ -363,8 +368,10 @@ dataproject_get_datadisk_size(DataProject* data_project)
 {
     GB_LOG_FUNC
     g_return_if_fail(data_project != NULL);
-
-    data_project->data_disk_size = data_disk_sizes[gtk_option_menu_get_history(PROJECT_WIDGET(data_project)->menu)].size;
+    if(data_project->is_dvd)
+        data_project->data_disk_size = data_dvd_disk_sizes[gtk_option_menu_get_history(PROJECT_WIDGET(data_project)->menu)].size;
+    else    
+        data_project->data_disk_size = data_cd_disk_sizes[gtk_option_menu_get_history(PROJECT_WIDGET(data_project)->menu)].size;
     return data_project->data_disk_size;
 }
 
@@ -439,15 +446,13 @@ dataproject_update_progress_bar(DataProject *data_project)
         dataproject_set_multisession(data_project, NULL);
     }   
     else
-    {
-        const gboolean is_cd = data_project->data_disk_size < data_disk_sizes[DVD_4GB].size;
-        
+    {                
         gdouble fraction = 0.0;
 #ifndef CAIRO_WIDGETS     
         if(disk_size > 0)
             fraction = (gdouble)data_project->dataproject_compilation_size/disk_size;
 #endif             
-        if(is_cd && (data_project->dataproject_compilation_size > disk_size) && 
+        if(!data_project->is_dvd && (data_project->dataproject_compilation_size > disk_size) && 
                 (data_project->dataproject_compilation_size < (disk_size * overburn_percent)))
         {
 #ifndef CAIRO_WIDGETS 
@@ -1655,7 +1660,7 @@ dataproject_on_create_datadisk(gpointer widget, DataProject *data_project)
     
     const GBTempFile *tmp_file = dataproject_build_filepaths(GTK_TREE_MODEL(data_project->dataproject_compilation_store));        
 
-    if(data_project->data_disk_size >= data_disk_sizes[DVD_4GB].size)
+    if(data_project->is_dvd)
     {
         if(data_project->msinfo != NULL)
             burn_append_data_dvd(tmp_file->file_name, data_project->msinfo);
@@ -2047,18 +2052,13 @@ dataproject_init(DataProject *project)
     dataproject_current_node_update(DATAPROJECT_WIDGET(project), &root);
 
     preferences_register_notify(GB_SHOWHUMANSIZE, 
-            (GConfClientNotifyFunc)dataproject_on_show_humansize_changed, project);
-    
-    gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(project)->menu, data_disk_sizes, 
-            DISK_SIZE_COUNT, preferences_get_int(GB_DATA_DISK_SIZE));
+            (GConfClientNotifyFunc)dataproject_on_show_humansize_changed, project);    
         
     g_signal_connect(G_OBJECT(PROJECT_WIDGET(project)->button), "clicked", 
             G_CALLBACK(dataproject_on_create_datadisk), project);
 
     g_signal_connect(G_OBJECT(PROJECT_WIDGET(project)->menu), "changed", 
             G_CALLBACK(dataproject_on_datadisk_size_changed), project);
-        
-    project_set_title(PROJECT_WIDGET(project), _("<b>Data project</b>"));
 
 #ifdef CAIRO_WIDGETS
 	gb_cairo_fillbar_set_disk_size(PROJECT_WIDGET(project)->progress_bar,
@@ -2072,10 +2072,25 @@ dataproject_init(DataProject *project)
 
 
 GtkWidget*
-dataproject_new()
+dataproject_new(const gboolean is_dvd)
 {
     GB_LOG_FUNC
-    return GTK_WIDGET(g_object_new(DATAPROJECT_TYPE_WIDGET, NULL));
+    
+    DataProject* data_project = (DataProject*)g_object_new(DATAPROJECT_TYPE_WIDGET, NULL);
+    data_project->is_dvd = is_dvd;
+    if(is_dvd)
+    {        
+        gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(data_project)->menu, data_dvd_disk_sizes, 2, 0);
+        project_set_title(PROJECT_WIDGET(data_project), _("<b>Data DVD</b>"));
+    }
+    else
+    {
+        gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(data_project)->menu, data_cd_disk_sizes, 4, 
+                /*preferences_get_int(GB_DATA_DISK_SIZE)*/2);
+        project_set_title(PROJECT_WIDGET(data_project), _("<b>Data CD</b>"));
+    }
+    
+    return GTK_WIDGET(data_project);
 }
 
 
