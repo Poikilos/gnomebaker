@@ -1,38 +1,44 @@
 [encoding: UTF-8]
 
 #source files 
-src/audiocd.c
+src/audioproject.c
 src/burn.c
-src/datacd.c
+src/cairofillbar.c
+src/dataproject.c
 src/devices.c
 src/exec.c
 src/execfunctions.c
 src/filebrowser.c
 src/gbcommon.c
+src/gblibnotify.c
 src/gnomebaker.c
 src/main.c
 src/media.c
 src/preferences.c
 src/prefsdlg.c
 src/progressdlg.c
+src/project.c
 src/selectdevicedlg.c
 src/splashdlg.c
 src/startdlg.c
 
 #header files
-src/audiocd.h
+src/audioproject.h
 src/burn.h
-src/datacd.h
+src/cairofillbar.h
+src/dataproject.h
 src/devices.h
 src/exec.h
 src/execfunctions.h
 src/filebrowser.h
 src/gbcommon.h
+src/gblibnotify.h
 src/gnomebaker.h
 src/media.h
 src/preferences.h
 src/prefsdlg.h
 src/progressdlg.h
+src/project.h
 src/selectdevicedlg.h
 src/splashdlg.h
 src/startdlg.h
