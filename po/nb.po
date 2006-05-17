@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-16 22:59+0100\n"
+"POT-Creation-Date: 2006-05-17 23:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Bokmål, Norwegian <nb@li.org>\n"
@@ -65,8 +65,8 @@ msgstr ""
 msgid "Move selected _down"
 msgstr ""
 
-#: ../src/audioproject.c:821 ../src/dataproject.c:1252
-#: ../src/dataproject.c:1289
+#: ../src/audioproject.c:821 ../src/dataproject.c:1251
+#: ../src/dataproject.c:1288
 msgid "_Remove selected"
 msgstr ""
 
@@ -260,7 +260,7 @@ msgstr ""
 msgid "%s of %s used. <b>Overburning</b>."
 msgstr ""
 
-#: ../src/cairofillbar.c:690 ../src/dataproject.c:398
+#: ../src/cairofillbar.c:690 ../src/dataproject.c:397
 #, c-format
 msgid "%s used - %s remaining."
 msgstr ""
@@ -270,38 +270,38 @@ msgstr ""
 msgid "%s of %s used. <b>Disk full</b>."
 msgstr ""
 
-#: ../src/dataproject.c:180 ../src/startdlg.c:532
+#: ../src/dataproject.c:179 ../src/startdlg.c:533
 msgid "GnomeBaker data disk"
 msgstr ""
 
-#: ../src/dataproject.c:392
+#: ../src/dataproject.c:391
 #, c-format
 msgid "%s of %s used. Overburning."
 msgstr ""
 
-#: ../src/dataproject.c:404
+#: ../src/dataproject.c:403
 #, c-format
 msgid "%s of %s used. Disk full."
 msgstr ""
 
-#: ../src/dataproject.c:1176
+#: ../src/dataproject.c:1175
 msgid "New Folder"
 msgstr ""
 
-#: ../src/dataproject.c:1240 ../src/dataproject.c:1279
+#: ../src/dataproject.c:1239 ../src/dataproject.c:1278
 #, fuzzy
 msgid "_Add Folder"
 msgstr "_Legg til maskinvare"
 
-#: ../src/dataproject.c:1248 ../src/dataproject.c:1283
+#: ../src/dataproject.c:1247 ../src/dataproject.c:1282
 msgid "_Edit name"
 msgstr ""
 
-#: ../src/dataproject.c:1254 ../src/dataproject.c:1293
+#: ../src/dataproject.c:1253 ../src/dataproject.c:1292
 msgid "Clear"
 msgstr "Fjern"
 
-#: ../src/dataproject.c:1461
+#: ../src/dataproject.c:1460
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -312,16 +312,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/dataproject.c:1462 ../src/devices.c:664
+#: ../src/dataproject.c:1461 ../src/devices.c:664
 msgid "unknown error"
 msgstr "ukjent feil"
 
-#: ../src/dataproject.c:1657
+#: ../src/dataproject.c:1656
 #, fuzzy
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
 msgstr "Sporet er for langt til å passe inn på gjenværende plass på CD"
 
-#: ../src/dataproject.c:1765
+#: ../src/dataproject.c:1764
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -330,31 +330,31 @@ msgstr ""
 "Feilet i å importere sesjon fra [%s]. Sjekk maskinvarekonfigurasjonen i "
 "innstillinger."
 
-#: ../src/dataproject.c:1859 ../src/dataproject.c:1956
+#: ../src/dataproject.c:1858 ../src/dataproject.c:1955
 #: ../gnomebaker.glade.h:38
 msgid "Contents"
 msgstr "Innhold"
 
-#: ../src/dataproject.c:1882 ../src/dataproject.c:1892
+#: ../src/dataproject.c:1881 ../src/dataproject.c:1891
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../src/dataproject.c:1902
+#: ../src/dataproject.c:1901
 msgid "Full Path"
 msgstr "Fullstendig bane"
 
-#: ../src/dataproject.c:1911
+#: ../src/dataproject.c:1910
 msgid "Session"
 msgstr "Sesjon"
 
-#: ../src/dataproject.c:2084
+#: ../src/dataproject.c:2083
 #, fuzzy
 msgid "<b>Data DVD</b>"
 msgstr "<b>Datadisk</b>"
 
 #. preferences_get_int(GB_DATA_DISK_SIZE)
-#: ../src/dataproject.c:2090
+#: ../src/dataproject.c:2089
 #, fuzzy
 msgid "<b>Data CD</b>"
 msgstr "<b>Datadisk</b>"
@@ -521,97 +521,97 @@ msgstr "Alle filer"
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:195
-msgid "Loading preferences..."
-msgstr "Laster innstillinger..."
-
-#: ../src/gnomebaker.c:198
-msgid "Detecting devices..."
-msgstr "Finner maskinvare..."
-
-#: ../src/gnomebaker.c:201
-msgid "Registering gstreamer plugins..."
-msgstr "Registrerer gstreamer plug-ins"
-
-#: ../src/gnomebaker.c:204
-msgid "Loading GUI..."
-msgstr "Laster GUI..."
-
-#: ../src/gnomebaker.c:230
-#, fuzzy
-msgid "Audio files"
-msgstr "Legg til fil(er)"
-
-#: ../src/gnomebaker.c:327
+#: ../src/gnomebaker.c:232
 msgid "Are you sure you want to quit?"
 msgstr "Er du sikker på at du vil avslutte?"
 
-#: ../src/gnomebaker.c:404
+#: ../src/gnomebaker.c:309
 msgid "CD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:405
+#: ../src/gnomebaker.c:310
 msgid "Please select a CD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:420
+#: ../src/gnomebaker.c:325
 msgid "DVD Image files"
 msgstr ""
 
-#: ../src/gnomebaker.c:421
+#: ../src/gnomebaker.c:326
 msgid "Please select a DVD image file."
 msgstr ""
 
-#: ../src/gnomebaker.c:501 ../gnomebaker.glade.h:50
+#: ../src/gnomebaker.c:406 ../gnomebaker.glade.h:50
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:502
+#: ../src/gnomebaker.c:407
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr ""
 
-#: ../src/gnomebaker.c:502 ../gnomebaker.glade.h:110
+#: ../src/gnomebaker.c:407 ../gnomebaker.glade.h:110
 msgid "translator_credits"
 msgstr "translator_credits"
 
-#: ../src/gnomebaker.c:804 ../src/gnomebaker.c:912
+#: ../src/gnomebaker.c:709 ../src/gnomebaker.c:835
 msgid "Playlist files"
 msgstr ""
 
-#: ../src/gnomebaker.c:811
+#: ../src/gnomebaker.c:716
 msgid "Save playlist as..."
 msgstr ""
 
-#: ../src/gnomebaker.c:835
+#: ../src/gnomebaker.c:740
 #, fuzzy
 msgid "Project files"
 msgstr "Løs ut disk"
 
-#: ../src/gnomebaker.c:836
+#: ../src/gnomebaker.c:741
 msgid "Please select a project file."
 msgstr ""
 
-#: ../src/gnomebaker.c:913
+#: ../src/gnomebaker.c:836
 msgid "Please select a playlist."
 msgstr ""
 
-#: ../src/gnomebaker.c:1002
+#: ../src/gnomebaker.c:925
 msgid "Please select files to add to the disk."
 msgstr ""
 
-#: ../src/gnomebaker.c:1011
+#: ../src/gnomebaker.c:934
 #, fuzzy
 msgid "Please select folders to add to the disk."
 msgstr "Legg valgte filer til CD"
 
-#: ../src/gnomebaker.c:1021
+#: ../src/gnomebaker.c:944
 #, fuzzy
 msgid "_Add Folders"
 msgstr "_Legg til maskinvare"
 
-#: ../src/gnomebaker.c:1023
+#: ../src/gnomebaker.c:946
 #, fuzzy
 msgid "_Add Files"
+msgstr "Legg til fil(er)"
+
+#: ../src/gnomebaker.c:960
+msgid "Loading preferences..."
+msgstr "Laster innstillinger..."
+
+#: ../src/gnomebaker.c:963
+msgid "Detecting devices..."
+msgstr "Finner maskinvare..."
+
+#: ../src/gnomebaker.c:966
+msgid "Registering gstreamer plugins..."
+msgstr "Registrerer gstreamer plug-ins"
+
+#: ../src/gnomebaker.c:969
+msgid "Loading GUI..."
+msgstr "Laster GUI..."
+
+#: ../src/gnomebaker.c:995
+#, fuzzy
+msgid "Audio files"
 msgstr "Legg til fil(er)"
 
 #: ../src/main.c:41
@@ -700,11 +700,11 @@ msgstr "Fullført"
 msgid "Failed"
 msgstr "Feilet"
 
-#: ../src/project.c:71
+#: ../src/project.c:72
 msgid "0%"
 msgstr "0%"
 
-#: ../src/project.c:108
+#: ../src/project.c:109
 #, fuzzy
 msgid "Burn"
 msgstr "BurnFree"
@@ -717,21 +717,15 @@ msgstr ""
 msgid "CD/DVD Image files"
 msgstr ""
 
-#: ../src/startdlg.c:178 ../gnomebaker.glade.h:10
-msgid "<b>Devices</b>"
+#: ../src/startdlg.c:181
+#, fuzzy
+msgid "<b>Reader</b>"
 msgstr "<b>Maskinvare</b>"
 
-#: ../src/startdlg.c:179
-msgid "<b>Device</b>"
-msgstr ""
-
-#: ../src/startdlg.c:183
-msgid "Reader:"
-msgstr ""
-
-#: ../src/startdlg.c:187
-msgid "Writer:"
-msgstr ""
+#: ../src/startdlg.c:186
+#, fuzzy
+msgid "<b>Writer</b>"
+msgstr "<b>Maskinvare</b>"
 
 #: ../src/startdlg.c:190
 msgid "Speed:"
@@ -793,55 +787,55 @@ msgstr ""
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:506
+#: ../src/startdlg.c:507
 msgid "Dummy write"
 msgstr "Testbrenn"
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:508
 msgid "Eject disk"
 msgstr "Løs ut disk"
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:509
 msgid "Fast blank"
 msgstr "Hurtigslett"
 
-#: ../src/startdlg.c:509
+#: ../src/startdlg.c:510
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: ../src/startdlg.c:510
+#: ../src/startdlg.c:511
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:512
+#: ../src/startdlg.c:513
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:515
+#: ../src/startdlg.c:516
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:516
+#: ../src/startdlg.c:517
 msgid "Finalize"
 msgstr "Fullfør (brenn sluttspor)"
 
-#: ../src/startdlg.c:517
+#: ../src/startdlg.c:518
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:518
+#: ../src/startdlg.c:519
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:519
+#: ../src/startdlg.c:520
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:520
+#: ../src/startdlg.c:521
 msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:530
+#: ../src/startdlg.c:531
 msgid "_Browse..."
 msgstr ""
 
@@ -938,6 +932,10 @@ msgstr "<b>Opprettet av</b>"
 #: ../gnomebaker.glade.h:9
 msgid "<b>Detected devices</b>"
 msgstr "<b>Gjenkjent maskinvare</b>"
+
+#: ../gnomebaker.glade.h:10
+msgid "<b>Devices</b>"
+msgstr "<b>Maskinvare</b>"
 
 #: ../gnomebaker.glade.h:11
 msgid "<b>Open existing project</b>"
