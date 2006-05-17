@@ -22,7 +22,7 @@ Version 0.5.2
 * Default all open and save file choosers to user's home dir
 * When not showing file browser, add button now allows selection of files or folders.
 * Notionally split out data CD and DVD so they are both available in the File->New menu.
-
+* Tidy up the start burning dlg and make the layouts look better.
 
 Version 0.5.1
 
