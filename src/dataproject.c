@@ -1778,11 +1778,11 @@ dataproject_import_session(Project *project)
 
 
 static void
-dataproject_open(Project *project, const gchar *file_name)
+dataproject_open(Project *project, xmlDocPtr doc)
 {
     GB_LOG_FUNC
     g_return_if_fail(DATAPROJECT_IS_WIDGET(project));
-    g_return_if_fail(file_name != NULL);
+    g_return_if_fail(doc != NULL);
 }
 
 

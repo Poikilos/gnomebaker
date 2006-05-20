@@ -121,7 +121,11 @@ startdlg_on_browse_clicked(GtkButton  *button, gpointer user_data)
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), image_filter);
     
     if(gtk_dialog_run(GTK_DIALOG(file_chooser)) == GTK_RESPONSE_ACCEPT)
-        gtk_entry_set_text(start_dlg->iso_file, gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser)));
+    {
+        gchar *file_name = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser));   
+        gtk_entry_set_text(start_dlg->iso_file, file_name);
+        g_free(file_name);
+    }
     gtk_widget_destroy(file_chooser);
 }
 

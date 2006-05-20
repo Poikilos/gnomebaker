@@ -22,6 +22,7 @@
 #include "project.h"
 #include "gbcommon.h"
 #include "gnomebaker.h"
+#include <libxml/parser.h>
 
 G_DEFINE_ABSTRACT_TYPE(Project, project, GTK_TYPE_VBOX);
 
@@ -183,13 +184,31 @@ project_import_session(Project *project)
 }
 
 
-void 
-project_open(Project *project, const gchar *file_name)
+gboolean
+project_is_dirty(Project *project)
+{
+    GB_LOG_FUNC   
+    g_return_val_if_fail(PROJECT_IS_WIDGET(project), FALSE);
+    return project->is_dirty;
+}
+
+
+void
+project_set_dirty(Project *project, gboolean dirty)
 {
     GB_LOG_FUNC   
     g_return_if_fail(PROJECT_IS_WIDGET(project));
-    g_return_if_fail(file_name != NULL);
-    PROJECT_WIDGET_GET_CLASS(project)->open(project, file_name);
+    project->is_dirty = dirty;
+}
+
+
+void 
+project_open(Project *project, xmlDocPtr doc)
+{
+    GB_LOG_FUNC   
+    g_return_if_fail(PROJECT_IS_WIDGET(project));
+    g_return_if_fail(doc != NULL);
+    PROJECT_WIDGET_GET_CLASS(project)->open(project, doc);        
 }
 
 
@@ -199,6 +218,8 @@ project_save(Project *project)
     GB_LOG_FUNC   
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->save(project);
+    /*xmlSaveFormatFile (docname, doc, 1);*/
+    project_set_dirty(project, FALSE);
 }
 
 
@@ -229,21 +250,23 @@ project_move_selected_down(Project *project)
 }
 
 
-gboolean
-project_is_dirty(Project *project)
-{
-    GB_LOG_FUNC   
-    g_return_val_if_fail(PROJECT_IS_WIDGET(project), FALSE);
-    return project->is_dirty;
-}
-
-
-void
-project_set_dirty(Project *project, gboolean dirty)
+void 
+project_set_file(Project *project, const gchar *file)
 {
     GB_LOG_FUNC   
     g_return_if_fail(PROJECT_IS_WIDGET(project));
-    project->is_dirty = dirty;
+    if(project->file != NULL)
+        g_free(project->file);
+    project->file = g_strdup(file);
+}
+
+
+const gchar*
+project_get_file(Project *project)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(PROJECT_IS_WIDGET(project));
+    return project->file;
 }
 
 

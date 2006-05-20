@@ -27,10 +27,19 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <libxml/parser.h>
 
 #ifdef CAIRO_WIDGETS
 #include "cairofillbar.h"
 #endif
+
+typedef enum
+{
+    DATA_CD = 0,
+    DATA_DVD,
+    AUDIO_CD      
+} ProjectType;
+
 
 G_BEGIN_DECLS
 
@@ -71,6 +80,7 @@ typedef struct
     GtkLabel *title;
     GtkButton *close_button;
     gboolean is_dirty;
+    gchar *file;
     
 } Project;
 
@@ -83,7 +93,7 @@ typedef struct
     void (*remove)(Project *self);
     void (*add_selection)(Project *self, GtkSelectionData *selection);
     void (*import_session)(Project *self);
-    void (*open)(Project *self, const gchar *file_name);
+    void (*open)(Project *self, xmlDocPtr doc);
     void (*save)(Project *self);
     void (*close)(Project *self);
     void (*move_selected_up)(Project *self);
@@ -99,12 +109,14 @@ void project_clear(Project *project);
 void project_remove(Project *project);
 void project_add_selection(Project *project, GtkSelectionData *selection);
 void project_import_session(Project *project);
-void project_open(Project *project, const gchar *file_name);
+void project_open(Project *project, xmlDocPtr doc);
 void project_save(Project *project);
 void project_close(Project *project);
 void project_move_selected_up(Project *project);
 void project_move_selected_down(Project *project);
 GtkWidget *project_get_title_widget(Project *project);
+const gchar *project_get_file(Project *project);
+void project_set_file(Project *project, const gchar *file);
 
 
 G_END_DECLS
