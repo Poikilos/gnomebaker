@@ -35,6 +35,7 @@
 #include "media.h"
 #include "dataproject.h"
 #include "audioproject.h"
+#include <libxml/parser.h>
 
 
 static const gchar *const widget_gnomebaker = "GnomeBaker";
@@ -590,7 +591,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
     GtkWidget *remove_alt = glade_xml_get_widget(xml, "toolbutton13");
     GtkWidget *clear_alt = glade_xml_get_widget(xml, "toolbutton14");
     
-    GtkWidget *widget = gtk_notebook_get_nth_page(notebook, page_num);
+    GtkWidget *widget = gtk_notebook_get_nth_page(notebook, page_num);                
     if(PROJECT_IS_WIDGET(widget))
     {
         gtk_widget_set_sensitive(project_menu, TRUE);
@@ -613,14 +614,6 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(menu_up, FALSE);
             gtk_widget_set_sensitive(menu_down, FALSE);
             gtk_widget_set_sensitive(export_menu, FALSE);
-#ifdef USE_GTK_FILE_CHOOSER    
-            /* We must ref before remove otherwise our filter gets destroyed */
-            if(gtk_file_chooser_get_filter(GTK_FILE_CHOOSER(file_chooser)) == audio_filter)
-            {
-                g_object_ref(audio_filter);
-                gtk_file_chooser_remove_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);
-            }
-#endif
         } 
         else if(AUDIOPROJECT_IS_WIDGET(project))
         {
@@ -632,12 +625,6 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(menu_up, TRUE);
             gtk_widget_set_sensitive(menu_down, TRUE);
             gtk_widget_set_sensitive(export_menu, TRUE);
-#ifdef USE_GTK_FILE_CHOOSER    
-            /* When switching to an audio project we filter the files available in the
-             * file chooser according to the gstreamer plugins we have installed */
-            gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);
-            gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);        
-#endif
         }
     }
     else 
@@ -659,6 +646,28 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
         gtk_widget_set_sensitive(remove_alt, FALSE);
         gtk_widget_set_sensitive(clear_alt, FALSE);
     }
+    
+#ifdef USE_GTK_FILE_CHOOSER        
+    if(AUDIOPROJECT_IS_WIDGET(widget))
+    {
+        if(gtk_file_chooser_get_filter(GTK_FILE_CHOOSER(file_chooser)) != audio_filter)
+        {
+            /* When switching to an audio project we filter the files available in the
+             * file chooser according to the gstreamer plugins we have installed */
+            gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);
+            gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);
+        }
+    }
+    else
+    {
+        /* We must ref before remove otherwise our filter gets destroyed */
+        if(gtk_file_chooser_get_filter(GTK_FILE_CHOOSER(file_chooser)) == audio_filter)
+        {
+            g_object_ref(audio_filter);
+            gtk_file_chooser_remove_filter(GTK_FILE_CHOOSER(file_chooser), audio_filter);
+        }
+    }
+#endif
 }
 
 
@@ -728,30 +737,77 @@ gnomebaker_project_file_filter(const GtkFileFilterInfo *filter_info, gpointer da
 }
 
 
+static GtkFileFilter* 
+gnomebaker_create_project_file_filter() 
+{
+    GB_LOG_FUNC
+    GtkFileFilter *project_filter = gtk_file_filter_new();
+    gtk_file_filter_add_custom(project_filter, GTK_FILE_FILTER_FILENAME,
+            gnomebaker_project_file_filter, NULL, NULL);
+    gtk_file_filter_set_name(project_filter,_("Project files"));
+    return project_filter;
+}
+
+
+static GtkWidget*
+gnomebaker_add_project(ProjectType type)
+{
+    GB_LOG_FUNC   
+    GtkWidget *project = NULL;
+    switch(type)   
+    {
+        case DATA_CD:
+            project = dataproject_new(FALSE);
+            break;
+        case DATA_DVD:
+            project = dataproject_new(TRUE);
+            break;
+        case AUDIO_CD:
+            project = audioproject_new();
+            break;
+        default:
+            g_warning("Unknown project type [%d]", type);
+            return NULL;
+    };
+        
+    gtk_widget_show(project);
+    GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
+    gint index = gtk_notebook_append_page(GTK_NOTEBOOK(notebook), project, project_get_title_widget(PROJECT_WIDGET(project)));
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), index);
+    return project;
+}
+
+
 void /* libglade callback */
 gnomebaker_on_open_project(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC  
     
-    GtkFileFilter *project_filter = gtk_file_filter_new();
-    gtk_file_filter_add_custom(project_filter, GTK_FILE_FILTER_FILENAME,
-            gnomebaker_project_file_filter, NULL, NULL);
-    gtk_file_filter_set_name(project_filter,_("Project files"));
-    gchar *file = gbcommon_show_file_chooser(_("Please select a project file."), GTK_FILE_CHOOSER_ACTION_OPEN, project_filter, FALSE, NULL);
+    gchar *file = gbcommon_show_file_chooser(_("Please select a project file."), 
+            GTK_FILE_CHOOSER_ACTION_OPEN, gnomebaker_create_project_file_filter(), FALSE, NULL);
     if(file != NULL)
     {
-        GB_TRACE("gnomebaker_on_open_project - opening [%s]\n", file);        
-        project_open(gnomebaker_get_current_project(), file);
+        GB_TRACE("gnomebaker_on_open_project - opening [%s]\n", file);
+        xmlDocPtr doc = xmlParseFile(file);
+        if(doc == NULL)
+        {
+            g_warning("Document not parsed successfully. \n");
+        }
+        else
+        {
+            /* Get the type from the root element in the project file so we can create
+             * a project of the correct type before adding the content */
+            xmlNodePtr cur = xmlDocGetRootElement(doc);
+            xmlChar *type = xmlGetProp(cur, (const xmlChar*)"type");
+            Project *project = PROJECT_WIDGET(gnomebaker_add_project(atoi((const gchar*)type)));
+            xmlFree(type);
+            project_open(project, doc);
+            xmlFreeDoc(doc);
+            /* TODO this may be better done at application exit time */
+            xmlCleanupParser();
+        }        
     }
     g_free(file);
-}
-
-
-void /* libglade callback */
-gnomebaker_on_save_project(gpointer widget, gpointer user_data)
-{
-    GB_LOG_FUNC   
-    project_save(gnomebaker_get_current_project());
 }
 
 
@@ -759,6 +815,49 @@ void /* libglade callback */
 gnomebaker_on_save_project_as(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC   
+    
+    Project *project =gnomebaker_get_current_project();
+    GtkWidget *file_chooser = gtk_file_chooser_dialog_new( _("Save project"), 
+            gnomebaker_get_window(), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_CANCEL, 
+            GTK_RESPONSE_CANCEL, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL); 
+    const gchar *file = project_get_file(project);
+    if(file != NULL)
+    {
+        gchar *base_name = g_path_get_basename(file);
+        gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(file_chooser), base_name);
+        g_free(base_name);
+        gchar *dir = g_path_get_dirname(file);
+        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), dir);
+        g_free(dir);
+    }
+    else
+    {
+        gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(file_chooser), "project.gbp");
+        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
+    }
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), FALSE);        
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), gnomebaker_create_project_file_filter());
+    
+    if(gtk_dialog_run(GTK_DIALOG(file_chooser)) == GTK_RESPONSE_ACCEPT)
+    {
+        gchar *file_name = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser));   
+        project_set_file(project, file_name);
+        g_free(file_name);
+        project_save(project);
+    }
+    gtk_widget_destroy(file_chooser);
+}
+
+
+void /* libglade callback */
+gnomebaker_on_save_project(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC   
+    Project *project =gnomebaker_get_current_project();    
+    if(project_get_file(project) != NULL)
+        project_save(project);
+    else
+        gnomebaker_on_save_project_as(widget, user_data);
 }
 
 
@@ -773,11 +872,7 @@ void /* libglade callback */
 gnomebaker_on_new_data_dvd_project(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC   
-    GtkWidget *project = dataproject_new(TRUE);
-    gtk_widget_show(project);
-    GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
-    gint index = gtk_notebook_append_page(GTK_NOTEBOOK(notebook), project, project_get_title_widget(PROJECT_WIDGET(project)));
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), index);
+    gnomebaker_add_project(DATA_DVD);
 }
 
 
@@ -785,11 +880,7 @@ void /* libglade callback */
 gnomebaker_on_new_data_cd_project(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC   
-    GtkWidget *project = dataproject_new(FALSE);
-    gtk_widget_show(project);
-    GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
-    gint index = gtk_notebook_append_page(GTK_NOTEBOOK(notebook), project, project_get_title_widget(PROJECT_WIDGET(project)));
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), index);
+    gnomebaker_add_project(DATA_CD);
 }
 
 
@@ -797,11 +888,7 @@ void /* libglade callback */
 gnomebaker_on_new_audio_project(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
-    GtkWidget *project = audioproject_new();
-    gtk_widget_show(project);
-    GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
-    gint index = gtk_notebook_append_page(GTK_NOTEBOOK(notebook), project, project_get_title_widget(PROJECT_WIDGET(project)));
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), index);
+    gnomebaker_add_project(AUDIO_CD);
 }
 
 

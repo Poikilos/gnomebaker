@@ -918,11 +918,24 @@ audioproject_import_session(Project *project)
 
 
 static void
-audioproject_open(Project *project, const gchar *file_name)
+audioproject_open(Project *project, xmlDocPtr doc)
 {
     GB_LOG_FUNC
     g_return_if_fail(AUDIOPROJECT_IS_WIDGET(project));
-    g_return_if_fail(file_name != NULL);
+    g_return_if_fail(doc != NULL);
+}
+
+
+static gboolean
+audioproject_foreach_save_func(GtkTreeModel *audio_model,
+                                GtkTreePath *path,
+                                GtkTreeIter *iter,
+                                xmlNodePtr parent)
+{
+    MediaInfo *info = NULL;
+    gtk_tree_model_get (audio_model, iter, AUDIO_COL_INFO, &info, -1);
+    
+    return FALSE; /*do not stop walking the store, call us with next row*/
 }
 
 
@@ -931,6 +944,9 @@ audioproject_save(Project *project)
 {
     GB_LOG_FUNC
     g_return_if_fail(AUDIOPROJECT_IS_WIDGET(project));
+    
+    GtkTreeModel *audio_model = gtk_tree_view_get_model(AUDIOPROJECT_WIDGET(project)->tree);
+    gtk_tree_model_foreach(audio_model, (GtkTreeModelForeachFunc)audioproject_foreach_save_func, NULL);
 }
 
 

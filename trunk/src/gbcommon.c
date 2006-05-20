@@ -580,7 +580,7 @@ gbcommon_show_file_chooser(const gchar *title, GtkFileChooserAction action,
     gchar *file = NULL;
     if (gtk_dialog_run(GTK_DIALOG(file_chooser)) == GTK_RESPONSE_OK)
     {
-        file = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser)));
+        file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser));
         if(action == GTK_FILE_CHOOSER_ACTION_SAVE && save_as_options != NULL)
         {
             gchar *ext = gtk_combo_box_get_active_text(save_as_options);
