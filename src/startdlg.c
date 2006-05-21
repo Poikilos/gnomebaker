@@ -622,8 +622,40 @@ void
 startdlg_delete(StartDlg *self)
 {	
 	GB_LOG_FUNC	
-	gtk_widget_hide(GTK_WIDGET(self->dialog));
-	gtk_widget_destroy(GTK_WIDGET(self->dialog));
+    /* Manually delete all of the widgets here as not all get added to the container */
+    gtk_widget_hide(GTK_WIDGET(self->dialog));        
+ 
+#define DESTROY_WIDGET(widget)                                          \
+    if(GTK_IS_WIDGET(widget)) gtk_widget_destroy(GTK_WIDGET(widget));   \
+    
+    DESTROY_WIDGET(self->reader);
+    DESTROY_WIDGET(self->writer);
+    DESTROY_WIDGET(self->write_speed);
+    DESTROY_WIDGET(self->write_mode);
+    DESTROY_WIDGET(self->dummy);
+    DESTROY_WIDGET(self->eject);    
+    DESTROY_WIDGET(self->fast_erase);
+    DESTROY_WIDGET(self->burn_free);
+    DESTROY_WIDGET(self->burn_disk); 
+    DESTROY_WIDGET(self->force_format);
+    DESTROY_WIDGET(self->finalize);
+    DESTROY_WIDGET(self->fast_format);
+    DESTROY_WIDGET(self->joliet);
+    DESTROY_WIDGET(self->rock_ridge);
+    DESTROY_WIDGET(self->on_the_fly);    
+    DESTROY_WIDGET(self->iso_only);  
+    DESTROY_WIDGET(self->iso_file);
+    DESTROY_WIDGET(self->browse);
+    DESTROY_WIDGET(self->volume_id);
+    DESTROY_WIDGET(self->app_id);
+    DESTROY_WIDGET(self->preparer);
+    DESTROY_WIDGET(self->publisher);
+    DESTROY_WIDGET(self->copyright);
+    DESTROY_WIDGET(self->abstract);
+    DESTROY_WIDGET(self->bibliography);
+
+    gtk_widget_destroy(GTK_WIDGET(self->dialog));
+    
     g_free(self);
 }
 
