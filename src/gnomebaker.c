@@ -1020,19 +1020,7 @@ GtkWidget*
 gnomebaker_new()
 {
     GB_LOG_FUNC 
-    
-    gbcommon_init();
-    
-    splashdlg_set_text(_("Loading preferences..."));
-    preferences_init();
-    
-    splashdlg_set_text(_("Detecting devices..."));
-    devices_init();
-
-    splashdlg_set_text(_("Registering gstreamer plugins..."));
-    media_init();
-
-    splashdlg_set_text(_("Loading GUI..."));
+        
     xml = glade_xml_new(glade_file, widget_gnomebaker, NULL);
     
     /* This is important */
