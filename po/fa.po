@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-17 23:33+0100\n"
+"POT-Creation-Date: 2006-05-21 20:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Persian <fa@li.org>\n"
@@ -74,8 +74,8 @@ msgstr "انتقال گزینه انتخاب‌شده به بالا"
 msgid "Move selected _down"
 msgstr "انتقال گزینه انتخاب‌شده به پایین"
 
-#: ../src/audioproject.c:821 ../src/dataproject.c:1251
-#: ../src/dataproject.c:1288
+#: ../src/audioproject.c:821 ../src/dataproject.c:1250
+#: ../src/dataproject.c:1287
 msgid "_Remove selected"
 msgstr "حذف گزینه انتخاب‌شده"
 
@@ -83,31 +83,31 @@ msgstr "حذف گزینه انتخاب‌شده"
 msgid "_Clear"
 msgstr "پاک کردن"
 
-#: ../src/audioproject.c:992
+#: ../src/audioproject.c:1008
 msgid "Track"
 msgstr "شیار"
 
-#: ../src/audioproject.c:1005
+#: ../src/audioproject.c:1021
 msgid "Duration"
 msgstr "مدت زمان"
 
-#: ../src/audioproject.c:1022
+#: ../src/audioproject.c:1038
 msgid "Artist"
 msgstr "هنرمند"
 
-#: ../src/audioproject.c:1031
+#: ../src/audioproject.c:1047
 msgid "Album"
 msgstr "آلبوم"
 
-#: ../src/audioproject.c:1040
+#: ../src/audioproject.c:1056
 msgid "Title"
 msgstr "عنوان"
 
-#: ../src/audioproject.c:1049
+#: ../src/audioproject.c:1065
 msgid "Info"
 msgstr "اطلاعات"
 
-#: ../src/audioproject.c:1080
+#: ../src/audioproject.c:1096
 #, fuzzy
 msgid "<b>Audio CD</b>"
 msgstr "<b>دیسک صوتی</b>"
@@ -296,7 +296,7 @@ msgstr "بازبینی کردن محتویات دیسک"
 msgid "%s of %s used. <b>Overburning</b>."
 msgstr ""
 
-#: ../src/cairofillbar.c:690 ../src/dataproject.c:397
+#: ../src/cairofillbar.c:690 ../src/dataproject.c:396
 #, fuzzy, c-format
 msgid "%s used - %s remaining."
 msgstr "%s استفاده شده - %s باقیمانده"
@@ -306,39 +306,39 @@ msgstr "%s استفاده شده - %s باقیمانده"
 msgid "%s of %s used. <b>Disk full</b>."
 msgstr ""
 
-#: ../src/dataproject.c:179 ../src/startdlg.c:533
+#: ../src/dataproject.c:178 ../src/startdlg.c:537
 msgid "GnomeBaker data disk"
 msgstr "دیسک اطلاعاتی GnomeBaker"
 
-#: ../src/dataproject.c:391
+#: ../src/dataproject.c:390
 #, c-format
 msgid "%s of %s used. Overburning."
 msgstr ""
 
-#: ../src/dataproject.c:403
+#: ../src/dataproject.c:402
 #, c-format
 msgid "%s of %s used. Disk full."
 msgstr ""
 
-#: ../src/dataproject.c:1175
+#: ../src/dataproject.c:1174
 #, fuzzy
 msgid "New Folder"
 msgstr "پوشه"
 
-#: ../src/dataproject.c:1239 ../src/dataproject.c:1278
+#: ../src/dataproject.c:1238 ../src/dataproject.c:1277
 #, fuzzy
 msgid "_Add Folder"
 msgstr "پوشه"
 
-#: ../src/dataproject.c:1247 ../src/dataproject.c:1282
+#: ../src/dataproject.c:1246 ../src/dataproject.c:1281
 msgid "_Edit name"
 msgstr "تغییر نام"
 
-#: ../src/dataproject.c:1253 ../src/dataproject.c:1292
+#: ../src/dataproject.c:1252 ../src/dataproject.c:1291
 msgid "Clear"
 msgstr "تمیز"
 
-#: ../src/dataproject.c:1460
+#: ../src/dataproject.c:1459
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -349,49 +349,49 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/dataproject.c:1461 ../src/devices.c:664
+#: ../src/dataproject.c:1460 ../src/devices.c:664
 msgid "unknown error"
 msgstr "اشکال شناخته نشده"
 
-#: ../src/dataproject.c:1656
+#: ../src/dataproject.c:1655
 #, fuzzy
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
 msgstr ""
 "شیار انتخاب شده بسیار بزرگتر از آن است که در فضای باقی مانده لوح فشرده قرار "
 "گیرد."
 
-#: ../src/dataproject.c:1764
+#: ../src/dataproject.c:1763
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
 msgstr ""
 
-#: ../src/dataproject.c:1858 ../src/dataproject.c:1955
+#: ../src/dataproject.c:1857 ../src/dataproject.c:1954
 #: ../gnomebaker.glade.h:38
 msgid "Contents"
 msgstr "محتوی"
 
-#: ../src/dataproject.c:1881 ../src/dataproject.c:1891
+#: ../src/dataproject.c:1880 ../src/dataproject.c:1890
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
 msgstr "حجم"
 
-#: ../src/dataproject.c:1901
+#: ../src/dataproject.c:1900
 msgid "Full Path"
 msgstr "آدرس کامل"
 
-#: ../src/dataproject.c:1910
+#: ../src/dataproject.c:1909
 msgid "Session"
 msgstr "نشست"
 
-#: ../src/dataproject.c:2083
+#: ../src/dataproject.c:2082
 #, fuzzy
 msgid "<b>Data DVD</b>"
 msgstr "<b>دیسک اطلاعاتی</b>"
 
 #. preferences_get_int(GB_DATA_DISK_SIZE)
-#: ../src/dataproject.c:2089
+#: ../src/dataproject.c:2088
 #, fuzzy
 msgid "<b>Data CD</b>"
 msgstr "<b>دیسک اطلاعاتی</b>"
@@ -432,8 +432,8 @@ msgid "Writing track %d"
 msgstr "نوشتن شیار %d"
 
 #: ../src/execfunctions.c:287 ../src/execfunctions.c:1006
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:105
+#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:202
+#: ../src/startdlg.c:203 ../gnomebaker.glade.h:105
 msgid "default"
 msgstr "پیش‌فرض"
 
@@ -499,8 +499,8 @@ msgstr ""
 msgid "Converting %s to cd audio"
 msgstr "تبدیل %s به لوح فشرده صوتی"
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:379
-#: ../src/startdlg.c:407
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:383
+#: ../src/startdlg.c:411
 msgid "Filesystem"
 msgstr "فایل‌سیستم"
 
@@ -589,75 +589,79 @@ msgstr "سوزاندن آسان لوح فشرده و DVD برای گنوم"
 msgid "translator_credits"
 msgstr "معین علی‌نقیان <masoft@users.sourceforge.net>"
 
-#: ../src/gnomebaker.c:709 ../src/gnomebaker.c:835
+#: ../src/gnomebaker.c:717 ../src/gnomebaker.c:903
 msgid "Playlist files"
 msgstr "فایل‌های لیست پخش"
 
-#: ../src/gnomebaker.c:716
+#: ../src/gnomebaker.c:724
 msgid "Save playlist as..."
 msgstr "ذخیره لیست‌پخش با عنوان ..."
 
-#: ../src/gnomebaker.c:740
+#: ../src/gnomebaker.c:747
 #, fuzzy
 msgid "Project files"
 msgstr "خروج دیسک"
 
-#: ../src/gnomebaker.c:741
+#: ../src/gnomebaker.c:786
 #, fuzzy
 msgid "Please select a project file."
 msgstr "لطفا یک فایل تصویر لوح فشرده انتخاب کنید."
 
-#: ../src/gnomebaker.c:836
+#: ../src/gnomebaker.c:820 ../gnomebaker.glade.h:73
+msgid "Save project"
+msgstr ""
+
+#: ../src/gnomebaker.c:904
 msgid "Please select a playlist."
 msgstr "لطفا یک لیست پخش انتخاب کنید."
 
-#: ../src/gnomebaker.c:925
+#: ../src/gnomebaker.c:991
 msgid "Please select files to add to the disk."
 msgstr "لطفا فایل‌ها را برای اضافه به دیسک انتخاب کنید."
 
-#: ../src/gnomebaker.c:934
+#: ../src/gnomebaker.c:1000
 #, fuzzy
 msgid "Please select folders to add to the disk."
 msgstr "لطفا فایل‌ها را برای اضافه به دیسک انتخاب کنید."
 
-#: ../src/gnomebaker.c:944
+#: ../src/gnomebaker.c:1010
 #, fuzzy
 msgid "_Add Folders"
 msgstr "پوشه"
 
-#: ../src/gnomebaker.c:946
+#: ../src/gnomebaker.c:1012
 #, fuzzy
 msgid "_Add Files"
 msgstr "اضافه کردن فایل(ها)"
 
-#: ../src/gnomebaker.c:960
-msgid "Loading preferences..."
-msgstr "بارگذاری تنظیمات..."
-
-#: ../src/gnomebaker.c:963
-msgid "Detecting devices..."
-msgstr "شناختن دستگاه‌ها..."
-
-#: ../src/gnomebaker.c:966
-msgid "Registering gstreamer plugins..."
-msgstr ""
-
-#: ../src/gnomebaker.c:969
-msgid "Loading GUI..."
-msgstr "بارگذاری محیط گرافیکی..."
-
-#: ../src/gnomebaker.c:995
+#: ../src/gnomebaker.c:1049
 #, fuzzy
 msgid "Audio files"
 msgstr "اضافه کردن فایل(ها)"
 
-#: ../src/main.c:41
+#: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
 msgstr ""
 
-#: ../src/main.c:50
+#: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
 msgstr ""
+
+#: ../src/main.c:107
+msgid "Loading preferences..."
+msgstr "بارگذاری تنظیمات..."
+
+#: ../src/main.c:112
+msgid "Detecting devices..."
+msgstr "شناختن دستگاه‌ها..."
+
+#: ../src/main.c:117
+msgid "Registering gstreamer plugins..."
+msgstr ""
+
+#: ../src/main.c:122
+msgid "Loading GUI..."
+msgstr "بارگذاری محیط گرافیکی..."
 
 #: ../src/media.c:493
 #, c-format
@@ -757,125 +761,125 @@ msgstr "لطفا یک فایل تصویر برای ذخیره انتخاب کن�
 msgid "CD/DVD Image files"
 msgstr "فایل‌های تصویر لوح فشرده\\DVD"
 
-#: ../src/startdlg.c:181
+#: ../src/startdlg.c:185
 #, fuzzy
 msgid "<b>Reader</b>"
 msgstr "<b>غیره</b>"
 
-#: ../src/startdlg.c:186
+#: ../src/startdlg.c:190
 #, fuzzy
 msgid "<b>Writer</b>"
 msgstr "<b>غیره</b>"
 
-#: ../src/startdlg.c:190
+#: ../src/startdlg.c:194
 msgid "Speed:"
 msgstr "سرعت:"
 
-#: ../src/startdlg.c:194
+#: ../src/startdlg.c:198
 msgid "Mode:"
 msgstr "سبک:"
 
-#: ../src/startdlg.c:217 ../gnomebaker.glade.h:12
+#: ../src/startdlg.c:221 ../gnomebaker.glade.h:12
 msgid "<b>Options</b>"
 msgstr "<b>تنظیمات</b>"
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:101
+#: ../src/startdlg.c:250 ../gnomebaker.glade.h:101
 msgid "_Start"
 msgstr "شروع"
 
-#: ../src/startdlg.c:309
+#: ../src/startdlg.c:313
 msgid "<b>Disk Information</b>"
 msgstr "<b>اطلاعات دیسک</b>"
 
-#: ../src/startdlg.c:311
+#: ../src/startdlg.c:315
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/startdlg.c:314
+#: ../src/startdlg.c:318
 msgid "Application ID:"
 msgstr ""
 
-#: ../src/startdlg.c:317
+#: ../src/startdlg.c:321
 msgid "Preparer:"
 msgstr "آماده ساز:"
 
-#: ../src/startdlg.c:320
+#: ../src/startdlg.c:324
 msgid "Publisher:"
 msgstr "ناشر:"
 
-#: ../src/startdlg.c:323
+#: ../src/startdlg.c:327
 msgid "Copyright:"
 msgstr "حق نسخه‌برداری:"
 
-#: ../src/startdlg.c:326
+#: ../src/startdlg.c:330
 msgid "Abstract:"
 msgstr ""
 
-#: ../src/startdlg.c:329
+#: ../src/startdlg.c:333
 msgid "Bibliography:"
 msgstr ""
 
-#: ../src/startdlg.c:340
+#: ../src/startdlg.c:344
 msgid "<b>Filesystem</b>"
 msgstr "<b>فایل سیستم</b>"
 
-#: ../src/startdlg.c:378 ../src/startdlg.c:406
+#: ../src/startdlg.c:382 ../src/startdlg.c:410
 msgid "Writing"
 msgstr "نوشتن"
 
-#: ../src/startdlg.c:380 ../src/startdlg.c:408
+#: ../src/startdlg.c:384 ../src/startdlg.c:412
 msgid "Disk Information"
 msgstr "اطلاعات دیسک"
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:511
 msgid "Dummy write"
 msgstr ""
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:512
 msgid "Eject disk"
 msgstr "خروج دیسک"
 
-#: ../src/startdlg.c:509
+#: ../src/startdlg.c:513
 msgid "Fast blank"
 msgstr ""
 
-#: ../src/startdlg.c:510
+#: ../src/startdlg.c:514
 msgid "BurnFree"
 msgstr ""
 
-#: ../src/startdlg.c:511
+#: ../src/startdlg.c:515
 msgid "Burn the disk"
 msgstr "سوزاندن(ذخیره) دیسک"
 
-#: ../src/startdlg.c:513
+#: ../src/startdlg.c:517
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:516
+#: ../src/startdlg.c:520
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:517
+#: ../src/startdlg.c:521
 msgid "Finalize"
 msgstr "پایان دادن"
 
-#: ../src/startdlg.c:518
+#: ../src/startdlg.c:522
 msgid "Fast format"
 msgstr "طبقه‌بندی سریع"
 
-#: ../src/startdlg.c:519
+#: ../src/startdlg.c:523
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:520
+#: ../src/startdlg.c:524
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:521
+#: ../src/startdlg.c:525
 msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:531
+#: ../src/startdlg.c:535
 msgid "_Browse..."
 msgstr "مرور"
 
@@ -1231,10 +1235,6 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:72
 msgid "Save Project _As"
-msgstr ""
-
-#: ../gnomebaker.glade.h:73
-msgid "Save project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:74

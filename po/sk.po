@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-17 23:33+0100\n"
+"POT-Creation-Date: 2006-05-21 20:41+0100\n"
 "PO-Revision-Date: 2005-02-13 21:42+0100\n"
 "Last-Translator: Peter Chabada <sk-i18n_chabada_sk>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -71,8 +71,8 @@ msgstr "Posunúť _vyššie"
 msgid "Move selected _down"
 msgstr "Posunúť _nižšie"
 
-#: ../src/audioproject.c:821 ../src/dataproject.c:1251
-#: ../src/dataproject.c:1288
+#: ../src/audioproject.c:821 ../src/dataproject.c:1250
+#: ../src/dataproject.c:1287
 msgid "_Remove selected"
 msgstr "O_dobrať vybrané zo zoznamu"
 
@@ -80,31 +80,31 @@ msgstr "O_dobrať vybrané zo zoznamu"
 msgid "_Clear"
 msgstr "Odobrať všetky zo _zoznamu"
 
-#: ../src/audioproject.c:992
+#: ../src/audioproject.c:1008
 msgid "Track"
 msgstr "Stopa"
 
-#: ../src/audioproject.c:1005
+#: ../src/audioproject.c:1021
 msgid "Duration"
 msgstr "Dĺžka"
 
-#: ../src/audioproject.c:1022
+#: ../src/audioproject.c:1038
 msgid "Artist"
 msgstr "Interpret"
 
-#: ../src/audioproject.c:1031
+#: ../src/audioproject.c:1047
 msgid "Album"
 msgstr "Album"
 
-#: ../src/audioproject.c:1040
+#: ../src/audioproject.c:1056
 msgid "Title"
 msgstr "Skladba"
 
-#: ../src/audioproject.c:1049
+#: ../src/audioproject.c:1065
 msgid "Info"
 msgstr "Informácie"
 
-#: ../src/audioproject.c:1080
+#: ../src/audioproject.c:1096
 #, fuzzy
 msgid "<b>Audio CD</b>"
 msgstr "<b>Hudobný disk</b>"
@@ -273,7 +273,7 @@ msgstr "Kontrolujem obsah disku"
 msgid "%s of %s used. <b>Overburning</b>."
 msgstr ""
 
-#: ../src/cairofillbar.c:690 ../src/dataproject.c:397
+#: ../src/cairofillbar.c:690 ../src/dataproject.c:396
 #, fuzzy, c-format
 msgid "%s used - %s remaining."
 msgstr "%s (zostáva %s)"
@@ -283,39 +283,39 @@ msgstr "%s (zostáva %s)"
 msgid "%s of %s used. <b>Disk full</b>."
 msgstr ""
 
-#: ../src/dataproject.c:179 ../src/startdlg.c:533
+#: ../src/dataproject.c:178 ../src/startdlg.c:537
 msgid "GnomeBaker data disk"
 msgstr "Dátový disk"
 
-#: ../src/dataproject.c:391
+#: ../src/dataproject.c:390
 #, c-format
 msgid "%s of %s used. Overburning."
 msgstr ""
 
-#: ../src/dataproject.c:403
+#: ../src/dataproject.c:402
 #, c-format
 msgid "%s of %s used. Disk full."
 msgstr ""
 
-#: ../src/dataproject.c:1175
+#: ../src/dataproject.c:1174
 #, fuzzy
 msgid "New Folder"
 msgstr "Priečinok"
 
-#: ../src/dataproject.c:1239 ../src/dataproject.c:1278
+#: ../src/dataproject.c:1238 ../src/dataproject.c:1277
 #, fuzzy
 msgid "_Add Folder"
 msgstr "Priečinok"
 
-#: ../src/dataproject.c:1247 ../src/dataproject.c:1282
+#: ../src/dataproject.c:1246 ../src/dataproject.c:1281
 msgid "_Edit name"
 msgstr "_Upraviť názov"
 
-#: ../src/dataproject.c:1253 ../src/dataproject.c:1292
+#: ../src/dataproject.c:1252 ../src/dataproject.c:1291
 msgid "Clear"
 msgstr "Odobrať všetky zo _zoznamu"
 
-#: ../src/dataproject.c:1460
+#: ../src/dataproject.c:1459
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -326,16 +326,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/dataproject.c:1461 ../src/devices.c:664
+#: ../src/dataproject.c:1460 ../src/devices.c:664
 msgid "unknown error"
 msgstr "neznáma chyba"
 
-#: ../src/dataproject.c:1656
+#: ../src/dataproject.c:1655
 #, fuzzy
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
 msgstr "Stopa je väčšia ako zostávajúce miesto na CD"
 
-#: ../src/dataproject.c:1764
+#: ../src/dataproject.c:1763
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -344,31 +344,31 @@ msgstr ""
 "Chyba počas importu sekcie z [%s]. Skontrolujte prosím konfiguráciu "
 "zariadenia v predvoľbách."
 
-#: ../src/dataproject.c:1858 ../src/dataproject.c:1955
+#: ../src/dataproject.c:1857 ../src/dataproject.c:1954
 #: ../gnomebaker.glade.h:38
 msgid "Contents"
 msgstr "Obsah"
 
-#: ../src/dataproject.c:1881 ../src/dataproject.c:1891
+#: ../src/dataproject.c:1880 ../src/dataproject.c:1890
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../src/dataproject.c:1901
+#: ../src/dataproject.c:1900
 msgid "Full Path"
 msgstr "Kompletná cesta"
 
-#: ../src/dataproject.c:1910
+#: ../src/dataproject.c:1909
 msgid "Session"
 msgstr "Sekcia"
 
-#: ../src/dataproject.c:2083
+#: ../src/dataproject.c:2082
 #, fuzzy
 msgid "<b>Data DVD</b>"
 msgstr "<b>Dátový disk</b>"
 
 #. preferences_get_int(GB_DATA_DISK_SIZE)
-#: ../src/dataproject.c:2089
+#: ../src/dataproject.c:2088
 #, fuzzy
 msgid "<b>Data CD</b>"
 msgstr "<b>Dátový disk</b>"
@@ -415,8 +415,8 @@ msgid "Writing track %d"
 msgstr "Zapisujem stopu %d"
 
 #: ../src/execfunctions.c:287 ../src/execfunctions.c:1006
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:105
+#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:202
+#: ../src/startdlg.c:203 ../gnomebaker.glade.h:105
 msgid "default"
 msgstr "predvolený"
 
@@ -480,8 +480,8 @@ msgstr ""
 msgid "Converting %s to cd audio"
 msgstr "Konvertujem %s na CD audio"
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:379
-#: ../src/startdlg.c:407
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:383
+#: ../src/startdlg.c:411
 msgid "Filesystem"
 msgstr "Systém súborov"
 
@@ -570,75 +570,79 @@ msgstr "Jednoduchá aplikácia na napaľovanie"
 msgid "translator_credits"
 msgstr "Peter Chabada"
 
-#: ../src/gnomebaker.c:709 ../src/gnomebaker.c:835
+#: ../src/gnomebaker.c:717 ../src/gnomebaker.c:903
 msgid "Playlist files"
 msgstr "Súbory zoznamov skladieb"
 
-#: ../src/gnomebaker.c:716
+#: ../src/gnomebaker.c:724
 msgid "Save playlist as..."
 msgstr ""
 
-#: ../src/gnomebaker.c:740
+#: ../src/gnomebaker.c:747
 #, fuzzy
 msgid "Project files"
 msgstr "Vysunúť disk"
 
-#: ../src/gnomebaker.c:741
+#: ../src/gnomebaker.c:786
 #, fuzzy
 msgid "Please select a project file."
 msgstr "Vyberte obraz disku..."
 
-#: ../src/gnomebaker.c:836
+#: ../src/gnomebaker.c:820 ../gnomebaker.glade.h:73
+msgid "Save project"
+msgstr ""
+
+#: ../src/gnomebaker.c:904
 msgid "Please select a playlist."
 msgstr "Vyberte prosím súbor so zoznamom skladieb"
 
-#: ../src/gnomebaker.c:925
+#: ../src/gnomebaker.c:991
 msgid "Please select files to add to the disk."
 msgstr "Vyberte prosím súbory, ktoré chcete pridať na disk"
 
-#: ../src/gnomebaker.c:934
+#: ../src/gnomebaker.c:1000
 #, fuzzy
 msgid "Please select folders to add to the disk."
 msgstr "Vyberte prosím súbory, ktoré chcete pridať na disk"
 
-#: ../src/gnomebaker.c:944
+#: ../src/gnomebaker.c:1010
 #, fuzzy
 msgid "_Add Folders"
 msgstr "Priečinok"
 
-#: ../src/gnomebaker.c:946
+#: ../src/gnomebaker.c:1012
 #, fuzzy
 msgid "_Add Files"
 msgstr "_Pridať súbory"
 
-#: ../src/gnomebaker.c:960
-msgid "Loading preferences..."
-msgstr "Načítavam predvoľby..."
-
-#: ../src/gnomebaker.c:963
-msgid "Detecting devices..."
-msgstr "Detegujem zariadenia..."
-
-#: ../src/gnomebaker.c:966
-msgid "Registering gstreamer plugins..."
-msgstr "Načítavam rozšírenia gstreamer..."
-
-#: ../src/gnomebaker.c:969
-msgid "Loading GUI..."
-msgstr "Načítavam používateľské rozhranie..."
-
-#: ../src/gnomebaker.c:995
+#: ../src/gnomebaker.c:1049
 #, fuzzy
 msgid "Audio files"
 msgstr "Pridať súbory"
 
-#: ../src/main.c:41
+#: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
 msgstr ""
 
-#: ../src/main.c:50
+#: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
 msgstr ""
+
+#: ../src/main.c:107
+msgid "Loading preferences..."
+msgstr "Načítavam predvoľby..."
+
+#: ../src/main.c:112
+msgid "Detecting devices..."
+msgstr "Detegujem zariadenia..."
+
+#: ../src/main.c:117
+msgid "Registering gstreamer plugins..."
+msgstr "Načítavam rozšírenia gstreamer..."
+
+#: ../src/main.c:122
+msgid "Loading GUI..."
+msgstr "Načítavam používateľské rozhranie..."
 
 #: ../src/media.c:493
 #, c-format
@@ -735,126 +739,126 @@ msgstr "Prosím zadajte názov súboru, do ktorého mám uložiť obraz disku"
 msgid "CD/DVD Image files"
 msgstr "Súbory obrazov diskov CD/DVD"
 
-#: ../src/startdlg.c:181
+#: ../src/startdlg.c:185
 #, fuzzy
 msgid "<b>Reader</b>"
 msgstr "<b>Ďalšie predvoľby</b>"
 
-#: ../src/startdlg.c:186
+#: ../src/startdlg.c:190
 #, fuzzy
 msgid "<b>Writer</b>"
 msgstr "<b>Ďalšie predvoľby</b>"
 
-#: ../src/startdlg.c:190
+#: ../src/startdlg.c:194
 msgid "Speed:"
 msgstr "Rýchlosť:"
 
-#: ../src/startdlg.c:194
+#: ../src/startdlg.c:198
 msgid "Mode:"
 msgstr "Mód:"
 
-#: ../src/startdlg.c:217 ../gnomebaker.glade.h:12
+#: ../src/startdlg.c:221 ../gnomebaker.glade.h:12
 msgid "<b>Options</b>"
 msgstr "<b>Nastavenia</b>"
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:101
+#: ../src/startdlg.c:250 ../gnomebaker.glade.h:101
 msgid "_Start"
 msgstr "Štar_t"
 
-#: ../src/startdlg.c:309
+#: ../src/startdlg.c:313
 msgid "<b>Disk Information</b>"
 msgstr "<b>Informácie o disku</b>"
 
-#: ../src/startdlg.c:311
+#: ../src/startdlg.c:315
 msgid "Volume ID:"
 msgstr "ID disku:"
 
-#: ../src/startdlg.c:314
+#: ../src/startdlg.c:318
 msgid "Application ID:"
 msgstr "ID aplikácie:"
 
-#: ../src/startdlg.c:317
+#: ../src/startdlg.c:321
 msgid "Preparer:"
 msgstr "Pripravil:"
 
-#: ../src/startdlg.c:320
+#: ../src/startdlg.c:324
 msgid "Publisher:"
 msgstr "Vydavateľ:"
 
-#: ../src/startdlg.c:323
+#: ../src/startdlg.c:327
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../src/startdlg.c:326
+#: ../src/startdlg.c:330
 msgid "Abstract:"
 msgstr "Abstrakt:"
 
-#: ../src/startdlg.c:329
+#: ../src/startdlg.c:333
 msgid "Bibliography:"
 msgstr "Bibliografia:"
 
-#: ../src/startdlg.c:340
+#: ../src/startdlg.c:344
 msgid "<b>Filesystem</b>"
 msgstr "<b>Systém súborov</b>"
 
-#: ../src/startdlg.c:378 ../src/startdlg.c:406
+#: ../src/startdlg.c:382 ../src/startdlg.c:410
 msgid "Writing"
 msgstr "Napaľujem"
 
-#: ../src/startdlg.c:380 ../src/startdlg.c:408
+#: ../src/startdlg.c:384 ../src/startdlg.c:412
 msgid "Disk Information"
 msgstr "Informácie o disku"
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:511
 msgid "Dummy write"
 msgstr "Simulácia"
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:512
 msgid "Eject disk"
 msgstr "Vysunúť disk"
 
-#: ../src/startdlg.c:509
+#: ../src/startdlg.c:513
 msgid "Fast blank"
 msgstr "Rýchle vymazanie"
 
-#: ../src/startdlg.c:510
+#: ../src/startdlg.c:514
 msgid "BurnFree"
 msgstr "Ochrana BurnFree"
 
-#: ../src/startdlg.c:511
+#: ../src/startdlg.c:515
 msgid "Burn the disk"
 msgstr "Napáliť disk"
 
-#: ../src/startdlg.c:513
+#: ../src/startdlg.c:517
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:516
+#: ../src/startdlg.c:520
 msgid "Force format"
 msgstr "Vnútiť formát"
 
-#: ../src/startdlg.c:517
+#: ../src/startdlg.c:521
 msgid "Finalize"
 msgstr "Finalizovať"
 
-#: ../src/startdlg.c:518
+#: ../src/startdlg.c:522
 msgid "Fast format"
 msgstr "Rýchle formátovanie"
 
-#: ../src/startdlg.c:519
+#: ../src/startdlg.c:523
 msgid "Joliet"
 msgstr "Joliet"
 
-#: ../src/startdlg.c:520
+#: ../src/startdlg.c:524
 msgid "Rock Ridge"
 msgstr "Rock Ridge"
 
-#: ../src/startdlg.c:521
+#: ../src/startdlg.c:525
 #, fuzzy
 msgid "On the fly"
 msgstr "On The Fly"
 
-#: ../src/startdlg.c:531
+#: ../src/startdlg.c:535
 msgid "_Browse..."
 msgstr "_Prehliadať..."
 
@@ -1213,10 +1217,6 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:72
 msgid "Save Project _As"
-msgstr ""
-
-#: ../gnomebaker.glade.h:73
-msgid "Save project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:74
