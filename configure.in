@@ -46,7 +46,7 @@ PKG_CHECK_MODULES(GNOMEBAKER,
 dnl ---------------------------------------------------------------------------
 dnl - Is cairo available?
 dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(LIBNOTIFY, gtk+-2.0 >= $GTK_CAIRO_REQUIRED, have_gtk_cairo=yes, have_gtk_cairo=no)
+PKG_CHECK_MODULES(CAIRO, gtk+-2.0 >= $GTK_CAIRO_REQUIRED, have_gtk_cairo=yes, have_gtk_cairo=no)
 if test x$have_gtk_cairo = xyes; then
 	AC_DEFINE(CAIRO_WIDGETS,1,[cairo support])
 fi
