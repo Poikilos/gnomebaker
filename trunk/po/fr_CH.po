@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The GnomeBaker CD Burner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-17 23:33+0100\n"
+"POT-Creation-Date: 2006-05-21 20:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (Switzerland) <fr_CH@li.org>\n"
@@ -65,8 +65,8 @@ msgstr ""
 msgid "Move selected _down"
 msgstr ""
 
-#: ../src/audioproject.c:821 ../src/dataproject.c:1251
-#: ../src/dataproject.c:1288
+#: ../src/audioproject.c:821 ../src/dataproject.c:1250
+#: ../src/dataproject.c:1287
 msgid "_Remove selected"
 msgstr ""
 
@@ -74,31 +74,31 @@ msgstr ""
 msgid "_Clear"
 msgstr ""
 
-#: ../src/audioproject.c:992
+#: ../src/audioproject.c:1008
 msgid "Track"
 msgstr "Piste"
 
-#: ../src/audioproject.c:1005
+#: ../src/audioproject.c:1021
 msgid "Duration"
 msgstr "Durée"
 
-#: ../src/audioproject.c:1022
+#: ../src/audioproject.c:1038
 msgid "Artist"
 msgstr "Artiste"
 
-#: ../src/audioproject.c:1031
+#: ../src/audioproject.c:1047
 msgid "Album"
 msgstr "Album"
 
-#: ../src/audioproject.c:1040
+#: ../src/audioproject.c:1056
 msgid "Title"
 msgstr "Titre"
 
-#: ../src/audioproject.c:1049
+#: ../src/audioproject.c:1065
 msgid "Info"
 msgstr ""
 
-#: ../src/audioproject.c:1080
+#: ../src/audioproject.c:1096
 msgid "<b>Audio CD</b>"
 msgstr ""
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "%s of %s used. <b>Overburning</b>."
 msgstr ""
 
-#: ../src/cairofillbar.c:690 ../src/dataproject.c:397
+#: ../src/cairofillbar.c:690 ../src/dataproject.c:396
 #, c-format
 msgid "%s used - %s remaining."
 msgstr ""
@@ -268,37 +268,37 @@ msgstr ""
 msgid "%s of %s used. <b>Disk full</b>."
 msgstr ""
 
-#: ../src/dataproject.c:179 ../src/startdlg.c:533
+#: ../src/dataproject.c:178 ../src/startdlg.c:537
 msgid "GnomeBaker data disk"
 msgstr ""
 
-#: ../src/dataproject.c:391
+#: ../src/dataproject.c:390
 #, c-format
 msgid "%s of %s used. Overburning."
 msgstr ""
 
-#: ../src/dataproject.c:403
+#: ../src/dataproject.c:402
 #, c-format
 msgid "%s of %s used. Disk full."
 msgstr ""
 
-#: ../src/dataproject.c:1175
+#: ../src/dataproject.c:1174
 msgid "New Folder"
 msgstr ""
 
-#: ../src/dataproject.c:1239 ../src/dataproject.c:1278
+#: ../src/dataproject.c:1238 ../src/dataproject.c:1277
 msgid "_Add Folder"
 msgstr ""
 
-#: ../src/dataproject.c:1247 ../src/dataproject.c:1282
+#: ../src/dataproject.c:1246 ../src/dataproject.c:1281
 msgid "_Edit name"
 msgstr ""
 
-#: ../src/dataproject.c:1253 ../src/dataproject.c:1292
+#: ../src/dataproject.c:1252 ../src/dataproject.c:1291
 msgid "Clear"
 msgstr "Effacer"
 
-#: ../src/dataproject.c:1460
+#: ../src/dataproject.c:1459
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -309,46 +309,46 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/dataproject.c:1461 ../src/devices.c:664
+#: ../src/dataproject.c:1460 ../src/devices.c:664
 msgid "unknown error"
 msgstr "erreur inconnue"
 
-#: ../src/dataproject.c:1656
+#: ../src/dataproject.c:1655
 #, fuzzy
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
 msgstr "La piste est trop grande pour tenir dans l'espace restant sur le CD"
 
-#: ../src/dataproject.c:1764
+#: ../src/dataproject.c:1763
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
 msgstr ""
 
-#: ../src/dataproject.c:1858 ../src/dataproject.c:1955
+#: ../src/dataproject.c:1857 ../src/dataproject.c:1954
 #: ../gnomebaker.glade.h:38
 msgid "Contents"
 msgstr "Contenu"
 
-#: ../src/dataproject.c:1881 ../src/dataproject.c:1891
+#: ../src/dataproject.c:1880 ../src/dataproject.c:1890
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
 msgstr "Taille"
 
-#: ../src/dataproject.c:1901
+#: ../src/dataproject.c:1900
 msgid "Full Path"
 msgstr "Chemin omplet"
 
-#: ../src/dataproject.c:1910
+#: ../src/dataproject.c:1909
 msgid "Session"
 msgstr "Session"
 
-#: ../src/dataproject.c:2083
+#: ../src/dataproject.c:2082
 msgid "<b>Data DVD</b>"
 msgstr ""
 
 #. preferences_get_int(GB_DATA_DISK_SIZE)
-#: ../src/dataproject.c:2089
+#: ../src/dataproject.c:2088
 msgid "<b>Data CD</b>"
 msgstr ""
 
@@ -388,8 +388,8 @@ msgid "Writing track %d"
 msgstr ""
 
 #: ../src/execfunctions.c:287 ../src/execfunctions.c:1006
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:105
+#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:202
+#: ../src/startdlg.c:203 ../gnomebaker.glade.h:105
 msgid "default"
 msgstr ""
 
@@ -449,8 +449,8 @@ msgstr ""
 msgid "Converting %s to cd audio"
 msgstr ""
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:379
-#: ../src/startdlg.c:407
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:383
+#: ../src/startdlg.c:411
 msgid "Filesystem"
 msgstr ""
 
@@ -539,68 +539,72 @@ msgstr ""
 msgid "translator_credits"
 msgstr ""
 
-#: ../src/gnomebaker.c:709 ../src/gnomebaker.c:835
+#: ../src/gnomebaker.c:717 ../src/gnomebaker.c:903
 msgid "Playlist files"
 msgstr ""
 
-#: ../src/gnomebaker.c:716
+#: ../src/gnomebaker.c:724
 msgid "Save playlist as..."
 msgstr ""
 
-#: ../src/gnomebaker.c:740
+#: ../src/gnomebaker.c:747
 msgid "Project files"
 msgstr ""
 
-#: ../src/gnomebaker.c:741
+#: ../src/gnomebaker.c:786
 msgid "Please select a project file."
 msgstr ""
 
-#: ../src/gnomebaker.c:836
+#: ../src/gnomebaker.c:820 ../gnomebaker.glade.h:73
+msgid "Save project"
+msgstr ""
+
+#: ../src/gnomebaker.c:904
 msgid "Please select a playlist."
 msgstr ""
 
-#: ../src/gnomebaker.c:925
+#: ../src/gnomebaker.c:991
 msgid "Please select files to add to the disk."
 msgstr ""
 
-#: ../src/gnomebaker.c:934
+#: ../src/gnomebaker.c:1000
 msgid "Please select folders to add to the disk."
 msgstr ""
 
-#: ../src/gnomebaker.c:944
+#: ../src/gnomebaker.c:1010
 msgid "_Add Folders"
 msgstr ""
 
-#: ../src/gnomebaker.c:946
+#: ../src/gnomebaker.c:1012
 msgid "_Add Files"
 msgstr ""
 
-#: ../src/gnomebaker.c:960
-msgid "Loading preferences..."
-msgstr ""
-
-#: ../src/gnomebaker.c:963
-msgid "Detecting devices..."
-msgstr ""
-
-#: ../src/gnomebaker.c:966
-msgid "Registering gstreamer plugins..."
-msgstr ""
-
-#: ../src/gnomebaker.c:969
-msgid "Loading GUI..."
-msgstr ""
-
-#: ../src/gnomebaker.c:995
+#: ../src/gnomebaker.c:1049
 msgid "Audio files"
 msgstr ""
 
-#: ../src/main.c:41
+#: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
 msgstr ""
 
-#: ../src/main.c:50
+#: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
+msgstr ""
+
+#: ../src/main.c:107
+msgid "Loading preferences..."
+msgstr ""
+
+#: ../src/main.c:112
+msgid "Detecting devices..."
+msgstr ""
+
+#: ../src/main.c:117
+msgid "Registering gstreamer plugins..."
+msgstr ""
+
+#: ../src/main.c:122
+msgid "Loading GUI..."
 msgstr ""
 
 #: ../src/media.c:493
@@ -697,123 +701,123 @@ msgstr ""
 msgid "CD/DVD Image files"
 msgstr ""
 
-#: ../src/startdlg.c:181
+#: ../src/startdlg.c:185
 msgid "<b>Reader</b>"
 msgstr ""
 
-#: ../src/startdlg.c:186
+#: ../src/startdlg.c:190
 msgid "<b>Writer</b>"
 msgstr ""
 
-#: ../src/startdlg.c:190
+#: ../src/startdlg.c:194
 msgid "Speed:"
 msgstr ""
 
-#: ../src/startdlg.c:194
+#: ../src/startdlg.c:198
 msgid "Mode:"
 msgstr ""
 
-#: ../src/startdlg.c:217 ../gnomebaker.glade.h:12
+#: ../src/startdlg.c:221 ../gnomebaker.glade.h:12
 msgid "<b>Options</b>"
 msgstr ""
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:101
+#: ../src/startdlg.c:250 ../gnomebaker.glade.h:101
 msgid "_Start"
 msgstr ""
 
-#: ../src/startdlg.c:309
+#: ../src/startdlg.c:313
 msgid "<b>Disk Information</b>"
 msgstr ""
 
-#: ../src/startdlg.c:311
+#: ../src/startdlg.c:315
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/startdlg.c:314
+#: ../src/startdlg.c:318
 msgid "Application ID:"
 msgstr ""
 
-#: ../src/startdlg.c:317
+#: ../src/startdlg.c:321
 msgid "Preparer:"
 msgstr ""
 
-#: ../src/startdlg.c:320
+#: ../src/startdlg.c:324
 msgid "Publisher:"
 msgstr ""
 
-#: ../src/startdlg.c:323
+#: ../src/startdlg.c:327
 msgid "Copyright:"
 msgstr ""
 
-#: ../src/startdlg.c:326
+#: ../src/startdlg.c:330
 msgid "Abstract:"
 msgstr ""
 
-#: ../src/startdlg.c:329
+#: ../src/startdlg.c:333
 msgid "Bibliography:"
 msgstr ""
 
-#: ../src/startdlg.c:340
+#: ../src/startdlg.c:344
 msgid "<b>Filesystem</b>"
 msgstr ""
 
-#: ../src/startdlg.c:378 ../src/startdlg.c:406
+#: ../src/startdlg.c:382 ../src/startdlg.c:410
 msgid "Writing"
 msgstr ""
 
-#: ../src/startdlg.c:380 ../src/startdlg.c:408
+#: ../src/startdlg.c:384 ../src/startdlg.c:412
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:511
 msgid "Dummy write"
 msgstr ""
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:512
 msgid "Eject disk"
 msgstr ""
 
-#: ../src/startdlg.c:509
+#: ../src/startdlg.c:513
 msgid "Fast blank"
 msgstr ""
 
-#: ../src/startdlg.c:510
+#: ../src/startdlg.c:514
 msgid "BurnFree"
 msgstr ""
 
-#: ../src/startdlg.c:511
+#: ../src/startdlg.c:515
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:513
+#: ../src/startdlg.c:517
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:516
+#: ../src/startdlg.c:520
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:517
+#: ../src/startdlg.c:521
 msgid "Finalize"
 msgstr ""
 
-#: ../src/startdlg.c:518
+#: ../src/startdlg.c:522
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:519
+#: ../src/startdlg.c:523
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:520
+#: ../src/startdlg.c:524
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:521
+#: ../src/startdlg.c:525
 msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:531
+#: ../src/startdlg.c:535
 msgid "_Browse..."
 msgstr ""
 
@@ -1149,10 +1153,6 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:72
 msgid "Save Project _As"
-msgstr ""
-
-#: ../gnomebaker.glade.h:73
-msgid "Save project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:74

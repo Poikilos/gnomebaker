@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-17 23:33+0100\n"
+"POT-Creation-Date: 2006-05-21 20:41+0100\n"
 "PO-Revision-Date: 2005-02-09 23:46+0100\n"
 "Last-Translator: Mikel Olasagasti <hey_neken@mundurat.net>\n"
 "Language-Team: Basque <gnome@euskalgnu.org>\n"
@@ -71,8 +71,8 @@ msgstr "Kendu aukeratutakoa"
 msgid "Move selected _down"
 msgstr "Kendu aukeratutakoa"
 
-#: ../src/audioproject.c:821 ../src/dataproject.c:1251
-#: ../src/dataproject.c:1288
+#: ../src/audioproject.c:821 ../src/dataproject.c:1250
+#: ../src/dataproject.c:1287
 #, fuzzy
 msgid "_Remove selected"
 msgstr "Kendu aukeratutakoa"
@@ -82,31 +82,31 @@ msgstr "Kendu aukeratutakoa"
 msgid "_Clear"
 msgstr "Garbitu"
 
-#: ../src/audioproject.c:992
+#: ../src/audioproject.c:1008
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/audioproject.c:1005
+#: ../src/audioproject.c:1021
 msgid "Duration"
 msgstr "Iraupena"
 
-#: ../src/audioproject.c:1022
+#: ../src/audioproject.c:1038
 msgid "Artist"
 msgstr "Artista"
 
-#: ../src/audioproject.c:1031
+#: ../src/audioproject.c:1047
 msgid "Album"
 msgstr "Albuma"
 
-#: ../src/audioproject.c:1040
+#: ../src/audioproject.c:1056
 msgid "Title"
 msgstr "Titulua"
 
-#: ../src/audioproject.c:1049
+#: ../src/audioproject.c:1065
 msgid "Info"
 msgstr ""
 
-#: ../src/audioproject.c:1080
+#: ../src/audioproject.c:1096
 #, fuzzy
 msgid "<b>Audio CD</b>"
 msgstr "<b>Audio diskoa</b>"
@@ -293,7 +293,7 @@ msgstr ""
 msgid "%s of %s used. <b>Overburning</b>."
 msgstr ""
 
-#: ../src/cairofillbar.c:690 ../src/dataproject.c:397
+#: ../src/cairofillbar.c:690 ../src/dataproject.c:396
 #, c-format
 msgid "%s used - %s remaining."
 msgstr ""
@@ -303,40 +303,40 @@ msgstr ""
 msgid "%s of %s used. <b>Disk full</b>."
 msgstr ""
 
-#: ../src/dataproject.c:179 ../src/startdlg.c:533
+#: ../src/dataproject.c:178 ../src/startdlg.c:537
 #, fuzzy
 msgid "GnomeBaker data disk"
 msgstr "Gnomeaker datu cda"
 
-#: ../src/dataproject.c:391
+#: ../src/dataproject.c:390
 #, c-format
 msgid "%s of %s used. Overburning."
 msgstr ""
 
-#: ../src/dataproject.c:403
+#: ../src/dataproject.c:402
 #, c-format
 msgid "%s of %s used. Disk full."
 msgstr ""
 
-#: ../src/dataproject.c:1175
+#: ../src/dataproject.c:1174
 #, fuzzy
 msgid "New Folder"
 msgstr "Modua"
 
-#: ../src/dataproject.c:1239 ../src/dataproject.c:1278
+#: ../src/dataproject.c:1238 ../src/dataproject.c:1277
 #, fuzzy
 msgid "_Add Folder"
 msgstr "Modua"
 
-#: ../src/dataproject.c:1247 ../src/dataproject.c:1282
+#: ../src/dataproject.c:1246 ../src/dataproject.c:1281
 msgid "_Edit name"
 msgstr ""
 
-#: ../src/dataproject.c:1253 ../src/dataproject.c:1292
+#: ../src/dataproject.c:1252 ../src/dataproject.c:1291
 msgid "Clear"
 msgstr "Garbitu"
 
-#: ../src/dataproject.c:1460
+#: ../src/dataproject.c:1459
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -347,16 +347,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/dataproject.c:1461 ../src/devices.c:664
+#: ../src/dataproject.c:1460 ../src/devices.c:664
 msgid "unknown error"
 msgstr "errore ezezaguna"
 
-#: ../src/dataproject.c:1656
+#: ../src/dataproject.c:1655
 #, fuzzy
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
 msgstr "Pista luzeegia da CDan geratzen den zatian sartzeko"
 
-#: ../src/dataproject.c:1764
+#: ../src/dataproject.c:1763
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -365,31 +365,31 @@ msgstr ""
 "Errorea saioa [%s]-tik inportatzean. Mesedez, egiaztatu gailuaren "
 "konfigurazioa hobespenetan."
 
-#: ../src/dataproject.c:1858 ../src/dataproject.c:1955
+#: ../src/dataproject.c:1857 ../src/dataproject.c:1954
 #: ../gnomebaker.glade.h:38
 msgid "Contents"
 msgstr "Edukiak"
 
-#: ../src/dataproject.c:1881 ../src/dataproject.c:1891
+#: ../src/dataproject.c:1880 ../src/dataproject.c:1890
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
 msgstr "Tamainua"
 
-#: ../src/dataproject.c:1901
+#: ../src/dataproject.c:1900
 msgid "Full Path"
 msgstr "Bide osoa"
 
-#: ../src/dataproject.c:1910
+#: ../src/dataproject.c:1909
 msgid "Session"
 msgstr "Saioa"
 
-#: ../src/dataproject.c:2083
+#: ../src/dataproject.c:2082
 #, fuzzy
 msgid "<b>Data DVD</b>"
 msgstr "<b>Data diskoa</b>"
 
 #. preferences_get_int(GB_DATA_DISK_SIZE)
-#: ../src/dataproject.c:2089
+#: ../src/dataproject.c:2088
 #, fuzzy
 msgid "<b>Data CD</b>"
 msgstr "<b>Data diskoa</b>"
@@ -433,8 +433,8 @@ msgid "Writing track %d"
 msgstr ""
 
 #: ../src/execfunctions.c:287 ../src/execfunctions.c:1006
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:198
-#: ../src/startdlg.c:199 ../gnomebaker.glade.h:105
+#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:202
+#: ../src/startdlg.c:203 ../gnomebaker.glade.h:105
 msgid "default"
 msgstr "lehenetsia"
 
@@ -504,8 +504,8 @@ msgstr ""
 msgid "Converting %s to cd audio"
 msgstr ""
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:379
-#: ../src/startdlg.c:407
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:383
+#: ../src/startdlg.c:411
 msgid "Filesystem"
 msgstr "Fitxategi sistema"
 
@@ -603,78 +603,82 @@ msgstr "CDak grabatzeko programa erraza Gnomerentzat"
 msgid "translator_credits"
 msgstr "Mikel Olasagasti <hey_neken@mundurat.net>"
 
-#: ../src/gnomebaker.c:709 ../src/gnomebaker.c:835
+#: ../src/gnomebaker.c:717 ../src/gnomebaker.c:903
 #, fuzzy
 msgid "Playlist files"
 msgstr "Fitxategi guztiak"
 
-#: ../src/gnomebaker.c:716
+#: ../src/gnomebaker.c:724
 msgid "Save playlist as..."
 msgstr ""
 
-#: ../src/gnomebaker.c:740
+#: ../src/gnomebaker.c:747
 #, fuzzy
 msgid "Project files"
 msgstr "Egotzi diskoa"
 
-#: ../src/gnomebaker.c:741
+#: ../src/gnomebaker.c:786
 #, fuzzy
 msgid "Please select a project file."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:836
+#: ../src/gnomebaker.c:820 ../gnomebaker.glade.h:73
+msgid "Save project"
+msgstr ""
+
+#: ../src/gnomebaker.c:904
 #, fuzzy
 msgid "Please select a playlist."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:925
+#: ../src/gnomebaker.c:991
 #, fuzzy
 msgid "Please select files to add to the disk."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:934
+#: ../src/gnomebaker.c:1000
 #, fuzzy
 msgid "Please select folders to add to the disk."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:944
+#: ../src/gnomebaker.c:1010
 #, fuzzy
 msgid "_Add Folders"
 msgstr "Modua"
 
-#: ../src/gnomebaker.c:946
+#: ../src/gnomebaker.c:1012
 #, fuzzy
 msgid "_Add Files"
 msgstr "Gehitu fitxategia(k)"
 
-#: ../src/gnomebaker.c:960
-msgid "Loading preferences..."
-msgstr "Hobespenak kargatzen..."
-
-#: ../src/gnomebaker.c:963
-msgid "Detecting devices..."
-msgstr "Gailuak aurkitzen..."
-
-#: ../src/gnomebaker.c:966
-msgid "Registering gstreamer plugins..."
-msgstr ""
-
-#: ../src/gnomebaker.c:969
-msgid "Loading GUI..."
-msgstr "GUIa kargatzen..."
-
-#: ../src/gnomebaker.c:995
+#: ../src/gnomebaker.c:1049
 #, fuzzy
 msgid "Audio files"
 msgstr "Gehitu fitxategia(k)"
 
-#: ../src/main.c:41
+#: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
 msgstr ""
 
-#: ../src/main.c:50
+#: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
 msgstr ""
+
+#: ../src/main.c:107
+msgid "Loading preferences..."
+msgstr "Hobespenak kargatzen..."
+
+#: ../src/main.c:112
+msgid "Detecting devices..."
+msgstr "Gailuak aurkitzen..."
+
+#: ../src/main.c:117
+msgid "Registering gstreamer plugins..."
+msgstr ""
+
+#: ../src/main.c:122
+msgid "Loading GUI..."
+msgstr "GUIa kargatzen..."
 
 #: ../src/media.c:493
 #, c-format
@@ -775,130 +779,130 @@ msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 msgid "CD/DVD Image files"
 msgstr "Abio irudien zerrenda"
 
-#: ../src/startdlg.c:181
+#: ../src/startdlg.c:185
 #, fuzzy
 msgid "<b>Reader</b>"
 msgstr "GnomeBaker"
 
-#: ../src/startdlg.c:186
+#: ../src/startdlg.c:190
 #, fuzzy
 msgid "<b>Writer</b>"
 msgstr "<b>Aukerak</b>"
 
-#: ../src/startdlg.c:190
+#: ../src/startdlg.c:194
 #, fuzzy
 msgid "Speed:"
 msgstr "Abiadura"
 
-#: ../src/startdlg.c:194
+#: ../src/startdlg.c:198
 #, fuzzy
 msgid "Mode:"
 msgstr "Modua"
 
-#: ../src/startdlg.c:217 ../gnomebaker.glade.h:12
+#: ../src/startdlg.c:221 ../gnomebaker.glade.h:12
 msgid "<b>Options</b>"
 msgstr "<b>Aukerak</b>"
 
-#: ../src/startdlg.c:246 ../gnomebaker.glade.h:101
+#: ../src/startdlg.c:250 ../gnomebaker.glade.h:101
 msgid "_Start"
 msgstr "_Hasi"
 
-#: ../src/startdlg.c:309
+#: ../src/startdlg.c:313
 #, fuzzy
 msgid "<b>Disk Information</b>"
 msgstr "<b>Abio aukerak</b>"
 
-#: ../src/startdlg.c:311
+#: ../src/startdlg.c:315
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/startdlg.c:314
+#: ../src/startdlg.c:318
 msgid "Application ID:"
 msgstr ""
 
-#: ../src/startdlg.c:317
+#: ../src/startdlg.c:321
 msgid "Preparer:"
 msgstr ""
 
-#: ../src/startdlg.c:320
+#: ../src/startdlg.c:324
 msgid "Publisher:"
 msgstr ""
 
-#: ../src/startdlg.c:323
+#: ../src/startdlg.c:327
 msgid "Copyright:"
 msgstr ""
 
-#: ../src/startdlg.c:326
+#: ../src/startdlg.c:330
 msgid "Abstract:"
 msgstr ""
 
-#: ../src/startdlg.c:329
+#: ../src/startdlg.c:333
 msgid "Bibliography:"
 msgstr ""
 
-#: ../src/startdlg.c:340
+#: ../src/startdlg.c:344
 #, fuzzy
 msgid "<b>Filesystem</b>"
 msgstr "<b>Fitxategi nabigatzailea</b>"
 
-#: ../src/startdlg.c:378 ../src/startdlg.c:406
+#: ../src/startdlg.c:382 ../src/startdlg.c:410
 #, fuzzy
 msgid "Writing"
 msgstr "Idatzi DVD-Ra"
 
-#: ../src/startdlg.c:380 ../src/startdlg.c:408
+#: ../src/startdlg.c:384 ../src/startdlg.c:412
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:507
+#: ../src/startdlg.c:511
 msgid "Dummy write"
 msgstr "Froga idazketa"
 
-#: ../src/startdlg.c:508
+#: ../src/startdlg.c:512
 msgid "Eject disk"
 msgstr "Egotzi diskoa"
 
-#: ../src/startdlg.c:509
+#: ../src/startdlg.c:513
 msgid "Fast blank"
 msgstr "Garbiketa azkarra"
 
-#: ../src/startdlg.c:510
+#: ../src/startdlg.c:514
 msgid "BurnFree"
 msgstr "Idazketa librea"
 
-#: ../src/startdlg.c:511
+#: ../src/startdlg.c:515
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:513
+#: ../src/startdlg.c:517
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:516
+#: ../src/startdlg.c:520
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:517
+#: ../src/startdlg.c:521
 msgid "Finalize"
 msgstr "Amaitu"
 
-#: ../src/startdlg.c:518
+#: ../src/startdlg.c:522
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:519
+#: ../src/startdlg.c:523
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:520
+#: ../src/startdlg.c:524
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:521
+#: ../src/startdlg.c:525
 msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:531
+#: ../src/startdlg.c:535
 msgid "_Browse..."
 msgstr ""
 
@@ -1264,10 +1268,6 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:72
 msgid "Save Project _As"
-msgstr ""
-
-#: ../gnomebaker.glade.h:73
-msgid "Save project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:74
