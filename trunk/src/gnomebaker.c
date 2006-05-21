@@ -930,10 +930,8 @@ gnomebaker_on_close_project(gpointer widget, Project *project)
         }
         if(close)
         {
-            gint index = gtk_notebook_page_num(notebook, GTK_WIDGET(project));        
             project_close(project);
-            gtk_widget_destroy(GTK_WIDGET(project));
-            gtk_notebook_remove_page(notebook, index);
+            gtk_notebook_remove_page(notebook, gtk_notebook_page_num(notebook, GTK_WIDGET(project)));
         }
     }
 }
