@@ -86,8 +86,7 @@ enum
     CD_700MB,
     CD_800MB,
     DVD_4GB,
-    DVD_8GB,
-    DISK_SIZE_COUNT
+    DVD_8GB
 };
 
 
