@@ -28,6 +28,8 @@
 #include <glade/glade.h>
 #include "splashdlg.h"
 #include "gbcommon.h"
+#include "devices.h"
+#include "media.h"
 #include <libintl.h>
 #include <locale.h>
 #include <gst/gst.h>
@@ -59,19 +61,15 @@ main(gint argc, gchar *argv[])
 	g_option_context_set_ignore_unknown_options(context, TRUE);
 	g_option_context_parse(context, &argc, &argv, &error);
 	g_option_context_free(context);
-    if(error != NULL) g_error_free(error);   
-    
-    gblibnotify_init("GnomeBaker");
-    
-	
+    if(error != NULL) g_error_free(error);       
+    	
 #ifdef ENABLE_NLS
     setlocale(LC_ALL,"");		
     bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
     bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
     textdomain (GETTEXT_PACKAGE);
 #endif
-    
-    
+        
 #ifdef GST_010	
     struct poptOption* options = NULL;
 #else     
@@ -99,7 +97,30 @@ main(gint argc, gchar *argv[])
 #endif
 
 	while(g_main_context_pending(NULL))
-		g_main_context_iteration(NULL, TRUE);	
+		g_main_context_iteration(NULL, TRUE);
+        
+    gblibnotify_init("GnomeBaker");
+        
+    gbcommon_init();
+
+#if !defined(__linux__)        
+    splashdlg_set_text(_("Loading preferences..."));
+#endif
+    preferences_init();
+    
+#if !defined(__linux__)    
+    splashdlg_set_text(_("Detecting devices..."));
+#endif
+    devices_init();
+
+#if !defined(__linux__)    
+    splashdlg_set_text(_("Registering gstreamer plugins..."));
+#endif
+    media_init();
+
+#if !defined(__linux__)
+    splashdlg_set_text(_("Loading GUI..."));        
+#endif
 	GtkWidget *app = gnomebaker_new();
     
 #if !defined(__linux__)    
