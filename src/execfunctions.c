@@ -1331,17 +1331,18 @@ gstreamer_progress_timer(gpointer data)
 {
     GB_LOG_FUNC   
     g_return_val_if_fail(data != NULL, FALSE);
+    MediaPipeline *media_pipeline = (MediaPipeline*)data;
     
 #ifdef GST_010
     GstFormat fmt = GST_FORMAT_PERCENT;
     gint64 pos = 0;
-    if(gst_element_query_position(GST_ELEMENT(data), &fmt, &pos))
-        progressdlg_set_fraction((gfloat)(pos/GST_FORMAT_PERCENT_SCALE)); 
+    if(gst_element_query_position(media_pipeline->source, &fmt, &pos))
+        progressdlg_set_fraction((gfloat)(pos/GST_FORMAT_PERCENT_SCALE)/100.0); 
 #else    
     GstFormat fmt = GST_FORMAT_BYTES;
     gint64 pos = 0, total = 0;
-    if(gst_element_query(GST_ELEMENT(data), GST_QUERY_POSITION, &fmt, &pos) && 
-            gst_element_query(GST_ELEMENT(data), GST_QUERY_TOTAL, &fmt, &total))        
+    if(gst_element_query(media_pipeline->dest, GST_QUERY_POSITION, &fmt, &pos) && 
+            gst_element_query(media_pipeline->dest, GST_QUERY_TOTAL, &fmt, &total))        
     {
         progressdlg_set_fraction((gfloat)pos/(gfloat)total); 
     }
@@ -1548,7 +1549,7 @@ gstreamer_lib_proc(void *ex, void *data)
     
     /* If we're not writing to someone's pipe we update the progress bar in a timeout */        
     if(pipe == NULL)
-        gstreamer_timer = g_timeout_add(1000, gstreamer_progress_timer, media_pipeline->dest);
+        gstreamer_timer = g_timeout_add(1000, gstreamer_progress_timer, media_pipeline);
     
     gst_element_set_state(media_pipeline->pipeline, GST_STATE_PLAYING);
     while(exec_cmd_get_state(cmd) == RUNNING)
