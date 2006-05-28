@@ -23,6 +23,10 @@ Version 0.5.2
 * When not showing file browser, add button now allows selection of files or folders.
 * Notionally split out data CD and DVD so they are both available in the File->New menu.
 * Tidy up the start burning dlg and make the layouts look better.
+* Use a text area instead of a label for the progress dialog process description as label doesn't wrape properly.
+* Awesome new icon from Jose Reis.
+* Use g_convert_with_fallback when reading from child processes to ignore chars we don't understand.
+
 
 Version 0.5.1
 
