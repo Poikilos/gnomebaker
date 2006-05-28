@@ -26,6 +26,7 @@ Version 0.5.2
 * Use a text area instead of a label for the progress dialog process description as label doesn't wrape properly.
 * Awesome new icon from Jose Reis.
 * Use g_convert_with_fallback when reading from child processes to ignore chars we don't understand.
+* Apply patch #1460031 from Darren Kenny - Build fails on Solaris.
 
 
 Version 0.5.1
