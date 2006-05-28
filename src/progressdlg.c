@@ -33,7 +33,7 @@ static const gchar *const widget_progdlg_output = "textview1";
 static const gchar *const widget_progdlg_output_scroll = "scrolledwindow17";
 static const gchar *const widget_progdlg_toggle_output_label = "label297";
 static const gchar *const widget_progdlg_process_title = "label295";
-static const gchar *const widget_progdlg_process_description = "label296";
+static const gchar *const widget_progdlg_process_description = "textview3";
 
 static GladeXML *progdlg_xml = NULL;
 static GtkProgressBar *progress_bar = NULL;
@@ -133,7 +133,8 @@ progressdlg_new(const Exec *exec, GtkWindow *parent, GCallback call_on_premature
     g_free(markup);
     
     GtkWidget *process_description = glade_xml_get_widget(progdlg_xml, widget_progdlg_process_description);
-    gtk_label_set_text(GTK_LABEL(process_description), exec->process_description);
+    GtkTextBuffer *buff = gtk_text_view_get_buffer(GTK_TEXT_VIEW(process_description));
+    gtk_text_buffer_set_text(buff, exec->process_description, -1);
     
     parent_window = parent;
     original_parent_window_title = g_strdup(gtk_window_get_title(parent_window));

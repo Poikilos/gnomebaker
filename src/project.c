@@ -100,13 +100,15 @@ project_init(Project *project)
     gtk_widget_show(hbox23);
     gtk_container_add(GTK_CONTAINER(alignment13), hbox23);
 
-    GdkPixbuf *image105 = gdk_pixbuf_new_from_file(IMAGEDIR"/baker-cd.png", NULL);
-    GtkWidget *image = gtk_image_new_from_pixbuf(image105);
+    GdkPixbuf *image105 = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
+    GdkPixbuf *pixbuf = gdk_pixbuf_scale_simple(image105, 22, 22, GDK_INTERP_HYPER);
+    GtkWidget *image = gtk_image_new_from_pixbuf(pixbuf);
     gtk_widget_show(image);
     gtk_box_pack_start(GTK_BOX(hbox23), image, FALSE, FALSE, 0);
     g_object_unref(image105);
+    g_object_unref(pixbuf);
 
-    GtkWidget *label258 = gtk_label_new_with_mnemonic(_("Burn"));
+    GtkWidget *label258 = gtk_label_new_with_mnemonic(_("_Burn"));
     gtk_widget_show(label258);
     gtk_box_pack_end(GTK_BOX(hbox23), label258, FALSE, FALSE, 0);            
 }
