@@ -32,7 +32,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__sun)
 #include <sys/cdio.h>
 #define CDROM_DRIVE_STATUS     0x5326
 #define CDS_NO_DISC        1
