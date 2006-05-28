@@ -92,7 +92,7 @@ exec_channel_callback(GIOChannel *channel, GIOCondition condition, gpointer data
         else if(cmd->read_proc) 
         {
             GError *error = NULL;        
-            gchar *converted = g_convert(buffer, bytes, "UTF-8", "ISO-8859-1", NULL, NULL, &error);
+            gchar *converted = g_convert_with_fallback(buffer, bytes, "UTF-8", "ISO-8859-1", "", NULL, NULL, &error);
             if(converted != NULL)
             {
                 cmd->read_proc(cmd, converted);
