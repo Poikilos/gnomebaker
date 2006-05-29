@@ -118,7 +118,7 @@ burn_dvd_iso(const gchar *file)
         if(dlg != NULL)
         {
             burn_args = exec_new(_("Burning DVD image"), _("Please wait while the DVD image you selected is burned to DVD."));
-            growisofs_add_iso_args(exec_cmd_new(burn_args),file);
+            growisofs_add_iso_args(exec_cmd_new(burn_args), file);
             burn_run_process();
             startdlg_delete(dlg);
         }
@@ -310,14 +310,14 @@ burn_copy_data_cd()
 		if(preferences_get_bool(GB_CREATEISOONLY))
 		{
             burn_args = exec_new(_("Extracting CD image"), _("Please wait while the data CD image is extracted."));
-			readcd_add_copy_args(exec_cmd_new(burn_args), dlg);
+			readcd_add_copy_args(exec_cmd_new(burn_args), gtk_entry_get_text(dlg->iso_file));
             burn_run_process();
 		}
 		else
 		{
             burn_args = exec_new(_("Copying data CD"), _("Please wait while the data CD image is extracted and then burned to CD."));
-            readcd_add_copy_args(exec_cmd_new(burn_args), dlg);
             gchar *file = preferences_get_copy_data_cd_image();
+            readcd_add_copy_args(exec_cmd_new(burn_args), file);  
             mkisofs_add_calc_iso_size_args(exec_cmd_new(burn_args), file);            
             cdrecord_add_iso_args(exec_cmd_new(burn_args), file);
             g_free(file);
@@ -354,6 +354,33 @@ burn_copy_cd()
         burn_args = exec_new(_("Copying CD"), _("Please wait while the CD is copied"));
         cdrdao_add_copy_args(exec_cmd_new(burn_args));
         burn_run_process();
+        startdlg_delete(dlg);
+    }
+}
+
+
+void
+burn_copy_dvd()
+{
+    GB_LOG_FUNC
+    StartDlg *dlg = burn_show_start_dlg(copy_dvd);
+    if(dlg != NULL)
+    {
+        if(preferences_get_bool(GB_CREATEISOONLY))
+        {
+            burn_args = exec_new(_("Extracting DVD image"), _("Please wait while the DVD image is extracted."));
+            dd_add_copy_args(exec_cmd_new(burn_args), gtk_entry_get_text(dlg->iso_file));
+            burn_run_process();
+        }
+        else
+        {
+            burn_args = exec_new(_("Copying DVD"), _("Please wait while the DVD image is extracted and then burned to DVD"));
+            gchar *file = preferences_get_copy_dvd_image();
+            dd_add_copy_args(exec_cmd_new(burn_args), file);            
+            growisofs_add_iso_args(exec_cmd_new(burn_args), file);    
+            g_free(file);
+            burn_run_process();
+        }        
         startdlg_delete(dlg);
     }
 }

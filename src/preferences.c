@@ -115,6 +115,17 @@ preferences_get_copy_data_cd_image()
 
 
 gchar *
+preferences_get_copy_dvd_image()
+{
+    GB_LOG_FUNC
+    gchar *temp_dir = preferences_get_string(GB_TEMP_DIR);
+    gchar *ret = g_build_filename(temp_dir, "gnomebaker_copy_dvd.iso", NULL);
+    g_free(temp_dir);
+    return ret;
+}
+
+
+gchar *
 preferences_get_create_data_cd_image()
 {
 	GB_LOG_FUNC

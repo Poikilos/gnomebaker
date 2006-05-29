@@ -85,6 +85,7 @@ gboolean preferences_init();
 void preferences_finalise();
 
 gchar *preferences_get_copy_data_cd_image();
+gchar *preferences_get_copy_dvd_image();
 gchar *preferences_get_create_data_cd_image();
 gchar *preferences_get_convert_audio_track_dir();
 gchar *preferences_get_default_iso();

@@ -40,9 +40,10 @@ void growisofs_add_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_
 void growisofs_add_iso_args(ExecCmd *cmd, const gchar *iso);
 void mkisofs_add_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_file, const gchar *msinfo, const gboolean calculate_size);
 void mkisofs_add_calc_iso_size_args(ExecCmd *e, const gchar *iso);
-void readcd_add_copy_args(ExecCmd *e, StartDlg *start_dlg);
+void readcd_add_copy_args(ExecCmd *e, const gchar *iso);
 void cdrdao_add_image_args(ExecCmd *cmd, const gchar *toc_or_cue);
 void gstreamer_add_args(ExecCmd *cmd, const gchar *from, const gchar *to);
 void md5sum_add_args(ExecCmd *cmd, const gchar *md5);
+void dd_add_copy_args(ExecCmd *e, const gchar *iso);
 
 #endif	/*_EXECFUNCTIONS_H_*/

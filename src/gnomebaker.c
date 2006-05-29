@@ -365,6 +365,14 @@ gnomebaker_on_copy_cd(gpointer widget, gpointer user_data)
 }
 
 
+void /* libglade callback */
+gnomebaker_on_copy_dvd(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC
+    burn_copy_dvd();
+}
+
+
 gboolean
 gnomebaker_on_delete(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
@@ -1075,6 +1083,12 @@ gnomebaker_new()
 
     g_main_context_iteration(NULL, TRUE);   
     gtk_widget_show_all(main_window);
+    
+    /* TODO - Remove these once the cdrdao copy is done */
+    GtkWidget *copy_menu_item = glade_xml_get_widget(xml, "copy_audio_cd1");
+    gtk_widget_hide(copy_menu_item);
+    copy_menu_item = glade_xml_get_widget(xml, "copy_data_cd1");
+    gtk_widget_hide(copy_menu_item);
     
     /* Check preferences to see if we'll show/hide the file browser */
     GtkWidget *check_menu_item = glade_xml_get_widget(xml, widget_show_browser_menu);
