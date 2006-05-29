@@ -369,7 +369,7 @@ burn_copy_dvd()
         if(preferences_get_bool(GB_CREATEISOONLY))
         {
             burn_args = exec_new(_("Extracting DVD image"), _("Please wait while the DVD image is extracted."));
-            dd_add_copy_args(exec_cmd_new(burn_args), gtk_entry_get_text(dlg->iso_file));
+            readcd_add_copy_args(exec_cmd_new(burn_args), gtk_entry_get_text(dlg->iso_file));
             burn_run_process();
         }
         else
