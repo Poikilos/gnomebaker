@@ -375,7 +375,7 @@ startdlg_create_data_disk_section(StartDlg *start_dlg)
     ++row;
     GtkWidget *hbox = gtk_hbox_new (FALSE, 4);
     gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->iso_file), TRUE, TRUE, 0);    
-    gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->browse), TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->browse), FALSE, FALSE, 0);
     gtk_table_attach(table, hbox, 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);    
     
     GtkNotebook *notebook = GTK_NOTEBOOK(gtk_notebook_new());
@@ -449,7 +449,7 @@ startdlg_copy_data_cd_section(StartDlg *start_dlg)
     ++row;
     GtkWidget *hbox = gtk_hbox_new (FALSE, 4);
     gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->iso_file), TRUE, TRUE, 0);    
-    gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->browse), TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->browse), FALSE, FALSE, 0);
     gtk_table_attach(table, hbox, 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);    
     g_signal_emit_by_name(start_dlg->iso_only, "toggled", start_dlg->iso_only, start_dlg);
 }
@@ -463,6 +463,29 @@ startdlg_copy_cd_section(StartDlg *start_dlg)
     ++row;
     gtk_table_attach(table, GTK_WIDGET(start_dlg->on_the_fly), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(table), FALSE, FALSE, 0);
+}
+
+
+static void 
+startdlg_copy_dvd_section(StartDlg *start_dlg)
+{
+    GtkTable *table = GTK_TABLE(startdlg_create_table());
+    guint row = startdlg_add_device_section(table, start_dlg, TRUE, FALSE);
+    ++row;
+    gtk_table_attach(table, GTK_WIDGET(start_dlg->burn_disk), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
+    ++row;
+    gtk_table_attach(table, GTK_WIDGET(start_dlg->eject), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_3);
+    gtk_table_attach(table, GTK_WIDGET(start_dlg->dummy), 2, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);        
+    ++row;
+    gtk_table_attach(table, GTK_WIDGET(start_dlg->iso_only), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
+
+    gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(table), FALSE, FALSE, 0);
+    ++row;
+    GtkWidget *hbox = gtk_hbox_new (FALSE, 4);
+    gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->iso_file), TRUE, TRUE, 0);    
+    gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET(start_dlg->browse), FALSE, FALSE, 0);
+    gtk_table_attach(table, hbox, 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_3);    
+    g_signal_emit_by_name(start_dlg->iso_only, "toggled", start_dlg->iso_only, start_dlg);
 }
 
 
@@ -586,6 +609,9 @@ startdlg_new(const BurnType burn_type)
 			break;
         case copy_cd:      
             startdlg_copy_cd_section(start_dlg);
+            break;
+        case copy_dvd:      
+            startdlg_copy_dvd_section(start_dlg);
             break;
 		case format_dvdrw:
             start_dlg->dvdmode = TRUE;

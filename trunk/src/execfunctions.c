@@ -1130,29 +1130,23 @@ readcd_read_proc(void *ex, void *buffer)
  *  Populates the information required to make an iso from an existing data cd
  */
 void
-readcd_add_copy_args(ExecCmd *e, StartDlg *start_dlg)
+readcd_add_copy_args(ExecCmd *e, const gchar *iso)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
-	g_return_if_fail(start_dlg != NULL);	
+	g_return_if_fail(iso != NULL);	
 
 	exec_cmd_add_arg(e, "readcd");
 	
 	gchar *reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
 	exec_cmd_add_arg(e, "dev=%s", reader);	
 	g_free(reader);
-	
-    if(preferences_get_bool(GB_CREATEISOONLY))
-    {
-	   exec_cmd_add_arg(e, "f=%s", gtk_entry_get_text(start_dlg->iso_file));	
-    }
-    else
-    {
-       gchar *file = preferences_get_copy_data_cd_image();
-       exec_cmd_add_arg(e, "f=%s", file);    
-       g_free(file);   
-       e->post_proc = execfunctions_prompt_for_disk_post_proc;
-    }
+
+    exec_cmd_add_arg(e, "f=%s", iso);
+       	
+    if(!preferences_get_bool(GB_CREATEISOONLY))
+        e->post_proc = execfunctions_prompt_for_disk_post_proc;
+    
 	/*exec_cmd_add_arg(e, "-notrunc");
 	exec_cmd_add_arg(e, "-clone");
 	exec_cmd_add_arg(e, "-silent");*/
@@ -1658,7 +1652,7 @@ gstreamer_add_args(ExecCmd *cmd, const gchar *from, const gchar *to)
 
 
 /*******************************************************************************
- * GSTREAMER
+ * MD5 checking
  ******************************************************************************/
 static void
 md5sum_pre_proc(void *ex, void *buffer)
@@ -1695,6 +1689,77 @@ md5sum_add_args(ExecCmd *cmd, const gchar *md5)
     
     cmd->pre_proc = md5sum_pre_proc;
     cmd->post_proc = md5sum_post_proc;
+}
+
+
+/*******************************************************************************
+ * dd
+ ******************************************************************************/
+static void
+dd_pre_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC    
+    
+    progressdlg_set_status(_("Reading DVD image"));  
+    progressdlg_increment_exec_number();
+    
+    gint response = GTK_RESPONSE_NO;
+    gchar *file = preferences_get_copy_dvd_image(); 
+    if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
+    {
+        response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
+                _("A DVD image from a previous session already exists on disk, "
+                "do you wish to use the existing image?"));
+    }    
+    g_free(file);
+    
+    if(response == GTK_RESPONSE_NO)
+        response = devices_prompt_for_disk(progressdlg_get_window(), GB_READER);
+        
+    if(response == GTK_RESPONSE_CANCEL)
+        exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
+    else if(response == GTK_RESPONSE_YES)
+        exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
+    devices_unmount_device(GB_READER);
+}
+ 
+
+static void
+dd_read_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(buffer != NULL);
+    g_return_if_fail(ex != NULL);
+        
+    gchar *text = (gchar*)buffer;
+    progressdlg_append_output(text);
+}
+
+
+/*
+ *  Populates the information required to make an iso from an existing data DVD
+ */
+void
+dd_add_copy_args(ExecCmd *e, const gchar *iso)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);
+    g_return_if_fail(iso != NULL);    
+
+    exec_cmd_add_arg(e, "dd");    
+    exec_cmd_add_arg(e, "bs=4096");  
+        
+    gchar *reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
+    exec_cmd_add_arg(e, "if=%s", reader);  
+    g_free(reader);
+    
+    exec_cmd_add_arg(e, "of=%s", iso);
+    
+    if(!preferences_get_bool(GB_CREATEISOONLY))
+       e->post_proc = execfunctions_prompt_for_disk_post_proc;
+
+    e->pre_proc = dd_pre_proc;  
+    e->read_proc = dd_read_proc;    
 }
 
 
