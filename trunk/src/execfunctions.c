@@ -91,7 +91,8 @@ cdrecord_blank_pre_proc(void *ex, void *buffer)
         /* This time approximation is my first attempt at figuring out how long blanking a
          * cd really takes. It's not very scientific and I will at some point try to figure it
          * out more accurately.*/
-        const gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+        gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+        if(speed == 0) speed = 1;
         gint approximation = 0;
         if(preferences_get_bool(GB_FAST_BLANK))
             approximation = (speed * -5) + 95;
@@ -271,8 +272,12 @@ cdrecord_add_common_args(ExecCmd *cmd)
 	   exec_cmd_add_arg(cmd, "-force");
 
 	exec_cmd_add_arg(cmd, "gracetime=5");
-	exec_cmd_add_arg(cmd, "speed=%d", preferences_get_int(GB_CDWRITE_SPEED));
-	exec_cmd_add_arg(cmd, "-v");
+
+    const gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+    if(speed > 0)
+	   exec_cmd_add_arg(cmd, "speed=%d", speed);
+
+    exec_cmd_add_arg(cmd, "-v");
 
 	if(preferences_get_bool(GB_EJECT))
 		exec_cmd_add_arg(cmd, "-eject");
@@ -284,7 +289,7 @@ cdrecord_add_common_args(ExecCmd *cmd)
 		exec_cmd_add_arg(cmd, "driveropts=burnfree");
 
 	gchar *mode = preferences_get_string(GB_WRITE_MODE);
-	if(g_ascii_strcasecmp(mode, _("default")) != 0)
+	if(g_ascii_strcasecmp(mode, _("Auto")) != 0)
 		exec_cmd_add_arg(cmd, "-%s", mode);
 	g_free(mode);
 }
@@ -373,7 +378,10 @@ cdrecord_add_blank_args(ExecCmd *cmd)
 	exec_cmd_add_arg(cmd, "dev=%s", writer);
 	g_free(writer);
 
-	exec_cmd_add_arg(cmd, "speed=%d", preferences_get_int(GB_CDWRITE_SPEED));
+    const gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+    if(speed > 0)
+       exec_cmd_add_arg(cmd, "speed=%d", speed);
+
 	exec_cmd_add_arg(cmd, "-v");
 	/*exec_cmd_add_arg(cmd, "-format");*/
 
@@ -989,8 +997,9 @@ growisofs_add_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_file,
     /* TODO: Overburn support
     if(preferences_get_int(GB_OVERBURN))
         exec_cmd_add_arg(growisofs, "-overburn"); */
-
-    exec_cmd_add_arg(e,"-speed=%d", preferences_get_int(GB_DVDWRITE_SPEED));
+    const gint speed = preferences_get_int(GB_DVDWRITE_SPEED);
+    if(speed > 0)
+       exec_cmd_add_arg(e, "-speed=%d", speed);
 
     /*http://fy.chalmers.se/~appro/linux/DVD+RW/tools/growisofs.c
         for the use-the-force options */
@@ -1003,7 +1012,7 @@ growisofs_add_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_file,
     /* http://www.troubleshooters.com/linux/coasterless_dvd.htm#_Gotchas
         states that dao with dvd compat is the best way of burning dvds */
     gchar *mode = preferences_get_string(GB_DVDWRITE_MODE);
-    if(g_ascii_strcasecmp(mode, _("default")) != 0)
+    if(g_ascii_strcasecmp(mode, _("Auto")) != 0)
         exec_cmd_add_arg(e, "-use-the-force-luke=dao");
     g_free(mode);
 
@@ -1025,6 +1034,7 @@ growisofs_add_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_file,
 	g_free(msinfo);*/
 }
 
+
 void
 growisofs_add_iso_args(ExecCmd *cmd, const gchar *iso)
 {
@@ -1038,7 +1048,9 @@ growisofs_add_iso_args(ExecCmd *cmd, const gchar *iso)
 	exec_cmd_add_arg(cmd, "growisofs");
 	exec_cmd_add_arg(cmd, "-dvd-compat");
 
-	exec_cmd_add_arg(cmd, "-speed=%d", preferences_get_int(GB_DVDWRITE_SPEED));
+    const gint speed = preferences_get_int(GB_DVDWRITE_SPEED);
+    if(speed > 0)
+       exec_cmd_add_arg(cmd, "-speed=%d", speed);
 
 	/* -gui makes the output more verbose, so we can interpret it easier */
     /*	exec_cmd_add_arg(growisofs, "-gui"); */
@@ -1237,8 +1249,12 @@ cdrdao_add_image_args(ExecCmd *cmd, const gchar *toc_or_cue)
 	exec_cmd_add_arg(cmd, writer);
 	g_free(writer);
 
-	exec_cmd_add_arg(cmd, "--speed");
-	exec_cmd_add_arg(cmd, "%d", preferences_get_int(GB_CDWRITE_SPEED));
+    const gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+    if(speed > 0)
+    {
+    	exec_cmd_add_arg(cmd, "--speed");
+    	exec_cmd_add_arg(cmd, "%d", speed);
+    }
     exec_cmd_add_arg(cmd, "--buffers");
     exec_cmd_add_arg(cmd, "64");
     exec_cmd_add_arg(cmd, "-n"); /* turn off the 10 second pause */
@@ -1301,8 +1317,12 @@ cdrdao_add_copy_args(ExecCmd *cmd)
     if(preferences_get_bool(GB_ONTHEFLY))
         exec_cmd_add_arg(cmd, "--on-the-fly");
 
-    exec_cmd_add_arg(cmd, "--speed");
-    exec_cmd_add_arg(cmd, "%d", preferences_get_int(GB_CDWRITE_SPEED));
+    const gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+    if(speed > 0)
+    {
+        exec_cmd_add_arg(cmd, "--speed");
+        exec_cmd_add_arg(cmd, "%d", speed);
+    }
     exec_cmd_add_arg(cmd, "--buffers");
     exec_cmd_add_arg(cmd, "64");
     exec_cmd_add_arg(cmd, "-n"); /* turn off the 10 second pause */

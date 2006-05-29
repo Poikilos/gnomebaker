@@ -71,7 +71,17 @@ startdlg_on_ok_clicked(GtkButton  *button, gpointer user_data)
     StartDlg *start_dlg = (StartDlg*)user_data;
     devices_save_optionmenu(start_dlg->reader, GB_READER);
     devices_save_optionmenu(start_dlg->writer, GB_WRITER);
-    preferences_set_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED, gtk_spin_button_get_value(start_dlg->write_speed));
+    const gint index = gtk_option_menu_get_history(start_dlg->write_speed);
+    if(index == 0)
+        preferences_set_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED, 0);
+    else
+    {
+        gchar *text = gbcommon_get_option_menu_selection(start_dlg->write_speed);
+        text[strlen(text) - 1] = '\0';
+        const gint speed = atoi(text);
+        preferences_set_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED, speed);
+        g_free(text);
+    }
     preferences_set_bool(GB_BURNFREE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(start_dlg->burn_free)));
     preferences_set_bool(GB_FAST_BLANK, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(start_dlg->fast_erase)));
     gchar *text = gbcommon_get_option_menu_selection(start_dlg->write_mode);
@@ -193,14 +203,36 @@ startdlg_add_device_section(GtkTable *table, StartDlg *start_dlg, gboolean show_
     ++row;
     gtk_table_attach(table, startdlg_create_label(_("Speed:")), 0, 1, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     gtk_table_attach(table, GTK_WIDGET(start_dlg->write_speed), 1, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
+
+    GtkWidget *menu4 = gtk_menu_new ();
+    const gchar *speeds[] = {_("Auto"), "1X", "2X", "4X", "6X", "8X", "10X", "12X", "16X", "24X", "32X", "40X", "48X", "52X", NULL};
+    gint i = 0;
+    for(; i < (start_dlg->dvdmode ? 9 : 14); ++i)
+    {
+        GtkWidget *menu_item = gtk_menu_item_new_with_label(speeds[i]);
+        gtk_widget_show(menu_item);
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu4), menu_item);
+    }
+    gtk_widget_show(menu4);
+    gtk_option_menu_set_menu (start_dlg->write_speed, menu4);
+    const int s = preferences_get_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED);
+    if(s == 0)
+        gtk_option_menu_set_history(start_dlg->write_speed, s);
+    else
+    {
+        gchar *default_speed = g_strdup_printf("%dX", s);
+        gbcommon_set_option_menu_selection(start_dlg->write_speed, default_speed);
+        g_free(default_speed);
+    }
+
     if(show_write_mode)
     {
         gtk_table_attach(table, startdlg_create_label(_("Mode:")), 2, 3, row, row + 1, TABLE_ATTACH_OPTIONS_2);
         gtk_table_attach (GTK_TABLE (table), GTK_WIDGET(start_dlg->write_mode), 3, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
 
         GtkWidget *menu5 = gtk_menu_new ();
-        const gchar *cd_modes[] = {_("default"), "dao", "raw16", "raw96p", "raw96r", "tao", NULL};
-        const gchar *dvd_modes[] = {_("default"), "dao", NULL};
+        const gchar *cd_modes[] = {_("Auto"), "dao", "raw16", "raw96p", "raw96r", "tao", NULL};
+        const gchar *dvd_modes[] = {_("Auto"), "dao", NULL};
         const gchar **modes = cd_modes;
         if(start_dlg->dvdmode) modes = dvd_modes;
         const gchar **mode = modes;
@@ -526,10 +558,7 @@ startdlg_new(const BurnType burn_type)
     devices_populate_optionmenu(GTK_WIDGET(start_dlg->writer), GB_WRITER, TRUE);
     start_dlg->reader = GTK_OPTION_MENU(gtk_option_menu_new ());
     devices_populate_optionmenu(GTK_WIDGET(start_dlg->reader), GB_READER, FALSE);
-    GtkObject *spin_speed_adjustment = gtk_adjustment_new (4, 0, 100, 1, 10, 10);
-    start_dlg->write_speed = GTK_SPIN_BUTTON(gtk_spin_button_new (GTK_ADJUSTMENT (spin_speed_adjustment), 1, 0));
-    gtk_spin_button_set_range(start_dlg->write_speed, 1, 100);
-    gtk_spin_button_set_numeric(start_dlg->write_speed, TRUE);
+    start_dlg->write_speed = GTK_OPTION_MENU(gtk_option_menu_new ());
     start_dlg->write_mode = GTK_OPTION_MENU(gtk_option_menu_new ());
     start_dlg->dummy = startdlg_create_check_button(_("Dummy write"), GB_DUMMY);
     start_dlg->eject = startdlg_create_check_button(_("Eject disk"), GB_EJECT);
@@ -634,9 +663,6 @@ startdlg_new(const BurnType burn_type)
 	g_free(vol_id);
 
     startdlg_add_action_area(start_dlg);
-
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(start_dlg->write_speed),
-            preferences_get_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED));
 
     gtk_widget_show_all(GTK_WIDGET(start_dlg->dialog));
     gbcommon_center_window_on_parent(GTK_WIDGET(start_dlg->dialog));

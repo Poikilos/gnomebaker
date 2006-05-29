@@ -31,6 +31,9 @@ Version 0.5.2
 * Fix Bug #1358471 - The filesystem browser loses synchrony
 * Fix Bug #1174343 - could not enter newly created directories
 * Fix RFE #1401689 - Interface Improvements (Mockup included)
+* Apply patch #1494540 from Daniel Nylander - Updated sv.po translation
+* Apply patch #1463826 ] from goedson - Updated pt_BR translation
+* Fix RFE #1406985 - speed units in the burn dialog
 
 
 Version 0.5.1

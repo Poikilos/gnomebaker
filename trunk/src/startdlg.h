@@ -34,7 +34,7 @@ typedef struct
     GtkDialog *dialog;
     GtkOptionMenu *reader;
     GtkOptionMenu *writer;
-    GtkSpinButton *write_speed;
+    GtkOptionMenu *write_speed;
     GtkOptionMenu *write_mode;
     GtkCheckButton *dummy;
     GtkCheckButton *eject;
