@@ -50,7 +50,8 @@ enum
 
 enum
 {
-    AUDIO_COL_ICON = 0,
+    AUDIO_COL_NUM = 0,
+    AUDIO_COL_ICON,
     AUDIO_COL_FILE,
     AUDIO_COL_DURATION,
     /*AUDIO_COL_SIZE,*/
@@ -67,6 +68,26 @@ static GtkTargetEntry target_entries[] =
     {"text/uri-list", 0, TARGET_URI_LIST},
     {"text/plain", 0, TARGET_STRING}
 };
+
+
+
+static void
+audioproject_update_track_numbers(AudioProject *audio_project)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(AUDIOPROJECT_IS_WIDGET(audio_project));
+    
+    GtkTreeModel *file_model = gtk_tree_view_get_model(audio_project->tree);
+    GtkTreeIter iter;
+    if(gtk_tree_model_get_iter_first(file_model, &iter))
+    {
+        gint num = 0;
+        do
+        {            
+            gtk_list_store_set(GTK_LIST_STORE(file_model), &iter, AUDIO_COL_NUM, ++num, -1);
+        } while (gtk_tree_model_iter_next(file_model, &iter));
+    }  
+}
 
 
 static void
@@ -97,6 +118,8 @@ audioproject_move_selected(AudioProject* audio_project, const gboolean up)
     }
 
     g_list_free (list);
+    
+    audioproject_update_track_numbers(audio_project);
 }
 
 
@@ -307,6 +330,7 @@ audioproject_add_file(AudioProject *audio_project, const gchar *file_name)
                     GtkListStore *model = GTK_LIST_STORE(gtk_tree_view_get_model(audio_project->tree));
                     gtk_list_store_append(model, &iter);
                     gtk_list_store_set(model, &iter,
+                            AUDIO_COL_NUM, gtk_tree_model_iter_n_children(GTK_TREE_MODEL(model), NULL),
                             AUDIO_COL_ICON, icon, AUDIO_COL_FILE, (gchar*)file_name,
                             AUDIO_COL_DURATION, info->formatted_duration->str,
                             /*AUDIO_COL_SIZE, info->filesize,*/
@@ -719,7 +743,7 @@ audioproject_clear(Project *project)
         do
         {
             MediaInfo *info = NULL;
-            gtk_tree_model_get (file_model, &iter, AUDIO_COL_INFO, &info, -1);
+            gtk_tree_model_get(file_model, &iter, AUDIO_COL_INFO, &info, -1);
             media_info_delete(info);
         } while (gtk_tree_model_iter_next(file_model, &iter));
     }
@@ -769,6 +793,8 @@ audioproject_remove(Project *project)
 
     g_list_foreach(rr_list, (GFunc)gtk_tree_row_reference_free, NULL);
     g_list_free(rr_list);
+    
+    audioproject_update_track_numbers(audio_project);
 
     gnomebaker_show_busy_cursor(FALSE);
 }
@@ -996,25 +1022,25 @@ audioproject_init(AudioProject *audio_project)
     gtk_container_add(GTK_CONTAINER(scrolledwindow18), GTK_WIDGET(audio_project->tree));
 
     /* Create the list store for the file list */
-    GtkListStore *store = gtk_list_store_new(AUDIO_NUM_COLS,
+    GtkListStore *store = gtk_list_store_new(AUDIO_NUM_COLS, G_TYPE_UINT,
             GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, /*G_TYPE_ULONG,*/
             G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
     gtk_tree_view_set_model(audio_project->tree, GTK_TREE_MODEL(store));
     g_object_unref(store);
 
-    /* One column which has an icon renderer and text renderer packed in */
+
+    /* One column which has an icon renderer and number */
     GtkTreeViewColumn *col = gtk_tree_view_column_new();
     gtk_tree_view_column_set_resizable(col, TRUE);
-    gtk_tree_view_column_set_title(col, _("Track"));
-    GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_tree_view_column_set_title(col, _("No."));
+    GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_NUM, NULL);
+    renderer = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
     gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", AUDIO_COL_ICON, NULL);
-
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_FILE, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
-
+    
     /* Second column to display the duration*/
     col = gtk_tree_view_column_new();
     gtk_tree_view_column_set_resizable(col, TRUE);
@@ -1023,15 +1049,7 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_DURATION, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
-
-    /* Third column to display the size
-    col = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(col, "Size");
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_SIZE, NULL);
-    gtk_tree_view_append_column(audio_project->tree, col);*/
-
+    
     /* column to display the artist */
     col = gtk_tree_view_column_new();
     gtk_tree_view_column_set_resizable(col, TRUE);
@@ -1058,6 +1076,23 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_TITLE, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
+
+    /* column to display the track */
+    col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
+    gtk_tree_view_column_set_title(col, _("Track"));
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_FILE, NULL);
+    gtk_tree_view_append_column(audio_project->tree, col);
+
+    /* Third column to display the size
+    col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(col, "Size");
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_SIZE, NULL);
+    gtk_tree_view_append_column(audio_project->tree, col);*/
 
     /* hidden column to store the MediaInfo pointer */
     col = gtk_tree_view_column_new();
