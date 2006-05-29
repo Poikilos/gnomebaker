@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnomebaker 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-29 18:59+0100\n"
-"PO-Revision-Date: 2005-10-18 16:26-0200\n"
+"PO-Revision-Date: 2006-02-13 17:59-0200\n"
 "Last-Translator: Goedson Teixeira Paixao <goedson@debian.org>\n"
 "Language-Team: Portuguese <debian-l10n-portuguese@blists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr "%d mins %d segs usados - %d mins %d segs restantes"
 
 #: ../src/audioproject.c:155
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "A trilha é muito grande para caber no espaço restante do CD"
+msgstr "A faixa é muito grande para caber no espaço restante do CD"
 
 #: ../src/audioproject.c:354
 #, fuzzy, c-format
@@ -124,7 +124,7 @@ msgid ""
 "to write it to DVD?"
 msgstr ""
 "O arquivo que você selecionou parece não ser uma imagem de DVD. Você quer "
-"realmente escrevê-la como DVD?"
+"realmente gravá-la no DVD?"
 
 #: ../src/burn.c:120
 msgid "Burning DVD image"
@@ -141,7 +141,7 @@ msgid ""
 "write it to CD?"
 msgstr ""
 "O arquivo que você selecionou parece não ser uma imagem de CD. Você quer "
-"realmente escrevê-la como CD?"
+"realmente gravá-la no CD?"
 
 #: ../src/burn.c:180
 msgid "Creating data CD image"
@@ -204,7 +204,7 @@ msgstr "Extraindo imagem do CD"
 
 #: ../src/burn.c:312
 msgid "Please wait while the data CD image is extracted."
-msgstr "Por favor, aguarde enquanto a imagem do CD de dados é extraída"
+msgstr "Por favor, aguarde enquanto a imagem do CD de dados é extraída."
 
 #: ../src/burn.c:318
 msgid "Copying data CD"
@@ -245,7 +245,7 @@ msgstr "Extraindo imagem do CD"
 #: ../src/burn.c:371
 #, fuzzy
 msgid "Please wait while the DVD image is extracted."
-msgstr "Por favor, aguarde enquanto a imagem do CD de dados é extraída"
+msgstr "Por favor, aguarde enquanto a imagem do CD de dados é extraída."
 
 #: ../src/burn.c:377
 #, fuzzy
@@ -277,7 +277,7 @@ msgstr "Por favor aguarde enquanto o DVD é formatado."
 
 #: ../src/burn.c:433
 msgid "Creating data DVD image"
-msgstr "Criando imagem de DVD de dados."
+msgstr "Criando imagem de DVD de dados"
 
 #: ../src/burn.c:433
 msgid "Please wait while the data DVD image is created."
@@ -368,7 +368,7 @@ msgstr "erro desconhecido"
 #: ../src/dataproject.c:1655
 #, fuzzy
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
-msgstr "A trilha é muito grande para caber no espaço restante do CD"
+msgstr "A faixa é muito grande para caber no espaço restante do CD"
 
 #: ../src/dataproject.c:1763
 #, c-format
@@ -415,7 +415,7 @@ msgid ""
 "and then go to preferences and rescan for devices."
 msgstr ""
 "O ponto de montagem (e.g. /mnt/cdrom) para o dispositivo de gravação não "
-"pode ser obtido. POr favor verifique que o dispositivo de gravação tem uma "
+"pode ser obtido. Por favor verifique que o dispositivo de gravação tem uma "
 "entrada no arquivo /etc/fstab e então vá em preferências e faça a busca de "
 "dispositivos novamente."
 
@@ -563,7 +563,7 @@ msgstr "Queimar imagem de CD"
 
 #: ../src/filebrowser.c:599
 msgid "_Burn DVD Image"
-msgstr "Queimar imagem de CD"
+msgstr "Queimar imagem de DVD"
 
 #: ../src/filebrowser.c:704
 #, c-format
@@ -662,7 +662,7 @@ msgstr "Por favor, selecione arquivos para adicionar ao disco."
 #: ../src/gnomebaker.c:1018
 #, fuzzy
 msgid "_Add Folders"
-msgstr "Pasta"
+msgstr "_Adicionar arquivo(s)"
 
 #: ../src/gnomebaker.c:1020
 #, fuzzy
@@ -996,7 +996,7 @@ msgstr "<b><big>...</big></b>"
 
 #: ../gnomebaker.glade.h:5
 msgid "<b>Additional <i>cdrecord</i> options</b>"
-msgstr "<b>Adicional <i> gravador de cd</i> opções</b>"
+msgstr "<b>Opções adicionais do <i>cdrecord</i></b>"
 
 #: ../gnomebaker.glade.h:6
 msgid "<b>Boot options</b>"
@@ -1087,7 +1087,7 @@ msgstr "Copiar CD de Áudio"
 #: ../gnomebaker.glade.h:27
 #, fuzzy
 msgid "Automatically scroll the progress window output"
-msgstr "Saida automatica do scroll"
+msgstr "Rolar saída automaticamente"
 
 #: ../gnomebaker.glade.h:28
 msgid "Baking"
@@ -1329,7 +1329,7 @@ msgstr "_Adicionar dispositivo"
 #: ../gnomebaker.glade.h:87
 #, fuzzy
 msgid "_Audio CD"
-msgstr "<b>Disco de Áudio</b>"
+msgstr "Co_piar CD de Áudio"
 
 #: ../gnomebaker.glade.h:89
 #, fuzzy
@@ -1418,14 +1418,19 @@ msgstr "raw96r"
 msgid "tao"
 msgstr "tao"
 
-#~ msgid "<b>Device</b>"
-#~ msgstr "<b>Dispositivo</b>"
+#~ msgid ""
+#~ "File or directory is too large to fit in the remaining space on the CD"
+#~ msgstr ""
+#~ "Arquivo ou diretório é muito grande para caber no espaço restante no CD"
 
 #~ msgid "Reader:"
 #~ msgstr "Leitor:"
 
 #~ msgid "Writer:"
 #~ msgstr "Gravador:"
+
+#~ msgid "Create ISO only"
+#~ msgstr "Apenas criar ISO"
 
 #~ msgid "0 mins 0 secs"
 #~ msgstr "0 mins 0 segs"
@@ -1456,18 +1461,6 @@ msgstr "tao"
 
 #~ msgid "Create Video Disk"
 #~ msgstr "Criar Disco de Vídeo"
-
-#, fuzzy
-#~ msgid "_Data Disk"
-#~ msgstr "Criar Disco de Dados"
-
-#~ msgid ""
-#~ "File or directory is too large to fit in the remaining space on the CD"
-#~ msgstr ""
-#~ "Arquivo ou diretório é muito grande para caber no espaço restante no CD"
-
-#~ msgid "Create ISO only"
-#~ msgstr "Apenas criar ISO"
 
 #~ msgid "Edit GnomeBaker's preferences"
 #~ msgstr "Editar preferências do GnomeBaker"
