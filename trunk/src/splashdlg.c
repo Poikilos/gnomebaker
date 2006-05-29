@@ -31,21 +31,21 @@ static const gchar *const widget_splashdlg_label = "splashLabel";
 static GladeXML *splashdlg_xml = NULL;
 
 
-GtkWidget* 
+GtkWidget*
 splashdlg_new(void)
 {
-	GB_LOG_FUNC	
+	GB_LOG_FUNC
 	splashdlg_xml = glade_xml_new(glade_file, widget_splashdlg, NULL);
-	glade_xml_signal_autoconnect(splashdlg_xml);		
-	GtkWidget *dlg = glade_xml_get_widget(splashdlg_xml, widget_splashdlg);	
-	
-	gbcommon_start_busy_cursor(dlg);	
-	
+	glade_xml_signal_autoconnect(splashdlg_xml);
+	GtkWidget *dlg = glade_xml_get_widget(splashdlg_xml, widget_splashdlg);
+
+	gbcommon_start_busy_cursor(dlg);
+
 	return dlg;
 }
 
 
-void 
+void
 splashdlg_delete(GtkWidget *self)
 {
 	GB_LOG_FUNC
@@ -57,13 +57,13 @@ splashdlg_delete(GtkWidget *self)
 }
 
 
-void 
+void
 splashdlg_set_text(const gchar *text)
 {
-	GB_LOG_FUNC	
+	GB_LOG_FUNC
 	g_return_if_fail(splashdlg_xml != NULL);
 	GB_TRACE("splashdlg_set_text - [%s]\n", text);
 	GtkWidget *label = glade_xml_get_widget(splashdlg_xml, widget_splashdlg_label);
-	gtk_label_set_text(GTK_LABEL(label), text);	
+	gtk_label_set_text(GTK_LABEL(label), text);
 	g_main_context_iteration(NULL, TRUE);
 }

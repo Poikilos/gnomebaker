@@ -40,26 +40,26 @@ project_init(Project *project)
 {
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
-    
+
     project->title = GTK_LABEL(gtk_label_new(""));
 
     project->close_button = GTK_BUTTON(gtk_button_new());
-    g_signal_connect(G_OBJECT(project->close_button), "clicked", 
+    g_signal_connect(G_OBJECT(project->close_button), "clicked",
             G_CALLBACK(gnomebaker_on_close_project), project);
     gtk_button_set_relief(project->close_button, GTK_RELIEF_NONE);
     gtk_button_set_focus_on_click(project->close_button, FALSE);
-    gtk_container_set_border_width(GTK_CONTAINER(project->close_button), 0);    
+    gtk_container_set_border_width(GTK_CONTAINER(project->close_button), 0);
     gtk_widget_show(GTK_WIDGET(project->close_button));
-    
+
     GtkWidget *close_image = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
-    gtk_widget_show(GTK_WIDGET(close_image));    
+    gtk_widget_show(GTK_WIDGET(close_image));
     gtk_container_add(GTK_CONTAINER(project->close_button), close_image);
 
-    /* resize the close button so that it's only a couple of pixels bigger than the image */    
-    GtkRequisition req;        
+    /* resize the close button so that it's only a couple of pixels bigger than the image */
+    GtkRequisition req;
     gtk_widget_size_request(close_image, &req);
     gtk_widget_set_size_request(GTK_WIDGET(project->close_button), req.width + 2, req.height + 2);
-    
+
     GtkWidget *hbox5 = gtk_hbox_new(FALSE, 10);
     gtk_widget_show(hbox5);
     gtk_box_pack_start(GTK_BOX(project), hbox5, FALSE, TRUE, 0);
@@ -110,7 +110,7 @@ project_init(Project *project)
 
     GtkWidget *label258 = gtk_label_new_with_mnemonic(_("_Burn"));
     gtk_widget_show(label258);
-    gtk_box_pack_end(GTK_BOX(hbox23), label258, FALSE, FALSE, 0);            
+    gtk_box_pack_end(GTK_BOX(hbox23), label258, FALSE, FALSE, 0);
 }
 
 
@@ -122,13 +122,13 @@ project_new()
 }
 
 
-void 
+void
 project_set_title(Project *project, const gchar *title)
 {
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     g_return_if_fail(title != NULL);
-    
+
     gtk_label_set_label(project->title, title);
     gtk_widget_show(GTK_WIDGET(project->title));
     gtk_label_set_use_markup(project->title, TRUE);
@@ -140,7 +140,7 @@ project_get_title_widget(Project *project)
 {
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
-    
+
     GtkWidget *hbox = gtk_hbox_new(FALSE, 2);
     gtk_widget_show(hbox);
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(project->title), FALSE, FALSE, 0);
@@ -149,38 +149,38 @@ project_get_title_widget(Project *project)
 }
 
 
-void 
+void
 project_clear(Project *project)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->clear(project);
 }
 
 
-void 
+void
 project_remove(Project *project)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->remove(project);
 }
 
 
-void 
+void
 project_add_selection(Project *project, GtkSelectionData *selection)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     g_return_if_fail(selection != NULL);
     PROJECT_WIDGET_GET_CLASS(project)->add_selection(project, selection);
 }
 
 
-void 
+void
 project_import_session(Project *project)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->import_session(project);
 }
@@ -189,7 +189,7 @@ project_import_session(Project *project)
 gboolean
 project_is_dirty(Project *project)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_val_if_fail(PROJECT_IS_WIDGET(project), FALSE);
     return project->is_dirty;
 }
@@ -198,26 +198,26 @@ project_is_dirty(Project *project)
 void
 project_set_dirty(Project *project, gboolean dirty)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     project->is_dirty = dirty;
 }
 
 
-void 
+void
 project_open(Project *project, xmlDocPtr doc)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     g_return_if_fail(doc != NULL);
-    PROJECT_WIDGET_GET_CLASS(project)->open(project, doc);        
+    PROJECT_WIDGET_GET_CLASS(project)->open(project, doc);
 }
 
 
-void 
+void
 project_save(Project *project)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->save(project);
     /*xmlSaveFormatFile (docname, doc, 1);*/
@@ -225,10 +225,10 @@ project_save(Project *project)
 }
 
 
-void 
+void
 project_close(Project *project)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->close(project);
 }
@@ -237,7 +237,7 @@ project_close(Project *project)
 void
 project_move_selected_up(Project *project)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->move_selected_up(project);
 }
@@ -246,16 +246,16 @@ project_move_selected_up(Project *project)
 void
 project_move_selected_down(Project *project)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->move_selected_down(project);
 }
 
 
-void 
+void
 project_set_file(Project *project, const gchar *file)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     if(project->file != NULL)
         g_free(project->file);

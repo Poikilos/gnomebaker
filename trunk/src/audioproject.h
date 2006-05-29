@@ -50,18 +50,18 @@ G_BEGIN_DECLS
     AUDIOPROJECT_TYPE_WIDGET, AudioProjectClass))
 
 
-typedef struct 
+typedef struct
 {
     Project parent;
-    
-    GtkTreeView *tree;    
+
+    GtkTreeView *tree;
     gdouble selected_size;
     gdouble compilation_seconds;
-    
+
 } AudioProject;
 
 
-typedef struct 
+typedef struct
 {
     ProjectClass parent_class;
 } AudioProjectClass;

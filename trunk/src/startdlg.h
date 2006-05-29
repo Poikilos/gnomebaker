@@ -29,7 +29,7 @@
 #include <gnome.h>
 #include "burn.h"
 
-typedef struct 
+typedef struct
 {
     GtkDialog *dialog;
     GtkOptionMenu *reader;
@@ -37,17 +37,17 @@ typedef struct
     GtkSpinButton *write_speed;
     GtkOptionMenu *write_mode;
     GtkCheckButton *dummy;
-    GtkCheckButton *eject;    
+    GtkCheckButton *eject;
     GtkCheckButton *fast_erase;
     GtkCheckButton *burn_free;
-    GtkRadioButton *burn_disk; 
-    GtkCheckButton *force_format;  
+    GtkRadioButton *burn_disk;
+    GtkCheckButton *force_format;
     GtkCheckButton *finalize;
     GtkCheckButton *fast_format;
     GtkCheckButton *joliet;
     GtkCheckButton *rock_ridge;
-    GtkCheckButton *on_the_fly;    
-    GtkRadioButton *iso_only;  
+    GtkCheckButton *on_the_fly;
+    GtkRadioButton *iso_only;
     GtkEntry *iso_file;
     GtkButton *browse;
     GtkEntry *volume_id;

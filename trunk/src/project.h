@@ -37,7 +37,7 @@ typedef enum
 {
     DATA_CD = 0,
     DATA_DVD,
-    AUDIO_CD      
+    AUDIO_CD
 } ProjectType;
 
 
@@ -66,10 +66,10 @@ G_BEGIN_DECLS
   PROJECT_TYPE_WIDGET, ProjectClass))
 
 
-typedef struct 
+typedef struct
 {
     GtkVBox parent;
-    
+
     GtkOptionMenu *menu;
     GtkButton *button;
 #ifdef CAIRO_WIDGETS
@@ -81,14 +81,14 @@ typedef struct
     GtkButton *close_button;
     gboolean is_dirty;
     gchar *file;
-    
+
 } Project;
 
 
-typedef struct 
+typedef struct
 {
     GtkVBoxClass parent_class;
-    
+
     void (*clear)(Project *self);
     void (*remove)(Project *self);
     void (*add_selection)(Project *self, GtkSelectionData *selection);
@@ -98,7 +98,7 @@ typedef struct
     void (*close)(Project *self);
     void (*move_selected_up)(Project *self);
     void (*move_selected_down)(Project *self);
-    
+
 } ProjectClass;
 
 

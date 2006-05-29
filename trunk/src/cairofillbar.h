@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
  /*
  * File: cairofillbar.h
  * Copyright: newwen@gmail.com
@@ -34,19 +34,19 @@ G_BEGIN_DECLS
 #define GB_CAIRO_FILLBAR(obj) \
 		(G_TYPE_CHECK_INSTANCE_CAST ((obj), \
 		GB_TYPE_CAIRO_FILLBAR, GBCairoFillBar))
-		
+
 #define GB_CAIRO_FILLBAR_CLASS(obj) \
 		(G_TYPE_CHECK_CLASS_CAST ((obj), \
 		 GB_CAIRO_FILLBAR,  GBCairoFillBarClass))
-		 
+
 #define GB_IS_CAIRO_FILLBAR(obj) \
 		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
 		 GB_TYPE_CAIRO_FILLBAR))
-		 
+
 #define GB_IS_CAIRO_FILLBAR_CLASS(obj) \
  		(G_TYPE_CHECK_CLASS_TYPE ((obj), \
 		GB_TYPE_CAIRO_FILLBAR))
-		
+
 #define GB_CAIRO_FILLBAR_GET_CLASS(obj) \
 		(G_TYPE_INSTANCE_GET_CLASS ((obj), \
 		 GB_TYPE_CAIRO_FILLBAR, GBCairoFillBarClass))

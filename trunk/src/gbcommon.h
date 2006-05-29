@@ -35,12 +35,12 @@ typedef struct
 	gchar *label;
 } DiskSize;
 
-typedef struct 
+typedef struct
 {
 	int file_descriptor;
 	FILE  *file_stream;
 	char  *file_name;
-	
+
 }GBTempFile;
 
 GBTempFile *gbcommon_create_open_temp_file();
@@ -72,7 +72,7 @@ void gbcommon_append_menu_item_file(GtkWidget *menu, const gchar *menu_item_labe
 void gbcommon_append_menu_item_stock(GtkWidget *menu, const gchar *menu_item_label,
 			const gchar *stock_id, GCallback activated, gpointer user_data);
 
-gchar *gbcommon_show_file_chooser(const gchar *title, GtkFileChooserAction action, 
+gchar *gbcommon_show_file_chooser(const gchar *title, GtkFileChooserAction action,
            GtkFileFilter *custom_filter, const gboolean show_all_file_filter, GtkComboBox *save_as_options);
 void gb_common_finalise();
 gboolean gbcommon_init();
