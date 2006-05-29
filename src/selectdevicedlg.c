@@ -33,23 +33,23 @@ static const gchar *const widget_select_device_dlg = "selectDeviceDlg";
 static GladeXML *selectdevicedlgdlg_xml = NULL;
 
 
-GtkWidget* 
+GtkWidget*
 selectdevicedlg_new(void)
 {
-	GB_LOG_FUNC	
+	GB_LOG_FUNC
 	selectdevicedlgdlg_xml = glade_xml_new(glade_file, widget_select_device_dlg, NULL);
-	glade_xml_signal_autoconnect(selectdevicedlgdlg_xml);		
-	
+	glade_xml_signal_autoconnect(selectdevicedlgdlg_xml);
+
 	GtkWidget *option_menu = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
 	devices_populate_optionmenu(option_menu, GB_WRITER, TRUE);
-	
-    GtkWidget *dlg = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_device_dlg); 
+
+    GtkWidget *dlg = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_device_dlg);
     gbcommon_center_window_on_parent(dlg);
 	return dlg;
 }
 
 
-void 
+void
 selectdevicedlg_delete(GtkWidget *self)
 {
 	g_return_if_fail(NULL != self);
@@ -59,12 +59,12 @@ selectdevicedlg_delete(GtkWidget *self)
 }
 
 
-void 
+void
 selectdevicedlg_on_ok_clicked(GtkButton *button, gpointer user_data)
 {
-	GB_LOG_FUNC	
+	GB_LOG_FUNC
 	g_return_if_fail(selectdevicedlgdlg_xml != NULL);
-	
+
 	GtkWidget *option_menu = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
 	devices_save_optionmenu(GTK_OPTION_MENU(option_menu), GB_WRITER);
 }

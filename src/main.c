@@ -18,7 +18,7 @@
  * Copyright: luke_biddell@yahoo.com
  * Created on: Tue Jan 28 22:12:09 2003
  */
- 
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -38,16 +38,16 @@
 const gchar *glade_file;
 gboolean show_trace = FALSE;
 
-static GOptionEntry entries[] = 
+static GOptionEntry entries[] =
 {
     { "trace-on", 0, 0, G_OPTION_ARG_NONE, &show_trace, N_("Show tracing information (useful when debugging)"), 0 },
     { NULL }
 };
 
 
-gint 
+gint
 main(gint argc, gchar *argv[])
-{	    	    
+{
 	GError *error = NULL;
 	GOptionContext *context = g_option_context_new(_(" - GNOME CD/DVD burning application"));
 	/* add main entries */
@@ -56,78 +56,78 @@ main(gint argc, gchar *argv[])
 	g_option_context_add_group(context, gtk_get_option_group(TRUE));
 #ifdef GST_010
     g_option_context_add_group(context, gst_init_get_option_group());
-#endif    
+#endif
 	/* ignore unknown options */
 	g_option_context_set_ignore_unknown_options(context, TRUE);
 	g_option_context_parse(context, &argc, &argv, &error);
 	g_option_context_free(context);
-    if(error != NULL) g_error_free(error);       
-    	
+    if(error != NULL) g_error_free(error);
+
 #ifdef ENABLE_NLS
-    setlocale(LC_ALL,"");		
+    setlocale(LC_ALL,"");
     bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
     bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
     textdomain (GETTEXT_PACKAGE);
 #endif
-        
-#ifdef GST_010	
+
+#ifdef GST_010
     struct poptOption* options = NULL;
-#else     
+#else
     g_thread_init(NULL);
     gdk_threads_init();
 
-	struct poptOption options[] = 
+	struct poptOption options[] =
 	{
     	{NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL},
     	POPT_TABLEEND
 	};
 	/* init GStreamer and GNOME using the GStreamer popt tables */
-	options[0].arg = (void*) gst_init_get_popt_table ();	
+	options[0].arg = (void*) gst_init_get_popt_table ();
 #endif
 
-    GnomeProgram *prog = gnome_program_init ("gnomebaker", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, 
+    GnomeProgram *prog = gnome_program_init ("gnomebaker", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv,
             GNOME_PARAM_POPT_TABLE, options, GNOME_PARAM_APP_DATADIR, DATADIR, NULL);
 	glade_gnome_init();
-	
+
 	glade_file = gnome_program_locate_file(NULL, GNOME_FILE_DOMAIN_APP_DATADIR,
-			"gnomebaker/gnomebaker.glade", FALSE, NULL);                
+			"gnomebaker/gnomebaker.glade", FALSE, NULL);
 
 #if !defined(__linux__)
-	GtkWidget *dlg = splashdlg_new();		
+	GtkWidget *dlg = splashdlg_new();
 #endif
 
 	while(g_main_context_pending(NULL))
 		g_main_context_iteration(NULL, TRUE);
-        
+
     gblibnotify_init("GnomeBaker");
-        
+
     gbcommon_init();
 
-#if !defined(__linux__)        
+#if !defined(__linux__)
     splashdlg_set_text(_("Loading preferences..."));
 #endif
     preferences_init();
-    
-#if !defined(__linux__)    
+
+#if !defined(__linux__)
     splashdlg_set_text(_("Detecting devices..."));
 #endif
     devices_init();
 
-#if !defined(__linux__)    
+#if !defined(__linux__)
     splashdlg_set_text(_("Registering gstreamer plugins..."));
 #endif
     media_init();
 
 #if !defined(__linux__)
-    splashdlg_set_text(_("Loading GUI..."));        
+    splashdlg_set_text(_("Loading GUI..."));
 #endif
 	GtkWidget *app = gnomebaker_new();
-    
-#if !defined(__linux__)    
+
+#if !defined(__linux__)
 	splashdlg_delete(dlg);
 #endif
-	
-    gdk_threads_enter();	
+
+    gdk_threads_enter();
 	gtk_main();
 	gdk_threads_leave();
     gnomebaker_delete(app);

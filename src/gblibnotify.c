@@ -20,7 +20,7 @@
  * File: gblibnotify.c
  * Copyright: Milen Dzhumerov <gamehack@1nsp1r3d.co.uk> Richard Hughes <richard@hughsie.com>
  */
- 
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -37,7 +37,7 @@
 static const gint timeout_seconds = 5;
 static const gint MILISECONDS_IN_SECOND = 1000;
 
-#ifdef HAVE_LIBNOTIFY    
+#ifdef HAVE_LIBNOTIFY
 #if (LIBNOTIFY_VERSION_MINOR >= 3)
 static NotifyNotification *global_notify = NULL;
 #elif (LIBNOTIFY_VERSION_MINOR == 2)
@@ -84,14 +84,14 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
     GB_LOG_FUNC
     g_return_val_if_fail(subject != NULL, FALSE);
     g_return_val_if_fail(content != NULL, FALSE);
-#ifdef HAVE_LIBNOTIFY    
+#ifdef HAVE_LIBNOTIFY
 #if (LIBNOTIFY_VERSION_MINOR >= 3)
 	gint x, y;
 	global_notify = notify_notification_new (subject, content, "", NULL);
 	/* not sure if we have to free the pixbuf since it could be used internally in libnotify
-	   have to investigate further also need supply the full path of the filename 
+	   have to investigate further also need supply the full path of the filename
        with the auto* magic stuff*/
-    GdkPixbuf *icon_pixbuf = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);    
+    GdkPixbuf *icon_pixbuf = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
     /* I think they changed the api between 0.3.0 and 0.3.1+ */
 #if (LIBNOTIFY_VERSION_MINOR <= 3 && LIBNOTIFY_VERSION_MICRO < 2)
     notify_notification_set_icon_data_from_pixbuf(global_notify, icon_pixbuf);
@@ -100,14 +100,14 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
 #endif
     notify_notification_set_timeout (global_notify, timeout_seconds * MILISECONDS_IN_SECOND);
 
-	/*if (point) 
+	/*if (point)
     {
 		glibnotify_get_widget_position (point, &x, &y);
 		notify_notification_set_hint_int32 (global_notify, "x", x);
 		notify_notification_set_hint_int32 (global_notify, "y", y);
 	}*/
 
-	if (!notify_notification_show(global_notify, NULL)) 
+	if (!notify_notification_show(global_notify, NULL))
     {
 		GB_TRACE("gb_libnotify_notification - failed to send notification [%s]\n", content);
 		return FALSE;
@@ -116,7 +116,7 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
     NotifyHints *hints = NULL;
     gint x, y;
 
-    /*if (point) 
+    /*if (point)
     {
         glibnotify_get_widget_position (point, &x, &y);
         hints = notify_hints_new();
@@ -136,13 +136,13 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
                NULL, /* no user data */
                0);   /* no actions */
     notify_icon_destroy(icon);
-    if(!global_notify) 
+    if(!global_notify)
     {
         GB_TRACE("gb_libnotify_notification - failed to send notification [%s]\n", content);
         return FALSE;
     }
 #endif
-#endif    
+#endif
 	return TRUE;
 }
 
@@ -152,13 +152,13 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
  */
 gboolean
 gblibnotify_clear (void)
-{    
+{
     GB_LOG_FUNC
-#ifdef HAVE_LIBNOTIFY    
-#if (LIBNOTIFY_VERSION_MINOR >= 3)    
+#ifdef HAVE_LIBNOTIFY
+#if (LIBNOTIFY_VERSION_MINOR >= 3)
     if (global_notify)
         notify_notification_close (global_notify, NULL);
-#elif (LIBNOTIFY_VERSION_MINOR == 2)	
+#elif (LIBNOTIFY_VERSION_MINOR == 2)
     if (global_notify)
         notify_close (global_notify);
 #endif
@@ -180,14 +180,14 @@ gblibnotify_init(const gchar *nice_name)
     GB_LOG_FUNC
     g_return_val_if_fail(nice_name != NULL, FALSE);
     gboolean ret = TRUE;
-#ifdef HAVE_LIBNOTIFY        
+#ifdef HAVE_LIBNOTIFY
     global_notify = NULL;
-#if (LIBNOTIFY_VERSION_MINOR >= 3)        
+#if (LIBNOTIFY_VERSION_MINOR >= 3)
 	ret = notify_init (nice_name);
-#elif (LIBNOTIFY_VERSION_MINOR == 2)    
+#elif (LIBNOTIFY_VERSION_MINOR == 2)
     ret = notify_glib_init (nice_name, NULL);
 #endif
-    if(!ret)    
+    if(!ret)
         GB_TRACE("gblibnotify_init - Failed to initialise libnotify");
 #endif
 	return ret;

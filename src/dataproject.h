@@ -50,20 +50,20 @@ G_BEGIN_DECLS
     DATAPROJECT_TYPE_WIDGET, DataProjectClass))
 
 
-typedef struct 
+typedef struct
 {
     Project parent;
-    
+
     GtkTreeView *tree;
     GtkTreeView *list;
-        
+
     /* This will store all the data. The tree view will use a GtkTreeModelFilter and the globalStore as a child node.
      * It will use a filter function to hide non-dir elements.
      * This way all the changes done in the tree view are automatically performed on the globalStore.
      * Iters can be mapped betwenn both models, so we can update correctly the list view.
      */
     GtkTreeStore *dataproject_compilation_store;
-    
+
     /* As the filtering trick doesn´t work for the list view, it needs its own GtkListStore.
      * We fill it with the children of the row selected in the tree view. The problem is that we need to be able
      * to perform the changes we do in the list view also in the g_compilationStore, so we need a row reference for the current node
@@ -72,28 +72,28 @@ typedef struct
      * is updated then automatically (since it only filters g_compilationStore). When adding new elements, first add them
      * to g_compilationStore, and then add them to the list with the row_reference
      * */
-    
+
     GtkTreeRowReference *dataproject_current_node;
-    
+
     /*I think this is better than relying in the progressbar to store the size*/
     guint64 dataproject_compilation_size;
-    gchar *msinfo;    
+    gchar *msinfo;
     gdouble data_disk_size;
-    
+
     /* callback id, so we can block it! */
     gulong sel_changed_id;
-    
+
     /* TODO these are something to do with drag motion - make private */
     GtkTreePath *last_path; /* NULL */
     guint expand_timeout_id;
     guint autoscroll_timeout_id;
     GList *rowref_list;
     gboolean is_dvd;
-    
+
 } DataProject;
 
 
-typedef struct 
+typedef struct
 {
     ProjectClass parent_class;
 } DataProjectClass;

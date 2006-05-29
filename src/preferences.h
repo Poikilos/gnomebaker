@@ -64,7 +64,7 @@
 #define GB_SCROLL_OUTPUT		    GB_BASE_KEY "/UI/ScrollOutput"
 
 #define GB_DEVICE_FORMAT 			"Device%.2d"
-#define GB_DEVICES_KEY				GB_BASE_KEY "/Devices" 
+#define GB_DEVICES_KEY				GB_BASE_KEY "/Devices"
 #define GB_DEVICE_KEY				GB_DEVICES_KEY "/" GB_DEVICE_FORMAT
 
 #define GB_DEVICE_NAME_LABEL		"/DeviceName"

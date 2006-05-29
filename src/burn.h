@@ -44,7 +44,7 @@ void burn_append_data_dvd(const gchar *arguments_file, const gchar *msinfo);
 void burn_format_dvdrw();
 void burn_create_audio_cd(GSList *media_infos);
 
-typedef enum 
+typedef enum
 {
 	blank_cdrw = 0,
 	copy_data_cd,
@@ -64,7 +64,7 @@ typedef enum
 	BurnTypeCount
 } BurnType;
 
-static const gchar *BurnTypeText[BurnTypeCount] = 
+static const gchar *BurnTypeText[BurnTypeCount] =
 {
 	N_("Blank CD-RW"),
 	N_("Copy Data CD"),

@@ -29,17 +29,17 @@
 
 
 GConfClient *gconf_client = NULL;
-	
+
 
 gboolean
 preferences_init()
 {
 	GB_LOG_FUNC
-	
+
 	gboolean ok = FALSE;
 	g_type_init();
 	gconf_client = gconf_client_get_default();
-	if(gconf_client == NULL) 
+	if(gconf_client == NULL)
 	{
 		g_warning("preferences_init - Failed to initialise gconf");
 	}
@@ -47,15 +47,15 @@ preferences_init()
 	{
 		gchar *temp_dir = preferences_get_string(GB_TEMP_DIR);
 		if(temp_dir == NULL)
-		{		
+		{
 		    gchar *temp_string = g_strdup_printf("GnomeBaker-%s", g_get_user_name());
-			temp_dir = g_build_filename(g_get_tmp_dir(), temp_string, NULL);		
+			temp_dir = g_build_filename(g_get_tmp_dir(), temp_string, NULL);
 			g_free(temp_string);
             temp_string = NULL;
-					
-			/* set up default values */			
+
+			/* set up default values */
 			preferences_set_string(GB_READER, "Device01");
-			preferences_set_string(GB_WRITER, "Device01");			
+			preferences_set_string(GB_WRITER, "Device01");
 			preferences_set_int(GB_CDWRITE_SPEED, 4);
 			preferences_set_int(GB_DVDWRITE_SPEED, 2);
 			preferences_set_bool(GB_DUMMY, FALSE);
@@ -80,17 +80,17 @@ preferences_init()
             preferences_set_int(GB_DATA_DISK_SIZE, 0);
             preferences_set_int(GB_AUDIO_DISK_SIZE, 0);
             preferences_set_bool(GB_CDRECORD_FORCE, FALSE);
-            
+
             gchar *last_iso = preferences_get_default_iso();
             preferences_set_string(GB_LAST_ISO, last_iso);
             g_free(last_iso);
-		}		
-		
+		}
+
 		gbcommon_mkdir(temp_dir);
-		g_free(temp_dir);			
+		g_free(temp_dir);
 		ok = TRUE;
 	}
-		
+
 	return ok;
 }
 
@@ -99,7 +99,7 @@ void
 preferences_finalise()
 {
     GB_LOG_FUNC
-    g_object_unref(G_OBJECT(gconf_client));   
+    g_object_unref(G_OBJECT(gconf_client));
 }
 
 
@@ -151,20 +151,20 @@ preferences_get_convert_audio_track_dir()
 gchar*
 preferences_get_default_iso()
 {
-    GB_LOG_FUNC   
-    return g_build_filename(g_get_home_dir(), "gnomebaker.iso", NULL); 
+    GB_LOG_FUNC
+    return g_build_filename(g_get_home_dir(), "gnomebaker.iso", NULL);
 }
 
 
-GtkToolbarStyle  
+GtkToolbarStyle
 preferences_get_toolbar_style()
 {
 	GB_LOG_FUNC
 	GtkToolbarStyle ret = GTK_TOOLBAR_BOTH;
-	
+
 	gchar *style = gconf_client_get_string(gconf_client, GNOME_TOOLBAR_STYLE, NULL);
-	g_return_val_if_fail(style != NULL, ret);		
-			
+	g_return_val_if_fail(style != NULL, ret);
+
 	if(g_ascii_strcasecmp(style, "both-horiz") == 0)
 		ret = GTK_TOOLBAR_BOTH_HORIZ;
 	else if(g_ascii_strcasecmp(style, "icons") == 0)
@@ -173,10 +173,10 @@ preferences_get_toolbar_style()
 		ret = GTK_TOOLBAR_TEXT;
 	else if(g_ascii_strcasecmp(style, "both") == 0)
 		ret = GTK_TOOLBAR_BOTH;
-	
+
 	GB_TRACE("preferences_get_toolbar_style - toolbar style [%s] [%d]\n", style, ret);
 	g_free(style);
-	
+
 	return ret;
 }
 
@@ -190,7 +190,7 @@ preferences_get_string(const gchar *key)
 }
 
 
-gboolean 
+gboolean
 preferences_get_bool(const gchar *key)
 {
 	GB_LOG_FUNC
@@ -199,7 +199,7 @@ preferences_get_bool(const gchar *key)
 }
 
 
-gint 
+gint
 preferences_get_int(const gchar *key)
 {
 	GB_LOG_FUNC
@@ -208,7 +208,7 @@ preferences_get_int(const gchar *key)
 }
 
 
-gboolean 
+gboolean
 preferences_set_string(const gchar *key, const gchar *value)
 {
 	GB_LOG_FUNC
@@ -217,7 +217,7 @@ preferences_set_string(const gchar *key, const gchar *value)
 }
 
 
-gboolean 
+gboolean
 preferences_set_bool(const gchar *key, const gboolean value)
 {
 	GB_LOG_FUNC
@@ -226,38 +226,38 @@ preferences_set_bool(const gchar *key, const gboolean value)
 }
 
 
-gboolean 
+gboolean
 preferences_set_int(const gchar *key, const gint value)
 {
 	GB_LOG_FUNC
 	g_return_val_if_fail(key != NULL, FALSE);
-	return gconf_client_set_int(gconf_client, key, value, NULL);	
+	return gconf_client_set_int(gconf_client, key, value, NULL);
 }
 
 
-gboolean 
+gboolean
 preferences_key_exists(const gchar *key)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(key != NULL, FALSE);	
+	g_return_val_if_fail(key != NULL, FALSE);
 	return gconf_client_dir_exists(gconf_client, key, NULL);
 }
 
 
-GSList* 
+GSList*
 preferences_get_key_subkeys(const gchar *key)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(key != NULL, NULL);	
+	g_return_val_if_fail(key != NULL, NULL);
 	return gconf_client_all_dirs(gconf_client, key, NULL);
 }
 
 
-gboolean 
+gboolean
 preferences_delete_key(const gchar *key)
 {
 	GB_LOG_FUNC
-	g_return_val_if_fail(key != NULL, FALSE);	
+	g_return_val_if_fail(key != NULL, FALSE);
 	return gconf_client_unset(gconf_client, key, NULL);
 }
 
@@ -266,8 +266,8 @@ void
 preferences_register_notify(const gchar *key, GConfClientNotifyFunc func, gpointer user_data)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(key != NULL);	
-	g_return_if_fail(func != NULL);	
+	g_return_if_fail(key != NULL);
+	g_return_if_fail(func != NULL);
 	gconf_client_add_dir(gconf_client, key, GCONF_CLIENT_PRELOAD_NONE, NULL);
-	gconf_client_notify_add(gconf_client, key, func, user_data, NULL, NULL);	
+	gconf_client_notify_add(gconf_client, key, func, user_data, NULL, NULL);
 }

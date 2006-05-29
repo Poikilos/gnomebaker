@@ -18,8 +18,8 @@
  * Copyright: gnomebaker@curo.dk
  * Created on: Sun Feb  6 21:47:13 2005
  */
- 
- 
+
+
 #ifndef _MEDIA_H_
 #define _MEDIA_H_
 
@@ -37,7 +37,7 @@ enum
 };
 
 
-typedef struct 
+typedef struct
 {
 	GstElement *pipeline;
     GstElement *source;
@@ -59,25 +59,25 @@ typedef struct
 {
 	GString *mime_type;
 	GString *gst_plugin_name;
-	PluginStatus status;	
+	PluginStatus status;
 } PluginInfo;
 
- 
-typedef struct 
+
+typedef struct
 {
     PluginStatus status;
     gchar *mime_type;
     gchar *file_name;
     GString *artist;
     GString *album;
-    GString *title; 
+    GString *title;
     gulong duration;
     gulong bit_rate;
     GString *formatted_duration;
     GError *error;
 } MediaInfo;
- 
- 
+
+
 void media_init();
 void media_finalise();
 MediaInfo *media_info_new(const gchar *media_file);

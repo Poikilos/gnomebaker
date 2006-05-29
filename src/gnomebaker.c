@@ -18,7 +18,7 @@
  * Copyright: luke_biddell@yahoo.com
  * Created on: Tue Apr  6 23:28:51 2004
  */
- 
+
 /* This is for bonobo_dock_item_set_locked */
 #define BONOBO_UI_INTERNAL
 
@@ -79,9 +79,9 @@ gnomebaker_on_show_human_readable_file_sizes(GtkCheckMenuItem *check_menu_item, 
 {
     GB_LOG_FUNC
     g_return_if_fail(check_menu_item != NULL);
-    
+
     gboolean show = gtk_check_menu_item_get_active(check_menu_item);
-    preferences_set_bool(GB_SHOWHUMANSIZE, show);    
+    preferences_set_bool(GB_SHOWHUMANSIZE, show);
 }
 
 
@@ -90,9 +90,9 @@ gnomebaker_on_show_hidden_files(GtkCheckMenuItem *check_menu_item, gpointer user
 {
     GB_LOG_FUNC
     g_return_if_fail(check_menu_item != NULL);
-    
+
     gboolean show = gtk_check_menu_item_get_active(check_menu_item);
-    preferences_set_bool(GB_SHOWHIDDEN, show);    
+    preferences_set_bool(GB_SHOWHIDDEN, show);
 }
 
 
@@ -101,51 +101,51 @@ gnomebaker_on_show_file_browser(GtkCheckMenuItem *check_menu_item, gpointer user
 {
 	GB_LOG_FUNC
 	g_return_if_fail(check_menu_item != NULL);
-	
+
 	gboolean show = gtk_check_menu_item_get_active(check_menu_item);
 	preferences_set_bool(GB_SHOW_FILE_BROWSER, show);
-    
+
     if(show) gtk_widget_show(glade_xml_get_widget(xml, widget_middle_toolbar));
-    else gtk_widget_hide(glade_xml_get_widget(xml, widget_middle_toolbar));   
-    
+    else gtk_widget_hide(glade_xml_get_widget(xml, widget_middle_toolbar));
+
     if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_add_button_alt));
     else gtk_widget_hide(glade_xml_get_widget(xml, widget_add_button_alt));
-    
+
     if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_remove_button_alt));
     else gtk_widget_hide(glade_xml_get_widget(xml, widget_remove_button_alt));
-    
+
     if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_clear_button_alt));
     else gtk_widget_hide(glade_xml_get_widget(xml, widget_clear_button_alt));
-    
+
     if(!show) gtk_widget_show(glade_xml_get_widget(xml, "separatortoolitem9"));
     else gtk_widget_hide(glade_xml_get_widget(xml, "separatortoolitem9"));
-    
+
     if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_up_alt));
     else gtk_widget_hide(glade_xml_get_widget(xml, widget_up_alt));
-    
+
     if(!show) gtk_widget_show(glade_xml_get_widget(xml, widget_down_alt));
     else gtk_widget_hide(glade_xml_get_widget(xml, widget_down_alt));
-				
+
 	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_menu), show);
-	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_button), show);	
-#ifndef USE_GTK_FILE_CHOOSER       	
+	gtk_widget_set_sensitive(glade_xml_get_widget(xml, widget_refresh_button), show);
+#ifndef USE_GTK_FILE_CHOOSER
 
     if(!show) gtk_widget_show(glade_xml_get_widget(xml, "separatortoolitem8"));
     else gtk_widget_hide(glade_xml_get_widget(xml, "separatortoolitem8"));
-    
-	GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);	
+
+	GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);
 	if(show) gtk_widget_show(hpaned3);
-	else gtk_widget_hide(hpaned3);    
+	else gtk_widget_hide(hpaned3);
 #else
     gtk_widget_hide(glade_xml_get_widget(xml, "separatortoolitem8"));
 
     if(show) gtk_widget_show(file_chooser);
-    else gtk_widget_hide(file_chooser);    
-#endif    
+    else gtk_widget_hide(file_chooser);
+#endif
 }
 
 
-static void 
+static void
 gnomebaker_on_toolbar_style_changed(GConfClient *client,
                                    guint cnxn_id,
                                    GConfEntry *entry,
@@ -154,8 +154,8 @@ gnomebaker_on_toolbar_style_changed(GConfClient *client,
 	GB_LOG_FUNC
 	GtkWidget *top_toolbar = glade_xml_get_widget(xml, widget_top_toolbar);
 	gtk_toolbar_set_style(GTK_TOOLBAR(top_toolbar), preferences_get_toolbar_style());
-	
-	GtkWidget *middle_toolbar = glade_xml_get_widget(xml, widget_middle_toolbar);	
+
+	GtkWidget *middle_toolbar = glade_xml_get_widget(xml, widget_middle_toolbar);
 	gtk_toolbar_set_style(GTK_TOOLBAR(middle_toolbar), preferences_get_toolbar_style());
 
 	GtkWidget *top_toolbar_dock = glade_xml_get_widget(xml, widget_top_toolbar_dock);
@@ -179,11 +179,11 @@ gnomebaker_get_current_project()
 {
     GB_LOG_FUNC
     GtkNotebook *notebook = GTK_NOTEBOOK(glade_xml_get_widget(xml, widget_project_notebook));
-    g_return_if_fail(notebook != NULL); 
+    g_return_if_fail(notebook != NULL);
     Project *project = PROJECT_WIDGET(gtk_notebook_get_nth_page(notebook,
             gtk_notebook_get_current_page(notebook)));
     return project;
-}            
+}
 
 
 void
@@ -200,20 +200,20 @@ gnomebaker_delete(GtkWidget *self)
 
 
 gint
-gnomebaker_show_msg_dlg(GtkWindow *parent, GtkMessageType type, 
+gnomebaker_show_msg_dlg(GtkWindow *parent, GtkMessageType type,
     GtkButtonsType buttons, GtkButtonsType additional, const gchar  *message)
 {
 	GB_LOG_FUNC
-	GB_TRACE("gnomebaker_show_msg_dlg - message [%s]\n", message);		
-	
+	GB_TRACE("gnomebaker_show_msg_dlg - message [%s]\n", message);
+
 	GtkWidget *dialog = gtk_message_dialog_new(
-            parent == NULL ? GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker)) : parent, 
+            parent == NULL ? GTK_WINDOW(glade_xml_get_widget(xml, widget_gnomebaker)) : parent,
 		    GTK_DIALOG_DESTROY_WITH_PARENT, type, buttons, message);
-	
+
 	/*if(additional != GTK_BUTTONS_NONE)
 		gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);*/
 
-	gint result = gtk_dialog_run(GTK_DIALOG(dialog));	
+	gint result = gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy(dialog);
 
 	return result;
@@ -224,8 +224,8 @@ void /* libglade callback */
 gnomebaker_on_quit(GtkMenuItem *menu_item, gpointer user_data)
 {
 	GB_LOG_FUNC
-	
-	gint response = GTK_RESPONSE_OK;	
+
+	gint response = GTK_RESPONSE_OK;
 	if(preferences_get_bool(GB_ASK_ON_QUIT))
 	{
         response = gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
@@ -234,48 +234,48 @@ gnomebaker_on_quit(GtkMenuItem *menu_item, gpointer user_data)
     switch(response)
     {
     case GTK_RESPONSE_OK:
-    
-        /* Clean out the temporary files directory if we're told to */		
+
+        /* Clean out the temporary files directory if we're told to */
         if(preferences_get_bool(GB_CLEANTEMPDIR))
         {
             gchar *copy_data_iso = preferences_get_copy_data_cd_image();
             gchar *create_data_iso = preferences_get_create_data_cd_image();
             gchar *audio_dir = preferences_get_convert_audio_track_dir();
-            
+
             gchar *tmp = preferences_get_string(GB_TEMP_DIR);
-            gchar *cmd = g_strdup_printf("rm -fr %s %s %s %s/gbtrack*", 
+            gchar *cmd = g_strdup_printf("rm -fr %s %s %s %s/gbtrack*",
                 copy_data_iso, create_data_iso, audio_dir, tmp);
             system(cmd);
-            
+
             g_free(tmp);
             g_free(cmd);
             g_free(copy_data_iso);
             g_free(create_data_iso);
             g_free(audio_dir);
         }
-        
+
         /* Save main window position and size if not maximized */
     	if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED) != TRUE)
     	{
             GtkWidget *main_window = glade_xml_get_widget(xml, widget_gnomebaker);
-    
+
         	gint width, height, x, y;
             gtk_window_get_size(GTK_WINDOW(main_window), &width, &height);
             gtk_window_get_position(GTK_WINDOW(main_window), &x, &y);
-    
+
             preferences_set_int(GB_MAIN_WINDOW_WIDTH, width);
             preferences_set_int(GB_MAIN_WINDOW_HEIGHT, height);
             preferences_set_int(GB_MAIN_WINDOW_POSITION_X, x);
             preferences_set_int(GB_MAIN_WINDOW_POSITION_Y, y);
     	}
-        
+
         gtk_main_quit();
         break;
     case GTK_RESPONSE_CANCEL:
         break;
     default:
         break;
-    }	
+    }
 }
 
 
@@ -283,7 +283,7 @@ void /* libglade callback */
 gnomebaker_on_blank_cdrw(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-	burn_blank_cdrw();	
+	burn_blank_cdrw();
 }
 
 
@@ -291,8 +291,8 @@ static gboolean
 gnomebaker_cd_image_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
 {
     GB_LOG_FUNC
-    if(gbcommon_str_has_suffix(filter_info->filename, ".cue") || 
-            gbcommon_str_has_suffix(filter_info->filename, ".toc") || 
+    if(gbcommon_str_has_suffix(filter_info->filename, ".cue") ||
+            gbcommon_str_has_suffix(filter_info->filename, ".toc") ||
             (g_ascii_strcasecmp(filter_info->mime_type, "application/x-cd-image") == 0))
         return TRUE;
     return FALSE;
@@ -307,7 +307,7 @@ gnomebaker_on_burn_iso(gpointer widget, gpointer user_data)
     gtk_file_filter_add_custom(image_filter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
             gnomebaker_cd_image_file_filter, NULL, NULL);
     gtk_file_filter_set_name(image_filter,_("CD Image files"));
-	gchar *file = gbcommon_show_file_chooser(_("Please select a CD image file."), 
+	gchar *file = gbcommon_show_file_chooser(_("Please select a CD image file."),
             GTK_FILE_CHOOSER_ACTION_OPEN, image_filter, TRUE, NULL);
 	if(file != NULL)
 		burn_cd_image_file(file);
@@ -323,7 +323,7 @@ gnomebaker_on_burn_dvd_iso(gpointer widget, gpointer user_data)
     gtk_file_filter_add_custom(image_filter, GTK_FILE_FILTER_MIME_TYPE,
             gbcommon_iso_file_filter, NULL, NULL);
     gtk_file_filter_set_name(image_filter,_("DVD Image files"));
-	gchar *file = gbcommon_show_file_chooser(_("Please select a DVD image file."), 
+	gchar *file = gbcommon_show_file_chooser(_("Please select a DVD image file."),
             GTK_FILE_CHOOSER_ACTION_OPEN, image_filter, TRUE, NULL);
 	if(file != NULL)
         burn_dvd_iso(file);
@@ -408,19 +408,19 @@ gnomebaker_on_about(GtkMenuItem *menu_item, gpointer user_data)
     }
 	else
 	{
-		const gchar *authors[] = {"Luke Biddell", "Ignacio Martín", "Milen Dzhumerov", 
+		const gchar *authors[] = {"Luke Biddell", "Ignacio Martín", "Milen Dzhumerov",
                 "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", "Adam Biddell (Sounds)", NULL};
 		const gchar *documenters[] = {"Milen Dzhumerov", NULL};
-		about = gnome_about_new(_("GnomeBaker"), PACKAGE_VERSION, "GPL", 
-                _("Simple CD/DVD Burning for Gnome"), authors, documenters, _("translator_credits"), 
+		about = gnome_about_new(_("GnomeBaker"), PACKAGE_VERSION, "GPL",
+                _("Simple CD/DVD Burning for Gnome"), authors, documenters, _("translator_credits"),
 			gdk_pixbuf_new_from_file(IMAGEDIR"/splash_2.png", NULL));
 		g_object_add_weak_pointer(G_OBJECT(about), (void**)&about);
-		gtk_widget_show(about);	
+		gtk_widget_show(about);
 	}
 }
 
 
-GladeXML* 
+GladeXML*
 gnomebaker_getxml()
 {
 	GB_LOG_FUNC
@@ -428,9 +428,9 @@ gnomebaker_getxml()
 }
 
 
-void 
+void
 gnomebaker_show_busy_cursor(gboolean is_busy)
-{	
+{
 	GB_LOG_FUNC
 	if(is_busy)
 		gbcommon_start_busy_cursor1(xml, widget_gnomebaker);
@@ -443,9 +443,9 @@ void /* libglade callback */
 gnomebaker_on_add_dir(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
-    
+
     GtkSelectionData *selection_data = filebrowser_get_selection(TRUE);
-    project_add_selection(gnomebaker_get_current_project(), selection_data);        
+    project_add_selection(gnomebaker_get_current_project(), selection_data);
     gtk_selection_data_free(selection_data);
 }
 
@@ -454,15 +454,15 @@ void /* libglade callback */
 gnomebaker_on_add_files(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-    
+
     GtkSelectionData *selection_data = NULL;
-    
+
     /* If we're not showing the file browser we popup an file selector dialog when
     we press + */
     if(preferences_get_bool(GB_SHOW_FILE_BROWSER))
     {
-#ifndef USE_GTK_FILE_CHOOSER       
-        selection_data = filebrowser_get_selection(FALSE);        
+#ifndef USE_GTK_FILE_CHOOSER
+        selection_data = filebrowser_get_selection(FALSE);
 #else
         GSList *file = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(file_chooser));
         int index = 0;
@@ -476,10 +476,10 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
             g_free((gchar*)file->data);
             /*uris[index++] = (gchar*)file->data;*/
         }
-        
+
         /*gtk_selection_data_set_uris(selection_data, uris);*/
-        selection_data = g_new0(GtkSelectionData, 1);                    
-        gtk_selection_data_set(selection_data, selection_data->target, 8, 
+        selection_data = g_new0(GtkSelectionData, 1);
+        gtk_selection_data_set(selection_data, selection_data->target, 8,
                 (const guchar*)text->str, strlen(text->str) * sizeof(gchar));
         GB_TRACE("gnomebaker_on_add_files - [%s]\n", selection_data->data);
         g_slist_free(file);
@@ -487,17 +487,17 @@ gnomebaker_on_add_files(gpointer widget, gpointer user_data)
 #endif
         if(selection_data != NULL)
         {
-            project_add_selection(gnomebaker_get_current_project(), selection_data);        
+            project_add_selection(gnomebaker_get_current_project(), selection_data);
             gtk_selection_data_free(selection_data);
         }
-    }        
+    }
 }
 
 
 void /* libglade callback */
 gnomebaker_on_remove(gpointer widget, gpointer user_data)
 {
-	GB_LOG_FUNC	
+	GB_LOG_FUNC
 	project_remove(gnomebaker_get_current_project());
 }
 
@@ -510,28 +510,28 @@ gnomebaker_on_clear(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void
 gnomebaker_update_status(const gchar *status)
 {
 	GB_LOG_FUNC
 	GtkWidget *app_bar = glade_xml_get_widget(xml, widget_appbar);
-	g_return_if_fail(app_bar != NULL);	
-	
+	g_return_if_fail(app_bar != NULL);
+
 	if(status == NULL || strlen(status) == 0)
 		gnome_appbar_pop(GNOME_APPBAR(app_bar));
 	else
-		gnome_appbar_push(GNOME_APPBAR(app_bar), status);	
+		gnome_appbar_push(GNOME_APPBAR(app_bar), status);
 }
 
 
-void 
+void
 gnomebaker_enable_widget(const gchar *widget_name, gboolean enabled)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(widget_name != NULL);
 	g_return_if_fail(xml != NULL);
 	GtkWidget *widget = glade_xml_get_widget(xml, widget_name);
-	g_return_if_fail(widget != NULL);	
+	g_return_if_fail(widget != NULL);
 	gtk_widget_set_sensitive(widget, enabled);
 }
 
@@ -540,14 +540,14 @@ void /* libglade callback */
 gnomebaker_on_refresh(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-	filebrowser_refresh();	
+	filebrowser_refresh();
 }
 
 
 void /* libglade callback */
 gnomebaker_on_import(gpointer widget, gpointer user_data)
 {
-	GB_LOG_FUNC	
+	GB_LOG_FUNC
 	project_import_session(gnomebaker_get_current_project());
 }
 
@@ -556,7 +556,7 @@ void /* libglade callback */
 gnomebaker_on_format_dvdrw(gpointer widget, gpointer user_data)
 {
 	GB_LOG_FUNC
-	burn_format_dvdrw();	
+	burn_format_dvdrw();
 }
 
 
@@ -571,7 +571,7 @@ gnomebaker_on_help(gpointer widget, gpointer user_data)
 		gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,
                 GTK_BUTTONS_NONE, error->message);
 		g_error_free(error);
-	}	
+	}
 }
 
 
@@ -598,8 +598,8 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
     GtkWidget *add_alt = glade_xml_get_widget(xml, "toolbutton12");
     GtkWidget *remove_alt = glade_xml_get_widget(xml, "toolbutton13");
     GtkWidget *clear_alt = glade_xml_get_widget(xml, "toolbutton14");
-    
-    GtkWidget *widget = gtk_notebook_get_nth_page(notebook, page_num);                
+
+    GtkWidget *widget = gtk_notebook_get_nth_page(notebook, page_num);
     if(PROJECT_IS_WIDGET(widget))
     {
         gtk_widget_set_sensitive(project_menu, TRUE);
@@ -610,7 +610,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
         gtk_widget_set_sensitive(add_alt, TRUE);
         gtk_widget_set_sensitive(remove_alt, TRUE);
         gtk_widget_set_sensitive(clear_alt, TRUE);
-        
+
         Project *project = PROJECT_WIDGET(widget);
         if(DATAPROJECT_IS_WIDGET(project))
         {
@@ -622,7 +622,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(menu_up, FALSE);
             gtk_widget_set_sensitive(menu_down, FALSE);
             gtk_widget_set_sensitive(export_menu, FALSE);
-        } 
+        }
         else if(AUDIOPROJECT_IS_WIDGET(project))
         {
             gtk_widget_set_sensitive(menu_import, FALSE);
@@ -635,7 +635,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
             gtk_widget_set_sensitive(export_menu, TRUE);
         }
     }
-    else 
+    else
     {
         gtk_widget_set_sensitive(save_menu, FALSE);
         gtk_widget_set_sensitive(save_as_menu, FALSE);
@@ -654,8 +654,8 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
         gtk_widget_set_sensitive(remove_alt, FALSE);
         gtk_widget_set_sensitive(clear_alt, FALSE);
     }
-    
-#ifdef USE_GTK_FILE_CHOOSER        
+
+#ifdef USE_GTK_FILE_CHOOSER
     if(AUDIOPROJECT_IS_WIDGET(widget))
     {
         if(gtk_file_chooser_get_filter(GTK_FILE_CHOOSER(file_chooser)) != audio_filter)
@@ -695,7 +695,7 @@ gnomebaker_on_down(gpointer widget, gpointer user_data)
 }
 
 
-GtkWindow* 
+GtkWindow*
 gnomebaker_get_window()
 {
     GB_LOG_FUNC
@@ -715,7 +715,7 @@ void /* libglade callback */
 gnomebaker_on_export_playlist(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
-    
+
     Project *project = gnomebaker_get_current_project();
     if(AUDIOPROJECT_IS_WIDGET(project))
     {
@@ -723,12 +723,12 @@ gnomebaker_on_export_playlist(gpointer widget, gpointer user_data)
         gtk_file_filter_add_custom(image_filter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
                 gnomebaker_playlist_file_filter, NULL, NULL);
         gtk_file_filter_set_name(image_filter,_("Playlist files"));
-        
+
         GtkWidget *filetypes_combo = gtk_combo_box_new_text();
         gtk_combo_box_append_text(GTK_COMBO_BOX(filetypes_combo), ".m3u");
         gtk_combo_box_append_text(GTK_COMBO_BOX(filetypes_combo), ".pls");
         gtk_combo_box_set_active(GTK_COMBO_BOX(filetypes_combo), 0);
-                
+
         gchar *file = gbcommon_show_file_chooser(_("Save playlist as..."),
                 GTK_FILE_CHOOSER_ACTION_SAVE, image_filter, FALSE, GTK_COMBO_BOX(filetypes_combo));
         audioproject_export_playlist(AUDIOPROJECT_WIDGET(project), file);
@@ -745,8 +745,8 @@ gnomebaker_project_file_filter(const GtkFileFilterInfo *filter_info, gpointer da
 }
 
 
-static GtkFileFilter* 
-gnomebaker_create_project_file_filter() 
+static GtkFileFilter*
+gnomebaker_create_project_file_filter()
 {
     GB_LOG_FUNC
     GtkFileFilter *project_filter = gtk_file_filter_new();
@@ -760,9 +760,9 @@ gnomebaker_create_project_file_filter()
 static GtkWidget*
 gnomebaker_add_project(ProjectType type)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     GtkWidget *project = NULL;
-    switch(type)   
+    switch(type)
     {
         case DATA_CD:
             project = dataproject_new(FALSE);
@@ -777,7 +777,7 @@ gnomebaker_add_project(ProjectType type)
             g_warning("Unknown project type [%d]", type);
             return NULL;
     };
-        
+
     gtk_widget_show(project);
     GtkWidget *notebook = glade_xml_get_widget(xml, widget_project_notebook);
     gint index = gtk_notebook_append_page(GTK_NOTEBOOK(notebook), project, project_get_title_widget(PROJECT_WIDGET(project)));
@@ -789,9 +789,9 @@ gnomebaker_add_project(ProjectType type)
 void /* libglade callback */
 gnomebaker_on_open_project(gpointer widget, gpointer user_data)
 {
-    GB_LOG_FUNC  
-    
-    gchar *file = gbcommon_show_file_chooser(_("Please select a project file."), 
+    GB_LOG_FUNC
+
+    gchar *file = gbcommon_show_file_chooser(_("Please select a project file."),
             GTK_FILE_CHOOSER_ACTION_OPEN, gnomebaker_create_project_file_filter(), FALSE, NULL);
     if(file != NULL)
     {
@@ -813,7 +813,7 @@ gnomebaker_on_open_project(gpointer widget, gpointer user_data)
             xmlFreeDoc(doc);
             /* TODO this may be better done at application exit time */
             xmlCleanupParser();
-        }        
+        }
     }
     g_free(file);
 }
@@ -822,12 +822,12 @@ gnomebaker_on_open_project(gpointer widget, gpointer user_data)
 void /* libglade callback */
 gnomebaker_on_save_project_as(gpointer widget, gpointer user_data)
 {
-    GB_LOG_FUNC   
-    
+    GB_LOG_FUNC
+
     Project *project =gnomebaker_get_current_project();
-    GtkWidget *file_chooser = gtk_file_chooser_dialog_new( _("Save project"), 
-            gnomebaker_get_window(), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_CANCEL, 
-            GTK_RESPONSE_CANCEL, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL); 
+    GtkWidget *file_chooser = gtk_file_chooser_dialog_new( _("Save project"),
+            gnomebaker_get_window(), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_CANCEL,
+            GTK_RESPONSE_CANCEL, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
     const gchar *file = project_get_file(project);
     if(file != NULL)
     {
@@ -843,12 +843,12 @@ gnomebaker_on_save_project_as(gpointer widget, gpointer user_data)
         gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(file_chooser), "project.gbp");
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
     }
-    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), FALSE);        
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), FALSE);
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), gnomebaker_create_project_file_filter());
-    
+
     if(gtk_dialog_run(GTK_DIALOG(file_chooser)) == GTK_RESPONSE_ACCEPT)
     {
-        gchar *file_name = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser));   
+        gchar *file_name = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser));
         project_set_file(project, file_name);
         g_free(file_name);
         project_save(project);
@@ -860,8 +860,8 @@ gnomebaker_on_save_project_as(gpointer widget, gpointer user_data)
 void /* libglade callback */
 gnomebaker_on_save_project(gpointer widget, gpointer user_data)
 {
-    GB_LOG_FUNC   
-    Project *project =gnomebaker_get_current_project();    
+    GB_LOG_FUNC
+    Project *project =gnomebaker_get_current_project();
     if(project_get_file(project) != NULL)
         project_save(project);
     else
@@ -872,14 +872,14 @@ gnomebaker_on_save_project(gpointer widget, gpointer user_data)
 void /* libglade callback */
 gnomebaker_on_save_all(gpointer widget, gpointer user_data)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
 }
 
 
 void /* libglade callback */
 gnomebaker_on_new_data_dvd_project(gpointer widget, gpointer user_data)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     gnomebaker_add_project(DATA_DVD);
 }
 
@@ -887,7 +887,7 @@ gnomebaker_on_new_data_dvd_project(gpointer widget, gpointer user_data)
 void /* libglade callback */
 gnomebaker_on_new_data_cd_project(gpointer widget, gpointer user_data)
 {
-    GB_LOG_FUNC   
+    GB_LOG_FUNC
     gnomebaker_add_project(DATA_CD);
 }
 
@@ -904,12 +904,12 @@ void /* libglade callback */
 gnomebaker_on_import_playlist(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
-        
+
     GtkFileFilter *image_filter = gtk_file_filter_new();
     gtk_file_filter_add_custom(image_filter, GTK_FILE_FILTER_FILENAME | GTK_FILE_FILTER_MIME_TYPE,
             gnomebaker_playlist_file_filter, NULL, NULL);
     gtk_file_filter_set_name(image_filter,_("Playlist files"));
-    gchar *file = gbcommon_show_file_chooser(_("Please select a playlist."), 
+    gchar *file = gbcommon_show_file_chooser(_("Please select a playlist."),
             GTK_FILE_CHOOSER_ACTION_OPEN, image_filter, TRUE, NULL);
     if(file != NULL)
     {
@@ -920,13 +920,13 @@ gnomebaker_on_import_playlist(gpointer widget, gpointer user_data)
 }
 
 
-void 
+void
 gnomebaker_on_close_project(gpointer widget, Project *project)
 {
-    GB_LOG_FUNC   
-    
+    GB_LOG_FUNC
+
     GtkNotebook *notebook = GTK_NOTEBOOK(glade_xml_get_widget(xml, widget_project_notebook));
-    g_return_if_fail(notebook != NULL); 
+    g_return_if_fail(notebook != NULL);
     if(project == NULL)
         project = gnomebaker_get_current_project();
     if(PROJECT_IS_WIDGET(project))
@@ -945,13 +945,13 @@ gnomebaker_on_close_project(gpointer widget, Project *project)
 }
 
 
-static void 
+static void
 gnomebaker_select_files_or_folders(const gchar* text, GtkFileChooserAction action)
 {
     GB_LOG_FUNC
-    
+
     GtkSelectionData *selection_data = NULL;
-    GtkWidget *file_chooser = gtk_file_chooser_dialog_new(text, NULL, action, GTK_STOCK_CANCEL, 
+    GtkWidget *file_chooser = gtk_file_chooser_dialog_new(text, NULL, action, GTK_STOCK_CANCEL,
             GTK_RESPONSE_CANCEL, GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
     gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE);
@@ -959,7 +959,7 @@ gnomebaker_select_files_or_folders(const gchar* text, GtkFileChooserAction actio
     {
         GSList *files = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(file_chooser));
         /*gchar **uris = g_malloc0(g_slist_length(files) * sizeof(gchar*));*/
-        
+
         GSList *file = files;
         int index = 0;
         GString *text = g_string_new("");
@@ -972,10 +972,10 @@ gnomebaker_select_files_or_folders(const gchar* text, GtkFileChooserAction actio
             g_free((gchar*)file->data);
             /*uris[index++] = (gchar*)file->data;*/
         }
-        
+
         /*gtk_selection_data_set_uris(selection_data, uris);*/
-        selection_data = g_new0(GtkSelectionData, 1);                    
-        gtk_selection_data_set(selection_data, selection_data->target, 8, 
+        selection_data = g_new0(GtkSelectionData, 1);
+        gtk_selection_data_set(selection_data, selection_data->target, 8,
             (const guchar*)text->str, strlen(text->str) * sizeof(gchar));
         GB_TRACE("gnomebaker_select_files_or_folders - [%s]\n", selection_data->data);
         g_slist_free(files);
@@ -983,29 +983,29 @@ gnomebaker_select_files_or_folders(const gchar* text, GtkFileChooserAction actio
         g_string_free(text, TRUE);
     }
     gtk_widget_destroy(file_chooser);
-    
+
     if(selection_data != NULL)
     {
-        project_add_selection(gnomebaker_get_current_project(), selection_data);        
+        project_add_selection(gnomebaker_get_current_project(), selection_data);
         gtk_selection_data_free(selection_data);
-    }   
+    }
 }
 
 
 static void
 gnomebaker_on_select_files(GtkWidget *menuitem, gpointer user_data)
-{   
+{
     GB_LOG_FUNC
-    gnomebaker_select_files_or_folders(_("Please select files to add to the disk."), 
+    gnomebaker_select_files_or_folders(_("Please select files to add to the disk."),
             GTK_FILE_CHOOSER_ACTION_OPEN);
 }
 
 
 static void
 gnomebaker_on_select_folders(GtkWidget *menuitem, gpointer user_data)
-{   
+{
     GB_LOG_FUNC
-    gnomebaker_select_files_or_folders(_("Please select folders to add to the disk."), 
+    gnomebaker_select_files_or_folders(_("Please select folders to add to the disk."),
             GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 }
 
@@ -1013,60 +1013,60 @@ gnomebaker_on_select_folders(GtkWidget *menuitem, gpointer user_data)
 void /* libglade callback */
 gnomebaker_on_add_files_alt(gpointer widget, gpointer user_data)
 {
-    GB_LOG_FUNC    
+    GB_LOG_FUNC
     GtkWidget *menu = gtk_menu_new();
-    gbcommon_append_menu_item_stock(menu, _("_Add Folders"), GTK_STOCK_NEW, 
+    gbcommon_append_menu_item_stock(menu, _("_Add Folders"), GTK_STOCK_NEW,
             (GCallback)gnomebaker_on_select_folders, widget);
-    gbcommon_append_menu_item_stock(menu, _("_Add Files"), GTK_STOCK_FILE, 
+    gbcommon_append_menu_item_stock(menu, _("_Add Files"), GTK_STOCK_FILE,
             (GCallback)gnomebaker_on_select_files, widget);
     gtk_widget_show_all(menu);
     gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 0, gdk_event_get_time(NULL));
 }
 
 
-GtkWidget* 
+GtkWidget*
 gnomebaker_new()
 {
-    GB_LOG_FUNC 
-        
-    xml = glade_xml_new(glade_file, widget_gnomebaker, NULL);
-    
-    /* This is important */
-    glade_xml_signal_autoconnect(xml);          
+    GB_LOG_FUNC
 
-    /* set up the tree and lists */ 
-#ifndef USE_GTK_FILE_CHOOSER             
+    xml = glade_xml_new(glade_file, widget_gnomebaker, NULL);
+
+    /* This is important */
+    glade_xml_signal_autoconnect(xml);
+
+    /* set up the tree and lists */
+#ifndef USE_GTK_FILE_CHOOSER
     filebrowser_new();
-#else     
+#else
     file_chooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_OPEN);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE);
     gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
     gtk_widget_show(file_chooser);
     GtkWidget *vpane = glade_xml_get_widget(xml, "vpaned1");
-    GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);   
+    GtkWidget *hpaned3 = glade_xml_get_widget(xml, widget_browser_hpane);
     GtkWidget *tabs = glade_xml_get_widget(xml, "vbox18");
     g_object_ref(tabs);
     gtk_container_remove(GTK_CONTAINER(vpane), hpaned3);
-    gtk_container_remove(GTK_CONTAINER(vpane), tabs);            
+    gtk_container_remove(GTK_CONTAINER(vpane), tabs);
     gtk_paned_pack1(GTK_PANED(vpane), file_chooser, TRUE, TRUE);
     gtk_paned_pack2(GTK_PANED(vpane), tabs, TRUE, TRUE);
-    
+
     audio_filter = gtk_file_filter_new();
     gtk_file_filter_add_custom(audio_filter, GTK_FILE_FILTER_MIME_TYPE,
             gnomebaker_audio_file_filter, NULL, NULL);
     gtk_file_filter_set_name(audio_filter,_("Audio files"));
-    
+
     gtk_widget_hide(glade_xml_get_widget(xml, "separator4"));
     gtk_widget_hide(glade_xml_get_widget(xml, widget_refresh_menu));
-    gtk_widget_hide(glade_xml_get_widget(xml, widget_refresh_button));   
-    
-#endif    
-        
+    gtk_widget_hide(glade_xml_get_widget(xml, widget_refresh_button));
+
+#endif
+
     /* Get and set the default toolbar style */
     gnomebaker_on_toolbar_style_changed(NULL, 0, NULL, NULL);
     preferences_register_notify(GNOME_TOOLBAR_STYLE, gnomebaker_on_toolbar_style_changed, NULL);
     preferences_register_notify(GNOME_TOOLBAR_DETACHABLE, gnomebaker_on_toolbar_style_changed, NULL);
-    
+
     /* Resize and move the window to saved settings */
     GtkWidget *main_window = glade_xml_get_widget(xml, widget_gnomebaker);
     const gint x = preferences_get_int(GB_MAIN_WINDOW_POSITION_X);
@@ -1081,30 +1081,30 @@ gnomebaker_new()
     if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED) == TRUE)
         gtk_window_maximize(GTK_WINDOW(main_window));
 
-    g_main_context_iteration(NULL, TRUE);   
+    g_main_context_iteration(NULL, TRUE);
     gtk_widget_show_all(main_window);
-    
+
     /* TODO - Remove these once the cdrdao copy is done */
     GtkWidget *copy_menu_item = glade_xml_get_widget(xml, "copy_audio_cd1");
     gtk_widget_hide(copy_menu_item);
     copy_menu_item = glade_xml_get_widget(xml, "copy_data_cd1");
     gtk_widget_hide(copy_menu_item);
-    
+
     /* Check preferences to see if we'll show/hide the file browser */
     GtkWidget *check_menu_item = glade_xml_get_widget(xml, widget_show_browser_menu);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
           preferences_get_bool(GB_SHOW_FILE_BROWSER));
-    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
+    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);
 
     check_menu_item = glade_xml_get_widget(xml, widget_show_hidden_files);
 #ifdef USE_GTK_FILE_CHOOSER
     gtk_widget_hide(check_menu_item);
-#else        
+#else
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
             preferences_get_bool(GB_SHOWHIDDEN));
-    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);   
-#endif    
-    
+    g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);
+#endif
+
     check_menu_item = glade_xml_get_widget(xml, widget_show_human_sizes);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
             preferences_get_bool(GB_SHOWHUMANSIZE));
@@ -1113,7 +1113,7 @@ gnomebaker_new()
     /* Force the selection of the first page so we update menu enablement etc */
     gnomebaker_on_notebook_switch_page(GTK_NOTEBOOK(glade_xml_get_widget(xml, widget_project_notebook))
             , NULL, 0, NULL);
-    
+
     return main_window;
 }
 
