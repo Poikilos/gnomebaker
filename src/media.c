@@ -276,11 +276,15 @@ media_info_get_mediafile_info(MediaInfo *info, const gchar *media_file)
     gst_element_link(source, decodebin);
 
     gst_element_set_state (pipeline, GST_STATE_PAUSED);
-    while ((GST_STATE(pipeline) != GST_STATE_PAUSED) && (info->error == NULL))
+    gboolean cont = TRUE;
+    do
     {
+        /* It seems that we must still pump the message loop after we are to 
+         * stop processing the pipeline as there may be tag events remaining */
+        cont = (GST_STATE(pipeline) != GST_STATE_PAUSED) && (info->error == NULL);
         while(gtk_events_pending())
             gtk_main_iteration();
-    }
+    } while (cont);
 
     if(info->duration == 0)
     {
