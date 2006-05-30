@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker 0.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-29 18:59+0100\n"
+"POT-Creation-Date: 2006-05-30 21:11+0100\n"
 "PO-Revision-Date: 2005-10-09 22:13+0100\n"
 "Last-Translator: Филип Милетић <filmil@gmail.com>\n"
 "Language-Team: Serbian (sr) <gnu@prevod.org>\n"
@@ -11,27 +11,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/audioproject.c:126 ../src/cairofillbar.c:672
+#: ../src/audioproject.c:149 ../src/cairofillbar.c:672
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
 msgstr ""
 
-#: ../src/audioproject.c:155
+#: ../src/audioproject.c:178
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "Трака је предугачка да стане на остатак места на диску"
 
-#: ../src/audioproject.c:354
+#: ../src/audioproject.c:378
 #, c-format
 msgid ""
 "The file [%s] referred to in the play_list could not be imported as it does "
 "not exist."
 msgstr ""
 
-#: ../src/audioproject.c:485
+#: ../src/audioproject.c:509
 msgid "Not enough space on the disk"
 msgstr ""
 
-#: ../src/audioproject.c:572
+#: ../src/audioproject.c:596
 #, fuzzy
 msgid ""
 "The file you have selected is not a supported play_list. Please select a pls "
@@ -40,62 +40,66 @@ msgstr ""
 "Датотека коју сте изабрали није отисак диска. Молимо изаберите отисак диска "
 "за нарезивање."
 
-#: ../src/audioproject.c:591 ../src/audioproject.c:628
+#: ../src/audioproject.c:615 ../src/audioproject.c:652
 msgid "Failed to write play_list file"
 msgstr ""
 
-#: ../src/audioproject.c:677
+#: ../src/audioproject.c:701
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audioproject.c:811 ../src/filebrowser.c:577
+#: ../src/audioproject.c:837 ../src/filebrowser.c:577
 msgid "_Open"
 msgstr "&Отвори"
 
-#: ../src/audioproject.c:816
+#: ../src/audioproject.c:842
 msgid "Move selected _up"
 msgstr "Помери изабрано на_горе"
 
-#: ../src/audioproject.c:818
+#: ../src/audioproject.c:844
 msgid "Move selected _down"
 msgstr "Помери изабрано на_доле"
 
-#: ../src/audioproject.c:821 ../src/dataproject.c:1250
+#: ../src/audioproject.c:847 ../src/dataproject.c:1250
 #: ../src/dataproject.c:1287
 msgid "_Remove selected"
 msgstr "_Уклони избор"
 
-#: ../src/audioproject.c:823
+#: ../src/audioproject.c:849
 msgid "_Clear"
 msgstr "_Обриши"
 
-#: ../src/audioproject.c:1008
-msgid "Track"
-msgstr "Трака"
+#: ../src/audioproject.c:1035
+msgid "No."
+msgstr ""
 
-#: ../src/audioproject.c:1021
+#: ../src/audioproject.c:1047
 msgid "Duration"
 msgstr "Трајање"
 
-#: ../src/audioproject.c:1038
+#: ../src/audioproject.c:1056
 msgid "Artist"
 msgstr "Извођач"
 
-#: ../src/audioproject.c:1047
+#: ../src/audioproject.c:1065
 msgid "Album"
 msgstr "Албум"
 
-#: ../src/audioproject.c:1056
+#: ../src/audioproject.c:1074
 msgid "Title"
 msgstr "Наслов"
 
-#: ../src/audioproject.c:1065
+#: ../src/audioproject.c:1083
+msgid "Track"
+msgstr "Трака"
+
+#: ../src/audioproject.c:1100
 msgid "Info"
 msgstr ""
 
-#: ../src/audioproject.c:1096
+#: ../src/audioproject.c:1131
 #, fuzzy
 msgid "<b>Audio CD</b>"
 msgstr "<b>Аудио диск</b>"
@@ -268,7 +272,7 @@ msgstr ""
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr ""
 
-#: ../src/burn.c:485 ../src/execfunctions.c:1661
+#: ../src/burn.c:485 ../src/execfunctions.c:1681
 msgid "Verifying the disk content"
 msgstr ""
 
@@ -287,7 +291,7 @@ msgstr ""
 msgid "%s of %s used. <b>Disk full</b>."
 msgstr ""
 
-#: ../src/dataproject.c:178 ../src/startdlg.c:560
+#: ../src/dataproject.c:178 ../src/startdlg.c:589
 msgid "GnomeBaker data disk"
 msgstr ""
 
@@ -405,28 +409,27 @@ msgstr ""
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:143
+#: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #. current_track, cdrecord_first_track, current, total, total_fraction);
-#: ../src/execfunctions.c:200
+#: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:287 ../src/execfunctions.c:1006
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../src/startdlg.c:202
-#: ../src/startdlg.c:203 ../gnomebaker.glade.h:106
-msgid "default"
-msgstr "подразумевано"
+#: ../src/execfunctions.c:292 ../src/execfunctions.c:1015
+#: ../src/startdlg.c:208 ../src/startdlg.c:234 ../src/startdlg.c:235
+msgid "Auto"
+msgstr ""
 
-#: ../src/execfunctions.c:403
+#: ../src/execfunctions.c:411
 msgid "Preparing to extract audio tracks"
 msgstr ""
 
-#: ../src/execfunctions.c:414
+#: ../src/execfunctions.c:422
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -434,20 +437,20 @@ msgstr ""
 "Аудио траке већ постоје на овом диску од претходних сесија. Да ли желите да "
 "користите постојеће траке?"
 
-#: ../src/execfunctions.c:471
+#: ../src/execfunctions.c:479
 #, c-format
 msgid "Extracting audio track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:541
+#: ../src/execfunctions.c:549
 msgid "Calculating data disk image size"
 msgstr ""
 
-#: ../src/execfunctions.c:579
+#: ../src/execfunctions.c:587
 msgid "Creating data disk image"
 msgstr ""
 
-#: ../src/execfunctions.c:586
+#: ../src/execfunctions.c:594
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -455,39 +458,39 @@ msgstr ""
 "Отисак диска од претходне сесије већ постоји на диску, да ли желите да "
 "користите постојећу слику?"
 
-#: ../src/execfunctions.c:823
+#: ../src/execfunctions.c:831
 msgid "Formatting DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:904
+#: ../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:935 ../src/execfunctions.c:960
+#: ../src/execfunctions.c:943 ../src/execfunctions.c:968
 msgid "Writing DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:1071
+#: ../src/execfunctions.c:1083
 msgid "Reading CD image"
 msgstr ""
 
-#: ../src/execfunctions.c:1079
+#: ../src/execfunctions.c:1091
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1456
+#: ../src/execfunctions.c:1476
 #, c-format
 msgid "Converting %s to cd audio"
 msgstr ""
 
-#: ../src/execfunctions.c:1703
+#: ../src/execfunctions.c:1723
 #, fuzzy
 msgid "Reading DVD image"
 msgstr "<b>Читање отиска CDа...</b>"
 
-#: ../src/execfunctions.c:1711
+#: ../src/execfunctions.c:1731
 #, fuzzy
 msgid ""
 "A DVD image from a previous session already exists on disk, do you wish to "
@@ -496,8 +499,8 @@ msgstr ""
 "Отисак диска од претходне сесије већ постоји на диску, да ли желите да "
 "користите постојећу слику?"
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:383
-#: ../src/startdlg.c:411
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
+#: ../src/startdlg.c:443
 msgid "Filesystem"
 msgstr "Систем датотека"
 
@@ -660,10 +663,14 @@ msgstr "Пријава додатака за Гстример..."
 msgid "Loading GUI..."
 msgstr "Учитавање сучеља..."
 
-#: ../src/media.c:493
+#: ../src/media.c:497
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr "Додатак за обраду датотеке врсте %s није инсталиран."
+
+#: ../src/preferences.c:71 ../src/preferences.c:72 ../gnomebaker.glade.h:106
+msgid "default"
+msgstr "подразумевано"
 
 #: ../src/prefsdlg.c:139
 msgid "Name"
@@ -747,134 +754,134 @@ msgstr "0%"
 msgid "_Burn"
 msgstr "BurnFree"
 
-#: ../src/startdlg.c:98
+#: ../src/startdlg.c:108
 msgid "Please select an image file to save to."
 msgstr ""
 
-#: ../src/startdlg.c:120
+#: ../src/startdlg.c:130
 msgid "CD/DVD Image files"
 msgstr ""
 
-#: ../src/startdlg.c:185
+#: ../src/startdlg.c:195
 #, fuzzy
 msgid "<b>Reader</b>"
 msgstr "<b>Гномов пекар</b>"
 
-#: ../src/startdlg.c:190
+#: ../src/startdlg.c:200
 #, fuzzy
 msgid "<b>Writer</b>"
 msgstr "<b>Нарезивање</b>"
 
-#: ../src/startdlg.c:194
+#: ../src/startdlg.c:204
 msgid "Speed:"
 msgstr ""
 
-#: ../src/startdlg.c:198
+#: ../src/startdlg.c:230
 msgid "Mode:"
 msgstr ""
 
-#: ../src/startdlg.c:221 ../gnomebaker.glade.h:12
+#: ../src/startdlg.c:253 ../gnomebaker.glade.h:12
 msgid "<b>Options</b>"
 msgstr "<b>Опције</b>"
 
-#: ../src/startdlg.c:250 ../gnomebaker.glade.h:102
+#: ../src/startdlg.c:282 ../gnomebaker.glade.h:102
 msgid "_Start"
 msgstr "_Почни"
 
-#: ../src/startdlg.c:313
+#: ../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
 msgstr ""
 
-#: ../src/startdlg.c:315
+#: ../src/startdlg.c:347
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/startdlg.c:318
+#: ../src/startdlg.c:350
 msgid "Application ID:"
 msgstr ""
 
-#: ../src/startdlg.c:321
+#: ../src/startdlg.c:353
 msgid "Preparer:"
 msgstr ""
 
-#: ../src/startdlg.c:324
+#: ../src/startdlg.c:356
 msgid "Publisher:"
 msgstr ""
 
-#: ../src/startdlg.c:327
+#: ../src/startdlg.c:359
 msgid "Copyright:"
 msgstr ""
 
-#: ../src/startdlg.c:330
+#: ../src/startdlg.c:362
 msgid "Abstract:"
 msgstr ""
 
-#: ../src/startdlg.c:333
+#: ../src/startdlg.c:365
 msgid "Bibliography:"
 msgstr ""
 
-#: ../src/startdlg.c:344
+#: ../src/startdlg.c:376
 msgid "<b>Filesystem</b>"
 msgstr ""
 
-#: ../src/startdlg.c:382 ../src/startdlg.c:410
+#: ../src/startdlg.c:414 ../src/startdlg.c:442
 msgid "Writing"
 msgstr ""
 
-#: ../src/startdlg.c:384 ../src/startdlg.c:412
+#: ../src/startdlg.c:416 ../src/startdlg.c:444
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:534
+#: ../src/startdlg.c:563
 msgid "Dummy write"
 msgstr "Симулација уписа"
 
-#: ../src/startdlg.c:535
+#: ../src/startdlg.c:564
 msgid "Eject disk"
 msgstr "Избаци диск"
 
-#: ../src/startdlg.c:536
+#: ../src/startdlg.c:565
 msgid "Fast blank"
 msgstr "Брзо брисање"
 
-#: ../src/startdlg.c:537
+#: ../src/startdlg.c:566
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: ../src/startdlg.c:538
+#: ../src/startdlg.c:567
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:540
+#: ../src/startdlg.c:569
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:543
+#: ../src/startdlg.c:572
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:544
+#: ../src/startdlg.c:573
 msgid "Finalize"
 msgstr "Заврши"
 
-#: ../src/startdlg.c:545
+#: ../src/startdlg.c:574
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:546
+#: ../src/startdlg.c:575
 msgid "Joliet"
 msgstr "Joliet"
 
-#: ../src/startdlg.c:547
+#: ../src/startdlg.c:576
 msgid "Rock Ridge"
 msgstr "Rock Ridge"
 
-#: ../src/startdlg.c:548
+#: ../src/startdlg.c:577
 #, fuzzy
 msgid "On the fly"
 msgstr "У лету"
 
-#: ../src/startdlg.c:558
+#: ../src/startdlg.c:587
 msgid "_Browse..."
 msgstr ""
 
