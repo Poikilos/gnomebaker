@@ -42,6 +42,7 @@ project_init(Project *project)
     g_return_if_fail(PROJECT_IS_WIDGET(project));
 
     project->title = GTK_LABEL(gtk_label_new(""));
+    project->is_dirty = FALSE;
 
     project->close_button = GTK_BUTTON(gtk_button_new());
     g_signal_connect(G_OBJECT(project->close_button), "clicked",
@@ -129,9 +130,19 @@ project_set_title(Project *project, const gchar *title)
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     g_return_if_fail(title != NULL);
 
-    gtk_label_set_label(project->title, title);
+    gchar *title_markup = NULL;
+    if(gbcommon_str_has_suffix(title, ".gbp"))
+    {
+        gchar *title_short = g_strndup(title, strlen(title) - 4);
+        title_markup = g_strdup_printf("<b>%s</b>", title_short);
+        g_free(title_short);
+    }
+    else
+        title_markup = g_strdup_printf("<b>%s</b>", title);
+    gtk_label_set_label(project->title, title_markup);
     gtk_widget_show(GTK_WIDGET(project->title));
     gtk_label_set_use_markup(project->title, TRUE);
+    g_free(title_markup);
 }
 
 
@@ -155,6 +166,7 @@ project_clear(Project *project)
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->clear(project);
+    project_set_dirty(project, TRUE);
 }
 
 
@@ -164,6 +176,7 @@ project_remove(Project *project)
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     PROJECT_WIDGET_GET_CLASS(project)->remove(project);
+    project_set_dirty(project, TRUE);
 }
 
 
@@ -174,6 +187,7 @@ project_add_selection(Project *project, GtkSelectionData *selection)
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     g_return_if_fail(selection != NULL);
     PROJECT_WIDGET_GET_CLASS(project)->add_selection(project, selection);
+    project_set_dirty(project, TRUE);
 }
 
 
@@ -200,7 +214,21 @@ project_set_dirty(Project *project, gboolean dirty)
 {
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
-    project->is_dirty = dirty;
+    if(project->is_dirty != dirty)
+    {
+        project->is_dirty = dirty;
+        const gchar* title = gtk_label_get_text(project->title);
+        gchar *new_title = NULL;
+        if(dirty && title[0] != '*')
+            new_title = g_strdup_printf("*%s", title);
+        else if(!dirty && title[0] == '*')
+            new_title = g_strdup(++title);
+        if(new_title != NULL)
+        {
+            project_set_title(project, new_title);
+            g_free(new_title);
+        }
+    }
 }
 
 
@@ -219,8 +247,22 @@ project_save(Project *project)
 {
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
-    PROJECT_WIDGET_GET_CLASS(project)->save(project);
-    /*xmlSaveFormatFile (docname, doc, 1);*/
+
+    xmlDocPtr doc = xmlNewDoc((const xmlChar*)"1.0");
+
+    xmlNodePtr root_node = xmlNewDocNode(doc, NULL, (const xmlChar*)"project", NULL);
+    xmlDocSetRootElement(doc, root_node);
+    gchar *type = g_strdup_printf("%d", project->type);
+    xmlNewProp(root_node, (const xmlChar*)"type", (const xmlChar*)type);
+    g_free(type);
+
+    xmlNewTextChild(root_node, NULL, (const xmlChar*)"information", NULL);
+    xmlNewTextChild(root_node, NULL, (const xmlChar*)"data", NULL);
+
+    PROJECT_WIDGET_GET_CLASS(project)->save(project, root_node);
+    xmlSaveFormatFile(project->file, doc, 1);
+    xmlFreeDoc(doc);
+    xmlCleanupParser();
     project_set_dirty(project, FALSE);
 }
 
@@ -260,6 +302,9 @@ project_set_file(Project *project, const gchar *file)
     if(project->file != NULL)
         g_free(project->file);
     project->file = g_strdup(file);
+    gchar* base_name = g_path_get_basename(project->file);
+    project_set_title(project, base_name);
+    g_free(base_name);
 }
 
 

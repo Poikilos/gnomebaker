@@ -687,6 +687,7 @@ dataproject_on_drag_data_received(
     {
         g_signal_stop_emission_by_name(G_OBJECT(widget), "drag_data_received");
     }
+    project_set_dirty(PROJECT_WIDGET(data_project), TRUE);
 }
 
 
@@ -1523,7 +1524,7 @@ dataproject_build_filepaths_recursive(GtkTreeModel *model, GtkTreeIter *parent_i
 
             /*we will free memory when we delete the list*/
             item->existing_session = existing_session;
-            item->path_in_filesystem = path_in_system;
+            item->path_in_filesystem = g_strdup(path_in_system);
             item->path_to_burn = g_build_filename(file_path, file_name, NULL);
             item->size = size;
 
@@ -1532,14 +1533,13 @@ dataproject_build_filepaths_recursive(GtkTreeModel *model, GtkTreeIter *parent_i
         }
         else /*it is a folder, add its contents recursively building the filepaths to burn*/
         {
-            gchar  *filepath_new = g_build_filename(file_path,file_name,NULL);
-            dataproject_build_filepaths_recursive(model, &iter, filepath_new ,compilation_list);
-
-            /*delete the data as it´s not used*/
+            gchar  *filepath_new = g_build_filename(file_path, file_name,NULL);
+            dataproject_build_filepaths_recursive(model, &iter, filepath_new, compilation_list);
             g_free(filepath_new);
-            g_free(path_in_system);
-            g_free(file_name);
         }
+
+        g_free(path_in_system);
+        g_free(file_name);
         ++count;
     }
 }
@@ -1593,8 +1593,9 @@ dataproject_build_filepaths(GtkTreeModel *model)
 
                 /*we will free memory when we delete the list*/
                 item->existing_session = existing_session;
-                item->path_in_filesystem = path_in_system;
-                item->path_to_burn = file_name;/*this is the first level, do not concatenate nothing*/
+                item->path_in_filesystem = g_strdup(path_in_system);
+                /*this is the first level, do not concatenate nothing*/
+                item->path_to_burn = g_strdup(file_name);
                 item->size = size;
 
                 /*this is faster than g_list_append*/
@@ -1602,12 +1603,11 @@ dataproject_build_filepaths(GtkTreeModel *model)
             }
             else /*it is a folder, add its contents recursively building the filepaths to burn*/
             {
-                dataproject_build_filepaths_recursive(model, &iter, file_name ,&compilation_list);
-
-                /*delete the data as it´s not used*/
-                g_free(path_in_system);
-                g_free(file_name);
+                dataproject_build_filepaths_recursive(model, &iter, file_name , &compilation_list);
             }
+            
+            g_free(path_in_system);
+            g_free(file_name);
             ++count;
         }
     }
@@ -1671,31 +1671,6 @@ dataproject_on_create_datadisk(gpointer widget, DataProject *data_project)
         burn_create_data_cd(tmp_file->file_name);
 
     /* TODO - we should delete the temp file here */
-}
-
-
-static gboolean
-dataproject_foreach_save_project(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, FILE *project)
-{
-    GB_LOG_FUNC
-    g_return_if_fail(model != NULL);
-    g_return_if_fail(path != NULL);
-    g_return_if_fail(iter != NULL);
-    g_return_if_fail(project != NULL);
-
-    gchar *file = NULL, *file_path = NULL;
-    gboolean existing_session = FALSE;
-
-    gtk_tree_model_get (model, iter, DATA_TREE_COL_FILE, &file,
-        DATA_TREE_COL_PATH, &file_path, DATA_TREE_COL_SESSION, &existing_session, -1);
-
-    /* Only add files that are not part of an existing session */
-    if(!existing_session)
-        fprintf(project, "<File Name=\"%s\" Path=\"%s\"/>\n", file, file_path);
-
-    g_free(file);
-    g_free(file_path);
-    return FALSE;
 }
 
 
@@ -1772,6 +1747,8 @@ dataproject_import_session(Project *project)
     g_free(mount_point);
     g_free(msinfo);
 
+    project_set_dirty(PROJECT_WIDGET(data_project), TRUE);
+
     gnomebaker_show_busy_cursor(FALSE);
 }
 
@@ -1786,21 +1763,63 @@ dataproject_open(Project *project, xmlDocPtr doc)
 
 
 static void
-dataproject_save(Project *project)
+dataproject_save_recursive(GtkTreeModel *model, GtkTreeIter *parent_iter, xmlNodePtr parent_node)
+{
+    GB_DECLARE_STRUCT(GtkTreeIter, child_iter);
+    int child_number = 0;
+    /* Add the childrens of the parent iter to the */
+    while(gtk_tree_model_iter_nth_child(model, &child_iter, parent_iter, child_number))
+    {
+        /* TODO - We need to record if a folder is modified in the model. Then when we
+         * save we only need to record the folder rather than the entirety of its
+         * contents. We must do this for projects where a bunch of top level folders
+         * are added to the project only so it effectively forms a backup set
+         * and all of the referenced folders contents get added and new files
+         * in those folders do not get ignored */
+        gboolean is_folder = FALSE, existing_session = FALSE;
+        gchar *file = NULL, *file_path = NULL;
+
+        gtk_tree_model_get(model, &child_iter,
+                DATA_TREE_COL_FILE, &file, DATA_TREE_COL_PATH, &file_path,
+                DATA_TREE_COL_SESSION, &existing_session, DATA_TREE_COL_IS_FOLDER, &is_folder, -1 );
+
+        if(!existing_session)
+        {
+            xmlNodePtr file_node = xmlNewTextChild(parent_node, NULL, (const xmlChar*)"file", NULL);
+            xmlNewProp(file_node, (const xmlChar*)"path", (const xmlChar*)file_path);
+            xmlNewProp(file_node, (const xmlChar*)"graft", (const xmlChar*)file);
+
+            if(gtk_tree_model_iter_has_child (model, &child_iter))
+                dataproject_save_recursive(model, &child_iter, file_node);
+        }
+
+        g_free(file);
+        g_free(file_path);
+
+        ++child_number;
+    }
+}
+
+
+static void
+dataproject_save(Project *project, xmlNodePtr project_node)
 {
     GB_LOG_FUNC
     g_return_if_fail(DATAPROJECT_IS_WIDGET(project));
 
-    GtkTreeModel *data_model = gtk_tree_view_get_model(DATAPROJECT_WIDGET(project)->tree);
-    g_return_if_fail(data_model != NULL);
-
-    /* TODO - show a save dialog and select a file
-    FILE *project = fopen("test.gbp", "w");
-    fprintf(project, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<GnomeBakerProject Version=\""PACKAGE_VERSION"\" Type=\"0\">\n");
-    gtk_tree_model_foreach(data_model, (GtkTreeModelForeachFunc) dataproject_foreach_save_project, project);
-    fprintf(project, "</GnomeBakerProject>\n");
-    fclose(project);
-    */
+    xmlNodePtr cur = project_node->xmlChildrenNode;
+    while (cur != NULL)
+    {
+        if(xmlStrcmp(cur->name, (const xmlChar *)"data") == 0)
+        {
+            DataProject *data_project = DATAPROJECT_WIDGET(project);
+            GB_DECLARE_STRUCT(GtkTreeIter, root);
+            dataproject_compilation_root_get_iter(data_project, &root);
+            GtkTreeModel *model = GTK_TREE_MODEL(data_project->dataproject_compilation_store);
+            dataproject_save_recursive(model, &root, cur);
+        }
+        cur = cur->next;
+    }
 }
 
 
@@ -2075,19 +2094,19 @@ dataproject_new(const gboolean is_dvd)
     GB_LOG_FUNC
 
     DataProject* data_project = (DataProject*)g_object_new(DATAPROJECT_TYPE_WIDGET, NULL);
+    PROJECT_WIDGET(data_project)->type = is_dvd ? DATA_DVD : DATA_CD;
     data_project->is_dvd = is_dvd;
     if(is_dvd)
     {
         gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(data_project)->menu, data_dvd_disk_sizes, 2, 0);
-        project_set_title(PROJECT_WIDGET(data_project), _("<b>Data DVD</b>"));
+        project_set_title(PROJECT_WIDGET(data_project), _("Data DVD"));
     }
     else
     {
         gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(data_project)->menu, data_cd_disk_sizes, 4,
                 /*preferences_get_int(GB_DATA_DISK_SIZE)*/2);
-        project_set_title(PROJECT_WIDGET(data_project), _("<b>Data CD</b>"));
+        project_set_title(PROJECT_WIDGET(data_project), _("Data CD"));
     }
-
     return GTK_WIDGET(data_project);
 }
 

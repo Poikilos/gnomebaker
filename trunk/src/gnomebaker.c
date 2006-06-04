@@ -799,23 +799,26 @@ gnomebaker_on_open_project(gpointer widget, gpointer user_data)
         xmlDocPtr doc = xmlParseFile(file);
         if(doc == NULL)
         {
-            g_warning("Document not parsed successfully. \n");
+            g_warning("Document not parsed successfully.");
         }
         else
         {
+            gnomebaker_show_busy_cursor(TRUE);
             /* Get the type from the root element in the project file so we can create
              * a project of the correct type before adding the content */
             xmlNodePtr cur = xmlDocGetRootElement(doc);
             xmlChar *type = xmlGetProp(cur, (const xmlChar*)"type");
             Project *project = PROJECT_WIDGET(gnomebaker_add_project(atoi((const gchar*)type)));
             xmlFree(type);
+            project_set_file(project, file);
             project_open(project, doc);
             xmlFreeDoc(doc);
             /* TODO this may be better done at application exit time */
             xmlCleanupParser();
+            gnomebaker_show_busy_cursor(FALSE);
         }
-    }
-    g_free(file);
+        g_free(file);
+    }    
 }
 
 
