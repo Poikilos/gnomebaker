@@ -818,7 +818,7 @@ gnomebaker_on_open_project(gpointer widget, gpointer user_data)
             gnomebaker_show_busy_cursor(FALSE);
         }
         g_free(file);
-    }    
+    }
 }
 
 
