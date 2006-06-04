@@ -1605,7 +1605,7 @@ dataproject_build_filepaths(GtkTreeModel *model)
             {
                 dataproject_build_filepaths_recursive(model, &iter, file_name , &compilation_list);
             }
-            
+
             g_free(path_in_system);
             g_free(file_name);
             ++count;
