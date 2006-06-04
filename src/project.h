@@ -81,6 +81,11 @@ typedef struct
     GtkButton *close_button;
     gboolean is_dirty;
     gchar *file;
+    
+    /* This is nasty as we should know the type from the derived classes. Sort this
+     * once I have fixed up the cd/dvd project type as they are the same thing at 
+     * the moment */
+    ProjectType type;    
 
 } Project;
 
@@ -94,7 +99,7 @@ typedef struct
     void (*add_selection)(Project *self, GtkSelectionData *selection);
     void (*import_session)(Project *self);
     void (*open)(Project *self, xmlDocPtr doc);
-    void (*save)(Project *self);
+    void (*save)(Project *self, xmlNodePtr project_node);
     void (*close)(Project *self);
     void (*move_selected_up)(Project *self);
     void (*move_selected_down)(Project *self);
@@ -105,6 +110,7 @@ typedef struct
 GType project_get_type();
 GtkWidget* project_new();
 void project_set_title(Project *project, const gchar *title);
+void project_set_dirty(Project *project, gboolean dirty);
 void project_clear(Project *project);
 void project_remove(Project *project);
 void project_add_selection(Project *project, GtkSelectionData *selection);

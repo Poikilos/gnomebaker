@@ -1303,6 +1303,7 @@ cdrdao_add_copy_args(ExecCmd *cmd)
 
     exec_cmd_add_arg(cmd, "cdrdao");
     exec_cmd_add_arg(cmd, "copy");
+    exec_cmd_add_arg(cmd, "--read-raw");
 
     gchar *reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
     exec_cmd_add_arg(cmd, "--source-device");

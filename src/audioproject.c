@@ -25,6 +25,7 @@
 #include "media.h"
 #include "preferences.h"
 #include "gnomebaker.h"
+#include <libxml/xpath.h>
 
 G_DEFINE_TYPE(AudioProject, audioproject, PROJECT_TYPE_WIDGET);
 
@@ -76,17 +77,17 @@ audioproject_update_track_numbers(AudioProject *audio_project)
 {
     GB_LOG_FUNC
     g_return_if_fail(AUDIOPROJECT_IS_WIDGET(audio_project));
-    
+
     GtkTreeModel *file_model = gtk_tree_view_get_model(audio_project->tree);
     GtkTreeIter iter;
     if(gtk_tree_model_get_iter_first(file_model, &iter))
     {
         gint num = 0;
         do
-        {            
+        {
             gtk_list_store_set(GTK_LIST_STORE(file_model), &iter, AUDIO_COL_NUM, ++num, -1);
         } while (gtk_tree_model_iter_next(file_model, &iter));
-    }  
+    }
 }
 
 
@@ -118,8 +119,10 @@ audioproject_move_selected(AudioProject* audio_project, const gboolean up)
     }
 
     g_list_free (list);
-    
+
     audioproject_update_track_numbers(audio_project);
+
+    project_set_dirty(PROJECT_WIDGET(audio_project), TRUE);
 }
 
 
@@ -586,6 +589,7 @@ audioproject_import_playlist(AudioProject *audio_project, const gchar *play_list
 {
     GB_LOG_FUNC
     g_return_val_if_fail(play_list != NULL, FALSE);
+    g_return_val_if_fail(audio_project != NULL, FALSE);
 
     gboolean ret = FALSE;
     gchar *mime = gbcommon_get_mime_type(play_list);
@@ -595,6 +599,7 @@ audioproject_import_playlist(AudioProject *audio_project, const gchar *play_list
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
                 _("The file you have selected is not a supported play_list. Please select a pls or m3u file."));
     g_free(mime);
+    project_set_dirty(PROJECT_WIDGET(audio_project), TRUE);
     return ret;
 }
 
@@ -722,6 +727,8 @@ audioproject_clear(Project *project)
 
     gnomebaker_show_busy_cursor(TRUE);
 
+    project_set_dirty(PROJECT_WIDGET(audio_project), TRUE);
+
     audio_project->compilation_seconds = 0.0;
 
     GtkTreeModel *file_model = gtk_tree_view_get_model(audio_project->tree);
@@ -793,7 +800,7 @@ audioproject_remove(Project *project)
 
     g_list_foreach(rr_list, (GFunc)gtk_tree_row_reference_free, NULL);
     g_list_free(rr_list);
-    
+
     audioproject_update_track_numbers(audio_project);
 
     gnomebaker_show_busy_cursor(FALSE);
@@ -931,7 +938,10 @@ audioproject_on_drag_data_received(
     AudioProject *audio_project)
 {
     GB_LOG_FUNC
+    g_return_if_fail(audio_project != NULL);
+
     audioproject_add_selection(PROJECT_WIDGET(audio_project), selection_data);
+    project_set_dirty(PROJECT_WIDGET(audio_project), TRUE);
 }
 
 
@@ -949,6 +959,27 @@ audioproject_open(Project *project, xmlDocPtr doc)
     GB_LOG_FUNC
     g_return_if_fail(AUDIOPROJECT_IS_WIDGET(project));
     g_return_if_fail(doc != NULL);
+    AudioProject *audio_project = AUDIOPROJECT_WIDGET(project);
+
+    xmlXPathContextPtr context = xmlXPathNewContext(doc);
+    xmlXPathObjectPtr result = xmlXPathEvalExpression((const xmlChar*)"/project/data/file", context);
+    if (result != NULL)
+    {
+        xmlNodeSetPtr file_nodes = result->nodesetval;
+        gint i = 0;
+        for (; i < file_nodes->nodeNr; i++)
+        {
+            xmlChar *path = xmlGetProp(file_nodes->nodeTab[i], (const xmlChar*)"path");
+            audioproject_add_file(audio_project, (const gchar*)path);
+            xmlFree(path);
+        }
+        xmlXPathFreeObject(result);
+    }
+    else
+    {
+        g_warning("audioproject_open - Error in xmlXPathEvalExpression");
+    }
+    xmlXPathFreeContext(context);
 }
 
 
@@ -961,18 +992,29 @@ audioproject_foreach_save_func(GtkTreeModel *audio_model,
     MediaInfo *info = NULL;
     gtk_tree_model_get (audio_model, iter, AUDIO_COL_INFO, &info, -1);
 
+    xmlNodePtr file_node = xmlNewTextChild(parent, NULL, (const xmlChar*)"file", NULL);
+    xmlNewProp (file_node, (const xmlChar*)"path", (const xmlChar*)info->file_name);
+
     return FALSE; /*do not stop walking the store, call us with next row*/
 }
 
 
 static void
-audioproject_save(Project *project)
+audioproject_save(Project *project, xmlNodePtr project_node)
 {
     GB_LOG_FUNC
     g_return_if_fail(AUDIOPROJECT_IS_WIDGET(project));
 
-    GtkTreeModel *audio_model = gtk_tree_view_get_model(AUDIOPROJECT_WIDGET(project)->tree);
-    gtk_tree_model_foreach(audio_model, (GtkTreeModelForeachFunc)audioproject_foreach_save_func, NULL);
+    xmlNodePtr cur = project_node->xmlChildrenNode;
+    while (cur != NULL)
+    {
+        if(xmlStrcmp(cur->name, (const xmlChar *)"data") == 0)
+        {
+            GtkTreeModel *audio_model = gtk_tree_view_get_model(AUDIOPROJECT_WIDGET(project)->tree);
+            gtk_tree_model_foreach(audio_model, (GtkTreeModelForeachFunc)audioproject_foreach_save_func, cur);
+        }
+        cur = cur->next;
+    }
 }
 
 
@@ -1009,6 +1051,8 @@ audioproject_init(AudioProject *audio_project)
     GB_LOG_FUNC
     g_return_if_fail(audio_project != NULL);
 
+    PROJECT_WIDGET(audio_project)->type = AUDIO_CD;
+
     audio_project->compilation_seconds = 0.0;
 
     GtkWidget *scrolledwindow18 = gtk_scrolled_window_new(NULL, NULL);
@@ -1040,7 +1084,7 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_pack_start(col, renderer, FALSE);
     gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", AUDIO_COL_ICON, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
-    
+
     /* Second column to display the duration*/
     col = gtk_tree_view_column_new();
     gtk_tree_view_column_set_resizable(col, TRUE);
@@ -1049,7 +1093,7 @@ audioproject_init(AudioProject *audio_project)
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", AUDIO_COL_DURATION, NULL);
     gtk_tree_view_append_column(audio_project->tree, col);
-    
+
     /* column to display the artist */
     col = gtk_tree_view_column_new();
     gtk_tree_view_column_set_resizable(col, TRUE);
@@ -1128,7 +1172,7 @@ audioproject_init(AudioProject *audio_project)
     gbcommon_populate_disk_size_option_menu(PROJECT_WIDGET(audio_project)->menu, audio_disk_sizes,
             (sizeof(audio_disk_sizes)/sizeof(DiskSize)), preferences_get_int(GB_AUDIO_DISK_SIZE));
 
-    project_set_title(PROJECT_WIDGET(audio_project), _("<b>Audio CD</b>"));
+    project_set_title(PROJECT_WIDGET(audio_project), _("Audio CD"));
 
 #ifdef CAIRO_WIDGETS
 	gb_cairo_fillbar_set_disk_size(PROJECT_WIDGET(audio_project)->progress_bar,
