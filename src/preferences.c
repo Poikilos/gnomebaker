@@ -74,8 +74,7 @@ preferences_init()
 			preferences_set_bool(GB_SHOW_FILE_BROWSER, TRUE);
             preferences_set_bool(GB_JOLIET, TRUE);
             preferences_set_bool(GB_ROCKRIDGE, TRUE);
-            preferences_set_bool(GB_ONTHEFLY, TRUE);
-            preferences_set_bool(GB_ASK_ON_QUIT, TRUE);
+            preferences_set_bool(GB_ONTHEFLY, TRUE);            
             preferences_set_bool(GB_PLAY_SOUND, TRUE);
             preferences_set_int(GB_DATA_DISK_SIZE, 0);
             preferences_set_int(GB_AUDIO_DISK_SIZE, 0);
