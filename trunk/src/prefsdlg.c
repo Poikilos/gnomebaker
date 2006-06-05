@@ -283,7 +283,6 @@ prefsdlg_on_ok(GtkButton *button, gpointer user_data)
 	preferences_set_bool(GB_PLAY_SOUND, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(play_sound)));
 
     GtkWidget *ask_on_quit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_ask_on_quit);
-    preferences_set_bool(GB_ASK_ON_QUIT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ask_on_quit)));
 
 	GtkWidget *scroll_output = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_scroll_output);
 	preferences_set_bool(GB_SCROLL_OUTPUT, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(scroll_output)));
@@ -446,10 +445,6 @@ prefsdlg_new(void)
     GtkWidget *play_sound = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_play_sound);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(play_sound),
             preferences_get_bool(GB_PLAY_SOUND));
-
-	GtkWidget *ask_on_quit = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_ask_on_quit);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ask_on_quit),
-            preferences_get_bool(GB_ASK_ON_QUIT));
 
 	prefsdlg_create_device_list();
 	prefsdlg_populate_device_list();

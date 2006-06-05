@@ -225,15 +225,22 @@ gnomebaker_on_quit(GtkMenuItem *menu_item, gpointer user_data)
 {
 	GB_LOG_FUNC
 
-	gint response = GTK_RESPONSE_OK;
-	if(preferences_get_bool(GB_ASK_ON_QUIT))
+	gint response = GTK_RESPONSE_YES;
+    GtkNotebook *notebook = GTK_NOTEBOOK(glade_xml_get_widget(xml, widget_project_notebook));
+    gint i = 0;
+	for(; i < gtk_notebook_get_n_pages(notebook); ++i)
 	{
-        response = gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, GTK_BUTTONS_NONE,
-                _("Are you sure you want to quit?"));
+        GtkWidget *page = gtk_notebook_get_nth_page(notebook, i);
+        if(PROJECT_IS_WIDGET(page) && project_is_dirty(PROJECT_WIDGET(page)))
+        {
+            response = gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
+                    _("There are unsaved projects, your changes will be lost if you quit. Are you sure you want to quit?"));
+            break;
+        }
     }
     switch(response)
     {
-    case GTK_RESPONSE_OK:
+    case GTK_RESPONSE_YES:
 
         /* Clean out the temporary files directory if we're told to */
         if(preferences_get_bool(GB_CLEANTEMPDIR))
@@ -255,7 +262,7 @@ gnomebaker_on_quit(GtkMenuItem *menu_item, gpointer user_data)
         }
 
         /* Save main window position and size if not maximized */
-    	if(preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED) != TRUE)
+    	if(!preferences_get_bool(GB_MAIN_WINDOW_MAXIMIZED))
     	{
             GtkWidget *main_window = glade_xml_get_widget(xml, widget_gnomebaker);
 
@@ -937,7 +944,8 @@ gnomebaker_on_close_project(gpointer widget, Project *project)
         gboolean close = TRUE;
         if(project_is_dirty(project))
         {
-            /* show a message box */
+            close = (gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
+                _("Project is not saved. Are you sure you want to close the project?")) == GTK_RESPONSE_YES);
         }
         if(close)
         {
@@ -1032,7 +1040,7 @@ gnomebaker_on_new_project(gpointer widget, gpointer user_data)
 {
     GB_LOG_FUNC
     GtkWidget *menu = gtk_menu_new();
-    gbcommon_append_menu_item_file(menu, _("Data _DVD"), "baker-data-copy.png", 
+    gbcommon_append_menu_item_file(menu, _("Data _DVD"), "baker-data-copy.png",
             (GCallback)gnomebaker_on_new_data_dvd_project, widget);
     gbcommon_append_menu_item_file(menu, _("Data _CD"), "baker-data-copy.png",
             (GCallback)gnomebaker_on_new_data_cd_project, widget);
