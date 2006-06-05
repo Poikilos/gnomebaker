@@ -131,7 +131,7 @@ project_set_title(Project *project, const gchar *title)
     g_return_if_fail(title != NULL);
 
     gchar *title_markup = NULL;
-    if(gbcommon_str_has_suffix(title, ".gbp"))
+    if(gbcommon_str_has_suffix(title, PROJECT_FILE_EXTENSION))
     {
         gchar *title_short = g_strndup(title, strlen(title) - 4);
         title_markup = g_strdup_printf("<b>%s</b>", title_short);

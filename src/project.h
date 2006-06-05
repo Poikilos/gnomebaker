@@ -40,6 +40,8 @@ typedef enum
     AUDIO_CD
 } ProjectType;
 
+static const gchar *const PROJECT_FILE_EXTENSION = ".gbp";
+
 
 G_BEGIN_DECLS
 

@@ -60,7 +60,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1425">
+			    <widget class="GtkImage" id="image1545">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-new</property>
 			      <property name="icon_size">1</property>
@@ -75,29 +75,62 @@
 			    <widget class="GtkMenu" id="new_project1_menu">
 
 			      <child>
-				<widget class="GtkMenuItem" id="data_cd_project1">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">Data _CD</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="gnomebaker_on_new_data_cd_project" last_modification_time="Tue, 16 May 2006 18:49:09 GMT"/>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkMenuItem" id="data_disk1">
+				<widget class="GtkImageMenuItem" id="data_disk1">
 				  <property name="visible">True</property>
 				  <property name="label" translatable="yes">Data _DVD</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="gnomebaker_on_new_data_dvd_project" last_modification_time="Tue, 16 May 2006 18:49:09 GMT"/>
+
+				  <child internal-child="image">
+				    <widget class="GtkImage" id="image1546">
+				      <property name="visible">True</property>
+				      <property name="pixbuf">baker-data-copy.png</property>
+				      <property name="xalign">0.5</property>
+				      <property name="yalign">0.5</property>
+				      <property name="xpad">0</property>
+				      <property name="ypad">0</property>
+				    </widget>
+				  </child>
 				</widget>
 			      </child>
 
 			      <child>
-				<widget class="GtkMenuItem" id="audio_disk1">
+				<widget class="GtkImageMenuItem" id="data_cd_project1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Data _CD</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="gnomebaker_on_new_data_cd_project" last_modification_time="Tue, 16 May 2006 18:49:09 GMT"/>
+
+				  <child internal-child="image">
+				    <widget class="GtkImage" id="image1547">
+				      <property name="visible">True</property>
+				      <property name="pixbuf">baker-data-copy.png</property>
+				      <property name="xalign">0.5</property>
+				      <property name="yalign">0.5</property>
+				      <property name="xpad">0</property>
+				      <property name="ypad">0</property>
+				    </widget>
+				  </child>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkImageMenuItem" id="audio_disk1">
 				  <property name="visible">True</property>
 				  <property name="label" translatable="yes">_Audio CD</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="gnomebaker_on_new_audio_project" last_modification_time="Sun, 19 Mar 2006 21:15:12 GMT"/>
+
+				  <child internal-child="image">
+				    <widget class="GtkImage" id="image1548">
+				      <property name="visible">True</property>
+				      <property name="pixbuf">baker-audio-copy.png</property>
+				      <property name="xalign">0.5</property>
+				      <property name="yalign">0.5</property>
+				      <property name="xpad">0</property>
+				      <property name="ypad">0</property>
+				    </widget>
+				  </child>
 				</widget>
 			      </child>
 			    </widget>
@@ -114,7 +147,7 @@
 			  <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1426">
+			    <widget class="GtkImage" id="image1549">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-open</property>
 			      <property name="icon_size">1</property>
@@ -142,7 +175,7 @@
 			  <accelerator key="S" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1427">
+			    <widget class="GtkImage" id="image1550">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-save</property>
 			      <property name="icon_size">1</property>
@@ -163,7 +196,7 @@
 			  <signal name="activate" handler="gnomebaker_on_save_project_as" last_modification_time="Sat, 14 Jan 2006 22:21:12 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1428">
+			    <widget class="GtkImage" id="image1551">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-save-as</property>
 			      <property name="icon_size">1</property>
@@ -292,7 +325,7 @@
 			  <accelerator key="plus" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1429">
+			    <widget class="GtkImage" id="image1552">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-add</property>
 			      <property name="icon_size">1</property>
@@ -314,7 +347,7 @@
 			  <accelerator key="Delete" modifiers="0" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1430">
+			    <widget class="GtkImage" id="image1553">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-remove</property>
 			      <property name="icon_size">1</property>
@@ -351,7 +384,7 @@
 			  <accelerator key="Up" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1431">
+			    <widget class="GtkImage" id="image1554">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-up</property>
 			      <property name="icon_size">1</property>
@@ -374,7 +407,7 @@
 			  <accelerator key="Down" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1432">
+			    <widget class="GtkImage" id="image1555">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-down</property>
 			      <property name="icon_size">1</property>
@@ -401,7 +434,7 @@
 			  <signal name="activate" handler="gnomebaker_on_import" last_modification_time="Tue, 04 Jan 2005 00:49:21 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1433">
+			    <widget class="GtkImage" id="image1556">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-import-session.png</property>
 			      <property name="xalign">0.5</property>
@@ -434,7 +467,7 @@
 			  <signal name="activate" handler="gnomebaker_on_blank_cdrw" last_modification_time="Thu, 08 Apr 2004 20:55:06 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1434">
+			    <widget class="GtkImage" id="image1557">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-cdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -454,7 +487,7 @@
 			  <signal name="activate" handler="gnomebaker_on_format_dvdrw" last_modification_time="Wed, 05 Jan 2005 22:09:46 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1435">
+			    <widget class="GtkImage" id="image1558">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-blank-dvdrw.png</property>
 			      <property name="xalign">0.5</property>
@@ -480,7 +513,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_datacd" last_modification_time="Fri, 09 Apr 2004 20:26:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1436">
+			    <widget class="GtkImage" id="image1559">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -500,7 +533,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_audiocd" last_modification_time="Fri, 09 Apr 2004 20:26:00 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1437">
+			    <widget class="GtkImage" id="image1560">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-audio-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -520,7 +553,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_cd" last_modification_time="Sun, 14 May 2006 22:29:51 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1438">
+			    <widget class="GtkImage" id="image1561">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -540,7 +573,7 @@
 			  <signal name="activate" handler="gnomebaker_on_copy_dvd" last_modification_time="Mon, 29 May 2006 00:04:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1439">
+			    <widget class="GtkImage" id="image1562">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-data-copy.png</property>
 			      <property name="xalign">0.5</property>
@@ -566,7 +599,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_iso" last_modification_time="Thu, 08 Apr 2004 21:00:53 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1440">
+			    <widget class="GtkImage" id="image1563">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-cd-iso.png</property>
 			      <property name="xalign">0.5</property>
@@ -586,7 +619,7 @@
 			  <signal name="activate" handler="gnomebaker_on_burn_dvd_iso" last_modification_time="Fri, 04 Mar 2005 19:19:17 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1441">
+			    <widget class="GtkImage" id="image1564">
 			      <property name="visible">True</property>
 			      <property name="pixbuf">baker-dvd-iso.png</property>
 			      <property name="xalign">0.5</property>
@@ -620,7 +653,7 @@
 			  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1442">
+			    <widget class="GtkImage" id="image1565">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
 			      <property name="icon_size">1</property>
@@ -689,7 +722,7 @@
 			  <signal name="activate" handler="gnomebaker_on_help" last_modification_time="Thu, 03 Feb 2005 21:13:55 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image1443">
+			    <widget class="GtkImage" id="image1566">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -747,6 +780,7 @@
 		  <property name="visible_horizontal">True</property>
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
+		  <signal name="clicked" handler="gnomebaker_on_new_project" last_modification_time="Mon, 05 Jun 2006 22:28:20 GMT"/>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
@@ -1218,7 +1252,7 @@
 				      <signal name="clicked" handler="gnomebaker_on_new_data_dvd_project" last_modification_time="Tue, 16 May 2006 18:50:39 GMT"/>
 
 				      <child>
-					<widget class="GtkAlignment" id="alignment25">
+					<widget class="GtkAlignment" id="alignment28">
 					  <property name="visible">True</property>
 					  <property name="xalign">0.5</property>
 					  <property name="yalign">0.5</property>
@@ -1230,13 +1264,13 @@
 					  <property name="right_padding">0</property>
 
 					  <child>
-					    <widget class="GtkHBox" id="hbox38">
+					    <widget class="GtkHBox" id="hbox41">
 					      <property name="visible">True</property>
 					      <property name="homogeneous">False</property>
 					      <property name="spacing">2</property>
 
 					      <child>
-						<widget class="GtkImage" id="image1402">
+						<widget class="GtkImage" id="image1544">
 						  <property name="visible">True</property>
 						  <property name="pixbuf">baker-data-copy.png</property>
 						  <property name="xalign">0.5</property>
@@ -1252,7 +1286,7 @@
 					      </child>
 
 					      <child>
-						<widget class="GtkLabel" id="label312">
+						<widget class="GtkLabel" id="label315">
 						  <property name="visible">True</property>
 						  <property name="label" translatable="yes">Data DVD</property>
 						  <property name="use_underline">True</property>
@@ -3306,27 +3340,6 @@
 	  <property name="fill">True</property>
 	</packing>
       </child>
-    </widget>
-  </child>
-</widget>
-
-<widget class="GtkMenu" id="add_menu">
-
-  <child>
-    <widget class="GtkMenuItem" id="add_directories1">
-      <property name="visible">True</property>
-      <property name="label" translatable="yes">Add directories</property>
-      <property name="use_underline">True</property>
-      <signal name="activate" handler="gnomebaker_on_add_directories" last_modification_time="Fri, 17 Mar 2006 00:09:33 GMT"/>
-    </widget>
-  </child>
-
-  <child>
-    <widget class="GtkMenuItem" id="add_files1">
-      <property name="visible">True</property>
-      <property name="label" translatable="yes">Add files</property>
-      <property name="use_underline">True</property>
-      <signal name="activate" handler="gnomebaker_on_add_files" last_modification_time="Fri, 17 Mar 2006 00:09:33 GMT"/>
     </widget>
   </child>
 </widget>
