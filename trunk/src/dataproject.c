@@ -23,18 +23,17 @@
 #include "gbcommon.h"
 #include "devices.h"
 #include "gnomebaker.h"
-#include <sys/types.h>
-#include <sys/stat.h>
+#include "selectdevicedlg.h"
 #include "filebrowser.h"
-
 #include "preferences.h"
 #include "exec.h"
 #include "burn.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
-#include "selectdevicedlg.h"
-#include "gnomebaker.h"
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <libxml/xpath.h>
 
 
 G_DEFINE_TYPE(DataProject, dataproject, PROJECT_TYPE_WIDGET);
@@ -483,6 +482,69 @@ dataproject_update_progress_bar(DataProject *data_project)
 }
 
 
+static GtkTreeIter 
+dataproject_add_to_model(DataProject *data_project, const gboolean is_folder, const gchar *file_name, 
+        const gchar *base_name, GtkTreeIter *parent_node, gboolean existing_session, guint64 size)
+{
+    GB_LOG_FUNC    
+    /*TODO/FIX:what to do with the size of the folders?
+     * We could leave as before, showing the size of its contents,
+     * but we cannot call gbcommon_calc_dir_size because it would be very slow.
+     * We have to perform the loop through the contents before
+     * setting the values to the store (but after adding a new element)
+     * and dataproject_add_to_compilation should have another argument, a pointer that returns
+     * the accumulated size. If we use this method, if,
+     * whe we delete items, we would have to go up through the tree updating the parents
+     */
+    gchar *path_to_show = NULL;
+    if(is_folder)
+    {
+        /*Is there any sense storing the file name for folders?*/
+        /*we don´t want to show path for folders, so the easiest way is to store nothing*/
+        path_to_show = g_strdup("");
+    }
+    else
+    {
+        path_to_show = g_strdup(file_name);
+        data_project->dataproject_compilation_size += size;
+    }
+
+    /*
+     * we allow to add more size than the capacity of the disc,
+     * and show the error dialog only before burning. The progress bar should
+     * reflect somehow this situation
+     *
+     * updating progress bar for every file, makes it slow
+     * (and for sure the filter_func in the tree_view, but that
+     * is something we cannot avoid, even disconnecting it from the store, I think)
+     * */        
+
+    GdkPixbuf *icon = NULL;
+    if(existing_session)
+    {
+        icon = gbcommon_get_icon_for_name("gnome-dev-cdrom", 16);
+    }
+    else
+    {
+        gchar *mime = gbcommon_get_mime_type(file_name);
+        icon = gbcommon_get_icon_for_mime(mime, 16);
+        g_free(mime);
+    }
+
+    gchar *human_readable = gbcommon_humanreadable_filesize(size);
+    GB_DECLARE_STRUCT(GtkTreeIter, iter);
+    gtk_tree_store_append(data_project->dataproject_compilation_store, &iter, parent_node);
+    gtk_tree_store_set(data_project->dataproject_compilation_store, &iter,
+            DATA_TREE_COL_ICON, icon, DATA_TREE_COL_FILE, base_name,
+            DATA_TREE_COL_SIZE, size, DATA_TREE_COL_HUMANSIZE, human_readable,
+            DATA_TREE_COL_PATH, path_to_show, DATA_TREE_COL_SESSION, existing_session,
+            DATA_TREE_COL_IS_FOLDER, is_folder,-1);
+    g_free(human_readable);
+    g_object_unref(icon);    
+    return iter;
+}
+
+
 static gboolean
 dataproject_add_to_compilation(DataProject *data_project, const gchar *file, GtkTreeIter *parent_node, gboolean existing_session)
 {
@@ -500,65 +562,9 @@ dataproject_add_to_compilation(DataProject *data_project, const gchar *file, Gtk
     if(statret == 0)
     {
         gboolean is_folder = s.st_mode & S_IFDIR;
-        /*TODO/FIX:what to do with the size of the folders?
-         * We could leave as before, showing the size of its contents,
-         * but we cannot call gbcommon_calc_dir_size because it would be very slow.
-         * We have to perform the loop through the contents before
-         * setting the values to the store (but after adding a new element)
-         * and dataproject_add_to_compilation should have another argument, a pointer that returns
-         * the accumulated size. If we use this method, if,
-         * whe we delete items, we would have to go up through the tree updating the parents
-         */
-        guint64 size = 0;
-        if(is_folder)
-        {
-            /*Is there any sense storing the file name for folders?*/
-            /*we don´t want to show path for folders, so the easiest way is to store nothing*/
-            path_to_show = g_strdup("");
-        }
-        else
-        {
-            size = (guint64)s.st_size;
-            path_to_show = g_strdup(file_name);
-            data_project->dataproject_compilation_size += size;
-        }
-
-        /*
-         * we allow to add more size than the capacity of the disc,
-         * and show the error dialog only before burning. The progress bar should
-         * reflect somehow this situation
-         *
-         * updating progress bar for every file, makes it slow
-         * (and for sure the filter_func in the tree_view, but that
-         * is something we cannot avoid, even disconnecting it from the store, I think)
-         *
-         * */
         gchar *base_name = g_path_get_basename(file_name);
-
-        GdkPixbuf *icon = NULL;
-        if(existing_session)
-        {
-            icon = gbcommon_get_icon_for_name("gnome-dev-cdrom", 16);
-        }
-        else
-        {
-            gchar *mime = gbcommon_get_mime_type(file_name);
-            icon = gbcommon_get_icon_for_mime(mime, 16);
-            g_free(mime);
-        }
-
-        gchar *human_readable = gbcommon_humanreadable_filesize(size);
-
-        GB_DECLARE_STRUCT(GtkTreeIter, iter);
-        gtk_tree_store_append(data_project->dataproject_compilation_store, &iter, parent_node);
-        gtk_tree_store_set(data_project->dataproject_compilation_store, &iter,
-                DATA_TREE_COL_ICON, icon, DATA_TREE_COL_FILE, base_name,
-                DATA_TREE_COL_SIZE, size, DATA_TREE_COL_HUMANSIZE, human_readable,
-                DATA_TREE_COL_PATH, path_to_show, DATA_TREE_COL_SESSION, existing_session,
-                DATA_TREE_COL_IS_FOLDER, is_folder,-1);
-
-        g_free(human_readable);
-        g_object_unref(icon);
+        GtkTreeIter iter = dataproject_add_to_model(data_project, is_folder, 
+                file_name, base_name, parent_node, existing_session, (guint64)s.st_size);
         g_free(base_name);
 
         /*recursively add contents*/
@@ -572,15 +578,12 @@ dataproject_add_to_compilation(DataProject *data_project, const gchar *file, Gtk
                 {
                     /* build up the full path to the name */
                     gchar *full_name = g_build_filename(file_name, name, NULL);
-                    GB_DECLARE_STRUCT(struct stat, s);
-
                     /*if the disc is full, do not add more files! (for now)*/
                     if(!dataproject_add_to_compilation(data_project, full_name, &iter, existing_session))
                     {
                         g_free(full_name);
                         break;
                     }
-
                     g_free(full_name);
                     name = g_dir_read_name(dir);
                 }
@@ -592,7 +595,6 @@ dataproject_add_to_compilation(DataProject *data_project, const gchar *file, Gtk
     {
         g_warning("dataproject_add_to_compilation - failed to stat file [%s] with ret code [%d] error no [%s]",
             file_name, statret, strerror(errno));
-
         ret = FALSE;
     }
     g_free(path_to_show);
@@ -1754,11 +1756,42 @@ dataproject_import_session(Project *project)
 
 
 static void
+dataproject_open_recursive(GtkTreeModel *model, xmlNodePtr parent_node, GtkTreeIter *parent_iter)
+{
+    GB_LOG_FUNC
+
+}
+
+
+static void
 dataproject_open(Project *project, xmlDocPtr doc)
 {
     GB_LOG_FUNC
     g_return_if_fail(DATAPROJECT_IS_WIDGET(project));
     g_return_if_fail(doc != NULL);
+
+    DataProject *data_project = DATAPROJECT_WIDGET(project);
+    GB_DECLARE_STRUCT(GtkTreeIter, root);
+    dataproject_compilation_root_get_iter(data_project, &root);
+
+    xmlXPathContextPtr context = xmlXPathNewContext(doc);
+    xmlXPathObjectPtr result = xmlXPathEvalExpression((const xmlChar*)"/project/data", context);
+    if(result != NULL)
+    {
+        xmlNodeSetPtr data_nodes = result->nodesetval;
+        gint i = 0;
+        for (; i < data_nodes->nodeNr; i++)
+        {
+            dataproject_open_recursive(GTK_TREE_MODEL(data_project->dataproject_compilation_store), 
+                    data_nodes->nodeTab[i], &root);
+        }
+        xmlXPathFreeObject(result);
+    }
+    else
+    {
+        g_warning("dataproject_open - Error in xmlXPathEvalExpression");
+    }
+    xmlXPathFreeContext(context);
 }
 
 

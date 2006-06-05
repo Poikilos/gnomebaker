@@ -741,7 +741,7 @@ static gboolean
 gnomebaker_project_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
 {
     GB_LOG_FUNC
-    return gbcommon_str_has_suffix(filter_info->filename, ".gbp");
+    return gbcommon_str_has_suffix(filter_info->filename, PROJECT_FILE_EXTENSION);
 }
 
 
@@ -1022,6 +1022,22 @@ gnomebaker_on_add_files_alt(gpointer widget, gpointer user_data)
             (GCallback)gnomebaker_on_select_folders, widget);
     gbcommon_append_menu_item_stock(menu, _("_Add Files"), GTK_STOCK_FILE,
             (GCallback)gnomebaker_on_select_files, widget);
+    gtk_widget_show_all(menu);
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 0, gdk_event_get_time(NULL));
+}
+
+
+void /* libglade callback */
+gnomebaker_on_new_project(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC
+    GtkWidget *menu = gtk_menu_new();
+    gbcommon_append_menu_item_file(menu, _("Data _DVD"), "baker-data-copy.png", 
+            (GCallback)gnomebaker_on_new_data_dvd_project, widget);
+    gbcommon_append_menu_item_file(menu, _("Data _CD"), "baker-data-copy.png",
+            (GCallback)gnomebaker_on_new_data_cd_project, widget);
+    gbcommon_append_menu_item_file(menu, _("_Audio CD"), "baker-audio-copy.png",
+            (GCallback)gnomebaker_on_new_audio_project, widget);
     gtk_widget_show_all(menu);
     gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 0, gdk_event_get_time(NULL));
 }
