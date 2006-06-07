@@ -850,8 +850,10 @@ gnomebaker_on_save_project_as(gpointer widget, gpointer user_data)
     }
     else
     {
-        gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(file_chooser), "project.gbp");
+        gchar *file_name = g_strconcat(gtk_label_get_text(project->title), PROJECT_FILE_EXTENSION, NULL);
+        gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(file_chooser), file_name);
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
+        g_free(file_name);
     }
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), FALSE);
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(file_chooser), gnomebaker_create_project_file_filter());
