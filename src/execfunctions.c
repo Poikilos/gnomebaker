@@ -707,7 +707,7 @@ mkisofs_add_common_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_
 
     if(preferences_get_bool(GB_ROCKRIDGE))
     {
-        exec_cmd_add_arg(e, "-R");
+        exec_cmd_add_arg(e, "-r");
         exec_cmd_add_arg(e, "-hide-rr-moved");
     }
 
