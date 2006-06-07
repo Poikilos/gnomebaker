@@ -110,8 +110,9 @@ typedef struct
 
 
 GType project_get_type();
-GtkWidget* project_new();
+GtkWidget *project_new();
 void project_set_title(Project *project, const gchar *title);
+const gchar *project_get_title(Project *project);
 void project_set_dirty(Project *project, gboolean dirty);
 void project_clear(Project *project);
 void project_remove(Project *project);

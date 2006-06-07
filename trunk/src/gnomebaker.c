@@ -850,7 +850,7 @@ gnomebaker_on_save_project_as(gpointer widget, gpointer user_data)
     }
     else
     {
-        gchar *file_name = g_strconcat(gtk_label_get_text(project->title), PROJECT_FILE_EXTENSION, NULL);
+        gchar *file_name = g_strconcat(project_get_title(project), PROJECT_FILE_EXTENSION, NULL);
         gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(file_chooser), file_name);
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser), g_get_home_dir());
         g_free(file_name);
@@ -861,6 +861,12 @@ gnomebaker_on_save_project_as(gpointer widget, gpointer user_data)
     if(gtk_dialog_run(GTK_DIALOG(file_chooser)) == GTK_RESPONSE_ACCEPT)
     {
         gchar *file_name = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser));
+        if(!gbcommon_str_has_suffix(file_name, PROJECT_FILE_EXTENSION))
+        {
+            gchar *tmp = g_strconcat(file_name, PROJECT_FILE_EXTENSION);
+            g_free(file_name);
+            file_name = tmp; 
+        }
         project_set_file(project, file_name);
         g_free(file_name);
         project_save(project);
