@@ -35,6 +35,7 @@ Version 0.5.2
 * Apply patch #1463826 ] from goedson - Updated pt_BR translation
 * Fix RFE #1406985 - speed units in the burn dialog
 * Fix RFE #1444098 - Track number column for audio cd's
+* Fix Bug #1502418 - ownership/modes of files should be set to standart values
 
 
 Version 0.5.1
