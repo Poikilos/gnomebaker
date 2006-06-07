@@ -146,6 +146,19 @@ project_set_title(Project *project, const gchar *title)
 }
 
 
+const gchar*
+project_get_title(Project *project)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(PROJECT_IS_WIDGET(project));
+    
+    const gchar* title = gtk_label_get_text(project->title);
+    if(title[0] == '*')
+        return ++title;
+    return title;    
+}
+
+
 GtkWidget*
 project_get_title_widget(Project *project)
 {
@@ -238,6 +251,11 @@ project_open(Project *project, xmlDocPtr doc)
     GB_LOG_FUNC
     g_return_if_fail(PROJECT_IS_WIDGET(project));
     g_return_if_fail(doc != NULL);
+    
+    xmlNodePtr root_node = xmlDocGetRootElement(doc);
+    xmlChar *size = xmlGetProp(root_node, (const xmlChar*)"size");
+    gtk_option_menu_set_history(project->menu, atoi((const gchar*)size));
+    xmlFree(size);    
     PROJECT_WIDGET_GET_CLASS(project)->open(project, doc);
 }
 
@@ -255,6 +273,9 @@ project_save(Project *project)
     gchar *type = g_strdup_printf("%d", project->type);
     xmlNewProp(root_node, (const xmlChar*)"type", (const xmlChar*)type);
     g_free(type);
+    gchar *size = g_strdup_printf("%d", gtk_option_menu_get_history(project->menu));
+    xmlNewProp(root_node, (const xmlChar*)"size", (const xmlChar*)size);
+    g_free(size);
 
     xmlNewTextChild(root_node, NULL, (const xmlChar*)"information", NULL);
     xmlNewTextChild(root_node, NULL, (const xmlChar*)"data", NULL);

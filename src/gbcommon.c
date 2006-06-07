@@ -277,16 +277,10 @@ gbcommon_get_option_menu_selection(GtkOptionMenu *option_menu)
 	GB_LOG_FUNC
 	g_return_val_if_fail(option_menu != NULL, NULL);
 
-	gchar *ret = NULL;
-	GtkWidget *mode = GTK_BIN(option_menu)->child;
-	if(mode != NULL && GTK_IS_LABEL(mode))
-	{
-		gchar *text = NULL;
-		gtk_label_get(GTK_LABEL(mode), &text);
-		/*g_free(text);*/
-		ret = g_strdup(text);
-	}
-	return ret;
+	GtkWidget *menu_item = GTK_BIN(option_menu)->child;
+	if(menu_item != NULL && GTK_IS_LABEL(menu_item))
+		return g_strdup(gtk_label_get_text(GTK_LABEL(menu_item)));
+	return NULL;
 }
 
 
@@ -304,16 +298,12 @@ gbcommon_set_option_menu_selection(GtkOptionMenu *option_menu, const gchar *sele
 		if(GTK_BIN(items->data)->child)
 		{
 			GtkWidget *child = GTK_BIN(items->data)->child;
-			if (GTK_IS_LABEL(child))
-			{
-				gchar *text = NULL;
-				gtk_label_get(GTK_LABEL(child), &text);
-				if(g_ascii_strcasecmp(text, selection) == 0)
-				{
-					gtk_option_menu_set_history(option_menu, index);
-					break;
-				}
-			}
+			if (GTK_IS_LABEL(child) && 
+                    (g_ascii_strcasecmp(gtk_label_get_text(GTK_LABEL(child)), selection) == 0))
+            {
+				gtk_option_menu_set_history(option_menu, index);
+				break;
+            }
 		}
 		++index;
 	}
