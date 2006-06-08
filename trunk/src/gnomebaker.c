@@ -602,6 +602,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
     GtkWidget *save_menu = glade_xml_get_widget(xml, "save_project1");
     GtkWidget *save_as_menu = glade_xml_get_widget(xml, "save_project_as1");
     GtkWidget *save_all_menu = glade_xml_get_widget(xml, "save_all1");
+    GtkWidget *close_menu = glade_xml_get_widget(xml, "close_project1");
     GtkWidget *add_alt = glade_xml_get_widget(xml, "toolbutton12");
     GtkWidget *remove_alt = glade_xml_get_widget(xml, "toolbutton13");
     GtkWidget *clear_alt = glade_xml_get_widget(xml, "toolbutton14");
@@ -614,9 +615,10 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
         gtk_widget_set_sensitive(save_menu, TRUE);
         gtk_widget_set_sensitive(save_as_menu, TRUE);
         gtk_widget_set_sensitive(save_all_menu, TRUE);
+        gtk_widget_set_sensitive(close_menu, TRUE);
         gtk_widget_set_sensitive(add_alt, TRUE);
         gtk_widget_set_sensitive(remove_alt, TRUE);
-        gtk_widget_set_sensitive(clear_alt, TRUE);
+        gtk_widget_set_sensitive(clear_alt, TRUE);        
 
         Project *project = PROJECT_WIDGET(widget);
         if(DATAPROJECT_IS_WIDGET(project))
@@ -647,6 +649,7 @@ gnomebaker_on_notebook_switch_page(GtkNotebook *notebook,
         gtk_widget_set_sensitive(save_menu, FALSE);
         gtk_widget_set_sensitive(save_as_menu, FALSE);
         gtk_widget_set_sensitive(save_all_menu, FALSE);
+        gtk_widget_set_sensitive(close_menu, FALSE);
         gtk_widget_set_sensitive(project_menu, FALSE);
         gtk_widget_set_sensitive(middle_toolbar, FALSE);
         gtk_widget_set_sensitive(menu_import, FALSE);

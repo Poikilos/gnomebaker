@@ -493,6 +493,9 @@ startdlg_copy_cd_section(StartDlg *start_dlg)
     GtkTable *table = GTK_TABLE(startdlg_create_table());
     guint row = startdlg_add_device_section(table, start_dlg, TRUE, FALSE);
     ++row;
+    gtk_table_attach(table, GTK_WIDGET(start_dlg->eject), 0, 2, row, row + 1, TABLE_ATTACH_OPTIONS_2);
+    gtk_table_attach(table, GTK_WIDGET(start_dlg->dummy), 2, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
+    ++row;
     gtk_table_attach(table, GTK_WIDGET(start_dlg->on_the_fly), 0, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
     gtk_box_pack_end (GTK_BOX (start_dlg->dialog->vbox), GTK_WIDGET(table), FALSE, FALSE, 0);
 }
