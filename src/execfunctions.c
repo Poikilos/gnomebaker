@@ -1331,6 +1331,9 @@ cdrdao_add_copy_args(ExecCmd *cmd)
     if(preferences_get_bool(GB_EJECT))
         exec_cmd_add_arg(cmd, "--eject");
 
+    if(preferences_get_bool(GB_DUMMY))
+        exec_cmd_add_arg(cmd, "--simulate");
+
     /*if(preferences_get_int(GB_OVERBURN))*/
         exec_cmd_add_arg(cmd, "-overburn");
 }
