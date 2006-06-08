@@ -73,7 +73,7 @@ main(gint argc, gchar *argv[])
 #ifdef GST_010
     struct poptOption* options = NULL;
 #else
-    g_thread_init(NULL);
+    if (!g_thread_supported ()) g_thread_init(NULL);
     gdk_threads_init();
 
 	struct poptOption options[] =
