@@ -38,7 +38,7 @@ Version 0.5.2
 * Fix Bug #1502418 - ownership/modes of files should be set to standart values
 * Apply patch from Adonikam Virgo to fix crash when calling g_thread_init().
 * Apply patch from Julien Danjou. We now do not follow symlinks at all. You can't add them to a disk.
-
+* Fix Bug #1336399 - links are counted on interface but not on disk
 
 Version 0.5.1
 
