@@ -310,7 +310,6 @@ dataproject_list_view_update(DataProject *data_project, GtkTreeIter *parent_iter
                 DATA_TREE_COL_PATH, &file_name, DATA_TREE_COL_SESSION, &existing_session,
                 DATA_TREE_COL_IS_FOLDER, &is_folder ,-1);
 
-
         GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&child_iter);
         GtkTreeRowReference *row_reference = gtk_tree_row_reference_new(GTK_TREE_MODEL(data_project->dataproject_compilation_store),path);
         gtk_tree_path_free(path);
@@ -482,11 +481,11 @@ dataproject_update_progress_bar(DataProject *data_project)
 }
 
 
-static GtkTreeIter 
-dataproject_add_to_model(DataProject *data_project, const gboolean is_folder, const gchar *file_name, 
+static GtkTreeIter
+dataproject_add_to_model(DataProject *data_project, const gboolean is_folder, const gchar *file_name,
         const gchar *base_name, GtkTreeIter *parent_node, gboolean existing_session, guint64 size)
 {
-    GB_LOG_FUNC    
+    GB_LOG_FUNC
     /*TODO/FIX:what to do with the size of the folders?
      * We could leave as before, showing the size of its contents,
      * but we cannot call gbcommon_calc_dir_size because it would be very slow.
@@ -517,7 +516,7 @@ dataproject_add_to_model(DataProject *data_project, const gboolean is_folder, co
      * updating progress bar for every file, makes it slow
      * (and for sure the filter_func in the tree_view, but that
      * is something we cannot avoid, even disconnecting it from the store, I think)
-     * */        
+     * */
 
     GdkPixbuf *icon = NULL;
     if(existing_session)
@@ -540,7 +539,7 @@ dataproject_add_to_model(DataProject *data_project, const gboolean is_folder, co
             DATA_TREE_COL_PATH, path_to_show, DATA_TREE_COL_SESSION, existing_session,
             DATA_TREE_COL_IS_FOLDER, is_folder,-1);
     g_free(human_readable);
-    g_object_unref(icon);    
+    g_object_unref(icon);
     return iter;
 }
 
@@ -556,38 +555,42 @@ dataproject_add_to_compilation(DataProject *data_project, const gchar *file, Gtk
 
     gchar *file_name = gbcommon_get_local_path(file);
     gchar *path_to_show = NULL;
+    GB_TRACE("dataproject_add_to_compilation - Adding file [%s]\n", file_name);
 
     GB_DECLARE_STRUCT(struct stat, s);
-    gint statret = stat(file_name, &s);
+    const gint statret = lstat(file_name, &s);
     if(statret == 0)
     {
-        gboolean is_folder = s.st_mode & S_IFDIR;
-        gchar *base_name = g_path_get_basename(file_name);
-        GtkTreeIter iter = dataproject_add_to_model(data_project, is_folder, 
-                file_name, base_name, parent_node, existing_session, (guint64)s.st_size);
-        g_free(base_name);
-
-        /*recursively add contents*/
-        if(is_folder)
-        {
-            GDir *dir = g_dir_open(file_name, 0, NULL);
-            if(dir != NULL)
+        const gboolean is_folder = S_ISDIR(s.st_mode);
+        if(S_ISREG(s.st_mode) || is_folder)
+        {            
+            gchar *base_name = g_path_get_basename(file_name);
+            GtkTreeIter iter = dataproject_add_to_model(data_project, is_folder,
+                    file_name, base_name, parent_node, existing_session, (guint64)s.st_size);
+            g_free(base_name);
+    
+            /*recursively add contents*/
+            if(is_folder)
             {
-                const gchar *name = g_dir_read_name(dir);
-                while(name != NULL)
+                GDir *dir = g_dir_open(file_name, 0, NULL);
+                if(dir != NULL)
                 {
-                    /* build up the full path to the name */
-                    gchar *full_name = g_build_filename(file_name, name, NULL);
-                    /*if the disc is full, do not add more files! (for now)*/
-                    if(!dataproject_add_to_compilation(data_project, full_name, &iter, existing_session))
+                    const gchar *name = g_dir_read_name(dir);
+                    while(name != NULL)
                     {
+                        /* build up the full path to the name */
+                        gchar *full_name = g_build_filename(file_name, name, NULL);
+                        /*if the disc is full, do not add more files! (for now)*/
+                        if(!dataproject_add_to_compilation(data_project, full_name, &iter, existing_session))
+                        {
+                            g_free(full_name);
+                            break;
+                        }
                         g_free(full_name);
-                        break;
+                        name = g_dir_read_name(dir);
                     }
-                    g_free(full_name);
-                    name = g_dir_read_name(dir);
+                    g_dir_close(dir);
                 }
-                g_dir_close(dir);
             }
         }
     }
@@ -613,23 +616,21 @@ dataproject_add_selection(Project *project, GtkSelectionData *selection)
     gnomebaker_show_busy_cursor(TRUE);
 
     DataProject *data_project = DATAPROJECT_WIDGET(project);
-
     GB_TRACE("dataproject_add_selection - received sel [%s]\n", selection->data);
-    const gchar *file = strtok((gchar*)selection->data,"\n");
 
     GB_DECLARE_STRUCT(GtkTreeIter, parent_iter);
     if(!gtk_tree_row_reference_valid(data_project->dataproject_current_node))
     {
-        dataproject_compilation_root_get_iter(DATAPROJECT_WIDGET(project), &parent_iter);
-        dataproject_current_node_update(DATAPROJECT_WIDGET(project), &parent_iter);
+        dataproject_compilation_root_get_iter(data_project, &parent_iter);
+        dataproject_current_node_update(data_project, &parent_iter);
     }
 
     dataproject_current_node_get_iter(data_project, &parent_iter);
-    GtkTreeModel *model = gtk_tree_view_get_model(data_project->tree);
    /* Do not disconnect the model from the view.
     * Disconnecting the tree model causes the tree view not to
     * behave as we want when we add elements
     */
+    const gchar *file = strtok((gchar*)selection->data,"\n");
     while(file != NULL)
     {
         /* We pass the current node. It depends of the selection in the tree view */
@@ -641,12 +642,13 @@ dataproject_add_selection(Project *project, GtkSelectionData *selection)
     dataproject_update_progress_bar(data_project);
 
     /*expand node if posible*/
-    GtkTreePath *global_path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&parent_iter);
-    GtkTreePath *path = gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER(model),global_path);
+    GtkTreePath *global_path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &parent_iter);
+    GtkTreeModel *model = gtk_tree_view_get_model(data_project->tree);
+    GtkTreePath *path = gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER(model), global_path);
     gtk_tree_view_expand_to_path(data_project->tree,path);
     gtk_tree_path_free(global_path);
     gtk_tree_path_free(path);
-    dataproject_list_view_update(DATAPROJECT_WIDGET(project), &parent_iter);
+    dataproject_list_view_update(data_project, &parent_iter);
 
     gnomebaker_show_busy_cursor(FALSE);
 }
@@ -1782,7 +1784,7 @@ dataproject_open(Project *project, xmlDocPtr doc)
         gint i = 0;
         for (; i < data_nodes->nodeNr; i++)
         {
-            dataproject_open_recursive(GTK_TREE_MODEL(data_project->dataproject_compilation_store), 
+            dataproject_open_recursive(GTK_TREE_MODEL(data_project->dataproject_compilation_store),
                     data_nodes->nodeTab[i], &root);
         }
         xmlXPathFreeObject(result);

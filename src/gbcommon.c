@@ -207,12 +207,12 @@ gbcommon_calc_dir_size(const gchar *dir_name)
 			gchar *full_name = g_build_filename(dir_name, name, NULL);
 
 			GB_DECLARE_STRUCT(struct stat, s);
-			if(stat(full_name, &s) == 0)
+			if(lstat(full_name, &s) == 0)
 			{
 				/* see if the name is actually a directory or a regular file */
-				if(s.st_mode & S_IFDIR)
+				if(S_ISDIR(s.st_mode))
 					size += gbcommon_calc_dir_size(full_name);
-				else if(s.st_mode & S_IFREG)
+				else if(S_ISREG(s.st_mode))
 					size += (guint64)s.st_size;
 			}
 
