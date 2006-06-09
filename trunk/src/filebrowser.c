@@ -280,10 +280,10 @@ filebrowser_populate(GtkTreeModel *tree_model,
 			/* build up the full path to the name */
 			gchar *full_name = g_build_filename(full_path->str, name, NULL);
 			GB_DECLARE_STRUCT(struct stat, s);
-			if(stat(full_name, &s) == 0)
+			if(lstat(full_name, &s) == 0)
 			{
 				/* see if the name is actually a directory */
-				if((s.st_mode & S_IFDIR))
+				if(S_ISDIR(s.st_mode))
 				{
 					/* It's a directory so if it doesn't already have children
 					   then we add it */
@@ -316,7 +316,7 @@ filebrowser_populate(GtkTreeModel *tree_model,
 					}
 				}
 				/* It's a file */
-				else if((s.st_mode & S_IFREG) && (file_model != NULL))
+				else if(S_ISREG(s.st_mode) && (file_model != NULL))
 				{
 					/* We stored the right hand file list as user data when
 					   when we set up the directory tree selection changed func */
