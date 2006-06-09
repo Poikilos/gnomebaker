@@ -238,10 +238,8 @@ gnomebaker_on_quit(GtkMenuItem *menu_item, gpointer user_data)
             break;
         }
     }
-    switch(response)
+    if(response == GTK_RESPONSE_YES)
     {
-    case GTK_RESPONSE_YES:
-
         /* Clean out the temporary files directory if we're told to */
         if(preferences_get_bool(GB_CLEANTEMPDIR))
         {
@@ -275,13 +273,7 @@ gnomebaker_on_quit(GtkMenuItem *menu_item, gpointer user_data)
             preferences_set_int(GB_MAIN_WINDOW_POSITION_X, x);
             preferences_set_int(GB_MAIN_WINDOW_POSITION_Y, y);
     	}
-
         gtk_main_quit();
-        break;
-    case GTK_RESPONSE_CANCEL:
-        break;
-    default:
-        break;
     }
 }
 
