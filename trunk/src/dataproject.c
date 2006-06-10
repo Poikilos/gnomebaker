@@ -775,7 +775,8 @@ dataproject_on_drag_motion(GtkWidget *widget,
     GtkTreePath *path = NULL;
 
     gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y, &path, NULL);
-    if (path)   {
+    if (path)   
+    {
         if (!data_project->last_path || ((data_project->last_path) && gtk_tree_path_compare(data_project->last_path, path) != 0))
         {
             if(data_project->expand_timeout_id != 0)
@@ -833,7 +834,7 @@ dataproject_add_recursive_reference_list(DataProject *data_project, GtkTreeIter 
         /*obtain the row reference from the path */
         GtkTreeRowReference *row_reference = gtk_tree_row_reference_new(GTK_TREE_MODEL(data_project->dataproject_compilation_store), path);
         /*and finally add*/
-        if(row_reference!=NULL)
+        if(row_reference != NULL)
         {
             GB_TRACE("dataproject_add_recursive_reference_list - Added to remove [%s]\n",gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &child_iter));
             *rref_list = g_list_prepend(*rref_list, row_reference);
@@ -868,7 +869,7 @@ dataproject_foreach_fileselection(GtkTreeModel *file_model,
         gtk_tree_model_get(GTK_TREE_MODEL(file_model),iter,DATA_LIST_COL_ROWREFERENCE, &row_reference,-1);
 
         GtkTreePath *global_path = gtk_tree_row_reference_get_path (row_reference);
-        if(global_path!=NULL)
+        if(global_path != NULL)
         {
             data_project->rowref_list = g_list_prepend(data_project->rowref_list, row_reference);
 
