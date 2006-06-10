@@ -205,7 +205,7 @@ dataproject_compilation_is_root(DataProject *data_project, GtkTreeIter *global_i
 
 /*selects the node given by iter in the tree view. This causes listview to updated*/
 static void
-dataproject_current_node_update(DataProject* data_project, GtkTreeIter *iter)
+dataproject_set_current_node(DataProject* data_project, GtkTreeIter *iter)
 {
     GB_LOG_FUNC
     g_return_if_fail(data_project != NULL);
@@ -213,9 +213,9 @@ dataproject_current_node_update(DataProject* data_project, GtkTreeIter *iter)
 
     GtkTreePath *child_path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store), iter);
     /* select the row in the tree view */
-    GtkTreeModelFilter *filter = GTK_TREE_MODEL_FILTER( gtk_tree_view_get_model(data_project->tree) );
+    GtkTreeModelFilter *filter = GTK_TREE_MODEL_FILTER(gtk_tree_view_get_model(data_project->tree));
     GtkTreePath *path = gtk_tree_model_filter_convert_child_path_to_path(filter, child_path);
-    if(path!=NULL)
+    if(path != NULL)
     {
         gtk_tree_view_expand_to_path(data_project->tree, path);
         gtk_tree_view_set_cursor(data_project->tree, path, NULL, FALSE);
@@ -231,7 +231,7 @@ dataproject_current_node_update(DataProject* data_project, GtkTreeIter *iter)
 
 
 static void
-dataproject_current_node_get_iter(DataProject *data_project, GtkTreeIter *iter)
+dataproject_get_current_node(DataProject *data_project, GtkTreeIter *iter)
 {
     GB_LOG_FUNC
 
@@ -365,6 +365,7 @@ dataproject_get_datadisk_size(DataProject* data_project)
         data_project->data_disk_size = data_cd_disk_sizes[gtk_option_menu_get_history(PROJECT_WIDGET(data_project)->menu)].size;
     return data_project->data_disk_size;
 }
+
 
 #ifndef CAIRO_WIDGETS
 static gchar*
@@ -618,10 +619,10 @@ dataproject_add_selection(Project *project, GtkSelectionData *selection)
     if(!gtk_tree_row_reference_valid(data_project->dataproject_current_node))
     {
         dataproject_compilation_root_get_iter(data_project, &parent_iter);
-        dataproject_current_node_update(data_project, &parent_iter);
+        dataproject_set_current_node(data_project, &parent_iter);
     }
 
-    dataproject_current_node_get_iter(data_project, &parent_iter);
+    dataproject_get_current_node(data_project, &parent_iter);
    /* Do not disconnect the model from the view.
     * Disconnecting the tree model causes the tree view not to
     * behave as we want when we add elements
@@ -678,7 +679,7 @@ dataproject_on_drag_data_received(
             gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &iter,path);
             GB_DECLARE_STRUCT(GtkTreeIter, global_iter);
             gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(model), &global_iter, &iter);
-            dataproject_current_node_update(data_project, &global_iter);
+            dataproject_set_current_node(data_project, &global_iter);
             gtk_tree_path_free(path);
         }
     }
@@ -895,7 +896,7 @@ dataproject_clear(Project *project)
     /*update list view*/
     GB_DECLARE_STRUCT(GtkTreeIter, root);
     dataproject_compilation_root_get_iter(data_project, &root);
-    dataproject_current_node_update(data_project, &root);
+    dataproject_set_current_node(data_project, &root);
     dataproject_list_view_update(data_project, &root);
     dataproject_update_progress_bar(data_project);
 
@@ -953,7 +954,7 @@ dataproject_remove(Project *project)
             GB_DECLARE_STRUCT(GtkTreeIter, global_parent_iter);
             if(gtk_tree_model_iter_parent (GTK_TREE_MODEL(data_project->dataproject_compilation_store),&global_parent_iter,&global_iter))
             {
-                dataproject_current_node_update(DATAPROJECT_WIDGET(project), &global_parent_iter);
+                dataproject_set_current_node(DATAPROJECT_WIDGET(project), &global_parent_iter);
             }
         }
     }
@@ -1000,9 +1001,9 @@ dataproject_remove(Project *project)
     if(!gtk_tree_row_reference_valid(data_project->dataproject_current_node))
     {
         dataproject_compilation_root_get_iter(data_project, &parent_iter);
-        dataproject_current_node_update(data_project, &parent_iter);
+        dataproject_set_current_node(data_project, &parent_iter);
     }
-    dataproject_current_node_get_iter(data_project, &parent_iter);
+    dataproject_get_current_node(data_project, &parent_iter);
     dataproject_list_view_update(data_project, &parent_iter);
 
     dataproject_update_progress_bar(data_project);
@@ -1069,7 +1070,7 @@ dataproject_list_contents_cell_edited(GtkCellRendererText *cell,
     }
 
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
-    dataproject_current_node_get_iter(data_project, &iter);
+    dataproject_get_current_node(data_project, &iter);
     dataproject_list_view_update(data_project, &iter);
 
     /*disable editing*/
@@ -1111,7 +1112,7 @@ dataproject_tree_contents_cell_edited(GtkCellRendererText *cell,
     }
 
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
-    dataproject_current_node_get_iter(data_project, &iter);
+    dataproject_get_current_node(data_project, &iter);
     dataproject_list_view_update(data_project, &iter);
 
     /*disable editing*/
@@ -1160,7 +1161,7 @@ dataproject_on_add_folder(gpointer widget, DataProject *data_project)
     g_return_if_fail(data_project != NULL);
 
     GB_DECLARE_STRUCT(GtkTreeIter, parent_iter);
-    dataproject_current_node_get_iter(data_project, &parent_iter);
+    dataproject_get_current_node(data_project, &parent_iter);
 
     /*TODO: what to do with the size?*/
     guint64 size = 0;
@@ -1240,7 +1241,7 @@ dataproject_on_list_open(GtkTreeModel *model, GtkTreeIter *iter, DataProject *da
         GB_DECLARE_STRUCT(GtkTreeIter, global_iter);
         if(gtk_tree_model_get_iter(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&global_iter,global_path))
         {
-            dataproject_current_node_update(data_project, &global_iter);
+            dataproject_set_current_node(data_project, &global_iter);
         }
         gtk_tree_path_free(global_path);
     }
@@ -2041,7 +2042,7 @@ dataproject_init(DataProject *project)
 
     GB_DECLARE_STRUCT(GtkTreeIter, root);
     dataproject_compilation_root_get_iter(project, &root);
-    dataproject_current_node_update(DATAPROJECT_WIDGET(project), &root);
+    dataproject_set_current_node(DATAPROJECT_WIDGET(project), &root);
 
     preferences_register_notify(GB_SHOWHUMANSIZE,
             (GConfClientNotifyFunc)dataproject_on_show_humansize_changed, project);
