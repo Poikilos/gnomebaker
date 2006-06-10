@@ -231,7 +231,7 @@ startdlg_add_device_section(GtkTable *table, StartDlg *start_dlg, gboolean show_
         gtk_table_attach (GTK_TABLE (table), GTK_WIDGET(start_dlg->write_mode), 3, 4, row, row + 1, TABLE_ATTACH_OPTIONS_2);
 
         GtkWidget *menu5 = gtk_menu_new ();
-        const gchar *cd_modes[] = {_("Auto"), "dao", "raw16", "raw96p", "raw96r", "tao", NULL};
+        const gchar *cd_modes[] = {_("Auto"), "dao", "raw16", "raw96p", "raw96r", "tao", "sao", NULL};
         const gchar *dvd_modes[] = {_("Auto"), "dao", NULL};
         const gchar **modes = cd_modes;
         if(start_dlg->dvdmode) modes = dvd_modes;
