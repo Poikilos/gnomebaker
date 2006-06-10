@@ -50,10 +50,12 @@ static const gdouble overburn_percent = 1.02;
  * */
 
 
-static const gint STATUS_IS_FOLDER = 0x01;
-static const gint STATUS_EXISTING_SESSION = 0x02;
-static const gint STATUS_FOLDER_MODIFIED = 0x04;
-
+enum
+{
+    STATUS_IS_FOLDER        = 1 << 0,
+    STATUS_EXISTING_SESSION = 1 << 1,
+    STATUS_FOLDER_MODIFIED  = 1 << 2
+};
 
 
 enum
@@ -178,7 +180,7 @@ dataproject_compilation_root_add(DataProject *data_project)
     gtk_tree_store_append(data_project->dataproject_compilation_store, &root_iter, NULL);
     gtk_tree_store_set(data_project->dataproject_compilation_store, &root_iter, DATA_TREE_COL_ICON, icon,
             DATA_TREE_COL_FILE, _("GnomeBaker data disk"),  DATA_TREE_COL_SIZE, (guint64)0,  DATA_TREE_COL_HUMANSIZE,
-            "", DATA_TREE_COL_PATH, "", DATA_TREE_COL_STATUS, 0, -1);
+            "", DATA_TREE_COL_PATH, "", DATA_TREE_COL_STATUS, 0L, -1);
     g_object_unref(icon);
 }
 
@@ -305,7 +307,7 @@ dataproject_list_view_update(DataProject *data_project, GtkTreeIter *parent_iter
         GdkPixbuf *icon = NULL;
         gchar *base_name = NULL, *human_readable = NULL, *file_name = NULL;
         guint64 size = 0;
-        guint status = 0;
+        gulong status = 0L;
         gboolean existing_session = FALSE, is_folder = FALSE;
 
         gtk_tree_model_get(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &child_iter,
@@ -422,8 +424,6 @@ dataproject_update_progress_bar(DataProject *data_project)
 	GBCairoFillBar *progress_bar = PROJECT_WIDGET(data_project)->progress_bar;
 #endif
 
-    g_return_if_fail(progress_bar != NULL);
-
     const gdouble disk_size = dataproject_get_datadisk_size(data_project);
 
     if (data_project->dataproject_compilation_size < 0 || data_project->dataproject_compilation_size == 0)
@@ -435,7 +435,7 @@ dataproject_update_progress_bar(DataProject *data_project)
         gtk_progress_bar_set_text(progress_bar, buf);
         g_free(buf);
 #else
-		gb_cairo_fillbar_set_project_total_size(progress_bar,0);
+		gb_cairo_fillbar_set_project_total_size(progress_bar, 0);
 #endif
 
         /* disable the create button as there's nothing on the disk */
@@ -533,7 +533,7 @@ dataproject_add_to_model(DataProject *data_project, const gboolean is_folder, co
         g_free(mime);
     }
 
-    guint status = 0;
+    gulong status = 0L;
     if(is_folder) status |= STATUS_IS_FOLDER;
     if(existing_session) status |= STATUS_EXISTING_SESSION;
 
@@ -775,7 +775,7 @@ dataproject_on_drag_motion(GtkWidget *widget,
     GtkTreePath *path = NULL;
 
     gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y, &path, NULL);
-    if (path)   
+    if (path)
     {
         if (!data_project->last_path || ((data_project->last_path) && gtk_tree_path_compare(data_project->last_path, path) != 0))
         {
@@ -981,7 +981,7 @@ dataproject_remove(Project *project)
                 {
                     GValue status = { 0 };
                     gtk_tree_model_get_value(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &iter, DATA_TREE_COL_STATUS, &status);
-                    if(!(g_value_get_uint(&status) & STATUS_EXISTING_SESSION))
+                    if(!(g_value_get_ulong(&status) & STATUS_EXISTING_SESSION))
                     {
                         GValue value = { 0 };
                         gtk_tree_model_get_value(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &iter, DATA_TREE_COL_SIZE, &value);
@@ -1185,7 +1185,7 @@ dataproject_on_add_folder(gpointer widget, DataProject *data_project)
     gtk_tree_store_set(data_project->dataproject_compilation_store, &iter,
             DATA_TREE_COL_ICON, icon, DATA_TREE_COL_FILE, _("New Folder"),
             DATA_TREE_COL_SIZE, size, DATA_TREE_COL_HUMANSIZE, human_readable,
-            DATA_TREE_COL_PATH, "", DATA_TREE_COL_STATUS, 0, -1);
+            DATA_TREE_COL_PATH, "", DATA_TREE_COL_STATUS, 0L, -1);
 
     g_object_unref(icon);
 
@@ -1228,6 +1228,77 @@ dataproject_on_add_folder(gpointer widget, DataProject *data_project)
 }
 
 
+static void
+dataproject_on_list_open(GtkTreeModel *model, GtkTreeIter *iter, DataProject *data_project)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(model != NULL);
+    g_return_if_fail(iter != NULL);
+    g_return_if_fail(data_project != NULL);
+
+    GValue status = {0};
+    gtk_tree_model_get_value(model, iter, DATA_LIST_COL_STATUS, &status);
+    if(g_value_get_ulong(&status) & STATUS_IS_FOLDER)
+    {
+        GValue reference_val = {0};
+        gtk_tree_model_get_value(model, iter, DATA_LIST_COL_ROWREFERENCE, &reference_val);
+        GtkTreeRowReference  *row_reference = (GtkTreeRowReference*)g_value_get_pointer(&reference_val);
+        g_value_unset(&reference_val);
+
+        GtkTreePath *global_path = gtk_tree_row_reference_get_path(row_reference);
+
+        GB_DECLARE_STRUCT(GtkTreeIter, global_iter);
+        if(gtk_tree_model_get_iter(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&global_iter,global_path))
+        {
+            dataproject_current_node_update(data_project, &global_iter);
+        }
+        gtk_tree_path_free(global_path);
+    }
+    else
+    {
+        gchar *file = NULL;
+        gtk_tree_model_get(model, iter, DATA_LIST_COL_PATH, &file, -1);
+        gbcommon_launch_app_for_file(file);
+        g_free(file);
+    }
+    g_value_unset(&status);
+}
+
+
+static void
+dataproject_on_list_dbl_click(GtkTreeView *tree_view,
+                         GtkTreePath *path,
+                         GtkTreeViewColumn *column,
+                         DataProject *data_project)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(tree_view != NULL);
+    g_return_if_fail(path != NULL);
+    g_return_if_fail(column != NULL);
+    g_return_if_fail(data_project != NULL);
+
+    GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
+    GB_DECLARE_STRUCT(GtkTreeIter, iter);
+    if(gtk_tree_model_get_iter(model, &iter, path))
+        dataproject_on_list_open(model, &iter, data_project);
+}
+
+
+static void
+dataproject_on_open(gpointer widget, DataProject *data_project)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
+
+    GtkTreeModel *model = gtk_tree_view_get_model(data_project->list);
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(data_project->list);
+    GB_DECLARE_STRUCT(GtkTreeIter, iter);
+    gtk_tree_selection_selected_foreach(selection,
+            (GtkTreeSelectionForeachFunc)gbcommon_get_first_selected_row, &iter);
+    dataproject_on_list_open(model, &iter, data_project);
+}
+
+
 static gboolean
 dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProject *data_project)
 {
@@ -1245,13 +1316,17 @@ dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProj
         if(GTK_IS_LIST_STORE(model))
         {
             GtkWidget *menu = gtk_menu_new();
-
+            GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
+            const gint count = gtk_tree_selection_count_selected_rows(selection);
+            if(count == 1)
+            {
+                gbcommon_append_menu_item_stock(menu, _("_Open"), GTK_STOCK_OPEN,
+                        (GCallback)dataproject_on_open, data_project);
+                gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+            }
             gbcommon_append_menu_item_stock(menu, _("_Add Folder"), GTK_STOCK_NEW,
                     (GCallback)dataproject_on_add_folder, data_project);
             gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-
-            GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
-            const gint count = gtk_tree_selection_count_selected_rows(selection);
             if(count == 1)
             {
                 gbcommon_append_menu_item_stock(menu, _("_Edit name"), GTK_STOCK_DND,
@@ -1313,48 +1388,6 @@ dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProj
 }
 
 
-static void
-dataproject_on_tree_dbl_click(GtkTreeView *tree_view,
-                         GtkTreePath *path,
-                         GtkTreeViewColumn *column,
-                         DataProject *data_project)
-{
-    GB_LOG_FUNC
-    g_return_if_fail(tree_view != NULL);
-    g_return_if_fail(path != NULL);
-    g_return_if_fail(column != NULL);
-    g_return_if_fail(data_project != NULL);
-
-    GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
-    if(model != NULL)
-    {
-        GB_DECLARE_STRUCT(GtkTreeIter,iter);
-        if(gtk_tree_model_get_iter(model,&iter,path))
-        {
-            GValue status = {0};
-            gtk_tree_model_get_value(GTK_TREE_MODEL(model),&iter,DATA_LIST_COL_STATUS, &status);
-            if(g_value_get_uint(&status) & STATUS_IS_FOLDER)
-            {
-                GValue reference_val = {0};
-                gtk_tree_model_get_value(GTK_TREE_MODEL(model),&iter,DATA_LIST_COL_ROWREFERENCE, &reference_val);
-                GtkTreeRowReference  *row_reference = (GtkTreeRowReference*)g_value_get_pointer(&reference_val);
-                g_value_unset(&reference_val);
-
-                GtkTreePath *global_path = gtk_tree_row_reference_get_path(row_reference);
-
-                GB_DECLARE_STRUCT(GtkTreeIter,global_iter);
-                if(gtk_tree_model_get_iter(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&global_iter,global_path))
-                {
-                    dataproject_current_node_update(data_project, &global_iter);
-                }
-                gtk_tree_path_free(global_path);
-            }
-            g_value_unset(&status);
-        }
-    }
-}
-
-
 /* returns true if the element in the model pointed by iter is a directory*/
 static gboolean
 dataproject_treeview_filter_func(GtkTreeModel *model, GtkTreeIter *iter, DataProject *data_project)
@@ -1368,7 +1401,7 @@ dataproject_treeview_filter_func(GtkTreeModel *model, GtkTreeIter *iter, DataPro
     GValue status = {0};
     gtk_tree_model_get_value(model,iter,DATA_TREE_COL_STATUS, &status);
     /*check if it is a directory. If so,show. Otherwise, don´t*/
-    if(!(g_value_get_uint(&status) & STATUS_IS_FOLDER))
+    if(!(g_value_get_ulong(&status) & STATUS_IS_FOLDER))
         ret = dataproject_compilation_is_root(data_project, iter);
     g_value_unset(&status);
     return ret;
@@ -1429,7 +1462,7 @@ dataproject_list_sortfunc(GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, g
      */
 
     gchar *a_name = NULL, *b_name = NULL;
-    guint a_status = 0, b_status = 0;
+    gulong a_status = 0, b_status = 0;
 
     gtk_tree_model_get (model, a, DATA_LIST_COL_FILE, &a_name, DATA_LIST_COL_STATUS, &a_status, -1);
     gtk_tree_model_get (model, b, DATA_LIST_COL_FILE, &b_name, DATA_LIST_COL_STATUS, &b_status, -1);
@@ -1516,7 +1549,7 @@ dataproject_build_filepaths_recursive(GtkTreeModel *model, GtkTreeIter *parent_i
     {
         guint64 size;
         gchar *file_name = NULL, *path_in_system = NULL;
-        guint status = 0;
+        gulong status = 0L;
 
         gtk_tree_model_get(model, &iter,
                 DATA_TREE_COL_FILE, &file_name, DATA_TREE_COL_SIZE, &size,
@@ -1585,7 +1618,7 @@ dataproject_build_filepaths(GtkTreeModel *model)
         {
             guint64 size;
             gchar *file_name = NULL, *path_in_system = NULL;
-            guint status = 0;
+            gulong status = 0L;
 
             gtk_tree_model_get(model, &iter, DATA_TREE_COL_FILE, &file_name,
                     DATA_TREE_COL_SIZE, &size, DATA_TREE_COL_PATH, &path_in_system,
@@ -1767,6 +1800,7 @@ dataproject_open_recursive(GtkTreeModel *model, xmlNodePtr parent_node, GtkTreeI
 }
 
 
+
 static void
 dataproject_open(Project *project, xmlDocPtr doc)
 {
@@ -1814,7 +1848,7 @@ dataproject_save_recursive(GtkTreeModel *model, GtkTreeIter *parent_iter, xmlNod
          * and all of the referenced folders contents get added and new files
          * in those folders do not get ignored */
         gchar *file = NULL, *file_path = NULL;
-        guint status = 0;
+        gulong status = 0L;
 
         gtk_tree_model_get(model, &child_iter,
                 DATA_TREE_COL_FILE, &file, DATA_TREE_COL_PATH, &file_path,
@@ -1898,7 +1932,7 @@ dataproject_setup_list(DataProject *data_project)
     /* Instead of a pointer to row reference we could use G_TYPE_TREE_ROW_REFERENCE
     /* so that we do not need to delete it manually*/
     GtkListStore *store = gtk_list_store_new(DATA_LIST_NUM_COLS, GDK_TYPE_PIXBUF,
-            G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT, G_TYPE_POINTER);
+            G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_ULONG, G_TYPE_POINTER);
     gtk_tree_view_set_model(data_project->list, GTK_TREE_MODEL(store));
 
     /*show folders first*/
@@ -1976,7 +2010,7 @@ dataproject_setup_list(DataProject *data_project)
             G_CALLBACK(dataproject_on_button_pressed), data_project);
 
     /* handle double clicks. This should allow us to navigate through the contents */
-    g_signal_connect(G_OBJECT(data_project->list), "row-activated", G_CALLBACK(dataproject_on_tree_dbl_click), data_project);
+    g_signal_connect(G_OBJECT(data_project->list), "row-activated", G_CALLBACK(dataproject_on_list_dbl_click), data_project);
 }
 
 
@@ -2083,7 +2117,7 @@ dataproject_init(DataProject *project)
      * 7-is a folder
      */
     project->dataproject_compilation_store = gtk_tree_store_new(DATA_TREE_NUM_COLS, GDK_TYPE_PIXBUF,
-            G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_UINT);
+            G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_ULONG);
 
     project->dataproject_compilation_size = 0;
 
