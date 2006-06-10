@@ -93,16 +93,6 @@ enum
     DVD_8GB
 };
 
-
-struct BurnItem
-{
-    guint64 size;
-    guint status;
-    gchar *path_to_burn;
-    gchar *path_in_filesystem;
-};
-
-
 static DiskSize data_cd_disk_sizes[] =
 {
     /* http://www.cdrfaq.org/faq07.html#S7-6
@@ -1532,49 +1522,39 @@ dataproject_on_datadisk_size_changed(GtkOptionMenu *option_menu, DataProject *da
 }
 
 
-/* Adds  to the burning list all the contents recursively. This could be improved checking for depth,
+/* Adds to the burning list all the contents recursively. This could be improved checking for depth,
  * as mkisofs only accepts a max depth o 6 directories */
 static void
-dataproject_build_filepaths_recursive(GtkTreeModel *model, GtkTreeIter *parent_iter, const char *file_path, GList **compilation_list)
+dataproject_build_paths_file_recursive(GtkTreeModel *model, GtkTreeIter *parent_iter, const char *file_path, GBTempFile *tmp_file)
 {
     GB_LOG_FUNC
     g_return_if_fail(model != NULL);
     g_return_if_fail(parent_iter != NULL);
     g_return_if_fail(file_path != NULL);
-    g_return_if_fail(compilation_list != NULL);
+    g_return_if_fail(tmp_file != NULL);
 
     int count = 0;
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
     while(gtk_tree_model_iter_nth_child(model,&iter,parent_iter,count))
     {
-        guint64 size;
         gchar *file_name = NULL, *path_in_system = NULL;
         gulong status = 0L;
 
-        gtk_tree_model_get(model, &iter,
-                DATA_TREE_COL_FILE, &file_name, DATA_TREE_COL_SIZE, &size,
+        gtk_tree_model_get(model, &iter, DATA_TREE_COL_FILE, &file_name,
                 DATA_TREE_COL_PATH, &path_in_system, DATA_TREE_COL_STATUS, &status, -1);
 
         if(status & STATUS_IS_FOLDER)
         {
             /*it is a folder, add its contents recursively building the filepaths to burn*/
-            gchar  *filepath_new = g_build_filename(file_path, file_name,NULL);
-            dataproject_build_filepaths_recursive(model, &iter, filepath_new, compilation_list);
-            g_free(filepath_new);
+            gchar *file_path_new = g_build_filename(file_path, file_name,NULL);
+            dataproject_build_paths_file_recursive(model, &iter, file_path_new, tmp_file);
+            g_free(file_path_new);
         }
         else
         {
-            /*it is not a folder, add it to the list*/
-            struct BurnItem *item = (struct BurnItem*)g_new0(struct BurnItem, 1);
-
-            /*we will free memory when we delete the list*/
-            item->status = status;
-            item->path_in_filesystem = g_strdup(path_in_system);
-            item->path_to_burn = g_build_filename(file_path, file_name, NULL);
-            item->size = size;
-
-            /*this is faster than g_list_append*/
-            *compilation_list = g_list_prepend(*compilation_list,item);
+            gchar *full_path = g_build_filename(file_path, file_name, NULL);
+            fprintf(tmp_file->file_stream, "%s=%s\n", full_path, path_in_system);
+            g_free(full_path);
         }
 
         g_free(path_in_system);
@@ -1589,93 +1569,27 @@ dataproject_build_filepaths_recursive(GtkTreeModel *model, GtkTreeIter *parent_i
  * This way we avoid the "too many arguments" error.
  */
 static const GBTempFile*
-dataproject_build_filepaths(GtkTreeModel *model)
+dataproject_build_paths_file(GtkTreeModel *model)
 {
     GB_LOG_FUNC
     g_return_if_fail(model != NULL);
 
-    GList *compilation_list = NULL;
-
     GBTempFile *tmp_file = gbcommon_create_open_temp_file();
     if(tmp_file == NULL)
     {
-        g_warning("dataproject_build_filepaths - Error. Temp file was not created. Image will not be created");
+        g_warning("dataproject_build_paths_file - Error. Temp file was not created. Image will not be created");
         return NULL;
     }
-
     /* Get the root iter.It should be the name of the compilation,
      * but for the moment we don´t do anything with it
-     * All will start from here
-     */
-
-     GB_DECLARE_STRUCT(GtkTreeIter, root_iter);
-     gtk_tree_model_get_iter_first(model, &root_iter);
-     if(gtk_tree_model_iter_has_child(model, &root_iter))
-     {
-        int count = 0;
-        GB_DECLARE_STRUCT(GtkTreeIter, iter);
-        while(gtk_tree_model_iter_nth_child(model,&iter,&root_iter,count))
-        {
-            guint64 size;
-            gchar *file_name = NULL, *path_in_system = NULL;
-            gulong status = 0L;
-
-            gtk_tree_model_get(model, &iter, DATA_TREE_COL_FILE, &file_name,
-                    DATA_TREE_COL_SIZE, &size, DATA_TREE_COL_PATH, &path_in_system,
-                    DATA_TREE_COL_STATUS, &status, -1 );
-
-            if(status & STATUS_IS_FOLDER)
-            {
-                /*it is a folder, add its contents recursively building the filepaths to burn*/
-                dataproject_build_filepaths_recursive(model, &iter, file_name , &compilation_list);
-            }
-            else
-            {
-                /*it is not a folder, add it to the list*/
-                struct BurnItem *item = (struct BurnItem*)g_new0(struct BurnItem, 1);
-
-                /*we will free memory when we delete the list*/
-                item->status = status;
-                item->path_in_filesystem = g_strdup(path_in_system);
-                /*this is the first level, do not concatenate nothing*/
-                item->path_to_burn = g_strdup(file_name);
-                item->size = size;
-
-                /*this is faster than g_list_append*/
-                compilation_list = g_list_prepend(compilation_list,item);
-            }
-
-            g_free(path_in_system);
-            g_free(file_name);
-            ++count;
-        }
-    }
+     * All will start from here */
+    GB_DECLARE_STRUCT(GtkTreeIter, root_iter);
+    gtk_tree_model_get_iter_first(model, &root_iter);
+    if(gtk_tree_model_iter_has_child(model, &root_iter))
+        dataproject_build_paths_file_recursive(model, &root_iter, "", tmp_file);
     else
-    {
         /*compilation is empty! What should we do?*/
-    }
 
-    /* once we have all the items, transverse all and add them to the arguments.
-     * Calculate also the total size. We could aso look for invalid paths */
-    GList *node =NULL;
-    for (node = compilation_list; node != NULL; node = node->next )
-    {
-        if(node->data!=NULL)
-        {
-            struct BurnItem *item = (struct BurnItem *)node->data;
-            /*Only add files that are not part of an existing session*/
-            if(!(item->status & STATUS_EXISTING_SESSION))
-            {
-                /*GB_TRACE("dataproject_build_filepaths - Data to Burn [%s]=[%s]\n",item->path_to_burn , item->path_in_filesystem);*/
-                fprintf(tmp_file->file_stream, "%s=%s\n", item->path_to_burn , item->path_in_filesystem);
-                /*free memory*/
-                g_free(item->path_in_filesystem);
-                g_free(item->path_to_burn);
-                g_free(item);
-            }
-        }
-    }
-    g_list_free(compilation_list);
     gbcommon_close_temp_file(tmp_file); /*close, but don´t delete. It must be readed by mkisofs*/
     return tmp_file;
 }
@@ -1695,7 +1609,7 @@ dataproject_on_create_datadisk(gpointer widget, DataProject *data_project)
        return;
     }
 
-    const GBTempFile *tmp_file = dataproject_build_filepaths(GTK_TREE_MODEL(data_project->dataproject_compilation_store));
+    const GBTempFile *tmp_file = dataproject_build_paths_file(GTK_TREE_MODEL(data_project->dataproject_compilation_store));
 
     if(data_project->is_dvd)
     {
