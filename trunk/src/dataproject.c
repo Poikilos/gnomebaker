@@ -50,6 +50,11 @@ static const gdouble overburn_percent = 1.02;
  * */
 
 
+static const gint STATUS_IS_FOLDER = 0x01;
+static const gint STATUS_EXISTING_SESSION = 0x02;
+static const gint STATUS_FOLDER_MODIFIED = 0x04;
+
+
 
 enum
 {
@@ -58,8 +63,7 @@ enum
     DATA_LIST_COL_SIZE,
     DATA_LIST_COL_HUMANSIZE,
     DATA_LIST_COL_PATH,
-    DATA_LIST_COL_SESSION,
-    DATA_LIST_COL_ISFOLDER,
+    DATA_LIST_COL_STATUS,
     DATA_LIST_COL_ROWREFERENCE,
     DATA_LIST_NUM_COLS
 };
@@ -72,8 +76,7 @@ enum
     DATA_TREE_COL_SIZE,
     DATA_TREE_COL_HUMANSIZE,
     DATA_TREE_COL_PATH,
-    DATA_TREE_COL_SESSION,
-    DATA_TREE_COL_IS_FOLDER,
+    DATA_TREE_COL_STATUS,
     DATA_TREE_NUM_COLS
 };
 
@@ -92,7 +95,7 @@ enum
 struct BurnItem
 {
     guint64 size;
-    gboolean existing_session;
+    guint status;
     gchar *path_to_burn;
     gchar *path_in_filesystem;
 };
@@ -175,7 +178,7 @@ dataproject_compilation_root_add(DataProject *data_project)
     gtk_tree_store_append(data_project->dataproject_compilation_store, &root_iter, NULL);
     gtk_tree_store_set(data_project->dataproject_compilation_store, &root_iter, DATA_TREE_COL_ICON, icon,
             DATA_TREE_COL_FILE, _("GnomeBaker data disk"),  DATA_TREE_COL_SIZE, (guint64)0,  DATA_TREE_COL_HUMANSIZE,
-            "", DATA_TREE_COL_PATH, "", DATA_TREE_COL_SESSION, FALSE, DATA_TREE_COL_IS_FOLDER, TRUE , -1);
+            "", DATA_TREE_COL_PATH, "", DATA_TREE_COL_STATUS, 0, -1);
     g_object_unref(icon);
 }
 
@@ -302,13 +305,13 @@ dataproject_list_view_update(DataProject *data_project, GtkTreeIter *parent_iter
         GdkPixbuf *icon = NULL;
         gchar *base_name = NULL, *human_readable = NULL, *file_name = NULL;
         guint64 size = 0;
+        guint status = 0;
         gboolean existing_session = FALSE, is_folder = FALSE;
 
         gtk_tree_model_get(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &child_iter,
                 DATA_TREE_COL_ICON, &icon, DATA_TREE_COL_FILE, &base_name,
                 DATA_TREE_COL_SIZE, &size, DATA_TREE_COL_HUMANSIZE, &human_readable,
-                DATA_TREE_COL_PATH, &file_name, DATA_TREE_COL_SESSION, &existing_session,
-                DATA_TREE_COL_IS_FOLDER, &is_folder ,-1);
+                DATA_TREE_COL_PATH, &file_name, DATA_TREE_COL_STATUS, &status, -1);
 
         GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&child_iter);
         GtkTreeRowReference *row_reference = gtk_tree_row_reference_new(GTK_TREE_MODEL(data_project->dataproject_compilation_store),path);
@@ -319,8 +322,8 @@ dataproject_list_view_update(DataProject *data_project, GtkTreeIter *parent_iter
         gtk_list_store_set(store, &store_iter,
                 DATA_LIST_COL_ICON, icon, DATA_LIST_COL_FILE, base_name,
                 DATA_LIST_COL_SIZE, size, DATA_LIST_COL_HUMANSIZE, human_readable,
-                DATA_LIST_COL_PATH, file_name, DATA_LIST_COL_SESSION, existing_session,
-                DATA_LIST_COL_ISFOLDER, is_folder ,DATA_LIST_COL_ROWREFERENCE, row_reference, -1);
+                DATA_LIST_COL_PATH, file_name, DATA_LIST_COL_STATUS, status,
+                DATA_LIST_COL_ROWREFERENCE, row_reference, -1);
         g_object_unref(icon);
 
         /*row_reference should not be unreferenced as the set function just stores the pointer value */
@@ -530,14 +533,17 @@ dataproject_add_to_model(DataProject *data_project, const gboolean is_folder, co
         g_free(mime);
     }
 
+    guint status = 0;
+    if(is_folder) status |= STATUS_IS_FOLDER;
+    if(existing_session) status |= STATUS_EXISTING_SESSION;
+
     gchar *human_readable = gbcommon_humanreadable_filesize(size);
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
     gtk_tree_store_append(data_project->dataproject_compilation_store, &iter, parent_node);
     gtk_tree_store_set(data_project->dataproject_compilation_store, &iter,
             DATA_TREE_COL_ICON, icon, DATA_TREE_COL_FILE, base_name,
             DATA_TREE_COL_SIZE, size, DATA_TREE_COL_HUMANSIZE, human_readable,
-            DATA_TREE_COL_PATH, path_to_show, DATA_TREE_COL_SESSION, existing_session,
-            DATA_TREE_COL_IS_FOLDER, is_folder,-1);
+            DATA_TREE_COL_PATH, path_to_show, DATA_TREE_COL_STATUS, status, -1);
     g_free(human_readable);
     g_object_unref(icon);
     return iter;
@@ -563,12 +569,12 @@ dataproject_add_to_compilation(DataProject *data_project, const gchar *file, Gtk
     {
         const gboolean is_folder = S_ISDIR(s.st_mode);
         if(S_ISREG(s.st_mode) || is_folder)
-        {            
+        {
             gchar *base_name = g_path_get_basename(file_name);
             GtkTreeIter iter = dataproject_add_to_model(data_project, is_folder,
                     file_name, base_name, parent_node, existing_session, (guint64)s.st_size);
             g_free(base_name);
-    
+
             /*recursively add contents*/
             if(is_folder)
             {
@@ -972,9 +978,9 @@ dataproject_remove(Project *project)
                 GB_DECLARE_STRUCT(GtkTreeIter, iter);
                 if (gtk_tree_model_get_iter(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &iter, path))
                 {
-                    GValue session_value = { 0 };
-                    gtk_tree_model_get_value(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &iter, DATA_TREE_COL_SESSION, &session_value);
-                    if(g_value_get_boolean(&session_value) == FALSE)
+                    GValue status = { 0 };
+                    gtk_tree_model_get_value(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &iter, DATA_TREE_COL_STATUS, &status);
+                    if(!(g_value_get_uint(&status) & STATUS_EXISTING_SESSION))
                     {
                         GValue value = { 0 };
                         gtk_tree_model_get_value(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &iter, DATA_TREE_COL_SIZE, &value);
@@ -987,7 +993,7 @@ dataproject_remove(Project *project)
                         GB_TRACE("dataproject_remove - Removed [%s]\n",gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &iter));
                         gtk_tree_store_remove(data_project->dataproject_compilation_store, &iter);
                     }
-                    g_value_unset(&session_value);
+                    g_value_unset(&status);
                 }
                 gtk_tree_path_free(path);
             }
@@ -1178,8 +1184,7 @@ dataproject_on_add_folder(gpointer widget, DataProject *data_project)
     gtk_tree_store_set(data_project->dataproject_compilation_store, &iter,
             DATA_TREE_COL_ICON, icon, DATA_TREE_COL_FILE, _("New Folder"),
             DATA_TREE_COL_SIZE, size, DATA_TREE_COL_HUMANSIZE, human_readable,
-            DATA_TREE_COL_PATH, "", DATA_TREE_COL_SESSION, FALSE,
-            DATA_TREE_COL_IS_FOLDER, TRUE, -1);
+            DATA_TREE_COL_PATH, "", DATA_TREE_COL_STATUS, 0, -1);
 
     g_object_unref(icon);
 
@@ -1325,10 +1330,9 @@ dataproject_on_tree_dbl_click(GtkTreeView *tree_view,
         GB_DECLARE_STRUCT(GtkTreeIter,iter);
         if(gtk_tree_model_get_iter(model,&iter,path))
         {
-            GValue is_folder = {0};
-            gtk_tree_model_get_value(GTK_TREE_MODEL(model),&iter,DATA_LIST_COL_ISFOLDER, &is_folder);
-
-            if(g_value_get_boolean(&is_folder))
+            GValue status = {0};
+            gtk_tree_model_get_value(GTK_TREE_MODEL(model),&iter,DATA_LIST_COL_STATUS, &status);
+            if(g_value_get_uint(&status) & STATUS_IS_FOLDER)
             {
                 GValue reference_val = {0};
                 gtk_tree_model_get_value(GTK_TREE_MODEL(model),&iter,DATA_LIST_COL_ROWREFERENCE, &reference_val);
@@ -1344,7 +1348,7 @@ dataproject_on_tree_dbl_click(GtkTreeView *tree_view,
                 }
                 gtk_tree_path_free(global_path);
             }
-            g_value_unset(&is_folder);
+            g_value_unset(&status);
         }
     }
 }
@@ -1360,12 +1364,12 @@ dataproject_treeview_filter_func(GtkTreeModel *model, GtkTreeIter *iter, DataPro
     g_return_if_fail(data_project != NULL);
 
     gboolean ret = TRUE;
-    GValue is_folder = {0};
-    gtk_tree_model_get_value(model,iter,DATA_TREE_COL_IS_FOLDER, &is_folder);
+    GValue status = {0};
+    gtk_tree_model_get_value(model,iter,DATA_TREE_COL_STATUS, &status);
     /*check if it is a directory. If so,show. Otherwise, don´t*/
-    if(!g_value_get_boolean(&is_folder))
+    if(!(g_value_get_uint(&status) & STATUS_IS_FOLDER))
         ret = dataproject_compilation_is_root(data_project, iter);
-    g_value_unset(&is_folder);
+    g_value_unset(&status);
     return ret;
 }
 
@@ -1416,10 +1420,7 @@ dataproject_tree_sel_changed(GtkTreeSelection *selection, DataProject *data_proj
  * TODO: should we also group by mime?
  * */
 static gint
-dataproject_list_sortfunc(   GtkTreeModel *model,
-                        GtkTreeIter *a,
-                        GtkTreeIter *b,
-                        gpointer user_data)
+dataproject_list_sortfunc(GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, gpointer user_data)
 {
     /* <0, a BEFORE b
      *  0,  a WITH b (undefined)
@@ -1427,15 +1428,15 @@ dataproject_list_sortfunc(   GtkTreeModel *model,
      */
 
     gchar *a_name = NULL, *b_name = NULL;
-    gboolean a_is_folder = FALSE, b_is_folder = FALSE;
+    guint a_status = 0, b_status = 0;
 
-    gtk_tree_model_get (model, a, DATA_LIST_COL_FILE, &a_name, DATA_LIST_COL_ISFOLDER, &a_is_folder, -1);
-    gtk_tree_model_get (model, b, DATA_LIST_COL_FILE, &b_name, DATA_LIST_COL_ISFOLDER, &b_is_folder, -1);
+    gtk_tree_model_get (model, a, DATA_LIST_COL_FILE, &a_name, DATA_LIST_COL_STATUS, &a_status, -1);
+    gtk_tree_model_get (model, b, DATA_LIST_COL_FILE, &b_name, DATA_LIST_COL_STATUS, &b_status, -1);
 
     gint result = 0;
-    if(a_is_folder && !b_is_folder)
+    if((a_status & STATUS_IS_FOLDER) && !(b_status & STATUS_IS_FOLDER))
         result = -1;
-    else if(!a_is_folder && b_is_folder)
+    else if(!(a_status & STATUS_IS_FOLDER) && (b_status & STATUS_IS_FOLDER))
         result = 1;
     else
         result = g_ascii_strcasecmp(a_name, b_name);
@@ -1513,33 +1514,33 @@ dataproject_build_filepaths_recursive(GtkTreeModel *model, GtkTreeIter *parent_i
     while(gtk_tree_model_iter_nth_child(model,&iter,parent_iter,count))
     {
         guint64 size;
-        gboolean is_folder = FALSE, existing_session = FALSE;
         gchar *file_name = NULL, *path_in_system = NULL;
+        guint status = 0;
 
         gtk_tree_model_get(model, &iter,
                 DATA_TREE_COL_FILE, &file_name, DATA_TREE_COL_SIZE, &size,
-                DATA_TREE_COL_PATH, &path_in_system, DATA_TREE_COL_SESSION, &existing_session,
-                DATA_TREE_COL_IS_FOLDER, & is_folder, -1 );
+                DATA_TREE_COL_PATH, &path_in_system, DATA_TREE_COL_STATUS, &status, -1);
 
-        /*it is not a folder, add it to the list*/
-        if(!is_folder)
+        if(status & STATUS_IS_FOLDER)
         {
+            /*it is a folder, add its contents recursively building the filepaths to burn*/
+            gchar  *filepath_new = g_build_filename(file_path, file_name,NULL);
+            dataproject_build_filepaths_recursive(model, &iter, filepath_new, compilation_list);
+            g_free(filepath_new);
+        }
+        else
+        {
+            /*it is not a folder, add it to the list*/
             struct BurnItem *item = (struct BurnItem*)g_new0(struct BurnItem, 1);
 
             /*we will free memory when we delete the list*/
-            item->existing_session = existing_session;
+            item->status = status;
             item->path_in_filesystem = g_strdup(path_in_system);
             item->path_to_burn = g_build_filename(file_path, file_name, NULL);
             item->size = size;
 
             /*this is faster than g_list_append*/
             *compilation_list = g_list_prepend(*compilation_list,item);
-        }
-        else /*it is a folder, add its contents recursively building the filepaths to burn*/
-        {
-            gchar  *filepath_new = g_build_filename(file_path, file_name,NULL);
-            dataproject_build_filepaths_recursive(model, &iter, filepath_new, compilation_list);
-            g_free(filepath_new);
         }
 
         g_free(path_in_system);
@@ -1582,21 +1583,25 @@ dataproject_build_filepaths(GtkTreeModel *model)
         while(gtk_tree_model_iter_nth_child(model,&iter,&root_iter,count))
         {
             guint64 size;
-            gboolean is_folder = FALSE, existing_session = FALSE;
             gchar *file_name = NULL, *path_in_system = NULL;
+            guint status = 0;
 
             gtk_tree_model_get(model, &iter, DATA_TREE_COL_FILE, &file_name,
                     DATA_TREE_COL_SIZE, &size, DATA_TREE_COL_PATH, &path_in_system,
-                    DATA_TREE_COL_SESSION, &existing_session,
-                    DATA_TREE_COL_IS_FOLDER, & is_folder, -1 );
+                    DATA_TREE_COL_STATUS, &status, -1 );
 
-            /*it is not a folder, add it to the list*/
-            if(!is_folder)
+            if(status & STATUS_IS_FOLDER)
             {
+                /*it is a folder, add its contents recursively building the filepaths to burn*/
+                dataproject_build_filepaths_recursive(model, &iter, file_name , &compilation_list);
+            }
+            else
+            {
+                /*it is not a folder, add it to the list*/
                 struct BurnItem *item = (struct BurnItem*)g_new0(struct BurnItem, 1);
 
                 /*we will free memory when we delete the list*/
-                item->existing_session = existing_session;
+                item->status = status;
                 item->path_in_filesystem = g_strdup(path_in_system);
                 /*this is the first level, do not concatenate nothing*/
                 item->path_to_burn = g_strdup(file_name);
@@ -1604,10 +1609,6 @@ dataproject_build_filepaths(GtkTreeModel *model)
 
                 /*this is faster than g_list_append*/
                 compilation_list = g_list_prepend(compilation_list,item);
-            }
-            else /*it is a folder, add its contents recursively building the filepaths to burn*/
-            {
-                dataproject_build_filepaths_recursive(model, &iter, file_name , &compilation_list);
             }
 
             g_free(path_in_system);
@@ -1629,7 +1630,7 @@ dataproject_build_filepaths(GtkTreeModel *model)
         {
             struct BurnItem *item = (struct BurnItem *)node->data;
             /*Only add files that are not part of an existing session*/
-            if(!item->existing_session)
+            if(!(item->status & STATUS_EXISTING_SESSION))
             {
                 /*GB_TRACE("dataproject_build_filepaths - Data to Burn [%s]=[%s]\n",item->path_to_burn , item->path_in_filesystem);*/
                 fprintf(tmp_file->file_stream, "%s=%s\n", item->path_to_burn , item->path_in_filesystem);
@@ -1811,14 +1812,14 @@ dataproject_save_recursive(GtkTreeModel *model, GtkTreeIter *parent_iter, xmlNod
          * are added to the project only so it effectively forms a backup set
          * and all of the referenced folders contents get added and new files
          * in those folders do not get ignored */
-        gboolean is_folder = FALSE, existing_session = FALSE;
         gchar *file = NULL, *file_path = NULL;
+        guint status = 0;
 
         gtk_tree_model_get(model, &child_iter,
                 DATA_TREE_COL_FILE, &file, DATA_TREE_COL_PATH, &file_path,
-                DATA_TREE_COL_SESSION, &existing_session, DATA_TREE_COL_IS_FOLDER, &is_folder, -1 );
+                DATA_TREE_COL_STATUS, &status, -1 );
 
-        if(!existing_session)
+        if(!(status & STATUS_EXISTING_SESSION))
         {
             xmlNodePtr file_node = xmlNewTextChild(parent_node, NULL, (const xmlChar*)"file", NULL);
             xmlNewProp(file_node, (const xmlChar*)"path", (const xmlChar*)file_path);
@@ -1896,7 +1897,7 @@ dataproject_setup_list(DataProject *data_project)
     /* Instead of a pointer to row reference we could use G_TYPE_TREE_ROW_REFERENCE
     /* so that we do not need to delete it manually*/
     GtkListStore *store = gtk_list_store_new(DATA_LIST_NUM_COLS, GDK_TYPE_PIXBUF,
-            G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_POINTER );
+            G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT, G_TYPE_POINTER);
     gtk_tree_view_set_model(data_project->list, GTK_TREE_MODEL(store));
 
     /*show folders first*/
@@ -1955,16 +1956,6 @@ dataproject_setup_list(DataProject *data_project)
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start(col, renderer, TRUE);
     gtk_tree_view_column_set_attributes(col, renderer, "text", DATA_LIST_COL_PATH, NULL);
-    gtk_tree_view_append_column(data_project->list, col);
-
-    /* Fifth column for the session bool */
-    col = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_resizable(col, TRUE);
-    gtk_tree_view_column_set_title(col, _("Session"));
-    renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(col, renderer, TRUE);
-    gtk_tree_view_column_set_attributes(col, renderer, "text", DATA_LIST_COL_SESSION, NULL);
-    gtk_tree_view_column_set_visible(col, FALSE);
     gtk_tree_view_append_column(data_project->list, col);
 
     /* Set the selection mode of the file list */
@@ -2091,7 +2082,7 @@ dataproject_init(DataProject *project)
      * 7-is a folder
      */
     project->dataproject_compilation_store = gtk_tree_store_new(DATA_TREE_NUM_COLS, GDK_TYPE_PIXBUF,
-            G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_BOOLEAN);
+            G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_UINT);
 
     project->dataproject_compilation_size = 0;
 

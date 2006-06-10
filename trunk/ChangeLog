@@ -1,6 +1,6 @@
 Version 0.5.2
 
-* Fix RFE #1242645 Clearer indication of successful burn completion (acually in 0.5.1)
+* Fix RFE #1242645 Clearer indication of successful burn completion (actually in 0.5.1)
 * Fix RFE #1165304 smarten up device selection. Only show writers in the writers option menu.
 * Fix Bug #1418811 Copying with single drive fails
 * Apply patch #1430548 from domg - Fix compilation on FreeBSD 
@@ -8,9 +8,9 @@ Version 0.5.2
 * Apply patch from Ignacio Martin:
 		- Data disk contents can be edited and folders added etc.
 		- You can now add files which exceed the disk size and choose which to remove.
-		Fixes RFE #1286697 - Files And Directories editing ....		
-		Fixes RFE #1210821 - Browsible CD
-		Fixes RFE #1211475 - Virtual Folders
+		Fixes RFE #1286697 Files And Directories editing ....		
+		Fixes RFE #1210821 Browsible CD
+		Fixes RFE #1211475 Virtual Folders
 * Fix Bug #1442519 Can't compile gnomebaker with Fedora Core 5 libnotify 0.3.0
 * Fix Bug #1439059 Can't compile gnomebaker with gstreamer 0.10
 * Fix Bug #1429235 gnomebaker-1.9.0: compilation issue
@@ -23,22 +23,22 @@ Version 0.5.2
 * When not showing file browser, add button now allows selection of files or folders.
 * Notionally split out data CD and DVD so they are both available in the File->New menu.
 * Tidy up the start burning dlg and make the layouts look better.
-* Use a text area instead of a label for the progress dialog process description as label doesn't wrape properly.
+* Use a text area instead of a label for the progress dialog process description as label doesn't wrap properly.
 * Awesome new icon from Jose Reis.
 * Use g_convert_with_fallback when reading from child processes to ignore chars we don't understand.
 * Apply patch #1460031 from Darren Kenny - Build fails on Solaris.
-* Fix Bug #1408067 - Freeze on start-up
-* Fix Bug #1358471 - The filesystem browser loses synchrony
-* Fix Bug #1174343 - could not enter newly created directories
-* Fix RFE #1401689 - Interface Improvements (Mockup included)
+* Fix Bug #1408067 Freeze on start-up
+* Fix Bug #1358471 The filesystem browser loses synchrony
+* Fix Bug #1174343 could not enter newly created directories
+* Fix RFE #1401689 Interface Improvements (Mockup included)
 * Apply patch #1494540 from Daniel Nylander - Updated sv.po translation
 * Apply patch #1463826 ] from goedson - Updated pt_BR translation
-* Fix RFE #1406985 - speed units in the burn dialog
-* Fix RFE #1444098 - Track number column for audio cd's
-* Fix Bug #1502418 - ownership/modes of files should be set to standart values
+* Fix RFE #1406985 speed units in the burn dialog
+* Fix RFE #1444098 Track number column for audio cd's
+* Fix Bug #1502418 ownership/modes of files should be set to standart values
 * Apply patch from Adonikam Virgo to fix crash when calling g_thread_init().
 * Apply patch from Julien Danjou. We now do not follow symlinks at all. You can't add them to a disk.
-* Fix Bug #1336399 - links are counted on interface but not on disk
+* Fix Bug #1336399 links are counted on interface but not on disk
 
 Version 0.5.1
 
