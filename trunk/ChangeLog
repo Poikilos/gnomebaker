@@ -40,6 +40,7 @@ Version 0.5.2
 * Apply patch from Julien Danjou. We now do not follow symlinks at all. You can't add them to a disk.
 * Fix Bug #1336399 links are counted on interface but not on disk
 * Fix RFE #1503812 SAO support - added for burning cds.
+* Add ability to open (launch) files in the data projects.
 
 Version 0.5.1
 
