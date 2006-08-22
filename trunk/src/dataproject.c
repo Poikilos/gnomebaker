@@ -1555,6 +1555,7 @@ dataproject_build_paths_file_recursive(GtkTreeModel *model, GtkTreeIter *parent_
         {
             gchar *full_path = g_build_filename(file_path, file_name, NULL);
             fprintf(tmp_file->file_stream, "%s=%s\n", full_path, path_in_system);
+            GB_TRACE("dataproject_build_paths_file_recursive - [%s]\n", full_path);
             g_free(full_path);
         }
 
@@ -1581,6 +1582,7 @@ dataproject_build_paths_file(GtkTreeModel *model)
         g_warning("dataproject_build_paths_file - Error. Temp file was not created. Image will not be created");
         return NULL;
     }
+    GB_TRACE("dataproject_build_paths_file - created file [%s]\n", tmp_file->file_name);
     /* Get the root iter.It should be the name of the compilation,
      * but for the moment we don´t do anything with it
      * All will start from here */
@@ -1588,8 +1590,8 @@ dataproject_build_paths_file(GtkTreeModel *model)
     gtk_tree_model_get_iter_first(model, &root_iter);
     if(gtk_tree_model_iter_has_child(model, &root_iter))
         dataproject_build_paths_file_recursive(model, &root_iter, "", tmp_file);
-    else
-        /*compilation is empty! What should we do?*/
+    /*else
+        compilation is empty! What should we do?*/
 
     gbcommon_close_temp_file(tmp_file); /*close, but don´t delete. It must be readed by mkisofs*/
     return tmp_file;
