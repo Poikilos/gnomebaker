@@ -93,6 +93,9 @@ main(gint argc, gchar *argv[])
 	glade_file = gnome_program_locate_file(NULL, GNOME_FILE_DOMAIN_APP_DATADIR,
 			"gnomebaker/gnomebaker.glade", FALSE, NULL);
 
+	g_set_application_name (_("GnomeBaker"));
+	gtk_window_set_default_icon_name ("gnomebaker-48");
+
 #if !defined(__linux__)
 	GtkWidget *dlg = splashdlg_new();
 #endif

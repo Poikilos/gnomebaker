@@ -42,7 +42,8 @@ Version 0.5.2
 * Fix RFE #1503812 SAO support - added for burning cds.
 * Add ability to open (launch) files in the data projects.
 * Apply patch #1548102 from Goedson - Fix compilation warnings
-* Apply patch #1548101 from Goedson -  Fix data project size calculation
+* Apply patch #1548101 from Goedson - Fix data project size calculation
+* Apply patch #1540113 from BPepple - Patch to make GnomeBaker install theme-friendly icons
 
 Version 0.5.1
 

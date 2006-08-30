@@ -548,12 +548,7 @@ startdlg_new(const BurnType burn_type)
     gtk_window_set_default_size(GTK_WINDOW(start_dlg->dialog), 320, -1);
     gtk_window_set_title(GTK_WINDOW(start_dlg->dialog), _(BurnTypeText[burn_type]));
     gtk_window_set_modal (GTK_WINDOW (start_dlg->dialog), TRUE);
-    GdkPixbuf *icon = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
-    if(icon != NULL)
-    {
-        gtk_window_set_icon(GTK_WINDOW (start_dlg->dialog), icon);
-        gdk_pixbuf_unref(icon);
-    }
+
     gtk_window_set_skip_taskbar_hint (GTK_WINDOW (start_dlg->dialog), TRUE);
     gtk_dialog_set_has_separator (start_dlg->dialog, FALSE);
 
