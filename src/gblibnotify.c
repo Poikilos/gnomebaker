@@ -88,10 +88,8 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
 #if (LIBNOTIFY_VERSION_MINOR >= 3)
 	gint x, y;
 	global_notify = notify_notification_new (subject, content, "", NULL);
-	/* not sure if we have to free the pixbuf since it could be used internally in libnotify
-	   have to investigate further also need supply the full path of the filename
-       with the auto* magic stuff*/
-    GdkPixbuf *icon_pixbuf = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
+	/* not sure if we have to free the pixbuf since it could be used internally in libnotify */
+    GdkPixbuf *icon_pixbuf = gbcommon_get_icon_for_name("gnomebaker-48", 48);
     /* I think they changed the api between 0.3.0 and 0.3.1+ */
 #if (LIBNOTIFY_VERSION_MINOR <= 3 && LIBNOTIFY_VERSION_MICRO < 2)
     notify_notification_set_icon_data_from_pixbuf(global_notify, icon_pixbuf);
@@ -124,8 +122,7 @@ gblibnotify_notification(const gchar *subject, const gchar *content)
         notify_hints_set_int (hints, "y", y);
     }*/
 
-    /* the path for the icon, this really should use the auto* stuff and not being hardcoded */
-    NotifyIcon *icon = gdk_pixbuf_new_from_file(IMAGEDIR"/gnomebaker-48.png", NULL);
+    NotifyIcon *icon = gbcommon_get_icon_for_name("gnomebaker-48", 48);
     global_notify = notify_send_notification (global_notify, /* replaces all */
                NULL,
                NOTIFY_URGENCY_NORMAL,

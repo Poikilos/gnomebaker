@@ -8,7 +8,6 @@ gnomebaker_pixmaps_DATA = \
 	baker-burn-cd.png\
 	baker-cd.png\
 	baker-data-copy.png\
-	gnomebaker-48.png\
 	splash_2.png\
 	baker-import-session.png\
 	baker-blank-dvdrw.png\
@@ -16,6 +15,7 @@ gnomebaker_pixmaps_DATA = \
 	baker-cue-image.png\
 	baker-dvd-iso.png\
 	baker-remove-files.png\
+	gnomebaker-48.png\
 	state00.png\
 	state01.png\
 	state02.png\
@@ -30,6 +30,21 @@ gnomebaker_pixmaps_DATA = \
 	state11.png\
 	state12.png\
 	state13.png
-	
 
-EXTRA_DIST = $(gnomebaker_pixmaps_DATA)
+icondir =$(datadir)/icons/hicolor/48x48/apps
+icon_DATA = gnomebaker-48.png
+
+gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
+
+install-data-hook:
+	@-if test -z "$(DESTDIR)"; then \
+		echo "Updating Gtk icon cache."; \
+		$(gtk_update_icon_cache); \
+	else \
+		echo "*** Icon cache not updated.  After install, run this:"; \
+		echo "***   $(gtk_update_icon_cache)"; \
+	fi
+
+EXTRA_DIST = 				\
+	$(gnomebaker_pixmaps_DATA)	\
+	$(icon_DATA)

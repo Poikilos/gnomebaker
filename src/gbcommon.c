@@ -360,7 +360,7 @@ gbcommon_get_icon_for_name(const gchar *icon, gint size)
     g_return_val_if_fail(icon != NULL, NULL);
 	GtkIconTheme *theme = gtk_icon_theme_get_default();
 	g_return_val_if_fail(theme != NULL, NULL);
-	return gtk_icon_theme_load_icon(theme, icon, 16, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
+	return gtk_icon_theme_load_icon(theme, icon, size, GTK_ICON_LOOKUP_USE_BUILTIN, NULL);
 }
 
 
