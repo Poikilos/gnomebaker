@@ -44,6 +44,8 @@ Version 0.5.2
 * Apply patch #1548102 from Goedson - Fix compilation warnings
 * Apply patch #1548101 from Goedson - Fix data project size calculation
 * Apply patch #1540113 from BPepple - Patch to make GnomeBaker install theme-friendly icons
+* Apply patch #1328166 from BPepple -  Patch for About window in Gtk 2.6
+
 
 Version 0.5.1
 
