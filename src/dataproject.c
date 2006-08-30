@@ -144,7 +144,7 @@ gchar*
 dataproject_compilation_get_volume_id(DataProject *data_project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(data_project != NULL);
+      g_return_val_if_fail(data_project != NULL, NULL);
 
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
     if(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(data_project->dataproject_compilation_store),&iter))
@@ -180,8 +180,8 @@ static gboolean
 dataproject_compilation_is_root(DataProject *data_project, GtkTreeIter *global_iter)
 {
     GB_LOG_FUNC
-    g_return_if_fail(data_project != NULL);
-    g_return_if_fail(global_iter != NULL);
+      g_return_val_if_fail(data_project != NULL, FALSE);
+    g_return_val_if_fail(global_iter != NULL, FALSE);
 
     gboolean ret = FALSE;
     /*check if iter is the root*/
@@ -298,7 +298,6 @@ dataproject_list_view_update(DataProject *data_project, GtkTreeIter *parent_iter
         gchar *base_name = NULL, *human_readable = NULL, *file_name = NULL;
         guint64 size = 0;
         gulong status = 0L;
-        gboolean existing_session = FALSE, is_folder = FALSE;
 
         gtk_tree_model_get(GTK_TREE_MODEL(data_project->dataproject_compilation_store), &child_iter,
                 DATA_TREE_COL_ICON, &icon, DATA_TREE_COL_FILE, &base_name,
@@ -358,7 +357,7 @@ static gdouble
 dataproject_get_datadisk_size(DataProject* data_project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(data_project != NULL);
+      g_return_val_if_fail(data_project != NULL, 0.0);
     if(data_project->is_dvd)
         data_project->data_disk_size = data_dvd_disk_sizes[gtk_option_menu_get_history(PROJECT_WIDGET(data_project)->menu)].size;
     else
@@ -545,7 +544,7 @@ static gboolean
 dataproject_add_to_compilation(DataProject *data_project, const gchar *file, GtkTreeIter *parent_node, gboolean existing_session)
 {
     GB_LOG_FUNC
-    g_return_if_fail(data_project != NULL);
+      g_return_val_if_fail(data_project != NULL, FALSE);
     g_return_val_if_fail(file != NULL, FALSE);
     g_return_val_if_fail(parent_node != NULL, FALSE);
     gboolean ret = TRUE;
@@ -696,7 +695,7 @@ static gboolean
 dataproject_drag_motion_expand_timeout(DataProject *data_project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(data_project != NULL);
+      g_return_val_if_fail(data_project != NULL, FALSE);
 
     gdk_threads_enter();
     gtk_tree_view_expand_row(data_project->tree, data_project->last_path, FALSE);
@@ -709,7 +708,7 @@ static gboolean
 dataproject_drag_motion_scroll_timeout(DataProject *data_project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(data_project != NULL);
+      g_return_val_if_fail(data_project != NULL, FALSE);
 
     GdkRectangle visible_rect;
     gint y;
@@ -736,7 +735,7 @@ dataproject_drag_motion_scroll_timeout(DataProject *data_project)
         {
             data_project->autoscroll_timeout_id = 0;
             gdk_threads_leave();
-            return;
+            return FALSE;
         }
     }
 
@@ -759,7 +758,7 @@ dataproject_on_drag_motion(GtkWidget *widget,
 
 {
     GB_LOG_FUNC
-    g_return_if_fail(data_project != NULL);
+      g_return_val_if_fail(data_project != NULL, FALSE);
 
     data_project->expand_timeout_id = 0;
     data_project->autoscroll_timeout_id = 0;
@@ -1294,9 +1293,9 @@ static gboolean
 dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProject *data_project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(widget != NULL);
-    g_return_if_fail(data_project != NULL);
-    g_return_if_fail(event != NULL);
+    g_return_val_if_fail(widget != NULL, FALSE);
+    g_return_val_if_fail(data_project != NULL, FALSE);
+    g_return_val_if_fail(event != NULL, FALSE);
 
     /* look for a right click */
     if(event->button == 3)
@@ -1384,9 +1383,9 @@ static gboolean
 dataproject_treeview_filter_func(GtkTreeModel *model, GtkTreeIter *iter, DataProject *data_project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(model != NULL);
-    g_return_if_fail(iter != NULL);
-    g_return_if_fail(data_project != NULL);
+      g_return_val_if_fail(model != NULL, FALSE);
+    g_return_val_if_fail(iter != NULL, FALSE);
+    g_return_val_if_fail(data_project != NULL, FALSE);
 
     gboolean ret = TRUE;
     GValue status = {0};
@@ -1574,7 +1573,7 @@ static const GBTempFile*
 dataproject_build_paths_file(GtkTreeModel *model)
 {
     GB_LOG_FUNC
-    g_return_if_fail(model != NULL);
+      g_return_val_if_fail(model != NULL, NULL);
 
     GBTempFile *tmp_file = gbcommon_create_open_temp_file();
     if(tmp_file == NULL)
@@ -1846,7 +1845,7 @@ dataproject_setup_list(DataProject *data_project)
     g_return_if_fail(data_project->dataproject_compilation_store != NULL);
     /* Create the list store for the file list */
     /* Add a column field for a row reference to rows in DatacdCompilationStore */
-    /* Instead of a pointer to row reference we could use G_TYPE_TREE_ROW_REFERENCE
+    /* Instead of a pointer to row reference we could use G_TYPE_TREE_ROW_REFERENCE */
     /* so that we do not need to delete it manually*/
     GtkListStore *store = gtk_list_store_new(DATA_LIST_NUM_COLS, GDK_TYPE_PIXBUF,
             G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_ULONG, G_TYPE_POINTER);

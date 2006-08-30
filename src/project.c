@@ -20,6 +20,7 @@
  */
 
 #include "project.h"
+#include "cairofillbar.h"
 #include "gbcommon.h"
 #include "gnomebaker.h"
 #include <libxml/parser.h>
@@ -150,12 +151,12 @@ const gchar*
 project_get_title(Project *project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(PROJECT_IS_WIDGET(project));
-    
+      g_return_val_if_fail(PROJECT_IS_WIDGET(project), NULL);
+
     const gchar* title = gtk_label_get_text(project->title);
     if(title[0] == '*')
         return ++title;
-    return title;    
+    return title;
 }
 
 
@@ -163,7 +164,7 @@ GtkWidget*
 project_get_title_widget(Project *project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(PROJECT_IS_WIDGET(project));
+      g_return_val_if_fail(PROJECT_IS_WIDGET(project), NULL);
 
     GtkWidget *hbox = gtk_hbox_new(FALSE, 2);
     gtk_widget_show(hbox);
@@ -333,7 +334,7 @@ const gchar*
 project_get_file(Project *project)
 {
     GB_LOG_FUNC
-    g_return_if_fail(PROJECT_IS_WIDGET(project));
+    g_return_val_if_fail(PROJECT_IS_WIDGET(project), NULL);
     return project->file;
 }
 

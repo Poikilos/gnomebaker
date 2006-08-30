@@ -23,6 +23,7 @@
 #define BONOBO_UI_INTERNAL
 
 #include "gnomebaker.h"
+#include "cairofillbar.h"
 #include "filebrowser.h"
 #include "burn.h"
 #include "preferences.h"
@@ -179,7 +180,7 @@ gnomebaker_get_current_project()
 {
     GB_LOG_FUNC
     GtkNotebook *notebook = GTK_NOTEBOOK(glade_xml_get_widget(xml, widget_project_notebook));
-    g_return_if_fail(notebook != NULL);
+    g_return_val_if_fail(notebook != NULL, NULL);
     Project *project = PROJECT_WIDGET(gtk_notebook_get_nth_page(notebook,
             gtk_notebook_get_current_page(notebook)));
     return project;
@@ -858,11 +859,12 @@ gnomebaker_on_save_project_as(gpointer widget, gpointer user_data)
         gchar *file_name = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser));
         if(!gbcommon_str_has_suffix(file_name, PROJECT_FILE_EXTENSION))
         {
-            gchar *tmp = g_strconcat(file_name, PROJECT_FILE_EXTENSION);
+          gchar *tmp = g_strconcat(file_name, PROJECT_FILE_EXTENSION, NULL);
             g_free(file_name);
             file_name = tmp; 
         }
         project_set_file(project, file_name);
+        preferences_set_string("/apps/GnomeBaker/Recent/recent001", file_name);
         g_free(file_name);
         project_save(project);
     }
@@ -1139,7 +1141,39 @@ gnomebaker_new()
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(check_menu_item),
             preferences_get_bool(GB_SHOWHUMANSIZE));
     g_signal_emit_by_name(check_menu_item, "toggled", check_menu_item, NULL);
+    
+    /* now set up the tree for recent projects */
+    GtkTreeView *recent_projects_tree = GTK_TREE_VIEW(glade_xml_get_widget(xml, "treeview13"));
+    gtk_tree_selection_set_mode(gtk_tree_view_get_selection(recent_projects_tree), GTK_SELECTION_SINGLE);
+    
+    /* Create the list store for the file list */
+    GtkListStore *store = gtk_list_store_new(1, G_TYPE_STRING);
+    gtk_tree_view_set_model(recent_projects_tree, GTK_TREE_MODEL(store));
+    g_object_unref(store);
 
+    /* One column which project path */
+    GtkTreeViewColumn *col = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_resizable(col, TRUE);
+    gtk_tree_view_column_set_title(col, _("Recent projects"));
+    GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(col, renderer, TRUE);
+    gtk_tree_view_column_set_attributes(col, renderer, "text", 0, NULL);
+    gtk_tree_view_append_column(recent_projects_tree, col);
+    
+    /*GSList *files = preferences_get_key_values("/apps/GnomeBaker/Recent");
+    GSList *file = files;
+    for(; file != NULL; file = file->next)
+    {
+        
+        GConfEntry *project = (GConfEntry*)file->data;
+        GB_TRACE("gnomebaker_new - opening recent [%s]\n", gconf_entry_get_key(project));
+        GB_DECLARE_STRUCT(GtkTreeIter, iter);
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter, 0, gconf_value_get_string(gconf_entry_get_value(project->value)), -1);
+        gconf_entry_free(project);
+    }
+
+    g_slist_free(file);*/
     /* Force the selection of the first page so we update menu enablement etc */
     gnomebaker_on_notebook_switch_page(GTK_NOTEBOOK(glade_xml_get_widget(xml, widget_project_notebook))
             , NULL, 0, NULL);

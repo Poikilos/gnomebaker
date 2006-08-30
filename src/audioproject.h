@@ -71,7 +71,7 @@ GType audioproject_get_type();
 GtkWidget *audioproject_new();
 gboolean audioproject_import_playlist(AudioProject *audio_project, const gchar *play_list);
 gboolean audioproject_export_playlist(AudioProject *audio_project, const gchar *play_list);
-
+gboolean audioproject_is_supported_playlist(const gchar *mime);
 G_END_DECLS
 
 #endif /*_AUDIOPROJECT_H*/

@@ -22,6 +22,7 @@
 #include "exec.h"
 #include <sys/wait.h>
 #include "gbcommon.h"
+#include <glib/gprintf.h>
 
 #if defined (__FreeBSD__)
 #include <signal.h>

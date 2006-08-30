@@ -252,6 +252,15 @@ preferences_get_key_subkeys(const gchar *key)
 }
 
 
+GSList*
+preferences_get_key_values(const gchar *key)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(key != NULL, NULL);
+    return gconf_client_all_entries(gconf_client, key, NULL);
+}
+
+
 gboolean
 preferences_delete_key(const gchar *key)
 {
