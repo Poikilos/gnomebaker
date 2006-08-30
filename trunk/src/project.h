@@ -118,6 +118,7 @@ void project_clear(Project *project);
 void project_remove(Project *project);
 void project_add_selection(Project *project, GtkSelectionData *selection);
 void project_import_session(Project *project);
+gboolean project_is_dirty(Project *project);
 void project_open(Project *project, xmlDocPtr doc);
 void project_save(Project *project);
 void project_close(Project *project);

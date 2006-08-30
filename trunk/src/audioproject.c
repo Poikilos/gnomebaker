@@ -21,6 +21,7 @@
 
 
 #include "audioproject.h"
+#include "burn.h"
 #include "gbcommon.h"
 #include "media.h"
 #include "preferences.h"
@@ -157,7 +158,7 @@ static gboolean
 audioproject_update_progress_bar(AudioProject *audio_project, gboolean add, gdouble seconds)
 {
     GB_LOG_FUNC
-    g_return_if_fail(audio_project != NULL);
+      g_return_val_if_fail(audio_project != NULL, FALSE);
 
     gboolean ok = TRUE;
 

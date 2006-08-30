@@ -30,6 +30,7 @@
 #include "gbcommon.h"
 #include "devices.h"
 #include "media.h"
+#include "preferences.h"
 #include <libintl.h>
 #include <locale.h>
 #include <gst/gst.h>
