@@ -498,8 +498,8 @@ dataproject_add_to_model(DataProject *data_project, const gboolean is_folder, co
     else
     {
         path_to_show = g_strdup(file_name);
-        data_project->dataproject_compilation_size += size;
     }
+    data_project->dataproject_compilation_size += size;
 
     /*
      * we allow to add more size than the capacity of the disc,
