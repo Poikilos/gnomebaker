@@ -401,22 +401,56 @@ void /* libglade callback */
 gnomebaker_on_about(GtkMenuItem *menu_item, gpointer user_data)
 {
 	GB_LOG_FUNC
-	static GtkWidget *about = NULL;
-	if (about != NULL)
-    {
-		gtk_window_present(GTK_WINDOW(about));
-    }
-	else
-	{
-		const gchar *authors[] = {"Luke Biddell", "Ignacio Martín", "Milen Dzhumerov",
-                "Christoffer Sørensen", "Razvan Gavril", "Isak Savo", "Adam Biddell (Sounds)", NULL};
-		const gchar *documenters[] = {"Milen Dzhumerov", NULL};
-		about = gnome_about_new(_("GnomeBaker"), PACKAGE_VERSION, "GPL",
-                _("Simple CD/DVD Burning for Gnome"), authors, documenters, _("translator_credits"),
-			gdk_pixbuf_new_from_file(IMAGEDIR"/splash_2.png", NULL));
-		g_object_add_weak_pointer(G_OBJECT(about), (void**)&about);
-		gtk_widget_show(about);
-	}
+    
+    static const gchar *authors[] = {
+       "Luke Biddell",
+       "Ignacio Martín", 
+       "Milen Dzhumerov",
+       "Christoffer Sørensen",
+       "Razvan Gavril",
+       "Isak Savo",
+       "Adam Biddell (Sounds)",
+       NULL};
+
+    static const gchar *documenters[] = {
+       "Milen Dzhumerov",
+       NULL};
+
+    static const gchar *license[] = {
+       N_("GnomeBaker is free software; you can redistribute it and/or modify\n"
+          "it under the terms of the GNU General Public License as published by\n"
+          "the Free Software Foundation; either version 2 of the License, or\n"
+          "(at your option) any later version.\n"),
+       N_("GnomeBaker is distributed in the hope that it will be useful,\n"
+          "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+          "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+          "GNU General Public License for more details.\n"),
+       N_("You should have received a copy of the GNU General Public License\n"
+          "along with GnomeBaker; if not, write to the Free Software Foundation, Inc.,\n"
+          "59 Temple Place, Suite 330, Boston, MA  02111-1307  USA\n")
+    };
+
+    GtkWidget *appwin = glade_xml_get_widget(xml, widget_gnomebaker); 
+    gchar *license_trans = g_strconcat(_(license[0]), "\n", _(license[1]), "\n", _(license[2]), "\n", NULL);
+    GdkPixbuf *logo = gbcommon_get_icon_for_name("gnomebaker-48", 48);
+
+    gtk_show_about_dialog(GTK_WINDOW (appwin),
+                  "name", _("GnomeBaker"),
+                  "version", PACKAGE_VERSION,
+                  "copyright", "\xc2\xa9  2004-2005 Luke Biddell",
+                  "comments", _("Simple CD/DVD Burning for Gnome"),
+                  "license", license_trans,
+                  "website", "http://gnomebaker.sourceforge.net/v2/",
+                  "authors", authors,
+                  "documenters", documenters,
+                  "translator-credits", _("translator-credits"),
+                  "logo", logo,
+                  NULL);
+
+    if (logo != NULL) 
+        g_object_unref(logo);
+ 
+    g_free (license_trans);
 }
 
 
