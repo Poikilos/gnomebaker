@@ -70,18 +70,28 @@ progressdlg_set_icon(const gint index)
 
 
 static gchar*
-progressdlg_format_time(gint seconds)
+progressdlg_format_time(gint seconds, gboolean approximate)
 {
     GB_LOG_FUNC
-
+    
     const gint remaining_seconds = seconds % 60;
     const gint minutes = (seconds - remaining_seconds) / 60;
-    if(minutes > 1)
-        return g_strdup_printf(_("%d minutes %d seconds"), minutes, remaining_seconds);
-    else if(minutes > 0)
-        return g_strdup_printf(_("%d minute %d seconds"), minutes, remaining_seconds);
+    if(!approximate)
+    {
+        if(minutes > 1)
+            return g_strdup_printf(_("%d minutes %d seconds"), minutes, remaining_seconds);
+        else if(minutes > 0)
+            return g_strdup_printf(_("%d minute %d seconds"), minutes, remaining_seconds);
+        else
+            return g_strdup_printf(_("%d seconds"), seconds);
+    } 
     else
-        return g_strdup_printf(_("%d seconds"), seconds);
+    {
+        if(minutes == 0)
+            return g_strdup(_("1 minute"));
+        else
+            return g_strdup_printf(_("%d minutes"), minutes + 1);
+    }
 }
 
 
@@ -221,8 +231,8 @@ progressdlg_set_fraction(gfloat fraction)
     if(fraction > 0.0)
     {
         gdouble time = (g_timer_elapsed(timer, NULL) / fraction) * (1.0 - fraction);
-        gchar *formatted = progressdlg_format_time((gint)time + 1.0);
-        gchar *text = g_strdup_printf(_("%s remaining"), formatted);
+        gchar *formatted = progressdlg_format_time((gint)time + 1.0, TRUE);
+        gchar *text = g_strdup_printf(_("Approximately %s remaining"), formatted);
         gtk_progress_bar_set_text(progress_bar, text);
         g_free(formatted);
         g_free(text);
@@ -355,7 +365,7 @@ progressdlg_finish(GtkWidget *self, const Exec *ex)
     if(ex->outcome != CANCELLED)
     {
         gtk_progress_bar_set_fraction(progress_bar, 1.0);
-        gchar *formatted = progressdlg_format_time((gint)g_timer_elapsed(timer, NULL));
+        gchar *formatted = progressdlg_format_time((gint)g_timer_elapsed(timer, NULL), FALSE);
         gchar *text = g_strdup_printf(_("Elapsed time %s"), formatted);
         gtk_progress_bar_set_text(progress_bar, text);
         g_free(formatted);
