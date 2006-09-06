@@ -1531,7 +1531,7 @@ dataproject_build_paths_file_recursive(GtkTreeModel *model, GtkTreeIter *parent_
     g_return_if_fail(model != NULL);
     g_return_if_fail(parent_iter != NULL);
     g_return_if_fail(file_path != NULL);
-    g_return_if_fail(tmp_file != NULL);
+    g_return_if_fail(tmp_file != NULL);    
 
     int count = 0;
     GB_DECLARE_STRUCT(GtkTreeIter, iter);
@@ -1582,6 +1582,9 @@ dataproject_build_paths_file(GtkTreeModel *model)
         return NULL;
     }
     GB_TRACE("dataproject_build_paths_file - created file [%s]\n", tmp_file->file_name);
+    
+    gnomebaker_show_busy_cursor(TRUE);
+    
     /* Get the root iter.It should be the name of the compilation,
      * but for the moment we don´t do anything with it
      * All will start from here */
@@ -1593,6 +1596,9 @@ dataproject_build_paths_file(GtkTreeModel *model)
         compilation is empty! What should we do?*/
 
     gbcommon_close_temp_file(tmp_file); /*close, but don´t delete. It must be readed by mkisofs*/
+    
+    gnomebaker_show_busy_cursor(FALSE);
+    
     return tmp_file;
 }
 
