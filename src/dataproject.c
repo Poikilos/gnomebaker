@@ -516,6 +516,10 @@ dataproject_add_to_model(DataProject *data_project, const gboolean is_folder, co
     {
         icon = gbcommon_get_icon_for_name("gnome-dev-cdrom", 16);
     }
+    else if (!strcmp(file_name, ""))
+    {
+        icon = gbcommon_get_icon_for_name("gnome-fs-directory", 16);
+    }
     else
     {
         gchar *mime = gbcommon_get_mime_type(file_name);
@@ -1715,12 +1719,55 @@ dataproject_import_session(Project *project)
 
 
 static void
-dataproject_open_recursive(GtkTreeModel *model, xmlNodePtr parent_node, GtkTreeIter *parent_iter)
+dataproject_open_recursive(DataProject *project, GtkTreeModel *model, xmlNodePtr parent_node, GtkTreeIter *parent_iter)
 {
     GB_LOG_FUNC
+    struct _xmlAttr *p = NULL;
+    xmlChar *file_path = NULL;
+    xmlChar *display_name = NULL;
+    guint64 file_size = 0;
+    gboolean is_folder = FALSE;
 
+    if (!strcmp((gchar*)parent_node->name, "file"))
+    {
+        for (p = parent_node->properties; p != NULL; p=p->next)
+        {
+            if (!strcmp((gchar*)p->name, "path"))
+            {
+                file_path = p->children->content;
+            }
+            else if (!strcmp((gchar*)p->name, "graft"))
+            {
+                display_name = p->children->content;
+            }
+        }
+
+        if (!strcmp((gchar*)file_path, ""))
+        {
+            file_size = 4096;
+            is_folder = TRUE;
+        }
+        else
+        {
+            is_folder = FALSE;
+            GB_DECLARE_STRUCT(struct stat, s);
+            const gint statret = lstat((gchar*)file_path, &s);
+            if (statret == 0)
+                file_size = s.st_size;
+        }
+
+        GtkTreeIter new_node = dataproject_add_to_model(project, is_folder, (gchar*)file_path, (gchar*)display_name, parent_iter, FALSE, file_size);
+        parent_iter = &new_node;
+    }
+    xmlNodePtr child;
+    for ( child = parent_node->children; child != NULL && parent_node->last != NULL && child != parent_node->last->next; child = child->next) 
+    {
+        if (!strcmp((gchar*)child->name, "file"))
+        {
+          dataproject_open_recursive(project, model, child, parent_iter);
+        }
+    }
 }
-
 
 
 static void
@@ -1742,7 +1789,7 @@ dataproject_open(Project *project, xmlDocPtr doc)
         gint i = 0;
         for (; i < data_nodes->nodeNr; i++)
         {
-            dataproject_open_recursive(GTK_TREE_MODEL(data_project->dataproject_compilation_store),
+          dataproject_open_recursive((DataProject*)project, GTK_TREE_MODEL(data_project->dataproject_compilation_store),
                     data_nodes->nodeTab[i], &root);
         }
         xmlXPathFreeObject(result);
@@ -1752,6 +1799,8 @@ dataproject_open(Project *project, xmlDocPtr doc)
         g_warning("dataproject_open - Error in xmlXPathEvalExpression");
     }
     xmlXPathFreeContext(context);
+    dataproject_update_progress_bar((DataProject *)project);
+    dataproject_list_view_update((DataProject *)project, &root);
 }
 
 
