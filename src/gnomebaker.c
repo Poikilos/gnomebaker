@@ -823,6 +823,37 @@ gnomebaker_add_project(ProjectType type)
 }
 
 
+static void
+gnomebaker_open_project(const gchar *file)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(file != NULL);
+    
+    GB_TRACE("gnomebaker_on_open_project - opening [%s]\n", file);
+    xmlDocPtr doc = xmlParseFile(file);
+    if(doc == NULL)
+    {
+        g_warning("Document not parsed successfully.");
+    }
+    else
+    {
+        gnomebaker_show_busy_cursor(TRUE);
+        /* Get the type from the root element in the project file so we can create
+         * a project of the correct type before adding the content */
+        xmlNodePtr cur = xmlDocGetRootElement(doc);
+        xmlChar *type = xmlGetProp(cur, (const xmlChar*)"type");
+        Project *project = PROJECT_WIDGET(gnomebaker_add_project(atoi((const gchar*)type)));
+        xmlFree(type);
+        project_set_file(project, file);
+        project_open(project, doc);
+        xmlFreeDoc(doc);
+        /* TODO this may be better done at application exit time */
+        xmlCleanupParser();
+        gnomebaker_show_busy_cursor(FALSE);
+    }
+}
+
+
 void /* libglade callback */
 gnomebaker_on_open_project(gpointer widget, gpointer user_data)
 {
@@ -832,29 +863,30 @@ gnomebaker_on_open_project(gpointer widget, gpointer user_data)
             GTK_FILE_CHOOSER_ACTION_OPEN, gnomebaker_create_project_file_filter(), FALSE, NULL);
     if(file != NULL)
     {
-        GB_TRACE("gnomebaker_on_open_project - opening [%s]\n", file);
-        xmlDocPtr doc = xmlParseFile(file);
-        if(doc == NULL)
-        {
-            g_warning("Document not parsed successfully.");
-        }
-        else
-        {
-            gnomebaker_show_busy_cursor(TRUE);
-            /* Get the type from the root element in the project file so we can create
-             * a project of the correct type before adding the content */
-            xmlNodePtr cur = xmlDocGetRootElement(doc);
-            xmlChar *type = xmlGetProp(cur, (const xmlChar*)"type");
-            Project *project = PROJECT_WIDGET(gnomebaker_add_project(atoi((const gchar*)type)));
-            xmlFree(type);
-            project_set_file(project, file);
-            project_open(project, doc);
-            xmlFreeDoc(doc);
-            /* TODO this may be better done at application exit time */
-            xmlCleanupParser();
-            gnomebaker_show_busy_cursor(FALSE);
-        }
+        gnomebaker_open_project(file);
         g_free(file);
+    }       
+}
+
+
+void /* libglade callback */
+gnomebaker_on_open_recent_project(gpointer widget, gpointer user_data)
+{
+    GB_LOG_FUNC
+
+    GtkTreeView *recent_projects_tree = GTK_TREE_VIEW(glade_xml_get_widget(xml, "treeview13"));
+    GtkTreeSelection *sel = gtk_tree_view_get_selection(recent_projects_tree);
+    GtkTreeModel *model = NULL;
+    GtkTreeIter iter;
+    if(gtk_tree_selection_get_selected(sel, &model, &iter))
+    {
+        gchar *file = NULL;
+        gtk_tree_model_get(model, &iter, 0, &file, -1);
+        if(file != NULL)
+        {
+            gnomebaker_open_project(file);
+            g_free(file);
+        }
     }
 }
 
@@ -1150,11 +1182,15 @@ gnomebaker_new()
     g_main_context_iteration(NULL, TRUE);
     gtk_widget_show_all(main_window);
 
-    /* TODO - Remove these once the cdrdao copy is done */
+    /* TODO - Remove these once the cdrdao copy is done 
     GtkWidget *copy_menu_item = glade_xml_get_widget(xml, "copy_audio_cd1");
     gtk_widget_hide(copy_menu_item);
     copy_menu_item = glade_xml_get_widget(xml, "copy_data_cd1");
+    gtk_widget_hide(copy_menu_item); */
+    GtkWidget *copy_menu_item = glade_xml_get_widget(xml, "copy_cd1");
     gtk_widget_hide(copy_menu_item);
+    GtkWidget *vbox = glade_xml_get_widget(xml, "vbox22");
+    gtk_widget_hide(vbox);
 
     /* Check preferences to see if we'll show/hide the file browser */
     GtkWidget *check_menu_item = glade_xml_get_widget(xml, widget_show_browser_menu);
@@ -1194,23 +1230,23 @@ gnomebaker_new()
     gtk_tree_view_column_set_attributes(col, renderer, "text", 0, NULL);
     gtk_tree_view_append_column(recent_projects_tree, col);
     
-    /*GSList *files = preferences_get_key_values("/apps/GnomeBaker/Recent");
+    GSList *files = preferences_get_key_values("/apps/GnomeBaker/Recent");
     GSList *file = files;
     for(; file != NULL; file = file->next)
-    {
-        
+    {        
         GConfEntry *project = (GConfEntry*)file->data;
-        GB_TRACE("gnomebaker_new - opening recent [%s]\n", gconf_entry_get_key(project));
+        GB_TRACE("gnomebaker_new - opening recent [%s] [%d]\n", gconf_entry_get_key(project), gconf_entry_get_value(project)->type);
         GB_DECLARE_STRUCT(GtkTreeIter, iter);
         gtk_list_store_append(store, &iter);
-        gtk_list_store_set(store, &iter, 0, gconf_value_get_string(gconf_entry_get_value(project->value)), -1);
+        const gchar *file_name = gconf_value_get_string(gconf_entry_get_value(project));
+        if(g_file_test(file_name, G_FILE_TEST_EXISTS))
+            gtk_list_store_set(store, &iter, 0, file_name, -1);
         gconf_entry_free(project);
     }
-
-    g_slist_free(file);*/
+    g_slist_free(file);
+    
     /* Force the selection of the first page so we update menu enablement etc */
-    gnomebaker_on_notebook_switch_page(GTK_NOTEBOOK(glade_xml_get_widget(xml, widget_project_notebook))
-            , NULL, 0, NULL);
+    gnomebaker_on_notebook_switch_page(GTK_NOTEBOOK(glade_xml_get_widget(xml, widget_project_notebook)), NULL, 0, NULL);
 
     return main_window;
 }
