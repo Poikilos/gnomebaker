@@ -257,6 +257,14 @@ preferences_get_key_values(const gchar *key)
 {
     GB_LOG_FUNC
     g_return_val_if_fail(key != NULL, NULL);
+    GError *err = NULL;
+//    GSList *ret = gconf_client_get_list(gconf_client, key, GCONF_VALUE_STRING, NULL);
+//    if(err != NULL)
+//    {
+//        g_critical(err->message);
+//        g_error_free(err);
+//    }
+//    return ret;
     return gconf_client_all_entries(gconf_client, key, NULL);
 }
 
