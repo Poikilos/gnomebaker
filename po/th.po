@@ -1,32 +1,29 @@
-# translation of gnomebaker-pa.po to Punjabi
-# Punjabi translation for gnomebaker
-# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# Thai translation for gnomebaker
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the gnomebaker package.
+# Supphachoke Suntiwichaya <mrchoke@opentle.org>, 2006.
 #
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
-# A S Alam <apbrar@gmail.com>, 2006.
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: gnomebaker-pa\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Project-Id-Version: gnomebaker\n"
+"Report-Msgid-Bugs-To:\n"
 "POT-Creation-Date: 2006-08-03 01:24+0200\n"
-"PO-Revision-Date: 2006-03-13 11:36+0000\n"
-"Last-Translator: Amanpreet Singh Alam <apbrar@gmail.com>\n"
-"Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
+"PO-Revision-Date: 2006-04-10 12:26+0000\n"
+"Last-Translator: Supphachoke Suntiwichaya <mrchoke@opentle.org>\n"
+"Language-Team: Thai <th@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Version: 0.1\n"
-"X-Generator: KBabel 1.11.1\n"
 
 #: ../src/audioproject.c:152 ../src/cairofillbar.c:672
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
-msgstr ""
+msgstr "ใช้ไป %d นาที %d วินาที - เหลืออีก %d นาที %d วินาที"
 
 #: ../src/audioproject.c:181
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr ""
+msgstr "แทร็กใหญ่เกินกว่าเนื้อที่ว่างของซีดี"
 
 #: ../src/audioproject.c:381
 #, c-format
@@ -54,28 +51,30 @@ msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
+"มีรายการเพลงอยู่แล้ว\n"
+" ต้องการเขียนทับหรือไม่?"
 
 #: ../src/audioproject.c:844 ../src/dataproject.c:1314
 #: ../src/filebrowser.c:577
 msgid "_Open"
-msgstr "ਖੋਲ੍ਹੋ(_O)"
+msgstr "_เปิด"
 
 #: ../src/audioproject.c:849
 msgid "Move selected _up"
-msgstr ""
+msgstr "เลื่อนที่เลือกไว้_ขึ้น"
 
 #: ../src/audioproject.c:851
 msgid "Move selected _down"
-msgstr ""
+msgstr "เลื่อนที่เลือกไว้ล_ง"
 
 #: ../src/audioproject.c:854 ../src/dataproject.c:1327
 #: ../src/dataproject.c:1364
 msgid "_Remove selected"
-msgstr "ਚੁਣੇ ਹਟਾਓ(_R)"
+msgstr "_ลบที่เลือกไว้"
 
 #: ../src/audioproject.c:856
 msgid "_Clear"
-msgstr "ਸਾਫ਼ ਕਰੋ(_C)"
+msgstr "_ล้าง"
 
 #: ../src/audioproject.c:1079
 msgid "No."
@@ -83,27 +82,27 @@ msgstr ""
 
 #: ../src/audioproject.c:1091
 msgid "Duration"
-msgstr "ਅੰਤਰਾਲ"
+msgstr "ความยาว"
 
 #: ../src/audioproject.c:1100
 msgid "Artist"
-msgstr "ਕਲਾਕਾਰ"
+msgstr "ศิลปิน"
 
 #: ../src/audioproject.c:1109
 msgid "Album"
-msgstr "ਐਲਬਮ"
+msgstr "อัลบั้ม"
 
 #: ../src/audioproject.c:1118
 msgid "Title"
-msgstr "ਸਿਰਲੇਖ"
+msgstr "ชื่อเพลง"
 
 #: ../src/audioproject.c:1127
 msgid "Track"
-msgstr "ਟਰੈਕ"
+msgstr "แทร็ก"
 
 #: ../src/audioproject.c:1144
 msgid "Info"
-msgstr "ਜਾਣਕਾਰੀ"
+msgstr "ข้อมูล"
 
 #: ../src/audioproject.c:1175 ../gnomebaker.glade.h:21
 msgid "Audio CD"
@@ -111,103 +110,111 @@ msgstr ""
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Burning CD image"
-msgstr "CD ਪ੍ਰਤੀਬਿੰਬ ਲਿਖਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+msgstr "กำลังเขียนซีดีอิมเมจ"
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Please wait while the CD image you selected is burned to CD."
-msgstr ""
+msgstr "กรุณารอขณะที่เขียนซีดีอิมเมจที่คุณเลือกลงแผ่นซีดี"
 
 #: ../src/burn.c:115
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
+"แฟ้มที่คุณเลือกดูเหมือนไม่ใช่ดีวีดีอิมเมจ "
+"คุณต้องการเขียนอิมเมจดังกล่าวลงแผ่นดีวีดีจริงหรือ?"
 
 #: ../src/burn.c:120
 msgid "Burning DVD image"
-msgstr "DVD ਪ੍ਰਤੀਬਿੰਬ ਲਿਖਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+msgstr "กำลังเขียนดีวีดีอิมเมจ"
 
 #: ../src/burn.c:120
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr ""
+msgstr "กรุณารอขณะที่เขียนดีวีดีอิมเมจที่คุณเลือกลงแผ่นดีวีดี"
 
 #: ../src/burn.c:163
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
+"แฟ้มที่เลือกดูเหมือนไม่ใช่ซีดีอิมเมจ "
+"คุณต้องการเขียนอิมเมจดังกล่าวลงแผ่นซีดีจริงหรือ?"
 
 #: ../src/burn.c:180
 msgid "Creating data CD image"
-msgstr "ਡਾਟਾ CD ਪ੍ਰਤੀਬਿੰਬ ਲਿਖਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+msgstr "กำลังสร้างซีดีอิมเมจเก็บข้อมูล"
 
 #: ../src/burn.c:180
 msgid "Please wait while the data CD image is created."
-msgstr ""
+msgstr "กรุณารอขณะที่สร้างซีดีอิมเมจเก็บข้อมูล"
 
 #: ../src/burn.c:186 ../src/burn.c:196
 msgid "Burning data CD"
-msgstr "ਡਾਟਾ CD ਲਿਖੀ ਜਾ ਰਹੀ ਹੈ"
+msgstr "กำล้งเขียนซีดีข้อมูล"
 
 #: ../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
-msgstr ""
+msgstr "กรุณารอขณะที่เขียนข้อมูลลงแผ่นซีดีโดยตรง"
 
 #: ../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"กรุณารอขณะที่สร้างและเขียนอิมเมจเก็บข้อมูลลงแผ่นซีดี อาจใช้เวลาสักหน่อย "
+"ขึ้นอยู่กับความเร็วของเครื่องเขียนซีดี "
 
 #: ../src/burn.c:221 ../src/burn.c:231
 msgid "Appending to data CD"
-msgstr "ਡਾਟਾ CD ਵਿੱਚ ਡਾਟਾ ਜੋੜਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+msgstr "กำลังเขียนต่อท้ายลงในซีดีข้อมูล"
 
 #: ../src/burn.c:221
 msgid "Please wait while the additional data is burned directly to CD."
-msgstr ""
+msgstr "กรุณารอขณะที่เขียนข้อมูลต่อท้ายลงแผ่นซีดีโดยตรง"
 
 #: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"กรุณารอขณะที่สร้างอิมเมจเก็บข้อมูล และเขียนต่อท้ายลงแผ่นซีดี "
+"อาจใช้เวลาสักหน่อย ขึ้นอยู่กับความเร็วของเครื่องเขียนซีดี "
 
 #: ../src/burn.c:253
 msgid "Burning audio CD"
-msgstr "ਆਡੀਓ CD ਲਿਖੀ ਜਾ ਰਹੀ ਹੈ"
+msgstr "กำลังเขียนซีดีเพลง"
 
 #: ../src/burn.c:253
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
-msgstr ""
+msgstr "กรุณารอขณะที่แปลงแทร็กที่เลือกเป็นแบบซีดีเพลงและเขียนลงแผ่นซีดี"
 
 #: ../src/burn.c:312
 msgid "Extracting CD image"
-msgstr "CD ਪ੍ਰਤੀਬਿੰਬ ਖੋਲ੍ਹਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+msgstr "กำลังดึงข้อมูลออกจากซีดีอิมเมจ"
 
 #: ../src/burn.c:312
 msgid "Please wait while the data CD image is extracted."
-msgstr ""
+msgstr "กรุณารอขณะที่แยกข้อมูลออกจากซีดีอิมเมจ"
 
 #: ../src/burn.c:318
 msgid "Copying data CD"
-msgstr "ਡਾਟਾ CD ਨਕਲ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
+msgstr "กำลังคัดลอกซีดีข้อมูล"
 
 #: ../src/burn.c:318
 msgid ""
 "Please wait while the data CD image is extracted and then burned to CD."
-msgstr ""
+msgstr "กรุณารอขณะที่แยกข้อมูลออกจากซีดีอิมเมจและเขียนลงแผ่นซีดี"
 
 #: ../src/burn.c:338
 msgid "Copying audio CD"
-msgstr "ਆਡੀਓ CD ਨਕਲ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
+msgstr "กำลังคัดลอกซีดีเพลง"
 
 #: ../src/burn.c:338
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
-msgstr ""
+msgstr "กรุณารอขณะที่แยกแทร็กซีดีเพลงและเขียนลงแผ่นซีดี"
 
 #: ../src/burn.c:354
 msgid "Copying CD"
@@ -235,47 +242,47 @@ msgstr ""
 
 #: ../src/burn.c:397
 msgid "Blanking CD"
-msgstr "CD ਸਾਫ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
+msgstr "กำลังล้างข้อมูลซีดี"
 
 #: ../src/burn.c:397
 msgid "Please wait while the CD is blanked."
-msgstr "ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕੋ, ਜਦੋਂ ਤੱਕ CD ਸਾਫ਼ ਨਹੀਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।"
+msgstr "กรุณารอขณะที่ล้างข้อมูลในแผ่นซีดี"
 
 #: ../src/burn.c:413
 msgid "Formatting re-writeable DVD"
-msgstr ""
+msgstr "กำลังฟอร์แมตแผ่นดีวีดีเขียนซ้ำ"
 
 #: ../src/burn.c:413
 msgid "Please wait while the DVD is formatted."
-msgstr "DVD ਦੇ ਫਾਰਮੈਟ ਹੋਣ ਤੱਕ ਉਡੀਕੋ ਜੀ।"
+msgstr "กรุณารอขณะที่ฟอร์แมตแผ่นดีวีดี"
 
 #: ../src/burn.c:433
 msgid "Creating data DVD image"
-msgstr ""
+msgstr "กำลังสร้างดีวีดีอิมเมจเก็บข้อมูล"
 
 #: ../src/burn.c:433
 msgid "Please wait while the data DVD image is created."
-msgstr ""
+msgstr "กรุณารอขณะที่สร้างดีวีดีอิมเมจเก็บข้อมูล"
 
 #: ../src/burn.c:439
 msgid "Burning data DVD"
-msgstr ""
+msgstr "กำลังเขียนดีวีดีข้อมูล"
 
 #: ../src/burn.c:439
 msgid "Please wait while the data is burned directly to DVD."
-msgstr ""
+msgstr "กรุณารอขณะที่เขียนข้อมูลลงแผ่นดีวีดีโดยตรง"
 
 #: ../src/burn.c:458 ../src/burn.c:520
 msgid "Appending to data DVD"
-msgstr ""
+msgstr "กำลังเขียนต่อท้ายแผ่นดีวีดีข้อมูล"
 
 #: ../src/burn.c:458 ../src/burn.c:520
 msgid "Please wait while the data is appended directly to the DVD."
-msgstr ""
+msgstr "กรุณารอขณะที่เขียนข้อมูลต่อท้ายลงแผ่นดีวีดีโดยตรง"
 
 #: ../src/burn.c:485 ../src/execfunctions.c:1685
 msgid "Verifying the disk content"
-msgstr ""
+msgstr "กำลังตรวจสอบเนื้อหาในแผ่น"
 
 #: ../src/cairofillbar.c:684
 #, c-format
@@ -294,7 +301,7 @@ msgstr ""
 
 #: ../src/dataproject.c:172 ../src/startdlg.c:592
 msgid "GnomeBaker data disk"
-msgstr "ਗਨੋਮਬੇਕਰ ਡਾਟਾ ਡਿਸਕ"
+msgstr "แผ่นข้อมูลของ GnomeBaker"
 
 #: ../src/dataproject.c:384
 #, c-format
@@ -316,11 +323,11 @@ msgstr ""
 
 #: ../src/dataproject.c:1323 ../src/dataproject.c:1358
 msgid "_Edit name"
-msgstr "ਨਾਂ ਸੋਧ(_E)"
+msgstr "แ_ก้ชื่อ"
 
 #: ../src/dataproject.c:1329 ../src/dataproject.c:1368
 msgid "Clear"
-msgstr "ਸਾਫ਼"
+msgstr "ล้าง"
 
 #: ../src/dataproject.c:1490
 #, c-format
@@ -329,13 +336,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"ਅਜਲਾਸ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ ਹੈ।\n"
+"เกิดข้อผิดพลาดขณะอ่านค่าเซสชัน\n"
 "\n"
 "%s"
 
 #: ../src/dataproject.c:1491 ../src/devices.c:664
 msgid "unknown error"
-msgstr "ਅਣਜਾਣੀ ਗਲਤੀ"
+msgstr "ข้อผิดพลาดไม่ทราบสาเหตุ"
 
 #: ../src/dataproject.c:1609
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
@@ -347,20 +354,22 @@ msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
 msgstr ""
+"เกิดข้อผิดพลาดขณะนำเข้าเซสชันจาก [%s] "
+"กรุณาตรวจสอบการตั้งค่าอุปกรณ์ในค่าปรับแต่งของโปรแกรม"
 
 #: ../src/dataproject.c:1862 ../src/dataproject.c:1949
 #: ../gnomebaker.glade.h:33
 msgid "Contents"
-msgstr "ਭਾਗ"
+msgstr "เนื้อหา"
 
 #: ../src/dataproject.c:1885 ../src/dataproject.c:1895
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
-msgstr "ਅਕਾਰ"
+msgstr "ขนาด"
 
 #: ../src/dataproject.c:1905
 msgid "Full Path"
-msgstr "ਪੂਰਾ ਮਾਰਗ"
+msgstr "พาธเต็ม"
 
 #: ../src/dataproject.c:2078 ../gnomebaker.glade.h:38
 msgid "Data DVD"
@@ -376,6 +385,9 @@ msgid ""
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
+"หาจุดเมานท์ (เช่น /mnt/cdrom) สำหรับอุปกรณ์เขียนไม่พบ "
+"กรุณาตรวจสอบว่ามีข้อมูลของอุปกรณ์เขียนในแฟ้ม /etc/fstab "
+"แล้วเปิดหน้าต่างปรับแต่งโปรแกรมเพื่อตรวจหาใหม่"
 
 #: ../src/devices.c:663
 #, c-format
@@ -384,25 +396,28 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"เกิดข้อผิดพลาดขณะเมานท์ %s\n"
+"\n"
+"%s"
 
 #: ../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
-msgstr "ਕਿਰਪਾ ਕਰਕੇ %s ਵਿੱਚ ਇੱਕ ਡਿਸਕ ਪਾਓ"
+msgstr "กรุณาใส่แผ่นลงใน %s"
 
 #: ../src/execfunctions.c:86
 msgid "Preparing to blank disk"
-msgstr "ਡਿਸਕ ਖਾਲੀ ਕਰਨ ਦੀ ਤਿਆਰੀ ਜਾਰੀ ਹੈ"
+msgstr "กำลังเตรียมล้างข้อมูลในแผ่น"
 
 #: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
-msgstr "ਡਿਸਕ ਲਿਖਣ ਦੀ ਤਿਆਰੀ ਜਾਰੀ"
+msgstr "กำลังเตรียมเขียนแผ่น"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
-msgstr "ਟਰੈਕ %d ਲਿਖਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+msgstr "กำลังเขียนแทร็ก %d"
 
 #: ../src/execfunctions.c:292 ../src/execfunctions.c:1015
 #: ../src/startdlg.c:208 ../src/startdlg.c:234 ../src/startdlg.c:235
@@ -411,59 +426,64 @@ msgstr ""
 
 #: ../src/execfunctions.c:411
 msgid "Preparing to extract audio tracks"
-msgstr ""
+msgstr "กำลังเตรียมแยกแทร็กเพลง"
 
 #: ../src/execfunctions.c:422
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
+"มีแทร็กเพลงจากเซสชันก่อนหน้าอยู่แล้วในแผ่น คุณต้องการใช้แทร็กเดิมหรือไม่?"
 
 #: ../src/execfunctions.c:479
 #, c-format
 msgid "Extracting audio track %d"
-msgstr ""
+msgstr "กำลังแยกแทร็กเพลง %d"
 
 #: ../src/execfunctions.c:549
 msgid "Calculating data disk image size"
-msgstr ""
+msgstr "กำลังคำนวณขนาดอิมเมจแผ่นข้อมูล"
 
 #: ../src/execfunctions.c:587
 msgid "Creating data disk image"
-msgstr "ਡਾਟਾ ਡਿਸਕ ਪ੍ਰਤੀਬਿੰਬ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ"
+msgstr "กำลังสร้างอิมเมจแผ่นข้อมูล"
 
 #: ../src/execfunctions.c:594
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
+"มีซีดีอิมเมจข้อมูลจากเซสชันก่อนหน้าอยู่ในแผ่นอยู่แล้ว "
+"คุณต้องการใช้อิมเมจเดิมหรือไม่?"
 
 #: ../src/execfunctions.c:831
 msgid "Formatting DVD"
-msgstr ""
+msgstr "กำลังฟอร์แมตดีวีดี"
 
 #: ../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
-msgstr ""
+msgstr "กำลังเตรียมเขียนดีวีดี"
 
 #: ../src/execfunctions.c:943 ../src/execfunctions.c:968
 msgid "Writing DVD"
-msgstr "DVD ਲਿਖੀ ਜਾ ਰਹੀ ਹੈ"
+msgstr "กำลังเขียนดีวีดี"
 
 #: ../src/execfunctions.c:1083
 msgid "Reading CD image"
-msgstr ""
+msgstr "กำลังอ่านซีดีอิมเมจ"
 
 #: ../src/execfunctions.c:1091
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
+"มีซีดีอิมเมจข้อมูลจากเซสชันก่อนหน้าอยู่ในแผ่นอยู่แล้ว "
+"คุณต้องการใช้อิมเมจเดิมหรือไม่?"
 
 #: ../src/execfunctions.c:1480
 #, c-format
 msgid "Converting %s to cd audio"
-msgstr ""
+msgstr "กำลังแปลง %s เป็นซีดีเพลง"
 
 #: ../src/execfunctions.c:1727
 msgid "Reading DVD image"
@@ -478,60 +498,60 @@ msgstr ""
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
 #: ../src/startdlg.c:443
 msgid "Filesystem"
-msgstr "ਫਾਇਲ ਸਿਸਟਮ"
+msgstr "ระบบแฟ้ม"
 
 #: ../src/filebrowser.c:74
 msgid "Home"
-msgstr "ਘਰ"
+msgstr "บ้าน"
 
 #: ../src/filebrowser.c:75
 msgid "(empty)"
-msgstr "(ਖਾਲੀ)"
+msgstr "(ว่างเปล่า)"
 
 #: ../src/filebrowser.c:76
 msgid "Folder"
-msgstr "ਫੋਲਡਰ"
+msgstr "โฟลเดอร์"
 
 #: ../src/filebrowser.c:568
 msgid "_Add directory"
-msgstr "ਡਾਇਰੈਕਟਰੀ ਸ਼ਾਮਿਲ(_A)"
+msgstr "เ_พิ่มไดเรกทอรี"
 
 #: ../src/filebrowser.c:581
 msgid "_Add file(s)"
-msgstr "ਫਾਇਲਾਂ ਸ਼ਾਮਿਲ(_A)"
+msgstr "เ_พิ่มแฟ้ม"
 
 #: ../src/filebrowser.c:596 ../gnomebaker.glade.h:76
 msgid "_Burn CD Image"
-msgstr "CD ਪ੍ਰਤੀਬਿੰਬ ਲਿਖੋ(_B)"
+msgstr "เ_ขียนซีดีอิมเมจ"
 
 #: ../src/filebrowser.c:599
 msgid "_Burn DVD Image"
-msgstr "DVD ਪ੍ਰਤੀਬਿੰਬ ਲਿਖੋ(_B)"
+msgstr "เ_ขียนดีวีดีอิมเมจ"
 
 #: ../src/filebrowser.c:704
 #, c-format
 msgid "%s's home"
-msgstr "%s ਦਾ ਘਰ"
+msgstr "บ้านของ %s"
 
 #: ../src/filebrowser.c:770
 msgid "File"
-msgstr "ਫਾਇਲ"
+msgstr "แฟ้ม"
 
 #: ../src/filebrowser.c:805
 msgid "Type"
-msgstr "ਕਿਸਮ"
+msgstr "ชนิด"
 
 #: ../src/filebrowser.c:814
 msgid "Mime"
-msgstr ""
+msgstr "Mime"
 
 #: ../src/gbcommon.c:556
 msgid "All files"
-msgstr "ਸਭ ਫਾਇਲਾਂ"
+msgstr "ทุกแฟ้ม"
 
 #: ../src/gbcommon.c:564
 msgid "Save file as type:"
-msgstr "ਫਾਇਲ ਕਿਸਮ ਵਾਂਗ ਸੰਭਾਲੋ:"
+msgstr "บันทึกแฟ้มเป็นชนิด:"
 
 #: ../src/gnomebaker.c:237
 msgid ""
@@ -541,49 +561,49 @@ msgstr ""
 
 #: ../src/gnomebaker.c:308
 msgid "CD Image files"
-msgstr "CD ਪ੍ਰਤੀਬਿੰਬ ਫਾਇਲਾਂ"
+msgstr "แฟ้มซีดีอิมเมจ"
 
 #: ../src/gnomebaker.c:309
 msgid "Please select a CD image file."
-msgstr ""
+msgstr "กรุณาเลือกแฟ้มซีดีอิมเมจ"
 
 #: ../src/gnomebaker.c:324
 msgid "DVD Image files"
-msgstr "DVD ਪ੍ਰਤੀਬਿੰਬ ਫਾਇਲਾਂ"
+msgstr "แฟ้มดีวีดีอิมเมจ"
 
 #: ../src/gnomebaker.c:325
 msgid "Please select a DVD image file."
-msgstr ""
+msgstr "กรุณาเลือกแฟ้มดีวีดีอิมเมจ"
 
 #: ../src/gnomebaker.c:413 ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
-msgstr "ਗਨੋਮ-ਬੇਕਰ"
+msgstr "GnomeBaker"
 
 #: ../src/gnomebaker.c:414
 msgid "Simple CD/DVD Burning for Gnome"
-msgstr "ਗਨੋਮ ਲਈ ਸਧਾਰਨ CD/DVD ਲਿਖਣ ਢੰਗ"
+msgstr "โปรแกรมเขียนซีดี/ดีวีดีสะดวกใช้สำหรับ Gnome"
 
 #: ../src/gnomebaker.c:414
 msgid "translator_credits"
 msgstr ""
-"ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ\n"
-"apbrar@gmail.com"
+"ศุภโชค ศันติวิชยะ <mrchoke@opentle.org>เทพพิทักษ์ การุญบุญญานันท์ "
+"<thep@linux.thai.net>"
 
 #: ../src/gnomebaker.c:727 ../src/gnomebaker.c:924
 msgid "Playlist files"
-msgstr "ਸੰਗੀਤ-ਸੂਚੀ ਫਾਇਲਾਂ"
+msgstr "แฟ้มรายการเพลง"
 
 #: ../src/gnomebaker.c:734
 msgid "Save playlist as..."
-msgstr ""
+msgstr "บันทึกรายการเพลงเป็น..."
 
 #: ../src/gnomebaker.c:757
 msgid "Project files"
-msgstr "ਪਰੋਜੈੱਕਟ ਫਾਇਲਾਂ"
+msgstr "แฟ้มโครงการ"
 
 #: ../src/gnomebaker.c:796
 msgid "Please select a project file."
-msgstr "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਪਰੋਜੈੱਕਟ ਫਾਇਲ ਚੁਣੋ।"
+msgstr "กรุณาเลือกแฟ้มโครงการ"
 
 #: ../src/gnomebaker.c:833 ../gnomebaker.glade.h:66
 msgid "Save project"
@@ -591,7 +611,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:925
 msgid "Please select a playlist."
-msgstr ""
+msgstr "กรุณาเลือกรายการเพลง"
 
 #: ../src/gnomebaker.c:951
 msgid "Project is not saved. Are you sure you want to close the project?"
@@ -599,7 +619,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:1013
 msgid "Please select files to add to the disk."
-msgstr "ਕਿਰਪਾ ਕਰਕੇ ਡਿਸਕ ਵਿੱਚ ਜੋੜਨ ਲਈ ਫਾਇਲਾਂ ਚੁਣੋ।"
+msgstr "กรุณาเลือกแฟ้มที่จะเพิ่มลงแผ่นดิสก์"
 
 #: ../src/gnomebaker.c:1022
 msgid "Please select folders to add to the disk."
@@ -631,109 +651,109 @@ msgstr ""
 
 #: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
-msgstr ""
+msgstr "แสดงร่องรอยการทำงาน (เหมาะสำหรับการดีบัก)"
 
 #: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
-msgstr " - ਗਨੋਮ CD/DVD ਲਿਖਣ ਕਾਰਜ"
+msgstr " - โปรแกรมเขียนซีดี/ดีวีดี ของ GNOME"
 
 #: ../src/main.c:107
 msgid "Loading preferences..."
-msgstr "ਪਸੰਦ ਲੋਡ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ..."
+msgstr "กำลังโหลดค่าปรับแต่ง..."
 
 #: ../src/main.c:112
 msgid "Detecting devices..."
-msgstr "ਜੰਤਰ ਖੋਜੇ ਜਾ ਰਹੇ ਹਨ..."
+msgstr "กำลังตรวจสอบอุปกรณ์..."
 
 #: ../src/main.c:117
 msgid "Registering gstreamer plugins..."
-msgstr "ਜੀਸਟਰੀਮਰ ਪਲੱਗ-ਇਨਾਂ ਰਜਿਸਟਰ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ..."
+msgstr "กำลังลงทะเบียนปลั๊กอินของ gstreamer"
 
 #: ../src/main.c:122
 msgid "Loading GUI..."
-msgstr "GUI ਲੋਡ ਕੀਤਾ ਜਾਂਦਾ ਹੈ..."
+msgstr "กำลังโหลด GUI ..."
 
 #: ../src/media.c:497
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
-msgstr ""
+msgstr "ปลั๊กอินที่จัดการแฟ้มชนิด %s ยังไม่ได้ติดตั้ง"
 
 #: ../src/preferences.c:71 ../src/preferences.c:72
 msgid "default"
-msgstr "ਮੂਲ"
+msgstr "ใช้ค่าปริยาย"
 
 #: ../src/prefsdlg.c:139
 msgid "Name"
-msgstr "ਨਾਂ"
+msgstr "ชื่อ"
 
 #: ../src/prefsdlg.c:154
 msgid "Id"
-msgstr "Id"
+msgstr "ไอดี"
 
 #: ../src/prefsdlg.c:163
 msgid "Node"
-msgstr "ਨੋਡ"
+msgstr "โหนด"
 
 #: ../src/prefsdlg.c:172
 msgid "Mount point"
-msgstr "ਮਾਊਂਟ ਥਾਂ"
+msgstr "จุดเมานท์"
 
 #: ../src/prefsdlg.c:181
 msgid "Write CD-R"
-msgstr "CD-R ਲਿਖੋ"
+msgstr "เขียน CD-R"
 
 #: ../src/prefsdlg.c:190
 msgid "Write CD-RW"
-msgstr "CD-RW ਲਿਖੋ"
+msgstr "เขียน CD-RW"
 
 #: ../src/prefsdlg.c:199
 msgid "Write DVD-R"
-msgstr "DVD-R ਲਿਖੋ"
+msgstr "เขียน DVD-R"
 
 #: ../src/prefsdlg.c:208
 msgid "Write DVD-RAM"
-msgstr "DVD-RAM ਲਿਖੋ"
+msgstr "เขียน DVD-RAM"
 
 #: ../src/progressdlg.c:80
 #, c-format
 msgid "%d minutes %d seconds"
-msgstr "%d ਮਿੰਟ %d ਸਕਿੰਟ"
+msgstr "%d นาที %d วินาที"
 
 #: ../src/progressdlg.c:82
 #, c-format
 msgid "%d minute %d seconds"
-msgstr "%d ਮਿੰਟ %d ਸਕਿੰਟ"
+msgstr "%d นาที %d วินาที"
 
 #: ../src/progressdlg.c:84
 #, c-format
 msgid "%d seconds"
-msgstr "%d ਸਕਿੰਟ"
+msgstr "%d วินาที"
 
 #: ../src/progressdlg.c:225
 #, c-format
 msgid "%s remaining"
-msgstr "%s ਬਾਕੀ"
+msgstr "เหลืออีก %s"
 
 #: ../src/progressdlg.c:280 ../gnomebaker.glade.h:69
 msgid "Show output"
-msgstr "ਆਉਟਪੁੱਟ ਵੇਖਾਓ"
+msgstr "แสดงผลการทำงาน"
 
 #: ../src/progressdlg.c:280
 msgid "Hide output"
-msgstr "ਆਉਟਪੁੱਟ ਓਹਲੇ"
+msgstr "ซ่อนผลการทำงาน"
 
 #: ../src/progressdlg.c:359
 #, c-format
 msgid "Elapsed time %s"
-msgstr "ਲੱਗਾ ਸਮਾਂ %s"
+msgstr "เวลาที่ผ่านไป %s"
 
 #: ../src/progressdlg.c:365
 msgid "Completed"
-msgstr "ਮੁਕੰਮਲ"
+msgstr "เสร็จสมบูรณ์"
 
 #: ../src/progressdlg.c:375
 msgid "Failed"
-msgstr "ਅਸਫ਼ਲ"
+msgstr "ล้มเหลว"
 
 #: ../src/project.c:73
 msgid "0%"
@@ -745,11 +765,11 @@ msgstr ""
 
 #: ../src/startdlg.c:108
 msgid "Please select an image file to save to."
-msgstr ""
+msgstr "กรุณาเลือกแฟ้มอิมเมจที่จะใช้บันทึก"
 
 #: ../src/startdlg.c:130
 msgid "CD/DVD Image files"
-msgstr "CD/DVD ਪ੍ਰਤੀਬਿੰਬ ਫਾਇਲਾਂ"
+msgstr "แฟ้มซีดี/ดีวีดีอิมเมจ"
 
 #: ../src/startdlg.c:195
 msgid "<b>Reader</b>"
@@ -761,127 +781,127 @@ msgstr ""
 
 #: ../src/startdlg.c:204
 msgid "Speed:"
-msgstr "ਗਤੀ:"
+msgstr "ความเร็ว:"
 
 #: ../src/startdlg.c:230
 msgid "Mode:"
-msgstr "ਢੰਗ:"
+msgstr "โหมด:"
 
 #: ../src/startdlg.c:253
 msgid "<b>Options</b>"
-msgstr "<b>ਚੋਣਾਂ</b>"
+msgstr "<br>ตัวเลือก</b>"
 
 #: ../src/startdlg.c:282
 msgid "_Start"
-msgstr "ਸ਼ੁਰੂ(_S)"
+msgstr "เ_ริ่ม"
 
 #: ../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
-msgstr "<b>ਡਿਸਕ ਜਾਣਕਾਰੀ</b>"
+msgstr "<b>ข้อมูลดิสก์</b>"
 
 #: ../src/startdlg.c:347
 msgid "Volume ID:"
-msgstr "ਵਾਲੀਅਮ ID:"
+msgstr "ID โวลุม:"
 
 #: ../src/startdlg.c:350
 msgid "Application ID:"
-msgstr "ਕਾਰਜ ID:"
+msgstr "ID โปรแกรม:"
 
 #: ../src/startdlg.c:353
 msgid "Preparer:"
-msgstr "ਤਿਆਰਕਰਤਾ:"
+msgstr "ผู้เตรียม:"
 
 #: ../src/startdlg.c:356
 msgid "Publisher:"
-msgstr "ਪਰਕਾਸ਼ਕ:"
+msgstr "ผู้เผยแพร่:"
 
 #: ../src/startdlg.c:359
 msgid "Copyright:"
-msgstr "ਕਾਪੀਰਾਈਟ:"
+msgstr "ลิขสิทธิ์:"
 
 #: ../src/startdlg.c:362
 msgid "Abstract:"
-msgstr ""
+msgstr "บทคัดย่อ:"
 
 #: ../src/startdlg.c:365
 msgid "Bibliography:"
-msgstr "ਆਤਮਕਥਾ:"
+msgstr "บรรณานุกรม:"
 
 #: ../src/startdlg.c:376
 msgid "<b>Filesystem</b>"
-msgstr "<b>ਫਾਇਲ ਸਿਸਟਮ</b>"
+msgstr "<b>ระบบแฟ้ม</b>"
 
 #: ../src/startdlg.c:414 ../src/startdlg.c:442
 msgid "Writing"
-msgstr "ਲਿਖਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+msgstr "กำลังเขียน"
 
 #: ../src/startdlg.c:416 ../src/startdlg.c:444
 msgid "Disk Information"
-msgstr "ਡਿਸਕ ਜਾਣਕਾਰੀ"
+msgstr "ข้อมูลดิสก์"
 
 #: ../src/startdlg.c:566
 msgid "Dummy write"
-msgstr "ਫ਼ਰਜ਼ੀ ਲਿਖੋ"
+msgstr "ไม่เขียนจริง"
 
 #: ../src/startdlg.c:567
 msgid "Eject disk"
-msgstr "ਡਿਸਕ ਕੱਢੋ"
+msgstr "ดันแผ่นออก"
 
 #: ../src/startdlg.c:568
 msgid "Fast blank"
-msgstr "ਤੇਜ਼ ਸਾਫ਼"
+msgstr "ล้างข้อมูลแบบเร็ว"
 
 #: ../src/startdlg.c:569
 msgid "BurnFree"
-msgstr "ਬਰਨ-ਫ਼ਰੀ"
+msgstr "BurnFree"
 
 #: ../src/startdlg.c:570
 msgid "Burn the disk"
-msgstr "ਡਿਸਕ ਲਿਖੋ"
+msgstr "เขียนดิสก์"
 
 #: ../src/startdlg.c:572
 msgid "Only create image"
-msgstr "ਸਿਰਫ਼ ਪ੍ਰਤੀਬਿੰਬ ਹੀ"
+msgstr "สร้างอิมเมจอย่างเดียว"
 
 #: ../src/startdlg.c:575
 msgid "Force format"
-msgstr "ਧੱਕੇ ਨਾਲ ਫਾਰਮੈਟ"
+msgstr "บังคับฟอร์แมต"
 
 #: ../src/startdlg.c:576
 msgid "Finalize"
-msgstr "ਫਾਇਨਲ"
+msgstr "กระบวนการสุดท้าย"
 
 #: ../src/startdlg.c:577
 msgid "Fast format"
-msgstr "ਤੇਜ਼ ਫਾਰਮੈਟ"
+msgstr "ฟอร์แมตแบบเร็ว"
 
 #: ../src/startdlg.c:578
 msgid "Joliet"
-msgstr "ਜੋਲੀਟ"
+msgstr "Joliet"
 
 #: ../src/startdlg.c:579
 msgid "Rock Ridge"
-msgstr "ਰਾਕ ਰੀਡਗੀ"
+msgstr "Rock Ridge"
 
 #: ../src/startdlg.c:580
 msgid "On the fly"
-msgstr "ਸਿੱਧਾ (ਫਲਾਈ)"
+msgstr "เขียนสดๆ"
 
 #: ../src/startdlg.c:590
 msgid "_Browse..."
-msgstr "ਝਲਕ(_B)..."
+msgstr "เ_ลือก.."
 
 #: ../src/burn.h:69
 msgid "Blank CD-RW"
-msgstr "ਖਾਲੀ CD-RW"
+msgstr "ล้างข้อมูล CD-RW"
 
 #: ../src/burn.h:70
 msgid "Copy Data CD"
-msgstr ""
+msgstr "คัดลอกซีดีข้อมูล"
 
 #: ../src/burn.h:71
 msgid "Copy Audio CD"
-msgstr ""
+msgstr "คัดลอกซีดีเพลง"
 
 #: ../src/burn.h:72
 msgid "Copy CD"
@@ -893,43 +913,43 @@ msgstr ""
 
 #: ../src/burn.h:74
 msgid "Burn CD Image"
-msgstr "CD ਪ੍ਰਤੀਬਿੰਬ ਲਿਖੋ"
+msgstr "เขียนซีดีอิมเมจ"
 
 #: ../src/burn.h:75
 msgid "Burn DVD Image"
-msgstr "DVD ਪ੍ਰਤੀਬਿੰਬ ਲਿਖੋ"
+msgstr "เขียนดีวีดีอิมเมจ"
 
 #: ../src/burn.h:76
 msgid "Create Data CD"
-msgstr ""
+msgstr "สร้างซีดีข้อมูล"
 
 #: ../src/burn.h:77
 msgid "Append to Data CD"
-msgstr ""
+msgstr "เขียนต่อท้ายซีดีข้อมูล"
 
 #: ../src/burn.h:78
 msgid "Create Audio CD"
-msgstr ""
+msgstr "สร้างซีดีเพลง"
 
 #: ../src/burn.h:79
 msgid "Create Mixed CD"
-msgstr ""
+msgstr "สร้างซีดีแบบผสม"
 
 #: ../src/burn.h:80
 msgid "Create Video CD"
-msgstr ""
+msgstr "สร้างวิดีโอซีดี"
 
 #: ../src/burn.h:81
 msgid "Format DVD RW"
-msgstr "DVD RW ਫਾਰਮੈਟ"
+msgstr "ฟอร์แมต DVD RW"
 
 #: ../src/burn.h:82
 msgid "Create Data DVD"
-msgstr ""
+msgstr "สร้างดีวีดีข้อมูล"
 
 #: ../src/burn.h:83
 msgid "Append to Data DVD"
-msgstr ""
+msgstr "เขียนต่อท้ายดีวีดี"
 
 #: ../gnomebaker.glade.h:1
 msgid " "
@@ -949,11 +969,11 @@ msgstr "<b><big>...</big></b>"
 
 #: ../gnomebaker.glade.h:5
 msgid "<b>Additional <i>cdrecord</i> options</b>"
-msgstr ""
+msgstr "<b>ตัวเลือกของ <i>cdrecord</i> เพิ่มเติม</b>"
 
 #: ../gnomebaker.glade.h:6
 msgid "<b>Boot options</b>"
-msgstr "<b>ਬੂਟ ਚੋਣ</b>"
+msgstr "<b>ตัวเลือกการบูต</b>"
 
 #: ../gnomebaker.glade.h:7
 msgid "<b>Create new project</b\t>"
@@ -961,11 +981,11 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:8
 msgid "<b>Created by</b>"
-msgstr "<b>ਬਣਾਈ</b>"
+msgstr "<b>สร้างโดย</b>"
 
 #: ../gnomebaker.glade.h:9
 msgid "<b>Detected devices</b>"
-msgstr "<b>ਖੋਜੇ ਜੰਤਰ</b>"
+msgstr "<b>อุปกรณ์ที่ตรวจพบ</b>"
 
 #: ../gnomebaker.glade.h:10
 msgid "<b>Open existing project</b>"
@@ -973,19 +993,19 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:11
 msgid "<b>Other</b>"
-msgstr "<b>ਹੋਰ</b>"
+msgstr "<b>อื่นๆ</b>"
 
 #: ../gnomebaker.glade.h:12
 msgid "<b>Select Writer</b>"
-msgstr "<b>ਰਾਈਟਰ ਚੁਣੋ</b>"
+msgstr "<b>เลือกเครื่องเขียน</b>"
 
 #: ../gnomebaker.glade.h:13
 msgid "<b>Temporary Directory</b>"
-msgstr "<b>ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ</b>"
+msgstr "<b>ไดเรกทอรีชั่วคราว</b>"
 
 #: ../gnomebaker.glade.h:14
 msgid "<b>Volume label</b>"
-msgstr "<b>ਵਾਲੀਅਮ ਲੇਬਲ</b>"
+msgstr "<b>ป้ายชื่อโวลุม</b>"
 
 #: ../gnomebaker.glade.h:15
 msgid "<b>Welcome</b>"
@@ -997,19 +1017,19 @@ msgstr "<i>...</i>"
 
 #: ../gnomebaker.glade.h:17
 msgid "Add file(s)"
-msgstr "ਫਾਇਲਾਂ ਸ਼ਾਮਿਲ"
+msgstr "เพิ่มแฟ้ม"
 
 #: ../gnomebaker.glade.h:18
 msgid "Add the selected files to the disk"
-msgstr "ਚੁਣੀਆਂ ਫਾਇਲਾਂ ਡਿਸਕ ਉੱਤੇ ਸ਼ਾਮਿਲ"
+msgstr "เพิ่มแฟ้มที่เลือกลงแผ่น"
 
 #: ../gnomebaker.glade.h:19
 msgid "Advanced"
-msgstr "ਤਕਨੀਕੀ"
+msgstr "โหมดพิเศษ"
 
 #: ../gnomebaker.glade.h:20
 msgid "Always scan for devices on startup"
-msgstr "ਸ਼ੁਰੂ ਵੇਲੇ ਹਮੇਸ਼ਾਂ ਜੰਤਰਾਂ ਦੀ ਜਾਂਚ ਕਰੋ"
+msgstr "ตรวจสอบอุปกรณ์ทุกครั้งที่เริ่มงาน"
 
 #: ../gnomebaker.glade.h:22
 msgid "Automatically scroll the progress window output"
@@ -1017,43 +1037,43 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:23
 msgid "Baking"
-msgstr ""
+msgstr "การเขียน"
 
 #: ../gnomebaker.glade.h:24
 msgid "Bl_ank CD-RW"
-msgstr "ਖਾਲੀ CD-RW(_a)"
+msgstr "_ล้างข้อมูล CD-RW"
 
 #: ../gnomebaker.glade.h:25
 msgid "Boot Image"
-msgstr "ਬੂਟ ਪ੍ਰਤੀਬਿੰਬ"
+msgstr "บูตอิมเมจ"
 
 #: ../gnomebaker.glade.h:26
 msgid "Boot Image list"
-msgstr "ਬੂਟ ਪ੍ਰਤੀਬਿੰਬ ਸੂਚੀ"
+msgstr "รายการบูตอิมเมจ"
 
 #: ../gnomebaker.glade.h:27
 msgid "Boot catalog"
-msgstr "ਬੂਟ ਸੂਚੀ"
+msgstr "บูตแคตตาล็อก"
 
 #: ../gnomebaker.glade.h:28
 msgid "Burn _DVD Image"
-msgstr "_DVD ਪ੍ਰਤੀਬਿੰਬ ਲਿਖੋ"
+msgstr "เขียน_ดีวีดีอิมเมจ"
 
 #: ../gnomebaker.glade.h:29
 msgid "C_opy Data CD"
-msgstr ""
+msgstr "_คัดลอกซีดีข้อมูล"
 
 #: ../gnomebaker.glade.h:30
 msgid "Clean temporary directory on exit"
-msgstr "ਬੰਦ ਕਰਨ ਉੱਤੇ ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ ਸਾਫ਼ ਕਰੋ"
+msgstr "ลบไดเรกทอรีชั่วคราวก่อนออก"
 
 #: ../gnomebaker.glade.h:31
 msgid "Clear the contents of the disk"
-msgstr "ਡਿਸਕ ਦੇ ਭਾਗ ਹਟਾਓ"
+msgstr "ล้างข้อมูลในแผ่น"
 
 #: ../gnomebaker.glade.h:32
 msgid "Co_py Audio CD"
-msgstr ""
+msgstr "คั_ดลอกแผ่นเพลง"
 
 #: ../gnomebaker.glade.h:34
 msgid "Copy D_VD"
@@ -1065,43 +1085,43 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:36
 msgid "Created by username"
-msgstr ""
+msgstr "สร้างโดยชื่อผู้ใช้"
 
 #: ../gnomebaker.glade.h:41
 msgid "Devices"
-msgstr "ਜੰਤਰ"
+msgstr "อุปกรณ์"
 
 #: ../gnomebaker.glade.h:42
 msgid "Floppy disk image"
-msgstr "ਫਲਾਪੀ ਡਿਸਕ ਪ੍ਰਤੀਬਿੰਬ"
+msgstr "ฟลอปปี้อิมเมจ"
 
 #: ../gnomebaker.glade.h:43
 msgid "Force"
-msgstr "ਧੱਕੇ ਨਾਲ"
+msgstr "บังคับ"
 
 #: ../gnomebaker.glade.h:44
 msgid "General"
-msgstr "ਆਮ"
+msgstr "ทั่วไป"
 
 #: ../gnomebaker.glade.h:46
 msgid "GnomeBaker Preferences"
-msgstr "ਗਨੋਮਬੇਕਰ ਪਸੰਦ"
+msgstr "การปรับแต่ง GnomeBaker"
 
 #: ../gnomebaker.glade.h:47
 msgid "GnomeBaker data cd"
-msgstr ""
+msgstr "ซีดีข้อมูลของ GnomeBaker"
 
 #: ../gnomebaker.glade.h:48
 msgid "Hard disk image"
-msgstr "ਹਾਰਡ ਡਿਸਕ ਪ੍ਰਤੀਬਿੰਬ"
+msgstr "ฮาร์ดดิสก์อิมเมจ"
 
 #: ../gnomebaker.glade.h:49
 msgid "ISO filesystem details"
-msgstr "ISO ਫਾਇਲ ਸਿਸਟਮ ਵੇਰਵਾ"
+msgstr "ข้อมูลระบบแฟ้ม ISO"
 
 #: ../gnomebaker.glade.h:50
 msgid "Import Session"
-msgstr "ਅਜਲਾਸ ਆਯਾਤ"
+msgstr "นำเข้าเซสชัน"
 
 #: ../gnomebaker.glade.h:51
 msgid "Move Selected Files _Down"
@@ -1113,15 +1133,15 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:53
 msgid "Move audio tracks down"
-msgstr ""
+msgstr "เลื่อนแทร็กเพลงลง"
 
 #: ../gnomebaker.glade.h:54
 msgid "Move audio tracks up"
-msgstr ""
+msgstr "เลื่อนแทร็กเพลงขึ้น"
 
 #: ../gnomebaker.glade.h:55
 msgid "Not bootable"
-msgstr "ਬੂਟੇਬਲ ਨਹੀਂ"
+msgstr "ไม่มีการบูต"
 
 #: ../gnomebaker.glade.h:56
 msgid "Notify me when burning is complete"
@@ -1133,25 +1153,26 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:58
 msgid "PC bootable"
-msgstr ""
+msgstr "บูตกับพีซีได้"
 
 #: ../gnomebaker.glade.h:59
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
+"กรุณาเลือกอุปกรณ์เขียนจากรายการข้างล่าง แล้วใส่แผ่นที่มีเซสชันที่มีอยู่แล้ว"
 
 #: ../gnomebaker.glade.h:60
 msgid "Refresh the file browser file list"
-msgstr ""
+msgstr "เรียกรายการแฟ้มใหม่"
 
 #: ../gnomebaker.glade.h:61
 msgid "Remove selected"
-msgstr "ਚੁਣੇ ਹਟਾਓ"
+msgstr "ลบที่เลือก"
 
 #: ../gnomebaker.glade.h:62
 msgid "Remove the selected files from the disk"
-msgstr "ਚੁਣੀਆਂ ਫਾਇਲਾਂ ਡਿਸਕ ਤੋਂ ਹਟਾਓ।"
+msgstr "ลงแฟ้มที่เลือกจากแผ่น"
 
 #: ../gnomebaker.glade.h:63
 msgid "S_how hidden files"
@@ -1167,7 +1188,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:67
 msgid "Sc_an for devices"
-msgstr "ਜੰਤਰਾਂ ਲਈ ਜਾਂਚ(_a)"
+msgstr "_ตรวจหาอุปกรณ์"
 
 #: ../gnomebaker.glade.h:68
 msgid "Sh_ow human-readable file sizes"
@@ -1175,15 +1196,15 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:70
 msgid "Splash window"
-msgstr "ਸ਼ੁਰੂਆਤੀ ਝਰੋਖਾ"
+msgstr "หน้าต่างทักทาย"
 
 #: ../gnomebaker.glade.h:71
 msgid "Starting GnomeBaker..."
-msgstr "ਗਨੋਮਬੇਕਰ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
+msgstr "กำลังเริ่ม GnomeBaker..."
 
 #: ../gnomebaker.glade.h:72
 msgid "Sun workstation bootable"
-msgstr ""
+msgstr "บูตกับซันเวิร์กสเตชันได้"
 
 #: ../gnomebaker.glade.h:73
 msgid "_Add Selected Files"
@@ -1191,7 +1212,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:74
 msgid "_Add device"
-msgstr "ਜੰਤਰ ਜੋੜੋ(_A)"
+msgstr "เ_พิ่มอุปกรณ์"
 
 #: ../gnomebaker.glade.h:77
 msgid "_Close Project"
@@ -1203,19 +1224,19 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:79
 msgid "_Export"
-msgstr "ਨਿਰਯਾਤ(_E)"
+msgstr "_ส่งออก"
 
 #: ../gnomebaker.glade.h:80
 msgid "_Format DVD±RW"
-msgstr "DVD±RW ਫਾਰਮੈਟ(_F)"
+msgstr "_ฟอร์แมต DVD±RW"
 
 #: ../gnomebaker.glade.h:81
 msgid "_Import"
-msgstr "ਆਯਾਤ(_I)"
+msgstr "_นำเข้า"
 
 #: ../gnomebaker.glade.h:82
 msgid "_Import Session"
-msgstr "ਅਜਲਾਸ ਆਯਾਤ(_I)"
+msgstr "_นำเข้าเซสชัน"
 
 #: ../gnomebaker.glade.h:83
 msgid "_New Project"
@@ -1227,7 +1248,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:85
 msgid "_Playlist"
-msgstr ""
+msgstr "_รายการเพลง"
 
 #: ../gnomebaker.glade.h:86
 msgid "_Project"
@@ -1235,7 +1256,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:87
 msgid "_Refresh"
-msgstr "ਤਾਜ਼ਾ(_R)"
+msgstr "เ_รียกใหม่"
 
 #: ../gnomebaker.glade.h:88
 msgid "_Remove Selected Files"
@@ -1247,7 +1268,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:90
 msgid "_Show File Browser"
-msgstr "ਫਾਇਲ ਝਲਕਾਰਾ ਵੇਖਾਓ(_S)"
+msgstr "แ_สดงโปรแกรมเรียกดูแฟ้ม"
 
 #: ../gnomebaker.glade.h:91
 msgid "_Tools"
@@ -1258,95 +1279,145 @@ msgid "_Window"
 msgstr ""
 
 #, c-format
+#~ msgid ""
+#~ "The file [%s] referred to in the playlist could not be imported as it does "
+#~ "not exist."
+#~ msgstr ""
+#~ "ไม่สามารถนำเข้าแฟ้ม [%s] ที่ถูกอ้างถึงในรายการเพลง เนื่องจากไม่มีอยู่จริง"
+
+#~ msgid ""
+#~ "The file you have selected is not a supported playlist. Please select a pls "
+#~ "or m3u file."
+#~ msgstr ""
+#~ "แฟ้มที่เลือกไม่ใช่แฟ้มรายการเพลงที่สนับสนุน กรุณาเลือกแฟ้มแบบ pls หรือ m3u"
+
+#~ msgid "Failed to write playlist file"
+#~ msgstr "เขียนแฟ้มรายการเพลงไม่สำเร็จ"
+
+#, c-format
 #~ msgid "%s used - %s remaining"
-#~ msgstr "%s ਵਰਤੀ - %s ਬਾਕੀ"
+#~ msgstr "ใช้ไป %s - เหลืออีก %s"
+
+#~ msgid ""
+#~ "File or directory is too large to fit in the remaining space on the CD"
+#~ msgstr "แฟ้มหรือไดเรกทอรีใหญ่เกินที่ว่างที่เหลือในแผ่นซีดี"
 
 #~ msgid "Session"
-#~ msgstr "ਅਜਲਾਸ"
+#~ msgstr "เซสชัน"
 
 #~ msgid "Are you sure you want to quit?"
-#~ msgstr "ਕੀ ਤੁਸੀਂ ਬੰਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+#~ msgstr "ต้องการออกจากโปรแกรมหรือไม่?"
 
 #~ msgid "<b>Devices</b>"
-#~ msgstr "<b>ਜੰਤਰ</b>"
+#~ msgstr "<b>อุปกรณ์</b>"
 
 #~ msgid "<b>Device</b>"
-#~ msgstr "<b>ਜੰਤਰ</b>"
+#~ msgstr "<b>อุปกรณ์</b>"
 
 #~ msgid "Reader:"
-#~ msgstr "ਰੀਡਰ:"
+#~ msgstr "เครื่องอ่าน:"
 
 #~ msgid "Writer:"
-#~ msgstr "ਰਾਇਟਰ:"
+#~ msgstr "เครื่องเขียน:"
 
 #~ msgid "0 mins 0 secs"
-#~ msgstr "0 ਮਿੰਟ 0 ਸਕਿੰਟ"
+#~ msgstr "0 นาที 0 วินาที"
 
 #~ msgid "<b>Audio Disk</b>"
-#~ msgstr "<b>ਆਡੀਓ ਡਿਸਕ<b>"
+#~ msgstr "<b>แผ่นเพลง</b>"
 
 #~ msgid "<b>Data Disk</b>"
-#~ msgstr "<b>ਡਾਟਾ ਡਿਸਕ</b>"
+#~ msgstr "<b>แผ่นข้อมูล</b>"
 
 #~ msgid "<b>File Browser</b>"
-#~ msgstr "<b>ਫਾਇਲ ਝਲਕਾਰਾ</b>"
+#~ msgstr "<b>โปรแกรมเรียกดูแฟ้ม</b>"
 
 #~ msgid "<b>Progress window</b>"
-#~ msgstr "<b>ਤਰੱਕੀ ਝਰੋਖਾ</b>"
+#~ msgstr "<b>หน้าต่างความคืบหน้า</b>"
 
 #~ msgid "<b>Video CD</b>"
-#~ msgstr "<b>ਵੀਡਿਓ CD</b>"
+#~ msgstr "<b>วิดีโอซีดี</b>"
 
 #~ msgid "Ask on quit"
-#~ msgstr "ਬਾਹਰ ਜਾਣ ਲਈ ਪੁੱਛੋ"
+#~ msgstr "ถามก่อนออก"
+
+#~ msgid "Automatically scroll output"
+#~ msgstr "เลื่อนผลการทำงานโดยอัตโนมัติ"
+
+#~ msgid "Click to begin the process of creating a data disk."
+#~ msgstr "คลิกเพื่อเริ่มสร้างแผ่นข้อมูล"
+
+#~ msgid "Click to begin the process of creating an audio cd"
+#~ msgstr "คลิกเพื่อเริ่มสร้างแผ่นเพลง"
 
 #~ msgid "Create Audio Disk"
-#~ msgstr "ਆਡੀਓਡ ਡਿਸਕ ਬਣਾਓ"
+#~ msgstr "สร้างแผ่นเพลง"
 
 #~ msgid "Create Data Disk"
-#~ msgstr "ਡਾਟਾ ਡਿਸਕ ਬਣਾਓ"
+#~ msgstr "สร้างแผ่นข้อมูล"
 
 #~ msgid "Create Video Disk"
-#~ msgstr "ਵੀਡਿਓ ਡਿਸਕ ਬਣਾਓ"
+#~ msgstr "สร้างแผ่นวิดีโอ"
+
+#~ msgid "Edit GnomeBaker's preferences"
+#~ msgstr "ปรับแต่ง GnomeBaker"
 
 #~ msgid "Format DVD±RW"
-#~ msgstr "DVD±RW ਫਾਰਮੈਟ"
+#~ msgstr "ฟอร์แมต DVD±RW"
 
 #~ msgid "GPL"
 #~ msgstr "GPL"
 
 #~ msgid "Import"
-#~ msgstr "ਆਯਾਤ"
+#~ msgstr "นำเข้า"
+
+#~ msgid "Import existing session"
+#~ msgstr "นำเข้าเซสชันที่มีอยู่แล้ว"
 
 #~ msgid "Mode"
-#~ msgstr "ਢੰਗ"
+#~ msgstr "โหมด"
+
+#~ msgid "Move selection _down"
+#~ msgstr "เลื่อนที่เลือก_ลง"
+
+#~ msgid "Move selection _up"
+#~ msgstr "เลื่อนที่เลือก_ขึ้น"
+
+#~ msgid "Play sound when burning is complete"
+#~ msgstr "เล่นเสียงเมื่อเขียนเสร็จสมบูรณ์"
 
 #~ msgid "Reader"
-#~ msgstr "ਰੀਡਰ"
+#~ msgstr "อุปกรณ์อ่าน"
 
 #~ msgid "Show hidden files"
-#~ msgstr "ਲੁਕਵੀਆਂ ਫਾਇਲਾਂ ਵੇਖਾਓ"
+#~ msgstr "แสดงแฟ้มที่ซ่อนไว้"
+
+#~ msgid "Show humanreadable filesizes"
+#~ msgstr "แสดงขนาดแฟ้มแบบอ่านง่าย"
+
+#~ msgid "Simple CD burning for Gnome."
+#~ msgstr "โปรแกรมเขียนซีดีที่ใช้ง่ายสำหรับ Gnome"
 
 #~ msgid "Speed"
-#~ msgstr "ਗਤੀ"
+#~ msgstr "ความเร็ว"
 
 #~ msgid "Start burning..."
-#~ msgstr "ਲਿਖਣਾ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
+#~ msgstr "เริ่มการเขียน..."
 
 #~ msgid "Writer"
-#~ msgstr "ਰਾਇਟਰ"
+#~ msgstr "อุปกรณ์เขียน"
 
 #~ msgid "_Actions"
-#~ msgstr "ਕਾਰਵਾਈਆਂ(_A)"
+#~ msgstr "_ปฏิบัติการ"
 
 #~ msgid "_Add selection"
-#~ msgstr "ਚੋਣ ਸ਼ਾਮਿਲ(_A)"
+#~ msgstr "เ_พิ่มที่เลือก"
 
 #~ msgid "_Remove selection"
-#~ msgstr "ਚੋਣ ਹਟਾਓ(_R)"
+#~ msgstr "_ลบที่เลือก"
 
 #~ msgid "_View"
-#~ msgstr "ਵੇਖੋ(_V)"
+#~ msgstr "_มุมมอง"
 
 #~ msgid "dao"
 #~ msgstr "dao"

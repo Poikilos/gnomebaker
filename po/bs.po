@@ -1,7 +1,7 @@
-# English translation for gnomebaker
-# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# Bosnian translation for gnomebaker
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the gnomebaker package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
@@ -9,13 +9,12 @@ msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2006-08-03 01:24+0200\n"
-"PO-Revision-Date: 2006-07-28 23:12+0000\n"
-"Last-Translator: Rui Mesquita <rpedro78@gmail.com>\n"
-"Language-Team: English <en@li.org>\n"
+"PO-Revision-Date: 2006-06-08 19:15+0000\n"
+"Last-Translator: Emir Beganović <emxlug@linux.org.ba>\n"
+"Language-Team: Bosnian <bs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Version: 0.1\n"
 
 #: ../src/audioproject.c:152 ../src/cairofillbar.c:672
 #, c-format
@@ -24,7 +23,7 @@ msgstr ""
 
 #: ../src/audioproject.c:181
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Track is too large to fit in the remaining space on the CD"
+msgstr ""
 
 #: ../src/audioproject.c:381
 #, c-format
@@ -35,7 +34,7 @@ msgstr ""
 
 #: ../src/audioproject.c:512
 msgid "Not enough space on the disk"
-msgstr ""
+msgstr "Nema dovoljno prostora na disku"
 
 #: ../src/audioproject.c:600
 msgid ""
@@ -56,7 +55,7 @@ msgstr ""
 #: ../src/audioproject.c:844 ../src/dataproject.c:1314
 #: ../src/filebrowser.c:577
 msgid "_Open"
-msgstr ""
+msgstr "_Otvori"
 
 #: ../src/audioproject.c:849
 msgid "Move selected _up"
@@ -81,15 +80,15 @@ msgstr ""
 
 #: ../src/audioproject.c:1091
 msgid "Duration"
-msgstr "Duration"
+msgstr ""
 
 #: ../src/audioproject.c:1100
 msgid "Artist"
-msgstr "Artist"
+msgstr ""
 
 #: ../src/audioproject.c:1109
 msgid "Album"
-msgstr "Album"
+msgstr ""
 
 #: ../src/audioproject.c:1118
 msgid "Title"
@@ -97,7 +96,7 @@ msgstr ""
 
 #: ../src/audioproject.c:1127
 msgid "Track"
-msgstr "Track"
+msgstr ""
 
 #: ../src/audioproject.c:1144
 msgid "Info"
@@ -318,7 +317,7 @@ msgstr ""
 
 #: ../src/dataproject.c:1329 ../src/dataproject.c:1368
 msgid "Clear"
-msgstr "Clear"
+msgstr ""
 
 #: ../src/dataproject.c:1490
 #, c-format
@@ -409,13 +408,10 @@ msgid "Preparing to extract audio tracks"
 msgstr ""
 
 #: ../src/execfunctions.c:422
-#, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
-"Audio tracks from a previous session already exist on disk, do you wish to "
-"use the existing tracks?"
 
 #: ../src/execfunctions.c:479
 #, c-format
@@ -1143,7 +1139,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:61
 msgid "Remove selected"
-msgstr "Remove selected"
+msgstr ""
 
 #: ../gnomebaker.glade.h:62
 msgid "Remove the selected files from the disk"

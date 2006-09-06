@@ -1,7 +1,7 @@
-# English translation for gnomebaker
-# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# Arabic translation for gnomebaker
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the gnomebaker package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
@@ -9,22 +9,21 @@ msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2006-08-03 01:24+0200\n"
-"PO-Revision-Date: 2006-07-28 23:12+0000\n"
-"Last-Translator: Rui Mesquita <rpedro78@gmail.com>\n"
-"Language-Team: English <en@li.org>\n"
+"PO-Revision-Date: 2006-06-05 04:41+0000\n"
+"Last-Translator: Mohamad Fada'q <m.fadaq@gmail.com>\n"
+"Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Version: 0.1\n"
 
 #: ../src/audioproject.c:152 ../src/cairofillbar.c:672
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
-msgstr ""
+msgstr "%d دقائق %d ثوان أُستخدمت - %d دقائق %d ثوان تبقت"
 
 #: ../src/audioproject.c:181
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Track is too large to fit in the remaining space on the CD"
+msgstr "المسار كبير جدًا لملائمته في المساحة المتبقية على القرص المدمج"
 
 #: ../src/audioproject.c:381
 #, c-format
@@ -32,10 +31,11 @@ msgid ""
 "The file [%s] referred to in the play_list could not be imported as it does "
 "not exist."
 msgstr ""
+"الملف [%s] المشار إليه في لائحة التشغيل لا يمكن استيراده لأنه غير موجود."
 
 #: ../src/audioproject.c:512
 msgid "Not enough space on the disk"
-msgstr ""
+msgstr "لا توجد مساحة كافية على القرص"
 
 #: ../src/audioproject.c:600
 msgid ""
@@ -52,28 +52,30 @@ msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
+"ﻻئحة التشغيل موجودة مسبقاً.\n"
+" هل تريد استبدالها؟"
 
 #: ../src/audioproject.c:844 ../src/dataproject.c:1314
 #: ../src/filebrowser.c:577
 msgid "_Open"
-msgstr ""
+msgstr "_فتح"
 
 #: ../src/audioproject.c:849
 msgid "Move selected _up"
-msgstr ""
+msgstr "نقل المنتقى ل_لأعلى"
 
 #: ../src/audioproject.c:851
 msgid "Move selected _down"
-msgstr ""
+msgstr "نقل المنتقى للأ_سفل"
 
 #: ../src/audioproject.c:854 ../src/dataproject.c:1327
 #: ../src/dataproject.c:1364
 msgid "_Remove selected"
-msgstr ""
+msgstr "ح_ذف المنتقى"
 
 #: ../src/audioproject.c:856
 msgid "_Clear"
-msgstr ""
+msgstr "إ_زالة"
 
 #: ../src/audioproject.c:1079
 msgid "No."
@@ -81,27 +83,27 @@ msgstr ""
 
 #: ../src/audioproject.c:1091
 msgid "Duration"
-msgstr "Duration"
+msgstr "المدّة"
 
 #: ../src/audioproject.c:1100
 msgid "Artist"
-msgstr "Artist"
+msgstr "الفنان"
 
 #: ../src/audioproject.c:1109
 msgid "Album"
-msgstr "Album"
+msgstr "التشكيلة"
 
 #: ../src/audioproject.c:1118
 msgid "Title"
-msgstr ""
+msgstr "العنوان"
 
 #: ../src/audioproject.c:1127
 msgid "Track"
-msgstr "Track"
+msgstr "المسار"
 
 #: ../src/audioproject.c:1144
 msgid "Info"
-msgstr ""
+msgstr "معلومات"
 
 #: ../src/audioproject.c:1175 ../gnomebaker.glade.h:21
 msgid "Audio CD"
@@ -109,103 +111,124 @@ msgstr ""
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Burning CD image"
-msgstr ""
+msgstr "تسجيل نسخة مطابقة للقرص المدمج"
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُسجّل نسخة القرص المدمج المطابقة التي انتقيتها على قرص "
+"مدمج."
 
 #: ../src/burn.c:115
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
+"الملف الذي انتقيته ﻻ يبدو كنسخة مطابقة لقرص المنوّعات الرقمي. هل تود حقًا "
+"كتابتته على قرص المنوعات الرقمي؟"
 
 #: ../src/burn.c:120
 msgid "Burning DVD image"
-msgstr ""
+msgstr "تسجيل نسخة مطابقة لقرص المنوّعات الرقمي"
 
 #: ../src/burn.c:120
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُسجّل النسخة المطابقة لقرص المنوّعات الرقمي التي "
+"انتقيتها على قرص منوّعات رقمي."
 
 #: ../src/burn.c:163
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
+"الملف الذي انتقيته ﻻ يبدو كنسخة مطابقة للقرص المدمج. هل تود حقًا كتابته على "
+"القرص المدمج؟"
 
 #: ../src/burn.c:180
 msgid "Creating data CD image"
-msgstr ""
+msgstr "إنشاء نسخة مطابقة من قرص بيانات مدمج"
 
 #: ../src/burn.c:180
 msgid "Please wait while the data CD image is created."
-msgstr ""
+msgstr "الرجاء اﻹنتظار ريثما تُنشأ نسخة مطابقة لقرص البيانات المدمج."
 
 #: ../src/burn.c:186 ../src/burn.c:196
 msgid "Burning data CD"
-msgstr ""
+msgstr "تسجيل قرص بيانات مدمج"
 
 #: ../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
-msgstr ""
+msgstr "الرجاء اﻹنتظار ريثما تُسجّل البيانات مباشرة إلى القرص المدمج."
 
 #: ../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُنشأ نسخة مطابقة لقرص البيانات و من ثمّ تُسجّل على "
+"القرص المدمج. هذا قد يأخذ بعض الوقت اعتمادًا على سرعة كاتب اﻷقراص المدمجة "
+"الخاص بك. "
 
 #: ../src/burn.c:221 ../src/burn.c:231
 msgid "Appending to data CD"
-msgstr ""
+msgstr "إضافة إلى قرص بيانات مدمج"
 
 #: ../src/burn.c:221
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُسجّل البيانات اﻹضافية مباشرةً إلى القرص المدمج."
 
 #: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُنشأ نسخة مطابقة لقرص البيانات و من ثمّ تُضاف إلى "
+"القرص المدمج. هذا قد يأخذ بعض الوقت اعتمادًا على سرعة كاتب اﻷقراص المدمجة "
+"الخاص بك. "
 
 #: ../src/burn.c:253
 msgid "Burning audio CD"
-msgstr ""
+msgstr "تسجيل قرص صوتيات مدمج"
 
 #: ../src/burn.c:253
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُحوّل المسارات المنتقاة إلى قرص صوتيات مدمج و من ثمّ "
+"تُسجّل على القرص المدمج."
 
 #: ../src/burn.c:312
 msgid "Extracting CD image"
-msgstr ""
+msgstr "استخراج نسخة مطابقة للقرص المدمج"
 
 #: ../src/burn.c:312
 msgid "Please wait while the data CD image is extracted."
-msgstr ""
+msgstr "الرجاء اﻹنتظار ريثما تُستخرج نسخة مطابقة للقرص المدمج."
 
 #: ../src/burn.c:318
 msgid "Copying data CD"
-msgstr ""
+msgstr "نسخ قرص بيانات مدمج"
 
 #: ../src/burn.c:318
 msgid ""
 "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُستخرج نسخة مطابقة للقرص المدمج و من ثمّ تُسجّل على "
+"القرص المدمج."
 
 #: ../src/burn.c:338
 msgid "Copying audio CD"
-msgstr ""
+msgstr "نسخ قرص صوتيات مدمج"
 
 #: ../src/burn.c:338
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُستخرج مسارات قرص الصوتيات المدمج و من ثمّ تُسجّل على "
+"القرص المدمج."
 
 #: ../src/burn.c:354
 msgid "Copying CD"
@@ -233,47 +256,49 @@ msgstr ""
 
 #: ../src/burn.c:397
 msgid "Blanking CD"
-msgstr ""
+msgstr "تفريغ القرص المدمج"
 
 #: ../src/burn.c:397
 msgid "Please wait while the CD is blanked."
-msgstr ""
+msgstr "الرجاء اﻹنتظار ريثما يُفرّغ القرص المدمج."
 
 #: ../src/burn.c:413
 msgid "Formatting re-writeable DVD"
-msgstr ""
+msgstr "تهيئة قرص منوّعات رقمي قابل ﻹعادة الكتابة"
 
 #: ../src/burn.c:413
 msgid "Please wait while the DVD is formatted."
-msgstr ""
+msgstr "الرجاء اﻹنتظار ريثما يُهيّأ قرص المنوّعات الرقمي."
 
 #: ../src/burn.c:433
 msgid "Creating data DVD image"
-msgstr ""
+msgstr "إنشاء نسخة مطابقة من قرص منوّعات رقمي للبيانات"
 
 #: ../src/burn.c:433
 msgid "Please wait while the data DVD image is created."
-msgstr ""
+msgstr "لرجاء اﻹنتظار ريثما تُنشأ نسخة مطابقة من قرص منوّعات رقمي للبيانات."
 
 #: ../src/burn.c:439
 msgid "Burning data DVD"
-msgstr ""
+msgstr "تسجيل قرص منوعات رقمي للبيانات"
 
 #: ../src/burn.c:439
 msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُسجّل البيانات مباشرةً على قرص المنوّعات الرقمي."
 
 #: ../src/burn.c:458 ../src/burn.c:520
 msgid "Appending to data DVD"
-msgstr ""
+msgstr "إضافة إلى قرص منوّعات رقمي للبيانات"
 
 #: ../src/burn.c:458 ../src/burn.c:520
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr ""
+"الرجاء اﻹنتظار ريثما تُضاف البيانات مباشرةً إلى قرص المنوّعات الرقمي."
 
 #: ../src/burn.c:485 ../src/execfunctions.c:1685
 msgid "Verifying the disk content"
-msgstr ""
+msgstr "تفقّد محتويات القرص"
 
 #: ../src/cairofillbar.c:684
 #, c-format
@@ -292,7 +317,7 @@ msgstr ""
 
 #: ../src/dataproject.c:172 ../src/startdlg.c:592
 msgid "GnomeBaker data disk"
-msgstr ""
+msgstr "قرص بيانات لجنوم بايكر"
 
 #: ../src/dataproject.c:384
 #, c-format
@@ -314,11 +339,11 @@ msgstr ""
 
 #: ../src/dataproject.c:1323 ../src/dataproject.c:1358
 msgid "_Edit name"
-msgstr ""
+msgstr "_تحرير اﻹسم"
 
 #: ../src/dataproject.c:1329 ../src/dataproject.c:1368
 msgid "Clear"
-msgstr "Clear"
+msgstr "إزالة"
 
 #: ../src/dataproject.c:1490
 #, c-format
@@ -327,14 +352,17 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"خطأ عند تجميع معلومات الجلسة.\n"
+"\n"
+"%s"
 
 #: ../src/dataproject.c:1491 ../src/devices.c:664
 msgid "unknown error"
-msgstr ""
+msgstr "خطأ مجهول"
 
 #: ../src/dataproject.c:1609
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
-msgstr ""
+msgstr "التجميعة تجاوزت السّعة أو المساحة المتبقية للقرص"
 
 #: ../src/dataproject.c:1692
 #, c-format
@@ -342,20 +370,21 @@ msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
 msgstr ""
+"خطأ عند استيراد الجلسة من [%s]. الرجاء تحققّ من إعدادات الجهاز في التفضيلات."
 
 #: ../src/dataproject.c:1862 ../src/dataproject.c:1949
 #: ../gnomebaker.glade.h:33
 msgid "Contents"
-msgstr ""
+msgstr "المحتويات"
 
 #: ../src/dataproject.c:1885 ../src/dataproject.c:1895
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
-msgstr ""
+msgstr "الحجم"
 
 #: ../src/dataproject.c:1905
 msgid "Full Path"
-msgstr ""
+msgstr "المسار كاملا"
 
 #: ../src/dataproject.c:2078 ../gnomebaker.glade.h:38
 msgid "Data DVD"
@@ -371,6 +400,9 @@ msgid ""
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
+"تعذّر الحصول على نقطة التركيب (مثال /mnt/cdrom) لجهاز الكتابة. الرجاء تحقّق "
+"من أنّ جهاز الكتابة به مُدخل في /etc/fstab ثم اذهب إلى التفضيلات و أعد تفحّص "
+"اﻷجهزة."
 
 #: ../src/devices.c:663
 #, c-format
@@ -379,25 +411,28 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"خطأ في التركيب.%s\n"
+"\n"
+"%s"
 
 #: ../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
-msgstr ""
+msgstr "الرجاء ادراج قرص في %s"
 
 #: ../src/execfunctions.c:86
 msgid "Preparing to blank disk"
-msgstr ""
+msgstr "التحضير لتفريغ القرص"
 
 #: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
-msgstr ""
+msgstr "التحضير لتسجيل القرص"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
-msgstr ""
+msgstr "كتابة المسار %d"
 
 #: ../src/execfunctions.c:292 ../src/execfunctions.c:1015
 #: ../src/startdlg.c:208 ../src/startdlg.c:234 ../src/startdlg.c:235
@@ -406,62 +441,65 @@ msgstr ""
 
 #: ../src/execfunctions.c:411
 msgid "Preparing to extract audio tracks"
-msgstr ""
+msgstr "التحضير ﻻستخراج مسارات صوتية"
 
 #: ../src/execfunctions.c:422
-#, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
-"Audio tracks from a previous session already exist on disk, do you wish to "
-"use the existing tracks?"
+"المسارات الصوتية من الجلسة السابقة موجودة مسبقًا على القرص ، هل تود استخدام "
+"المسارات الموجودة؟"
 
 #: ../src/execfunctions.c:479
 #, c-format
 msgid "Extracting audio track %d"
-msgstr ""
+msgstr "استخراج مسار صوتي %d"
 
 #: ../src/execfunctions.c:549
 msgid "Calculating data disk image size"
-msgstr ""
+msgstr "حساب حجم النسخة المطابقة لقرص بيانات"
 
 #: ../src/execfunctions.c:587
 msgid "Creating data disk image"
-msgstr ""
+msgstr "إنشاء نسخة مطابقة لقرص بيانات"
 
 #: ../src/execfunctions.c:594
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
+"النسخة المطابقة لقرص بيانات مدمج من الجلسة السابقة موجودة مسبقًا على القرص ، "
+"هل تود استخدام النسخة المطابقة الموجودة؟"
 
 #: ../src/execfunctions.c:831
 msgid "Formatting DVD"
-msgstr ""
+msgstr "تهيئة قرص المنوّعات الرقمي"
 
 #: ../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
-msgstr ""
+msgstr "التحضير لتسجيل قرص منوّعات رقمي"
 
 #: ../src/execfunctions.c:943 ../src/execfunctions.c:968
 msgid "Writing DVD"
-msgstr ""
+msgstr "كتابة قرص منوّعات رقمي"
 
 #: ../src/execfunctions.c:1083
 msgid "Reading CD image"
-msgstr ""
+msgstr "قراءة نسخة مطابقة لقرص مدمج"
 
 #: ../src/execfunctions.c:1091
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
+"النسخة المطابقة لقرص مدمج من الجلسة السابقة موجودة مسبقًا على القرص ، هل تود "
+"استخدام النسخة المطابقة الموجودة؟"
 
 #: ../src/execfunctions.c:1480
 #, c-format
 msgid "Converting %s to cd audio"
-msgstr ""
+msgstr "تحويل %s إلى قرص صوتيات مدمج"
 
 #: ../src/execfunctions.c:1727
 msgid "Reading DVD image"
@@ -476,60 +514,60 @@ msgstr ""
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
 #: ../src/startdlg.c:443
 msgid "Filesystem"
-msgstr ""
+msgstr "نظام الملفات"
 
 #: ../src/filebrowser.c:74
 msgid "Home"
-msgstr ""
+msgstr "الرئيسي"
 
 #: ../src/filebrowser.c:75
 msgid "(empty)"
-msgstr ""
+msgstr "(خالي)"
 
 #: ../src/filebrowser.c:76
 msgid "Folder"
-msgstr ""
+msgstr "المجلّد"
 
 #: ../src/filebrowser.c:568
 msgid "_Add directory"
-msgstr ""
+msgstr "إ_ضافة دليل"
 
 #: ../src/filebrowser.c:581
 msgid "_Add file(s)"
-msgstr ""
+msgstr "إ_ضافة ملف(ات)"
 
 #: ../src/filebrowser.c:596 ../gnomebaker.glade.h:76
 msgid "_Burn CD Image"
-msgstr ""
+msgstr "ت_سجيل نسخة مطابقة لقرص مدمج"
 
 #: ../src/filebrowser.c:599
 msgid "_Burn DVD Image"
-msgstr ""
+msgstr "_تسجيل نسخة مطابقة لقرص مدمج"
 
 #: ../src/filebrowser.c:704
 #, c-format
 msgid "%s's home"
-msgstr ""
+msgstr "%s الرئيس"
 
 #: ../src/filebrowser.c:770
 msgid "File"
-msgstr ""
+msgstr "الملف"
 
 #: ../src/filebrowser.c:805
 msgid "Type"
-msgstr ""
+msgstr "النوع"
 
 #: ../src/filebrowser.c:814
 msgid "Mime"
-msgstr ""
+msgstr "بروتوكول Mime"
 
 #: ../src/gbcommon.c:556
 msgid "All files"
-msgstr ""
+msgstr "جميع الملفات"
 
 #: ../src/gbcommon.c:564
 msgid "Save file as type:"
-msgstr ""
+msgstr "حفظ الملف كنوع:"
 
 #: ../src/gnomebaker.c:237
 msgid ""
@@ -539,47 +577,47 @@ msgstr ""
 
 #: ../src/gnomebaker.c:308
 msgid "CD Image files"
-msgstr ""
+msgstr "ملفات نسخة مطابقة للقرص المدمج"
 
 #: ../src/gnomebaker.c:309
 msgid "Please select a CD image file."
-msgstr ""
+msgstr "الرجاء انتق ملف نسخة مطابقة للقرص المدمج."
 
 #: ../src/gnomebaker.c:324
 msgid "DVD Image files"
-msgstr ""
+msgstr "ملفات نسخة مطابقة لقرص المنوّعات الرقمي"
 
 #: ../src/gnomebaker.c:325
 msgid "Please select a DVD image file."
-msgstr ""
+msgstr "الرجاء انتق ملف نسخة مطابقة لقرص منوّعات رقمي."
 
 #: ../src/gnomebaker.c:413 ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
-msgstr ""
+msgstr "جنوم بايكر"
 
 #: ../src/gnomebaker.c:414
 msgid "Simple CD/DVD Burning for Gnome"
-msgstr ""
+msgstr "نسخ أقراص مدمجة/رقمية مبسّط لجنوم"
 
 #: ../src/gnomebaker.c:414
 msgid "translator_credits"
-msgstr ""
+msgstr "محمّد فدعق، السعّودية <m.fadaq@gmail.com>"
 
 #: ../src/gnomebaker.c:727 ../src/gnomebaker.c:924
 msgid "Playlist files"
-msgstr ""
+msgstr "ملفات ﻻئحة التشغيل"
 
 #: ../src/gnomebaker.c:734
 msgid "Save playlist as..."
-msgstr ""
+msgstr "حفظ ﻻئحة التشغيل ك..."
 
 #: ../src/gnomebaker.c:757
 msgid "Project files"
-msgstr ""
+msgstr "ملفات المشاريع"
 
 #: ../src/gnomebaker.c:796
 msgid "Please select a project file."
-msgstr ""
+msgstr "الرجاء انتق ملف مشروع."
 
 #: ../src/gnomebaker.c:833 ../gnomebaker.glade.h:66
 msgid "Save project"
@@ -587,7 +625,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:925
 msgid "Please select a playlist."
-msgstr ""
+msgstr "الرجاء انتق ﻻئحة تشغيل."
 
 #: ../src/gnomebaker.c:951
 msgid "Project is not saved. Are you sure you want to close the project?"
@@ -595,7 +633,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:1013
 msgid "Please select files to add to the disk."
-msgstr ""
+msgstr "الرجاء انتق الملفات ﻹضافتها إلى القرص."
 
 #: ../src/gnomebaker.c:1022
 msgid "Please select folders to add to the disk."
@@ -627,113 +665,113 @@ msgstr ""
 
 #: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
-msgstr ""
+msgstr "إظهار معلومات التتبّع (مفيد عند التصحيح)"
 
 #: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
-msgstr ""
+msgstr " - تطبيق تسجيل اﻷقراص المدمجة/الرقمية لجنوم"
 
 #: ../src/main.c:107
 msgid "Loading preferences..."
-msgstr ""
+msgstr "تحميل التفضيلات..."
 
 #: ../src/main.c:112
 msgid "Detecting devices..."
-msgstr ""
+msgstr "اكتشاف اﻷجهزة..."
 
 #: ../src/main.c:117
 msgid "Registering gstreamer plugins..."
-msgstr ""
+msgstr "تسجيل مقابس gstreamer..."
 
 #: ../src/main.c:122
 msgid "Loading GUI..."
-msgstr ""
+msgstr "تحميل واجهة المستخدم الرسومية..."
 
 #: ../src/media.c:497
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
-msgstr ""
+msgstr "المقبس المعامل لملفات من نوع %s غير مثبّت."
 
 #: ../src/preferences.c:71 ../src/preferences.c:72
 msgid "default"
-msgstr ""
+msgstr "اﻹفتراضي"
 
 #: ../src/prefsdlg.c:139
 msgid "Name"
-msgstr ""
+msgstr "اﻹسم"
 
 #: ../src/prefsdlg.c:154
 msgid "Id"
-msgstr ""
+msgstr "الهوية"
 
 #: ../src/prefsdlg.c:163
 msgid "Node"
-msgstr ""
+msgstr "العقدة"
 
 #: ../src/prefsdlg.c:172
 msgid "Mount point"
-msgstr ""
+msgstr "نقطة التركيب"
 
 #: ../src/prefsdlg.c:181
 msgid "Write CD-R"
-msgstr ""
+msgstr "كتابة قرص مدمج قابل للتسجيل"
 
 #: ../src/prefsdlg.c:190
 msgid "Write CD-RW"
-msgstr ""
+msgstr "كتابة قرص مدمج قابلة ﻹعادة الكتابة"
 
 #: ../src/prefsdlg.c:199
 msgid "Write DVD-R"
-msgstr ""
+msgstr "كتابة قرص منوّعات رقمي قابل للتسجيل"
 
 #: ../src/prefsdlg.c:208
 msgid "Write DVD-RAM"
-msgstr ""
+msgstr "كتابة قرص منوّعات رقمي من طراز RAM"
 
 #: ../src/progressdlg.c:80
 #, c-format
 msgid "%d minutes %d seconds"
-msgstr ""
+msgstr "%d دقائق %d ثوان"
 
 #: ../src/progressdlg.c:82
 #, c-format
 msgid "%d minute %d seconds"
-msgstr ""
+msgstr "%d دقيقة %d ثوان"
 
 #: ../src/progressdlg.c:84
 #, c-format
 msgid "%d seconds"
-msgstr ""
+msgstr "%d ثوان"
 
 #: ../src/progressdlg.c:225
 #, c-format
 msgid "%s remaining"
-msgstr ""
+msgstr "%s متبقي"
 
 #: ../src/progressdlg.c:280 ../gnomebaker.glade.h:69
 msgid "Show output"
-msgstr ""
+msgstr "إظهار المُخرجات"
 
 #: ../src/progressdlg.c:280
 msgid "Hide output"
-msgstr ""
+msgstr "إخفاء المُخرجات"
 
 #: ../src/progressdlg.c:359
 #, c-format
 msgid "Elapsed time %s"
-msgstr ""
+msgstr "الوقت المنصرم %s"
 
 #: ../src/progressdlg.c:365
 msgid "Completed"
-msgstr ""
+msgstr "اكتمل"
 
 #: ../src/progressdlg.c:375
 msgid "Failed"
-msgstr ""
+msgstr "فشل"
 
 #: ../src/project.c:73
 msgid "0%"
-msgstr ""
+msgstr "0%"
 
 #: ../src/project.c:112
 msgid "_Burn"
@@ -741,143 +779,143 @@ msgstr ""
 
 #: ../src/startdlg.c:108
 msgid "Please select an image file to save to."
-msgstr ""
+msgstr "الرجاء انتق ملف نسخة مطابقة للحفظ عليه."
 
 #: ../src/startdlg.c:130
 msgid "CD/DVD Image files"
-msgstr ""
+msgstr "ملفات نسخ مطابقة ﻷقراص مدمجة/رقمية"
 
 #: ../src/startdlg.c:195
 msgid "<b>Reader</b>"
-msgstr ""
+msgstr "<b>القارئ</b>"
 
 #: ../src/startdlg.c:200
 msgid "<b>Writer</b>"
-msgstr ""
+msgstr "<b>الكاتب</b>"
 
 #: ../src/startdlg.c:204
 msgid "Speed:"
-msgstr ""
+msgstr "السرعة:"
 
 #: ../src/startdlg.c:230
 msgid "Mode:"
-msgstr ""
+msgstr "الوضع:"
 
 #: ../src/startdlg.c:253
 msgid "<b>Options</b>"
-msgstr ""
+msgstr "<b>الخيارات</b>"
 
 #: ../src/startdlg.c:282
 msgid "_Start"
-msgstr ""
+msgstr "ال_بدء"
 
 #: ../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
-msgstr ""
+msgstr "<bمعلومات القرص</b>"
 
 #: ../src/startdlg.c:347
 msgid "Volume ID:"
-msgstr ""
+msgstr "هوية وحدة التخزين:"
 
 #: ../src/startdlg.c:350
 msgid "Application ID:"
-msgstr ""
+msgstr "هوية التطبيق:"
 
 #: ../src/startdlg.c:353
 msgid "Preparer:"
-msgstr ""
+msgstr "المُحضّر:"
 
 #: ../src/startdlg.c:356
 msgid "Publisher:"
-msgstr ""
+msgstr "الناشر:"
 
 #: ../src/startdlg.c:359
 msgid "Copyright:"
-msgstr ""
+msgstr "حقوق النسخ:"
 
 #: ../src/startdlg.c:362
 msgid "Abstract:"
-msgstr ""
+msgstr "الخلاصة:"
 
 #: ../src/startdlg.c:365
 msgid "Bibliography:"
-msgstr ""
+msgstr "ثّبت المراجع:"
 
 #: ../src/startdlg.c:376
 msgid "<b>Filesystem</b>"
-msgstr ""
+msgstr "<b>نظام الملفات</b>"
 
 #: ../src/startdlg.c:414 ../src/startdlg.c:442
 msgid "Writing"
-msgstr ""
+msgstr "الكتابة"
 
 #: ../src/startdlg.c:416 ../src/startdlg.c:444
 msgid "Disk Information"
-msgstr ""
+msgstr "معلومات القرص"
 
 #: ../src/startdlg.c:566
 msgid "Dummy write"
-msgstr ""
+msgstr "كتابة زائفة"
 
 #: ../src/startdlg.c:567
 msgid "Eject disk"
-msgstr ""
+msgstr "إخراج القرص"
 
 #: ../src/startdlg.c:568
 msgid "Fast blank"
-msgstr ""
+msgstr "تفريغ سريع"
 
 #: ../src/startdlg.c:569
 msgid "BurnFree"
-msgstr ""
+msgstr "تسجيل مجاني"
 
 #: ../src/startdlg.c:570
 msgid "Burn the disk"
-msgstr ""
+msgstr "تسجيل القرص"
 
 #: ../src/startdlg.c:572
 msgid "Only create image"
-msgstr ""
+msgstr "إنشاء نسخة مطابقة فقط"
 
 #: ../src/startdlg.c:575
 msgid "Force format"
-msgstr ""
+msgstr "إرغام التهيئة"
 
 #: ../src/startdlg.c:576
 msgid "Finalize"
-msgstr ""
+msgstr "إنهاء"
 
 #: ../src/startdlg.c:577
 msgid "Fast format"
-msgstr ""
+msgstr "تهيئة سريعة"
 
 #: ../src/startdlg.c:578
 msgid "Joliet"
-msgstr ""
+msgstr "جولييت"
 
 #: ../src/startdlg.c:579
 msgid "Rock Ridge"
-msgstr ""
+msgstr "ضلع متأرجح"
 
 #: ../src/startdlg.c:580
 msgid "On the fly"
-msgstr ""
+msgstr "فورًا"
 
 #: ../src/startdlg.c:590
 msgid "_Browse..."
-msgstr ""
+msgstr "_تصفّح..."
 
 #: ../src/burn.h:69
 msgid "Blank CD-RW"
-msgstr ""
+msgstr "تفريغ قرص مدمج قابل ﻹعادة الكتابة"
 
 #: ../src/burn.h:70
 msgid "Copy Data CD"
-msgstr ""
+msgstr "نسخ قرص بيانات مدمج"
 
 #: ../src/burn.h:71
 msgid "Copy Audio CD"
-msgstr ""
+msgstr "نسخ قرص صوتيات مدمج"
 
 #: ../src/burn.h:72
 msgid "Copy CD"
@@ -889,67 +927,67 @@ msgstr ""
 
 #: ../src/burn.h:74
 msgid "Burn CD Image"
-msgstr ""
+msgstr "تسجيل نسخة مطابقة لقرص مدمج"
 
 #: ../src/burn.h:75
 msgid "Burn DVD Image"
-msgstr ""
+msgstr "تسجيل نسخة مطابقة لقرص منوّعات رقمي"
 
 #: ../src/burn.h:76
 msgid "Create Data CD"
-msgstr ""
+msgstr "إنشاء قرص بيانات مدمج"
 
 #: ../src/burn.h:77
 msgid "Append to Data CD"
-msgstr ""
+msgstr "إضافة إلى قرص بيانات مدمج"
 
 #: ../src/burn.h:78
 msgid "Create Audio CD"
-msgstr ""
+msgstr "إنشاء قرص صوتيات مدمج"
 
 #: ../src/burn.h:79
 msgid "Create Mixed CD"
-msgstr ""
+msgstr "إنشاء قرص مختلط مدمج"
 
 #: ../src/burn.h:80
 msgid "Create Video CD"
-msgstr ""
+msgstr "إنشاء قرص مدمج للفيديو"
 
 #: ../src/burn.h:81
 msgid "Format DVD RW"
-msgstr ""
+msgstr "تهيئة قرص منوّعات رقمي قابل ﻹعادة الكتابة"
 
 #: ../src/burn.h:82
 msgid "Create Data DVD"
-msgstr ""
+msgstr "إنشاء قرص منوّعات رقمي للبيانات"
 
 #: ../src/burn.h:83
 msgid "Append to Data DVD"
-msgstr ""
+msgstr "إضافة إلى قرص منوّعات رقمي للبيانات"
 
 #: ../gnomebaker.glade.h:1
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../gnomebaker.glade.h:3
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: ../gnomebaker.glade.h:4
 msgid "<b><big>...</big></b>"
-msgstr ""
+msgstr "<b><big>...</big></b>"
 
 #: ../gnomebaker.glade.h:5
 msgid "<b>Additional <i>cdrecord</i> options</b>"
-msgstr ""
+msgstr "<b>خيارات <i>مسجّل أقراص مدمجة</i> إضافية</b>"
 
 #: ../gnomebaker.glade.h:6
 msgid "<b>Boot options</b>"
-msgstr ""
+msgstr "<b>خيارات الإستنهاض</b>"
 
 #: ../gnomebaker.glade.h:7
 msgid "<b>Create new project</b\t>"
@@ -957,11 +995,11 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:8
 msgid "<b>Created by</b>"
-msgstr ""
+msgstr "<b>أُنشيء من قبل</b>"
 
 #: ../gnomebaker.glade.h:9
 msgid "<b>Detected devices</b>"
-msgstr ""
+msgstr "<b>اﻷجهزة المكتشفة</b>"
 
 #: ../gnomebaker.glade.h:10
 msgid "<b>Open existing project</b>"
@@ -969,43 +1007,43 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:11
 msgid "<b>Other</b>"
-msgstr ""
+msgstr "<b>آخر</b>"
 
 #: ../gnomebaker.glade.h:12
 msgid "<b>Select Writer</b>"
-msgstr ""
+msgstr "<b>إنتقاء الكاتب</b>"
 
 #: ../gnomebaker.glade.h:13
 msgid "<b>Temporary Directory</b>"
-msgstr ""
+msgstr "<b>الدليل المؤقّت</b>"
 
 #: ../gnomebaker.glade.h:14
 msgid "<b>Volume label</b>"
-msgstr ""
+msgstr "<b>مسمّى وحدة التخزين</b>"
 
 #: ../gnomebaker.glade.h:15
 msgid "<b>Welcome</b>"
-msgstr ""
+msgstr "<b>مرحبًا</b>"
 
 #: ../gnomebaker.glade.h:16
 msgid "<i>...</i>"
-msgstr ""
+msgstr "<i>...</i>"
 
 #: ../gnomebaker.glade.h:17
 msgid "Add file(s)"
-msgstr ""
+msgstr "إضافة ملف(ات)"
 
 #: ../gnomebaker.glade.h:18
 msgid "Add the selected files to the disk"
-msgstr ""
+msgstr "إضافة الملفات المنتقاة إلى القرص"
 
 #: ../gnomebaker.glade.h:19
 msgid "Advanced"
-msgstr ""
+msgstr "متقدم"
 
 #: ../gnomebaker.glade.h:20
 msgid "Always scan for devices on startup"
-msgstr ""
+msgstr "دائما تفحّص اﻷجهزة عند اﻹقلاع"
 
 #: ../gnomebaker.glade.h:22
 msgid "Automatically scroll the progress window output"
@@ -1013,43 +1051,43 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:23
 msgid "Baking"
-msgstr ""
+msgstr "تخبيز"
 
 #: ../gnomebaker.glade.h:24
 msgid "Bl_ank CD-RW"
-msgstr ""
+msgstr "ت_فريغ قرص مدمج قابل ﻹعادة الكتابة"
 
 #: ../gnomebaker.glade.h:25
 msgid "Boot Image"
-msgstr ""
+msgstr "تحميل نسخة مطابقة"
 
 #: ../gnomebaker.glade.h:26
 msgid "Boot Image list"
-msgstr ""
+msgstr "تحميل ﻻئحة النسخ المطابقة"
 
 #: ../gnomebaker.glade.h:27
 msgid "Boot catalog"
-msgstr ""
+msgstr "تحميل كتالوج"
 
 #: ../gnomebaker.glade.h:28
 msgid "Burn _DVD Image"
-msgstr ""
+msgstr "تسجيل نسخة مطابقة ل_قرص منوّعات رقمي"
 
 #: ../gnomebaker.glade.h:29
 msgid "C_opy Data CD"
-msgstr ""
+msgstr "ن_سخ قرص بيانات مدمج"
 
 #: ../gnomebaker.glade.h:30
 msgid "Clean temporary directory on exit"
-msgstr ""
+msgstr "محو الدليل المؤقّت عند الخروج"
 
 #: ../gnomebaker.glade.h:31
 msgid "Clear the contents of the disk"
-msgstr ""
+msgstr "إزالة محتويات القرص"
 
 #: ../gnomebaker.glade.h:32
 msgid "Co_py Audio CD"
-msgstr ""
+msgstr "نس_خ قرص صوتيات مدمج"
 
 #: ../gnomebaker.glade.h:34
 msgid "Copy D_VD"
@@ -1061,43 +1099,43 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:36
 msgid "Created by username"
-msgstr ""
+msgstr "أنشيء من قبل اسم المستخدم"
 
 #: ../gnomebaker.glade.h:41
 msgid "Devices"
-msgstr ""
+msgstr "اﻷجهزة"
 
 #: ../gnomebaker.glade.h:42
 msgid "Floppy disk image"
-msgstr ""
+msgstr "نسخة مطابقة لقرص مرن"
 
 #: ../gnomebaker.glade.h:43
 msgid "Force"
-msgstr ""
+msgstr "ارغام"
 
 #: ../gnomebaker.glade.h:44
 msgid "General"
-msgstr ""
+msgstr "عام"
 
 #: ../gnomebaker.glade.h:46
 msgid "GnomeBaker Preferences"
-msgstr ""
+msgstr "تفضيلات جنوم بايكر"
 
 #: ../gnomebaker.glade.h:47
 msgid "GnomeBaker data cd"
-msgstr ""
+msgstr "قرص بيانات مدمج لجنوم بايكر"
 
 #: ../gnomebaker.glade.h:48
 msgid "Hard disk image"
-msgstr ""
+msgstr "نسخة مطابقة للقرص الصلب"
 
 #: ../gnomebaker.glade.h:49
 msgid "ISO filesystem details"
-msgstr ""
+msgstr "تفاصيل نظام ملفات ISO"
 
 #: ../gnomebaker.glade.h:50
 msgid "Import Session"
-msgstr ""
+msgstr "استيراد جلسة"
 
 #: ../gnomebaker.glade.h:51
 msgid "Move Selected Files _Down"
@@ -1109,15 +1147,15 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:53
 msgid "Move audio tracks down"
-msgstr ""
+msgstr "نقل المسار الصوتي إلى اﻷسفل"
 
 #: ../gnomebaker.glade.h:54
 msgid "Move audio tracks up"
-msgstr ""
+msgstr "نقل المسار الصوتي إلى اﻷعلى"
 
 #: ../gnomebaker.glade.h:55
 msgid "Not bootable"
-msgstr ""
+msgstr "غير قابل ﻹعادة اﻹستنهاض"
 
 #: ../gnomebaker.glade.h:56
 msgid "Notify me when burning is complete"
@@ -1129,25 +1167,27 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:58
 msgid "PC bootable"
-msgstr ""
+msgstr "حاسب شخصي قابل ﻹعادة اﻹستنهاض"
 
 #: ../gnomebaker.glade.h:59
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
+"الرجاء انتق جهاز الكتابة من اللئحة أدناه و أدرج القرص المتضمّن الجلسة "
+"الموجودة"
 
 #: ../gnomebaker.glade.h:60
 msgid "Refresh the file browser file list"
-msgstr ""
+msgstr "إعادة تحديث ﻻئحة ملف متصفّح الملفات"
 
 #: ../gnomebaker.glade.h:61
 msgid "Remove selected"
-msgstr "Remove selected"
+msgstr "حذف المنتقى"
 
 #: ../gnomebaker.glade.h:62
 msgid "Remove the selected files from the disk"
-msgstr ""
+msgstr "حذف الملفات المنتقاة من القرص"
 
 #: ../gnomebaker.glade.h:63
 msgid "S_how hidden files"
@@ -1163,7 +1203,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:67
 msgid "Sc_an for devices"
-msgstr ""
+msgstr "ت_فحّص اﻷجهزة"
 
 #: ../gnomebaker.glade.h:68
 msgid "Sh_ow human-readable file sizes"
@@ -1171,15 +1211,15 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:70
 msgid "Splash window"
-msgstr ""
+msgstr "نافذة اﻹبراز"
 
 #: ../gnomebaker.glade.h:71
 msgid "Starting GnomeBaker..."
-msgstr ""
+msgstr "بدء جنوم بايكر..."
 
 #: ../gnomebaker.glade.h:72
 msgid "Sun workstation bootable"
-msgstr ""
+msgstr "محطة عمل Sun قابلة ﻹعادة اﻹستنهاض"
 
 #: ../gnomebaker.glade.h:73
 msgid "_Add Selected Files"
@@ -1187,7 +1227,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:74
 msgid "_Add device"
-msgstr ""
+msgstr "إ_ضافة جهاز"
 
 #: ../gnomebaker.glade.h:77
 msgid "_Close Project"
@@ -1199,19 +1239,19 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:79
 msgid "_Export"
-msgstr ""
+msgstr "_تصدير"
 
 #: ../gnomebaker.glade.h:80
 msgid "_Format DVD±RW"
-msgstr ""
+msgstr "ت_هيئة قرص منوّعات رقمي ± قابل ﻹعادة الكتابة"
 
 #: ../gnomebaker.glade.h:81
 msgid "_Import"
-msgstr ""
+msgstr "ا_ستيراد"
 
 #: ../gnomebaker.glade.h:82
 msgid "_Import Session"
-msgstr ""
+msgstr "ا_ستيراد جلسة"
 
 #: ../gnomebaker.glade.h:83
 msgid "_New Project"
@@ -1223,7 +1263,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:85
 msgid "_Playlist"
-msgstr ""
+msgstr "ﻻئ_حة التشغيل"
 
 #: ../gnomebaker.glade.h:86
 msgid "_Project"
@@ -1231,7 +1271,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:87
 msgid "_Refresh"
-msgstr ""
+msgstr "إ_عادة تحديث"
 
 #: ../gnomebaker.glade.h:88
 msgid "_Remove Selected Files"
@@ -1243,7 +1283,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:90
 msgid "_Show File Browser"
-msgstr ""
+msgstr "إ_ظهار متصفّح الملفات"
 
 #: ../gnomebaker.glade.h:91
 msgid "_Tools"

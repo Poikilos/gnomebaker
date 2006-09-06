@@ -1,7 +1,7 @@
-# English translation for gnomebaker
-# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# Hindi translation for gnomebaker
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the gnomebaker package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
@@ -9,22 +9,21 @@ msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2006-08-03 01:24+0200\n"
-"PO-Revision-Date: 2006-07-28 23:12+0000\n"
-"Last-Translator: Rui Mesquita <rpedro78@gmail.com>\n"
-"Language-Team: English <en@li.org>\n"
+"PO-Revision-Date: 2006-03-22 10:22+0000\n"
+"Last-Translator: viyyer <v.iyyer@gmail.com>\n"
+"Language-Team: Hindi <hi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Version: 0.1\n"
 
 #: ../src/audioproject.c:152 ../src/cairofillbar.c:672
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
-msgstr ""
+msgstr "%d मिनट %d क्षण हुए - %d मिनट %d क्षण बचे है"
 
 #: ../src/audioproject.c:181
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Track is too large to fit in the remaining space on the CD"
+msgstr "ट्राक सी डी के बाकी जगह के लिये बहुत बडा है"
 
 #: ../src/audioproject.c:381
 #, c-format
@@ -52,28 +51,30 @@ msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
+"प्लेलिस्ट पेहले से मौजूद है↵\n"
+" बदली करना चाहते हो?"
 
 #: ../src/audioproject.c:844 ../src/dataproject.c:1314
 #: ../src/filebrowser.c:577
 msgid "_Open"
-msgstr ""
+msgstr "_खोलो"
 
 #: ../src/audioproject.c:849
 msgid "Move selected _up"
-msgstr ""
+msgstr "चुने हुए जगह में ऊपर जाओ"
 
 #: ../src/audioproject.c:851
 msgid "Move selected _down"
-msgstr ""
+msgstr "चुने हुए जगह में नीचे जाओ"
 
 #: ../src/audioproject.c:854 ../src/dataproject.c:1327
 #: ../src/dataproject.c:1364
 msgid "_Remove selected"
-msgstr ""
+msgstr "चुने चीज़ों को निकालो"
 
 #: ../src/audioproject.c:856
 msgid "_Clear"
-msgstr ""
+msgstr "साफ़"
 
 #: ../src/audioproject.c:1079
 msgid "No."
@@ -81,131 +82,140 @@ msgstr ""
 
 #: ../src/audioproject.c:1091
 msgid "Duration"
-msgstr "Duration"
+msgstr "समय-सीमा"
 
 #: ../src/audioproject.c:1100
 msgid "Artist"
-msgstr "Artist"
+msgstr "कलाकार"
 
 #: ../src/audioproject.c:1109
 msgid "Album"
-msgstr "Album"
+msgstr "एलबम"
 
 #: ../src/audioproject.c:1118
 msgid "Title"
-msgstr ""
+msgstr "शीर्षक"
 
 #: ../src/audioproject.c:1127
 msgid "Track"
-msgstr "Track"
+msgstr "ट्रैक"
 
 #: ../src/audioproject.c:1144
 msgid "Info"
-msgstr ""
+msgstr "जानकारी"
 
 #: ../src/audioproject.c:1175 ../gnomebaker.glade.h:21
 msgid "Audio CD"
 msgstr ""
 
 #: ../src/burn.c:93 ../src/burn.c:139
+#, fuzzy
 msgid "Burning CD image"
-msgstr ""
+msgstr "सी डि छवि को सी डि मे डाला जा रहा है"
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Please wait while the CD image you selected is burned to CD."
-msgstr ""
+msgstr "सी डि छवि को सी डि मे डाले जाने तक क्ुपया इन्तज़ार करें"
 
 #: ../src/burn.c:115
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
+"आप से चुना फ़ाइल डी वी डी छवि नही है. क्या आप सचमुच डी वी डी मे डालना चाहते "
+"हो?"
 
 #: ../src/burn.c:120
 msgid "Burning DVD image"
-msgstr ""
+msgstr "डी वी डी छवि डी वी डी मे डाला जा रहा है."
 
 #: ../src/burn.c:120
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr ""
+msgstr "डी वी डी छवि डी वी डी मे डाले जाने तक क्ुपया इन्तेज़ार करें"
 
 #: ../src/burn.c:163
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
+"आपसे चुन हुआ फ़ाइल सी डी छवि नही लगता है. क्या आप इसे सचमुच सी डी मे डालना "
+"चाहते है?"
 
 #: ../src/burn.c:180
 msgid "Creating data CD image"
-msgstr ""
+msgstr "डाटा सी डी छवि बनायी जा रही है"
 
 #: ../src/burn.c:180
 msgid "Please wait while the data CD image is created."
-msgstr ""
+msgstr "डाटा सी डी छवि बनाये जाने तक क्ुपया इन्तेज़ार करें"
 
 #: ../src/burn.c:186 ../src/burn.c:196
 msgid "Burning data CD"
-msgstr ""
+msgstr "डाटा सी डी बनायी जा रही है"
 
 #: ../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
-msgstr ""
+msgstr "डाटा को सी डी मे डाले जाने तक क्ुपया इन्तेज़ार करें"
 
 #: ../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"डाटा डिस्क छवि बनाकर, डाटा को सी डी मे डाले जाने तक क्ुपया इन्तेज़ार करें "
 
 #: ../src/burn.c:221 ../src/burn.c:231
 msgid "Appending to data CD"
-msgstr ""
+msgstr "डाटा सी डी में अन्त मे जोडा जा रहा है"
 
 #: ../src/burn.c:221
 msgid "Please wait while the additional data is burned directly to CD."
-msgstr ""
+msgstr "डाटा सी डी में अन्त मे जोडे जाने तक क्ुपया इन्तेज़ार करें"
 
 #: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"डाटा डिस्क की छवि बनाकर सीडी के अन्त में जोड्ने तक ईन्तेज़ार करें. आपके सी डी "
+"रईटर के गति पर निर्भर है "
 
 #: ../src/burn.c:253
 msgid "Burning audio CD"
-msgstr ""
+msgstr "ओडियो सी डी बनयी जा रही है"
 
 #: ../src/burn.c:253
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr ""
+"चुने हुए ट्रकों को ओडीयो सी डी मे परीवर्तन होकर सी डी बनयी जा रही हैं"
 
 #: ../src/burn.c:312
 msgid "Extracting CD image"
-msgstr ""
+msgstr "सी डी साम्ग्री निछोडा जा रहा है"
 
 #: ../src/burn.c:312
 msgid "Please wait while the data CD image is extracted."
-msgstr ""
+msgstr "डाटा सी डी साम्ग्री निछोडने तक ईन्तज़ार करें"
 
 #: ../src/burn.c:318
 msgid "Copying data CD"
-msgstr ""
+msgstr "डाटा सी डी की नकल किय जा रहा है"
 
 #: ../src/burn.c:318
 msgid ""
 "Please wait while the data CD image is extracted and then burned to CD."
-msgstr ""
+msgstr "डाटा सी डी साम्ग्री निछोडकर सी डी बनये जाने तक ईन्तज़ार करें"
 
 #: ../src/burn.c:338
 msgid "Copying audio CD"
-msgstr ""
+msgstr "ओडियो सी डी की नकल की जा रही है"
 
 #: ../src/burn.c:338
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
-msgstr ""
+msgstr "ओडियो सी डी साम्ग्री निछोडकर सी डी बनये जाने तक ईन्तज़ार करें"
 
 #: ../src/burn.c:354
 msgid "Copying CD"
@@ -233,47 +243,47 @@ msgstr ""
 
 #: ../src/burn.c:397
 msgid "Blanking CD"
-msgstr ""
+msgstr "सी डी खाली की जा रही है"
 
 #: ../src/burn.c:397
 msgid "Please wait while the CD is blanked."
-msgstr ""
+msgstr "सी डी खालीकिये जाने तक ईन्तेज़ार करें"
 
 #: ../src/burn.c:413
 msgid "Formatting re-writeable DVD"
-msgstr ""
+msgstr "डी वी डी को फरमा कीया जा रहा है"
 
 #: ../src/burn.c:413
 msgid "Please wait while the DVD is formatted."
-msgstr ""
+msgstr "डी वी डी को फरमा करने तक इन्तेज़ार् करें"
 
 #: ../src/burn.c:433
 msgid "Creating data DVD image"
-msgstr ""
+msgstr "डाटा डी वी डी छवि बनाये जा रहा है"
 
 #: ../src/burn.c:433
 msgid "Please wait while the data DVD image is created."
-msgstr ""
+msgstr "डी वी डी की छवि बनाये जाने तक ईन्तेज़ार करें"
 
 #: ../src/burn.c:439
 msgid "Burning data DVD"
-msgstr ""
+msgstr "डाटा डी वी डी बनाया जा रह है"
 
 #: ../src/burn.c:439
 msgid "Please wait while the data is burned directly to DVD."
-msgstr ""
+msgstr "डाटा डी वी डी बनाये जाने तक इन्तेज़ार करें"
 
 #: ../src/burn.c:458 ../src/burn.c:520
 msgid "Appending to data DVD"
-msgstr ""
+msgstr "डाटा डी वी डी के अन्त मे जोडा जा रह है"
 
 #: ../src/burn.c:458 ../src/burn.c:520
 msgid "Please wait while the data is appended directly to the DVD."
-msgstr ""
+msgstr "डाटा डी वी डी के अन्त मे जोडे जाने तक ईन्तेज़ार करें"
 
 #: ../src/burn.c:485 ../src/execfunctions.c:1685
 msgid "Verifying the disk content"
-msgstr ""
+msgstr "डिस्क सामग्री कि सत्यापित करा जा रह है"
 
 #: ../src/cairofillbar.c:684
 #, c-format
@@ -292,7 +302,7 @@ msgstr ""
 
 #: ../src/dataproject.c:172 ../src/startdlg.c:592
 msgid "GnomeBaker data disk"
-msgstr ""
+msgstr "ग्नोम बेकर डेटा डिस्क"
 
 #: ../src/dataproject.c:384
 #, c-format
@@ -314,11 +324,11 @@ msgstr ""
 
 #: ../src/dataproject.c:1323 ../src/dataproject.c:1358
 msgid "_Edit name"
-msgstr ""
+msgstr "नाम सम्पादन"
 
 #: ../src/dataproject.c:1329 ../src/dataproject.c:1368
 msgid "Clear"
-msgstr "Clear"
+msgstr "साफ़"
 
 #: ../src/dataproject.c:1490
 #, c-format
@@ -327,10 +337,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"सत्र सूची जोड्ने मे त्रुटी.↵\n"
+"↵\n"
+"%s"
 
 #: ../src/dataproject.c:1491 ../src/devices.c:664
 msgid "unknown error"
-msgstr ""
+msgstr "अनजान त्रुटी"
 
 #: ../src/dataproject.c:1609
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
@@ -341,21 +354,21 @@ msgstr ""
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
-msgstr ""
+msgstr "[%s] से सत्र आयात मे त्रूटी. क्ुपया अपने यन्त्र कोन्फ़िगरेशन को जांचे"
 
 #: ../src/dataproject.c:1862 ../src/dataproject.c:1949
 #: ../gnomebaker.glade.h:33
 msgid "Contents"
-msgstr ""
+msgstr "सामग्री"
 
 #: ../src/dataproject.c:1885 ../src/dataproject.c:1895
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
-msgstr ""
+msgstr "आकार"
 
 #: ../src/dataproject.c:1905
 msgid "Full Path"
-msgstr ""
+msgstr "पूर पथ"
 
 #: ../src/dataproject.c:2078 ../gnomebaker.glade.h:38
 msgid "Data DVD"
@@ -371,6 +384,8 @@ msgid ""
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
+"सी डी बनाने के लिये मउण्ट पाइन्ट (जैसे /mnt/cdrom) नहि मिल रहा है। क्ुपया "
+"/etc/fstab मे सी डी या डी वी डी ड्रइव कि सूचना जोडें।"
 
 #: ../src/devices.c:663
 #, c-format
@@ -379,25 +394,28 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"माउन्ट त्रुटी %s.↵\n"
+"↵\n"
+"%s"
 
 #: ../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
-msgstr ""
+msgstr "क्ुपया डिस्क %s मे घुसायें"
 
 #: ../src/execfunctions.c:86
 msgid "Preparing to blank disk"
-msgstr ""
+msgstr "डिस्क खालि करने की तैयारी"
 
 #: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
-msgstr ""
+msgstr "डिस्क बनाने की तैयारी"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
-msgstr ""
+msgstr "%d ट्रैक लिखा जा रहा है"
 
 #: ../src/execfunctions.c:292 ../src/execfunctions.c:1015
 #: ../src/startdlg.c:208 ../src/startdlg.c:234 ../src/startdlg.c:235
@@ -406,62 +424,63 @@ msgstr ""
 
 #: ../src/execfunctions.c:411
 msgid "Preparing to extract audio tracks"
-msgstr ""
+msgstr "ओडियो ट्रैक को निचोडने की तैयारी"
 
 #: ../src/execfunctions.c:422
-#, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
-msgstr ""
-"Audio tracks from a previous session already exist on disk, do you wish to "
-"use the existing tracks?"
+msgstr "पूर्व सत्र के ओडियो ट्रैक मौजूद है, आप उन्हे इस्तेमाल करेना चाहेंगे?"
 
 #: ../src/execfunctions.c:479
 #, c-format
 msgid "Extracting audio track %d"
-msgstr ""
+msgstr "ओडियो ट्रक %d निचोडा जा रहा है"
 
 #: ../src/execfunctions.c:549
 msgid "Calculating data disk image size"
-msgstr ""
+msgstr "डाटा डिस्क छवि का आकार गणा जा रहा है"
 
 #: ../src/execfunctions.c:587
 msgid "Creating data disk image"
-msgstr ""
+msgstr "डाटा डिस्क छवि बनाया जा रहा है"
 
 #: ../src/execfunctions.c:594
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
+"पूर्वि सत्र का एक डाटा सी डी डिस्क छवि पहले से मौजूद है, क्या आप मौजूदा छवि "
+"इस्तेमाल करना चाहेंगे?"
 
 #: ../src/execfunctions.c:831
 msgid "Formatting DVD"
-msgstr ""
+msgstr "डी वी डी फ़रमा कीया जा रहा है"
 
 #: ../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
-msgstr ""
+msgstr "डी वी डी बनाने की तैयारी किया जा रहा है"
 
 #: ../src/execfunctions.c:943 ../src/execfunctions.c:968
 msgid "Writing DVD"
-msgstr ""
+msgstr "डी वी डी बनाया जा रहा है"
 
 #: ../src/execfunctions.c:1083
 msgid "Reading CD image"
-msgstr ""
+msgstr "सी डी छवि बनाय जा रहा है"
 
 #: ../src/execfunctions.c:1091
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
+"पूर्वि सत्र का एक सी डी डिस्क छवि पहले से मौजूद है, क्या आप मौजूदा छवि "
+"इस्तेमाल करना चाहेंगे?"
 
 #: ../src/execfunctions.c:1480
 #, c-format
 msgid "Converting %s to cd audio"
-msgstr ""
+msgstr "%s को सी डी ओडियो मे परिवर्तन"
 
 #: ../src/execfunctions.c:1727
 msgid "Reading DVD image"
@@ -476,60 +495,60 @@ msgstr ""
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
 #: ../src/startdlg.c:443
 msgid "Filesystem"
-msgstr ""
+msgstr "फ़ाइलतंत्र"
 
 #: ../src/filebrowser.c:74
 msgid "Home"
-msgstr ""
+msgstr "शुरुआत"
 
 #: ../src/filebrowser.c:75
 msgid "(empty)"
-msgstr ""
+msgstr "(खाली)"
 
 #: ../src/filebrowser.c:76
 msgid "Folder"
-msgstr ""
+msgstr "फ़ोल्डर"
 
 #: ../src/filebrowser.c:568
 msgid "_Add directory"
-msgstr ""
+msgstr "डिरेक्ट्री जोडें"
 
 #: ../src/filebrowser.c:581
 msgid "_Add file(s)"
-msgstr ""
+msgstr "फ़ाइल जोडें"
 
 #: ../src/filebrowser.c:596 ../gnomebaker.glade.h:76
 msgid "_Burn CD Image"
-msgstr ""
+msgstr "सी डी छवि सी डी में संजोयें"
 
 #: ../src/filebrowser.c:599
 msgid "_Burn DVD Image"
-msgstr ""
+msgstr "डी वी डी छवि डी वी डी में संजोयें"
 
 #: ../src/filebrowser.c:704
 #, c-format
 msgid "%s's home"
-msgstr ""
+msgstr "%s का घर"
 
 #: ../src/filebrowser.c:770
 msgid "File"
-msgstr ""
+msgstr "फ़ाइल"
 
 #: ../src/filebrowser.c:805
 msgid "Type"
-msgstr ""
+msgstr "किस्म"
 
 #: ../src/filebrowser.c:814
 msgid "Mime"
-msgstr ""
+msgstr "माइम"
 
 #: ../src/gbcommon.c:556
 msgid "All files"
-msgstr ""
+msgstr "सारे फ़ाइल"
 
 #: ../src/gbcommon.c:564
 msgid "Save file as type:"
-msgstr ""
+msgstr "किस्म परिवर्तित फ़ाइल संचित करना"
 
 #: ../src/gnomebaker.c:237
 msgid ""
@@ -539,47 +558,47 @@ msgstr ""
 
 #: ../src/gnomebaker.c:308
 msgid "CD Image files"
-msgstr ""
+msgstr "सी डी छवि फ़इलें"
 
 #: ../src/gnomebaker.c:309
 msgid "Please select a CD image file."
-msgstr ""
+msgstr "क्ुपया सी डी छवि फ़ाइल चुनें"
 
 #: ../src/gnomebaker.c:324
 msgid "DVD Image files"
-msgstr ""
+msgstr "डी वी डी छवि फ़ाइल"
 
 #: ../src/gnomebaker.c:325
 msgid "Please select a DVD image file."
-msgstr ""
+msgstr "क्ुपया डी वी डी छवि फ़ाइल चुनें"
 
 #: ../src/gnomebaker.c:413 ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
-msgstr ""
+msgstr "ज््नोम बेकर"
 
 #: ../src/gnomebaker.c:414
 msgid "Simple CD/DVD Burning for Gnome"
-msgstr ""
+msgstr "सी डी/डी वी डी बनाने आसान ज्नोम मे"
 
 #: ../src/gnomebaker.c:414
 msgid "translator_credits"
-msgstr ""
+msgstr "अनुवादक - वी विवेक"
 
 #: ../src/gnomebaker.c:727 ../src/gnomebaker.c:924
 msgid "Playlist files"
-msgstr ""
+msgstr "प्लेलिस्ट फ़ाइलें"
 
 #: ../src/gnomebaker.c:734
 msgid "Save playlist as..."
-msgstr ""
+msgstr "प्लेलिस्ट संचित ऐसे करें"
 
 #: ../src/gnomebaker.c:757
 msgid "Project files"
-msgstr ""
+msgstr "परियोजना फ़ाइलें"
 
 #: ../src/gnomebaker.c:796
 msgid "Please select a project file."
-msgstr ""
+msgstr "क्ुपया परियोजना फ़ाइल चुने"
 
 #: ../src/gnomebaker.c:833 ../gnomebaker.glade.h:66
 msgid "Save project"
@@ -587,7 +606,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:925
 msgid "Please select a playlist."
-msgstr ""
+msgstr "क्ुपया प्लेलिस्ट चुनें"
 
 #: ../src/gnomebaker.c:951
 msgid "Project is not saved. Are you sure you want to close the project?"
@@ -595,7 +614,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:1013
 msgid "Please select files to add to the disk."
-msgstr ""
+msgstr "क्ुपय डिस्क मे जोडने के लिये फ़ाईल् चुने"
 
 #: ../src/gnomebaker.c:1022
 msgid "Please select folders to add to the disk."
@@ -627,19 +646,19 @@ msgstr ""
 
 #: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
-msgstr ""
+msgstr "अन्द्रूनी सूचनायें दिखायें(खोज बिन करने मे काम् आता है)"
 
 #: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
-msgstr ""
+msgstr " - ज्नोम सी डी /डी वी डी बनने कि युक्ति"
 
 #: ../src/main.c:107
 msgid "Loading preferences..."
-msgstr ""
+msgstr "पसंद नापसंद लोड करते हुए"
 
 #: ../src/main.c:112
 msgid "Detecting devices..."
-msgstr ""
+msgstr "तन्त्र पता करते हुए"
 
 #: ../src/main.c:117
 msgid "Registering gstreamer plugins..."
@@ -647,24 +666,24 @@ msgstr ""
 
 #: ../src/main.c:122
 msgid "Loading GUI..."
-msgstr ""
+msgstr "जीयूआई लोड करते हुए"
 
 #: ../src/media.c:497
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
-msgstr ""
+msgstr "%s इस किस्म के फ़ाइल को इस्तेमाल करने के लिये plugin मौजूद नही है"
 
 #: ../src/preferences.c:71 ../src/preferences.c:72
 msgid "default"
-msgstr ""
+msgstr "सुनिश्चित"
 
 #: ../src/prefsdlg.c:139
 msgid "Name"
-msgstr ""
+msgstr "नाम"
 
 #: ../src/prefsdlg.c:154
 msgid "Id"
-msgstr ""
+msgstr "नमांक"
 
 #: ../src/prefsdlg.c:163
 msgid "Node"
@@ -672,68 +691,68 @@ msgstr ""
 
 #: ../src/prefsdlg.c:172
 msgid "Mount point"
-msgstr ""
+msgstr "माउण्ट कर्ने कि जगह"
 
 #: ../src/prefsdlg.c:181
 msgid "Write CD-R"
-msgstr ""
+msgstr "राइट सी डी"
 
 #: ../src/prefsdlg.c:190
 msgid "Write CD-RW"
-msgstr ""
+msgstr "राईट सी डी - आर डबलयू"
 
 #: ../src/prefsdlg.c:199
 msgid "Write DVD-R"
-msgstr ""
+msgstr "राईट डी वी डी - आर"
 
 #: ../src/prefsdlg.c:208
 msgid "Write DVD-RAM"
-msgstr ""
+msgstr "राईट डी वी डी - आर ए एम"
 
 #: ../src/progressdlg.c:80
 #, c-format
 msgid "%d minutes %d seconds"
-msgstr ""
+msgstr "%d मिनटें %d क्षणें"
 
 #: ../src/progressdlg.c:82
 #, c-format
 msgid "%d minute %d seconds"
-msgstr ""
+msgstr "%d मिनट %d क्षणें"
 
 #: ../src/progressdlg.c:84
 #, c-format
 msgid "%d seconds"
-msgstr ""
+msgstr "%d क्षणें"
 
 #: ../src/progressdlg.c:225
 #, c-format
 msgid "%s remaining"
-msgstr ""
+msgstr "%s बाकी"
 
 #: ../src/progressdlg.c:280 ../gnomebaker.glade.h:69
 msgid "Show output"
-msgstr ""
+msgstr "आउटपुट दिख़ाओ"
 
 #: ../src/progressdlg.c:280
 msgid "Hide output"
-msgstr ""
+msgstr "आउटपुट छिपाओ"
 
 #: ../src/progressdlg.c:359
 #, c-format
 msgid "Elapsed time %s"
-msgstr ""
+msgstr "%s उपयुक्त समय"
 
 #: ../src/progressdlg.c:365
 msgid "Completed"
-msgstr ""
+msgstr "काम खतम"
 
 #: ../src/progressdlg.c:375
 msgid "Failed"
-msgstr ""
+msgstr "काम् खराब"
 
 #: ../src/project.c:73
 msgid "0%"
-msgstr ""
+msgstr "०%"
 
 #: ../src/project.c:112
 msgid "_Burn"
@@ -741,11 +760,11 @@ msgstr ""
 
 #: ../src/startdlg.c:108
 msgid "Please select an image file to save to."
-msgstr ""
+msgstr "क्ुपया संजोने के लिये छवि फ़ाइल चुनें"
 
 #: ../src/startdlg.c:130
 msgid "CD/DVD Image files"
-msgstr ""
+msgstr "सी डी/ डी वी डी छवि फ़ाइल"
 
 #: ../src/startdlg.c:195
 msgid "<b>Reader</b>"
@@ -757,31 +776,31 @@ msgstr ""
 
 #: ../src/startdlg.c:204
 msgid "Speed:"
-msgstr ""
+msgstr "गति:"
 
 #: ../src/startdlg.c:230
 msgid "Mode:"
-msgstr ""
+msgstr "पद्धति:"
 
 #: ../src/startdlg.c:253
 msgid "<b>Options</b>"
-msgstr ""
+msgstr "<b>विकल्प</b>"
 
 #: ../src/startdlg.c:282
 msgid "_Start"
-msgstr ""
+msgstr "शुरुआत"
 
 #: ../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
-msgstr ""
+msgstr "<b>डिस्क सूचना</b>"
 
 #: ../src/startdlg.c:347
 msgid "Volume ID:"
-msgstr ""
+msgstr "ग्रंथ नामान्क"
 
 #: ../src/startdlg.c:350
 msgid "Application ID:"
-msgstr ""
+msgstr "युक्ति नामांक:"
 
 #: ../src/startdlg.c:353
 msgid "Preparer:"
@@ -789,15 +808,15 @@ msgstr ""
 
 #: ../src/startdlg.c:356
 msgid "Publisher:"
-msgstr ""
+msgstr "प्रकाशक:"
 
 #: ../src/startdlg.c:359
 msgid "Copyright:"
-msgstr ""
+msgstr "सर्वाधिकार:"
 
 #: ../src/startdlg.c:362
 msgid "Abstract:"
-msgstr ""
+msgstr "संक्षेप्त:"
 
 #: ../src/startdlg.c:365
 msgid "Bibliography:"
@@ -805,15 +824,15 @@ msgstr ""
 
 #: ../src/startdlg.c:376
 msgid "<b>Filesystem</b>"
-msgstr ""
+msgstr "<b>फ़ाइलतन्त्र</b>"
 
 #: ../src/startdlg.c:414 ../src/startdlg.c:442
 msgid "Writing"
-msgstr ""
+msgstr "लिखा जा रहा है"
 
 #: ../src/startdlg.c:416 ../src/startdlg.c:444
 msgid "Disk Information"
-msgstr ""
+msgstr "डिस्क सूची"
 
 #: ../src/startdlg.c:566
 msgid "Dummy write"
@@ -821,7 +840,7 @@ msgstr ""
 
 #: ../src/startdlg.c:567
 msgid "Eject disk"
-msgstr ""
+msgstr "डिस्क बाहर् निकालें"
 
 #: ../src/startdlg.c:568
 msgid "Fast blank"
@@ -829,15 +848,15 @@ msgstr ""
 
 #: ../src/startdlg.c:569
 msgid "BurnFree"
-msgstr ""
+msgstr "बर्ण फ़री"
 
 #: ../src/startdlg.c:570
 msgid "Burn the disk"
-msgstr ""
+msgstr "डिस्क भरें"
 
 #: ../src/startdlg.c:572
 msgid "Only create image"
-msgstr ""
+msgstr "सिर्फ़् छवि बनाये"
 
 #: ../src/startdlg.c:575
 msgid "Force format"
@@ -853,7 +872,7 @@ msgstr ""
 
 #: ../src/startdlg.c:578
 msgid "Joliet"
-msgstr ""
+msgstr "जोलिएट"
 
 #: ../src/startdlg.c:579
 msgid "Rock Ridge"
@@ -861,23 +880,23 @@ msgstr ""
 
 #: ../src/startdlg.c:580
 msgid "On the fly"
-msgstr ""
+msgstr "साथ् साथ्"
 
 #: ../src/startdlg.c:590
 msgid "_Browse..."
-msgstr ""
+msgstr "ब्राउज़"
 
 #: ../src/burn.h:69
 msgid "Blank CD-RW"
-msgstr ""
+msgstr "खाली सी डी -आर डबल यू"
 
 #: ../src/burn.h:70
 msgid "Copy Data CD"
-msgstr ""
+msgstr "डेटा सी डी का नकल बनाये"
 
 #: ../src/burn.h:71
 msgid "Copy Audio CD"
-msgstr ""
+msgstr "ओडियो सी डी का नकल बनाये"
 
 #: ../src/burn.h:72
 msgid "Copy CD"
@@ -889,67 +908,67 @@ msgstr ""
 
 #: ../src/burn.h:74
 msgid "Burn CD Image"
-msgstr ""
+msgstr "छवि से सी डी बनाये"
 
 #: ../src/burn.h:75
 msgid "Burn DVD Image"
-msgstr ""
+msgstr "छवि से डी वी डी बनाये"
 
 #: ../src/burn.h:76
 msgid "Create Data CD"
-msgstr ""
+msgstr "डेटा सी डी बनाये"
 
 #: ../src/burn.h:77
 msgid "Append to Data CD"
-msgstr ""
+msgstr "डेटा सी डी मे आखिर मे जोडे"
 
 #: ../src/burn.h:78
 msgid "Create Audio CD"
-msgstr ""
+msgstr "ओडियो सी डी बनाये"
 
 #: ../src/burn.h:79
 msgid "Create Mixed CD"
-msgstr ""
+msgstr "मिला झुला सी डी बनाये"
 
 #: ../src/burn.h:80
 msgid "Create Video CD"
-msgstr ""
+msgstr "विडियो सी डी बनाये"
 
 #: ../src/burn.h:81
 msgid "Format DVD RW"
-msgstr ""
+msgstr "डी वी डी आर डबल्यू फ़रमेट करें"
 
 #: ../src/burn.h:82
 msgid "Create Data DVD"
-msgstr ""
+msgstr "डेटा डी वी डी बनाये"
 
 #: ../src/burn.h:83
 msgid "Append to Data DVD"
-msgstr ""
+msgstr "डेटा डी वी डी के आखिर मे जोडे"
 
 #: ../gnomebaker.glade.h:1
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../gnomebaker.glade.h:3
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: ../gnomebaker.glade.h:4
 msgid "<b><big>...</big></b>"
-msgstr ""
+msgstr "<b><big>...</big></b>"
 
 #: ../gnomebaker.glade.h:5
 msgid "<b>Additional <i>cdrecord</i> options</b>"
-msgstr ""
+msgstr "<b>अतिरिख्त <i>cdrecord</i> सुविधाये</b>"
 
 #: ../gnomebaker.glade.h:6
 msgid "<b>Boot options</b>"
-msgstr ""
+msgstr "<b>शुरुवाती सुविधाये</b>"
 
 #: ../gnomebaker.glade.h:7
 msgid "<b>Create new project</b\t>"
@@ -957,11 +976,11 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:8
 msgid "<b>Created by</b>"
-msgstr ""
+msgstr "<b>बनाने वाले</b>"
 
 #: ../gnomebaker.glade.h:9
 msgid "<b>Detected devices</b>"
-msgstr ""
+msgstr "<b>पेहचानी गयी तन्त्र</b>"
 
 #: ../gnomebaker.glade.h:10
 msgid "<b>Open existing project</b>"
@@ -969,19 +988,19 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:11
 msgid "<b>Other</b>"
-msgstr ""
+msgstr "<b>अन्य</b>"
 
 #: ../gnomebaker.glade.h:12
 msgid "<b>Select Writer</b>"
-msgstr ""
+msgstr "<b>राइटर चुने</b>"
 
 #: ../gnomebaker.glade.h:13
 msgid "<b>Temporary Directory</b>"
-msgstr ""
+msgstr "<b>अस्थायी डिरेक्ट्री</b>"
 
 #: ../gnomebaker.glade.h:14
 msgid "<b>Volume label</b>"
-msgstr ""
+msgstr "<b>वल्यू लेबल</b>"
 
 #: ../gnomebaker.glade.h:15
 msgid "<b>Welcome</b>"
@@ -989,23 +1008,23 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:16
 msgid "<i>...</i>"
-msgstr ""
+msgstr "<i>...</i>"
 
 #: ../gnomebaker.glade.h:17
 msgid "Add file(s)"
-msgstr ""
+msgstr "फ़ाइल जोडें"
 
 #: ../gnomebaker.glade.h:18
 msgid "Add the selected files to the disk"
-msgstr ""
+msgstr "चुने हुए फ़ैल जोडें"
 
 #: ../gnomebaker.glade.h:19
 msgid "Advanced"
-msgstr ""
+msgstr "विस्तृत"
 
 #: ../gnomebaker.glade.h:20
 msgid "Always scan for devices on startup"
-msgstr ""
+msgstr "शुरुआत मे हमेशा तन्त्रों क पथ लगायें"
 
 #: ../gnomebaker.glade.h:22
 msgid "Automatically scroll the progress window output"
@@ -1013,7 +1032,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:23
 msgid "Baking"
-msgstr ""
+msgstr "पका रहा है"
 
 #: ../gnomebaker.glade.h:24
 msgid "Bl_ank CD-RW"
@@ -1021,11 +1040,11 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:25
 msgid "Boot Image"
-msgstr ""
+msgstr "बूट छवि"
 
 #: ../gnomebaker.glade.h:26
 msgid "Boot Image list"
-msgstr ""
+msgstr "बूट छ्वि  सूची"
 
 #: ../gnomebaker.glade.h:27
 msgid "Boot catalog"
@@ -1049,7 +1068,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:32
 msgid "Co_py Audio CD"
-msgstr ""
+msgstr "ओडियो सी डी क नकल बनाये"
 
 #: ../gnomebaker.glade.h:34
 msgid "Copy D_VD"
@@ -1065,7 +1084,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:41
 msgid "Devices"
-msgstr ""
+msgstr "तन्त्र"
 
 #: ../gnomebaker.glade.h:42
 msgid "Floppy disk image"
@@ -1077,15 +1096,15 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:44
 msgid "General"
-msgstr ""
+msgstr "सामान्य"
 
 #: ../gnomebaker.glade.h:46
 msgid "GnomeBaker Preferences"
-msgstr ""
+msgstr "ग्नोमबेकर फ़रमाइशें"
 
 #: ../gnomebaker.glade.h:47
 msgid "GnomeBaker data cd"
-msgstr ""
+msgstr "ग्नोमबेकर डेटा सी डी"
 
 #: ../gnomebaker.glade.h:48
 msgid "Hard disk image"
@@ -1093,7 +1112,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:49
 msgid "ISO filesystem details"
-msgstr ""
+msgstr "आइ एस ओ फ़ाइलतंत्र सूची"
 
 #: ../gnomebaker.glade.h:50
 msgid "Import Session"
@@ -1143,11 +1162,11 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:61
 msgid "Remove selected"
-msgstr "Remove selected"
+msgstr "चुनिन्दा निकाल"
 
 #: ../gnomebaker.glade.h:62
 msgid "Remove the selected files from the disk"
-msgstr ""
+msgstr "चुनिन्दा फ़ाइलों को डिस्क से निकालें"
 
 #: ../gnomebaker.glade.h:63
 msgid "S_how hidden files"
@@ -1175,7 +1194,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:71
 msgid "Starting GnomeBaker..."
-msgstr ""
+msgstr "ग्नोम बेकर शुरू हो रही है"
 
 #: ../gnomebaker.glade.h:72
 msgid "Sun workstation bootable"
@@ -1207,7 +1226,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:81
 msgid "_Import"
-msgstr ""
+msgstr "आयात करें (_I)"
 
 #: ../gnomebaker.glade.h:82
 msgid "_Import Session"
@@ -1231,7 +1250,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:87
 msgid "_Refresh"
-msgstr ""
+msgstr "ताज़ा करें (_R)"
 
 #: ../gnomebaker.glade.h:88
 msgid "_Remove Selected Files"

@@ -1,7 +1,7 @@
-# English translation for gnomebaker
-# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# Indonesian translation for gnomebaker
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the gnomebaker package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
@@ -9,22 +9,21 @@ msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2006-08-03 01:24+0200\n"
-"PO-Revision-Date: 2006-07-28 23:12+0000\n"
-"Last-Translator: Rui Mesquita <rpedro78@gmail.com>\n"
-"Language-Team: English <en@li.org>\n"
+"PO-Revision-Date: 2006-07-14 14:16+0000\n"
+"Last-Translator: Reno S. Anwari <sireno.talk@gmail.com>\n"
+"Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Version: 0.1\n"
 
 #: ../src/audioproject.c:152 ../src/cairofillbar.c:672
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
-msgstr ""
+msgstr "%d menit %d detik dilalui - %d menit %d detik lagi"
 
 #: ../src/audioproject.c:181
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Track is too large to fit in the remaining space on the CD"
+msgstr "Trek terlalu besar untuk ditampung di sisa ruang yang ada di CD"
 
 #: ../src/audioproject.c:381
 #, c-format
@@ -32,60 +31,66 @@ msgid ""
 "The file [%s] referred to in the play_list could not be imported as it does "
 "not exist."
 msgstr ""
+"Berkas [%s] yang tercantum dalam playlist tidak dapat diimpor karena sudah "
+"tidak ada."
 
 #: ../src/audioproject.c:512
 msgid "Not enough space on the disk"
-msgstr ""
+msgstr "tidak cukup ruang di cd"
 
 #: ../src/audioproject.c:600
 msgid ""
 "The file you have selected is not a supported play_list. Please select a pls "
 "or m3u file."
 msgstr ""
+"Berkas yang Anda pilih bukan jenis playlist yang didukung. Silakan pilih "
+"berkas dengan ekstensi pls atau m3u."
 
 #: ../src/audioproject.c:620 ../src/audioproject.c:657
 msgid "Failed to write play_list file"
-msgstr ""
+msgstr "gagal untuk menulis berkas play_list"
 
 #: ../src/audioproject.c:706
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
+"Playlist telah ada.\n"
+" Apakah anda ingin menggantinya?"
 
 #: ../src/audioproject.c:844 ../src/dataproject.c:1314
 #: ../src/filebrowser.c:577
 msgid "_Open"
-msgstr ""
+msgstr "Buka"
 
 #: ../src/audioproject.c:849
 msgid "Move selected _up"
-msgstr ""
+msgstr "Pindahkan yang dipilih ke atas"
 
 #: ../src/audioproject.c:851
 msgid "Move selected _down"
-msgstr ""
+msgstr "Pindahkan yang dipilih ke bawah"
 
 #: ../src/audioproject.c:854 ../src/dataproject.c:1327
 #: ../src/dataproject.c:1364
 msgid "_Remove selected"
-msgstr ""
+msgstr "Buang yang dipilih"
 
 #: ../src/audioproject.c:856
 msgid "_Clear"
-msgstr ""
+msgstr "Kosongkan"
 
 #: ../src/audioproject.c:1079
 msgid "No."
-msgstr ""
+msgstr "Tidak"
 
 #: ../src/audioproject.c:1091
 msgid "Duration"
-msgstr "Duration"
+msgstr "Durasi"
 
 #: ../src/audioproject.c:1100
 msgid "Artist"
-msgstr "Artist"
+msgstr "Artis"
 
 #: ../src/audioproject.c:1109
 msgid "Album"
@@ -93,15 +98,15 @@ msgstr "Album"
 
 #: ../src/audioproject.c:1118
 msgid "Title"
-msgstr ""
+msgstr "Judul"
 
 #: ../src/audioproject.c:1127
 msgid "Track"
-msgstr "Track"
+msgstr "Trek"
 
 #: ../src/audioproject.c:1144
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: ../src/audioproject.c:1175 ../gnomebaker.glade.h:21
 msgid "Audio CD"
@@ -109,171 +114,190 @@ msgstr ""
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Burning CD image"
-msgstr ""
+msgstr "Membakar image CD"
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr ""
+"Silahkan tunggu sementara image CD yang anda pilih sedang dibakar ke CD."
 
 #: ../src/burn.c:115
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
+"Berkas yang anda pilih sepertinya bukan merupakan image DVD. Apakah anda "
+"sungguh - sungguh ingin menulisnya ke DVD?"
 
 #: ../src/burn.c:120
 msgid "Burning DVD image"
-msgstr ""
+msgstr "Membakar image DVD"
 
 #: ../src/burn.c:120
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr ""
+"Silahkan tunggu sementara image DVD yang anda pilih sedang dibakar ke DVD."
 
 #: ../src/burn.c:163
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
+"Berkas yang anda pilih sepertinya bukan merupakan image CD. Apakah anda "
+"sungguh - sungguh ingin menulisnya ke CD?"
 
 #: ../src/burn.c:180
 msgid "Creating data CD image"
-msgstr ""
+msgstr "Membuat image CD data"
 
 #: ../src/burn.c:180
 msgid "Please wait while the data CD image is created."
-msgstr ""
+msgstr "Silahkan tunggu sementara image CD data sedang diciptakan."
 
 #: ../src/burn.c:186 ../src/burn.c:196
 msgid "Burning data CD"
-msgstr ""
+msgstr "Membakar CD data"
 
 #: ../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
-msgstr ""
+msgstr "Silahkan tunggu sementara data dibakar langsung ke CD."
 
 #: ../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"Silahkan tunggu sementara image piringan data diciptakan dan kemudian "
+"dibakar ke CD. Hal ini akan memakan waktu tergantung pada kecepatan dari CD "
+"writer anda. "
 
 #: ../src/burn.c:221 ../src/burn.c:231
 msgid "Appending to data CD"
-msgstr ""
+msgstr "Menambahkan data ke CD"
 
 #: ../src/burn.c:221
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr ""
+"Silahkan tunggu sementara data tambahan sedang dibakar secara langsung ke CD."
 
 #: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"Silahkan tunggu sementara image piringan data diciptakan dan kemudian "
+"ditambahkan ke CD. Hal ini akan memakan waktu tergantung pada kecepatan CD "
+"writer anda. "
 
 #: ../src/burn.c:253
 msgid "Burning audio CD"
-msgstr ""
+msgstr "Membakar CD audio"
 
 #: ../src/burn.c:253
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr ""
+"Silahkan tunggu sementara trek - trek yang dipilih dikonversikan ke CD audio "
+"dan kemudian dibakar ke CD."
 
 #: ../src/burn.c:312
 msgid "Extracting CD image"
-msgstr ""
+msgstr "Mengekstraksikan image CD"
 
 #: ../src/burn.c:312
 msgid "Please wait while the data CD image is extracted."
-msgstr ""
+msgstr "Silahkan tunggu sementara image CD data diekstraksikan."
 
 #: ../src/burn.c:318
 msgid "Copying data CD"
-msgstr ""
+msgstr "Menggandakan CD data"
 
 #: ../src/burn.c:318
 msgid ""
 "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
+"Silahkan tunggu sementara image CD data diekstraksikan dan kemudian dibakar "
+"ke CD."
 
 #: ../src/burn.c:338
 msgid "Copying audio CD"
-msgstr ""
+msgstr "Menggandakan CD audio"
 
 #: ../src/burn.c:338
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr ""
+"Silahkan tunggu sementara trek - trek CD audio diekstraksikan dan kemudian "
+"dibakar ke CD."
 
 #: ../src/burn.c:354
 msgid "Copying CD"
-msgstr ""
+msgstr "Menyalin CD"
 
 #: ../src/burn.c:354
 msgid "Please wait while the CD is copied"
-msgstr ""
+msgstr "Silakan tunggu sementara CD disalin."
 
 #: ../src/burn.c:371
 msgid "Extracting DVD image"
-msgstr ""
+msgstr "Mengekstrak image DVD"
 
 #: ../src/burn.c:371
 msgid "Please wait while the DVD image is extracted."
-msgstr ""
+msgstr "Silakan tunggu sementara image DVD diekstrak"
 
 #: ../src/burn.c:377
 msgid "Copying DVD"
-msgstr ""
+msgstr "Menyalin DVD"
 
 #: ../src/burn.c:377
 msgid "Please wait while the DVD image is extracted and then burned to DVD"
-msgstr ""
+msgstr "Silakan tunggu sementara image DVD diekstrak untuk kemudian dibakar"
 
 #: ../src/burn.c:397
 msgid "Blanking CD"
-msgstr ""
+msgstr "Mengosongkan CD"
 
 #: ../src/burn.c:397
 msgid "Please wait while the CD is blanked."
-msgstr ""
+msgstr "Silahkan tunggu sementara CD dikosongkan"
 
 #: ../src/burn.c:413
 msgid "Formatting re-writeable DVD"
-msgstr ""
+msgstr "Memformat DVD re-writeable"
 
 #: ../src/burn.c:413
 msgid "Please wait while the DVD is formatted."
-msgstr ""
+msgstr "Silahkan tunggu sementara DVD diformat"
 
 #: ../src/burn.c:433
 msgid "Creating data DVD image"
-msgstr ""
+msgstr "Menciptakan image DVD data"
 
 #: ../src/burn.c:433
 msgid "Please wait while the data DVD image is created."
-msgstr ""
+msgstr "Silahkan tunggu sementara image DVD data diciptakan."
 
 #: ../src/burn.c:439
 msgid "Burning data DVD"
-msgstr ""
+msgstr "Membakar DVD data"
 
 #: ../src/burn.c:439
 msgid "Please wait while the data is burned directly to DVD."
-msgstr ""
+msgstr "Silahkan tunggu sementara data dibakar secara langsung ke DVD."
 
 #: ../src/burn.c:458 ../src/burn.c:520
 msgid "Appending to data DVD"
-msgstr ""
+msgstr "Menambahkan ke DVD data"
 
 #: ../src/burn.c:458 ../src/burn.c:520
 msgid "Please wait while the data is appended directly to the DVD."
-msgstr ""
+msgstr "Silahkan tunggu sementara data ditambahkan secara langsung ke DVD"
 
 #: ../src/burn.c:485 ../src/execfunctions.c:1685
 msgid "Verifying the disk content"
-msgstr ""
+msgstr "Memverifikasi isi dari piringan"
 
 #: ../src/cairofillbar.c:684
 #, c-format
@@ -292,7 +316,7 @@ msgstr ""
 
 #: ../src/dataproject.c:172 ../src/startdlg.c:592
 msgid "GnomeBaker data disk"
-msgstr ""
+msgstr "Piringan data GnomeBaker"
 
 #: ../src/dataproject.c:384
 #, c-format
@@ -314,11 +338,11 @@ msgstr ""
 
 #: ../src/dataproject.c:1323 ../src/dataproject.c:1358
 msgid "_Edit name"
-msgstr ""
+msgstr "_Ubah nama"
 
 #: ../src/dataproject.c:1329 ../src/dataproject.c:1368
 msgid "Clear"
-msgstr "Clear"
+msgstr "Hapus"
 
 #: ../src/dataproject.c:1490
 #, c-format
@@ -327,10 +351,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Gagal mendapatkan informasi sesi.\n"
+"\n"
+"%s"
 
 #: ../src/dataproject.c:1491 ../src/devices.c:664
 msgid "unknown error"
-msgstr ""
+msgstr "Kegagalan yang tidak diketahui"
 
 #: ../src/dataproject.c:1609
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
@@ -342,28 +369,30 @@ msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
 msgstr ""
+"Gagal mengimpor sesi dari %s. Silahkan periksa kembali konfigurasi peralatan "
+"di preferensi."
 
 #: ../src/dataproject.c:1862 ../src/dataproject.c:1949
 #: ../gnomebaker.glade.h:33
 msgid "Contents"
-msgstr ""
+msgstr "Isi"
 
 #: ../src/dataproject.c:1885 ../src/dataproject.c:1895
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
-msgstr ""
+msgstr "Ukuran"
 
 #: ../src/dataproject.c:1905
 msgid "Full Path"
-msgstr ""
+msgstr "Jalur Lengkap"
 
 #: ../src/dataproject.c:2078 ../gnomebaker.glade.h:38
 msgid "Data DVD"
-msgstr ""
+msgstr "DVD Data"
 
 #: ../src/dataproject.c:2084 ../gnomebaker.glade.h:37
 msgid "Data CD"
-msgstr ""
+msgstr "CD Data"
 
 #: ../src/devices.c:653
 msgid ""
@@ -371,6 +400,9 @@ msgid ""
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
+"Mount point (contoh. /mnt/cdrom)  untuk peralatan menulis tidak bisa "
+"didapat. Silahkan periksa bahwa peralatan menulis telah ada pada /etc/fstab "
+"dan kemudian buka preferensi dan ulangi scan peralatan."
 
 #: ../src/devices.c:663
 #, c-format
@@ -379,157 +411,165 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Gagal mount %s.\n"
+"\n"
+"%s"
 
 #: ../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
-msgstr ""
+msgstr "Silahkan masukkan sebuah piringan ke %s"
 
 #: ../src/execfunctions.c:86
 msgid "Preparing to blank disk"
-msgstr ""
+msgstr "Bersiap mengosongkan piringan"
 
 #: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
-msgstr ""
+msgstr "Bersiap untuk membakar piringan"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
-msgstr ""
+msgstr "Menulis track %d"
 
 #: ../src/execfunctions.c:292 ../src/execfunctions.c:1015
 #: ../src/startdlg.c:208 ../src/startdlg.c:234 ../src/startdlg.c:235
 msgid "Auto"
-msgstr ""
+msgstr "Otomatis"
 
 #: ../src/execfunctions.c:411
 msgid "Preparing to extract audio tracks"
-msgstr ""
+msgstr "Bersiap untuk mengekstraksi track audio"
 
 #: ../src/execfunctions.c:422
-#, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
-"Audio tracks from a previous session already exist on disk, do you wish to "
-"use the existing tracks?"
+"Trek audio dari sesi sebelumnya telah ada di piringan, apakah anda ingin "
+"menggunakan track yang telah ada?"
 
 #: ../src/execfunctions.c:479
 #, c-format
 msgid "Extracting audio track %d"
-msgstr ""
+msgstr "Mengekstraksi trek audio %d"
 
 #: ../src/execfunctions.c:549
 msgid "Calculating data disk image size"
-msgstr ""
+msgstr "Mengkalkulasikan ukuran image piringan data"
 
 #: ../src/execfunctions.c:587
 msgid "Creating data disk image"
-msgstr ""
+msgstr "Menciptakan image piringan data"
 
 #: ../src/execfunctions.c:594
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
 msgstr ""
+"Sebuah image CD data dari sesi sebelumnya telah ada di piringan, apakah anda "
+"ingin menggunakan image yang telah ada?"
 
 #: ../src/execfunctions.c:831
 msgid "Formatting DVD"
-msgstr ""
+msgstr "Memformat DVD"
 
 #: ../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
-msgstr ""
+msgstr "Bersiap untuk membakar DVD"
 
 #: ../src/execfunctions.c:943 ../src/execfunctions.c:968
 msgid "Writing DVD"
-msgstr ""
+msgstr "Menulis DVD"
 
 #: ../src/execfunctions.c:1083
 msgid "Reading CD image"
-msgstr ""
+msgstr "Membaca image CD"
 
 #: ../src/execfunctions.c:1091
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
+"Sebuah image CD dari sesi sebelumnya telah ada pada piringan, apakah anda "
+"ingin menggunakan image yang telah ada?"
 
 #: ../src/execfunctions.c:1480
 #, c-format
 msgid "Converting %s to cd audio"
-msgstr ""
+msgstr "Mengkonversikan %s menjadi cd audio"
 
 #: ../src/execfunctions.c:1727
 msgid "Reading DVD image"
-msgstr ""
+msgstr "Membaca image DVD"
 
 #: ../src/execfunctions.c:1735
 msgid ""
 "A DVD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
+"Image DVD dari sesi sebelumnya sudah ada di disk. Anda ingin menggunakan "
+"image tersebut?"
 
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
 #: ../src/startdlg.c:443
 msgid "Filesystem"
-msgstr ""
+msgstr "Sistem berkas"
 
 #: ../src/filebrowser.c:74
 msgid "Home"
-msgstr ""
+msgstr "Beranda"
 
 #: ../src/filebrowser.c:75
 msgid "(empty)"
-msgstr ""
+msgstr "(kosong)"
 
 #: ../src/filebrowser.c:76
 msgid "Folder"
-msgstr ""
+msgstr "Folder"
 
 #: ../src/filebrowser.c:568
 msgid "_Add directory"
-msgstr ""
+msgstr "_Menambahkan direktori"
 
 #: ../src/filebrowser.c:581
 msgid "_Add file(s)"
-msgstr ""
+msgstr "_Menambah berkas"
 
 #: ../src/filebrowser.c:596 ../gnomebaker.glade.h:76
 msgid "_Burn CD Image"
-msgstr ""
+msgstr "_Membakar image CD"
 
 #: ../src/filebrowser.c:599
 msgid "_Burn DVD Image"
-msgstr ""
+msgstr "_Membakar image DVD"
 
 #: ../src/filebrowser.c:704
 #, c-format
 msgid "%s's home"
-msgstr ""
+msgstr "Beranda %s"
 
 #: ../src/filebrowser.c:770
 msgid "File"
-msgstr ""
+msgstr "Berkas"
 
 #: ../src/filebrowser.c:805
 msgid "Type"
-msgstr ""
+msgstr "Jenis"
 
 #: ../src/filebrowser.c:814
 msgid "Mime"
-msgstr ""
+msgstr "Mime"
 
 #: ../src/gbcommon.c:556
 msgid "All files"
-msgstr ""
+msgstr "Semua berkas"
 
 #: ../src/gbcommon.c:564
 msgid "Save file as type:"
-msgstr ""
+msgstr "Simpan berkas sebagai jenis"
 
 #: ../src/gnomebaker.c:237
 msgid ""
@@ -539,55 +579,55 @@ msgstr ""
 
 #: ../src/gnomebaker.c:308
 msgid "CD Image files"
-msgstr ""
+msgstr "Berkas image CD"
 
 #: ../src/gnomebaker.c:309
 msgid "Please select a CD image file."
-msgstr ""
+msgstr "Silahkan pilih sebuah berkas image CD."
 
 #: ../src/gnomebaker.c:324
 msgid "DVD Image files"
-msgstr ""
+msgstr "Berkas image DVD"
 
 #: ../src/gnomebaker.c:325
 msgid "Please select a DVD image file."
-msgstr ""
+msgstr "Silahkan pilih sebuah berkas image DVD."
 
 #: ../src/gnomebaker.c:413 ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
-msgstr ""
+msgstr "GnomeBaker"
 
 #: ../src/gnomebaker.c:414
 msgid "Simple CD/DVD Burning for Gnome"
-msgstr ""
+msgstr "Pembakar CD/DVD untuk GNOME"
 
 #: ../src/gnomebaker.c:414
 msgid "translator_credits"
-msgstr ""
+msgstr "Kredit_penerjemah"
 
 #: ../src/gnomebaker.c:727 ../src/gnomebaker.c:924
 msgid "Playlist files"
-msgstr ""
+msgstr "Berkas playlist"
 
 #: ../src/gnomebaker.c:734
 msgid "Save playlist as..."
-msgstr ""
+msgstr "Simpan playlist sebagai..."
 
 #: ../src/gnomebaker.c:757
 msgid "Project files"
-msgstr ""
+msgstr "Berkas Proyek"
 
 #: ../src/gnomebaker.c:796
 msgid "Please select a project file."
-msgstr ""
+msgstr "Silahkan pilih sebuah berkas proyek."
 
 #: ../src/gnomebaker.c:833 ../gnomebaker.glade.h:66
 msgid "Save project"
-msgstr ""
+msgstr "Simpan proyek"
 
 #: ../src/gnomebaker.c:925
 msgid "Please select a playlist."
-msgstr ""
+msgstr "Silahkan pilih sebuah playlist."
 
 #: ../src/gnomebaker.c:951
 msgid "Project is not saved. Are you sure you want to close the project?"
@@ -595,27 +635,27 @@ msgstr ""
 
 #: ../src/gnomebaker.c:1013
 msgid "Please select files to add to the disk."
-msgstr ""
+msgstr "Silahkan pilih berkas untuk ditambahkan ke piringan."
 
 #: ../src/gnomebaker.c:1022
 msgid "Please select folders to add to the disk."
-msgstr ""
+msgstr "Pilih folder yang akan ditambahkan ke dalam disk."
 
 #: ../src/gnomebaker.c:1032
 msgid "_Add Folders"
-msgstr ""
+msgstr "T_ambah Folder"
 
 #: ../src/gnomebaker.c:1034
 msgid "_Add Files"
-msgstr ""
+msgstr "T_ambah Berkas"
 
 #: ../src/gnomebaker.c:1046 ../gnomebaker.glade.h:40
 msgid "Data _DVD"
-msgstr ""
+msgstr "_DVD Data"
 
 #: ../src/gnomebaker.c:1048 ../gnomebaker.glade.h:39
 msgid "Data _CD"
-msgstr ""
+msgstr "_CD Data"
 
 #: ../src/gnomebaker.c:1050 ../gnomebaker.glade.h:75
 msgid "_Audio CD"
@@ -623,133 +663,133 @@ msgstr ""
 
 #: ../src/gnomebaker.c:1087
 msgid "Audio files"
-msgstr ""
+msgstr "Berkas Audio"
 
 #: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
-msgstr ""
+msgstr "Tampilkan informasi tracing (berguna sewaktu debugging)"
 
 #: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
-msgstr ""
+msgstr " - Aplikasi pembakar CD/DVD GNOME"
 
 #: ../src/main.c:107
 msgid "Loading preferences..."
-msgstr ""
+msgstr "Memasukkan preferensi..."
 
 #: ../src/main.c:112
 msgid "Detecting devices..."
-msgstr ""
+msgstr "Mendeteksi peralatan..."
 
 #: ../src/main.c:117
 msgid "Registering gstreamer plugins..."
-msgstr ""
+msgstr "Meregister plugin gstreamer..."
 
 #: ../src/main.c:122
 msgid "Loading GUI..."
-msgstr ""
+msgstr "Menjalankan GUI..."
 
 #: ../src/media.c:497
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
-msgstr ""
+msgstr "Plugin untuk menangani berkas dengan tipe %s tidak diinstall."
 
 #: ../src/preferences.c:71 ../src/preferences.c:72
 msgid "default"
-msgstr ""
+msgstr "default"
 
 #: ../src/prefsdlg.c:139
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: ../src/prefsdlg.c:154
 msgid "Id"
-msgstr ""
+msgstr "Kode"
 
 #: ../src/prefsdlg.c:163
 msgid "Node"
-msgstr ""
+msgstr "Node"
 
 #: ../src/prefsdlg.c:172
 msgid "Mount point"
-msgstr ""
+msgstr "Mount point"
 
 #: ../src/prefsdlg.c:181
 msgid "Write CD-R"
-msgstr ""
+msgstr "Menulis CD-R"
 
 #: ../src/prefsdlg.c:190
 msgid "Write CD-RW"
-msgstr ""
+msgstr "Menulis CD-RW"
 
 #: ../src/prefsdlg.c:199
 msgid "Write DVD-R"
-msgstr ""
+msgstr "Menulis DVD-R"
 
 #: ../src/prefsdlg.c:208
 msgid "Write DVD-RAM"
-msgstr ""
+msgstr "Menulis DVD-RAM"
 
 #: ../src/progressdlg.c:80
 #, c-format
 msgid "%d minutes %d seconds"
-msgstr ""
+msgstr "%d menit %d detik"
 
 #: ../src/progressdlg.c:82
 #, c-format
 msgid "%d minute %d seconds"
-msgstr ""
+msgstr "%d menit %d detik"
 
 #: ../src/progressdlg.c:84
 #, c-format
 msgid "%d seconds"
-msgstr ""
+msgstr "%d detik"
 
 #: ../src/progressdlg.c:225
 #, c-format
 msgid "%s remaining"
-msgstr ""
+msgstr "%s lagi"
 
 #: ../src/progressdlg.c:280 ../gnomebaker.glade.h:69
 msgid "Show output"
-msgstr ""
+msgstr "Tampilkan output"
 
 #: ../src/progressdlg.c:280
 msgid "Hide output"
-msgstr ""
+msgstr "Sembunyikan output"
 
 #: ../src/progressdlg.c:359
 #, c-format
 msgid "Elapsed time %s"
-msgstr ""
+msgstr "Waktu yang dilewati %s"
 
 #: ../src/progressdlg.c:365
 msgid "Completed"
-msgstr ""
+msgstr "Selesai"
 
 #: ../src/progressdlg.c:375
 msgid "Failed"
-msgstr ""
+msgstr "Gagal"
 
 #: ../src/project.c:73
 msgid "0%"
-msgstr ""
+msgstr "0%"
 
 #: ../src/project.c:112
 msgid "_Burn"
-msgstr ""
+msgstr "_Bakar"
 
 #: ../src/startdlg.c:108
 msgid "Please select an image file to save to."
-msgstr ""
+msgstr "Silahkan pilih sebuah file image yang disimpan."
 
 #: ../src/startdlg.c:130
 msgid "CD/DVD Image files"
-msgstr ""
+msgstr "File image CD/DVD"
 
 #: ../src/startdlg.c:195
 msgid "<b>Reader</b>"
-msgstr ""
+msgstr "<b>Pembaca</b>"
 
 #: ../src/startdlg.c:200
 msgid "<b>Writer</b>"
@@ -757,127 +797,127 @@ msgstr ""
 
 #: ../src/startdlg.c:204
 msgid "Speed:"
-msgstr ""
+msgstr "Kecepatan:"
 
 #: ../src/startdlg.c:230
 msgid "Mode:"
-msgstr ""
+msgstr "Modus:"
 
 #: ../src/startdlg.c:253
 msgid "<b>Options</b>"
-msgstr ""
+msgstr "<b>Pilihan</b>"
 
 #: ../src/startdlg.c:282
 msgid "_Start"
-msgstr ""
+msgstr "_Mulai"
 
 #: ../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
-msgstr ""
+msgstr "<b>Informasi piringan</b>"
 
 #: ../src/startdlg.c:347
 msgid "Volume ID:"
-msgstr ""
+msgstr "ID Volume:"
 
 #: ../src/startdlg.c:350
 msgid "Application ID:"
-msgstr ""
+msgstr "ID Aplikasi"
 
 #: ../src/startdlg.c:353
 msgid "Preparer:"
-msgstr ""
+msgstr "Yang mempersiapkan:"
 
 #: ../src/startdlg.c:356
 msgid "Publisher:"
-msgstr ""
+msgstr "Yang mempublikasikan:"
 
 #: ../src/startdlg.c:359
 msgid "Copyright:"
-msgstr ""
+msgstr "Hak Cipta:"
 
 #: ../src/startdlg.c:362
 msgid "Abstract:"
-msgstr ""
+msgstr "Abstraksi:"
 
 #: ../src/startdlg.c:365
 msgid "Bibliography:"
-msgstr ""
+msgstr "Bibliography:"
 
 #: ../src/startdlg.c:376
 msgid "<b>Filesystem</b>"
-msgstr ""
+msgstr "<b>Sistem file<b>"
 
 #: ../src/startdlg.c:414 ../src/startdlg.c:442
 msgid "Writing"
-msgstr ""
+msgstr "Menulis"
 
 #: ../src/startdlg.c:416 ../src/startdlg.c:444
 msgid "Disk Information"
-msgstr ""
+msgstr "Informasi Piringan"
 
 #: ../src/startdlg.c:566
 msgid "Dummy write"
-msgstr ""
+msgstr "Menulis dummy"
 
 #: ../src/startdlg.c:567
 msgid "Eject disk"
-msgstr ""
+msgstr "Buka piringan"
 
 #: ../src/startdlg.c:568
 msgid "Fast blank"
-msgstr ""
+msgstr "Pengosongan cepat"
 
 #: ../src/startdlg.c:569
 msgid "BurnFree"
-msgstr ""
+msgstr "BurnFree"
 
 #: ../src/startdlg.c:570
 msgid "Burn the disk"
-msgstr ""
+msgstr "Bakar piringan"
 
 #: ../src/startdlg.c:572
 msgid "Only create image"
-msgstr ""
+msgstr "Hanya buat image"
 
 #: ../src/startdlg.c:575
 msgid "Force format"
-msgstr ""
+msgstr "Paksakan format"
 
 #: ../src/startdlg.c:576
 msgid "Finalize"
-msgstr ""
+msgstr "Akhiri"
 
 #: ../src/startdlg.c:577
 msgid "Fast format"
-msgstr ""
+msgstr "Format cepat"
 
 #: ../src/startdlg.c:578
 msgid "Joliet"
-msgstr ""
+msgstr "Joliet"
 
 #: ../src/startdlg.c:579
 msgid "Rock Ridge"
-msgstr ""
+msgstr "Rock Ridge"
 
 #: ../src/startdlg.c:580
 msgid "On the fly"
-msgstr ""
+msgstr "Di udara"
 
 #: ../src/startdlg.c:590
 msgid "_Browse..."
-msgstr ""
+msgstr "_Jelajah"
 
 #: ../src/burn.h:69
 msgid "Blank CD-RW"
-msgstr ""
+msgstr "CD-RW kosong"
 
 #: ../src/burn.h:70
 msgid "Copy Data CD"
-msgstr ""
+msgstr "Gandakan CD Data"
 
 #: ../src/burn.h:71
 msgid "Copy Audio CD"
-msgstr ""
+msgstr "Gandakan CD Audio"
 
 #: ../src/burn.h:72
 msgid "Copy CD"
@@ -889,67 +929,67 @@ msgstr ""
 
 #: ../src/burn.h:74
 msgid "Burn CD Image"
-msgstr ""
+msgstr "Bakar image CD"
 
 #: ../src/burn.h:75
 msgid "Burn DVD Image"
-msgstr ""
+msgstr "Bakar image DVD"
 
 #: ../src/burn.h:76
 msgid "Create Data CD"
-msgstr ""
+msgstr "Ciptakan CD Data"
 
 #: ../src/burn.h:77
 msgid "Append to Data CD"
-msgstr ""
+msgstr "Tambahkan ke CD Data"
 
 #: ../src/burn.h:78
 msgid "Create Audio CD"
-msgstr ""
+msgstr "Ciptakan CD Audio"
 
 #: ../src/burn.h:79
 msgid "Create Mixed CD"
-msgstr ""
+msgstr "Ciptakan CD Campuran"
 
 #: ../src/burn.h:80
 msgid "Create Video CD"
-msgstr ""
+msgstr "Ciptakan CD Video"
 
 #: ../src/burn.h:81
 msgid "Format DVD RW"
-msgstr ""
+msgstr "Format DVD RW"
 
 #: ../src/burn.h:82
 msgid "Create Data DVD"
-msgstr ""
+msgstr "Ciptakan DVD Data"
 
 #: ../src/burn.h:83
 msgid "Append to Data DVD"
-msgstr ""
+msgstr "Tambahkan ke DVD Data"
 
 #: ../gnomebaker.glade.h:1
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../gnomebaker.glade.h:3
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: ../gnomebaker.glade.h:4
 msgid "<b><big>...</big></b>"
-msgstr ""
+msgstr "<b><big>...</big></b>"
 
 #: ../gnomebaker.glade.h:5
 msgid "<b>Additional <i>cdrecord</i> options</b>"
-msgstr ""
+msgstr "<b>Tambahan <i>cdrecord</i> pilihan</b>"
 
 #: ../gnomebaker.glade.h:6
 msgid "<b>Boot options</b>"
-msgstr ""
+msgstr "<b>Pilihan boot</b>"
 
 #: ../gnomebaker.glade.h:7
 msgid "<b>Create new project</b\t>"
@@ -957,11 +997,11 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:8
 msgid "<b>Created by</b>"
-msgstr ""
+msgstr "<b>Diciptakan oleh</b>"
 
 #: ../gnomebaker.glade.h:9
 msgid "<b>Detected devices</b>"
-msgstr ""
+msgstr "<b>Peralatan yang Terdeteksi</b>"
 
 #: ../gnomebaker.glade.h:10
 msgid "<b>Open existing project</b>"
@@ -969,19 +1009,19 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:11
 msgid "<b>Other</b>"
-msgstr ""
+msgstr "<b>Lainnya</b>"
 
 #: ../gnomebaker.glade.h:12
 msgid "<b>Select Writer</b>"
-msgstr ""
+msgstr "<b>Pilih penulis</b>"
 
 #: ../gnomebaker.glade.h:13
 msgid "<b>Temporary Directory</b>"
-msgstr ""
+msgstr "<b>Direktori Sementara</b>"
 
 #: ../gnomebaker.glade.h:14
 msgid "<b>Volume label</b>"
-msgstr ""
+msgstr "<b>Label volume</b>"
 
 #: ../gnomebaker.glade.h:15
 msgid "<b>Welcome</b>"
@@ -989,139 +1029,140 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:16
 msgid "<i>...</i>"
-msgstr ""
+msgstr "<i>...</i>"
 
 #: ../gnomebaker.glade.h:17
 msgid "Add file(s)"
-msgstr ""
+msgstr "Tambahkan berkas"
 
 #: ../gnomebaker.glade.h:18
 msgid "Add the selected files to the disk"
-msgstr ""
+msgstr "Tambahkan berkas yang dipilih ke piringan"
 
 #: ../gnomebaker.glade.h:19
 msgid "Advanced"
-msgstr ""
+msgstr "Tingkat Lanjut"
 
 #: ../gnomebaker.glade.h:20
 msgid "Always scan for devices on startup"
-msgstr ""
+msgstr "Selalu cek peralatan sewaktu akan dijalankan"
 
 #: ../gnomebaker.glade.h:22
 msgid "Automatically scroll the progress window output"
-msgstr ""
+msgstr "Otomatis menggeser keluaran jendela progres"
 
 #: ../gnomebaker.glade.h:23
 msgid "Baking"
-msgstr ""
+msgstr "Membakar"
 
 #: ../gnomebaker.glade.h:24
 msgid "Bl_ank CD-RW"
-msgstr ""
+msgstr "CD-RW Kosong"
 
 #: ../gnomebaker.glade.h:25
 msgid "Boot Image"
-msgstr ""
+msgstr "Image Boot"
 
 #: ../gnomebaker.glade.h:26
 msgid "Boot Image list"
-msgstr ""
+msgstr "List Image Boot"
 
 #: ../gnomebaker.glade.h:27
 msgid "Boot catalog"
-msgstr ""
+msgstr "Katalog boot"
 
 #: ../gnomebaker.glade.h:28
 msgid "Burn _DVD Image"
-msgstr ""
+msgstr "Bakar Imge DVD"
 
 #: ../gnomebaker.glade.h:29
 msgid "C_opy Data CD"
-msgstr ""
+msgstr "Gandakan CD Data"
 
 #: ../gnomebaker.glade.h:30
 msgid "Clean temporary directory on exit"
-msgstr ""
+msgstr "Bersihkan direktori sementara ketika keluar"
 
 #: ../gnomebaker.glade.h:31
 msgid "Clear the contents of the disk"
-msgstr ""
+msgstr "Bersihkan isi dari piringan"
 
 #: ../gnomebaker.glade.h:32
 msgid "Co_py Audio CD"
-msgstr ""
+msgstr "Gandakan CD Audio"
 
 #: ../gnomebaker.glade.h:34
 msgid "Copy D_VD"
-msgstr ""
+msgstr "Salin D_VD"
 
 #: ../gnomebaker.glade.h:35
 msgid "Create a new project"
-msgstr ""
+msgstr "Buat proyek baru"
 
 #: ../gnomebaker.glade.h:36
 msgid "Created by username"
-msgstr ""
+msgstr "Dicipkatan berdasarkan username"
 
 #: ../gnomebaker.glade.h:41
 msgid "Devices"
-msgstr ""
+msgstr "Peralatan"
 
 #: ../gnomebaker.glade.h:42
 msgid "Floppy disk image"
-msgstr ""
+msgstr "Image Floppy"
 
 #: ../gnomebaker.glade.h:43
 msgid "Force"
-msgstr ""
+msgstr "Paksakan"
 
 #: ../gnomebaker.glade.h:44
 msgid "General"
-msgstr ""
+msgstr "Utama"
 
 #: ../gnomebaker.glade.h:46
 msgid "GnomeBaker Preferences"
-msgstr ""
+msgstr "Preferensi GnomeBaker"
 
 #: ../gnomebaker.glade.h:47
 msgid "GnomeBaker data cd"
-msgstr ""
+msgstr "CD data GnomeBaker"
 
 #: ../gnomebaker.glade.h:48
 msgid "Hard disk image"
-msgstr ""
+msgstr "Image hard disk"
 
 #: ../gnomebaker.glade.h:49
 msgid "ISO filesystem details"
-msgstr ""
+msgstr "Detail ISO sistem berkas"
 
 #: ../gnomebaker.glade.h:50
 msgid "Import Session"
-msgstr ""
+msgstr "Impor Sesi"
 
 #: ../gnomebaker.glade.h:51
+#, fuzzy
 msgid "Move Selected Files _Down"
-msgstr ""
+msgstr "Pindahkan ke _Bawah Berkas yang Dipilih"
 
 #: ../gnomebaker.glade.h:52
 msgid "Move Selected Files _Up"
-msgstr ""
+msgstr "Pindahkan ke _Atas Berkas yang Dipilih"
 
 #: ../gnomebaker.glade.h:53
 msgid "Move audio tracks down"
-msgstr ""
+msgstr "Pindahkan track audio kebawah"
 
 #: ../gnomebaker.glade.h:54
 msgid "Move audio tracks up"
-msgstr ""
+msgstr "Pindahkan track audio keatas"
 
 #: ../gnomebaker.glade.h:55
 msgid "Not bootable"
-msgstr ""
+msgstr "Tidak bootable"
 
 #: ../gnomebaker.glade.h:56
 msgid "Notify me when burning is complete"
-msgstr ""
+msgstr "Beritahu saya bila pembakaran selesai"
 
 #: ../gnomebaker.glade.h:57
 msgid "Open an existing project"
@@ -1129,25 +1170,27 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:58
 msgid "PC bootable"
-msgstr ""
+msgstr "PC bootable"
 
 #: ../gnomebaker.glade.h:59
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
+"Silahkan pilih peralatan menulis dari list dibawah dan masukkan piringan "
+"yang berisi sesi yang telah ada"
 
 #: ../gnomebaker.glade.h:60
 msgid "Refresh the file browser file list"
-msgstr ""
+msgstr "Perbaharui list berkas yang ada pada penjelajah berkas"
 
 #: ../gnomebaker.glade.h:61
 msgid "Remove selected"
-msgstr "Remove selected"
+msgstr "Hapus yang dipilih"
 
 #: ../gnomebaker.glade.h:62
 msgid "Remove the selected files from the disk"
-msgstr ""
+msgstr "Hapus berkas yang dipilih dari piringan"
 
 #: ../gnomebaker.glade.h:63
 msgid "S_how hidden files"
@@ -1163,7 +1206,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:67
 msgid "Sc_an for devices"
-msgstr ""
+msgstr "Periksa peralatan"
 
 #: ../gnomebaker.glade.h:68
 msgid "Sh_ow human-readable file sizes"
@@ -1171,15 +1214,15 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:70
 msgid "Splash window"
-msgstr ""
+msgstr "Jendela Splash"
 
 #: ../gnomebaker.glade.h:71
 msgid "Starting GnomeBaker..."
-msgstr ""
+msgstr "Memulai GnomeBaker..."
 
 #: ../gnomebaker.glade.h:72
 msgid "Sun workstation bootable"
-msgstr ""
+msgstr "Bootable Sun workstation"
 
 #: ../gnomebaker.glade.h:73
 msgid "_Add Selected Files"
@@ -1187,7 +1230,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:74
 msgid "_Add device"
-msgstr ""
+msgstr "Tambahkan peralatan"
 
 #: ../gnomebaker.glade.h:77
 msgid "_Close Project"
@@ -1199,19 +1242,19 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:79
 msgid "_Export"
-msgstr ""
+msgstr "_Ekspor"
 
 #: ../gnomebaker.glade.h:80
 msgid "_Format DVD±RW"
-msgstr ""
+msgstr "_Format DVD±RW"
 
 #: ../gnomebaker.glade.h:81
 msgid "_Import"
-msgstr ""
+msgstr "_Impor"
 
 #: ../gnomebaker.glade.h:82
 msgid "_Import Session"
-msgstr ""
+msgstr "_Impor Sesi"
 
 #: ../gnomebaker.glade.h:83
 msgid "_New Project"
@@ -1223,32 +1266,32 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:85
 msgid "_Playlist"
-msgstr ""
+msgstr "_Playlist"
 
 #: ../gnomebaker.glade.h:86
 msgid "_Project"
-msgstr ""
+msgstr "_Proyek"
 
 #: ../gnomebaker.glade.h:87
 msgid "_Refresh"
-msgstr ""
+msgstr "_Perbaharui"
 
 #: ../gnomebaker.glade.h:88
 msgid "_Remove Selected Files"
-msgstr ""
+msgstr "Buang Be_rkas yang Dipilih"
 
 #: ../gnomebaker.glade.h:89
 msgid "_Save Project"
-msgstr ""
+msgstr "_Simpan Proyek"
 
 #: ../gnomebaker.glade.h:90
 msgid "_Show File Browser"
-msgstr ""
+msgstr "Tampilkan Penjelajah Berkas"
 
 #: ../gnomebaker.glade.h:91
 msgid "_Tools"
-msgstr ""
+msgstr "Ala_t Bantu"
 
 #: ../gnomebaker.glade.h:92
 msgid "_Window"
-msgstr ""
+msgstr "_Jendela"

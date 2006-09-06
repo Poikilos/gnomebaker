@@ -1,7 +1,7 @@
-# English translation for gnomebaker
-# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# Bengali translation for gnomebaker
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the gnomebaker package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+# Khandakar Mujahidul Islam <suzan@bengalinux.org>, 2006.
 #
 #, fuzzy
 msgid ""
@@ -9,13 +9,12 @@ msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2006-08-03 01:24+0200\n"
-"PO-Revision-Date: 2006-07-28 23:12+0000\n"
-"Last-Translator: Rui Mesquita <rpedro78@gmail.com>\n"
-"Language-Team: English <en@li.org>\n"
+"PO-Revision-Date: 2006-06-19 13:18+0000\n"
+"Last-Translator: Khandakar Mujahidul Islam <suzan@bengalinux.org>\n"
+"Language-Team: Bengali <core@bengalinux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Version: 0.1\n"
 
 #: ../src/audioproject.c:152 ../src/cairofillbar.c:672
 #, c-format
@@ -24,7 +23,7 @@ msgstr ""
 
 #: ../src/audioproject.c:181
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Track is too large to fit in the remaining space on the CD"
+msgstr ""
 
 #: ../src/audioproject.c:381
 #, c-format
@@ -35,7 +34,7 @@ msgstr ""
 
 #: ../src/audioproject.c:512
 msgid "Not enough space on the disk"
-msgstr ""
+msgstr "ডিস্কে পর্যাপ্ত পরিমাণ জায়গা নেই"
 
 #: ../src/audioproject.c:600
 msgid ""
@@ -56,7 +55,7 @@ msgstr ""
 #: ../src/audioproject.c:844 ../src/dataproject.c:1314
 #: ../src/filebrowser.c:577
 msgid "_Open"
-msgstr ""
+msgstr "খোলো (_খ)"
 
 #: ../src/audioproject.c:849
 msgid "Move selected _up"
@@ -73,35 +72,35 @@ msgstr ""
 
 #: ../src/audioproject.c:856
 msgid "_Clear"
-msgstr ""
+msgstr "পরিষ্কার করো(_প)"
 
 #: ../src/audioproject.c:1079
 msgid "No."
-msgstr ""
+msgstr "না।"
 
 #: ../src/audioproject.c:1091
 msgid "Duration"
-msgstr "Duration"
+msgstr "ব্যাপ্তি"
 
 #: ../src/audioproject.c:1100
 msgid "Artist"
-msgstr "Artist"
+msgstr "শিল্পী"
 
 #: ../src/audioproject.c:1109
 msgid "Album"
-msgstr "Album"
+msgstr "অ্যালবাম"
 
 #: ../src/audioproject.c:1118
 msgid "Title"
-msgstr ""
+msgstr "শিরোনাম"
 
 #: ../src/audioproject.c:1127
 msgid "Track"
-msgstr "Track"
+msgstr "ট্র্যাক"
 
 #: ../src/audioproject.c:1144
 msgid "Info"
-msgstr ""
+msgstr "তথ্য"
 
 #: ../src/audioproject.c:1175 ../gnomebaker.glade.h:21
 msgid "Audio CD"
@@ -109,7 +108,7 @@ msgstr ""
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Burning CD image"
-msgstr ""
+msgstr "সিডি ইমেজ লেখা হচ্ছে"
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Please wait while the CD image you selected is burned to CD."
@@ -123,7 +122,7 @@ msgstr ""
 
 #: ../src/burn.c:120
 msgid "Burning DVD image"
-msgstr ""
+msgstr "ডিভিডি ইমেজ লেখা হচ্ছে"
 
 #: ../src/burn.c:120
 msgid "Please wait while the DVD image you selected is burned to DVD."
@@ -314,11 +313,11 @@ msgstr ""
 
 #: ../src/dataproject.c:1323 ../src/dataproject.c:1358
 msgid "_Edit name"
-msgstr ""
+msgstr "নাম সম্পাদনা(_ই)"
 
 #: ../src/dataproject.c:1329 ../src/dataproject.c:1368
 msgid "Clear"
-msgstr "Clear"
+msgstr "পরিষ্কার করো"
 
 #: ../src/dataproject.c:1490
 #, c-format
@@ -330,7 +329,7 @@ msgstr ""
 
 #: ../src/dataproject.c:1491 ../src/devices.c:664
 msgid "unknown error"
-msgstr ""
+msgstr "অজানা ত্রুটি"
 
 #: ../src/dataproject.c:1609
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
@@ -351,11 +350,11 @@ msgstr ""
 #: ../src/dataproject.c:1885 ../src/dataproject.c:1895
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
-msgstr ""
+msgstr "আকার"
 
 #: ../src/dataproject.c:1905
 msgid "Full Path"
-msgstr ""
+msgstr "সম্পূর্ণ পাথ"
 
 #: ../src/dataproject.c:2078 ../gnomebaker.glade.h:38
 msgid "Data DVD"
@@ -409,13 +408,10 @@ msgid "Preparing to extract audio tracks"
 msgstr ""
 
 #: ../src/execfunctions.c:422
-#, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
-"Audio tracks from a previous session already exist on disk, do you wish to "
-"use the existing tracks?"
 
 #: ../src/execfunctions.c:479
 #, c-format
@@ -476,19 +472,19 @@ msgstr ""
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
 #: ../src/startdlg.c:443
 msgid "Filesystem"
-msgstr ""
+msgstr "ফাইলসিস্টেম"
 
 #: ../src/filebrowser.c:74
 msgid "Home"
-msgstr ""
+msgstr "বাড়ি"
 
 #: ../src/filebrowser.c:75
 msgid "(empty)"
-msgstr ""
+msgstr "(ফাঁকা)"
 
 #: ../src/filebrowser.c:76
 msgid "Folder"
-msgstr ""
+msgstr "ফোল্ডার"
 
 #: ../src/filebrowser.c:568
 msgid "_Add directory"
@@ -513,19 +509,19 @@ msgstr ""
 
 #: ../src/filebrowser.c:770
 msgid "File"
-msgstr ""
+msgstr "ফাইল"
 
 #: ../src/filebrowser.c:805
 msgid "Type"
-msgstr ""
+msgstr "ধরন"
 
 #: ../src/filebrowser.c:814
 msgid "Mime"
-msgstr ""
+msgstr "মাইম"
 
 #: ../src/gbcommon.c:556
 msgid "All files"
-msgstr ""
+msgstr "সকল ফাইল"
 
 #: ../src/gbcommon.c:564
 msgid "Save file as type:"
@@ -555,7 +551,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:413 ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
-msgstr ""
+msgstr "গনোম-বেকার"
 
 #: ../src/gnomebaker.c:414
 msgid "Simple CD/DVD Burning for Gnome"
@@ -563,7 +559,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:414
 msgid "translator_credits"
-msgstr ""
+msgstr "খন্দকার মুজাহিদুল ইসলাম সুজন <suzan@bengalinux.org>"
 
 #: ../src/gnomebaker.c:727 ../src/gnomebaker.c:924
 msgid "Playlist files"
@@ -623,7 +619,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:1087
 msgid "Audio files"
-msgstr ""
+msgstr "অডিও ফাইল"
 
 #: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
@@ -631,7 +627,7 @@ msgstr ""
 
 #: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
-msgstr ""
+msgstr " - গনোম সিডি/ডিভিডি অ্যাপ্লিকেশন"
 
 #: ../src/main.c:107
 msgid "Loading preferences..."
@@ -647,7 +643,7 @@ msgstr ""
 
 #: ../src/main.c:122
 msgid "Loading GUI..."
-msgstr ""
+msgstr "GUI লোড হচ্ছে..."
 
 #: ../src/media.c:497
 #, c-format
@@ -656,23 +652,23 @@ msgstr ""
 
 #: ../src/preferences.c:71 ../src/preferences.c:72
 msgid "default"
-msgstr ""
+msgstr "ডিফল্ট"
 
 #: ../src/prefsdlg.c:139
 msgid "Name"
-msgstr ""
+msgstr "নাম"
 
 #: ../src/prefsdlg.c:154
 msgid "Id"
-msgstr ""
+msgstr "আইডি"
 
 #: ../src/prefsdlg.c:163
 msgid "Node"
-msgstr ""
+msgstr "নোড"
 
 #: ../src/prefsdlg.c:172
 msgid "Mount point"
-msgstr ""
+msgstr "মাউন্ট পয়েন্ট"
 
 #: ../src/prefsdlg.c:181
 msgid "Write CD-R"
@@ -712,11 +708,11 @@ msgstr ""
 
 #: ../src/progressdlg.c:280 ../gnomebaker.glade.h:69
 msgid "Show output"
-msgstr ""
+msgstr "ফলাফল দেখাও"
 
 #: ../src/progressdlg.c:280
 msgid "Hide output"
-msgstr ""
+msgstr "ফলাফল লুকাও"
 
 #: ../src/progressdlg.c:359
 #, c-format
@@ -725,19 +721,19 @@ msgstr ""
 
 #: ../src/progressdlg.c:365
 msgid "Completed"
-msgstr ""
+msgstr "সম্পূর্ণ"
 
 #: ../src/progressdlg.c:375
 msgid "Failed"
-msgstr ""
+msgstr "ব্যর্থ"
 
 #: ../src/project.c:73
 msgid "0%"
-msgstr ""
+msgstr "০%"
 
 #: ../src/project.c:112
 msgid "_Burn"
-msgstr ""
+msgstr "লেখো (_ল)"
 
 #: ../src/startdlg.c:108
 msgid "Please select an image file to save to."
@@ -757,43 +753,43 @@ msgstr ""
 
 #: ../src/startdlg.c:204
 msgid "Speed:"
-msgstr ""
+msgstr "গতি:"
 
 #: ../src/startdlg.c:230
 msgid "Mode:"
-msgstr ""
+msgstr "মোড:"
 
 #: ../src/startdlg.c:253
 msgid "<b>Options</b>"
-msgstr ""
+msgstr "<b>অপশন</b>"
 
 #: ../src/startdlg.c:282
 msgid "_Start"
-msgstr ""
+msgstr "শুরু (_শ)"
 
 #: ../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
-msgstr ""
+msgstr "<b>ডিস্ক তথ্য</b>"
 
 #: ../src/startdlg.c:347
 msgid "Volume ID:"
-msgstr ""
+msgstr "ভলিউম আইডি:"
 
 #: ../src/startdlg.c:350
 msgid "Application ID:"
-msgstr ""
+msgstr "অ্যাপ্লিকেশন আইডি:"
 
 #: ../src/startdlg.c:353
 msgid "Preparer:"
-msgstr ""
+msgstr "প্রস্তুতকারক:"
 
 #: ../src/startdlg.c:356
 msgid "Publisher:"
-msgstr ""
+msgstr "প্রকাশক:"
 
 #: ../src/startdlg.c:359
 msgid "Copyright:"
-msgstr ""
+msgstr "কপিরাইট:"
 
 #: ../src/startdlg.c:362
 msgid "Abstract:"
@@ -813,7 +809,7 @@ msgstr ""
 
 #: ../src/startdlg.c:416 ../src/startdlg.c:444
 msgid "Disk Information"
-msgstr ""
+msgstr "ডিস্ক তথ্য"
 
 #: ../src/startdlg.c:566
 msgid "Dummy write"
@@ -929,7 +925,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:1
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
@@ -1143,7 +1139,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:61
 msgid "Remove selected"
-msgstr "Remove selected"
+msgstr ""
 
 #: ../gnomebaker.glade.h:62
 msgid "Remove the selected files from the disk"
@@ -1252,3 +1248,9 @@ msgstr ""
 #: ../gnomebaker.glade.h:92
 msgid "_Window"
 msgstr ""
+
+#~ msgid "<b>Audio CD</b>"
+#~ msgstr "<b>অডিও সিডি</b>"
+
+#~ msgid "Are you sure you want to quit?"
+#~ msgstr "আপনি কি নিশ্চিত যে আপনি প্রস্থান করতে চান?"
