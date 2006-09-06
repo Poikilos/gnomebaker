@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-30 21:11+0100\n"
+"POT-Creation-Date: 2006-09-06 19:13+0100\n"
 "PO-Revision-Date: 2005-02-09 23:46+0100\n"
 "Last-Translator: Mikel Olasagasti <hey_neken@mundurat.net>\n"
 "Language-Team: Basque <gnome@euskalgnu.org>\n"
@@ -17,27 +17,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/audioproject.c:149 ../src/cairofillbar.c:672
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:153
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:672
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
 msgstr ""
 
-#: ../src/audioproject.c:178
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:182
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr "Pista luzeegia da CDan geratzen den zatian sartzeko"
 
-#: ../src/audioproject.c:378
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:382
 #, c-format
 msgid ""
 "The file [%s] referred to in the play_list could not be imported as it does "
 "not exist."
 msgstr ""
 
-#: ../src/audioproject.c:509
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:513
 msgid "Not enough space on the disk"
 msgstr ""
 
-#: ../src/audioproject.c:596
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:601
 #, fuzzy
 msgid ""
 "The file you have selected is not a supported play_list. Please select a pls "
@@ -46,321 +47,338 @@ msgstr ""
 "Aukeratu duzun fitxategia ez da cd irudi bat. Mesedez, aukeratu cd irudi bat "
 "kopiatzeko."
 
-#: ../src/audioproject.c:615 ../src/audioproject.c:652
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:621
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:658
 #, fuzzy
 msgid "Failed to write play_list file"
 msgstr "Huts egin da gconf abiatzen"
 
-#: ../src/audioproject.c:701
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:707
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
 
-#: ../src/audioproject.c:837 ../src/filebrowser.c:577
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:845
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1317
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:577
 msgid "_Open"
 msgstr ""
 
-#: ../src/audioproject.c:842
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:850
 #, fuzzy
 msgid "Move selected _up"
 msgstr "Kendu aukeratutakoa"
 
-#: ../src/audioproject.c:844
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:852
 #, fuzzy
 msgid "Move selected _down"
 msgstr "Kendu aukeratutakoa"
 
-#: ../src/audioproject.c:847 ../src/dataproject.c:1250
-#: ../src/dataproject.c:1287
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:855
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1330
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1367
 #, fuzzy
 msgid "_Remove selected"
 msgstr "Kendu aukeratutakoa"
 
-#: ../src/audioproject.c:849
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:857
 #, fuzzy
 msgid "_Clear"
 msgstr "Garbitu"
 
-#: ../src/audioproject.c:1035
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1080
 msgid "No."
 msgstr ""
 
-#: ../src/audioproject.c:1047
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1092
 msgid "Duration"
 msgstr "Iraupena"
 
-#: ../src/audioproject.c:1056
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1101
 msgid "Artist"
 msgstr "Artista"
 
-#: ../src/audioproject.c:1065
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1110
 msgid "Album"
 msgstr "Albuma"
 
-#: ../src/audioproject.c:1074
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1119
 msgid "Title"
 msgstr "Titulua"
 
-#: ../src/audioproject.c:1083
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1128
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/audioproject.c:1100
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1145
 msgid "Info"
 msgstr ""
 
-#: ../src/audioproject.c:1131
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1176
+#: ../gnomebaker.glade.h:21
 #, fuzzy
-msgid "<b>Audio CD</b>"
-msgstr "<b>Audio diskoa</b>"
+msgid "Audio CD"
+msgstr "Kopiatu audio CDa"
 
-#: ../src/burn.c:93 ../src/burn.c:139
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:93
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:139
 #, fuzzy
 msgid "Burning CD image"
 msgstr "Idatzi CD irudia"
 
-#: ../src/burn.c:93 ../src/burn.c:139
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:93
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:139
 #, fuzzy
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:115
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:115
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
 
-#: ../src/burn.c:120
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:120
 #, fuzzy
 msgid "Burning DVD image"
 msgstr "Idatzi CD irudia"
 
-#: ../src/burn.c:120
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:120
 #, fuzzy
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:163
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:163
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
 
-#: ../src/burn.c:180
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:180
 #, fuzzy
 msgid "Creating data CD image"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: ../src/burn.c:180
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:180
 #, fuzzy
 msgid "Please wait while the data CD image is created."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:186 ../src/burn.c:196
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:186
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:196
 msgid "Burning data CD"
 msgstr ""
 
-#: ../src/burn.c:186
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:186
 #, fuzzy
 msgid "Please wait while the data is burned directly to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:196
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:221 ../src/burn.c:231
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:221
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:231
 #, fuzzy
 msgid "Appending to data CD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.c:221
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:221
 #, fuzzy
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:231
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
 
-#: ../src/burn.c:253
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:253
 msgid "Burning audio CD"
 msgstr ""
 
-#: ../src/burn.c:253
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:253
 #, fuzzy
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr "Mesedez, sartu audio CD bat CD irakurgailuan"
 
-#: ../src/burn.c:312
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:312
 #, fuzzy
 msgid "Extracting CD image"
 msgstr "Idatzi CD irudia"
 
-#: ../src/burn.c:312
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:312
 #, fuzzy
 msgid "Please wait while the data CD image is extracted."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:318
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:318
 #, fuzzy
 msgid "Copying data CD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.c:318
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:318
 #, fuzzy
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:338
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:338
 #, fuzzy
 msgid "Copying audio CD"
 msgstr "Kopiatu audio CDa"
 
-#: ../src/burn.c:338
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:338
 #, fuzzy
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr "Mesedez, sartu audio CD bat CD irakurgailuan"
 
-#: ../src/burn.c:354
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:354
 #, fuzzy
 msgid "Copying CD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.c:354
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:354
 #, fuzzy
 msgid "Please wait while the CD is copied"
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:371
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:371
 #, fuzzy
 msgid "Extracting DVD image"
 msgstr "Idatzi CD irudia"
 
-#: ../src/burn.c:371
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:371
 #, fuzzy
 msgid "Please wait while the DVD image is extracted."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:377
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:377
 #, fuzzy
 msgid "Copying DVD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.c:377
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:377
 #, fuzzy
 msgid "Please wait while the DVD image is extracted and then burned to DVD"
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:397
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:397
 #, fuzzy
 msgid "Blanking CD"
 msgstr "Garbitu CDRWa"
 
-#: ../src/burn.c:397
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:397
 msgid "Please wait while the CD is blanked."
 msgstr ""
 
-#: ../src/burn.c:413
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:413
 #, fuzzy
 msgid "Formatting re-writeable DVD"
 msgstr "Formateatu DVDRWa"
 
-#: ../src/burn.c:413
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:413
 #, fuzzy
 msgid "Please wait while the DVD is formatted."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:433
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:433
 #, fuzzy
 msgid "Creating data DVD image"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: ../src/burn.c:433
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:433
 #, fuzzy
 msgid "Please wait while the data DVD image is created."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:439
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:439
 msgid "Burning data DVD"
 msgstr ""
 
-#: ../src/burn.c:439
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:439
 #, fuzzy
 msgid "Please wait while the data is burned directly to DVD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:458 ../src/burn.c:520
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:458
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:520
 #, fuzzy
 msgid "Appending to data DVD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.c:458 ../src/burn.c:520
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:458
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:520
 #, fuzzy
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "Mesedez aukeratu iso fitxategi bat..."
 
-#: ../src/burn.c:485 ../src/execfunctions.c:1681
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:485
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1685
 msgid "Verifying the disk content"
 msgstr ""
 
-#: ../src/cairofillbar.c:684
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:684
 #, c-format
 msgid "%s of %s used. <b>Overburning</b>."
 msgstr ""
 
-#: ../src/cairofillbar.c:690 ../src/dataproject.c:396
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:690
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:389
 #, c-format
 msgid "%s used - %s remaining."
 msgstr ""
 
-#: ../src/cairofillbar.c:696
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:696
 #, c-format
 msgid "%s of %s used. <b>Disk full</b>."
 msgstr ""
 
-#: ../src/dataproject.c:178 ../src/startdlg.c:589
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:172
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:587
 #, fuzzy
 msgid "GnomeBaker data disk"
 msgstr "Gnomeaker datu cda"
 
-#: ../src/dataproject.c:390
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:383
 #, c-format
 msgid "%s of %s used. Overburning."
 msgstr ""
 
-#: ../src/dataproject.c:402
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:395
 #, c-format
 msgid "%s of %s used. Disk full."
 msgstr ""
 
-#: ../src/dataproject.c:1174
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1180
 #, fuzzy
 msgid "New Folder"
 msgstr "Modua"
 
-#: ../src/dataproject.c:1238 ../src/dataproject.c:1277
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1321
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1357
 #, fuzzy
 msgid "_Add Folder"
 msgstr "Modua"
 
-#: ../src/dataproject.c:1246 ../src/dataproject.c:1281
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1326
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1361
 msgid "_Edit name"
 msgstr ""
 
-#: ../src/dataproject.c:1252 ../src/dataproject.c:1291
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1332
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1371
 msgid "Clear"
 msgstr "Garbitu"
 
-#: ../src/dataproject.c:1459
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1493
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -371,16 +389,17 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/dataproject.c:1460 ../src/devices.c:664
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1494
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:664
 msgid "unknown error"
 msgstr "errore ezezaguna"
 
-#: ../src/dataproject.c:1655
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1620
 #, fuzzy
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
 msgstr "Pista luzeegia da CDan geratzen den zatian sartzeko"
 
-#: ../src/dataproject.c:1763
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1703
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -389,36 +408,37 @@ msgstr ""
 "Errorea saioa [%s]-tik inportatzean. Mesedez, egiaztatu gailuaren "
 "konfigurazioa hobespenetan."
 
-#: ../src/dataproject.c:1857 ../src/dataproject.c:1954
-#: ../gnomebaker.glade.h:38
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1918
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:2005
+#: ../gnomebaker.glade.h:33
 msgid "Contents"
 msgstr "Edukiak"
 
-#: ../src/dataproject.c:1880 ../src/dataproject.c:1890
-#: ../src/filebrowser.c:785 ../src/filebrowser.c:795
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1941
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1951
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:785
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:795
 msgid "Size"
 msgstr "Tamainua"
 
-#: ../src/dataproject.c:1900
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1961
 msgid "Full Path"
 msgstr "Bide osoa"
 
-#: ../src/dataproject.c:1909
-msgid "Session"
-msgstr "Saioa"
-
-#: ../src/dataproject.c:2082
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:2134
+#: ../gnomebaker.glade.h:38
 #, fuzzy
-msgid "<b>Data DVD</b>"
-msgstr "<b>Data diskoa</b>"
+msgid "Data DVD"
+msgstr "Sortu datu DVDa"
 
 #. preferences_get_int(GB_DATA_DISK_SIZE)
-#: ../src/dataproject.c:2088
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:2140
+#: ../gnomebaker.glade.h:37
 #, fuzzy
-msgid "<b>Data CD</b>"
-msgstr "<b>Data diskoa</b>"
+msgid "Data CD"
+msgstr "Kopiatu datu CDa"
 
-#: ../src/devices.c:653
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:653
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
@@ -428,7 +448,7 @@ msgstr ""
 "Mesedez, egiaztatu idazketa gailuak sarrera bat duela /etc/fstab fitxategian "
 "eta gero joan hobespenetara eta berriz bilatu gailuak."
 
-#: ../src/devices.c:663
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:663
 #, c-format
 msgid ""
 "Error mounting %s.\n"
@@ -436,37 +456,40 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../src/devices.c:792
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
 msgstr ""
 
-#: ../src/execfunctions.c:86
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:86
 msgid "Preparing to blank disk"
 msgstr ""
 
-#: ../src/execfunctions.c:144
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:144
 msgid "Preparing to burn disk"
 msgstr ""
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #. current_track, cdrecord_first_track, current, total, total_fraction);
-#: ../src/execfunctions.c:201
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:292 ../src/execfunctions.c:1015
-#: ../src/startdlg.c:208 ../src/startdlg.c:234 ../src/startdlg.c:235
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:292
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1015
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:208
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:234
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:235
 msgid "Auto"
 msgstr ""
 
-#: ../src/execfunctions.c:411
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:411
 #, fuzzy
 msgid "Preparing to extract audio tracks"
 msgstr "<b>Audio pistak ateratzen...</b>"
 
-#: ../src/execfunctions.c:422
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:422
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -474,22 +497,22 @@ msgstr ""
 "Audio CD irudi bat exisititzen da aurreko saiotik, irudi hau erabili nahi "
 "duzu?"
 
-#: ../src/execfunctions.c:479
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:479
 #, c-format
 msgid "Extracting audio track %d"
 msgstr ""
 
-#: ../src/execfunctions.c:549
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:549
 #, fuzzy
 msgid "Calculating data disk image size"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: ../src/execfunctions.c:587
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:587
 #, fuzzy
 msgid "Creating data disk image"
 msgstr "<b>Sortu datu disko irudia...</b>"
 
-#: ../src/execfunctions.c:594
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:594
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -497,42 +520,43 @@ msgstr ""
 "Datu CD irudi bat exisititzen da aurreko saiotik, irudi hau erabili nahi "
 "duzu?"
 
-#: ../src/execfunctions.c:831
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:831
 #, fuzzy
 msgid "Formatting DVD"
 msgstr "Formateatu DVDRWa"
 
-#: ../src/execfunctions.c:912
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:943 ../src/execfunctions.c:968
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:943
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:968
 #, fuzzy
 msgid "Writing DVD"
 msgstr "Idatzi DVD-Ra"
 
-#: ../src/execfunctions.c:1083
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1083
 #, fuzzy
 msgid "Reading CD image"
 msgstr "<b>CD irudia irakurtzen...</b>"
 
-#: ../src/execfunctions.c:1091
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1091
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
 
-#: ../src/execfunctions.c:1476
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1480
 #, c-format
 msgid "Converting %s to cd audio"
 msgstr ""
 
-#: ../src/execfunctions.c:1723
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1727
 #, fuzzy
 msgid "Reading DVD image"
 msgstr "<b>CD irudia irakurtzen...</b>"
 
-#: ../src/execfunctions.c:1731
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1735
 #, fuzzy
 msgid ""
 "A DVD image from a previous session already exists on disk, do you wish to "
@@ -541,475 +565,547 @@ msgstr ""
 "Datu CD irudi bat exisititzen da aurreko saiotik, irudi hau erabili nahi "
 "duzu?"
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
-#: ../src/startdlg.c:443
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:73
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:674
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:415
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:443
 msgid "Filesystem"
 msgstr "Fitxategi sistema"
 
-#: ../src/filebrowser.c:74
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:74
 msgid "Home"
 msgstr ""
 
-#: ../src/filebrowser.c:75
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:75
 msgid "(empty)"
 msgstr ""
 
-#: ../src/filebrowser.c:76
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:76
 #, fuzzy
 msgid "Folder"
 msgstr "Modua"
 
-#: ../src/filebrowser.c:568
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:568
 #, fuzzy
 msgid "_Add directory"
 msgstr "Gehitu direktorioa"
 
-#: ../src/filebrowser.c:581
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:581
 #, fuzzy
 msgid "_Add file(s)"
 msgstr "Gehitu fitxategia(k)"
 
-#: ../src/filebrowser.c:596 ../gnomebaker.glade.h:88
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:596
+#: ../gnomebaker.glade.h:76
 msgid "_Burn CD Image"
 msgstr "_Idatzi CD irudia"
 
-#: ../src/filebrowser.c:599
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:599
 #, fuzzy
 msgid "_Burn DVD Image"
 msgstr "_Idatzi CD irudia"
 
-#: ../src/filebrowser.c:704
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:704
 #, c-format
 msgid "%s's home"
 msgstr "%s-(r)en etxea"
 
-#: ../src/filebrowser.c:770
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:770
 msgid "File"
 msgstr "Fitxategia"
 
-#: ../src/filebrowser.c:805
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:805
 msgid "Type"
 msgstr "Moeta"
 
-#: ../src/filebrowser.c:814
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:814
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:566
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gbcommon.c:556
 msgid "All files"
 msgstr "Fitxategi guztiak"
 
-#: ../src/gbcommon.c:574
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gbcommon.c:564
 msgid "Save file as type:"
 msgstr ""
 
-#: ../src/gnomebaker.c:232
-msgid "Are you sure you want to quit?"
-msgstr "Ziur zaude irten nahi duzula?"
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:238
+msgid ""
+"There are unsaved projects, your changes will be lost if you quit. Are you "
+"sure you want to quit?"
+msgstr ""
 
-#: ../src/gnomebaker.c:309
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:309
 #, fuzzy
 msgid "CD Image files"
 msgstr "Abio irudien zerrenda"
 
-#: ../src/gnomebaker.c:310
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:310
 #, fuzzy
 msgid "Please select a CD image file."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:325
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:325
 #, fuzzy
 msgid "DVD Image files"
 msgstr "Abio irudien zerrenda"
 
-#: ../src/gnomebaker.c:326
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:326
 #, fuzzy
 msgid "Please select a DVD image file."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:414 ../gnomebaker.glade.h:51
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:420
+msgid ""
+"GnomeBaker is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:424
+msgid ""
+"GnomeBaker is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:428
+msgid ""
+"You should have received a copy of the GNU General Public License\n"
+"along with GnomeBaker; if not, write to the Free Software Foundation, Inc.,\n"
+"59 Temple Place, Suite 330, Boston, MA  02111-1307  USA\n"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:438
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:96
+#: ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:415
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:441
 #, fuzzy
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "CDak grabatzeko programa erraza Gnomerentzat"
 
-#: ../src/gnomebaker.c:415 ../gnomebaker.glade.h:112
-msgid "translator_credits"
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:446
+#, fuzzy
+msgid "translator-credits"
 msgstr "Mikel Olasagasti <hey_neken@mundurat.net>"
 
-#: ../src/gnomebaker.c:725 ../src/gnomebaker.c:911
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:762
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:992
 #, fuzzy
 msgid "Playlist files"
 msgstr "Fitxategi guztiak"
 
-#: ../src/gnomebaker.c:732
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:769
 msgid "Save playlist as..."
 msgstr ""
 
-#: ../src/gnomebaker.c:755
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:792
 #, fuzzy
 msgid "Project files"
 msgstr "Egotzi diskoa"
 
-#: ../src/gnomebaker.c:794
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:862
 #, fuzzy
 msgid "Please select a project file."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:828 ../gnomebaker.glade.h:74
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:900
+#: ../gnomebaker.glade.h:66
 msgid "Save project"
 msgstr ""
 
-#: ../src/gnomebaker.c:912
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:993
 #, fuzzy
 msgid "Please select a playlist."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:999
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1019
+msgid "Project is not saved. Are you sure you want to close the project?"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1081
 #, fuzzy
 msgid "Please select files to add to the disk."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:1008
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1090
 #, fuzzy
 msgid "Please select folders to add to the disk."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/gnomebaker.c:1018
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1100
 #, fuzzy
 msgid "_Add Folders"
 msgstr "Modua"
 
-#: ../src/gnomebaker.c:1020
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1102
 #, fuzzy
 msgid "_Add Files"
 msgstr "Gehitu fitxategia(k)"
 
-#: ../src/gnomebaker.c:1057
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1114
+#: ../gnomebaker.glade.h:40
+#, fuzzy
+msgid "Data _DVD"
+msgstr "Sortu datu DVDa"
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1116
+#: ../gnomebaker.glade.h:39
+#, fuzzy
+msgid "Data _CD"
+msgstr "Kopiatu datu CDa"
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1118
+#: ../gnomebaker.glade.h:75
+#, fuzzy
+msgid "_Audio CD"
+msgstr "<b>Audio diskoa</b>"
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1155
 #, fuzzy
 msgid "Audio files"
 msgstr "Gehitu fitxategia(k)"
 
-#: ../src/main.c:43
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1225
+msgid "Recent projects"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:44
 msgid "Show tracing information (useful when debugging)"
 msgstr ""
 
-#: ../src/main.c:52
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:53
 msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
-#: ../src/main.c:107
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:111
 msgid "Loading preferences..."
 msgstr "Hobespenak kargatzen..."
 
-#: ../src/main.c:112
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:116
 msgid "Detecting devices..."
 msgstr "Gailuak aurkitzen..."
 
-#: ../src/main.c:117
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:121
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: ../src/main.c:122
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:126
 msgid "Loading GUI..."
 msgstr "GUIa kargatzen..."
 
-#: ../src/media.c:497
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/media.c:497
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr ""
 
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../gnomebaker.glade.h:106
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/preferences.c:71
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/preferences.c:72
 msgid "default"
 msgstr "lehenetsia"
 
-#: ../src/prefsdlg.c:139
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:139
 msgid "Name"
 msgstr "Izena"
 
-#: ../src/prefsdlg.c:154
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:154
 msgid "Id"
 msgstr "Id-a"
 
-#: ../src/prefsdlg.c:163
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:163
 msgid "Node"
 msgstr "Nodoa"
 
-#: ../src/prefsdlg.c:172
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:172
 msgid "Mount point"
 msgstr "Muntai puntua"
 
-#: ../src/prefsdlg.c:181
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:181
 msgid "Write CD-R"
 msgstr "Idatzi CD-Ra"
 
-#: ../src/prefsdlg.c:190
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:190
 msgid "Write CD-RW"
 msgstr "Idatzi CD-RWa"
 
-#: ../src/prefsdlg.c:199
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:199
 msgid "Write DVD-R"
 msgstr "Idatzi DVD-Ra"
 
-#: ../src/prefsdlg.c:208
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:208
 msgid "Write DVD-RAM"
 msgstr "Idatzi DVD-RAM"
 
-#: ../src/progressdlg.c:80
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:82
 #, fuzzy, c-format
 msgid "%d minutes %d seconds"
 msgstr "%d min %d seg"
 
-#: ../src/progressdlg.c:82
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:84
 #, fuzzy, c-format
 msgid "%d minute %d seconds"
 msgstr "%d min %d seg"
 
-#: ../src/progressdlg.c:84
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:86
 #, c-format
 msgid "%d seconds"
 msgstr ""
 
-#: ../src/progressdlg.c:225
-#, c-format
-msgid "%s remaining"
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:91
+msgid "1 minute"
 msgstr ""
 
-#: ../src/progressdlg.c:280 ../gnomebaker.glade.h:77
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:93
+#, fuzzy, c-format
+msgid "%d minutes"
+msgstr "%d min %d seg"
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:235
+#, c-format
+msgid "Approximately %s remaining"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:290
+#: ../gnomebaker.glade.h:69
 #, fuzzy
 msgid "Show output"
 msgstr "Ikusi irteera"
 
-#: ../src/progressdlg.c:280
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:290
 #, fuzzy
 msgid "Hide output"
 msgstr "Ikusi irteera"
 
-#: ../src/progressdlg.c:359
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:369
 #, c-format
 msgid "Elapsed time %s"
 msgstr ""
 
-#: ../src/progressdlg.c:365
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:375
 msgid "Completed"
 msgstr "Amaitua"
 
-#: ../src/progressdlg.c:375
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:385
 msgid "Failed"
 msgstr "Huts egin du"
 
-#: ../src/project.c:72
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/project.c:74
 msgid "0%"
 msgstr "0%"
 
-#: ../src/project.c:111
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/project.c:111
 #, fuzzy
 msgid "_Burn"
 msgstr "Idazketa librea"
 
-#: ../src/startdlg.c:108
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:108
 #, fuzzy
 msgid "Please select an image file to save to."
 msgstr "Mesedez aukeratu gorde nahi duzun iso fitxategi bat..."
 
-#: ../src/startdlg.c:130
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:130
 #, fuzzy
 msgid "CD/DVD Image files"
 msgstr "Abio irudien zerrenda"
 
-#: ../src/startdlg.c:195
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:195
 #, fuzzy
 msgid "<b>Reader</b>"
 msgstr "GnomeBaker"
 
-#: ../src/startdlg.c:200
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:200
 #, fuzzy
 msgid "<b>Writer</b>"
 msgstr "<b>Aukerak</b>"
 
-#: ../src/startdlg.c:204
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:204
 #, fuzzy
 msgid "Speed:"
 msgstr "Abiadura"
 
-#: ../src/startdlg.c:230
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:230
 #, fuzzy
 msgid "Mode:"
 msgstr "Modua"
 
-#: ../src/startdlg.c:253 ../gnomebaker.glade.h:12
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:253
 msgid "<b>Options</b>"
 msgstr "<b>Aukerak</b>"
 
-#: ../src/startdlg.c:282 ../gnomebaker.glade.h:102
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:282
 msgid "_Start"
 msgstr "_Hasi"
 
-#: ../src/startdlg.c:345
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:345
 #, fuzzy
 msgid "<b>Disk Information</b>"
 msgstr "<b>Abio aukerak</b>"
 
-#: ../src/startdlg.c:347
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:347
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/startdlg.c:350
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:350
 msgid "Application ID:"
 msgstr ""
 
-#: ../src/startdlg.c:353
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:353
 msgid "Preparer:"
 msgstr ""
 
-#: ../src/startdlg.c:356
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:356
 msgid "Publisher:"
 msgstr ""
 
-#: ../src/startdlg.c:359
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:359
 msgid "Copyright:"
 msgstr ""
 
-#: ../src/startdlg.c:362
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:362
 msgid "Abstract:"
 msgstr ""
 
-#: ../src/startdlg.c:365
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:365
 msgid "Bibliography:"
 msgstr ""
 
-#: ../src/startdlg.c:376
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:376
 #, fuzzy
 msgid "<b>Filesystem</b>"
 msgstr "<b>Fitxategi nabigatzailea</b>"
 
-#: ../src/startdlg.c:414 ../src/startdlg.c:442
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:414
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:442
 #, fuzzy
 msgid "Writing"
 msgstr "Idatzi DVD-Ra"
 
-#: ../src/startdlg.c:416 ../src/startdlg.c:444
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:416
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:444
 msgid "Disk Information"
 msgstr ""
 
-#: ../src/startdlg.c:563
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:561
 msgid "Dummy write"
 msgstr "Froga idazketa"
 
-#: ../src/startdlg.c:564
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:562
 msgid "Eject disk"
 msgstr "Egotzi diskoa"
 
-#: ../src/startdlg.c:565
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:563
 msgid "Fast blank"
 msgstr "Garbiketa azkarra"
 
-#: ../src/startdlg.c:566
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:564
 msgid "BurnFree"
 msgstr "Idazketa librea"
 
-#: ../src/startdlg.c:567
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:565
 msgid "Burn the disk"
 msgstr ""
 
-#: ../src/startdlg.c:569
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:567
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:572
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:570
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:573
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:571
 msgid "Finalize"
 msgstr "Amaitu"
 
-#: ../src/startdlg.c:574
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:572
 msgid "Fast format"
 msgstr ""
 
-#: ../src/startdlg.c:575
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:573
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:576
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:574
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:577
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:575
 msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:587
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:585
 msgid "_Browse..."
 msgstr ""
 
-#: ../src/burn.h:69
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:69
 #, fuzzy
 msgid "Blank CD-RW"
 msgstr "Garbitu CDRWa"
 
-#: ../src/burn.h:70
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:70
 msgid "Copy Data CD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.h:71
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:71
 msgid "Copy Audio CD"
 msgstr "Kopiatu audio CDa"
 
-#: ../src/burn.h:72
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:72
 #, fuzzy
 msgid "Copy CD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.h:73
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:73
 #, fuzzy
 msgid "Copy DVD"
 msgstr "Kopiatu datu CDa"
 
-#: ../src/burn.h:74
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:74
 msgid "Burn CD Image"
 msgstr "Idatzi CD irudia"
 
-#: ../src/burn.h:75
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:75
 #, fuzzy
 msgid "Burn DVD Image"
 msgstr "Idatzi CD irudia"
 
-#: ../src/burn.h:76
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:76
 msgid "Create Data CD"
 msgstr "Sortu datu CDa"
 
-#: ../src/burn.h:77
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:77
 #, fuzzy
 msgid "Append to Data CD"
 msgstr "Sortu datu CDa"
 
-#: ../src/burn.h:78
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:78
 msgid "Create Audio CD"
 msgstr "Sortu audio CDa"
 
-#: ../src/burn.h:79
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:79
 msgid "Create Mixed CD"
 msgstr "Sortu nahastutako CDa"
 
-#: ../src/burn.h:80
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:80
 msgid "Create Video CD"
 msgstr "Sortu bideo CDa"
 
-#: ../src/burn.h:81
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:81
 #, fuzzy
 msgid "Format DVD RW"
 msgstr "Formateatu DVD+RWa"
 
-#: ../src/burn.h:82
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:82
 msgid "Create Data DVD"
 msgstr "Sortu datu DVDa"
 
-#: ../src/burn.h:83
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:83
 #, fuzzy
 msgid "Append to Data DVD"
 msgstr "Sortu datu DVDa"
@@ -1052,237 +1148,186 @@ msgid "<b>Detected devices</b>"
 msgstr "<b>Aurkitutako gailuak</b>"
 
 #: ../gnomebaker.glade.h:10
-msgid "<b>Devices</b>"
-msgstr "<b>Gailuak</b>"
-
-#: ../gnomebaker.glade.h:11
 msgid "<b>Open existing project</b>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:13
+#: ../gnomebaker.glade.h:11
 #, fuzzy
 msgid "<b>Other</b>"
 msgstr "<b>Aukerak</b>"
 
-#: ../gnomebaker.glade.h:14
+#: ../gnomebaker.glade.h:12
 #, fuzzy
 msgid "<b>Select Writer</b>"
 msgstr "Aukeratu grabatzailea"
 
-#: ../gnomebaker.glade.h:15
+#: ../gnomebaker.glade.h:13
 msgid "<b>Temporary Directory</b>"
 msgstr "<b>Uneko direktorioa</b>"
 
-#: ../gnomebaker.glade.h:16
+#: ../gnomebaker.glade.h:14
 msgid "<b>Volume label</b>"
 msgstr "<b>Bolumenaren etiketa</b>"
 
-#: ../gnomebaker.glade.h:17
+#: ../gnomebaker.glade.h:15
 #, fuzzy
 msgid "<b>Welcome</b>"
 msgstr "<b>Gailuak</b>"
 
-#: ../gnomebaker.glade.h:18
+#: ../gnomebaker.glade.h:16
 msgid "<i>...</i>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:19
-#, fuzzy
-msgid "Add directories"
-msgstr "Gehitu direktorioa"
-
-#: ../gnomebaker.glade.h:20
+#: ../gnomebaker.glade.h:17
 msgid "Add file(s)"
 msgstr "Gehitu fitxategia(k)"
 
-#: ../gnomebaker.glade.h:21
-#, fuzzy
-msgid "Add files"
-msgstr "Gehitu fitxategia(k)"
-
-#: ../gnomebaker.glade.h:22
+#: ../gnomebaker.glade.h:18
 #, fuzzy
 msgid "Add the selected files to the disk"
 msgstr "Gehitu aukeratutako fitxategiak CDra"
 
-#: ../gnomebaker.glade.h:23
+#: ../gnomebaker.glade.h:19
 msgid "Advanced"
 msgstr ""
 
-#: ../gnomebaker.glade.h:24
+#: ../gnomebaker.glade.h:20
 msgid "Always scan for devices on startup"
 msgstr "Beti bilatu gailuak abioan"
 
-#: ../gnomebaker.glade.h:25
-msgid "Ask for confirmation when exiting GnomeBaker"
-msgstr ""
-
-#: ../gnomebaker.glade.h:26
-#, fuzzy
-msgid "Audio CD"
-msgstr "Kopiatu audio CDa"
-
-#: ../gnomebaker.glade.h:27
+#: ../gnomebaker.glade.h:22
 msgid "Automatically scroll the progress window output"
 msgstr ""
 
-#: ../gnomebaker.glade.h:28
+#: ../gnomebaker.glade.h:23
 #, fuzzy
 msgid "Baking"
 msgstr "CDa idazten"
 
-#: ../gnomebaker.glade.h:29
+#: ../gnomebaker.glade.h:24
 #, fuzzy
 msgid "Bl_ank CD-RW"
 msgstr "G_arbitu CDRWa"
 
-#: ../gnomebaker.glade.h:30
+#: ../gnomebaker.glade.h:25
 msgid "Boot Image"
 msgstr "Abio irudia"
 
-#: ../gnomebaker.glade.h:31
+#: ../gnomebaker.glade.h:26
 msgid "Boot Image list"
 msgstr "Abio irudien zerrenda"
 
-#: ../gnomebaker.glade.h:32
+#: ../gnomebaker.glade.h:27
 msgid "Boot catalog"
 msgstr "Abio katalogoa"
 
-#: ../gnomebaker.glade.h:33
+#: ../gnomebaker.glade.h:28
 #, fuzzy
 msgid "Burn _DVD Image"
 msgstr "Idatzi CD irudia"
 
-#: ../gnomebaker.glade.h:34
+#: ../gnomebaker.glade.h:29
 msgid "C_opy Data CD"
 msgstr "K_opiatu datu CDa"
 
-#: ../gnomebaker.glade.h:35
+#: ../gnomebaker.glade.h:30
 msgid "Clean temporary directory on exit"
 msgstr "Garbitu denbora bateko direktorioa irtetean"
 
-#: ../gnomebaker.glade.h:36
+#: ../gnomebaker.glade.h:31
 #, fuzzy
 msgid "Clear the contents of the disk"
 msgstr "Garbitu CDaren edukiak"
 
-#: ../gnomebaker.glade.h:37
+#: ../gnomebaker.glade.h:32
 msgid "Co_py Audio CD"
 msgstr "Kop_iatu audio CDa"
 
-#: ../gnomebaker.glade.h:39
+#: ../gnomebaker.glade.h:34
 #, fuzzy
 msgid "Copy D_VD"
 msgstr "Kopiatu datu CDa"
 
-#: ../gnomebaker.glade.h:40
+#: ../gnomebaker.glade.h:35
 msgid "Create a new project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:41
+#: ../gnomebaker.glade.h:36
 msgid "Created by username"
 msgstr "Erabiltzile-izena sortua"
 
-#: ../gnomebaker.glade.h:42
-#, fuzzy
-msgid "Data CD"
-msgstr "Kopiatu datu CDa"
-
-#: ../gnomebaker.glade.h:43
-#, fuzzy
-msgid "Data DVD"
-msgstr "Sortu datu DVDa"
-
-#: ../gnomebaker.glade.h:44
-#, fuzzy
-msgid "Data _CD"
-msgstr "Kopiatu datu CDa"
-
-#: ../gnomebaker.glade.h:45
-#, fuzzy
-msgid "Data _DVD"
-msgstr "Sortu datu DVDa"
-
-#: ../gnomebaker.glade.h:46
+#: ../gnomebaker.glade.h:41
 msgid "Devices"
 msgstr "Gailuak"
 
-#: ../gnomebaker.glade.h:47
+#: ../gnomebaker.glade.h:42
 msgid "Floppy disk image"
 msgstr "Diskete irudia"
 
-#: ../gnomebaker.glade.h:48
+#: ../gnomebaker.glade.h:43
 msgid "Force"
 msgstr "Behartu"
 
-#: ../gnomebaker.glade.h:49
-msgid "GPL"
-msgstr "GPL"
-
-#: ../gnomebaker.glade.h:50
+#: ../gnomebaker.glade.h:44
 msgid "General"
 msgstr "Orokorra"
 
-#: ../gnomebaker.glade.h:52
+#: ../gnomebaker.glade.h:46
 msgid "GnomeBaker Preferences"
 msgstr "GnomeBaker-en hobespenak"
 
-#: ../gnomebaker.glade.h:53
+#: ../gnomebaker.glade.h:47
 msgid "GnomeBaker data cd"
 msgstr "Gnomeaker datu cda"
 
-#: ../gnomebaker.glade.h:54
+#: ../gnomebaker.glade.h:48
 msgid "Hard disk image"
 msgstr "Disko gogorraren irudia"
 
-#: ../gnomebaker.glade.h:55
+#: ../gnomebaker.glade.h:49
 msgid "ISO filesystem details"
 msgstr "ISO fitxategi sistemaren ezaugarriak"
 
-#: ../gnomebaker.glade.h:56
+#: ../gnomebaker.glade.h:50
 #, fuzzy
 msgid "Import Session"
 msgstr "_Inoportatu saioa"
 
-#: ../gnomebaker.glade.h:57
-msgid "Mode"
-msgstr "Modua"
-
-#: ../gnomebaker.glade.h:58
+#: ../gnomebaker.glade.h:51
 #, fuzzy
 msgid "Move Selected Files _Down"
 msgstr "Kendu aukeratutakoa"
 
-#: ../gnomebaker.glade.h:59
+#: ../gnomebaker.glade.h:52
 #, fuzzy
 msgid "Move Selected Files _Up"
 msgstr "Kendu aukeratutakoa"
 
-#: ../gnomebaker.glade.h:60
+#: ../gnomebaker.glade.h:53
 msgid "Move audio tracks down"
 msgstr ""
 
-#: ../gnomebaker.glade.h:61
+#: ../gnomebaker.glade.h:54
 msgid "Move audio tracks up"
 msgstr ""
 
-#: ../gnomebaker.glade.h:62
+#: ../gnomebaker.glade.h:55
 msgid "Not bootable"
 msgstr "Ez abiogarria"
 
-#: ../gnomebaker.glade.h:63
+#: ../gnomebaker.glade.h:56
 msgid "Notify me when burning is complete"
 msgstr ""
 
-#: ../gnomebaker.glade.h:64
+#: ../gnomebaker.glade.h:57
 msgid "Open an existing project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:65
+#: ../gnomebaker.glade.h:58
 msgid "PC bootable"
 msgstr "PC abiogarria"
 
-#: ../gnomebaker.glade.h:66
+#: ../gnomebaker.glade.h:59
 #, fuzzy
 msgid ""
 "Please select the writing device from the list below and insert the disk "
@@ -1291,175 +1336,198 @@ msgstr ""
 "<b>Mesedez aukeratu idazteko gailua beheko zerrendatik eta sartu saioa duen "
 "diskoa</b>"
 
-#: ../gnomebaker.glade.h:67
-msgid "Reader"
-msgstr "Irakurtzailea"
-
-#: ../gnomebaker.glade.h:68
+#: ../gnomebaker.glade.h:60
 msgid "Refresh the file browser file list"
 msgstr "Freskatu fitxategi nabigatzailearen fitxategi zerrenda"
 
-#: ../gnomebaker.glade.h:69
+#: ../gnomebaker.glade.h:61
 msgid "Remove selected"
 msgstr "Kendu aukeratutakoa"
 
-#: ../gnomebaker.glade.h:70
+#: ../gnomebaker.glade.h:62
 #, fuzzy
 msgid "Remove the selected files from the disk"
 msgstr "Ezabatu aukeratutako fitxategiak CDtik"
 
-#: ../gnomebaker.glade.h:71
+#: ../gnomebaker.glade.h:63
 #, fuzzy
 msgid "S_how hidden files"
 msgstr "Erakutsi ezkutuko fitxategiak"
 
-#: ../gnomebaker.glade.h:72
+#: ../gnomebaker.glade.h:64
 msgid "Save All"
 msgstr ""
 
-#: ../gnomebaker.glade.h:73
+#: ../gnomebaker.glade.h:65
 msgid "Save Project _As"
 msgstr ""
 
-#: ../gnomebaker.glade.h:75
+#: ../gnomebaker.glade.h:67
 msgid "Sc_an for devices"
 msgstr "Bil_atu gailuak"
 
-#: ../gnomebaker.glade.h:76
+#: ../gnomebaker.glade.h:68
 #, fuzzy
 msgid "Sh_ow human-readable file sizes"
 msgstr "Erakutsi erraz irakurtzeko tamainuak"
 
-#: ../gnomebaker.glade.h:78
-msgid "Simple CD burning for Gnome."
-msgstr "CDak grabatzeko programa erraza Gnomerentzat."
-
-#: ../gnomebaker.glade.h:79
-msgid "Speed"
-msgstr "Abiadura"
-
-#: ../gnomebaker.glade.h:80
+#: ../gnomebaker.glade.h:70
 msgid "Splash window"
 msgstr "Abio leihoa"
 
-#: ../gnomebaker.glade.h:81
-msgid "Start burning..."
-msgstr "Hasi idazketa..."
-
-#: ../gnomebaker.glade.h:82
+#: ../gnomebaker.glade.h:71
 msgid "Starting GnomeBaker..."
 msgstr "GnomeBaker abiatzen..."
 
-#: ../gnomebaker.glade.h:83
+#: ../gnomebaker.glade.h:72
 msgid "Sun workstation bootable"
 msgstr "Sun workstation abiogarria"
 
-#: ../gnomebaker.glade.h:84
-msgid "Writer"
-msgstr "Idazlea"
-
-#: ../gnomebaker.glade.h:85
+#: ../gnomebaker.glade.h:73
 #, fuzzy
 msgid "_Add Selected Files"
 msgstr "Gehitu direktorioa"
 
-#: ../gnomebaker.glade.h:86
+#: ../gnomebaker.glade.h:74
 msgid "_Add device"
 msgstr "_Gehitu gailua"
 
-#: ../gnomebaker.glade.h:87
-#, fuzzy
-msgid "_Audio CD"
-msgstr "<b>Audio diskoa</b>"
+#: ../gnomebaker.glade.h:77
+msgid "_Close Project"
+msgstr ""
 
-#: ../gnomebaker.glade.h:89
+#: ../gnomebaker.glade.h:78
 #, fuzzy
 msgid "_Copy CD"
 msgstr "Kopiatu datu CDa"
 
-#: ../gnomebaker.glade.h:90
+#: ../gnomebaker.glade.h:79
 msgid "_Export"
 msgstr ""
 
-#: ../gnomebaker.glade.h:91
+#: ../gnomebaker.glade.h:80
 #, fuzzy
 msgid "_Format DVD±RW"
 msgstr "_Formateatu DVDRWa"
 
-#: ../gnomebaker.glade.h:92
+#: ../gnomebaker.glade.h:81
 msgid "_Import"
 msgstr ""
 
-#: ../gnomebaker.glade.h:93
+#: ../gnomebaker.glade.h:82
 msgid "_Import Session"
 msgstr "_Inoportatu saioa"
 
-#: ../gnomebaker.glade.h:94
+#: ../gnomebaker.glade.h:83
 msgid "_New Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:95
+#: ../gnomebaker.glade.h:84
 msgid "_Open Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:96
+#: ../gnomebaker.glade.h:85
 msgid "_Playlist"
 msgstr ""
 
-#: ../gnomebaker.glade.h:97
+#: ../gnomebaker.glade.h:86
 msgid "_Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:98
+#: ../gnomebaker.glade.h:87
 msgid "_Refresh"
 msgstr "_Freskatu"
 
-#: ../gnomebaker.glade.h:99
+#: ../gnomebaker.glade.h:88
 #, fuzzy
 msgid "_Remove Selected Files"
 msgstr "Kendu aukeratutakoa"
 
-#: ../gnomebaker.glade.h:100
+#: ../gnomebaker.glade.h:89
 msgid "_Save Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:101
+#: ../gnomebaker.glade.h:90
 msgid "_Show File Browser"
 msgstr "_Erakutsi fitxategi nabigatzailea"
 
-#: ../gnomebaker.glade.h:103
+#: ../gnomebaker.glade.h:91
 msgid "_Tools"
 msgstr ""
 
-#: ../gnomebaker.glade.h:104
+#: ../gnomebaker.glade.h:92
 msgid "_Window"
 msgstr ""
 
-#: ../gnomebaker.glade.h:105
-msgid "dao"
-msgstr "dao"
-
-#: ../gnomebaker.glade.h:107
 #, fuzzy
-msgid "dialog1"
-msgstr "dao"
+#~ msgid "<b>Audio CD</b>"
+#~ msgstr "<b>Audio diskoa</b>"
 
-#: ../gnomebaker.glade.h:108
-msgid "raw16"
-msgstr "raw16"
+#~ msgid "Session"
+#~ msgstr "Saioa"
 
-#: ../gnomebaker.glade.h:109
-msgid "raw96p"
-msgstr "raw96p"
-
-#: ../gnomebaker.glade.h:110
 #, fuzzy
-msgid "raw96r"
-msgstr "raw96p"
+#~ msgid "<b>Data DVD</b>"
+#~ msgstr "<b>Data diskoa</b>"
 
-#: ../gnomebaker.glade.h:111
-msgid "tao"
-msgstr "tao"
+#, fuzzy
+#~ msgid "<b>Data CD</b>"
+#~ msgstr "<b>Data diskoa</b>"
+
+#~ msgid "Are you sure you want to quit?"
+#~ msgstr "Ziur zaude irten nahi duzula?"
+
+#~ msgid "<b>Devices</b>"
+#~ msgstr "<b>Gailuak</b>"
+
+#, fuzzy
+#~ msgid "Add directories"
+#~ msgstr "Gehitu direktorioa"
+
+#, fuzzy
+#~ msgid "Add files"
+#~ msgstr "Gehitu fitxategia(k)"
+
+#~ msgid "GPL"
+#~ msgstr "GPL"
+
+#~ msgid "Mode"
+#~ msgstr "Modua"
+
+#~ msgid "Reader"
+#~ msgstr "Irakurtzailea"
+
+#~ msgid "Simple CD burning for Gnome."
+#~ msgstr "CDak grabatzeko programa erraza Gnomerentzat."
+
+#~ msgid "Speed"
+#~ msgstr "Abiadura"
+
+#~ msgid "Start burning..."
+#~ msgstr "Hasi idazketa..."
+
+#~ msgid "Writer"
+#~ msgstr "Idazlea"
+
+#~ msgid "dao"
+#~ msgstr "dao"
+
+#, fuzzy
+#~ msgid "dialog1"
+#~ msgstr "dao"
+
+#~ msgid "raw16"
+#~ msgstr "raw16"
+
+#~ msgid "raw96p"
+#~ msgstr "raw96p"
+
+#, fuzzy
+#~ msgid "raw96r"
+#~ msgstr "raw96p"
+
+#~ msgid "tao"
+#~ msgstr "tao"
 
 #, fuzzy
 #~ msgid "<b>Device</b>"
