@@ -2,350 +2,336 @@
 # Copyright (c) Egidijus Kubickas <egiukas@gmail.com>
 # This file is distributed under the same license as the GnomeBaker package.
 # Egidijus Kubickas <egiukas@gmail.com>, 2005.
-# Žygimantas Beručka <uid0@akl.lt>, 2005.
+# Žygimantas Beručka <uid0@akl.lt>, 2005-2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GnomeBaker\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-06 19:13+0100\n"
-"PO-Revision-Date: 2005-08-29 09:52+0300\n"
-"Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2006-08-03 01:24+0200\n"
+"PO-Revision-Date: 2006-08-11 18:36+0000\n"
+"Last-Translator: Linas Bukauskas <linas@sig.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Rosetta-Version: 0.1\n"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:153
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:672
+#: ../src/audioproject.c:152 ../src/cairofillbar.c:672
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
-msgstr ""
+msgstr "Naudojama %d min. %d sek. - liko %d min. %d sek."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:182
+#: ../src/audioproject.c:181
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Takelis yra per didelis likusiai vietai CD diske"
+msgstr "Takelis per didelis, kad tilptų į likusią laisvą CD vietą"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:382
+#: ../src/audioproject.c:381
 #, c-format
 msgid ""
 "The file [%s] referred to in the play_list could not be imported as it does "
 "not exist."
 msgstr ""
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:513
+#: ../src/audioproject.c:512
 msgid "Not enough space on the disk"
-msgstr ""
+msgstr "Nepakankamai vietos diske"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:601
-#, fuzzy
+#: ../src/audioproject.c:600
 msgid ""
 "The file you have selected is not a supported play_list. Please select a pls "
 "or m3u file."
-msgstr "Pasirinkta byla nėra cd atvaizdis. Pasirinkite rašytiną cd atvaizdį."
+msgstr ""
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:621
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:658
+#: ../src/audioproject.c:620 ../src/audioproject.c:657
 msgid "Failed to write play_list file"
 msgstr ""
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:707
+#: ../src/audioproject.c:706
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
 msgstr ""
+"Grojaraštis jau egzistuoja.\n"
+" Ar norite jį pakeisti?"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:845
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1317
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:577
+#: ../src/audioproject.c:844 ../src/dataproject.c:1314
+#: ../src/filebrowser.c:577
 msgid "_Open"
 msgstr "_Atverti"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:850
+#: ../src/audioproject.c:849
 msgid "Move selected _up"
 msgstr "Pažymėtą perkelti a_ukštyn"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:852
+#: ../src/audioproject.c:851
 msgid "Move selected _down"
 msgstr "Pažymėtą perkelti že_myn"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:855
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1330
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1367
+#: ../src/audioproject.c:854 ../src/dataproject.c:1327
+#: ../src/dataproject.c:1364
 msgid "_Remove selected"
 msgstr "Ištrinti _pažymėtą"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:857
+#: ../src/audioproject.c:856
 msgid "_Clear"
 msgstr "_Išvalyti"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1080
+#: ../src/audioproject.c:1079
 msgid "No."
-msgstr ""
+msgstr "Ne."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1092
+#: ../src/audioproject.c:1091
 msgid "Duration"
 msgstr "Trukmė"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1101
+#: ../src/audioproject.c:1100
 msgid "Artist"
 msgstr "Atlikėjas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1110
+#: ../src/audioproject.c:1109
 msgid "Album"
 msgstr "Albumas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1119
+#: ../src/audioproject.c:1118
 msgid "Title"
 msgstr "Pavadinimas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1128
+#: ../src/audioproject.c:1127
 msgid "Track"
 msgstr "Takelis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1145
+#: ../src/audioproject.c:1144
 msgid "Info"
-msgstr ""
+msgstr "Informacija"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1176
-#: ../gnomebaker.glade.h:21
-#, fuzzy
+#: ../src/audioproject.c:1175 ../gnomebaker.glade.h:21
 msgid "Audio CD"
-msgstr "Kopijuoti audio CD"
+msgstr "Garso CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:93
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:139
+#: ../src/burn.c:93 ../src/burn.c:139
 msgid "Burning CD image"
-msgstr ""
+msgstr "Įrašomas CD atvaizdis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:93
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:139
+#: ../src/burn.c:93 ../src/burn.c:139
 msgid "Please wait while the CD image you selected is burned to CD."
-msgstr ""
+msgstr "Palaukite, kol jūsų pasirinktas CD atvaizdis bus įrašytas į CD."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:115
+#: ../src/burn.c:115
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
 msgstr ""
+"Pasirinkta rinkmena nėra DVD atvaizdis. Ar tikrai norite ją įrašyti į DVD?"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:120
+#: ../src/burn.c:120
 msgid "Burning DVD image"
-msgstr ""
+msgstr "Įrašomas DVD atvaizdis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:120
+#: ../src/burn.c:120
 msgid "Please wait while the DVD image you selected is burned to DVD."
-msgstr ""
+msgstr "Palaukite, kol jūsų pasirinktas DVD atvaizdis bus įrašytas į DVD."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:163
+#: ../src/burn.c:163
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
 msgstr ""
+"Jūsų pasirinkta rinkmena nėra CD atvaizdis. Ar tikrai norite jį įrašyti į CD?"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:180
+#: ../src/burn.c:180
 msgid "Creating data CD image"
-msgstr ""
+msgstr "Kuriamas duomenų CD atvaizdis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:180
+#: ../src/burn.c:180
 msgid "Please wait while the data CD image is created."
-msgstr ""
+msgstr "Palaukite, kol duomenų CD atvaizdis bus sukurtas."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:186
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:196
+#: ../src/burn.c:186 ../src/burn.c:196
 msgid "Burning data CD"
-msgstr ""
+msgstr "Įrašomas duomenų CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:186
+#: ../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
-msgstr ""
+msgstr "Palaukite, kol duomenys rašomi tiesiai į CD."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:196
+#: ../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"Palaukite, kol duomenų disko atvaizdis bus sukurtas ir įrašytas į CD. Tai "
+"gali šiek tiek užtrukti priklausomai nuo CD įrenginio greičio. "
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:221
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:231
+#: ../src/burn.c:221 ../src/burn.c:231
 msgid "Appending to data CD"
-msgstr ""
+msgstr "Pridedama į duomenų CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:221
+#: ../src/burn.c:221
 msgid "Please wait while the additional data is burned directly to CD."
-msgstr ""
+msgstr "Palaukite, kol papildomi duomenys bus įrašyti į CD."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:231
+#: ../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
+"Palaukite, kol duomenų disko atvaizdis bus sukurtas ir pridėtas į CD. Tai "
+"gali šiek tiek užtrukti priklausomai nuo CD įrenginio greičio. "
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:253
+#: ../src/burn.c:253
 msgid "Burning audio CD"
-msgstr ""
+msgstr "Įrašomas audio CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:253
+#: ../src/burn.c:253
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
 msgstr ""
+"Palaukite, kol pasirinkti garso takeliai bus konvertuoti ir įrašyti į audio "
+"CD."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:312
+#: ../src/burn.c:312
 msgid "Extracting CD image"
-msgstr ""
+msgstr "Išskleidžiamas CD atvaizdis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:312
+#: ../src/burn.c:312
 msgid "Please wait while the data CD image is extracted."
-msgstr ""
+msgstr "Palaukite, kol duomenų CD atvaizdis bus išskleistas."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:318
+#: ../src/burn.c:318
 msgid "Copying data CD"
-msgstr ""
+msgstr "Kopijuojamas duomenų CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:318
-msgid "Please wait while the data CD image is extracted and then burned to CD."
+#: ../src/burn.c:318
+msgid ""
+"Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
+"Palaukite, kol duomenų CD atvaizdis bus išskleistas ir įrašytas į CD."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:338
+#: ../src/burn.c:338
 msgid "Copying audio CD"
-msgstr ""
+msgstr "Kopijuojamas audio CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:338
+#: ../src/burn.c:338
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
-msgstr ""
+msgstr "Palaukite kol audio CD takeliai bus išskleisti ir tada įrašyti į CD."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:354
-#, fuzzy
+#: ../src/burn.c:354
 msgid "Copying CD"
-msgstr "Kopijuoti audio CD"
+msgstr "Kopijuojamas CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:354
-#, fuzzy
+#: ../src/burn.c:354
 msgid "Please wait while the CD is copied"
-msgstr "Įdėkite CD į CD rašymo įrenginį"
+msgstr "Prašome palaukti, kol CD yra kopijuojamas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:371
-#, fuzzy
+#: ../src/burn.c:371
 msgid "Extracting DVD image"
-msgstr "Įrašyti DVD atvaizdį"
+msgstr "Nuskaitomas DVD turinys"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:371
-#, fuzzy
+#: ../src/burn.c:371
 msgid "Please wait while the DVD image is extracted."
-msgstr "Įdėkite CD į CD rašymo įrenginį"
+msgstr "Paršome palaukti kol pilnas DVD atvaizdas kopijuojamas."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:377
-#, fuzzy
+#: ../src/burn.c:377
 msgid "Copying DVD"
-msgstr "Kopijuoti audio CD"
+msgstr "Kopijuojamas DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:377
+#: ../src/burn.c:377
 msgid "Please wait while the DVD image is extracted and then burned to DVD"
-msgstr ""
+msgstr "Prašome palaukti, kol DVD turinys bus nuskaitytas ir įrašytas į DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:397
+#: ../src/burn.c:397
 msgid "Blanking CD"
-msgstr ""
+msgstr "Trinamas CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:397
+#: ../src/burn.c:397
 msgid "Please wait while the CD is blanked."
-msgstr ""
+msgstr "Palaukite, kol CD bus ištrintas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:413
+#: ../src/burn.c:413
 msgid "Formatting re-writeable DVD"
-msgstr ""
+msgstr "Formatuojamas perrašomasis DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:413
+#: ../src/burn.c:413
 msgid "Please wait while the DVD is formatted."
-msgstr ""
+msgstr "Palaukite, kol DVD formatuojamas."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:433
+#: ../src/burn.c:433
 msgid "Creating data DVD image"
-msgstr ""
+msgstr "Kuriamas duomenų DVD atvaizdis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:433
+#: ../src/burn.c:433
 msgid "Please wait while the data DVD image is created."
-msgstr ""
+msgstr "Palaukite, kol duomenų DVD bus sukurtas."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:439
+#: ../src/burn.c:439
 msgid "Burning data DVD"
-msgstr ""
+msgstr "Įrašomas duomenų DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:439
+#: ../src/burn.c:439
 msgid "Please wait while the data is burned directly to DVD."
-msgstr ""
+msgstr "Palaukite, kol duomenys bus įrašyti į DVD."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:458
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:520
+#: ../src/burn.c:458 ../src/burn.c:520
 msgid "Appending to data DVD"
-msgstr ""
+msgstr "Priduriama prie duomenų DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:458
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:520
+#: ../src/burn.c:458 ../src/burn.c:520
 msgid "Please wait while the data is appended directly to the DVD."
-msgstr ""
+msgstr "Palaukite kol duomenys bus tiesiogiai pridurti prie DVD."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:485
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1685
+#: ../src/burn.c:485 ../src/execfunctions.c:1685
 msgid "Verifying the disk content"
-msgstr ""
+msgstr "Tikrinamas disko turinys"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:684
+#: ../src/cairofillbar.c:684
 #, c-format
 msgid "%s of %s used. <b>Overburning</b>."
-msgstr ""
+msgstr "%s iš %s panaudota. <b>Viršijamas įrašymas</b>."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:690
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:389
+#: ../src/cairofillbar.c:690 ../src/dataproject.c:390
 #, c-format
 msgid "%s used - %s remaining."
-msgstr ""
+msgstr "%s panaudota - %s likę."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:696
+#: ../src/cairofillbar.c:696
 #, c-format
 msgid "%s of %s used. <b>Disk full</b>."
-msgstr ""
+msgstr "%s iš %s panaudota. <b>Diskas pilnas</b>."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:172
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:587
+#: ../src/dataproject.c:172 ../src/startdlg.c:592
 msgid "GnomeBaker data disk"
-msgstr ""
+msgstr "GnomeBaker duomenų diskas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:383
+#: ../src/dataproject.c:384
 #, c-format
 msgid "%s of %s used. Overburning."
-msgstr ""
+msgstr "%s iš %s panaudota. Viršijamas įrašymas."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:395
+#: ../src/dataproject.c:396
 #, c-format
 msgid "%s of %s used. Disk full."
-msgstr ""
+msgstr "%s iš %s panaudota. Pilnas diskas."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1180
-#, fuzzy
+#: ../src/dataproject.c:1177
 msgid "New Folder"
-msgstr "Aplankas"
+msgstr "Naujas katalogas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1321
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1357
-#, fuzzy
+#: ../src/dataproject.c:1318 ../src/dataproject.c:1354
 msgid "_Add Folder"
-msgstr "Aplankas"
+msgstr "Pridėti k_atalogą"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1326
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1361
+#: ../src/dataproject.c:1323 ../src/dataproject.c:1358
 msgid "_Edit name"
 msgstr "_Keisti pavadinimą"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1332
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1371
+#: ../src/dataproject.c:1329 ../src/dataproject.c:1368
 msgid "Clear"
 msgstr "Išvalyti"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1493
+#: ../src/dataproject.c:1490
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -356,17 +342,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1494
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:664
+#: ../src/dataproject.c:1491 ../src/devices.c:664
 msgid "unknown error"
 msgstr "nežinoma klaida"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1620
-#, fuzzy
+#: ../src/dataproject.c:1609
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
-msgstr "Takelis yra per didelis likusiai vietai CD diske"
+msgstr "Sąranka viršija talpą arba likusios laisvos vietos kiekį diske."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1703
+#: ../src/dataproject.c:1692
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
@@ -375,87 +359,78 @@ msgstr ""
 "Importuojant sesiją iš [%s] įvyko klaida. Nustatymuose patikrinkite "
 "įrenginio konfigūraciją."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1918
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:2005
+#: ../src/dataproject.c:1862 ../src/dataproject.c:1949
 #: ../gnomebaker.glade.h:33
 msgid "Contents"
 msgstr "Turinys"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1941
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1951
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:785
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:795
+#: ../src/dataproject.c:1885 ../src/dataproject.c:1895
+#: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
 msgstr "Dydis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1961
+#: ../src/dataproject.c:1905
 msgid "Full Path"
 msgstr "Visas kelias"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:2134
-#: ../gnomebaker.glade.h:38
-#, fuzzy
+#: ../src/dataproject.c:2078 ../gnomebaker.glade.h:38
 msgid "Data DVD"
-msgstr "Sukurti duomenų DVD"
+msgstr "Duomenų DVD"
 
-#. preferences_get_int(GB_DATA_DISK_SIZE)
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:2140
-#: ../gnomebaker.glade.h:37
-#, fuzzy
+#: ../src/dataproject.c:2084 ../gnomebaker.glade.h:37
 msgid "Data CD"
-msgstr "Kopijuoti duomenų CD"
+msgstr "Duomenų CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:653
+#: ../src/devices.c:653
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
 "Rašymo įrenginio prijungimo vieta (pvz. /mnt/cdrom) nerasta. Patikrinkite "
-"rašymo įrenginio įraša /etc/fstab byloje, tada atverkite nustatymus ir iš "
-"naujo skenuokite įrenginius."
+"rašymo įrenginio įraša /etc/fstab rinkmenoje, tada atverkite nustatymus ir "
+"iš naujo skenuokite įrenginius."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:663
+#: ../src/devices.c:663
 #, c-format
 msgid ""
 "Error mounting %s.\n"
 "\n"
 "%s"
 msgstr ""
+"Klaida prijungiant %s.\n"
+"\n"
+"%s"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:792
+#: ../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
-msgstr ""
+msgstr "Įdėkite diską į %s"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:86
+#: ../src/execfunctions.c:86
 msgid "Preparing to blank disk"
-msgstr ""
+msgstr "Ruošiamasi ištrinti diską"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:144
+#: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
-msgstr ""
+msgstr "Ruošiamasi rašyti diską"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
-#. current_track, cdrecord_first_track, current, total, total_fraction);
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:201
+#: ../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
-msgstr ""
+msgstr "Rašomas takelis %d"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:292
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1015
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:208
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:234
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:235
+#: ../src/execfunctions.c:292 ../src/execfunctions.c:1015
+#: ../src/startdlg.c:208 ../src/startdlg.c:234 ../src/startdlg.c:235
 msgid "Auto"
-msgstr ""
+msgstr "Automatiškai"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:411
+#: ../src/execfunctions.c:411
 msgid "Preparing to extract audio tracks"
-msgstr ""
+msgstr "Ruošiamasi išskleisti audio takelius"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:422
+#: ../src/execfunctions.c:422
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -463,20 +438,20 @@ msgstr ""
 "Garso takeliai iš ankstesnės sesijos jau yra diske, gal norite naudoti "
 "esamus takelius?"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:479
+#: ../src/execfunctions.c:479
 #, c-format
 msgid "Extracting audio track %d"
-msgstr ""
+msgstr "Išskleidžiamas audio takelis %d"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:549
+#: ../src/execfunctions.c:549
 msgid "Calculating data disk image size"
-msgstr ""
+msgstr "Skaičiuojamas duomenų disko atvaizdžio dydis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:587
+#: ../src/execfunctions.c:587
 msgid "Creating data disk image"
-msgstr ""
+msgstr "Kuriamas duomenų disko atvaizdis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:594
+#: ../src/execfunctions.c:594
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -484,575 +459,509 @@ msgstr ""
 "Duomenų CD atvaizdis iš ankstesnės sesijos jau yra diske, gal norite naudoti "
 "esamą atvaizdį?"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:831
+#: ../src/execfunctions.c:831
 msgid "Formatting DVD"
-msgstr ""
+msgstr "Formatuojamas DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:912
+#: ../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
-msgstr ""
+msgstr "Ruošiamas rašyti DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:943
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:968
+#: ../src/execfunctions.c:943 ../src/execfunctions.c:968
 msgid "Writing DVD"
-msgstr ""
+msgstr "Rašomas DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1083
+#: ../src/execfunctions.c:1083
 msgid "Reading CD image"
-msgstr ""
+msgstr "Skaitomas CD atvaizdis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1091
+#: ../src/execfunctions.c:1091
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
+"Diske jau yra CD atvaizdis iš ankstesnės sesijos, ar norite naudoti jau "
+"esantį atvaizdį?"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1480
+#: ../src/execfunctions.c:1480
 #, c-format
 msgid "Converting %s to cd audio"
-msgstr ""
+msgstr "Konvertuojama %s į cd audio"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1727
-#, fuzzy
+#: ../src/execfunctions.c:1727
 msgid "Reading DVD image"
-msgstr "<b>Skaitomas CD atvaizdis...</b>"
+msgstr "Nuskaitomas DVD turinys"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1735
-#, fuzzy
+#: ../src/execfunctions.c:1735
 msgid ""
 "A DVD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
 msgstr ""
-"Duomenų CD atvaizdis iš ankstesnės sesijos jau yra diske, gal norite naudoti "
-"esamą atvaizdį?"
+"DVD kopija jau egzistuoja diske nuo praėjusio karto. Ar norite ją panaudoti?"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:73
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:674
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:415
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:443
+#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
+#: ../src/startdlg.c:443
 msgid "Filesystem"
-msgstr "Bylų sistema"
+msgstr "Rinkmenų sistema"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:74
+#: ../src/filebrowser.c:74
 msgid "Home"
 msgstr "Namai"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:75
+#: ../src/filebrowser.c:75
 msgid "(empty)"
 msgstr "(tuščias)"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:76
+#: ../src/filebrowser.c:76
 msgid "Folder"
 msgstr "Aplankas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:568
+#: ../src/filebrowser.c:568
 msgid "_Add directory"
 msgstr "_Pridėti aplanką"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:581
+#: ../src/filebrowser.c:581
 msgid "_Add file(s)"
-msgstr "_Pridėti bylą(as)"
+msgstr "_Pridėti rinkmeną(as)"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:596
-#: ../gnomebaker.glade.h:76
+#: ../src/filebrowser.c:596 ../gnomebaker.glade.h:76
 msgid "_Burn CD Image"
 msgstr "Į_rašyti CD atvaizdį"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:599
+#: ../src/filebrowser.c:599
 msgid "_Burn DVD Image"
 msgstr "Į_rašyti DVD atvaizdį"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:704
+#: ../src/filebrowser.c:704
 #, c-format
 msgid "%s's home"
 msgstr "%s namai"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:770
+#: ../src/filebrowser.c:770
 msgid "File"
-msgstr "Byla"
+msgstr "Rinkmena"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:805
+#: ../src/filebrowser.c:805
 msgid "Type"
 msgstr "Tipas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:814
+#: ../src/filebrowser.c:814
 msgid "Mime"
 msgstr "Mime"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gbcommon.c:556
+#: ../src/gbcommon.c:556
 msgid "All files"
-msgstr "Visos bylos"
+msgstr "Visos rinkmenos"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gbcommon.c:564
+#: ../src/gbcommon.c:564
 msgid "Save file as type:"
-msgstr ""
+msgstr "Išsaugoti rinkmeną kaip šio tipo:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:238
+#: ../src/gnomebaker.c:237
 msgid ""
 "There are unsaved projects, your changes will be lost if you quit. Are you "
 "sure you want to quit?"
 msgstr ""
+"Jūsų pakeitimai bus prarasti, nes yra neišsaugotų projektų. Ar tikrai norite "
+"baigti?"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:309
+#: ../src/gnomebaker.c:308
 msgid "CD Image files"
-msgstr "CD atvaizdžio bylos"
+msgstr "CD atvaizdžio rinkmenos"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:310
+#: ../src/gnomebaker.c:309
 msgid "Please select a CD image file."
-msgstr ""
+msgstr "Pasirinkite CD atvaizdžio rinkmeną."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:325
+#: ../src/gnomebaker.c:324
 msgid "DVD Image files"
-msgstr ""
+msgstr "DVD atvaizdžio rinkmenos"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:326
+#: ../src/gnomebaker.c:325
 msgid "Please select a DVD image file."
-msgstr ""
+msgstr "Pasirinkite DVD atvaizdžio rinkmeną."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:420
-msgid ""
-"GnomeBaker is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
-msgstr ""
-
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:424
-msgid ""
-"GnomeBaker is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-msgstr ""
-
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:428
-msgid ""
-"You should have received a copy of the GNU General Public License\n"
-"along with GnomeBaker; if not, write to the Free Software Foundation, Inc.,\n"
-"59 Temple Place, Suite 330, Boston, MA  02111-1307  USA\n"
-msgstr ""
-
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:438
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:96
-#: ../gnomebaker.glade.h:45
+#: ../src/gnomebaker.c:413 ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:441
+#: ../src/gnomebaker.c:414
 msgid "Simple CD/DVD Burning for Gnome"
-msgstr ""
+msgstr "Paprasta GNOME CD/DVD rašymo programa"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:446
-#, fuzzy
-msgid "translator-credits"
+#: ../src/gnomebaker.c:414
+msgid "translator_credits"
 msgstr "Egidijus Kubickas <egiukas@gmail.com>"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:762
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:992
+#: ../src/gnomebaker.c:727 ../src/gnomebaker.c:924
 msgid "Playlist files"
-msgstr ""
+msgstr "Grojaraščio rinkmenos"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:769
+#: ../src/gnomebaker.c:734
 msgid "Save playlist as..."
-msgstr ""
+msgstr "Išsaugoti grojaraštį kaip..."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:792
-#, fuzzy
+#: ../src/gnomebaker.c:757
 msgid "Project files"
-msgstr "Išimti diską"
+msgstr "Projekto rinkmenos"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:862
-#, fuzzy
+#: ../src/gnomebaker.c:796
 msgid "Please select a project file."
-msgstr "Pasirinkite iso bylą..."
+msgstr "Pasirinkite projekto rinkmeną"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:900
-#: ../gnomebaker.glade.h:66
+#: ../src/gnomebaker.c:833 ../gnomebaker.glade.h:66
 msgid "Save project"
-msgstr ""
+msgstr "Išsaugoti projektą"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:993
+#: ../src/gnomebaker.c:925
 msgid "Please select a playlist."
-msgstr ""
+msgstr "Pasirinkite grojaraštį."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1019
+#: ../src/gnomebaker.c:951
 msgid "Project is not saved. Are you sure you want to close the project?"
-msgstr ""
+msgstr "Projektas neišsaugotas. Ar tikrai norite uždaryti projektą?"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1081
+#: ../src/gnomebaker.c:1013
 msgid "Please select files to add to the disk."
-msgstr ""
+msgstr "Pasirinkite įdėtinas į diską rinkmenas."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1090
-#, fuzzy
+#: ../src/gnomebaker.c:1022
 msgid "Please select folders to add to the disk."
-msgstr "Pasirinkite į diską norimas idėti bylas..."
+msgstr "Pasirinkite katalogus, kuriuos įtrauksite į diską."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1100
-#, fuzzy
+#: ../src/gnomebaker.c:1032
 msgid "_Add Folders"
-msgstr "Aplankas"
+msgstr "Pridėti K_atalogus"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1102
-#, fuzzy
+#: ../src/gnomebaker.c:1034
 msgid "_Add Files"
-msgstr "_Pridėti bylą(as)"
+msgstr "Pridėti failus"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1114
-#: ../gnomebaker.glade.h:40
-#, fuzzy
+#: ../src/gnomebaker.c:1046 ../gnomebaker.glade.h:40
 msgid "Data _DVD"
-msgstr "Sukurti duomenų DVD"
+msgstr "Duomenų _DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1116
-#: ../gnomebaker.glade.h:39
-#, fuzzy
+#: ../src/gnomebaker.c:1048 ../gnomebaker.glade.h:39
 msgid "Data _CD"
-msgstr "Kopijuoti duomenų CD"
+msgstr "Duomenų _CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1118
-#: ../gnomebaker.glade.h:75
-#, fuzzy
+#: ../src/gnomebaker.c:1050 ../gnomebaker.glade.h:75
 msgid "_Audio CD"
-msgstr "<b>Audio diskas</b>"
+msgstr "_Garso CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1155
-#, fuzzy
+#: ../src/gnomebaker.c:1087
 msgid "Audio files"
-msgstr "Pridėti bylą(as)"
+msgstr "Garso failai"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1225
-msgid "Recent projects"
-msgstr ""
-
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:44
+#: ../src/main.c:43
 msgid "Show tracing information (useful when debugging)"
-msgstr ""
+msgstr "Rodyti sekimo informaciją (naudinga derinant)"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:53
+#: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
-msgstr ""
+msgstr " - GNOME CD/DVD rašymo programa"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:111
+#: ../src/main.c:107
 msgid "Loading preferences..."
 msgstr "Įkeliami nustatymai..."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:116
+#: ../src/main.c:112
 msgid "Detecting devices..."
 msgstr "Aptinkami įrenginiai..."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:121
+#: ../src/main.c:117
 msgid "Registering gstreamer plugins..."
 msgstr "Registruojami gstreamer įskiepiai..."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:126
+#: ../src/main.c:122
 msgid "Loading GUI..."
 msgstr "Įkeliama GUI..."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/media.c:497
+#: ../src/media.c:497
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
-msgstr "Nėra įdiegto įskiepio, kuris suprastų bylos tipą %s."
+msgstr "Nėra įdiegto įskiepio, kuris suprastų rinkmenos tipą %s."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/preferences.c:71
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/preferences.c:72
+#: ../src/preferences.c:71 ../src/preferences.c:72
 msgid "default"
 msgstr "Numatytasis"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:139
+#: ../src/prefsdlg.c:139
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:154
+#: ../src/prefsdlg.c:154
 msgid "Id"
 msgstr "Id"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:163
+#: ../src/prefsdlg.c:163
 msgid "Node"
 msgstr "Taškas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:172
+#: ../src/prefsdlg.c:172
 msgid "Mount point"
 msgstr "Prijungimo vieta"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:181
+#: ../src/prefsdlg.c:181
 msgid "Write CD-R"
 msgstr "CD-R rašymas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:190
+#: ../src/prefsdlg.c:190
 msgid "Write CD-RW"
 msgstr "CD-RW rašymas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:199
+#: ../src/prefsdlg.c:199
 msgid "Write DVD-R"
 msgstr "DVD-R rašymas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:208
+#: ../src/prefsdlg.c:208
 msgid "Write DVD-RAM"
 msgstr "DVD-RAM rašymas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:82
-#, fuzzy, c-format
+#: ../src/progressdlg.c:80
+#, c-format
 msgid "%d minutes %d seconds"
-msgstr "%d min %d s"
+msgstr "%d min. %d sek."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:84
-#, fuzzy, c-format
+#: ../src/progressdlg.c:82
+#, c-format
 msgid "%d minute %d seconds"
-msgstr "%d min %d s"
+msgstr "%d min. %d sek."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:86
+#: ../src/progressdlg.c:84
 #, c-format
 msgid "%d seconds"
-msgstr ""
+msgstr "%d sek."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:91
-msgid "1 minute"
-msgstr ""
-
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:93
-#, fuzzy, c-format
-msgid "%d minutes"
-msgstr "%d min %d s"
-
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:235
+#: ../src/progressdlg.c:225
 #, c-format
-msgid "Approximately %s remaining"
-msgstr ""
+msgid "%s remaining"
+msgstr "liko %s"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:290
-#: ../gnomebaker.glade.h:69
+#: ../src/progressdlg.c:280 ../gnomebaker.glade.h:69
 msgid "Show output"
-msgstr ""
+msgstr "Rodyti išvestį"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:290
+#: ../src/progressdlg.c:280
 msgid "Hide output"
-msgstr ""
+msgstr "Paslėpti išvestį"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:369
+#: ../src/progressdlg.c:359
 #, c-format
 msgid "Elapsed time %s"
-msgstr ""
+msgstr "Praėjęs laikas %s"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:375
+#: ../src/progressdlg.c:365
 msgid "Completed"
 msgstr "Baigta"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:385
+#: ../src/progressdlg.c:375
 msgid "Failed"
 msgstr "Nepavyko"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/project.c:74
+#: ../src/project.c:73
 msgid "0%"
 msgstr "0%"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/project.c:111
-#, fuzzy
+#: ../src/project.c:112
 msgid "_Burn"
-msgstr "BurnFree"
+msgstr "Rašyti"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:108
+#: ../src/startdlg.c:108
 msgid "Please select an image file to save to."
-msgstr ""
+msgstr "Pasirinkite atvaizdžio rinkmeną į kurią išsaugoti."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:130
+#: ../src/startdlg.c:130
 msgid "CD/DVD Image files"
-msgstr ""
+msgstr "CD/DVD atvaizdžių rinkmenos"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:195
-#, fuzzy
+#: ../src/startdlg.c:195
 msgid "<b>Reader</b>"
-msgstr "<b>GnomeBaker</b>"
+msgstr "<b>Skaitymo įrenginys</b>"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:200
-#, fuzzy
+#: ../src/startdlg.c:200
 msgid "<b>Writer</b>"
-msgstr "<b>Rašymas</b>"
+msgstr "<b>Rašiklis</b>"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:204
+#: ../src/startdlg.c:204
 msgid "Speed:"
-msgstr ""
+msgstr "Greitis:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:230
+#: ../src/startdlg.c:230
 msgid "Mode:"
-msgstr ""
+msgstr "Režimas:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:253
+#: ../src/startdlg.c:253
 msgid "<b>Options</b>"
 msgstr "<b>Nustatymai</b>"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:282
+#: ../src/startdlg.c:282
 msgid "_Start"
 msgstr "_Pradėti"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:345
+#: ../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
-msgstr ""
+msgstr "<b>Disko informacija</b>"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:347
+#: ../src/startdlg.c:347
 msgid "Volume ID:"
-msgstr ""
+msgstr "Laikmenos ID:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:350
+#: ../src/startdlg.c:350
 msgid "Application ID:"
-msgstr ""
+msgstr "Programos ID:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:353
+#: ../src/startdlg.c:353
 msgid "Preparer:"
-msgstr ""
+msgstr "Parengė:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:356
+#: ../src/startdlg.c:356
 msgid "Publisher:"
-msgstr ""
+msgstr "Išleido:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:359
+#: ../src/startdlg.c:359
 msgid "Copyright:"
-msgstr ""
+msgstr "Autorinės teisės:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:362
+#: ../src/startdlg.c:362
 msgid "Abstract:"
-msgstr ""
+msgstr "Abstraktu:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:365
+#: ../src/startdlg.c:365
 msgid "Bibliography:"
-msgstr ""
+msgstr "Bibliografija:"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:376
+#: ../src/startdlg.c:376
 msgid "<b>Filesystem</b>"
-msgstr ""
+msgstr "<b>Rinkmenų sistema</b>"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:414
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:442
+#: ../src/startdlg.c:414 ../src/startdlg.c:442
 msgid "Writing"
-msgstr ""
+msgstr "Rašoma"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:416
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:444
+#: ../src/startdlg.c:416 ../src/startdlg.c:444
 msgid "Disk Information"
-msgstr ""
+msgstr "Disko informacija"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:561
+#: ../src/startdlg.c:566
 msgid "Dummy write"
 msgstr "Netikras rašymas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:562
+#: ../src/startdlg.c:567
 msgid "Eject disk"
 msgstr "Išimti diską"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:563
+#: ../src/startdlg.c:568
 msgid "Fast blank"
 msgstr "Greitas ištrynimas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:564
+#: ../src/startdlg.c:569
 msgid "BurnFree"
 msgstr "BurnFree"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:565
+#: ../src/startdlg.c:570
 msgid "Burn the disk"
-msgstr ""
+msgstr "Įrašyti diską"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:567
+#: ../src/startdlg.c:572
 msgid "Only create image"
-msgstr ""
+msgstr "Tik sukurti atvaizdį"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:570
+#: ../src/startdlg.c:575
 msgid "Force format"
-msgstr ""
+msgstr "Priverstinai formatuoti"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:571
+#: ../src/startdlg.c:576
 msgid "Finalize"
 msgstr "Užbaigti"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:572
+#: ../src/startdlg.c:577
 msgid "Fast format"
-msgstr ""
+msgstr "Greitas formatavimas"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:573
+#: ../src/startdlg.c:578
 msgid "Joliet"
 msgstr "Joliet"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:574
+#: ../src/startdlg.c:579
 msgid "Rock Ridge"
 msgstr "Rock Ridge"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:575
-#, fuzzy
+#: ../src/startdlg.c:580
 msgid "On the fly"
-msgstr "Iškart"
+msgstr "Tiesiogiai"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:585
+#: ../src/startdlg.c:590
 msgid "_Browse..."
-msgstr ""
+msgstr "_Naršyti..."
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:69
+#: ../src/burn.h:69
 msgid "Blank CD-RW"
-msgstr ""
+msgstr "Ištrinti CD-RW"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:70
+#: ../src/burn.h:70
 msgid "Copy Data CD"
 msgstr "Kopijuoti duomenų CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:71
+#: ../src/burn.h:71
 msgid "Copy Audio CD"
 msgstr "Kopijuoti audio CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:72
-#, fuzzy
+#: ../src/burn.h:72
 msgid "Copy CD"
-msgstr "Kopijuoti duomenų CD"
+msgstr "Kopijuoti D"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:73
-#, fuzzy
+#: ../src/burn.h:73
 msgid "Copy DVD"
-msgstr "Kopijuoti duomenų CD"
+msgstr "Kopijuoti DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:74
+#: ../src/burn.h:74
 msgid "Burn CD Image"
 msgstr "Įrašyti CD atvaizdį"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:75
+#: ../src/burn.h:75
 msgid "Burn DVD Image"
 msgstr "Įrašyti DVD atvaizdį"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:76
+#: ../src/burn.h:76
 msgid "Create Data CD"
 msgstr "Sukurti duomenų CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:77
+#: ../src/burn.h:77
 msgid "Append to Data CD"
-msgstr ""
+msgstr "Pridurti prie duomenų CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:78
+#: ../src/burn.h:78
 msgid "Create Audio CD"
 msgstr "Sukurti audio CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:79
+#: ../src/burn.h:79
 msgid "Create Mixed CD"
 msgstr "Sukurti mišrų CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:80
+#: ../src/burn.h:80
 msgid "Create Video CD"
 msgstr "Sukurti video CD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:81
+#: ../src/burn.h:81
 msgid "Format DVD RW"
-msgstr ""
+msgstr "Formatuoti DVD RW"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:82
+#: ../src/burn.h:82
 msgid "Create Data DVD"
 msgstr "Sukurti duomenų DVD"
 
-#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:83
+#: ../src/burn.h:83
 msgid "Append to Data DVD"
-msgstr ""
+msgstr "Pridurti prie duomenų DVD"
 
 #: ../gnomebaker.glade.h:1
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../gnomebaker.glade.h:3
 msgid "/tmp"
@@ -1060,20 +969,19 @@ msgstr "/tmp"
 
 #: ../gnomebaker.glade.h:4
 msgid "<b><big>...</big></b>"
-msgstr ""
+msgstr "<b><big>...</big></b>"
 
 #: ../gnomebaker.glade.h:5
 msgid "<b>Additional <i>cdrecord</i> options</b>"
-msgstr ""
+msgstr "<b>Papildomi <i>cdrecord</i> parametrai</b>"
 
 #: ../gnomebaker.glade.h:6
 msgid "<b>Boot options</b>"
 msgstr "<b>Įkelties nustatymai</b>"
 
 #: ../gnomebaker.glade.h:7
-#, fuzzy
 msgid "<b>Create new project</b\t>"
-msgstr "<b>Sukūrė</b>"
+msgstr "<b>Sukurti naują projektą</b\t>"
 
 #: ../gnomebaker.glade.h:8
 msgid "<b>Created by</b>"
@@ -1085,15 +993,15 @@ msgstr "<b>Rasti įrenginiai</b>"
 
 #: ../gnomebaker.glade.h:10
 msgid "<b>Open existing project</b>"
-msgstr ""
+msgstr "<b>Atidaryti egzistuojantį projektą</b>"
 
 #: ../gnomebaker.glade.h:11
 msgid "<b>Other</b>"
-msgstr ""
+msgstr "<b>Kita</b>"
 
 #: ../gnomebaker.glade.h:12
 msgid "<b>Select Writer</b>"
-msgstr ""
+msgstr "<b>Pasirinkite rašymo įrenginį</b>"
 
 #: ../gnomebaker.glade.h:13
 msgid "<b>Temporary Directory</b>"
@@ -1104,26 +1012,24 @@ msgid "<b>Volume label</b>"
 msgstr "<b>Laikmenos etiketė</b>"
 
 #: ../gnomebaker.glade.h:15
-#, fuzzy
 msgid "<b>Welcome</b>"
-msgstr "<b>Įrenginiai</b>"
+msgstr "<b>Sveiki</b>"
 
 #: ../gnomebaker.glade.h:16
 msgid "<i>...</i>"
-msgstr ""
+msgstr "<i>...</i>"
 
 #: ../gnomebaker.glade.h:17
 msgid "Add file(s)"
-msgstr "Pridėti bylą(as)"
+msgstr "Pridėti rinkmeną(as)"
 
 #: ../gnomebaker.glade.h:18
-#, fuzzy
 msgid "Add the selected files to the disk"
-msgstr "Pridėti pažymėtas bylas į CD"
+msgstr "Įdėti pasirinktas rinkmenas į diską"
 
 #: ../gnomebaker.glade.h:19
 msgid "Advanced"
-msgstr ""
+msgstr "Sudėtingiau"
 
 #: ../gnomebaker.glade.h:20
 msgid "Always scan for devices on startup"
@@ -1131,15 +1037,15 @@ msgstr "Visada skanuoti įrenginius startuojant"
 
 #: ../gnomebaker.glade.h:22
 msgid "Automatically scroll the progress window output"
-msgstr ""
+msgstr "Automatiškai stumti rezultatų lange esančią informaciją"
 
 #: ../gnomebaker.glade.h:23
 msgid "Baking"
-msgstr ""
+msgstr "Rašoma"
 
 #: ../gnomebaker.glade.h:24
 msgid "Bl_ank CD-RW"
-msgstr ""
+msgstr "_Ištrinti CD-RW"
 
 #: ../gnomebaker.glade.h:25
 msgid "Boot Image"
@@ -1166,22 +1072,20 @@ msgid "Clean temporary directory on exit"
 msgstr "Išeinant išvalyti laikiną aplanką"
 
 #: ../gnomebaker.glade.h:31
-#, fuzzy
 msgid "Clear the contents of the disk"
-msgstr "Išvalyti CD turinį"
+msgstr "Išvalyti disko turinį"
 
 #: ../gnomebaker.glade.h:32
 msgid "Co_py Audio CD"
 msgstr "Ko_pijuoti audio CD"
 
 #: ../gnomebaker.glade.h:34
-#, fuzzy
 msgid "Copy D_VD"
-msgstr "Kopijuoti duomenų CD"
+msgstr "Kopijuoti D_VD"
 
 #: ../gnomebaker.glade.h:35
 msgid "Create a new project"
-msgstr ""
+msgstr "Sukurti naują projektą"
 
 #: ../gnomebaker.glade.h:36
 msgid "Created by username"
@@ -1217,21 +1121,19 @@ msgstr "Kietojo disko atvaizdis"
 
 #: ../gnomebaker.glade.h:49
 msgid "ISO filesystem details"
-msgstr "ISO bylų sistemos parametrai"
+msgstr "ISO rinkmenų sistemos parametrai"
 
 #: ../gnomebaker.glade.h:50
 msgid "Import Session"
-msgstr ""
+msgstr "Importuoti sesiją"
 
 #: ../gnomebaker.glade.h:51
-#, fuzzy
 msgid "Move Selected Files _Down"
-msgstr "Pažymėtą perkelti že_myn"
+msgstr "Nukelti pažymėtus failus že_miau"
 
 #: ../gnomebaker.glade.h:52
-#, fuzzy
 msgid "Move Selected Files _Up"
-msgstr "Pažymėtą perkelti a_ukštyn"
+msgstr "Pakelti pažymėtus failus a_ukščiau"
 
 #: ../gnomebaker.glade.h:53
 msgid "Move audio tracks down"
@@ -1247,11 +1149,11 @@ msgstr "Be įkelties"
 
 #: ../gnomebaker.glade.h:56
 msgid "Notify me when burning is complete"
-msgstr ""
+msgstr "Pranešti kai disko įrašymas baigtas"
 
 #: ../gnomebaker.glade.h:57
 msgid "Open an existing project"
-msgstr ""
+msgstr "Atverti egzistuojanį projektą"
 
 #: ../gnomebaker.glade.h:58
 msgid "PC bootable"
@@ -1262,41 +1164,40 @@ msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
 msgstr ""
+"Pasirinkite iš žemiau esančio sąrašo rašymo įrenginį ir įdėkite diską su "
+"egzistuojančia sesija"
 
 #: ../gnomebaker.glade.h:60
 msgid "Refresh the file browser file list"
-msgstr "Atnaujinti bylų naršyklės sąrašą"
+msgstr "Atnaujinti rinkmenų naršyklės sąrašą"
 
 #: ../gnomebaker.glade.h:61
 msgid "Remove selected"
 msgstr "Pašalinti pažymėtą"
 
 #: ../gnomebaker.glade.h:62
-#, fuzzy
 msgid "Remove the selected files from the disk"
-msgstr "Pašalinti pažymėtas bylas iš CD"
+msgstr "Pašalinti pasirinktas rinkmenas iš disko"
 
 #: ../gnomebaker.glade.h:63
-#, fuzzy
 msgid "S_how hidden files"
-msgstr "Rodyti paslėptas bylas"
+msgstr "Ro_dyti paslėptus failus"
 
 #: ../gnomebaker.glade.h:64
 msgid "Save All"
-msgstr ""
+msgstr "Išsaugoti viską"
 
 #: ../gnomebaker.glade.h:65
 msgid "Save Project _As"
-msgstr ""
+msgstr "Išsaugoti projeką _kaip"
 
 #: ../gnomebaker.glade.h:67
 msgid "Sc_an for devices"
-msgstr "Įrenginių sk_anavimas"
+msgstr "Ieškoti į_renginių"
 
 #: ../gnomebaker.glade.h:68
-#, fuzzy
 msgid "Sh_ow human-readable file sizes"
-msgstr "Rodyti suprantamus bylų dydžius"
+msgstr "Rodyti žmogui suprantamus failų dydžius"
 
 #: ../gnomebaker.glade.h:70
 msgid "Splash window"
@@ -1311,9 +1212,8 @@ msgid "Sun workstation bootable"
 msgstr "Sun darbo stoties įkrova"
 
 #: ../gnomebaker.glade.h:73
-#, fuzzy
 msgid "_Add Selected Files"
-msgstr "Pridėti pažymėtas bylas į CD"
+msgstr "_Pridėti pažymėtus failus"
 
 #: ../gnomebaker.glade.h:74
 msgid "_Add device"
@@ -1321,24 +1221,23 @@ msgstr "_Pridėti įrenginį"
 
 #: ../gnomebaker.glade.h:77
 msgid "_Close Project"
-msgstr ""
+msgstr "_Uždaryti projektą"
 
 #: ../gnomebaker.glade.h:78
-#, fuzzy
 msgid "_Copy CD"
-msgstr "Kopijuoti duomenų CD"
+msgstr "_Kopijuoti CD"
 
 #: ../gnomebaker.glade.h:79
 msgid "_Export"
-msgstr ""
+msgstr "_Eksportuoti"
 
 #: ../gnomebaker.glade.h:80
 msgid "_Format DVD±RW"
-msgstr ""
+msgstr "_Formatuoti DVD±RW"
 
 #: ../gnomebaker.glade.h:81
 msgid "_Import"
-msgstr ""
+msgstr "_Importuoti"
 
 #: ../gnomebaker.glade.h:82
 msgid "_Import Session"
@@ -1346,59 +1245,72 @@ msgstr "_Importuoti sesiją"
 
 #: ../gnomebaker.glade.h:83
 msgid "_New Project"
-msgstr ""
+msgstr "_Naujas prjektas"
 
 #: ../gnomebaker.glade.h:84
 msgid "_Open Project"
-msgstr ""
+msgstr "_Atidaryti projektą"
 
 #: ../gnomebaker.glade.h:85
 msgid "_Playlist"
-msgstr ""
+msgstr "_Grojaraštis"
 
 #: ../gnomebaker.glade.h:86
 msgid "_Project"
-msgstr ""
+msgstr "_Projektas"
 
 #: ../gnomebaker.glade.h:87
 msgid "_Refresh"
 msgstr "_Atnaujinti"
 
 #: ../gnomebaker.glade.h:88
-#, fuzzy
 msgid "_Remove Selected Files"
-msgstr "Ištrinti _pažymėtą"
+msgstr "Paša_linti Pažymėtus failus"
 
 #: ../gnomebaker.glade.h:89
 msgid "_Save Project"
-msgstr ""
+msgstr "_Išsaugoti projektą"
 
 #: ../gnomebaker.glade.h:90
 msgid "_Show File Browser"
-msgstr "_Rodyti bylų naršyklę"
+msgstr "_Rodyti rinkmenų naršyklę"
 
 #: ../gnomebaker.glade.h:91
 msgid "_Tools"
-msgstr ""
+msgstr "Įran_kiai"
 
 #: ../gnomebaker.glade.h:92
 msgid "_Window"
-msgstr ""
+msgstr "_Langas"
 
-#, fuzzy
-#~ msgid "<b>Audio CD</b>"
-#~ msgstr "<b>Audio diskas</b>"
+#, c-format
+#~ msgid ""
+#~ "The file [%s] referred to in the playlist could not be imported as it does "
+#~ "not exist."
+#~ msgstr ""
+#~ "Rinkmenos [%s] paminėtos grojaraštyje negalima importuoti, nes ji "
+#~ "neegzistuoja."
+
+#~ msgid ""
+#~ "The file you have selected is not a supported playlist. Please select a pls "
+#~ "or m3u file."
+#~ msgstr ""
+#~ "Jūsų pasirinkta rinkmena nėra grojaraštis, palaikomas programos. Pasirinkite "
+#~ "pls ar m3u rinkmeną."
+
+#~ msgid "Failed to write playlist file"
+#~ msgstr "Nepavyko įrašyti grojaraščio rinkmenos"
+
+#, c-format
+#~ msgid "%s used - %s remaining"
+#~ msgstr "naudojama %s - liko %s"
+
+#~ msgid ""
+#~ "File or directory is too large to fit in the remaining space on the CD"
+#~ msgstr "Rinkmena ar aplankas yra per didelis likusiai vietai CD diske"
 
 #~ msgid "Session"
 #~ msgstr "Sesija"
-
-#, fuzzy
-#~ msgid "<b>Data DVD</b>"
-#~ msgstr "<b>Duomenų diskas</b>"
-
-#, fuzzy
-#~ msgid "<b>Data CD</b>"
-#~ msgstr "<b>Duomenų diskas</b>"
 
 #~ msgid "Are you sure you want to quit?"
 #~ msgstr "Ar tikrai norite išeiti?"
@@ -1406,62 +1318,38 @@ msgstr ""
 #~ msgid "<b>Devices</b>"
 #~ msgstr "<b>Įrenginiai</b>"
 
-#, fuzzy
-#~ msgid "Add directories"
-#~ msgstr "Pridėti aplanką"
+#~ msgid "<b>Device</b>"
+#~ msgstr "<b>Įrenginys</b>"
 
-#, fuzzy
-#~ msgid "Add files"
-#~ msgstr "Pridėti bylą(as)"
+#~ msgid "Reader:"
+#~ msgstr "Skaitytuvas:"
 
-#~ msgid "GPL"
-#~ msgstr "GPL"
-
-#~ msgid "Mode"
-#~ msgstr "Režimas"
-
-#~ msgid "Reader"
-#~ msgstr "Skaitiklis"
-
-#~ msgid "Simple CD burning for Gnome."
-#~ msgstr "Paprastas CD rašymas"
-
-#~ msgid "Speed"
-#~ msgstr "Greitis"
-
-#~ msgid "Start burning..."
-#~ msgstr "Rašyti..."
-
-#~ msgid "Writer"
-#~ msgstr "Rašiklis"
-
-#~ msgid "dao"
-#~ msgstr "dao"
-
-#, fuzzy
-#~ msgid "dialog1"
-#~ msgstr "dao"
-
-#~ msgid "raw16"
-#~ msgstr "raw16"
-
-#~ msgid "raw96p"
-#~ msgstr "raw96p"
-
-#~ msgid "tao"
-#~ msgstr "tao"
+#~ msgid "Writer:"
+#~ msgstr "Rašytuvas:"
 
 #~ msgid "0 mins 0 secs"
 #~ msgstr "0 min 0 s"
 
+#~ msgid "<b>Audio Disk</b>"
+#~ msgstr "<b>Audio diskas</b>"
+
+#~ msgid "<b>Data Disk</b>"
+#~ msgstr "<b>Duomenų diskas</b>"
+
 #~ msgid "<b>File Browser</b>"
-#~ msgstr "<b>Bylų naršyklė</b>"
+#~ msgstr "<b>Rinkmenų naršyklė</b>"
+
+#~ msgid "<b>Progress window</b>"
+#~ msgstr "<b>Pažangos langas</b>"
 
 #~ msgid "<b>Video CD</b>"
 #~ msgstr "<b>Video CD</b>"
 
 #~ msgid "Ask on quit"
 #~ msgstr "Paklausti prieš išeinant"
+
+#~ msgid "Automatically scroll output"
+#~ msgstr "Automatiškai slinkti išvestį"
 
 #~ msgid "Click to begin the process of creating a data disk."
 #~ msgstr "Paspauskite norėdami sukurti duomenų diską."
@@ -1478,19 +1366,14 @@ msgstr ""
 #~ msgid "Create Video Disk"
 #~ msgstr "Sukurti video CD"
 
-#, fuzzy
-#~ msgid "_Data Disk"
-#~ msgstr "Sukurti duomenų diską"
-
-#~ msgid ""
-#~ "File or directory is too large to fit in the remaining space on the CD"
-#~ msgstr "Byla ar aplankas yra per didelis likusiai vietai CD diske"
-
-#~ msgid "Create ISO only"
-#~ msgstr "Tik sukurti ISO"
-
 #~ msgid "Edit GnomeBaker's preferences"
 #~ msgstr "Keisti GnomeBaker nustatymus"
+
+#~ msgid "Format DVD±RW"
+#~ msgstr "Formatuoti DVD±RW"
+
+#~ msgid "GPL"
+#~ msgstr "GPL"
 
 #~ msgid "Import"
 #~ msgstr "Importuoti"
@@ -1498,114 +1381,62 @@ msgstr ""
 #~ msgid "Import existing session"
 #~ msgstr "Importuoti esamą sesija"
 
+#~ msgid "Mode"
+#~ msgstr "Režimas"
+
+#~ msgid "Move selection _down"
+#~ msgstr "Perkelti pasirinkimą ž_emyn"
+
+#~ msgid "Move selection _up"
+#~ msgstr "Perkelti pasirinkimą _aukštyn"
+
+#~ msgid "Play sound when burning is complete"
+#~ msgstr "Kai baigiamas rašymas, sugroti garsą"
+
+#~ msgid "Reader"
+#~ msgstr "Skaitiklis"
+
+#~ msgid "Show hidden files"
+#~ msgstr "Rodyti paslėptas rinkmenas"
+
+#~ msgid "Show humanreadable filesizes"
+#~ msgstr "Rodyti suprantamus rinkmenų dydžius"
+
+#~ msgid "Simple CD burning for Gnome."
+#~ msgstr "Paprastas CD rašymas"
+
+#~ msgid "Speed"
+#~ msgstr "Greitis"
+
+#~ msgid "Start burning..."
+#~ msgstr "Rašyti..."
+
+#~ msgid "Writer"
+#~ msgstr "Rašiklis"
+
 #~ msgid "_Actions"
 #~ msgstr "_Veiksmai"
 
+#~ msgid "_Add selection"
+#~ msgstr "Į_dėti pasirinkimą"
+
+#~ msgid "_Remove selection"
+#~ msgstr "_Ištrinti pasirinkimą"
+
 #~ msgid "_View"
-#~ msgstr "_Rodyti"
+#~ msgstr "_Rodymas"
 
-#~ msgid "There is no known plugin to handle a file of type %s."
-#~ msgstr "Nėra įskiepio, kuris suprastų bylos tipą %s."
+#~ msgid "dao"
+#~ msgstr "dao"
 
-#~ msgid "Please select an iso file to save to..."
-#~ msgstr "Pasirinkite saugotiną iso bylą..."
+#~ msgid "raw16"
+#~ msgstr "raw16"
 
-#~ msgid ""
-#~ "Error %s %s.\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Klaida %s %s\n"
-#~ "\n"
-#~ "%s"
+#~ msgid "raw96p"
+#~ msgstr "raw96p"
 
-#~ msgid "mounting"
-#~ msgstr "prijungiama"
+#~ msgid "raw96r"
+#~ msgstr "raw96r"
 
-#~ msgid "unmounting"
-#~ msgstr "atjungiama"
-
-#~ msgid ""
-#~ "The file you have selected is not a DVD image. Please select a DVD image "
-#~ "to burn."
-#~ msgstr ""
-#~ "Pasirinkta byla nėra DVD atvaizdis. Pasirinkite rašytiną DVD atvaizdį."
-
-#~ msgid "Simple CD Burning for Gnome"
-#~ msgstr "Paprasta CD ir DVD rašymo programa"
-
-#~ msgid "Fast"
-#~ msgstr "Greitai"
-
-#~ msgid "<b>Burning disk...</b>"
-#~ msgstr "<b>Diskas rašomas...</b>"
-
-#~ msgid "<b>Blanking disk...</b>"
-#~ msgstr "<b>Diskas ištrinamas...</b>"
-
-#~ msgid "Please insert the CD-RW into the CD writer"
-#~ msgstr "Įdėkite CD-RW į CD rašymo įrenginį"
-
-#~ msgid "Fixating"
-#~ msgstr "Fiksuojama"
-
-#~ msgid "<b>Extracting audio tracks...</b>"
-#~ msgstr "<b>Išpakuojami garso takeliai...</b>"
-
-#~ msgid "Please insert the audio CD into the CD reader"
-#~ msgstr "Įdėkite audio CD į CD skaitymo įrenginį"
-
-#~ msgid "<b>Creating data disk image...</b>"
-#~ msgstr "<b>Kuriamas duomenų disko atvaizdis...</b>"
-
-#~ msgid "<b>Formatting DVD...</b>"
-#~ msgstr "<b>DVD formatavimas...</b>"
-
-#~ msgid "Please insert a rewritable DVD into the DVD writer"
-#~ msgstr "Įdėkite perrašomą DVD į DVD rašymo įrenginį"
-
-#~ msgid "<b>Burning DVD...</b>"
-#~ msgstr "<b>DVD rašomas...</b>"
-
-#~ msgid "Please insert a writable DVD into the DVD writer"
-#~ msgstr "Įdėkite įrašomą DVD į DVD rašymo įrenginį"
-
-#~ msgid "Writing lead-out"
-#~ msgstr "Įrašoma išvestis"
-
-#~ msgid "<b>Converting files to cd audio...</b>"
-#~ msgstr "<b>Konvertuojamos bylos į audio cd...</b>"
-
-#~ msgid "Blank CDRW"
-#~ msgstr "Ištrinti CDRW"
-
-#~ msgid "Format DVD+RW"
-#~ msgstr "Formatuoti DVD+RW"
-
-#~ msgid "Bl_ank CDRW"
-#~ msgstr "Iš_trinti CDRW"
-
-#~ msgid "_Format DVDRW"
-#~ msgstr "_Formatuoti DVDRW"
-
-#~ msgid "Format DVDRW"
-#~ msgstr "Formatuoti DVDRW"
-
-#~ msgid "Add the current directory to the CD"
-#~ msgstr "Pridėti esamą aplanką į CD"
-
-#~ msgid "Baking CD"
-#~ msgstr "CD rašymas"
-
-#~ msgid "View output"
-#~ msgstr "Pasižiūrėti išvestį"
-
-#~ msgid "Select writer..."
-#~ msgstr "Pasirinkti rašiklį..."
-
-#~ msgid ""
-#~ "<b>Please select the writing device from the list below and insert the "
-#~ "disk containing the existing session.</b>"
-#~ msgstr ""
-#~ "<b>Pasirinkite rašiklį iš žemiau esančio sąrašo ir įdėkite diską, kuriame "
-#~ "yra egzistuojanti sesija.</b>"
+#~ msgid "tao"
+#~ msgstr "tao"

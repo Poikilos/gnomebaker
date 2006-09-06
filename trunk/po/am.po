@@ -1,21 +1,21 @@
-# English translation for gnomebaker
-# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# Amharic translation for gnomebaker
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the gnomebaker package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2006-08-03 01:24+0200\n"
-"PO-Revision-Date: 2006-07-28 23:12+0000\n"
-"Last-Translator: Rui Mesquita <rpedro78@gmail.com>\n"
-"Language-Team: English <en@li.org>\n"
+"PO-Revision-Date: 2006-05-16 03:36+0000\n"
+"Last-Translator: teferra <tefera@online.no>\n"
+"Language-Team: Amharic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Version: 0.1\n"
+"X-Poedit-Language: Amharic\n"
+"X-Poedit-Country: ETHIOPIA\n"
 
 #: ../src/audioproject.c:152 ../src/cairofillbar.c:672
 #, c-format
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../src/audioproject.c:181
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Track is too large to fit in the remaining space on the CD"
+msgstr ""
 
 #: ../src/audioproject.c:381
 #, c-format
@@ -56,24 +56,27 @@ msgstr ""
 #: ../src/audioproject.c:844 ../src/dataproject.c:1314
 #: ../src/filebrowser.c:577
 msgid "_Open"
-msgstr ""
+msgstr "_ክፈት"
 
 #: ../src/audioproject.c:849
+#, fuzzy
 msgid "Move selected _up"
-msgstr ""
+msgstr "የገጽ &ቅንጅት"
 
 #: ../src/audioproject.c:851
+#, fuzzy
 msgid "Move selected _down"
-msgstr ""
+msgstr "ምንም ተጨማሪ ፕሮግራም አልተመረጠም"
 
 #: ../src/audioproject.c:854 ../src/dataproject.c:1327
 #: ../src/dataproject.c:1364
+#, fuzzy
 msgid "_Remove selected"
-msgstr ""
+msgstr "የገጹን እራስጌ አጥፋ"
 
 #: ../src/audioproject.c:856
 msgid "_Clear"
-msgstr ""
+msgstr "_አጥፋ"
 
 #: ../src/audioproject.c:1079
 msgid "No."
@@ -81,35 +84,36 @@ msgstr ""
 
 #: ../src/audioproject.c:1091
 msgid "Duration"
-msgstr "Duration"
+msgstr "ጊዜ"
 
 #: ../src/audioproject.c:1100
 msgid "Artist"
-msgstr "Artist"
+msgstr "ተዋናይ"
 
 #: ../src/audioproject.c:1109
 msgid "Album"
-msgstr "Album"
+msgstr ""
 
 #: ../src/audioproject.c:1118
 msgid "Title"
-msgstr ""
+msgstr "አርዕስት"
 
 #: ../src/audioproject.c:1127
 msgid "Track"
-msgstr "Track"
+msgstr ""
 
 #: ../src/audioproject.c:1144
 msgid "Info"
-msgstr ""
+msgstr "መረጃ"
 
 #: ../src/audioproject.c:1175 ../gnomebaker.glade.h:21
 msgid "Audio CD"
 msgstr ""
 
 #: ../src/burn.c:93 ../src/burn.c:139
+#, fuzzy
 msgid "Burning CD image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/burn.c:93 ../src/burn.c:139
 msgid "Please wait while the CD image you selected is burned to CD."
@@ -122,8 +126,9 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:120
+#, fuzzy
 msgid "Burning DVD image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/burn.c:120
 msgid "Please wait while the DVD image you selected is burned to DVD."
@@ -144,8 +149,9 @@ msgid "Please wait while the data CD image is created."
 msgstr ""
 
 #: ../src/burn.c:186 ../src/burn.c:196
+#, fuzzy
 msgid "Burning data CD"
-msgstr ""
+msgstr "የቅንብር መረጃ ንብረቶችን ክተት"
 
 #: ../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
@@ -182,16 +188,18 @@ msgid ""
 msgstr ""
 
 #: ../src/burn.c:312
+#, fuzzy
 msgid "Extracting CD image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/burn.c:312
 msgid "Please wait while the data CD image is extracted."
 msgstr ""
 
 #: ../src/burn.c:318
+#, fuzzy
 msgid "Copying data CD"
-msgstr ""
+msgstr "የቅንብር መረጃ ንብረቶችን ክተት"
 
 #: ../src/burn.c:318
 msgid ""
@@ -256,8 +264,9 @@ msgid "Please wait while the data DVD image is created."
 msgstr ""
 
 #: ../src/burn.c:439
+#, fuzzy
 msgid "Burning data DVD"
-msgstr ""
+msgstr "የቅንብር መረጃ ንብረቶችን ክተት"
 
 #: ../src/burn.c:439
 msgid "Please wait while the data is burned directly to DVD."
@@ -291,8 +300,9 @@ msgid "%s of %s used. <b>Disk full</b>."
 msgstr ""
 
 #: ../src/dataproject.c:172 ../src/startdlg.c:592
+#, fuzzy
 msgid "GnomeBaker data disk"
-msgstr ""
+msgstr "የቅንብር መረጃ ንብረቶችን ክተት"
 
 #: ../src/dataproject.c:384
 #, c-format
@@ -314,11 +324,11 @@ msgstr ""
 
 #: ../src/dataproject.c:1323 ../src/dataproject.c:1358
 msgid "_Edit name"
-msgstr ""
+msgstr "ስሙን _አርም"
 
 #: ../src/dataproject.c:1329 ../src/dataproject.c:1368
 msgid "Clear"
-msgstr "Clear"
+msgstr "አጥፋ"
 
 #: ../src/dataproject.c:1490
 #, c-format
@@ -330,7 +340,7 @@ msgstr ""
 
 #: ../src/dataproject.c:1491 ../src/devices.c:664
 msgid "unknown error"
-msgstr ""
+msgstr "ያልታወቀ ስህተት"
 
 #: ../src/dataproject.c:1609
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
@@ -346,16 +356,16 @@ msgstr ""
 #: ../src/dataproject.c:1862 ../src/dataproject.c:1949
 #: ../gnomebaker.glade.h:33
 msgid "Contents"
-msgstr ""
+msgstr "ማውጫዎች"
 
 #: ../src/dataproject.c:1885 ../src/dataproject.c:1895
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
-msgstr ""
+msgstr "መጠን"
 
 #: ../src/dataproject.c:1905
 msgid "Full Path"
-msgstr ""
+msgstr "ሙሉ ዱካ"
 
 #: ../src/dataproject.c:2078 ../gnomebaker.glade.h:38
 msgid "Data DVD"
@@ -409,13 +419,10 @@ msgid "Preparing to extract audio tracks"
 msgstr ""
 
 #: ../src/execfunctions.c:422
-#, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
-"Audio tracks from a previous session already exist on disk, do you wish to "
-"use the existing tracks?"
 
 #: ../src/execfunctions.c:479
 #, c-format
@@ -437,8 +444,9 @@ msgid ""
 msgstr ""
 
 #: ../src/execfunctions.c:831
+#, fuzzy
 msgid "Formatting DVD"
-msgstr ""
+msgstr "የጽሑፍ ማስተካከያ"
 
 #: ../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
@@ -449,8 +457,9 @@ msgid "Writing DVD"
 msgstr ""
 
 #: ../src/execfunctions.c:1083
+#, fuzzy
 msgid "Reading CD image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/execfunctions.c:1091
 msgid ""
@@ -476,35 +485,38 @@ msgstr ""
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
 #: ../src/startdlg.c:443
 msgid "Filesystem"
-msgstr ""
+msgstr "የፋይል ስርዓት"
 
 #: ../src/filebrowser.c:74
 msgid "Home"
-msgstr ""
+msgstr "ቤት"
 
 #: ../src/filebrowser.c:75
 msgid "(empty)"
-msgstr ""
+msgstr "(ባዶ)"
 
 #: ../src/filebrowser.c:76
 msgid "Folder"
-msgstr ""
+msgstr "ዶሴ"
 
 #: ../src/filebrowser.c:568
 msgid "_Add directory"
-msgstr ""
+msgstr "_ዶሴ ጨምር"
 
 #: ../src/filebrowser.c:581
+#, fuzzy
 msgid "_Add file(s)"
-msgstr ""
+msgstr "HTML ፋይል (*.html)|*.html"
 
 #: ../src/filebrowser.c:596 ../gnomebaker.glade.h:76
+#, fuzzy
 msgid "_Burn CD Image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/filebrowser.c:599
+#, fuzzy
 msgid "_Burn DVD Image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/filebrowser.c:704
 #, c-format
@@ -513,11 +525,11 @@ msgstr ""
 
 #: ../src/filebrowser.c:770
 msgid "File"
-msgstr ""
+msgstr "ፋይል"
 
 #: ../src/filebrowser.c:805
 msgid "Type"
-msgstr ""
+msgstr "ዓይነት"
 
 #: ../src/filebrowser.c:814
 msgid "Mime"
@@ -525,11 +537,12 @@ msgstr ""
 
 #: ../src/gbcommon.c:556
 msgid "All files"
-msgstr ""
+msgstr "ሁሉንም ፋይሎች"
 
 #: ../src/gbcommon.c:564
+#, fuzzy
 msgid "Save file as type:"
-msgstr ""
+msgstr "ፋይሉን በሌላ ዓይነት አስቀምጥ፦"
 
 #: ../src/gnomebaker.c:237
 msgid ""
@@ -538,16 +551,18 @@ msgid ""
 msgstr ""
 
 #: ../src/gnomebaker.c:308
+#, fuzzy
 msgid "CD Image files"
-msgstr ""
+msgstr "ሁሉንም የምስል ፋይሎች"
 
 #: ../src/gnomebaker.c:309
 msgid "Please select a CD image file."
 msgstr ""
 
 #: ../src/gnomebaker.c:324
+#, fuzzy
 msgid "DVD Image files"
-msgstr ""
+msgstr "ሁሉንም የምስል ፋይሎች"
 
 #: ../src/gnomebaker.c:325
 msgid "Please select a DVD image file."
@@ -555,39 +570,45 @@ msgstr ""
 
 #: ../src/gnomebaker.c:413 ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
-msgstr ""
+msgstr "ኖምቤከር"
 
 #: ../src/gnomebaker.c:414
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr ""
 
 #: ../src/gnomebaker.c:414
+#, fuzzy
 msgid "translator_credits"
-msgstr ""
+msgstr "ተሳታፊዎቹ አሰይ"
 
 #: ../src/gnomebaker.c:727 ../src/gnomebaker.c:924
+#, fuzzy
 msgid "Playlist files"
-msgstr ""
+msgstr "ፋይሎችን ጨምር"
 
 #: ../src/gnomebaker.c:734
+#, fuzzy
 msgid "Save playlist as..."
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/gnomebaker.c:757
+#, fuzzy
 msgid "Project files"
-msgstr ""
+msgstr "ፋይሎችን ጨምር"
 
 #: ../src/gnomebaker.c:796
+#, fuzzy
 msgid "Please select a project file."
-msgstr ""
+msgstr "እባክዎ የቋንቋውን ኮድ ይምረጡ።"
 
 #: ../src/gnomebaker.c:833 ../gnomebaker.glade.h:66
 msgid "Save project"
 msgstr ""
 
 #: ../src/gnomebaker.c:925
+#, fuzzy
 msgid "Please select a playlist."
-msgstr ""
+msgstr "እባክዎ የቋንቋውን ኮድ ይምረጡ።"
 
 #: ../src/gnomebaker.c:951
 msgid "Project is not saved. Are you sure you want to close the project?"
@@ -634,16 +655,18 @@ msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
 #: ../src/main.c:107
+#, fuzzy
 msgid "Loading preferences..."
-msgstr ""
+msgstr "የጊዜ-ሠንጠረዥ ምርጫዎ"
 
 #: ../src/main.c:112
 msgid "Detecting devices..."
 msgstr ""
 
 #: ../src/main.c:117
+#, fuzzy
 msgid "Registering gstreamer plugins..."
-msgstr ""
+msgstr "ተጨማሪ ፕሮግራሞቹን ሁሉ አቋርጡ"
 
 #: ../src/main.c:122
 msgid "Loading GUI..."
@@ -656,15 +679,15 @@ msgstr ""
 
 #: ../src/preferences.c:71 ../src/preferences.c:72
 msgid "default"
-msgstr ""
+msgstr "ቀዳሚ"
 
 #: ../src/prefsdlg.c:139
 msgid "Name"
-msgstr ""
+msgstr "ስም"
 
 #: ../src/prefsdlg.c:154
 msgid "Id"
-msgstr ""
+msgstr "መለያ"
 
 #: ../src/prefsdlg.c:163
 msgid "Node"
@@ -675,20 +698,24 @@ msgid "Mount point"
 msgstr ""
 
 #: ../src/prefsdlg.c:181
+#, fuzzy
 msgid "Write CD-R"
-msgstr ""
+msgstr "የ'%s' ማውጫ እንዳይፃፍበት ተጠብቋል"
 
 #: ../src/prefsdlg.c:190
+#, fuzzy
 msgid "Write CD-RW"
-msgstr ""
+msgstr "የ'%s' ማውጫ እንዳይፃፍበት ተጠብቋል"
 
 #: ../src/prefsdlg.c:199
+#, fuzzy
 msgid "Write DVD-R"
-msgstr ""
+msgstr "የ'%s' ማውጫ እንዳይፃፍበት ተጠብቋል"
 
 #: ../src/prefsdlg.c:208
+#, fuzzy
 msgid "Write DVD-RAM"
-msgstr ""
+msgstr "የ'%s' ማውጫ እንዳይፃፍበት ተጠብቋል"
 
 #: ../src/progressdlg.c:80
 #, c-format
@@ -711,12 +738,14 @@ msgid "%s remaining"
 msgstr ""
 
 #: ../src/progressdlg.c:280 ../gnomebaker.glade.h:69
+#, fuzzy
 msgid "Show output"
-msgstr ""
+msgstr "ተጠቃሽ-መረጃዎችን &አሳይ"
 
 #: ../src/progressdlg.c:280
+#, fuzzy
 msgid "Hide output"
-msgstr ""
+msgstr "ማስመሪያዎቹን አሳይ ወይም ደብቅ"
 
 #: ../src/progressdlg.c:359
 #, c-format
@@ -725,11 +754,11 @@ msgstr ""
 
 #: ../src/progressdlg.c:365
 msgid "Completed"
-msgstr ""
+msgstr "አልቋል"
 
 #: ../src/progressdlg.c:375
 msgid "Failed"
-msgstr ""
+msgstr "መፈጸም አልቻለም"
 
 #: ../src/project.c:73
 msgid "0%"
@@ -757,31 +786,35 @@ msgstr ""
 
 #: ../src/startdlg.c:204
 msgid "Speed:"
-msgstr ""
+msgstr "ፍጥነት፡"
 
 #: ../src/startdlg.c:230
 msgid "Mode:"
 msgstr ""
 
 #: ../src/startdlg.c:253
+#, fuzzy
 msgid "<b>Options</b>"
-msgstr ""
+msgstr "ምርጫዎች"
 
 #: ../src/startdlg.c:282
+#, fuzzy
 msgid "_Start"
-msgstr ""
+msgstr "የመጀመሪያው ቀን"
 
 #: ../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
 msgstr ""
 
 #: ../src/startdlg.c:347
+#, fuzzy
 msgid "Volume ID:"
-msgstr ""
+msgstr "መለያ አስገባ"
 
 #: ../src/startdlg.c:350
+#, fuzzy
 msgid "Application ID:"
-msgstr ""
+msgstr "መለያ አስገባ"
 
 #: ../src/startdlg.c:353
 msgid "Preparer:"
@@ -789,7 +822,7 @@ msgstr ""
 
 #: ../src/startdlg.c:356
 msgid "Publisher:"
-msgstr ""
+msgstr "አሳታሚ፦"
 
 #: ../src/startdlg.c:359
 msgid "Copyright:"
@@ -809,23 +842,25 @@ msgstr ""
 
 #: ../src/startdlg.c:414 ../src/startdlg.c:442
 msgid "Writing"
-msgstr ""
+msgstr "በመጻፍ ላይ"
 
 #: ../src/startdlg.c:416 ../src/startdlg.c:444
 msgid "Disk Information"
 msgstr ""
 
 #: ../src/startdlg.c:566
+#, fuzzy
 msgid "Dummy write"
-msgstr ""
+msgstr "የ'%s' ማውጫ እንዳይፃፍበት ተጠብቋል"
 
 #: ../src/startdlg.c:567
 msgid "Eject disk"
 msgstr ""
 
 #: ../src/startdlg.c:568
+#, fuzzy
 msgid "Fast blank"
-msgstr ""
+msgstr "ባዶ ገጽ"
 
 #: ../src/startdlg.c:569
 msgid "BurnFree"
@@ -836,20 +871,23 @@ msgid "Burn the disk"
 msgstr ""
 
 #: ../src/startdlg.c:572
+#, fuzzy
 msgid "Only create image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/startdlg.c:575
+#, fuzzy
 msgid "Force format"
-msgstr ""
+msgstr "ሠንጠረዥ ፎርማቱ"
 
 #: ../src/startdlg.c:576
 msgid "Finalize"
-msgstr ""
+msgstr "ጨርስ"
 
 #: ../src/startdlg.c:577
+#, fuzzy
 msgid "Fast format"
-msgstr ""
+msgstr "ሠንጠረዥ ፎርማቱ"
 
 #: ../src/startdlg.c:578
 msgid "Joliet"
@@ -860,24 +898,28 @@ msgid "Rock Ridge"
 msgstr ""
 
 #: ../src/startdlg.c:580
+#, fuzzy
 msgid "On the fly"
-msgstr ""
+msgstr "ከላይ ከላይ ፊደል ማረምን ያስችላል"
 
 #: ../src/startdlg.c:590
 msgid "_Browse..."
-msgstr ""
+msgstr "_ቃኝ..."
 
 #: ../src/burn.h:69
+#, fuzzy
 msgid "Blank CD-RW"
-msgstr ""
+msgstr "አዲስ ባዶ ሰነድ ፍጠሩ"
 
 #: ../src/burn.h:70
+#, fuzzy
 msgid "Copy Data CD"
-msgstr ""
+msgstr "ግልባጭን ክፈት"
 
 #: ../src/burn.h:71
+#, fuzzy
 msgid "Copy Audio CD"
-msgstr ""
+msgstr "ግልባጭን ክፈት"
 
 #: ../src/burn.h:72
 msgid "Copy CD"
@@ -888,48 +930,57 @@ msgid "Copy DVD"
 msgstr ""
 
 #: ../src/burn.h:74
+#, fuzzy
 msgid "Burn CD Image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/burn.h:75
+#, fuzzy
 msgid "Burn DVD Image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../src/burn.h:76
+#, fuzzy
 msgid "Create Data CD"
-msgstr ""
+msgstr "አዲስ የመርሃ-ጊዜ ቅጽ ጀምር"
 
 #: ../src/burn.h:77
 msgid "Append to Data CD"
 msgstr ""
 
 #: ../src/burn.h:78
+#, fuzzy
 msgid "Create Audio CD"
-msgstr ""
+msgstr "አዲስ የመርሃ-ጊዜ ቅጽ ጀምር"
 
 #: ../src/burn.h:79
+#, fuzzy
 msgid "Create Mixed CD"
-msgstr ""
+msgstr "አዲስ የመርሃ-ጊዜ ቅጽ ጀምር"
 
 #: ../src/burn.h:80
+#, fuzzy
 msgid "Create Video CD"
-msgstr ""
+msgstr "አዲስ የመርሃ-ጊዜ ቅጽ ጀምር"
 
 #: ../src/burn.h:81
+#, fuzzy
 msgid "Format DVD RW"
-msgstr ""
+msgstr "የመስመር ፈፃሜ አቀማመጥ-ዘዴ:"
 
 #: ../src/burn.h:82
+#, fuzzy
 msgid "Create Data DVD"
-msgstr ""
+msgstr "አዲስ የመርሃ-ጊዜ ቅጽ ጀምር"
 
 #: ../src/burn.h:83
 msgid "Append to Data DVD"
 msgstr ""
 
 #: ../gnomebaker.glade.h:1
+#, fuzzy
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
@@ -944,12 +995,14 @@ msgid "<b><big>...</big></b>"
 msgstr ""
 
 #: ../gnomebaker.glade.h:5
+#, fuzzy
 msgid "<b>Additional <i>cdrecord</i> options</b>"
-msgstr ""
+msgstr "ባለሁለት አቅጣጫ ምርጫዎች"
 
 #: ../gnomebaker.glade.h:6
+#, fuzzy
 msgid "<b>Boot options</b>"
-msgstr ""
+msgstr "ምርጫዎችን አስገባ"
 
 #: ../gnomebaker.glade.h:7
 msgid "<b>Create new project</b\t>"
@@ -960,28 +1013,33 @@ msgid "<b>Created by</b>"
 msgstr ""
 
 #: ../gnomebaker.glade.h:9
+#, fuzzy
 msgid "<b>Detected devices</b>"
-msgstr ""
+msgstr "አውቶማቲካሊ ተፈልጎ የተገኘ"
 
 #: ../gnomebaker.glade.h:10
 msgid "<b>Open existing project</b>"
 msgstr ""
 
 #: ../gnomebaker.glade.h:11
+#, fuzzy
 msgid "<b>Other</b>"
-msgstr ""
+msgstr "ሌላ"
 
 #: ../gnomebaker.glade.h:12
+#, fuzzy
 msgid "<b>Select Writer</b>"
-msgstr ""
+msgstr "ዶሴ ይምረጡ"
 
 #: ../gnomebaker.glade.h:13
+#, fuzzy
 msgid "<b>Temporary Directory</b>"
-msgstr ""
+msgstr "ዶሴ ይምረጡ"
 
 #: ../gnomebaker.glade.h:14
+#, fuzzy
 msgid "<b>Volume label</b>"
-msgstr ""
+msgstr "ለመኰልኮያው መለያ፦"
 
 #: ../gnomebaker.glade.h:15
 msgid "<b>Welcome</b>"
@@ -992,8 +1050,9 @@ msgid "<i>...</i>"
 msgstr ""
 
 #: ../gnomebaker.glade.h:17
+#, fuzzy
 msgid "Add file(s)"
-msgstr ""
+msgstr "HTML ፋይል (*.html)|*.html"
 
 #: ../gnomebaker.glade.h:18
 msgid "Add the selected files to the disk"
@@ -1020,32 +1079,38 @@ msgid "Bl_ank CD-RW"
 msgstr ""
 
 #: ../gnomebaker.glade.h:25
+#, fuzzy
 msgid "Boot Image"
-msgstr ""
+msgstr "ምስል አስገባ"
 
 #: ../gnomebaker.glade.h:26
+#, fuzzy
 msgid "Boot Image list"
-msgstr ""
+msgstr "የተጋረደ የትርጉሞች ዝርዝር"
 
 #: ../gnomebaker.glade.h:27
+#, fuzzy
 msgid "Boot catalog"
-msgstr ""
+msgstr "&አዲስ መዝገብ..."
 
 #: ../gnomebaker.glade.h:28
+#, fuzzy
 msgid "Burn _DVD Image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../gnomebaker.glade.h:29
+#, fuzzy
 msgid "C_opy Data CD"
-msgstr ""
+msgstr "የቅንብር መረጃ ንብረቶችን ክተት"
 
 #: ../gnomebaker.glade.h:30
 msgid "Clean temporary directory on exit"
 msgstr ""
 
 #: ../gnomebaker.glade.h:31
+#, fuzzy
 msgid "Clear the contents of the disk"
-msgstr ""
+msgstr "የመረጃ ማውጫ አሳይ"
 
 #: ../gnomebaker.glade.h:32
 msgid "Co_py Audio CD"
@@ -1060,44 +1125,52 @@ msgid "Create a new project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:36
+#, fuzzy
 msgid "Created by username"
-msgstr ""
+msgstr "ቅጂ በማድረግ ሰነዱን ክፈት"
 
 #: ../gnomebaker.glade.h:41
 msgid "Devices"
 msgstr ""
 
 #: ../gnomebaker.glade.h:42
+#, fuzzy
 msgid "Floppy disk image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../gnomebaker.glade.h:43
+#, fuzzy
 msgid "Force"
-msgstr ""
+msgstr "ጽሁፉን ከቀኝ ወደግራ አስገድድ"
 
 #: ../gnomebaker.glade.h:44
 msgid "General"
-msgstr ""
+msgstr "አጠቃላይ"
 
 #: ../gnomebaker.glade.h:46
+#, fuzzy
 msgid "GnomeBaker Preferences"
-msgstr ""
+msgstr "የጊዜ-ሠንጠረዥ ምርጫዎ"
 
 #: ../gnomebaker.glade.h:47
+#, fuzzy
 msgid "GnomeBaker data cd"
-msgstr ""
+msgstr "የቅንብር መረጃ ንብረቶችን ክተት"
 
 #: ../gnomebaker.glade.h:48
+#, fuzzy
 msgid "Hard disk image"
-msgstr ""
+msgstr "&ምስሉን በሌላ ስም አስቀምጥ"
 
 #: ../gnomebaker.glade.h:49
+#, fuzzy
 msgid "ISO filesystem details"
-msgstr ""
+msgstr "ዐርቢኛ፣ ISO-8859-6"
 
 #: ../gnomebaker.glade.h:50
+#, fuzzy
 msgid "Import Session"
-msgstr ""
+msgstr "ፋይል ከውጭ አስገባ"
 
 #: ../gnomebaker.glade.h:51
 msgid "Move Selected Files _Down"
@@ -1116,8 +1189,9 @@ msgid "Move audio tracks up"
 msgstr ""
 
 #: ../gnomebaker.glade.h:55
+#, fuzzy
 msgid "Not bootable"
-msgstr ""
+msgstr "የፋይሉን %s አልተገኘም"
 
 #: ../gnomebaker.glade.h:56
 msgid "Notify me when burning is complete"
@@ -1142,8 +1216,9 @@ msgid "Refresh the file browser file list"
 msgstr ""
 
 #: ../gnomebaker.glade.h:61
+#, fuzzy
 msgid "Remove selected"
-msgstr "Remove selected"
+msgstr "የገጹን እራስጌ አጥፋ"
 
 #: ../gnomebaker.glade.h:62
 msgid "Remove the selected files from the disk"
@@ -1162,16 +1237,18 @@ msgid "Save Project _As"
 msgstr ""
 
 #: ../gnomebaker.glade.h:67
+#, fuzzy
 msgid "Sc_an for devices"
-msgstr ""
+msgstr "የጊዜ-ሠንጠረዥ ለ${title} - ${calendar_title}"
 
 #: ../gnomebaker.glade.h:68
 msgid "Sh_ow human-readable file sizes"
 msgstr ""
 
 #: ../gnomebaker.glade.h:70
+#, fuzzy
 msgid "Splash window"
-msgstr ""
+msgstr "አዲስ መስኮት"
 
 #: ../gnomebaker.glade.h:71
 msgid "Starting GnomeBaker..."
@@ -1186,8 +1263,9 @@ msgid "_Add Selected Files"
 msgstr ""
 
 #: ../gnomebaker.glade.h:74
+#, fuzzy
 msgid "_Add device"
-msgstr ""
+msgstr "ፋይሎችን ጨምር"
 
 #: ../gnomebaker.glade.h:77
 msgid "_Close Project"
@@ -1199,19 +1277,21 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:79
 msgid "_Export"
-msgstr ""
+msgstr "_ላክ"
 
 #: ../gnomebaker.glade.h:80
+#, fuzzy
 msgid "_Format DVD±RW"
-msgstr ""
+msgstr "ሠንጠረዥ ፎርማቱ"
 
 #: ../gnomebaker.glade.h:81
 msgid "_Import"
-msgstr ""
+msgstr "_አምጣ"
 
 #: ../gnomebaker.glade.h:82
+#, fuzzy
 msgid "_Import Session"
-msgstr ""
+msgstr "ፋይል ከውጭ አስገባ"
 
 #: ../gnomebaker.glade.h:83
 msgid "_New Project"
@@ -1231,7 +1311,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:87
 msgid "_Refresh"
-msgstr ""
+msgstr "_አሻሽል"
 
 #: ../gnomebaker.glade.h:88
 msgid "_Remove Selected Files"
@@ -1242,8 +1322,9 @@ msgid "_Save Project"
 msgstr ""
 
 #: ../gnomebaker.glade.h:90
+#, fuzzy
 msgid "_Show File Browser"
-msgstr ""
+msgstr "እንደ ድረ ገጽ"
 
 #: ../gnomebaker.glade.h:91
 msgid "_Tools"
@@ -1252,3 +1333,100 @@ msgstr ""
 #: ../gnomebaker.glade.h:92
 msgid "_Window"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Failed to write playlist file"
+#~ msgstr "ለፋይል %s መጻፍ አልተቻለም"
+
+#~ msgid "Reader:"
+#~ msgstr "አንባቢ፡"
+
+#~ msgid "Writer:"
+#~ msgstr "ጸሃፊ"
+
+#, fuzzy
+#~ msgid "<b>Data Disk</b>"
+#~ msgstr "የቅንብር መረጃ ንብረቶችን ክተት"
+
+#, fuzzy
+#~ msgid "<b>File Browser</b>"
+#~ msgstr "HTML ፋይል (*.html)|*.html"
+
+#, fuzzy
+#~ msgid "<b>Progress window</b>"
+#~ msgstr "አዲስ መስኮት"
+
+#, fuzzy
+#~ msgid "Ask on quit"
+#~ msgstr "ከላይ ከላይ ፊደል ማረምን ያስችላል"
+
+#, fuzzy
+#~ msgid "Automatically scroll output"
+#~ msgstr "በራስ-ገዝ የተተረጎሙ %u ሐረጎች"
+
+#, fuzzy
+#~ msgid "Create Audio Disk"
+#~ msgstr "አዲስ የመርሃ-ጊዜ ቅጽ ጀምር"
+
+#, fuzzy
+#~ msgid "Create Data Disk"
+#~ msgstr "አዲስ የመርሃ-ጊዜ ቅጽ ጀምር"
+
+#, fuzzy
+#~ msgid "Create Video Disk"
+#~ msgstr "አዲስ የመርሃ-ጊዜ ቅጽ ጀምር"
+
+#, fuzzy
+#~ msgid "Edit GnomeBaker's preferences"
+#~ msgstr "የግል ምርጫዎችን አርም"
+
+#, fuzzy
+#~ msgid "Format DVD±RW"
+#~ msgstr "ሠንጠረዥ ፎርማቱ"
+
+#~ msgid "Import"
+#~ msgstr "አምጣ"
+
+#, fuzzy
+#~ msgid "Import existing session"
+#~ msgstr "ያለውን ሰነድ ክፈት"
+
+#, fuzzy
+#~ msgid "Move selection _down"
+#~ msgstr "የተመረጠውን ከላይ አስምሩ (ቀያይሩ)"
+
+#, fuzzy
+#~ msgid "Move selection _up"
+#~ msgstr "የገጽ &ቅንጅት"
+
+#~ msgid "Reader"
+#~ msgstr "አንባቢ"
+
+#, fuzzy
+#~ msgid "Show hidden files"
+#~ msgstr "ሁሉንም የምስል ፋይሎች"
+
+#, fuzzy
+#~ msgid "Show humanreadable filesizes"
+#~ msgstr "&የአስተያየት መስኮቱን አሳይ"
+
+#~ msgid "Speed"
+#~ msgstr "ፍጥነት"
+
+#, fuzzy
+#~ msgid "Start burning..."
+#~ msgstr "የመጀመሪያው ቀን"
+
+#~ msgid "Writer"
+#~ msgstr "ጸሃፊ"
+
+#, fuzzy
+#~ msgid "_Add selection"
+#~ msgstr "ቋንቋ መረጣ"
+
+#, fuzzy
+#~ msgid "_Remove selection"
+#~ msgstr "ቋንቋ መረጣ"
+
+#~ msgid "_View"
+#~ msgstr "_እይታ"

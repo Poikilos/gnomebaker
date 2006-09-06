@@ -1,7 +1,7 @@
-# English translation for gnomebaker
-# Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
+# Kurdish translation for gnomebaker
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the gnomebaker package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
@@ -9,13 +9,12 @@ msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2006-08-03 01:24+0200\n"
-"PO-Revision-Date: 2006-07-28 23:12+0000\n"
-"Last-Translator: Rui Mesquita <rpedro78@gmail.com>\n"
-"Language-Team: English <en@li.org>\n"
+"PO-Revision-Date: 2006-03-07 01:03+0000\n"
+"Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
+"Language-Team: Kurdish <ku@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Version: 0.1\n"
 
 #: ../src/audioproject.c:152 ../src/cairofillbar.c:672
 #, c-format
@@ -24,7 +23,7 @@ msgstr ""
 
 #: ../src/audioproject.c:181
 msgid "Track is too large to fit in the remaining space on the CD"
-msgstr "Track is too large to fit in the remaining space on the CD"
+msgstr ""
 
 #: ../src/audioproject.c:381
 #, c-format
@@ -56,7 +55,7 @@ msgstr ""
 #: ../src/audioproject.c:844 ../src/dataproject.c:1314
 #: ../src/filebrowser.c:577
 msgid "_Open"
-msgstr ""
+msgstr "_Veke"
 
 #: ../src/audioproject.c:849
 msgid "Move selected _up"
@@ -81,11 +80,11 @@ msgstr ""
 
 #: ../src/audioproject.c:1091
 msgid "Duration"
-msgstr "Duration"
+msgstr ""
 
 #: ../src/audioproject.c:1100
 msgid "Artist"
-msgstr "Artist"
+msgstr "Hunermend"
 
 #: ../src/audioproject.c:1109
 msgid "Album"
@@ -93,15 +92,15 @@ msgstr "Album"
 
 #: ../src/audioproject.c:1118
 msgid "Title"
-msgstr ""
+msgstr "Sernav"
 
 #: ../src/audioproject.c:1127
 msgid "Track"
-msgstr "Track"
+msgstr "Şop"
 
 #: ../src/audioproject.c:1144
 msgid "Info"
-msgstr ""
+msgstr "Agahî"
 
 #: ../src/audioproject.c:1175 ../gnomebaker.glade.h:21
 msgid "Audio CD"
@@ -200,7 +199,7 @@ msgstr ""
 
 #: ../src/burn.c:338
 msgid "Copying audio CD"
-msgstr ""
+msgstr "CD ya audiyo tê kopîkirin"
 
 #: ../src/burn.c:338
 msgid ""
@@ -318,7 +317,7 @@ msgstr ""
 
 #: ../src/dataproject.c:1329 ../src/dataproject.c:1368
 msgid "Clear"
-msgstr "Clear"
+msgstr "Paqij Bike"
 
 #: ../src/dataproject.c:1490
 #, c-format
@@ -330,7 +329,7 @@ msgstr ""
 
 #: ../src/dataproject.c:1491 ../src/devices.c:664
 msgid "unknown error"
-msgstr ""
+msgstr "çewtiya nenas"
 
 #: ../src/dataproject.c:1609
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
@@ -346,12 +345,12 @@ msgstr ""
 #: ../src/dataproject.c:1862 ../src/dataproject.c:1949
 #: ../gnomebaker.glade.h:33
 msgid "Contents"
-msgstr ""
+msgstr "Naverok"
 
 #: ../src/dataproject.c:1885 ../src/dataproject.c:1895
 #: ../src/filebrowser.c:785 ../src/filebrowser.c:795
 msgid "Size"
-msgstr ""
+msgstr "Mezinahî"
 
 #: ../src/dataproject.c:1905
 msgid "Full Path"
@@ -409,13 +408,10 @@ msgid "Preparing to extract audio tracks"
 msgstr ""
 
 #: ../src/execfunctions.c:422
-#, fuzzy
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
 msgstr ""
-"Audio tracks from a previous session already exist on disk, do you wish to "
-"use the existing tracks?"
 
 #: ../src/execfunctions.c:479
 #, c-format
@@ -438,7 +434,7 @@ msgstr ""
 
 #: ../src/execfunctions.c:831
 msgid "Formatting DVD"
-msgstr ""
+msgstr "DVD tê formatkirin"
 
 #: ../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
@@ -446,7 +442,7 @@ msgstr ""
 
 #: ../src/execfunctions.c:943 ../src/execfunctions.c:968
 msgid "Writing DVD"
-msgstr ""
+msgstr "DVD tê nivîsandin"
 
 #: ../src/execfunctions.c:1083
 msgid "Reading CD image"
@@ -476,19 +472,19 @@ msgstr ""
 #: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
 #: ../src/startdlg.c:443
 msgid "Filesystem"
-msgstr ""
+msgstr "Sîstema dosiyan"
 
 #: ../src/filebrowser.c:74
 msgid "Home"
-msgstr ""
+msgstr "Mal"
 
 #: ../src/filebrowser.c:75
 msgid "(empty)"
-msgstr ""
+msgstr "(vala)"
 
 #: ../src/filebrowser.c:76
 msgid "Folder"
-msgstr ""
+msgstr "Peldank"
 
 #: ../src/filebrowser.c:568
 msgid "_Add directory"
@@ -509,23 +505,23 @@ msgstr ""
 #: ../src/filebrowser.c:704
 #, c-format
 msgid "%s's home"
-msgstr ""
+msgstr "Mala %s"
 
 #: ../src/filebrowser.c:770
 msgid "File"
-msgstr ""
+msgstr "Dosya"
 
 #: ../src/filebrowser.c:805
 msgid "Type"
-msgstr ""
+msgstr "Cure"
 
 #: ../src/filebrowser.c:814
 msgid "Mime"
-msgstr ""
+msgstr "Mime"
 
 #: ../src/gbcommon.c:556
 msgid "All files"
-msgstr ""
+msgstr "Hemû dosya"
 
 #: ../src/gbcommon.c:564
 msgid "Save file as type:"
@@ -555,7 +551,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:413 ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
-msgstr ""
+msgstr "GnomeBaker"
 
 #: ../src/gnomebaker.c:414
 msgid "Simple CD/DVD Burning for Gnome"
@@ -563,7 +559,7 @@ msgstr ""
 
 #: ../src/gnomebaker.c:414
 msgid "translator_credits"
-msgstr ""
+msgstr "Erdal Ronahi <erdal.ronahi@gmail.com>"
 
 #: ../src/gnomebaker.c:727 ../src/gnomebaker.c:924
 msgid "Playlist files"
@@ -631,7 +627,7 @@ msgstr ""
 
 #: ../src/main.c:52
 msgid " - GNOME CD/DVD burning application"
-msgstr ""
+msgstr " - Bernameya çêkirina CD/DVD'yan ya GNOME"
 
 #: ../src/main.c:107
 msgid "Loading preferences..."
@@ -656,11 +652,11 @@ msgstr ""
 
 #: ../src/preferences.c:71 ../src/preferences.c:72
 msgid "default"
-msgstr ""
+msgstr "asayî"
 
 #: ../src/prefsdlg.c:139
 msgid "Name"
-msgstr ""
+msgstr "Nav"
 
 #: ../src/prefsdlg.c:154
 msgid "Id"
@@ -676,19 +672,19 @@ msgstr ""
 
 #: ../src/prefsdlg.c:181
 msgid "Write CD-R"
-msgstr ""
+msgstr "CD-R binivîse"
 
 #: ../src/prefsdlg.c:190
 msgid "Write CD-RW"
-msgstr ""
+msgstr "CD-RW binivîse"
 
 #: ../src/prefsdlg.c:199
 msgid "Write DVD-R"
-msgstr ""
+msgstr "DVD-R binivîse"
 
 #: ../src/prefsdlg.c:208
 msgid "Write DVD-RAM"
-msgstr ""
+msgstr "DVD-RAM binivîse"
 
 #: ../src/progressdlg.c:80
 #, c-format
@@ -725,15 +721,15 @@ msgstr ""
 
 #: ../src/progressdlg.c:365
 msgid "Completed"
-msgstr ""
+msgstr "Temamkirî"
 
 #: ../src/progressdlg.c:375
 msgid "Failed"
-msgstr ""
+msgstr "Serneket"
 
 #: ../src/project.c:73
 msgid "0%"
-msgstr ""
+msgstr "%0"
 
 #: ../src/project.c:112
 msgid "_Burn"
@@ -757,11 +753,12 @@ msgstr ""
 
 #: ../src/startdlg.c:204
 msgid "Speed:"
-msgstr ""
+msgstr "Lez:"
 
 #: ../src/startdlg.c:230
+#, fuzzy
 msgid "Mode:"
-msgstr ""
+msgstr "Mod:"
 
 #: ../src/startdlg.c:253
 msgid "<b>Options</b>"
@@ -769,11 +766,11 @@ msgstr ""
 
 #: ../src/startdlg.c:282
 msgid "_Start"
-msgstr ""
+msgstr "_Dest pê bike"
 
 #: ../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
-msgstr ""
+msgstr "<b>Agahiya diskê</b>"
 
 #: ../src/startdlg.c:347
 msgid "Volume ID:"
@@ -785,15 +782,15 @@ msgstr ""
 
 #: ../src/startdlg.c:353
 msgid "Preparer:"
-msgstr ""
+msgstr "Amadekar:"
 
 #: ../src/startdlg.c:356
 msgid "Publisher:"
-msgstr ""
+msgstr "Weşanger:"
 
 #: ../src/startdlg.c:359
 msgid "Copyright:"
-msgstr ""
+msgstr "Mafê kopyakirinê:"
 
 #: ../src/startdlg.c:362
 msgid "Abstract:"
@@ -805,15 +802,15 @@ msgstr ""
 
 #: ../src/startdlg.c:376
 msgid "<b>Filesystem</b>"
-msgstr ""
+msgstr "<b>Sîstema dosiyan</b>"
 
 #: ../src/startdlg.c:414 ../src/startdlg.c:442
 msgid "Writing"
-msgstr ""
+msgstr "Nivîsandin"
 
 #: ../src/startdlg.c:416 ../src/startdlg.c:444
 msgid "Disk Information"
-msgstr ""
+msgstr "Agahiya diskê"
 
 #: ../src/startdlg.c:566
 msgid "Dummy write"
@@ -821,7 +818,7 @@ msgstr ""
 
 #: ../src/startdlg.c:567
 msgid "Eject disk"
-msgstr ""
+msgstr "Dîskê bavêje"
 
 #: ../src/startdlg.c:568
 msgid "Fast blank"
@@ -853,11 +850,11 @@ msgstr ""
 
 #: ../src/startdlg.c:578
 msgid "Joliet"
-msgstr ""
+msgstr "Joliet"
 
 #: ../src/startdlg.c:579
 msgid "Rock Ridge"
-msgstr ""
+msgstr "Rock Ridge"
 
 #: ../src/startdlg.c:580
 msgid "On the fly"
@@ -865,11 +862,11 @@ msgstr ""
 
 #: ../src/startdlg.c:590
 msgid "_Browse..."
-msgstr ""
+msgstr "_Bigere..."
 
 #: ../src/burn.h:69
 msgid "Blank CD-RW"
-msgstr ""
+msgstr "CD-RW ya vala"
 
 #: ../src/burn.h:70
 msgid "Copy Data CD"
@@ -929,19 +926,19 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:1
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../gnomebaker.glade.h:2
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../gnomebaker.glade.h:3
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: ../gnomebaker.glade.h:4
 msgid "<b><big>...</big></b>"
-msgstr ""
+msgstr "<b><big>...</big></b>"
 
 #: ../gnomebaker.glade.h:5
 msgid "<b>Additional <i>cdrecord</i> options</b>"
@@ -969,7 +966,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:11
 msgid "<b>Other</b>"
-msgstr ""
+msgstr "<b>Wekî din</b>"
 
 #: ../gnomebaker.glade.h:12
 msgid "<b>Select Writer</b>"
@@ -989,7 +986,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:16
 msgid "<i>...</i>"
-msgstr ""
+msgstr "<i>...</i>"
 
 #: ../gnomebaker.glade.h:17
 msgid "Add file(s)"
@@ -1065,7 +1062,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:41
 msgid "Devices"
-msgstr ""
+msgstr "Amûr"
 
 #: ../gnomebaker.glade.h:42
 msgid "Floppy disk image"
@@ -1077,7 +1074,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:44
 msgid "General"
-msgstr ""
+msgstr "Giştî"
 
 #: ../gnomebaker.glade.h:46
 msgid "GnomeBaker Preferences"
@@ -1117,7 +1114,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:55
 msgid "Not bootable"
-msgstr ""
+msgstr "Nayê bootkirin"
 
 #: ../gnomebaker.glade.h:56
 msgid "Notify me when burning is complete"
@@ -1129,7 +1126,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:58
 msgid "PC bootable"
-msgstr ""
+msgstr "PC tê bootkirin"
 
 #: ../gnomebaker.glade.h:59
 msgid ""
@@ -1143,7 +1140,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:61
 msgid "Remove selected"
-msgstr "Remove selected"
+msgstr ""
 
 #: ../gnomebaker.glade.h:62
 msgid "Remove the selected files from the disk"
@@ -1243,7 +1240,7 @@ msgstr ""
 
 #: ../gnomebaker.glade.h:90
 msgid "_Show File Browser"
-msgstr ""
+msgstr "Geroka dosiyan _nîşan bide"
 
 #: ../gnomebaker.glade.h:91
 msgid "_Tools"
