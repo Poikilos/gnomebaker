@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnomebaker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-30 21:11+0100\n"
+"POT-Creation-Date: 2006-09-06 19:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Persian <fa@li.org>\n"
@@ -16,18 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/audioproject.c:149 ../src/cairofillbar.c:672
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:153
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:672
 #, c-format
 msgid "%d mins %d secs used - %d mins %d secs remaining"
 msgstr "%d دقیقه و %d ثانیه استفاده شده - %d دقیقه و %d ثانیه باقی مانده"
 
-#: ../src/audioproject.c:178
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:182
 msgid "Track is too large to fit in the remaining space on the CD"
 msgstr ""
 "شیار انتخاب شده بسیار بزرگتر از آن است که در فضای باقی مانده لوح فشرده قرار "
 "گیرد."
 
-#: ../src/audioproject.c:378
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:382
 #, fuzzy, c-format
 msgid ""
 "The file [%s] referred to in the play_list could not be imported as it does "
@@ -36,11 +37,11 @@ msgstr ""
 "به کارگیری فایل [%s] که لیست پخش قرار دارد، امکان پذیر نیست، زیرا این فایل "
 "وجود ندارد."
 
-#: ../src/audioproject.c:509
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:513
 msgid "Not enough space on the disk"
 msgstr ""
 
-#: ../src/audioproject.c:596
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:601
 #, fuzzy
 msgid ""
 "The file you have selected is not a supported play_list. Please select a pls "
@@ -49,12 +50,13 @@ msgstr ""
 "فایلی که شما انتخاب کرده‌اید یک فایل لیست پخش پشتیبانی شده نیست. لطفا یک فایل "
 "pls یا m3u را انتخاب کنید."
 
-#: ../src/audioproject.c:615 ../src/audioproject.c:652
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:621
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:658
 #, fuzzy
 msgid "Failed to write play_list file"
 msgstr "نوشتن فایل لیست‌پخش ممکن نشد."
 
-#: ../src/audioproject.c:701
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:707
 msgid ""
 "Playlist already exists.\n"
 " Do you want to replace it?"
@@ -62,71 +64,77 @@ msgstr ""
 "لیست‌پخش در حال حاضر موجود است\n"
 " آیا می‌خواهید آنرا جایگزین کنید ؟"
 
-#: ../src/audioproject.c:837 ../src/filebrowser.c:577
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:845
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1317
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:577
 msgid "_Open"
 msgstr "گشودن"
 
-#: ../src/audioproject.c:842
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:850
 msgid "Move selected _up"
 msgstr "انتقال گزینه انتخاب‌شده به بالا"
 
-#: ../src/audioproject.c:844
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:852
 msgid "Move selected _down"
 msgstr "انتقال گزینه انتخاب‌شده به پایین"
 
-#: ../src/audioproject.c:847 ../src/dataproject.c:1250
-#: ../src/dataproject.c:1287
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:855
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1330
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1367
 msgid "_Remove selected"
 msgstr "حذف گزینه انتخاب‌شده"
 
-#: ../src/audioproject.c:849
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:857
 msgid "_Clear"
 msgstr "پاک کردن"
 
-#: ../src/audioproject.c:1035
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1080
 msgid "No."
 msgstr ""
 
-#: ../src/audioproject.c:1047
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1092
 msgid "Duration"
 msgstr "مدت زمان"
 
-#: ../src/audioproject.c:1056
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1101
 msgid "Artist"
 msgstr "هنرمند"
 
-#: ../src/audioproject.c:1065
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1110
 msgid "Album"
 msgstr "آلبوم"
 
-#: ../src/audioproject.c:1074
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1119
 msgid "Title"
 msgstr "عنوان"
 
-#: ../src/audioproject.c:1083
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1128
 msgid "Track"
 msgstr "شیار"
 
-#: ../src/audioproject.c:1100
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1145
 msgid "Info"
 msgstr "اطلاعات"
 
-#: ../src/audioproject.c:1131
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/audioproject.c:1176
+#: ../gnomebaker.glade.h:21
 #, fuzzy
-msgid "<b>Audio CD</b>"
-msgstr "<b>دیسک صوتی</b>"
+msgid "Audio CD"
+msgstr "رونوشت از لوح فشرده صوتی"
 
-#: ../src/burn.c:93 ../src/burn.c:139
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:93
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:139
 msgid "Burning CD image"
 msgstr "سوزاندن(ذخیره) تصویر لوح فشرده"
 
-#: ../src/burn.c:93 ../src/burn.c:139
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:93
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:139
 msgid "Please wait while the CD image you selected is burned to CD."
 msgstr ""
 "لطفا تا زمانی که تصویر انتخاب شده بر روی لوح فشرده سوزانده(ذخیره) شود، صبر "
 "کنید."
 
-#: ../src/burn.c:115
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:115
 msgid ""
 "The file you have selected seems not to be a DVD image. Do you really want "
 "to write it to DVD?"
@@ -134,17 +142,17 @@ msgstr ""
 "فایلی که شما انتخاب کرده‌اید، بنظر نمی‌آید که یک تصویر DVD باشد. آیا واقعا "
 "می‌خواهید آنرا بر روی DVD منتقل کنید ؟"
 
-#: ../src/burn.c:120
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:120
 msgid "Burning DVD image"
 msgstr "سوزاندن(ذخیره) تصویر DVD"
 
-#: ../src/burn.c:120
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:120
 msgid "Please wait while the DVD image you selected is burned to DVD."
 msgstr ""
 "لطفا تا زمانی که تصویر انتخاب شده توسط شما بر روی DVD سوزانده(ذخیره) شود، "
 "صبر کنید."
 
-#: ../src/burn.c:163
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:163
 msgid ""
 "The file you have selected seems not to be a CD image. Do you really want to "
 "write it to CD?"
@@ -152,25 +160,26 @@ msgstr ""
 "فایلی که شما انتخاب کرده‌اید، بنظر نمی‌آید که یک تصویر لوح فشرده باشد. آیا "
 "واقعا می‌خواهید آنرا بر روی لوح فشرده منتقل کنید ؟"
 
-#: ../src/burn.c:180
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:180
 msgid "Creating data CD image"
 msgstr "ایجاد تصویر لوح فشرده اطلاعاتی"
 
-#: ../src/burn.c:180
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:180
 msgid "Please wait while the data CD image is created."
 msgstr "لطفا تا ایجاد تصویر لوح فشرده اطلاعاتی صبر کنید."
 
-#: ../src/burn.c:186 ../src/burn.c:196
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:186
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:196
 msgid "Burning data CD"
 msgstr "سوزاندن(ذخیره) لوح فشرده اطلاعاتی"
 
-#: ../src/burn.c:186
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:186
 msgid "Please wait while the data is burned directly to CD."
 msgstr ""
 "لطفا تا زمانی که اطلاعات به صورت مستقیم در لوح فشرده سوزانده(ذخیره) شود، صبر "
 "کنید."
 
-#: ../src/burn.c:196
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:196
 msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
@@ -179,17 +188,18 @@ msgstr ""
 "شود، صبر کنید. این عملیات ممکن است بسته به سرعت دستگاه سوزاننده لوح فشرده‌(CD-"
 "Writer) شما، کمی طول بکشد. "
 
-#: ../src/burn.c:221 ../src/burn.c:231
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:221
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:231
 msgid "Appending to data CD"
 msgstr "افزودن به لوح فشرده اطلاعاتی"
 
-#: ../src/burn.c:221
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:221
 msgid "Please wait while the additional data is burned directly to CD."
 msgstr ""
 "لطفا تا زمانی که اطلاعات اضافه به صورت مستقیم در لوح فشرده سوزانده(ذخیره) "
 "شود، صبر کنید."
 
-#: ../src/burn.c:231
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:231
 msgid ""
 "Please wait while the data disk image is created and then appended to the "
 "CD. Depending on the speed of your CD writer, this may take some time. "
@@ -198,11 +208,11 @@ msgstr ""
 "کنید. این عملیات ممکن است بسته به سرعت دستگاه سوزاننده لوح فشرده‌(CD-Writer) "
 "شما، کمی طول بکشد. "
 
-#: ../src/burn.c:253
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:253
 msgid "Burning audio CD"
 msgstr "سوزاندن(ذخیره) لوح فشرده صوتی"
 
-#: ../src/burn.c:253
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:253
 msgid ""
 "Please wait while the selected tracks are converted to CD audio and then "
 "burned to CD."
@@ -210,161 +220,169 @@ msgstr ""
 "لطفا تا زمانی که شیارهای انتخاب شده به لوح فشرده صوتی تبدیل شده، سپس در لوح "
 "فشرده سوزانده(ذخیره) شود، صبر کنید."
 
-#: ../src/burn.c:312
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:312
 msgid "Extracting CD image"
 msgstr "استخراج تصویر لوح فشرده"
 
-#: ../src/burn.c:312
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:312
 msgid "Please wait while the data CD image is extracted."
 msgstr "لطفا تا زمانی که تصویر اطلاعات لوح فشرده استخراج شود، صبر کنید."
 
-#: ../src/burn.c:318
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:318
 msgid "Copying data CD"
 msgstr "نسخه برداری لوح فشرده اطلاعاتی"
 
-#: ../src/burn.c:318
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:318
 msgid "Please wait while the data CD image is extracted and then burned to CD."
 msgstr ""
 "لطفا تا زمانی که تصویر اطلاعات لوح فشرده استخراج شود و در لوح فشرده سوزانده"
 "(ذخیره) شود، صبر کنید."
 
-#: ../src/burn.c:338
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:338
 msgid "Copying audio CD"
 msgstr "نسخه برداری لوح فشرده صوتی"
 
-#: ../src/burn.c:338
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:338
 msgid ""
 "Please wait while the audio CD tracks are extracted and then burned to CD."
 msgstr ""
 "لطفا تا زمانی که شیارهای لوح فشرده صوتی استخراج شود و در لوح فشرده سوزانده"
 "(ذخیره) شود، صبر کنید."
 
-#: ../src/burn.c:354
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:354
 #, fuzzy
 msgid "Copying CD"
 msgstr "نسخه برداری لوح فشرده اطلاعاتی"
 
-#: ../src/burn.c:354
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:354
 #, fuzzy
 msgid "Please wait while the CD is copied"
 msgstr "لطفا تا خالی شدن لوح فشرده صبر کنید."
 
-#: ../src/burn.c:371
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:371
 #, fuzzy
 msgid "Extracting DVD image"
 msgstr "استخراج تصویر لوح فشرده"
 
-#: ../src/burn.c:371
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:371
 #, fuzzy
 msgid "Please wait while the DVD image is extracted."
 msgstr "لطفا تا زمانی که تصویر اطلاعات لوح فشرده استخراج شود، صبر کنید."
 
-#: ../src/burn.c:377
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:377
 #, fuzzy
 msgid "Copying DVD"
 msgstr "نسخه برداری لوح فشرده اطلاعاتی"
 
-#: ../src/burn.c:377
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:377
 #, fuzzy
 msgid "Please wait while the DVD image is extracted and then burned to DVD"
 msgstr ""
 "لطفا تا زمانی که تصویر اطلاعات لوح فشرده استخراج شود و در لوح فشرده سوزانده"
 "(ذخیره) شود، صبر کنید."
 
-#: ../src/burn.c:397
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:397
 msgid "Blanking CD"
 msgstr "خالی‌ کردن لوح فشرده"
 
-#: ../src/burn.c:397
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:397
 msgid "Please wait while the CD is blanked."
 msgstr "لطفا تا خالی شدن لوح فشرده صبر کنید."
 
-#: ../src/burn.c:413
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:413
 #, fuzzy
 msgid "Formatting re-writeable DVD"
 msgstr "طبقه بندی RRW-DVD"
 
-#: ../src/burn.c:413
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:413
 msgid "Please wait while the DVD is formatted."
 msgstr "لطفا تا زمانی که DVD طبقه‌‌بندی(فرمت) شود، صبر کنید."
 
-#: ../src/burn.c:433
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:433
 msgid "Creating data DVD image"
 msgstr "ایجاد تصویر DVD اطلاعاتی"
 
-#: ../src/burn.c:433
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:433
 msgid "Please wait while the data DVD image is created."
 msgstr "لطفا تا زمانی که تصویر DVD اطلاعاتی ایجاد شود، صبر کنید."
 
-#: ../src/burn.c:439
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:439
 msgid "Burning data DVD"
 msgstr "سوزاندن(ذخیره) DVD اطلاعاتی"
 
-#: ../src/burn.c:439
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:439
 msgid "Please wait while the data is burned directly to DVD."
 msgstr ""
 "لطفا تا زمانی که اطلاعات به صورت مستقیم در DVD سوزانده(ذخیره) شود، صبر کنید."
 
-#: ../src/burn.c:458 ../src/burn.c:520
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:458
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:520
 msgid "Appending to data DVD"
 msgstr "افزودن به DVD اطلاعاتی"
 
-#: ../src/burn.c:458 ../src/burn.c:520
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:458
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:520
 msgid "Please wait while the data is appended directly to the DVD."
 msgstr "لطفا تا زمانی که اطلاعات به صورت مستقیم در DVD افزوده شود، صبر کنید."
 
-#: ../src/burn.c:485 ../src/execfunctions.c:1681
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.c:485
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1685
 msgid "Verifying the disk content"
 msgstr "بازبینی کردن محتویات دیسک"
 
-#: ../src/cairofillbar.c:684
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:684
 #, c-format
 msgid "%s of %s used. <b>Overburning</b>."
 msgstr ""
 
-#: ../src/cairofillbar.c:690 ../src/dataproject.c:396
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:690
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:389
 #, fuzzy, c-format
 msgid "%s used - %s remaining."
 msgstr "%s استفاده شده - %s باقیمانده"
 
-#: ../src/cairofillbar.c:696
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/cairofillbar.c:696
 #, c-format
 msgid "%s of %s used. <b>Disk full</b>."
 msgstr ""
 
-#: ../src/dataproject.c:178 ../src/startdlg.c:589
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:172
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:587
 msgid "GnomeBaker data disk"
 msgstr "دیسک اطلاعاتی GnomeBaker"
 
-#: ../src/dataproject.c:390
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:383
 #, c-format
 msgid "%s of %s used. Overburning."
 msgstr ""
 
-#: ../src/dataproject.c:402
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:395
 #, c-format
 msgid "%s of %s used. Disk full."
 msgstr ""
 
-#: ../src/dataproject.c:1174
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1180
 #, fuzzy
 msgid "New Folder"
 msgstr "پوشه"
 
-#: ../src/dataproject.c:1238 ../src/dataproject.c:1277
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1321
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1357
 #, fuzzy
 msgid "_Add Folder"
 msgstr "پوشه"
 
-#: ../src/dataproject.c:1246 ../src/dataproject.c:1281
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1326
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1361
 msgid "_Edit name"
 msgstr "تغییر نام"
 
-#: ../src/dataproject.c:1252 ../src/dataproject.c:1291
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1332
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1371
 msgid "Clear"
 msgstr "تمیز"
 
-#: ../src/dataproject.c:1459
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1493
 #, c-format
 msgid ""
 "Error getting session information.\n"
@@ -375,61 +393,63 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/dataproject.c:1460 ../src/devices.c:664
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1494
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:664
 msgid "unknown error"
 msgstr "اشکال شناخته نشده"
 
-#: ../src/dataproject.c:1655
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1620
 #, fuzzy
 msgid "Compilation exeeds the capacity or the remaining space of the disk"
 msgstr ""
 "شیار انتخاب شده بسیار بزرگتر از آن است که در فضای باقی مانده لوح فشرده قرار "
 "گیرد."
 
-#: ../src/dataproject.c:1763
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1703
 #, c-format
 msgid ""
 "Error importing session from [%s]. Please check the device configuration in "
 "preferences."
 msgstr ""
 
-#: ../src/dataproject.c:1857 ../src/dataproject.c:1954
-#: ../gnomebaker.glade.h:38
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1918
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:2005
+#: ../gnomebaker.glade.h:33
 msgid "Contents"
 msgstr "محتوی"
 
-#: ../src/dataproject.c:1880 ../src/dataproject.c:1890
-#: ../src/filebrowser.c:785 ../src/filebrowser.c:795
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1941
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1951
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:785
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:795
 msgid "Size"
 msgstr "حجم"
 
-#: ../src/dataproject.c:1900
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:1961
 msgid "Full Path"
 msgstr "آدرس کامل"
 
-#: ../src/dataproject.c:1909
-msgid "Session"
-msgstr "نشست"
-
-#: ../src/dataproject.c:2082
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:2134
+#: ../gnomebaker.glade.h:38
 #, fuzzy
-msgid "<b>Data DVD</b>"
-msgstr "<b>دیسک اطلاعاتی</b>"
+msgid "Data DVD"
+msgstr "ایجاد DVD اطلاعاتی"
 
 #. preferences_get_int(GB_DATA_DISK_SIZE)
-#: ../src/dataproject.c:2088
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/dataproject.c:2140
+#: ../gnomebaker.glade.h:37
 #, fuzzy
-msgid "<b>Data CD</b>"
-msgstr "<b>دیسک اطلاعاتی</b>"
+msgid "Data CD"
+msgstr "رونوشت از لوح فشرده اطلاعاتی"
 
-#: ../src/devices.c:653
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:653
 msgid ""
 "The mount point (e.g. /mnt/cdrom) for the writing device could not be "
 "obtained. Please check that the writing device has an entry in /etc/fstab "
 "and then go to preferences and rescan for devices."
 msgstr ""
 
-#: ../src/devices.c:663
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:663
 #, c-format
 msgid ""
 "Error mounting %s.\n"
@@ -437,36 +457,39 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../src/devices.c:792
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/devices.c:792
 #, c-format
 msgid "Please insert a disk into the %s"
 msgstr "لطفا یک دیسک در %s قرار دهید"
 
-#: ../src/execfunctions.c:86
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:86
 msgid "Preparing to blank disk"
 msgstr "آماده شدن برای خالی کردن دیسک"
 
-#: ../src/execfunctions.c:144
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:144
 msgid "Preparing to burn disk"
 msgstr "آماده شدن برای سوزاندن(ذخیره کردن) دیسک"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #. current_track, cdrecord_first_track, current, total, total_fraction);
-#: ../src/execfunctions.c:201
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:201
 #, c-format
 msgid "Writing track %d"
 msgstr "نوشتن شیار %d"
 
-#: ../src/execfunctions.c:292 ../src/execfunctions.c:1015
-#: ../src/startdlg.c:208 ../src/startdlg.c:234 ../src/startdlg.c:235
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:292
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1015
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:208
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:234
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:235
 msgid "Auto"
 msgstr ""
 
-#: ../src/execfunctions.c:411
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:411
 msgid "Preparing to extract audio tracks"
 msgstr "آماده شدن برای استخراج شیارهای صوتی"
 
-#: ../src/execfunctions.c:422
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:422
 msgid ""
 "Audio tracks from a previous sesion already exist on disk, do you wish to "
 "use the existing tracks?"
@@ -474,20 +497,20 @@ msgstr ""
 "شیارهای صوتی از نشست قبلی در دیسک موجود هستند. آیا می‌خواهید از شیارهای موجود "
 "استفاده کنید ؟"
 
-#: ../src/execfunctions.c:479
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:479
 #, c-format
 msgid "Extracting audio track %d"
 msgstr "استخراج کردن شیار صوتی %d"
 
-#: ../src/execfunctions.c:549
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:549
 msgid "Calculating data disk image size"
 msgstr "حساب کردن حجم تصویر دیسک اطلاعاتی"
 
-#: ../src/execfunctions.c:587
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:587
 msgid "Creating data disk image"
 msgstr "ایجاد تصویر دیسک اطلاعاتی"
 
-#: ../src/execfunctions.c:594
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:594
 msgid ""
 "A data CD image from a previous session already exists on disk, do you wish "
 "to use the existing image?"
@@ -495,23 +518,24 @@ msgstr ""
 "یک تصویر لوح فشرده از نشست قبلی در دیسک موجود می‌باشد. آیا می‌خواهید از تصویر "
 "موجود استفاده کنید ؟"
 
-#: ../src/execfunctions.c:831
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:831
 msgid "Formatting DVD"
 msgstr ""
 
-#: ../src/execfunctions.c:912
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
 msgstr "آماده شدن برای سوزاندن(ذخیره کردن) DVD"
 
-#: ../src/execfunctions.c:943 ../src/execfunctions.c:968
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:943
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:968
 msgid "Writing DVD"
 msgstr "نوشتن در DVD"
 
-#: ../src/execfunctions.c:1083
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1083
 msgid "Reading CD image"
 msgstr "خواندن تصویر لوح فشرده"
 
-#: ../src/execfunctions.c:1091
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1091
 msgid ""
 "A CD image from a previous session already exists on disk, do you wish to "
 "use the existing image?"
@@ -519,17 +543,17 @@ msgstr ""
 "یک تصویر لوح فشرده از نشست قبلی موجود در دیسک موجود است. آیا می‌خواهید از "
 "تصویر موجود استفاده کنید ؟"
 
-#: ../src/execfunctions.c:1476
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1480
 #, c-format
 msgid "Converting %s to cd audio"
 msgstr "تبدیل %s به لوح فشرده صوتی"
 
-#: ../src/execfunctions.c:1723
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1727
 #, fuzzy
 msgid "Reading DVD image"
 msgstr "خواندن تصویر لوح فشرده"
 
-#: ../src/execfunctions.c:1731
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/execfunctions.c:1735
 #, fuzzy
 msgid ""
 "A DVD image from a previous session already exists on disk, do you wish to "
@@ -538,454 +562,526 @@ msgstr ""
 "یک تصویر لوح فشرده از نشست قبلی موجود در دیسک موجود است. آیا می‌خواهید از "
 "تصویر موجود استفاده کنید ؟"
 
-#: ../src/filebrowser.c:73 ../src/filebrowser.c:674 ../src/startdlg.c:415
-#: ../src/startdlg.c:443
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:73
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:674
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:415
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:443
 msgid "Filesystem"
 msgstr "فایل‌سیستم"
 
-#: ../src/filebrowser.c:74
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:74
 msgid "Home"
 msgstr "خانه"
 
-#: ../src/filebrowser.c:75
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:75
 msgid "(empty)"
 msgstr "(خالی)"
 
-#: ../src/filebrowser.c:76
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:76
 msgid "Folder"
 msgstr "پوشه"
 
-#: ../src/filebrowser.c:568
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:568
 msgid "_Add directory"
 msgstr "اضافه کردن پوشه"
 
-#: ../src/filebrowser.c:581
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:581
 msgid "_Add file(s)"
 msgstr "اضافه کردن فایل(ها)"
 
-#: ../src/filebrowser.c:596 ../gnomebaker.glade.h:88
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:596
+#: ../gnomebaker.glade.h:76
 msgid "_Burn CD Image"
 msgstr "سوزاندن(ذخیره) تصویر لوح فشرده"
 
-#: ../src/filebrowser.c:599
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:599
 msgid "_Burn DVD Image"
 msgstr "سوزاندن(ذخیره) تصویر DVD"
 
-#: ../src/filebrowser.c:704
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:704
 #, c-format
 msgid "%s's home"
 msgstr "خانه‌ی %s"
 
-#: ../src/filebrowser.c:770
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:770
 msgid "File"
 msgstr "فایل"
 
-#: ../src/filebrowser.c:805
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:805
 msgid "Type"
 msgstr "نوع"
 
-#: ../src/filebrowser.c:814
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/filebrowser.c:814
 msgid "Mime"
 msgstr ""
 
-#: ../src/gbcommon.c:566
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gbcommon.c:556
 msgid "All files"
 msgstr "تمام فایل‌ها"
 
-#: ../src/gbcommon.c:574
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gbcommon.c:564
 msgid "Save file as type:"
 msgstr "ذخیره فایل با نوع:"
 
-#: ../src/gnomebaker.c:232
-msgid "Are you sure you want to quit?"
-msgstr "آیا مطمئن هستید که می‌خواهید خارج شوید؟"
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:238
+msgid ""
+"There are unsaved projects, your changes will be lost if you quit. Are you "
+"sure you want to quit?"
+msgstr ""
 
-#: ../src/gnomebaker.c:309
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:309
 msgid "CD Image files"
 msgstr "فایل‌های تصویر لوح فشرده"
 
-#: ../src/gnomebaker.c:310
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:310
 msgid "Please select a CD image file."
 msgstr "لطفا یک فایل تصویر لوح فشرده انتخاب کنید."
 
-#: ../src/gnomebaker.c:325
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:325
 msgid "DVD Image files"
 msgstr "فایل‌های تصویرdvd"
 
-#: ../src/gnomebaker.c:326
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:326
 msgid "Please select a DVD image file."
 msgstr "لطفا یک فایل تصویر DVD انتخاب کنید."
 
-#: ../src/gnomebaker.c:414 ../gnomebaker.glade.h:51
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:420
+msgid ""
+"GnomeBaker is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:424
+msgid ""
+"GnomeBaker is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:428
+msgid ""
+"You should have received a copy of the GNU General Public License\n"
+"along with GnomeBaker; if not, write to the Free Software Foundation, Inc.,\n"
+"59 Temple Place, Suite 330, Boston, MA  02111-1307  USA\n"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:438
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:96
+#: ../gnomebaker.glade.h:45
 msgid "GnomeBaker"
 msgstr "GnomeBaker"
 
-#: ../src/gnomebaker.c:415
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:441
 msgid "Simple CD/DVD Burning for Gnome"
 msgstr "سوزاندن آسان لوح فشرده و DVD برای گنوم"
 
-#: ../src/gnomebaker.c:415 ../gnomebaker.glade.h:112
-msgid "translator_credits"
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:446
+#, fuzzy
+msgid "translator-credits"
 msgstr "معین علی‌نقیان <masoft@users.sourceforge.net>"
 
-#: ../src/gnomebaker.c:725 ../src/gnomebaker.c:911
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:762
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:992
 msgid "Playlist files"
 msgstr "فایل‌های لیست پخش"
 
-#: ../src/gnomebaker.c:732
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:769
 msgid "Save playlist as..."
 msgstr "ذخیره لیست‌پخش با عنوان ..."
 
-#: ../src/gnomebaker.c:755
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:792
 #, fuzzy
 msgid "Project files"
 msgstr "خروج دیسک"
 
-#: ../src/gnomebaker.c:794
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:862
 #, fuzzy
 msgid "Please select a project file."
 msgstr "لطفا یک فایل تصویر لوح فشرده انتخاب کنید."
 
-#: ../src/gnomebaker.c:828 ../gnomebaker.glade.h:74
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:900
+#: ../gnomebaker.glade.h:66
 msgid "Save project"
 msgstr ""
 
-#: ../src/gnomebaker.c:912
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:993
 msgid "Please select a playlist."
 msgstr "لطفا یک لیست پخش انتخاب کنید."
 
-#: ../src/gnomebaker.c:999
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1019
+msgid "Project is not saved. Are you sure you want to close the project?"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1081
 msgid "Please select files to add to the disk."
 msgstr "لطفا فایل‌ها را برای اضافه به دیسک انتخاب کنید."
 
-#: ../src/gnomebaker.c:1008
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1090
 #, fuzzy
 msgid "Please select folders to add to the disk."
 msgstr "لطفا فایل‌ها را برای اضافه به دیسک انتخاب کنید."
 
-#: ../src/gnomebaker.c:1018
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1100
 #, fuzzy
 msgid "_Add Folders"
 msgstr "پوشه"
 
-#: ../src/gnomebaker.c:1020
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1102
 #, fuzzy
 msgid "_Add Files"
 msgstr "اضافه کردن فایل(ها)"
 
-#: ../src/gnomebaker.c:1057
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1114
+#: ../gnomebaker.glade.h:40
+#, fuzzy
+msgid "Data _DVD"
+msgstr "ایجاد DVD اطلاعاتی"
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1116
+#: ../gnomebaker.glade.h:39
+#, fuzzy
+msgid "Data _CD"
+msgstr "رونوشت از لوح فشرده اطلاعاتی"
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1118
+#: ../gnomebaker.glade.h:75
+#, fuzzy
+msgid "_Audio CD"
+msgstr "<b>دیسک صوتی</b>"
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1155
 #, fuzzy
 msgid "Audio files"
 msgstr "اضافه کردن فایل(ها)"
 
-#: ../src/main.c:43
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/gnomebaker.c:1225
+msgid "Recent projects"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:44
 msgid "Show tracing information (useful when debugging)"
 msgstr ""
 
-#: ../src/main.c:52
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:53
 msgid " - GNOME CD/DVD burning application"
 msgstr ""
 
-#: ../src/main.c:107
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:111
 msgid "Loading preferences..."
 msgstr "بارگذاری تنظیمات..."
 
-#: ../src/main.c:112
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:116
 msgid "Detecting devices..."
 msgstr "شناختن دستگاه‌ها..."
 
-#: ../src/main.c:117
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:121
 msgid "Registering gstreamer plugins..."
 msgstr ""
 
-#: ../src/main.c:122
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/main.c:126
 msgid "Loading GUI..."
 msgstr "بارگذاری محیط گرافیکی..."
 
-#: ../src/media.c:497
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/media.c:497
 #, c-format
 msgid "The plugin to handle a file of type %s is not installed."
 msgstr ""
 
-#: ../src/preferences.c:71 ../src/preferences.c:72 ../gnomebaker.glade.h:106
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/preferences.c:71
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/preferences.c:72
 msgid "default"
 msgstr "پیش‌فرض"
 
-#: ../src/prefsdlg.c:139
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:139
 msgid "Name"
 msgstr "نام"
 
-#: ../src/prefsdlg.c:154
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:154
 msgid "Id"
 msgstr ""
 
-#: ../src/prefsdlg.c:163
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:163
 msgid "Node"
 msgstr "گره"
 
-#: ../src/prefsdlg.c:172
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:172
 msgid "Mount point"
 msgstr ""
 
-#: ../src/prefsdlg.c:181
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:181
 #, fuzzy
 msgid "Write CD-R"
 msgstr "نوشتن در CD-R"
 
-#: ../src/prefsdlg.c:190
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:190
 #, fuzzy
 msgid "Write CD-RW"
 msgstr "نوشتن در CD-RW"
 
-#: ../src/prefsdlg.c:199
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:199
 #, fuzzy
 msgid "Write DVD-R"
 msgstr "نوشتن در DVD-R"
 
-#: ../src/prefsdlg.c:208
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/prefsdlg.c:208
 #, fuzzy
 msgid "Write DVD-RAM"
 msgstr "نوشتن در DVD-RAM"
 
-#: ../src/progressdlg.c:80
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:82
 #, fuzzy, c-format
 msgid "%d minutes %d seconds"
 msgstr "۰ دقیقه و ۰ ثانیه"
 
-#: ../src/progressdlg.c:82
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:84
 #, fuzzy, c-format
 msgid "%d minute %d seconds"
 msgstr "۰ دقیقه و ۰ ثانیه"
 
-#: ../src/progressdlg.c:84
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:86
 #, c-format
 msgid "%d seconds"
 msgstr ""
 
-#: ../src/progressdlg.c:225
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:91
+msgid "1 minute"
+msgstr ""
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:93
 #, fuzzy, c-format
-msgid "%s remaining"
+msgid "%d minutes"
+msgstr "۰ دقیقه و ۰ ثانیه"
+
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:235
+#, fuzzy, c-format
+msgid "Approximately %s remaining"
 msgstr "%s استفاده شده - %s باقیمانده"
 
-#: ../src/progressdlg.c:280 ../gnomebaker.glade.h:77
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:290
+#: ../gnomebaker.glade.h:69
 msgid "Show output"
 msgstr "نمایش خروجی"
 
-#: ../src/progressdlg.c:280
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:290
 msgid "Hide output"
 msgstr "پنهان کردن خروجی"
 
-#: ../src/progressdlg.c:359
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:369
 #, c-format
 msgid "Elapsed time %s"
 msgstr ""
 
-#: ../src/progressdlg.c:365
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:375
 msgid "Completed"
 msgstr "تمام شد"
 
-#: ../src/progressdlg.c:375
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/progressdlg.c:385
 msgid "Failed"
 msgstr "خراب شد"
 
-#: ../src/project.c:72
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/project.c:74
 msgid "0%"
 msgstr "۰٪"
 
-#: ../src/project.c:111
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/project.c:111
 msgid "_Burn"
 msgstr ""
 
-#: ../src/startdlg.c:108
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:108
 msgid "Please select an image file to save to."
 msgstr "لطفا یک فایل تصویر برای ذخیره انتخاب کنید."
 
-#: ../src/startdlg.c:130
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:130
 msgid "CD/DVD Image files"
 msgstr "فایل‌های تصویر لوح فشرده\\DVD"
 
-#: ../src/startdlg.c:195
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:195
 #, fuzzy
 msgid "<b>Reader</b>"
 msgstr "<b>غیره</b>"
 
-#: ../src/startdlg.c:200
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:200
 #, fuzzy
 msgid "<b>Writer</b>"
 msgstr "<b>غیره</b>"
 
-#: ../src/startdlg.c:204
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:204
 msgid "Speed:"
 msgstr "سرعت:"
 
-#: ../src/startdlg.c:230
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:230
 msgid "Mode:"
 msgstr "سبک:"
 
-#: ../src/startdlg.c:253 ../gnomebaker.glade.h:12
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:253
 msgid "<b>Options</b>"
 msgstr "<b>تنظیمات</b>"
 
-#: ../src/startdlg.c:282 ../gnomebaker.glade.h:102
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:282
 msgid "_Start"
 msgstr "شروع"
 
-#: ../src/startdlg.c:345
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:345
 msgid "<b>Disk Information</b>"
 msgstr "<b>اطلاعات دیسک</b>"
 
-#: ../src/startdlg.c:347
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:347
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/startdlg.c:350
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:350
 msgid "Application ID:"
 msgstr ""
 
-#: ../src/startdlg.c:353
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:353
 msgid "Preparer:"
 msgstr "آماده ساز:"
 
-#: ../src/startdlg.c:356
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:356
 msgid "Publisher:"
 msgstr "ناشر:"
 
-#: ../src/startdlg.c:359
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:359
 msgid "Copyright:"
 msgstr "حق نسخه‌برداری:"
 
-#: ../src/startdlg.c:362
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:362
 msgid "Abstract:"
 msgstr ""
 
-#: ../src/startdlg.c:365
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:365
 msgid "Bibliography:"
 msgstr ""
 
-#: ../src/startdlg.c:376
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:376
 msgid "<b>Filesystem</b>"
 msgstr "<b>فایل سیستم</b>"
 
-#: ../src/startdlg.c:414 ../src/startdlg.c:442
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:414
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:442
 msgid "Writing"
 msgstr "نوشتن"
 
-#: ../src/startdlg.c:416 ../src/startdlg.c:444
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:416
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:444
 msgid "Disk Information"
 msgstr "اطلاعات دیسک"
 
-#: ../src/startdlg.c:563
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:561
 msgid "Dummy write"
 msgstr ""
 
-#: ../src/startdlg.c:564
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:562
 msgid "Eject disk"
 msgstr "خروج دیسک"
 
-#: ../src/startdlg.c:565
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:563
 msgid "Fast blank"
 msgstr ""
 
-#: ../src/startdlg.c:566
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:564
 msgid "BurnFree"
 msgstr ""
 
-#: ../src/startdlg.c:567
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:565
 msgid "Burn the disk"
 msgstr "سوزاندن(ذخیره) دیسک"
 
-#: ../src/startdlg.c:569
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:567
 msgid "Only create image"
 msgstr ""
 
-#: ../src/startdlg.c:572
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:570
 msgid "Force format"
 msgstr ""
 
-#: ../src/startdlg.c:573
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:571
 msgid "Finalize"
 msgstr "پایان دادن"
 
-#: ../src/startdlg.c:574
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:572
 msgid "Fast format"
 msgstr "طبقه‌بندی سریع"
 
-#: ../src/startdlg.c:575
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:573
 msgid "Joliet"
 msgstr ""
 
-#: ../src/startdlg.c:576
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:574
 msgid "Rock Ridge"
 msgstr ""
 
-#: ../src/startdlg.c:577
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:575
 msgid "On the fly"
 msgstr ""
 
-#: ../src/startdlg.c:587
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/startdlg.c:585
 msgid "_Browse..."
 msgstr "مرور"
 
-#: ../src/burn.h:69
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:69
 #, fuzzy
 msgid "Blank CD-RW"
 msgstr "لوح فشرده قابل دوباره‌بازخوانی خالی"
 
-#: ../src/burn.h:70
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:70
 msgid "Copy Data CD"
 msgstr "رونوشت از لوح فشرده اطلاعاتی"
 
-#: ../src/burn.h:71
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:71
 msgid "Copy Audio CD"
 msgstr "رونوشت از لوح فشرده صوتی"
 
-#: ../src/burn.h:72
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:72
 #, fuzzy
 msgid "Copy CD"
 msgstr "رونوشت از لوح فشرده اطلاعاتی"
 
-#: ../src/burn.h:73
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:73
 #, fuzzy
 msgid "Copy DVD"
 msgstr "رونوشت از لوح فشرده اطلاعاتی"
 
-#: ../src/burn.h:74
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:74
 msgid "Burn CD Image"
 msgstr "سوزاندن تصویر لوح فشرده"
 
-#: ../src/burn.h:75
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:75
 msgid "Burn DVD Image"
 msgstr "سوزاندن تصویر DVD"
 
-#: ../src/burn.h:76
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:76
 msgid "Create Data CD"
 msgstr "ایجاد لوح فشرده اطلاعاتی"
 
-#: ../src/burn.h:77
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:77
 msgid "Append to Data CD"
 msgstr "افزودن به لوح فشرده اطلاعاتی"
 
-#: ../src/burn.h:78
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:78
 msgid "Create Audio CD"
 msgstr "ایجاد لوح فشرده صوتی"
 
-#: ../src/burn.h:79
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:79
 msgid "Create Mixed CD"
 msgstr ""
 
-#: ../src/burn.h:80
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:80
 msgid "Create Video CD"
 msgstr "ایجاد لوح فشرده تصویری"
 
-#: ../src/burn.h:81
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:81
 msgid "Format DVD RW"
 msgstr ""
 
-#: ../src/burn.h:82
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:82
 msgid "Create Data DVD"
 msgstr "ایجاد DVD اطلاعاتی"
 
-#: ../src/burn.h:83
+#: /home/luke/projects/gnomebaker/HEAD/gnomebaker/po/../src/burn.h:83
 msgid "Append to Data DVD"
 msgstr "افزودن به DVD اطلاعاتی"
 
@@ -1027,232 +1123,181 @@ msgid "<b>Detected devices</b>"
 msgstr "<b>دستگاه‌های شناخته شده</b>"
 
 #: ../gnomebaker.glade.h:10
-msgid "<b>Devices</b>"
-msgstr "<b>دستگاه‌ها</b>"
-
-#: ../gnomebaker.glade.h:11
 msgid "<b>Open existing project</b>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:13
+#: ../gnomebaker.glade.h:11
 msgid "<b>Other</b>"
 msgstr "<b>غیره</b>"
 
-#: ../gnomebaker.glade.h:14
+#: ../gnomebaker.glade.h:12
 msgid "<b>Select Writer</b>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:15
+#: ../gnomebaker.glade.h:13
 msgid "<b>Temporary Directory</b>"
 msgstr "<b>پوشه موقتی</b>"
 
-#: ../gnomebaker.glade.h:16
+#: ../gnomebaker.glade.h:14
 msgid "<b>Volume label</b>"
 msgstr ""
 
-#: ../gnomebaker.glade.h:17
+#: ../gnomebaker.glade.h:15
 #, fuzzy
 msgid "<b>Welcome</b>"
 msgstr "<b>دستگاه</b>"
 
-#: ../gnomebaker.glade.h:18
+#: ../gnomebaker.glade.h:16
 msgid "<i>...</i>"
 msgstr "<i>...</i>"
 
-#: ../gnomebaker.glade.h:19
-#, fuzzy
-msgid "Add directories"
-msgstr "اضافه کردن پوشه"
-
-#: ../gnomebaker.glade.h:20
+#: ../gnomebaker.glade.h:17
 msgid "Add file(s)"
 msgstr "اضافه کردن فایل(ها)"
 
-#: ../gnomebaker.glade.h:21
-#, fuzzy
-msgid "Add files"
-msgstr "اضافه کردن فایل(ها)"
-
-#: ../gnomebaker.glade.h:22
+#: ../gnomebaker.glade.h:18
 #, fuzzy
 msgid "Add the selected files to the disk"
 msgstr "اضافه کردن فایل‌های انتخاب شده به لوح فشرده"
 
-#: ../gnomebaker.glade.h:23
+#: ../gnomebaker.glade.h:19
 msgid "Advanced"
 msgstr "پیشرفته"
 
-#: ../gnomebaker.glade.h:24
+#: ../gnomebaker.glade.h:20
 msgid "Always scan for devices on startup"
 msgstr "همیشه برای دستگاه‌ها در شروع جستجو کن"
 
-#: ../gnomebaker.glade.h:25
-msgid "Ask for confirmation when exiting GnomeBaker"
-msgstr ""
-
-#: ../gnomebaker.glade.h:26
-#, fuzzy
-msgid "Audio CD"
-msgstr "رونوشت از لوح فشرده صوتی"
-
-#: ../gnomebaker.glade.h:27
+#: ../gnomebaker.glade.h:22
 msgid "Automatically scroll the progress window output"
 msgstr ""
 
-#: ../gnomebaker.glade.h:28
+#: ../gnomebaker.glade.h:23
 msgid "Baking"
 msgstr "پختن"
 
-#: ../gnomebaker.glade.h:29
+#: ../gnomebaker.glade.h:24
 msgid "Bl_ank CD-RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:30
+#: ../gnomebaker.glade.h:25
 msgid "Boot Image"
 msgstr "تصویر راه‌انداز"
 
-#: ../gnomebaker.glade.h:31
+#: ../gnomebaker.glade.h:26
 msgid "Boot Image list"
 msgstr ""
 
-#: ../gnomebaker.glade.h:32
+#: ../gnomebaker.glade.h:27
 msgid "Boot catalog"
 msgstr ""
 
-#: ../gnomebaker.glade.h:33
+#: ../gnomebaker.glade.h:28
 msgid "Burn _DVD Image"
 msgstr "سوزاندن(ذخیره) تصویر DVD"
 
-#: ../gnomebaker.glade.h:34
+#: ../gnomebaker.glade.h:29
 msgid "C_opy Data CD"
 msgstr "رونوشت از لوح فشرده اطلاعاتی"
 
-#: ../gnomebaker.glade.h:35
+#: ../gnomebaker.glade.h:30
 msgid "Clean temporary directory on exit"
 msgstr "خالی کردن پوشه موقتی هنگام خروج"
 
-#: ../gnomebaker.glade.h:36
+#: ../gnomebaker.glade.h:31
 #, fuzzy
 msgid "Clear the contents of the disk"
 msgstr "پاک کردن محتویات لوح فشرده"
 
-#: ../gnomebaker.glade.h:37
+#: ../gnomebaker.glade.h:32
 msgid "Co_py Audio CD"
 msgstr "رونوشت از لوح فشرده صوتی"
 
-#: ../gnomebaker.glade.h:39
+#: ../gnomebaker.glade.h:34
 #, fuzzy
 msgid "Copy D_VD"
 msgstr "رونوشت از لوح فشرده اطلاعاتی"
 
-#: ../gnomebaker.glade.h:40
+#: ../gnomebaker.glade.h:35
 msgid "Create a new project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:41
+#: ../gnomebaker.glade.h:36
 msgid "Created by username"
 msgstr "ایجاد شده توسط نام‌کاربری"
 
-#: ../gnomebaker.glade.h:42
-#, fuzzy
-msgid "Data CD"
-msgstr "رونوشت از لوح فشرده اطلاعاتی"
-
-#: ../gnomebaker.glade.h:43
-#, fuzzy
-msgid "Data DVD"
-msgstr "ایجاد DVD اطلاعاتی"
-
-#: ../gnomebaker.glade.h:44
-#, fuzzy
-msgid "Data _CD"
-msgstr "رونوشت از لوح فشرده اطلاعاتی"
-
-#: ../gnomebaker.glade.h:45
-#, fuzzy
-msgid "Data _DVD"
-msgstr "ایجاد DVD اطلاعاتی"
-
-#: ../gnomebaker.glade.h:46
+#: ../gnomebaker.glade.h:41
 msgid "Devices"
 msgstr "دستگاه‌ها"
 
-#: ../gnomebaker.glade.h:47
+#: ../gnomebaker.glade.h:42
 msgid "Floppy disk image"
 msgstr "تصویر دیسک فلاپی"
 
-#: ../gnomebaker.glade.h:48
+#: ../gnomebaker.glade.h:43
 msgid "Force"
 msgstr "اجبار"
 
-#: ../gnomebaker.glade.h:49
-msgid "GPL"
-msgstr "GPL"
-
-#: ../gnomebaker.glade.h:50
+#: ../gnomebaker.glade.h:44
 msgid "General"
 msgstr "عمومی"
 
-#: ../gnomebaker.glade.h:52
+#: ../gnomebaker.glade.h:46
 msgid "GnomeBaker Preferences"
 msgstr "تنظیمات GnomeBaker"
 
-#: ../gnomebaker.glade.h:53
+#: ../gnomebaker.glade.h:47
 msgid "GnomeBaker data cd"
 msgstr ""
 
-#: ../gnomebaker.glade.h:54
+#: ../gnomebaker.glade.h:48
 msgid "Hard disk image"
 msgstr "تصویر دیسک سخت"
 
-#: ../gnomebaker.glade.h:55
+#: ../gnomebaker.glade.h:49
 msgid "ISO filesystem details"
 msgstr "جزئیات فایل سیستم ISO"
 
-#: ../gnomebaker.glade.h:56
+#: ../gnomebaker.glade.h:50
 msgid "Import Session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:57
-msgid "Mode"
-msgstr "نوع"
-
-#: ../gnomebaker.glade.h:58
+#: ../gnomebaker.glade.h:51
 #, fuzzy
 msgid "Move Selected Files _Down"
 msgstr "انتقال گزینه انتخاب‌شده به پایین"
 
-#: ../gnomebaker.glade.h:59
+#: ../gnomebaker.glade.h:52
 #, fuzzy
 msgid "Move Selected Files _Up"
 msgstr "انتقال گزینه انتخاب‌شده به بالا"
 
-#: ../gnomebaker.glade.h:60
+#: ../gnomebaker.glade.h:53
 msgid "Move audio tracks down"
 msgstr "انتقال شیارهای صوتی به پایین"
 
-#: ../gnomebaker.glade.h:61
+#: ../gnomebaker.glade.h:54
 msgid "Move audio tracks up"
 msgstr "انتقال شیارهای صوتی به بالا"
 
-#: ../gnomebaker.glade.h:62
+#: ../gnomebaker.glade.h:55
 msgid "Not bootable"
 msgstr "غیر راه‌انداز"
 
-#: ../gnomebaker.glade.h:63
+#: ../gnomebaker.glade.h:56
 #, fuzzy
 msgid "Notify me when burning is complete"
 msgstr "پخش صدا هنگامی که سوزاندن(ذخیره) تمام شد"
 
-#: ../gnomebaker.glade.h:64
+#: ../gnomebaker.glade.h:57
 msgid "Open an existing project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:65
+#: ../gnomebaker.glade.h:58
 msgid "PC bootable"
 msgstr ""
 
-#: ../gnomebaker.glade.h:66
+#: ../gnomebaker.glade.h:59
 msgid ""
 "Please select the writing device from the list below and insert the disk "
 "containing the existing session"
@@ -1260,171 +1305,176 @@ msgstr ""
 "لطفا دستگاه نویسنده (Writer) را از لیست زیر انتخاب کرده و دیسکی را که شامل "
 "نشت موجود است را قرار دهید"
 
-#: ../gnomebaker.glade.h:67
-msgid "Reader"
-msgstr "خواننده"
-
-#: ../gnomebaker.glade.h:68
+#: ../gnomebaker.glade.h:60
 msgid "Refresh the file browser file list"
 msgstr ""
 
-#: ../gnomebaker.glade.h:69
+#: ../gnomebaker.glade.h:61
 msgid "Remove selected"
 msgstr "حذف انتخاب‌شده‌ها"
 
-#: ../gnomebaker.glade.h:70
+#: ../gnomebaker.glade.h:62
 #, fuzzy
 msgid "Remove the selected files from the disk"
 msgstr "حذف فایل‌های انتخاب شده از لوح فشرده"
 
-#: ../gnomebaker.glade.h:71
+#: ../gnomebaker.glade.h:63
 #, fuzzy
 msgid "S_how hidden files"
 msgstr "نمایش فایل‌های پنهان"
 
-#: ../gnomebaker.glade.h:72
+#: ../gnomebaker.glade.h:64
 msgid "Save All"
 msgstr ""
 
-#: ../gnomebaker.glade.h:73
+#: ../gnomebaker.glade.h:65
 msgid "Save Project _As"
 msgstr ""
 
-#: ../gnomebaker.glade.h:75
+#: ../gnomebaker.glade.h:67
 msgid "Sc_an for devices"
 msgstr "جستجو برای دستگاه‌ها"
 
-#: ../gnomebaker.glade.h:76
+#: ../gnomebaker.glade.h:68
 msgid "Sh_ow human-readable file sizes"
 msgstr ""
 
-#: ../gnomebaker.glade.h:78
-msgid "Simple CD burning for Gnome."
-msgstr "سوزاندن(ذخیره) آسان لوح فشرده در گنوم."
-
-#: ../gnomebaker.glade.h:79
-msgid "Speed"
-msgstr "سرعت"
-
-#: ../gnomebaker.glade.h:80
+#: ../gnomebaker.glade.h:70
 msgid "Splash window"
 msgstr ""
 
-#: ../gnomebaker.glade.h:81
-msgid "Start burning..."
-msgstr "شروع به سوزاندن(ذخیره کردن)..."
-
-#: ../gnomebaker.glade.h:82
+#: ../gnomebaker.glade.h:71
 msgid "Starting GnomeBaker..."
 msgstr "شروع شدن GnomeBaker..."
 
-#: ../gnomebaker.glade.h:83
+#: ../gnomebaker.glade.h:72
 msgid "Sun workstation bootable"
 msgstr ""
 
-#: ../gnomebaker.glade.h:84
-msgid "Writer"
-msgstr "نویستنده"
-
-#: ../gnomebaker.glade.h:85
+#: ../gnomebaker.glade.h:73
 #, fuzzy
 msgid "_Add Selected Files"
 msgstr "افزودن انتخاب‌شده‌ها"
 
-#: ../gnomebaker.glade.h:86
+#: ../gnomebaker.glade.h:74
 msgid "_Add device"
 msgstr "اضافه کردن دستگاه"
 
-#: ../gnomebaker.glade.h:87
-#, fuzzy
-msgid "_Audio CD"
-msgstr "<b>دیسک صوتی</b>"
+#: ../gnomebaker.glade.h:77
+msgid "_Close Project"
+msgstr ""
 
-#: ../gnomebaker.glade.h:89
+#: ../gnomebaker.glade.h:78
 #, fuzzy
 msgid "_Copy CD"
 msgstr "رونوشت از لوح فشرده اطلاعاتی"
 
-#: ../gnomebaker.glade.h:90
+#: ../gnomebaker.glade.h:79
 msgid "_Export"
 msgstr ""
 
-#: ../gnomebaker.glade.h:91
+#: ../gnomebaker.glade.h:80
 msgid "_Format DVD±RW"
 msgstr ""
 
-#: ../gnomebaker.glade.h:92
+#: ../gnomebaker.glade.h:81
 msgid "_Import"
 msgstr ""
 
-#: ../gnomebaker.glade.h:93
+#: ../gnomebaker.glade.h:82
 msgid "_Import Session"
 msgstr ""
 
-#: ../gnomebaker.glade.h:94
+#: ../gnomebaker.glade.h:83
 msgid "_New Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:95
+#: ../gnomebaker.glade.h:84
 msgid "_Open Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:96
+#: ../gnomebaker.glade.h:85
 msgid "_Playlist"
 msgstr "لیست‌پخش"
 
-#: ../gnomebaker.glade.h:97
+#: ../gnomebaker.glade.h:86
 msgid "_Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:98
+#: ../gnomebaker.glade.h:87
 msgid "_Refresh"
 msgstr "تازه کردن"
 
-#: ../gnomebaker.glade.h:99
+#: ../gnomebaker.glade.h:88
 #, fuzzy
 msgid "_Remove Selected Files"
 msgstr "حذف گزینه انتخاب‌شده"
 
-#: ../gnomebaker.glade.h:100
+#: ../gnomebaker.glade.h:89
 msgid "_Save Project"
 msgstr ""
 
-#: ../gnomebaker.glade.h:101
+#: ../gnomebaker.glade.h:90
 msgid "_Show File Browser"
 msgstr "نمایش"
 
-#: ../gnomebaker.glade.h:103
+#: ../gnomebaker.glade.h:91
 msgid "_Tools"
 msgstr ""
 
-#: ../gnomebaker.glade.h:104
+#: ../gnomebaker.glade.h:92
 msgid "_Window"
 msgstr ""
 
-#: ../gnomebaker.glade.h:105
-msgid "dao"
-msgstr ""
+#, fuzzy
+#~ msgid "<b>Audio CD</b>"
+#~ msgstr "<b>دیسک صوتی</b>"
 
-#: ../gnomebaker.glade.h:107
-msgid "dialog1"
-msgstr ""
+#~ msgid "Session"
+#~ msgstr "نشست"
 
-#: ../gnomebaker.glade.h:108
-msgid "raw16"
-msgstr ""
+#, fuzzy
+#~ msgid "<b>Data DVD</b>"
+#~ msgstr "<b>دیسک اطلاعاتی</b>"
 
-#: ../gnomebaker.glade.h:109
-msgid "raw96p"
-msgstr ""
+#, fuzzy
+#~ msgid "<b>Data CD</b>"
+#~ msgstr "<b>دیسک اطلاعاتی</b>"
 
-#: ../gnomebaker.glade.h:110
-msgid "raw96r"
-msgstr ""
+#~ msgid "Are you sure you want to quit?"
+#~ msgstr "آیا مطمئن هستید که می‌خواهید خارج شوید؟"
 
-#: ../gnomebaker.glade.h:111
-msgid "tao"
-msgstr ""
+#~ msgid "<b>Devices</b>"
+#~ msgstr "<b>دستگاه‌ها</b>"
+
+#, fuzzy
+#~ msgid "Add directories"
+#~ msgstr "اضافه کردن پوشه"
+
+#, fuzzy
+#~ msgid "Add files"
+#~ msgstr "اضافه کردن فایل(ها)"
+
+#~ msgid "GPL"
+#~ msgstr "GPL"
+
+#~ msgid "Mode"
+#~ msgstr "نوع"
+
+#~ msgid "Reader"
+#~ msgstr "خواننده"
+
+#~ msgid "Simple CD burning for Gnome."
+#~ msgstr "سوزاندن(ذخیره) آسان لوح فشرده در گنوم."
+
+#~ msgid "Speed"
+#~ msgstr "سرعت"
+
+#~ msgid "Start burning..."
+#~ msgstr "شروع به سوزاندن(ذخیره کردن)..."
+
+#~ msgid "Writer"
+#~ msgstr "نویستنده"
 
 #~ msgid "<b>Device</b>"
 #~ msgstr "<b>دستگاه</b>"
