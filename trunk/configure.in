@@ -131,7 +131,7 @@ GETTEXT_PACKAGE=gnomebaker
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",[Gettext package name])
 
-ALL_LINGUAS="af az bg bo ca cs da de_AT de_CH de_DE de el en_AU en_CA en en_US eo es_AR es_CO es_CR es_ES es_MX es et eu_ES eu fa fi fr_CH fr_FR fr gl he hr hu is it_IT it ja ka ko lt lv mk ml ms nb nl_BE nl_NL nl no pa pl pt_BR pt pt_PT ro ru sk sl sr st sv sv_SE te tl tr uk ur yi zh_CN zh_HK zh zh_TW"
+ALL_LINGUAS="af az bg bo ca cs da de_AT de_CH de_DE de el en_AU en_CA en en_US eo es_AR es_CO es_CR es_ES es_MX es et eu_ES eu fa fi fr_CH fr_FR fr gl he hr hu is it_IT it ja ka ko lt lv mk ml ms nb nl_BE nl_NL nl no pa pl pt_BR pt pt_PT ro ru sk sl sr st sv te tl tr uk ur yi zh_CN zh_HK zh zh_TW"
 AM_GLIB_GNU_GETTEXT
 
 
