@@ -1,7 +1,7 @@
 Version 0.6.1
 
 
-* Apply patch #1576272 - Patch to fix bug #1522258
+* Apply patch #1576272 from Marc Deslauriers - Patch to fix bug #1522258 (also fixes #1560138 - unable to createa cdr or cdrw)
 
 
 
