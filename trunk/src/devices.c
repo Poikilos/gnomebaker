@@ -230,16 +230,44 @@ devices_populate_optionmenu(GtkWidget *option_menu, const gchar *device_key, con
 
 
 void
-devices_save_optionmenu(GtkOptionMenu *option_menu, const gchar *device_key)
+devices_save_optionmenu(GtkOptionMenu *option_menu, const gchar *device_key, const gboolean writers_only)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(option_menu != NULL);
 	g_return_if_fail(device_key != NULL);
 
-	gint index = gtk_option_menu_get_history(option_menu);
-	gchar *device = g_strdup_printf(GB_DEVICE_FORMAT, index + 1);
-	preferences_set_string(device_key, device);
-	g_free(device);
+	gint menuindex = gtk_option_menu_get_history(option_menu);
+	gint index = 0, count = 0, device = 0;
+	GSList *devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
+	GSList *item = devices;
+	for(; device == 0; item = item->next)
+	{
+		gchar *device_key = (gchar*)item->data;
+
+	        gchar *device_capabilities_key = g_strconcat(device_key, GB_DEVICE_CAPABILITIES_LABEL, NULL);
+	        const gint capabilities = preferences_get_int(device_capabilities_key);
+	        /* Check the capabilities of the device and make sure that, if only writers were added
+                 * to the options menu, the device can actually write disks */
+		if(!writers_only || (capabilities & DC_WRITE_CDR || capabilities & DC_WRITE_CDRW ||
+                capabilities & DC_WRITE_DVDR || capabilities & DC_WRITE_DVDRAM))
+		{
+			if(index == menuindex)
+			{
+				device = count + 1;
+			}
+			++index;
+		}
+
+	    g_free(device_capabilities_key);
+		g_free(device_key);
+		++count;
+	}
+
+	g_slist_free(devices);
+
+	gchar *devicename = g_strdup_printf(GB_DEVICE_FORMAT, device);
+	preferences_set_string(device_key, devicename);
+	g_free(devicename);
 }
 
 

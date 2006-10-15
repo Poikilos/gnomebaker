@@ -1,4 +1,11 @@
-Version 0.5.2
+Version 0.6.1
+
+
+* Apply patch #1576272 - Patch to fix bug #1522258
+
+
+
+Version 0.6.0
 
 * Fix RFE #1242645 Clearer indication of successful burn completion (actually in 0.5.1)
 * Fix RFE #1165304 smarten up device selection. Only show writers in the writers option menu.

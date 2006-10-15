@@ -69,8 +69,8 @@ startdlg_on_ok_clicked(GtkButton  *button, gpointer user_data)
     g_return_if_fail(user_data != NULL);
 
     StartDlg *start_dlg = (StartDlg*)user_data;
-    devices_save_optionmenu(start_dlg->reader, GB_READER);
-    devices_save_optionmenu(start_dlg->writer, GB_WRITER);
+    devices_save_optionmenu(start_dlg->reader, GB_READER, FALSE);
+    devices_save_optionmenu(start_dlg->writer, GB_WRITER, TRUE);
     const gint index = gtk_option_menu_get_history(start_dlg->write_speed);
     if(index == 0)
         preferences_set_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED, 0);
