@@ -66,5 +66,5 @@ selectdevicedlg_on_ok_clicked(GtkButton *button, gpointer user_data)
 	g_return_if_fail(selectdevicedlgdlg_xml != NULL);
 
 	GtkWidget *option_menu = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
-	devices_save_optionmenu(GTK_OPTION_MENU(option_menu), GB_WRITER);
+	devices_save_optionmenu(GTK_OPTION_MENU(option_menu), GB_WRITER, TRUE);
 }
