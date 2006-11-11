@@ -31,3 +31,4 @@ libtool
 *.gladep
 COPYING
 INSTALL
+.settings
