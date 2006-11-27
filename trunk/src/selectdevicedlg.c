@@ -27,7 +27,7 @@
 
 
 /* Select device dialog widget names */
-static const gchar *const widget_select_writer = "optmenWriter";
+static const gchar *const widget_select_writer = "cmbWriter";
 static const gchar *const widget_select_device_dlg = "selectDeviceDlg";
 
 static GladeXML *selectdevicedlgdlg_xml = NULL;
@@ -40,8 +40,8 @@ selectdevicedlg_new(void)
 	selectdevicedlgdlg_xml = glade_xml_new(glade_file, widget_select_device_dlg, NULL);
 	glade_xml_signal_autoconnect(selectdevicedlgdlg_xml);
 
-	GtkWidget *option_menu = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
-	devices_populate_optionmenu(option_menu, GB_WRITER, TRUE);
+    GtkComboBox *combo_box = GTK_COMBO_BOX(glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer));
+	devices_populate_combo_box(combo_box, GB_WRITER, TRUE);
 
     GtkWidget *dlg = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_device_dlg);
     gbcommon_center_window_on_parent(dlg);
@@ -65,6 +65,6 @@ selectdevicedlg_on_ok_clicked(GtkButton *button, gpointer user_data)
 	GB_LOG_FUNC
 	g_return_if_fail(selectdevicedlgdlg_xml != NULL);
 
-	GtkWidget *option_menu = glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer);
-	devices_save_optionmenu(GTK_OPTION_MENU(option_menu), GB_WRITER, TRUE);
+	GtkComboBox *combo_box = GTK_COMBO_BOX(glade_xml_get_widget(selectdevicedlgdlg_xml, widget_select_writer));
+    devices_save_combo_box(combo_box, GB_WRITER);
 }
