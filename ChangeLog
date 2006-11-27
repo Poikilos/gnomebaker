@@ -1,7 +1,7 @@
 Version 0.6.2
 
 * Apply patch #1602535 from goedson - Fix writer device selection
-
+* Apply patch #1602235 from goedson - use an array for the status icon collection
 
 Version 0.6.1
 

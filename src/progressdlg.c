@@ -26,6 +26,9 @@
 #include "media.h"
 #include "gblibnotify.h"
 
+/* The number of icons for indication of the status */
+#define STATUS_ICONS_ARRAY_SIZE 14
+
 /* Progress dialog glade widget names */
 static const gchar *const widget_progdlg = "progDlg";
 static const gchar *const widget_progdlg_progbar = "progressbar6";
@@ -49,7 +52,7 @@ static gint timer_tag = 0;
 static gint number_of_execs = 0;
 static gint current_exec = -1;
 static GCallback close_function = NULL;
-static GHashTable *status_icons = NULL;
+static GdkPixbuf **status_icons = NULL;
 static gdouble approximation_interval = 0.0;
 static gdouble approximation_fraction = 0.0;
 static GTimer *timer = NULL;
@@ -60,10 +63,10 @@ static void
 progressdlg_set_icon(const gint index)
 {
     GB_LOG_FUNC
-    g_return_if_fail(index >= 0  && index <= 13);
+    g_return_if_fail(index >= 0  && index <= STATUS_ICONS_ARRAY_SIZE - 1);
 
     /*GB_TRACE("progressdlg_set_icon - using icon [%d]\n", index);*/
-    GdkPixbuf *icon = (GdkPixbuf*)g_hash_table_lookup(status_icons, (gpointer)index);
+    GdkPixbuf *icon = status_icons[index];
     gtk_window_set_icon(parent_window, icon);
     gtk_window_set_icon(progressdlg_get_window(), icon);
 }
@@ -113,14 +116,14 @@ progressdlg_new(const Exec *exec, GtkWindow *parent, GCallback call_on_premature
 
     if(status_icons == NULL)
     {
-        status_icons = g_hash_table_new(g_direct_hash, g_direct_equal);
+      status_icons = (GdkPixbuf **) g_malloc(sizeof(GdkPixbuf*) * STATUS_ICONS_ARRAY_SIZE);
         gint i = 0;
-        for(; i < 14; ++i)
+        for(; i < STATUS_ICONS_ARRAY_SIZE; ++i)
         {
             gchar *file_name = g_strdup_printf(IMAGEDIR"/state%.2d.png", i);
             GB_TRACE("progressdlg_new - loading icon [%s]\n", file_name);
             GdkPixbuf *icon = gdk_pixbuf_new_from_file(file_name, NULL);
-            g_hash_table_insert(status_icons, (gpointer)i, icon);
+            status_icons[i] = icon;
             g_free(file_name);
         }
     }
