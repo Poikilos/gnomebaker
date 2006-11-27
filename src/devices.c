@@ -171,21 +171,16 @@ devices_get_device_config(const gchar *device_key, const gchar *device_item)
 
 
 void
-devices_populate_optionmenu(GtkWidget *option_menu, const gchar *device_key, const gboolean add_writers_only)
+devices_populate_combo_box(GtkComboBox *combo_box, const gchar *device_key, const gboolean add_writers_only)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(option_menu != NULL);
-	g_return_if_fail(device_key != NULL);
+	  g_return_if_fail(device_key != NULL);
 
 	gchar *default_select = preferences_get_string(device_key);
 
-	GtkWidget *menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(option_menu));
-	if(menu != NULL)
-		gtk_widget_destroy(menu);
-	menu = gtk_menu_new();
-	gtk_widget_show(menu);
-
-	gint index = 0, history = 0;
+	GtkListStore *model  = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
+	GtkTreeIter iter;
+	gint index = 0, current_item = 0, active_item = 0;
 	GSList *devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
 	GSList *item = devices;
 	for(; item != NULL; item = item->next)
@@ -201,17 +196,17 @@ devices_populate_optionmenu(GtkWidget *option_menu, const gchar *device_key, con
                 (capabilities & DC_WRITE_CDR || capabilities & DC_WRITE_CDRW ||
                 capabilities & DC_WRITE_DVDR || capabilities & DC_WRITE_DVDRAM)))
 		{
-			GtkWidget *menu_item = gtk_menu_item_new_with_label(device_name);
-			gtk_widget_show(menu_item);
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
-
+            gtk_list_store_append(model, &iter);
+            gtk_list_store_set(model, &iter, 0, device_name, 1, index, -1);
+           
 			if(default_select != NULL)
 			{
 				gchar *device_key_id = g_strrstr(device_key, default_select);
 				if(device_key_id != NULL)
-					history = index;
+					active_item = current_item;
 			}
 			g_free(device_name);
+            current_item ++;
 		}
 
         g_free(device_capabilities_key);
@@ -222,52 +217,34 @@ devices_populate_optionmenu(GtkWidget *option_menu, const gchar *device_key, con
 
 	g_slist_free(devices);
 
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(option_menu), menu);
-	gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), history);
-
-	g_free(default_select);
+    gtk_combo_box_set_model(combo_box, GTK_TREE_MODEL(model));
+    gtk_combo_box_set_active(combo_box, active_item);
+    g_object_unref(model);
+    GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), renderer, TRUE);
+    gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo_box), renderer,"text", 0, NULL);
+    g_free(default_select);
 }
 
 
 void
-devices_save_optionmenu(GtkOptionMenu *option_menu, const gchar *device_key, const gboolean writers_only)
+devices_save_combo_box(GtkComboBox *combo_box, const gchar *device_key)
 {
 	GB_LOG_FUNC
-	g_return_if_fail(option_menu != NULL);
+	g_return_if_fail(combo_box != NULL);
 	g_return_if_fail(device_key != NULL);
 
-	gint menuindex = gtk_option_menu_get_history(option_menu);
-	gint index = 0, count = 0, device = 0;
-	GSList *devices = preferences_get_key_subkeys(GB_DEVICES_KEY);
-	GSList *item = devices;
-	for(; device == 0; item = item->next)
-	{
-		gchar *device_key = (gchar*)item->data;
-
-	        gchar *device_capabilities_key = g_strconcat(device_key, GB_DEVICE_CAPABILITIES_LABEL, NULL);
-	        const gint capabilities = preferences_get_int(device_capabilities_key);
-	        /* Check the capabilities of the device and make sure that, if only writers were added
-                 * to the options menu, the device can actually write disks */
-		if(!writers_only || (capabilities & DC_WRITE_CDR || capabilities & DC_WRITE_CDRW ||
-                capabilities & DC_WRITE_DVDR || capabilities & DC_WRITE_DVDRAM))
-		{
-			if(index == menuindex)
-			{
-				device = count + 1;
-			}
-			++index;
-		}
-
-	    g_free(device_capabilities_key);
-		g_free(device_key);
-		++count;
-	}
-
-	g_slist_free(devices);
-
-	gchar *devicename = g_strdup_printf(GB_DEVICE_FORMAT, device);
-	preferences_set_string(device_key, devicename);
-	g_free(devicename);
+	gint index = 0;
+    GtkTreeIter iter;
+    GtkTreeModel *model = gtk_combo_box_get_model(combo_box);
+   
+    if (gtk_combo_box_get_active_iter(combo_box, &iter)) 
+    {
+        gtk_tree_model_get(model, &iter, 1, &index, -1);
+        gchar *device = g_strdup_printf(GB_DEVICE_FORMAT, index + 1);
+        preferences_set_string(device_key, device);
+        g_free(device);
+    }
 }
 
 

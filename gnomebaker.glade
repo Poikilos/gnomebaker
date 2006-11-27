@@ -3262,7 +3262,7 @@
 	  <property name="border_width">10</property>
 	  <property name="visible">True</property>
 	  <property name="n_rows">3</property>
-	  <property name="n_columns">5</property>
+	  <property name="n_columns">1</property>
 	  <property name="homogeneous">False</property>
 	  <property name="row_spacing">10</property>
 	  <property name="column_spacing">10</property>
@@ -3287,7 +3287,7 @@
 	    </widget>
 	    <packing>
 	      <property name="left_attach">0</property>
-	      <property name="right_attach">5</property>
+	      <property name="right_attach">1</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
 	      <property name="x_options">fill</property>
@@ -3315,7 +3315,7 @@
 	    </widget>
 	    <packing>
 	      <property name="left_attach">0</property>
-	      <property name="right_attach">5</property>
+	      <property name="right_attach">1</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
 	      <property name="x_options">fill</property>
@@ -3324,18 +3324,17 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkOptionMenu" id="optmenWriter">
+	    <widget class="GtkComboBox" id="cmbWriter">
 	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="history">-1</property>
+	      <property name="add_tearoffs">False</property>
+	      <property name="focus_on_click">True</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">0</property>
-	      <property name="right_attach">5</property>
+	      <property name="right_attach">1</property>
 	      <property name="top_attach">2</property>
 	      <property name="bottom_attach">3</property>
 	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
 	    </packing>
 	  </child>
 	</widget>

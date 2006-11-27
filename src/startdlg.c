@@ -67,10 +67,10 @@ startdlg_on_ok_clicked(GtkButton  *button, gpointer user_data)
 {
     GB_LOG_FUNC
     g_return_if_fail(user_data != NULL);
-
+    
     StartDlg *start_dlg = (StartDlg*)user_data;
-    devices_save_optionmenu(start_dlg->reader, GB_READER, FALSE);
-    devices_save_optionmenu(start_dlg->writer, GB_WRITER, TRUE);
+    devices_save_combo_box(start_dlg->reader, GB_READER);
+    devices_save_combo_box(start_dlg->writer, GB_WRITER);
     const gint index = gtk_option_menu_get_history(start_dlg->write_speed);
     if(index == 0)
         preferences_set_int(start_dlg->dvdmode ? GB_DVDWRITE_SPEED : GB_CDWRITE_SPEED, 0);
@@ -544,6 +544,7 @@ startdlg_new(const BurnType burn_type)
 	GB_LOG_FUNC
 
     StartDlg *start_dlg = g_new0(StartDlg, 1);
+    
     start_dlg->dialog = GTK_DIALOG(gtk_dialog_new ());
     gtk_window_set_default_size(GTK_WINDOW(start_dlg->dialog), 320, -1);
     gtk_window_set_title(GTK_WINDOW(start_dlg->dialog), _(BurnTypeText[burn_type]));
@@ -552,10 +553,10 @@ startdlg_new(const BurnType burn_type)
     gtk_window_set_skip_taskbar_hint (GTK_WINDOW (start_dlg->dialog), TRUE);
     gtk_dialog_set_has_separator (start_dlg->dialog, FALSE);
 
-    start_dlg->writer = GTK_OPTION_MENU(gtk_option_menu_new ());
-    devices_populate_optionmenu(GTK_WIDGET(start_dlg->writer), GB_WRITER, TRUE);
-    start_dlg->reader = GTK_OPTION_MENU(gtk_option_menu_new ());
-    devices_populate_optionmenu(GTK_WIDGET(start_dlg->reader), GB_READER, FALSE);
+    start_dlg->writer = GTK_COMBO_BOX(gtk_combo_box_new());
+    devices_populate_combo_box(start_dlg->writer, GB_WRITER, TRUE);
+    start_dlg->reader = GTK_COMBO_BOX(gtk_combo_box_new ());
+    devices_populate_combo_box(start_dlg->reader, GB_READER, FALSE);
     start_dlg->write_speed = GTK_OPTION_MENU(gtk_option_menu_new ());
     start_dlg->write_mode = GTK_OPTION_MENU(gtk_option_menu_new ());
     start_dlg->dummy = startdlg_create_check_button(_("Dummy write"), GB_DUMMY);

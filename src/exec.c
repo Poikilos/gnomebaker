@@ -180,8 +180,19 @@ exec_spawn_process(ExecCmd *e, GSpawnChildSetupFunc child_setup)
         /* If the process was cancelled then we kill off the child */
         if(exec_cmd_get_state(e) == CANCELLED)
         {
-            GB_TRACE("exec_spawn_process - killing process with pid [%d]\n", e->pid);
-            kill(e->pid, SIGKILL);
+            GB_TRACE("exec_spawn_process - killing process with pid [%d]\n", e->pid);            
+            gint ret = kill(e->pid, SIGQUIT);
+            GB_TRACE("exec_spawn_process - SIGQUIT returned [%d]\n", ret);
+            if(ret != 0)
+            {
+                ret = kill(e->pid, SIGTERM);
+                GB_TRACE("exec_spawn_process - SIGTERM returned [%d]\n", ret);
+                if(ret != 0)
+                {   
+                    ret = kill(e->pid, SIGKILL);
+                    GB_TRACE("exec_spawn_process - SIGKILL returned [%d]\n", ret);
+                }
+            }
         }
 
         /* Reap the child so we don't get a zombie */

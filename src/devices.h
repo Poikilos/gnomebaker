@@ -38,14 +38,14 @@ static const gint DC_WRITE_DVDRAM = 0x8;
 
 gboolean devices_probe_busses();
 gboolean devices_init();
-void devices_populate_optionmenu(GtkWidget *option_menu, const gchar *default_select, const gboolean add_writers_only);
+void devices_populate_combo_box(GtkComboBox *option_menu, const gchar *default_select, const gboolean add_writers_only);
 gchar *devices_get_device_config(const gchar *device_key, const gchar *device_item);
 void devices_write_device_to_gconf(const gint device_number, const gchar *device_name,
 	const gchar *device_id, const gchar *device_node, const gchar *mount_point,
 	const gint capabilities);
 gboolean devices_mount_device(const gchar *device_key, gchar* *mount_point);
 void devices_unmount_device(const gchar *device_key);
-void devices_save_optionmenu(GtkOptionMenu *option_menu, const gchar *device_key, const gboolean writers_only);
+void devices_save_combo_box(GtkComboBox *combo_box, const gchar *device_key);
 gboolean devices_eject_disk(const gchar *device_key);
 gint devices_prompt_for_disk(GtkWindow *parent, const gchar *device_key);
 gint devices_prompt_for_blank_disk(GtkWindow *parent, const gchar *device_key);
