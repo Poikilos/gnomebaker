@@ -1179,7 +1179,7 @@ dataproject_on_add_folder(gpointer widget, DataProject *data_project)
     gtk_tree_store_set(data_project->dataproject_compilation_store, &iter,
             DATA_TREE_COL_ICON, icon, DATA_TREE_COL_FILE, _("New Folder"),
             DATA_TREE_COL_SIZE, size, DATA_TREE_COL_HUMANSIZE, human_readable,
-            DATA_TREE_COL_PATH, "", DATA_TREE_COL_STATUS, 0L, -1);
+            DATA_TREE_COL_PATH, "", DATA_TREE_COL_STATUS, STATUS_IS_FOLDER, -1);
 
     g_object_unref(icon);
 
