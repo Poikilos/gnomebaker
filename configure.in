@@ -1,4 +1,4 @@
-AC_INIT(GnomeBaker, 0.6.1, gnomebaker)
+AC_INIT(GnomeBaker, 0.6.2, gnomebaker)
 AC_PREREQ(2.59)
 AC_COPYRIGHT([Copyright (C) 2003-2006 Luke Biddell])
 
@@ -32,6 +32,8 @@ AC_SUBST(LIBXML_REQUIRED, 2.4.0)
 AC_SUBST(LIBGLADE_REQUIRED, 2.4.2)
 AC_SUBST(GSTREAMER_08_REQUIRED, 0.8.9)
 AC_SUBST(GSTREAMER_010_REQUIRED, 0.9.7)
+AC_SUBST(LIBBURN_REQUIRED, 0.2.2)
+AC_SUBST(LIBISOFS_REQUIRED, 0.2.2)
 
 
 PKG_CHECK_MODULES(GNOMEBAKER,
@@ -49,6 +51,23 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(CAIRO, gtk+-2.0 >= $GTK_CAIRO_REQUIRED, have_gtk_cairo=yes, have_gtk_cairo=no)
 if test x$have_gtk_cairo = xyes; then
 	AC_DEFINE(CAIRO_WIDGETS,1,[cairo support])
+fi
+
+dnl ---------------------------------------------------------------------------
+dnl - Is libburn available?
+dnl ---------------------------------------------------------------------------
+AC_ARG_ENABLE(libburn,
+			[  --enable-libburn		use libburn if available [[default = yes]]],,
+			[enable_libburn="yes"])
+if test x"$enable_libburn" = "xyes"; then
+	PKG_CHECK_MODULES(LIBBURN, libburn-1 >= $LIBBURN_REQUIRED libisofs-1 >= $LIBISOFS_REQUIRED, have_libburn=yes, have_libburn=no)
+else
+	have_libburn="no"
+fi
+if test x"$have_libburn" = "xyes"; then
+	GNOMEBAKER_CFLAGS="$GNOMEBAKER_CFLAGS $LIBBURN_CFLAGS"
+	GNOMEBAKER_LIBS="$GNOMEBAKER_LIBS $LIBBURN_LIBS"
+	AC_DEFINE(HAVE_LIBBURN, 1, [define if you want libburn support])
 fi
 
 dnl ---------------------------------------------------------------------------
@@ -159,6 +178,7 @@ echo "
         compiler:                  ${CC}
         cflags:                    ${CFLAGS}
         libnotify support:         ${have_libnotify}
+        libburn support:           ${have_libburn}
         cairo support:             ${have_gtk_cairo}
         gstreamer 0.10:            ${have_gstreamer_010}
         gstreamer 0.8:             ${have_gstreamer_08}
