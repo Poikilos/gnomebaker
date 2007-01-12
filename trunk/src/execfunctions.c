@@ -2028,7 +2028,7 @@ libburn_blank_cd_lib_proc(void *ex, void *buffer)
     /** Note: driveno might change its value in this call */
     
     gchar *writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
-    struct burn_drive_info *drive_list;
+    struct burn_drive_info *drive_list = NULL;
     gint ret = burn_drive_scan_and_grab(&drive_list, writer, 1);
     if (ret <= 0) 
     {
