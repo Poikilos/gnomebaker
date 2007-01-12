@@ -47,4 +47,11 @@ void gstreamer_add_args(ExecCmd *cmd, const gchar *from, const gchar *to);
 void md5sum_add_args(ExecCmd *cmd, const gchar *md5);
 void dd_add_copy_args(ExecCmd *e, const gchar *iso);
 
+#ifdef HAVE_LIBBURN
+
+void libburn_add_blank_cd_args(ExecCmd *e);
+
+#endif
+
+
 #endif	/*_EXECFUNCTIONS_H_*/

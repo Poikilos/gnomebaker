@@ -31,6 +31,21 @@
 #include "media.h"
 
 
+#ifdef HAVE_LIBBURN
+#include <libburn/libburn.h>
+#include <libburn/libisofs.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#endif
+
+
+
 static gint cdrecord_total_tracks_to_write = 1;
 static gint cdrecord_first_track = -1;
 static guint64 cdrecord_total_disk_bytes = 0;
@@ -271,8 +286,6 @@ cdrecord_add_common_args(ExecCmd *cmd)
 	if(preferences_get_bool(GB_CDRECORD_FORCE))
 	   exec_cmd_add_arg(cmd, "-force");
 
-	exec_cmd_add_arg(cmd, "gracetime=5");
-
     const gint speed = preferences_get_int(GB_CDWRITE_SPEED);
     if(speed > 0)
 	   exec_cmd_add_arg(cmd, "speed=%d", speed);
@@ -391,7 +404,6 @@ cdrecord_add_blank_args(ExecCmd *cmd)
 	if(preferences_get_bool(GB_EJECT))
 		exec_cmd_add_arg(cmd, "-eject");
 
-	exec_cmd_add_arg(cmd, "gracetime=5");
 	exec_cmd_add_arg(cmd, "blank=%s", preferences_get_bool(GB_FAST_BLANK) ? "fast" : "all");
 }
 
@@ -1689,6 +1701,14 @@ md5sum_pre_proc(void *ex, void *buffer)
 
 
 static void
+md5sum_read_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    ExecCmd *cmd = (ExecCmd*) ex;
+}
+
+
+static void
 md5sum_post_proc(void *ex, void *buffer)
 {
     GB_LOG_FUNC
@@ -1712,6 +1732,7 @@ md5sum_add_args(ExecCmd *cmd, const gchar *md5)
     exec_cmd_add_arg(cmd, md5);
 
     cmd->pre_proc = md5sum_pre_proc;
+    cmd->read_proc = md5sum_read_proc;
     cmd->post_proc = md5sum_post_proc;
 }
 
@@ -1787,3 +1808,301 @@ dd_add_copy_args(ExecCmd *e, const gchar *iso)
 }
 
 
+/*******************************************************************************
+ * libburn
+ ******************************************************************************/
+#ifdef HAVE_LIBBURN
+
+
+static char current_profile_name[80]= {""};
+static int current_profile= -1;
+static unsigned int drive_count;
+
+
+int libburner_payload(struct burn_drive *drive, 
+              char source_adr[][4096], int source_adr_count,
+              int multi, int simulate_burn, int all_tracks_type)
+{
+    struct burn_source *data_src;
+    struct burn_disc *target_disc;
+    struct burn_session *session;
+    struct burn_write_opts *burn_options;
+    enum burn_disc_status disc_state;
+    struct burn_track *track, *tracklist[99];
+    struct burn_progress progress;
+    time_t start_time;
+    int last_sector = 0, padding = 0, trackno, write_mode_tao = 0, fd;
+    off_t fixed_size;
+    char *adr;
+    struct stat stbuf;
+
+    if (all_tracks_type != BURN_AUDIO) 
+    {
+        all_tracks_type = BURN_MODE1;
+        /* a padding of 300 kB helps to avoid the read-ahead bug */
+        padding = 300*1024;
+    }
+
+    target_disc = burn_disc_create();
+    session = burn_session_create();
+    burn_disc_add_session(target_disc, session, BURN_POS_END);
+
+    for (trackno = 0 ; trackno < source_adr_count; trackno++) 
+    {
+      tracklist[trackno] = track = burn_track_create();
+      burn_track_define_data(track, 0, padding, 1, all_tracks_type);
+
+      adr = source_adr[trackno];
+      fixed_size = 0;
+      if (adr[0] == '-' && adr[1] == 0) 
+      {
+        fd = 0;
+      } 
+      else 
+      {
+        fd = open(adr, O_RDONLY);
+        if (fd>=0)
+            if (fstat(fd,&stbuf)!=-1)
+                if((stbuf.st_mode&S_IFMT)==S_IFREG)
+                    fixed_size = stbuf.st_size;
+      }
+      if (fixed_size==0)
+        write_mode_tao = 1;
+      data_src = NULL;
+      if (fd>=0)
+        data_src = burn_fd_source_new(fd, -1, fixed_size);
+      if (data_src == NULL) 
+      {
+        fprintf(stderr,
+               "FATAL: Could not open data source '%s'.\n",adr);
+        if(errno!=0)
+            fprintf(stderr,"(Most recent system error: %s )\n",
+                strerror(errno));
+        return 0;
+      }
+      if (burn_track_set_source(track, data_src) != BURN_SOURCE_OK) 
+      {
+        printf("FATAL: Cannot attach source object to track object\n");
+        return 0;
+      }
+
+      burn_session_add_track(session, track, BURN_POS_END);
+      printf("Track %d : source is '%s'\n", trackno+1, adr);
+      burn_source_free(data_src);
+    } /* trackno loop end */
+
+    /* Evaluate drive and media */
+    disc_state = burn_disc_get_status(drive);
+    if (disc_state == BURN_DISC_APPENDABLE) 
+    {
+        write_mode_tao = 1;
+    } 
+    else if (disc_state != BURN_DISC_BLANK) 
+    {
+        if (disc_state == BURN_DISC_FULL) 
+        {
+            fprintf(stderr, "FATAL: Closed media with data detected. Need blank or appendable media.\n");
+            if (burn_disc_erasable(drive))
+                fprintf(stderr, "HINT: Try --blank_fast\n\n");
+        } 
+        else if (disc_state == BURN_DISC_EMPTY) 
+            fprintf(stderr,"FATAL: No media detected in drive\n");
+        else
+            fprintf(stderr,
+             "FATAL: Cannot recognize state of drive and media\n");
+        return 0;
+    }
+
+    burn_options = burn_write_opts_new(drive);
+    burn_write_opts_set_perform_opc(burn_options, 0);
+    // burn_write_opts_set_multi(burn_options, !!multi);
+    if (write_mode_tao)
+        burn_write_opts_set_write_type(burn_options,
+                    BURN_WRITE_TAO, BURN_BLOCK_MODE1);
+    else
+        burn_write_opts_set_write_type(burn_options,
+                    BURN_WRITE_SAO, BURN_BLOCK_SAO);
+    if(simulate_burn)
+        printf("\n*** Will TRY to SIMULATE burning ***\n\n");
+    burn_write_opts_set_simulate(burn_options, simulate_burn);
+    burn_structure_print_disc(target_disc);
+    burn_drive_set_speed(drive, 0, 0);
+    burn_write_opts_set_underrun_proof(burn_options, 1);
+
+    printf("Burning starts. With e.g. 4x media expect up to a minute of zero progress.\n");
+    start_time = time(0);
+    burn_disc_write(burn_options, target_disc);
+
+    burn_write_opts_free(burn_options);
+    while (burn_drive_get_status(drive, NULL) == BURN_DRIVE_SPAWNING)
+        usleep(1002);
+    while (burn_drive_get_status(drive, &progress) != BURN_DRIVE_IDLE) 
+    {
+        if( progress.sectors <= 0 || progress.sector == last_sector)
+            printf(
+                 "Thank you for being patient since %d seconds.\n",
+                 (int) (time(0) - start_time));
+        else if(write_mode_tao)
+            printf("Track %d : sector %d\n", progress.track+1,
+                progress.sector);
+        else
+            printf("Track %d : sector %d of %d\n",progress.track+1,
+                progress.sector, progress.sectors);
+        last_sector = progress.sector;
+        sleep(1);
+    }
+    printf("\n");
+
+    for (trackno = 0 ; trackno < source_adr_count; trackno++)
+        burn_track_free(tracklist[trackno]);
+    burn_session_free(session);
+    burn_disc_free(target_disc);
+    if (multi && strcmp(current_profile_name, "DVD+RW") != 0 &&
+        current_profile != 0x13)
+        printf("NOTE: Media left appendable.\n");
+    if (simulate_burn)
+        printf("\n*** Did TRY to SIMULATE burning ***\n\n");
+    return 1;
+}
+
+
+/** Persistently changes DVD-RW profile 0014h "Sequential Recording"
+    to profile 0013h "Restricted Overwrite" which is usable with libburner.
+
+    Expect a behavior similar to blanking with unusual noises from the drive.
+*/
+//int libburner_format_row(struct burn_drive *drive)
+//{
+//    struct burn_progress p;
+//    int percent = 1;
+//
+//    if (current_profile == 0x13) {
+//        fprintf(stderr, "IDLE: DVD-RW media is already formatted\n");
+//        return 2;
+//    } else if (current_profile != 0x14) {
+//        fprintf(stderr, "FATAL: Can only format DVD-RW\n");
+//        return 0;
+//    }
+//    printf("Beginning to format media.\n");
+//    burn_disc_format(drive, (off_t) 0, 0);
+//    sleep(1);
+//    while (burn_drive_get_status(drive, &p) != BURN_DRIVE_IDLE) {
+//        if(p.sectors>0 && p.sector>=0) /* display 1 to 99 percent */
+//            percent = 1.0 + ((double) p.sector+1.0)
+//                     / ((double) p.sectors) * 98.0;
+//        printf("Formatting  ( %d%% done )\n", percent);
+//        sleep(1);
+//    }
+//    burn_disc_get_profile(drive_list[0].drive, &current_profile,
+//                 current_profile_name);
+//    printf("Media type now: %4.4xh  \"%s\"\n",
+//         current_profile, current_profile_name);
+//    if (current_profile != 0x13) {
+//        fprintf(stderr,
+//          "FATAL: Failed to change media profile to desired value\n");
+//        return 0;
+//    }
+//    return 1;
+//}
+
+
+static void
+libburn_blank_cd_lib_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+    
+    devices_unmount_device(GB_WRITER);
+    progressdlg_increment_exec_number();
+    progressdlg_set_status(_("Initialising"));
+    burn_initialize();
+    progressdlg_set_status(_("Aquiring CD burner"));   
+    
+    /* Print messages of severity SORRY or more directly to stderr
+    burn_msgs_set_severities("NEVER", "SORRY", "libburner : "); */
+
+    /* Activate the default signal handler which eventually will try to
+       properly shutdown drive and library on aborting events. 
+    burn_set_signal_handling("libburner : ", NULL, 0);*/
+
+    /** Note: driveno might change its value in this call */
+    
+    gchar *writer = devices_get_device_config(GB_WRITER,GB_DEVICE_NODE_LABEL);
+    struct burn_drive_info *drive_list;
+    gint ret = burn_drive_scan_and_grab(&drive_list, writer, 1);
+    if (ret <= 0) 
+    {
+        progressdlg_append_output(_("Failed to aquire drive."));
+        exec_cmd_set_state((ExecCmd*)ex, FAILED);
+    }
+    else 
+    {
+        ret = GTK_RESPONSE_OK;
+        enum burn_disc_status disc_state = burn_disc_get_status(drive_list[0].drive);
+        while(disc_state == BURN_DISC_EMPTY && ret == GTK_RESPONSE_OK) 
+        {
+            ret = devices_prompt_for_disk(gnomebaker_get_window(), GB_WRITER);
+            if(ret == GTK_RESPONSE_OK)
+                disc_state = burn_disc_get_status(drive_list[0].drive);
+        }
+        
+        if(ret == GTK_RESPONSE_CANCEL)
+        {
+            progressdlg_append_output(_("User cancelled blanking."));
+            exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
+        }
+        else if(disc_state == BURN_DISC_BLANK) 
+        {
+            progressdlg_append_output(_("Media is already blank."));
+            exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
+        } 
+        else if(disc_state != BURN_DISC_FULL && disc_state != BURN_DISC_APPENDABLE) 
+        {
+            progressdlg_append_output(_("Unsuitable drive and media state."));
+            exec_cmd_set_state((ExecCmd*)ex, FAILED);
+        }
+        else if(!burn_disc_erasable(drive_list[0].drive)) 
+        {
+            progressdlg_append_output(_("This type of media cannot be erased."));
+            exec_cmd_set_state((ExecCmd*)ex, FAILED);
+        }
+        else
+        { 
+            progressdlg_set_status(_("Blanking media"));
+            burn_disc_erase(drive_list[0].drive, preferences_get_bool(GB_FAST_BLANK));
+            sleep(1);
+            struct burn_progress p;
+            gint percent = 1;
+            while(burn_drive_get_status(drive_list[0].drive, &p) != BURN_DRIVE_IDLE && (exec_cmd_get_state((ExecCmd*)ex) == RUNNING)) 
+            {
+                if(p.sectors > 0 && p.sector >= 0)
+                    percent = 1.0 + ((double) p.sector + 1.0) / ((double) p.sectors) * 98.0;
+                    
+                progressdlg_set_fraction((gfloat)percent / (gfloat)100.0);
+                while(gtk_events_pending())
+                    gtk_main_iteration();        
+            }
+            if (exec_cmd_get_state((ExecCmd*)ex) == CANCELLED)
+            {
+                // TODO check the retcode here
+                // burn_abort(5, NULL, NULL);   
+            }
+        }
+        burn_drive_release(drive_list[0].drive, 0);
+    }
+    g_free(writer);
+    burn_drive_info_free(drive_list);
+    burn_finish();
+}
+
+
+void
+libburn_add_blank_cd_args(ExecCmd *e)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);
+    e->lib_proc = libburn_blank_cd_lib_proc;
+}
+
+
+#endif

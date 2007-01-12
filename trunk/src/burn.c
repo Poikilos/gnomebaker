@@ -36,6 +36,7 @@
 #include "media.h"
 
 
+
 static Exec *burn_args = NULL;
 
 
@@ -46,7 +47,6 @@ burn_show_start_dlg(const BurnType burn_type)
 	if(burn_args != NULL)
 		exec_delete(burn_args);
 	burn_args = NULL;
-
 	StartDlg *dlg = startdlg_new(burn_type);
 	if(gtk_dialog_run(dlg->dialog) != GTK_RESPONSE_OK)
     {
@@ -80,7 +80,6 @@ burn_run_process()
 	progressdlg_delete(dlg);
 }
 
-
 static void
 burn_cd_iso(const gchar *file)
 {
@@ -90,10 +89,10 @@ burn_cd_iso(const gchar *file)
     StartDlg *dlg = burn_show_start_dlg(burn_cd_image);
 	if(dlg != NULL)
 	{
-		burn_args = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
+		burn_args = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));        
         mkisofs_add_calc_iso_size_args(exec_cmd_new(burn_args), file);
-		cdrecord_add_iso_args(exec_cmd_new(burn_args), file);
-		burn_run_process();
+        cdrecord_add_iso_args(exec_cmd_new(burn_args), file);
+        burn_run_process();
         startdlg_delete(dlg);
 	}
 }
@@ -394,9 +393,13 @@ burn_blank_cdrw()
     StartDlg *dlg = burn_show_start_dlg(blank_cdrw);
 	if(dlg != NULL)
 	{
-		burn_args = exec_new(_("Blanking CD"), _("Please wait while the CD is blanked."));
-		cdrecord_add_blank_args(exec_cmd_new(burn_args));
-		burn_run_process();
+		burn_args = exec_new(_("Blanking CD"), _("Please wait while the CD is blanked."));        		
+#ifdef HAVE_LIBBURN
+        libburn_add_blank_cd_args(exec_cmd_new(burn_args));
+#else 
+        cdrecord_add_blank_args(exec_cmd_new(burn_args));
+#endif        
+        burn_run_process();
         startdlg_delete(dlg);
 	}
 }
