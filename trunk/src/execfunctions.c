@@ -1856,6 +1856,7 @@ dd_add_copy_args(ExecCmd *e, const gchar *iso)
 static gchar*
 libburn_get_drive_status_text(enum burn_drive_status status)
 {
+    GB_LOG_FUNC
     switch(status)
     {
     case BURN_DRIVE_IDLE: return "The drive is not in an operation";
@@ -1878,6 +1879,7 @@ libburn_get_drive_status_text(enum burn_drive_status status)
 static gchar*
 libburn_get_disc_status_text(enum burn_drive_status status)
 {
+    GB_LOG_FUNC
     switch(status)
     {
     case BURN_DISC_UNREADY: return "Disc status is not yet known";
@@ -1928,6 +1930,7 @@ libburn_execute(ExecCmd* ex, struct burn_drive *drive)
 static gboolean
 libburn_aquire_drive(const gchar *device, ExecCmd *ex, struct burn_drive_info **drive_list, enum burn_disc_status *disc_state)
 {
+    GB_LOG_FUNC
     gboolean ok = FALSE;
     devices_unmount_device(device);
     gchar *writer = devices_get_device_config(device, GB_DEVICE_NODE_LABEL);
@@ -1980,7 +1983,7 @@ libburn_blank_cd_lib_proc(void *ex, void *buffer)
 
     progressdlg_increment_exec_number();
     burn_initialize();
-    progressdlg_set_status(_("Aquiring CD burner"));
+    progressdlg_set_status(_("Aquiring writer"));
 
     enum burn_disc_status disc_state;
     struct burn_drive_info *drive_list = NULL;
@@ -2007,7 +2010,11 @@ libburn_blank_cd_lib_proc(void *ex, void *buffer)
     }
     else
     {
-        burn_disc_erase(drive_list[0].drive, preferences_get_bool(GB_FAST_BLANK));
+        if(g_ascii_strcasecmp(g_ptr_array_index(((ExecCmd*)ex)->args, 0), "DVD+RW") == 0)
+            g_warning("Unsupported\n");
+            // burn_disc_format(drive_list[0].drive, (off_t) 0, 0);
+        else
+            burn_disc_erase(drive_list[0].drive, preferences_get_bool(GB_FAST_BLANK));
         libburn_execute((ExecCmd*)ex, drive_list[0].drive);
     }
     if(drive_list != NULL)
@@ -2024,6 +2031,19 @@ libburn_add_blank_cd_args(ExecCmd *e)
 {
     GB_LOG_FUNC
     g_return_if_fail(e != NULL);
+    exec_cmd_add_arg(e, "CD-RW");
+    e->lib_proc = libburn_blank_cd_lib_proc;
+}
+
+
+
+
+void
+libburn_add_format_dvd_args(ExecCmd *e)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);
+    exec_cmd_add_arg(e, "DVD+RW");
     e->lib_proc = libburn_blank_cd_lib_proc;
 }
 
@@ -2036,7 +2056,7 @@ libburn_burn_iso_lib_proc(void *ex, void *data)
     gint *pipe = (gint*)data;
 
     burn_initialize();
-    progressdlg_set_status(_("Aquiring CD burner"));
+    progressdlg_set_status(_("Aquiring writer"));
 
     enum burn_disc_status disc_state;
     struct burn_drive_info *drive_list = NULL;
@@ -2149,6 +2169,7 @@ libburn_burn_iso_lib_proc(void *ex, void *data)
 void
 libburn_add_iso_args(ExecCmd *e, const gchar* iso)
 {
+    GB_LOG_FUNC
     exec_cmd_add_arg(e, iso);
     e->lib_proc = libburn_burn_iso_lib_proc;
 }
