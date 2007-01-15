@@ -580,7 +580,7 @@ devices_probe_busses()
     gint drive_count = 0;
     struct burn_drive_info *drive_list = NULL;
     while(!burn_drive_scan(&drive_list, &drive_count))
-        usleep(1000);
+        usleep(2000);
         
     gint i = 0;    
     for(; i < drive_count; ++i)

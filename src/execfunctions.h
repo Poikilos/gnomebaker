@@ -50,6 +50,7 @@ void dd_add_copy_args(ExecCmd *e, const gchar *iso);
 #ifdef HAVE_LIBBURN
 
 void libburn_add_blank_cd_args(ExecCmd *e);
+void libburn_add_iso_args(ExecCmd *e, const gchar* iso);
 
 #endif
 
