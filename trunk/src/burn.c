@@ -89,9 +89,13 @@ burn_cd_iso(const gchar *file)
     StartDlg *dlg = burn_show_start_dlg(burn_cd_image);
 	if(dlg != NULL)
 	{
-		burn_args = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));        
+		burn_args = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
+#ifdef HAVE_LIBBURN
+        libburn_add_iso_args(exec_cmd_new(burn_args), file);
+#else
         mkisofs_add_calc_iso_size_args(exec_cmd_new(burn_args), file);
         cdrecord_add_iso_args(exec_cmd_new(burn_args), file);
+#endif        
         burn_run_process();
         startdlg_delete(dlg);
 	}

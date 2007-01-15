@@ -452,3 +452,10 @@ progressdlg_stop_approximation()
     approximation_interval = 0.0;
 }
 
+
+void
+progressdlg_increment_total_exec_number()
+{
+    GB_LOG_FUNC
+    ++number_of_execs;
+}
