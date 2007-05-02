@@ -90,12 +90,8 @@ burn_cd_iso(const gchar *file)
 	if(dlg != NULL)
 	{
 		burn_args = exec_new(_("Burning CD image"), _("Please wait while the CD image you selected is burned to CD."));
-#ifdef HAVE_LIBBURN
-        libburn_add_iso_args(exec_cmd_new(burn_args), file);
-#else
         mkisofs_add_calc_iso_size_args(exec_cmd_new(burn_args), file);
         cdrecord_add_iso_args(exec_cmd_new(burn_args), file);
-#endif        
         burn_run_process();
         startdlg_delete(dlg);
 	}
@@ -398,11 +394,7 @@ burn_blank_cdrw()
 	if(dlg != NULL)
 	{
 		burn_args = exec_new(_("Blanking CD"), _("Please wait while the CD is blanked."));        		
-#ifdef HAVE_LIBBURN
-        libburn_add_blank_cd_args(exec_cmd_new(burn_args));
-#else 
         cdrecord_add_blank_args(exec_cmd_new(burn_args));
-#endif        
         burn_run_process();
         startdlg_delete(dlg);
 	}
