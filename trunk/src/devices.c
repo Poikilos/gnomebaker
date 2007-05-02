@@ -45,11 +45,6 @@
 #endif
 
 
-#ifdef HAVE_LIBBURN
-#include <libburn/libburn.h>
-#endif
-
-
 gint device_addition_index = 0;
 
 
@@ -574,40 +569,6 @@ devices_probe_busses()
 
 #ifdef __linux__
 
-#ifdef HAVE_LIBBURN
-
-    burn_initialize();
-    gint drive_count = 0;
-    struct burn_drive_info *drive_list = NULL;
-    while(!burn_drive_scan(&drive_list, &drive_count))
-        usleep(2000);
-        
-    gint i = 0;    
-    for(; i < drive_count; ++i)
-    {            
-        gint capabilities = 0;
-        if(drive_list[i].write_cdr == 1)
-            capabilities |= DC_WRITE_CDR;
-        if(drive_list[i].write_cdrw == 1)
-            capabilities |= DC_WRITE_CDRW;
-        if(drive_list[i].write_dvdr == 1)
-            capabilities |= DC_WRITE_DVDR;
-        if(drive_list[i].write_dvdram == 1)
-            capabilities |= DC_WRITE_DVDRAM;
-            
-        gchar adr[BURN_DRIVE_ADR_LEN];
-        burn_drive_get_adr(&(drive_list[i]), adr);
-            
-        gchar *drive = g_strdup_printf("%s %s", drive_list[i].vendor, drive_list[i].product); 
-        devices_add_device(drive, adr, adr, capabilities);
-        g_free(drive);
-        burn_drive_info_forget(&(drive_list[i]),0);
-    }
-    burn_drive_info_free(drive_list);
-    burn_finish();
-        
-#else
-
 	gchar **info = NULL;
 	if((info = gbcommon_get_file_as_list("/proc/sys/dev/cdrom/info")) == NULL)
 	{
@@ -652,8 +613,6 @@ devices_probe_busses()
 	}
 
 	g_strfreev(info);
-#endif //libburn
-
 
 #else
 
