@@ -1623,19 +1623,36 @@ dataproject_on_create_datadisk(gpointer widget, DataProject *data_project)
 
     const GBTempFile *tmp_file = dataproject_build_paths_file(GTK_TREE_MODEL(data_project->dataproject_compilation_store));
 
-    if(data_project->is_dvd)
+    if (tmp_file != NULL) 
     {
-        if(data_project->msinfo != NULL)
-            burn_append_data_dvd(tmp_file->file_name, data_project->msinfo);
+        if(data_project->is_dvd)
+        {
+            if(data_project->msinfo != NULL)
+                burn_append_data_dvd(tmp_file->file_name, data_project->msinfo);
+            else
+                burn_create_data_dvd(tmp_file->file_name);
+        }
+        else if(data_project->msinfo != NULL)
+            burn_append_data_cd(tmp_file->file_name, data_project->msinfo);
         else
-            burn_create_data_dvd(tmp_file->file_name);
+            burn_create_data_cd(tmp_file->file_name);
+        /* TODO - we should delete the temp file here */
     }
-    else if(data_project->msinfo != NULL)
-        burn_append_data_cd(tmp_file->file_name, data_project->msinfo);
     else
-        burn_create_data_cd(tmp_file->file_name);
+    {
+      /* TODO - Display an error message */
+        gchar *temp_dir = preferences_get_string(GB_TEMP_DIR);
+        gchar *message = g_strdup_printf(_("Could not create temporary file. \n"
+                                           "Please make sure your temporary "
+                                           "directory [%s] is writable "
+                                           "and try again."), temp_dir);
+        gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, GTK_BUTTONS_NONE, message);
+        g_free(message);
+        g_free(temp_dir);
+        return;
+    }
 
-    /* TODO - we should delete the temp file here */
+
 }
 
 
