@@ -109,7 +109,7 @@ burn_dvd_iso(const gchar *file)
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
         _("The file you have selected is not a DVD image. Please select a DVD image to burn."));*/
     gchar *mime = gbcommon_get_mime_type(file);
-    if((g_ascii_strcasecmp(mime, "application/x-cd-image") == 0) ||
+    if((g_ascii_strcasecmp(mime, "application/x-cd-image") == 0) || gbcommon_str_has_suffix(file, ".raw") ||
             (gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
             _("The file you have selected seems not to be a DVD image. Do you really want to write it to DVD?")) == GTK_RESPONSE_YES))
     {
@@ -154,7 +154,7 @@ burn_cd_image_file(const gchar *file)
         gnomebaker_show_msg_dlg(NULL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, GTK_BUTTONS_NONE,
         _("The file you have selected is not a cd image. Please select a cd image to burn."));*/
     gchar *mime = gbcommon_get_mime_type(file);
-    if(g_ascii_strcasecmp(mime, "application/x-cd-image") == 0)
+    if((g_ascii_strcasecmp(mime, "application/x-cd-image") == 0) || gbcommon_str_has_suffix(file, ".raw"))
         burn_cd_iso(file);
     else if(gbcommon_str_has_suffix(file, ".cue") || gbcommon_str_has_suffix(file, ".toc"))
         burn_cue_or_toc(file);
