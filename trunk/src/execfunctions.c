@@ -226,6 +226,9 @@ cdrecord_copy_audio_cd_pre_proc(void *ex, void *buffer)
     GError *err = NULL;
     gchar *tmp = preferences_get_string(GB_TEMP_DIR);
     GDir *dir = g_dir_open(tmp, 0, &err);
+    GList *files_list = NULL;
+    GList *p = NULL;
+
     if(dir != NULL)
     {
         cdrecord_total_tracks_to_write = 0;
@@ -235,16 +238,23 @@ cdrecord_copy_audio_cd_pre_proc(void *ex, void *buffer)
         {
             if(g_str_has_suffix(name, ".wav"))
             {
-                GB_TRACE("cdrecord_copy_audio_cd_pre_proc - adding [%s]\n", name);
+                GB_TRACE("cdrecord_copy_audio_cd_pre_proc - found [%s]\n", name);
                 gchar *full_path = g_build_filename(tmp, name, NULL);
-                exec_cmd_add_arg(ex, full_path);
+                files_list = g_list_insert_sorted(files_list, full_path, strcmp);
                 cdrecord_total_tracks_to_write++;
-                g_free(full_path);
             }
 
             name = g_dir_read_name(dir);
         }
         g_dir_close(dir);
+
+        for (p = files_list; p != NULL; p = g_list_next(p)) {
+            GB_TRACE("cdrecord_copy_audio_cd_pre_proc - adding [%s]\n", p->data);
+            exec_cmd_add_arg(ex, p->data);
+            g_free(p->data);
+            p->data = NULL;
+        }
+        g_list_free(files_list);
     }
     g_free(tmp);
 }
