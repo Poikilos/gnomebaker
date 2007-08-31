@@ -51,6 +51,7 @@ main(gint argc, gchar *argv[])
 {
 	GError *error = NULL;
 	GOptionContext *context = g_option_context_new(_(" - GNOME CD/DVD burning application"));
+  if (!g_thread_supported ()) g_thread_init(NULL);
 	/* add main entries */
 	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
 	/* recognise gtk/gdk/gstreamer options */
@@ -74,7 +75,6 @@ main(gint argc, gchar *argv[])
 #ifdef GST_010
     struct poptOption* options = NULL;
 #else
-    if (!g_thread_supported ()) g_thread_init(NULL);
     gdk_threads_init();
 
 	struct poptOption options[] =
