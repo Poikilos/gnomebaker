@@ -1526,6 +1526,43 @@ dataproject_on_datadisk_size_changed(GtkOptionMenu *option_menu, DataProject *da
 }
 
 
+/*
+ * Escapes file paths adding '\' before any '\' or '=' character
+ */
+static gchar *
+escape_filepath(gchar *path)
+{
+    GB_LOG_FUNC
+    g_return_val_if_fail(path != NULL, NULL);
+
+    int count = 0;
+    gchar *p = path;
+    gchar *pr = NULL;
+    gchar *result = NULL;
+
+    while (*p != 0) {
+        if (*p == '\\' || *p == '=') {
+            ++count;
+        }
+        ++p;
+    }
+
+    if (count) {
+        result = g_malloc0(strlen(path) + count + 1);
+        p = path;
+        pr = result;
+        while (*p != 0) {
+            if (*p == '\\' || *p == '=') {
+                *pr++ = '\\';
+            }
+            *pr++ = *p++;
+        }
+    } else {
+        result = g_strdup(path);
+    }
+    return result;
+}
+
 /* Adds to the burning list all the contents recursively. This could be improved checking for depth,
  * as mkisofs only accepts a max depth o 6 directories */
 static void
@@ -1557,9 +1594,13 @@ dataproject_build_paths_file_recursive(GtkTreeModel *model, GtkTreeIter *parent_
         else
         {
             gchar *full_path = g_build_filename(file_path, file_name, NULL);
-            fprintf(tmp_file->file_stream, "%s=%s\n", full_path, path_in_system);
+            gchar *escaped_full_path = escape_filepath(full_path);
+            gchar *escaped_path_in_system = escape_filepath(path_in_system);
+            fprintf(tmp_file->file_stream, "%s=%s\n", escaped_full_path, escaped_path_in_system);
             GB_TRACE("dataproject_build_paths_file_recursive - [%s]\n", full_path);
             g_free(full_path);
+            g_free(escaped_full_path);
+            g_free(escaped_path_in_system);
         }
 
         g_free(path_in_system);
