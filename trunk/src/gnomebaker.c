@@ -170,7 +170,23 @@ static gboolean
 gnomebaker_audio_file_filter(const GtkFileFilterInfo *filter_info, gpointer data)
 {
     GB_LOG_FUNC
-    return (media_get_plugin_status(filter_info->mime_type) == INSTALLED);
+    GnomeVFSFileInfo *file_info = NULL;
+    gboolean return_value = FALSE;
+
+    file_info = gnome_vfs_file_info_new();
+
+    g_return_val_if_fail(file_info != NULL, FALSE);
+
+    GnomeVFSResult gnome_vfs_result = gnome_vfs_get_file_info(filter_info->uri,
+                                                              file_info,
+                                                              GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+
+    if (gnome_vfs_result == GNOME_VFS_OK)
+      return_value = media_get_plugin_status(gnome_vfs_file_info_get_mime_type(file_info)) == INSTALLED;
+    
+    gnome_vfs_file_info_unref(file_info);
+    return return_value;
+
 }
 #endif
 
@@ -1150,8 +1166,8 @@ gnomebaker_new()
     gtk_paned_pack2(GTK_PANED(vpane), tabs, TRUE, TRUE);
 
     audio_filter = gtk_file_filter_new();
-    gtk_file_filter_add_custom(audio_filter, GTK_FILE_FILTER_MIME_TYPE,
-            gnomebaker_audio_file_filter, NULL, NULL);
+    gtk_file_filter_add_custom(audio_filter, GTK_FILE_FILTER_URI,
+                               gnomebaker_audio_file_filter, NULL, NULL);
     gtk_file_filter_set_name(audio_filter,_("Audio files"));
 
     gtk_widget_hide(glade_xml_get_widget(xml, "separator4"));
