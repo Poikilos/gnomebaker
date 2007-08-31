@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnomebaker 0.2.1\n"
 "Report-Msgid-Bugs-To:\n"
 "POT-Creation-Date: 2006-08-03 01:24+0200\n"
-"PO-Revision-Date: 2006-07-28 18:07+0000\n"
+"PO-Revision-Date: 2006-09-28 09:19-0300\n"
 "Last-Translator: Marco Minor <hriostat@gmail.com>\n"
 "Language-Team: Portuguese <debian-l10n-portuguese@blists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -101,7 +101,7 @@ msgstr "Título"
 
 #: ../src/audioproject.c:1127
 msgid "Track"
-msgstr "Trilha"
+msgstr "Faixa"
 
 #: ../src/audioproject.c:1144
 msgid "Info"
@@ -190,7 +190,7 @@ msgstr ""
 
 #: ../src/burn.c:253
 msgid "Burning audio CD"
-msgstr "Queimando CD de áudio"
+msgstr "Gravando CD de áudio"
 
 #: ../src/burn.c:253
 msgid ""
@@ -282,7 +282,7 @@ msgstr "Por favor, aguarde enquando a imagem do DVD de dados é criada."
 
 #: ../src/burn.c:439
 msgid "Burning data DVD"
-msgstr "Queimando DVD de dados"
+msgstr "Gravando DVD de dados"
 
 #: ../src/burn.c:439
 msgid "Please wait while the data is burned directly to DVD."
@@ -431,7 +431,7 @@ msgstr "Preparando para apagar disco"
 
 #: ../src/execfunctions.c:144
 msgid "Preparing to burn disk"
-msgstr "Preparando para queimar disco"
+msgstr "Preparando para gravar disco"
 
 #. GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
 #: ../src/execfunctions.c:201
@@ -441,9 +441,8 @@ msgstr "Gravando faixa %d"
 
 #: ../src/execfunctions.c:292 ../src/execfunctions.c:1015
 #: ../src/startdlg.c:208 ../src/startdlg.c:234 ../src/startdlg.c:235
-#, fuzzy
 msgid "Auto"
-msgstr "Automático"
+msgstr "Auto"
 
 #: ../src/execfunctions.c:411
 msgid "Preparing to extract audio tracks"
@@ -464,7 +463,7 @@ msgstr "Extraíndo faixa %d de áudio"
 
 #: ../src/execfunctions.c:549
 msgid "Calculating data disk image size"
-msgstr "Calculando tamanho da imagem de do disco de dados"
+msgstr "Calculando tamanho da imagem do disco de dados"
 
 #: ../src/execfunctions.c:587
 msgid "Creating data disk image"
@@ -484,7 +483,7 @@ msgstr "Formatando DVD"
 
 #: ../src/execfunctions.c:912
 msgid "Preparing to burn DVD"
-msgstr "Preparando para queimar DVD"
+msgstr "Preparando para gravar DVD"
 
 #: ../src/execfunctions.c:943 ../src/execfunctions.c:968
 msgid "Writing DVD"
@@ -546,11 +545,11 @@ msgstr "_Adicionar arquivo(s)"
 
 #: ../src/filebrowser.c:596 ../gnomebaker.glade.h:76
 msgid "_Burn CD Image"
-msgstr "Queimar imagem de CD"
+msgstr "Gravar imagem de CD"
 
 #: ../src/filebrowser.c:599
 msgid "_Burn DVD Image"
-msgstr "Queimar imagem de DVD"
+msgstr "Gravar imagem de DVD"
 
 #: ../src/filebrowser.c:704
 #, c-format
@@ -581,7 +580,7 @@ msgstr "Salve o aquivo com o tipo:"
 msgid ""
 "There are unsaved projects, your changes will be lost if you quit. Are you "
 "sure you want to quit?"
-msgstr ""
+msgstr "Há projetos não gravados. Suas modificações serão perdidas se você sair. Você deseja mesmo sair?"
 
 #: ../src/gnomebaker.c:308
 msgid "CD Image files"
@@ -639,7 +638,7 @@ msgstr "Por favor, selecione uma lista de reprodução."
 
 #: ../src/gnomebaker.c:951
 msgid "Project is not saved. Are you sure you want to close the project?"
-msgstr ""
+msgstr "Este projeto não foi gravado. Tem certeza que deseja fechá-lo?"
 
 #: ../src/gnomebaker.c:1013
 msgid "Please select files to add to the disk."
@@ -741,7 +740,7 @@ msgstr "Gravar DVD-RAM"
 #: ../src/progressdlg.c:80
 #, c-format
 msgid "%d minutes %d seconds"
-msgstr "%d minutoss %d segundos"
+msgstr "%d minutos %d segundos"
 
 #: ../src/progressdlg.c:82
 #, c-format
@@ -881,7 +880,7 @@ msgstr "BurnFree"
 
 #: ../src/startdlg.c:570
 msgid "Burn the disk"
-msgstr "Queimar o disco"
+msgstr "Gravar o disco"
 
 #: ../src/startdlg.c:572
 msgid "Only create image"
@@ -937,11 +936,11 @@ msgstr "Copiar DVD"
 
 #: ../src/burn.h:74
 msgid "Burn CD Image"
-msgstr "Queimar imagem de CD"
+msgstr "Gravar imagem de CD"
 
 #: ../src/burn.h:75
 msgid "Burn DVD Image"
-msgstr "Queimar imagem de DVD"
+msgstr "Gravar imagem de DVD"
 
 #: ../src/burn.h:76
 msgid "Create Data CD"
@@ -1081,7 +1080,7 @@ msgstr "Catálogo de inicialização"
 
 #: ../gnomebaker.glade.h:28
 msgid "Burn _DVD Image"
-msgstr "Queimar imagem de DVD"
+msgstr "Gravar imagem de DVD"
 
 #: ../gnomebaker.glade.h:29
 msgid "C_opy Data CD"
@@ -1241,7 +1240,7 @@ msgstr "_Adicionar dispositivo"
 
 #: ../gnomebaker.glade.h:77
 msgid "_Close Project"
-msgstr ""
+msgstr "_Fechar o projeto"
 
 #: ../gnomebaker.glade.h:78
 msgid "_Copy CD"
