@@ -176,8 +176,7 @@
                 <child>
                   <widget class="GtkMenuItem" id="file2">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Datei</property>
-                    <property name="use_underline">True</property>
+					<property name="stock_item">GNOMEUIINFO_MENU_FILE_TREE</property>
                     <child>
                       <widget class="GtkMenu" id="file2_menu">
                         <child>
@@ -386,8 +385,7 @@
                 <child>
                   <widget class="GtkMenuItem" id="edit3">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Bearbeiten</property>
-                    <property name="use_underline">True</property>
+					<property name="stock_item">GNOMEUIINFO_MENU_EDIT_TREE</property>
                     <child>
                       <widget class="GtkMenu" id="edit3_menu">
                         <child>
@@ -706,8 +704,7 @@
                 <child>
                   <widget class="GtkMenuItem" id="help2">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Hilfe</property>
-                    <property name="use_underline">True</property>
+					<property name="stock_item">GNOMEUIINFO_MENU_HELP_TREE</property>
                     <child>
                       <widget class="GtkMenu" id="help2_menu">
                         <child>
