@@ -26,6 +26,7 @@
 #include <sys/types.h>
 #include <sys/utsname.h>
 #include "gbcommon.h"
+#include "backend.h"
 
 
 GConfClient *gconf_client = NULL;
@@ -79,6 +80,7 @@ preferences_init()
             preferences_set_int(GB_DATA_DISK_SIZE, 0);
             preferences_set_int(GB_AUDIO_DISK_SIZE, 0);
             preferences_set_bool(GB_CDRECORD_FORCE, FALSE);
+			preferences_set_int(GB_BACKEND, preferences_get_default_backend());
 
             gchar *last_iso = preferences_get_default_iso();
             preferences_set_string(GB_LAST_ISO, last_iso);
@@ -93,6 +95,17 @@ preferences_init()
 	return ok;
 }
 
+
+int
+preferences_get_default_backend()
+{
+	GB_LOG_FUNC
+	
+	if (backend_is_backend_supported(BACKEND_CDRECORD))
+		return BACKEND_CDRECORD;
+	else if (backend_is_backend_supported(BACKEND_WODIM))
+		return BACKEND_WODIM;
+}
 
 void
 preferences_finalise()

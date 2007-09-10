@@ -1144,6 +1144,7 @@ gnomebaker_new()
     GB_LOG_FUNC
 
     xml = glade_xml_new(glade_file, widget_gnomebaker, NULL);
+    
 
     /* This is important */
     glade_xml_signal_autoconnect(xml);
