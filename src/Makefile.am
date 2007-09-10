@@ -36,3 +36,5 @@ gnomebaker_SOURCES =					\
 	cairofillbar.c cairofillbar.h
 	
 gnomebaker_LDADD =  @GNOMEBAKER_LIBS@
+gnomebaker_LDFLAGS = -export-dynamic 
+
