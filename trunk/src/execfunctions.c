@@ -56,7 +56,7 @@ execfunctions_find_line_set_status(const gchar *buffer, const gchar *text, const
         while(*ptr != delimiter)
             ++ptr;
         gchar *message = g_strndup(start, (ptr - start) / sizeof(gchar));
-        g_strstrip(message);
+		g_strstrip(message);
         progressdlg_set_status(message);
         g_free(message);
     }
@@ -878,6 +878,759 @@ mkisofs_add_calc_iso_size_args(ExecCmd *e, const gchar *iso)
     e->read_proc = mkisofs_calc_size_read_proc;
     e->post_proc = mkisofs_calc_size_post_proc;
 }
+
+
+
+/*******************************************************************************
+ * WODIM
+ ******************************************************************************/
+
+static void
+wodim_blank_pre_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	progressdlg_set_status(_("Preparing to blank disk"));
+    if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
+        exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
+    else
+    {
+        /* This time approximation is my first attempt at figuring out how long blanking a
+         * cd really takes. It's not very scientific and I will at some point try to figure it
+         * out more accurately.*/
+        gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+        if(speed == 0) speed = 1;
+        gint approximation = 0;
+        if(preferences_get_bool(GB_FAST_BLANK))
+            approximation = (speed * -5) + 95;
+        else
+            approximation = ((60/speed) * (60/speed)) * 15;
+
+        GB_TRACE("wodim_blank_pre_proc - approximation is [%d]\n", approximation);
+        progressdlg_start_approximation(approximation);
+        progressdlg_increment_exec_number();
+    }
+    devices_unmount_device(GB_WRITER);
+}
+
+
+static void
+wodim_blank_post_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	progressdlg_stop_approximation();
+}
+
+
+static void
+wodim_blank_read_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(buffer != NULL);
+    g_return_if_fail(ex != NULL);
+
+    gchar *buf = (gchar*)buffer;
+    execfunctions_find_line_set_status(buf, "Last chance", '.');
+    execfunctions_find_line_set_status(buf, "Performing OPC", '.');
+    execfunctions_find_line_set_status(buf, "Blanking", '\r');
+    progressdlg_append_output(buffer);
+}
+
+
+/*
+ * We pass a pointer to this function to Exec which will call us when it has
+ * read from it pipe. We get the data and stuff the text into our text entry
+ * for the user to read.
+ */
+static void
+wodim_pre_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+
+    progressdlg_set_status(_("Preparing to burn disk"));
+    progressdlg_increment_exec_number();
+
+    if(devices_prompt_for_disk(progressdlg_get_window(), GB_WRITER) == GTK_RESPONSE_CANCEL)
+        exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
+    else
+    {
+        /* If we have the total disk bytes set then let cdrecord know about it */
+        if(cdrecord_total_disk_bytes > 0)
+            exec_cmd_update_arg((ExecCmd*)ex, "tsize=", "tsize=%ds", cdrecord_total_disk_bytes);
+        devices_unmount_device(GB_WRITER);
+    }
+}
+
+
+static void
+wodim_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(buffer != NULL);
+	g_return_if_fail(ex != NULL);
+
+	gchar *buf = (gchar*)buffer;
+	const gchar *track = strstr(buf, "Track");
+	if(track != NULL)
+	{
+        gint current_track = 0;
+        gfloat current = 0, total = 0;
+
+        const gchar *of = strstr(buf, " of ");
+        if(of != NULL) /* regular burn i.e not on the fly */
+        {
+            /*  Track 01:    3 of   19 MB written (fifo 100%) [buf  98%]   4.5x. */
+            sscanf(track, "%*s %d %*s %f %*s %f", &current_track, &current, &total);
+        }
+        else /* on the fly */
+        {
+            /* Track 01:   12 MB written (fifo 100%) [buf  96%]   4.0x. */
+            sscanf(track, "%*s %d %*s %f", &current_track, &current);
+            total = cdrecord_total_disk_bytes / 1024 / 1024;
+        }
+
+        if(current > 0.0)
+        {
+            if(cdrecord_first_track == -1)
+                cdrecord_first_track = current_track;
+
+            /* Figure out how many tracks we have written so far and calc the fraction */
+            gfloat total_fraction =  ((gfloat)current_track - cdrecord_first_track)
+                    * (1.0 / cdrecord_total_tracks_to_write);
+
+            /* now add on the fraction of the track we are currently writing */
+            total_fraction += ((current / total) * (1.0 / cdrecord_total_tracks_to_write));
+
+            /*GB_TRACE("^^^^^ current [%d] first [%d] current [%f] total [%f] fraction [%f]",
+                current_track, cdrecord_first_track, current, total, total_fraction);*/
+
+            gchar *status = g_strdup_printf(_("Writing track %d"), current_track);
+            progressdlg_set_status(status);
+            g_free(status);
+            progressdlg_set_fraction(total_fraction);
+        }
+	}
+    else
+    {
+        progressdlg_append_output(buffer);
+        execfunctions_find_line_set_status(buf, "Performing OPC", '.');
+        execfunctions_find_line_set_status(buf, "Last chance", '.');
+        execfunctions_find_line_set_status(buf, "Writing Leadout", '.');
+        execfunctions_find_line_set_status(buf, "Fixating", '.');
+    }
+}
+
+
+static void
+wodim_copy_audio_cd_pre_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+
+    wodim_pre_proc(ex, buffer);
+
+    GError *err = NULL;
+    gchar *tmp = preferences_get_string(GB_TEMP_DIR);
+    GDir *dir = g_dir_open(tmp, 0, &err);
+    GList *files_list = NULL;
+    GList *p = NULL;
+
+    if(dir != NULL)
+    {
+        cdrecord_total_tracks_to_write = 0;
+        /* loop around reading the files in the directory */
+        const gchar *name = g_dir_read_name(dir);
+        while(name != NULL)
+        {
+            if(g_str_has_suffix(name, ".wav"))
+            {
+                GB_TRACE("wodim_copy_audio_cd_pre_proc - found [%s]\n", name);
+                gchar *full_path = g_build_filename(tmp, name, NULL);
+                files_list = g_list_insert_sorted(files_list, full_path, strcmp);
+                cdrecord_total_tracks_to_write++;
+            }
+
+            name = g_dir_read_name(dir);
+        }
+        g_dir_close(dir);
+
+        for (p = files_list; p != NULL; p = g_list_next(p)) {
+            GB_TRACE("wodim_copy_audio_cd_pre_proc - adding [%s]\n", p->data);
+            exec_cmd_add_arg(ex, p->data);
+            g_free(p->data);
+            p->data = NULL;
+        }
+        g_list_free(files_list);
+    }
+    g_free(tmp);
+}
+
+
+/*
+ *  Populates the common information required to burn a cd
+ */
+static void
+wodim_add_common_args(ExecCmd *cmd)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cmd != NULL);
+
+    cdrecord_total_disk_bytes = 0;
+    cdrecord_total_tracks_to_write = 1;
+    cdrecord_first_track = -1;
+
+	exec_cmd_add_arg(cmd, "wodim");
+	gchar *writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(cmd, "dev=%s", writer);
+	g_free(writer);
+
+	if(preferences_get_bool(GB_CDRECORD_FORCE))
+	   exec_cmd_add_arg(cmd, "-force");
+
+	exec_cmd_add_arg(cmd, "gracetime=5");
+
+    const gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+    if(speed > 0)
+	   exec_cmd_add_arg(cmd, "speed=%d", speed);
+
+    exec_cmd_add_arg(cmd, "-v");
+
+	if(preferences_get_bool(GB_EJECT))
+		exec_cmd_add_arg(cmd, "-eject");
+
+	if(preferences_get_bool(GB_DUMMY))
+		exec_cmd_add_arg(cmd, "-dummy");
+
+	if(preferences_get_bool(GB_BURNFREE))
+		exec_cmd_add_arg(cmd, "driveropts=burnfree");
+
+	gchar *mode = preferences_get_string(GB_WRITE_MODE);
+	if(g_ascii_strcasecmp(mode, _("Auto")) != 0)
+		exec_cmd_add_arg(cmd, "-%s", mode);
+	g_free(mode);
+}
+
+
+void
+wodim_add_create_audio_cd_args(ExecCmd *cmd, const GList *audio_files)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cmd != NULL);
+
+	wodim_add_common_args(cmd);
+	exec_cmd_add_arg(cmd, "-audio");
+    exec_cmd_add_arg(cmd, "-pad");
+    exec_cmd_add_arg(cmd, "-useinfo");
+    exec_cmd_add_arg(cmd, "-text");
+
+	/* if we are on the fly this will be a list of inf files, otherwise
+     * it's the list of wavs to burn */
+    const GList *audio_file = audio_files;
+    for (; audio_file != NULL ; audio_file = audio_file->next)
+    {
+        exec_cmd_add_arg(cmd, audio_file->data);
+        GB_TRACE("wodim_add_create_audio_cd_args - adding [%s]\n", (gchar*)audio_file->data);
+        cdrecord_total_tracks_to_write++;
+    }
+	cmd->read_proc = wodim_read_proc;
+	cmd->pre_proc = wodim_pre_proc;
+}
+
+
+void
+wodim_add_iso_args(ExecCmd *cmd, const gchar *iso)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cmd != NULL);
+
+	wodim_add_common_args(cmd);
+
+    exec_cmd_add_arg(cmd, "-overburn");
+
+	/*if(!prefs->multisession)*/
+		exec_cmd_add_arg(cmd, "-multi");
+
+    exec_cmd_add_arg(cmd, "tsize=%ds", -1);
+    exec_cmd_add_arg(cmd, "-pad");
+
+    if(iso != NULL)
+	    exec_cmd_add_arg(cmd, iso);
+	else
+	    exec_cmd_add_arg(cmd, "-"); /* no file_name so we're on the fly */
+
+	cmd->read_proc = wodim_read_proc;
+	cmd->pre_proc = wodim_pre_proc;
+}
+
+
+void
+wodim_add_audio_args(ExecCmd *cmd)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cmd != NULL);
+	wodim_add_common_args(cmd);
+	exec_cmd_add_arg(cmd, "-useinfo");
+	exec_cmd_add_arg(cmd, "-audio");
+	exec_cmd_add_arg(cmd, "-pad");
+
+	cmd->read_proc = wodim_read_proc;
+	cmd->pre_proc = wodim_copy_audio_cd_pre_proc;
+}
+
+
+void
+wodim_add_blank_args(ExecCmd *cmd)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(cmd != NULL);
+
+	cmd->read_proc = wodim_blank_read_proc;
+	cmd->pre_proc = wodim_blank_pre_proc;
+	cmd->post_proc = wodim_blank_post_proc;
+
+	exec_cmd_add_arg(cmd, "wodim");
+
+	gchar *writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(cmd, "dev=%s", writer);
+	g_free(writer);
+
+    const gint speed = preferences_get_int(GB_CDWRITE_SPEED);
+    if(speed > 0)
+       exec_cmd_add_arg(cmd, "speed=%d", speed);
+
+	exec_cmd_add_arg(cmd, "-v");
+	/*exec_cmd_add_arg(cmd, "-format");*/
+
+    if(preferences_get_bool(GB_CDRECORD_FORCE))
+       exec_cmd_add_arg(cmd, "-force");
+
+	if(preferences_get_bool(GB_EJECT))
+		exec_cmd_add_arg(cmd, "-eject");
+
+	exec_cmd_add_arg(cmd, "gracetime=5");
+	exec_cmd_add_arg(cmd, "blank=%s", preferences_get_bool(GB_FAST_BLANK) ? "fast" : "all");
+}
+
+
+/*******************************************************************************
+ * ICEDAX
+ ******************************************************************************/
+
+
+static void
+icedax_pre_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	cdda2wav_total_tracks = -1;
+	cdda2wav_total_tracks_read = 0;
+
+	progressdlg_set_status(_("Preparing to extract audio tracks"));
+	progressdlg_increment_exec_number();
+
+	gint response = GTK_RESPONSE_NO;
+
+	gchar *tmp = preferences_get_string(GB_TEMP_DIR);
+	gchar *file = g_strdup_printf("%s/gbtrack_01.wav", tmp);
+
+	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
+	{
+		response = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_NONE,
+                _("Audio tracks from a previous sesion already exist on disk, "
+			    "do you wish to use the existing tracks?"));
+	}
+
+	g_free(file);
+
+	if(response == GTK_RESPONSE_NO)
+	{
+		gchar *cmd = g_strdup_printf("rm -fr %s/gbtrack*", tmp);
+		system(cmd);
+		g_free(cmd);
+	    response = devices_prompt_for_disk(progressdlg_get_window(), GB_READER);
+	}
+
+	if(response == GTK_RESPONSE_CANCEL)
+		exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
+	else if(response == GTK_RESPONSE_YES)
+		exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
+
+	devices_unmount_device(GB_READER);
+	g_free(tmp);
+}
+
+
+static void
+icedax_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(buffer != NULL);
+
+	gchar *text = (gchar*)buffer;
+	if(cdda2wav_total_tracks == -1)
+	{
+		const gchar *tracks_start = strstr(text, "Tracks:");
+		if(tracks_start != NULL)
+            sscanf(tracks_start, "Tracks:%d", &cdda2wav_total_tracks);
+        progressdlg_append_output(text);
+	}
+	else if(cdda2wav_total_tracks)
+	{
+		const gchar *pcnt = strchr(text, '%');
+		if(pcnt != NULL)
+		{
+			do
+				pcnt--;
+            while(!g_ascii_isspace(*pcnt));
+            gfloat fraction = 0.0;
+            sscanf(++pcnt, "%f%%", &fraction);
+            fraction /= 100.0;
+            fraction *= (1.0/(gfloat)cdda2wav_total_tracks);
+			fraction += ((gfloat)cdda2wav_total_tracks_read *(1.0/(gfloat)cdda2wav_total_tracks));
+			progressdlg_set_fraction(fraction);
+
+            const gchar *hundred = strstr(text, "rderr,");
+			if(hundred != NULL)
+				cdda2wav_total_tracks_read++;
+
+            gchar *status = g_strdup_printf(_("Extracting audio track %d"), cdda2wav_total_tracks_read + 1);
+            progressdlg_set_status(status);
+            g_free(status);
+		}
+        else
+            progressdlg_append_output(text);
+	}
+}
+
+
+/*
+ * Populates the information required to extract audio tracks from an existing
+ * audio cd
+ */
+void
+icedax_add_copy_args(ExecCmd *e)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(e != NULL);
+
+	exec_cmd_add_arg(e, "icedax");
+	exec_cmd_add_arg(e, "-x");
+	exec_cmd_add_arg(e, "cddb=1");
+    exec_cmd_add_arg(e, "speed=52");
+	exec_cmd_add_arg(e, "-B");
+	exec_cmd_add_arg(e, "-g");
+	exec_cmd_add_arg(e, "-Q");
+	exec_cmd_add_arg(e, "-paranoia");
+
+	gchar *reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
+	exec_cmd_add_arg(e, "-D%s", reader);
+	g_free(reader);
+
+	exec_cmd_add_arg(e, "-Owav");
+
+	gchar *tmp = preferences_get_string(GB_TEMP_DIR);
+	exec_cmd_add_arg(e, "%s/gbtrack", tmp);
+	g_free(tmp);
+
+	e->pre_proc = icedax_pre_proc;
+	e->read_proc = icedax_read_proc;
+    e->post_proc = execfunctions_prompt_for_disk_post_proc;
+}
+
+
+/*******************************************************************************
+ * GENISOIMAGE
+ ******************************************************************************/
+
+
+/*
+	genisoimage -o gb.iso -R -J -hfs *
+
+ genisoimage -V "Jamie Michelle Wedding" -p "Luke Biddell" -A "GnomeBaker" -o gb.iso -R -J -hfs *
+
+ also
+ -L (include dot files) -X (mixed case filenames) -s (multiple dots in name)
+
+shell> NEXT_TRACK=`wodim -msinfo dev=0,6,0`
+shell> echo $NEXT_TRACK
+shell> genisoimage -R -o cd_image2 -C $NEXT_TRACK -M /dev/scd5 private_collection/
+*/
+
+
+static void
+genisoimage_calc_size_pre_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+
+    progressdlg_set_status(_("Calculating data disk image size"));
+    progressdlg_increment_exec_number();
+    progressdlg_start_approximation(20);
+}
+
+
+static void
+genisoimage_calc_size_read_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+    g_return_if_fail(buffer != NULL);
+
+    const gchar *written = strstr(buffer, "written =");
+    if(written != NULL)
+    {
+        if(sscanf(written, "written = %llu\n", &cdrecord_total_disk_bytes) == 1)
+            GB_TRACE("genisoimage_calc_size_read_proc - size is [%llu]\n", cdrecord_total_disk_bytes);
+    }
+    progressdlg_append_output(buffer);
+}
+
+
+static void
+genisoimage_calc_size_post_proc(void *ex, void *buffer)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(ex != NULL);
+    progressdlg_stop_approximation();
+}
+
+
+static void
+genisoimage_pre_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(ex != NULL);
+
+	progressdlg_set_status(_("Creating data disk image"));
+	progressdlg_increment_exec_number();
+
+	gchar *file = preferences_get_create_data_cd_image();
+	if(g_file_test(file, G_FILE_TEST_IS_REGULAR))
+	{
+		gint ret = gnomebaker_show_msg_dlg(progressdlg_get_window(), GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, GTK_BUTTONS_OK,
+                _("A data CD image from a previous session already exists on disk, "
+                "do you wish to use the existing image?"));
+
+		if(ret  == GTK_RESPONSE_YES)
+			exec_cmd_set_state((ExecCmd*)ex, SKIPPED);
+		else if(ret == GTK_RESPONSE_CANCEL)
+			exec_cmd_set_state((ExecCmd*)ex, CANCELLED);
+	}
+
+	g_free(file);
+}
+
+
+static void
+genisoimage_read_proc(void *ex, void *buffer)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(ex != NULL);
+	g_return_if_fail(buffer != NULL);
+
+	const gchar *percent = strrchr(buffer, '%');
+	if(percent != NULL)
+	{
+		while((!g_ascii_isspace(*percent)) && (percent > (gchar*)buffer))
+			--percent;
+        gfloat progress = 0.0;
+        if(sscanf(++percent, "%f%%", &progress) == 1)
+            progressdlg_set_fraction(progress/100.0);
+	}
+    else
+	   progressdlg_append_output(buffer);
+}
+
+
+/*static gboolean
+mkisofs_foreach_func(GtkTreeModel *model,
+                GtkTreePath *path,
+                GtkTreeIter *iter,
+                gpointer user_data)
+{
+	GB_LOG_FUNC
+	gchar *file = NULL, *filepath = NULL;
+	gboolean existingsession = FALSE;
+
+	gtk_tree_model_get (model, iter, DATACD_COL_FILE, &file,
+		DATACD_COL_PATH, &filepath, DATACD_COL_SESSION, &existingsession, -1);
+
+	/Only add files that are not part of an existing session/
+	if(!existingsession)
+		exec_cmd_add_arg((ExecCmd*)user_data, "%s=%s", file, filepath);
+
+	g_free(file);
+	g_free(filepath);
+
+	return FALSE; /do not stop walking the store, call us with next row/
+}
+*/
+
+
+
+static void
+genisoimage_add_common_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_file)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(e != NULL);
+    g_return_if_fail(start_dlg != NULL);
+
+    const gchar *text = gtk_entry_get_text(start_dlg->volume_id);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-V");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->app_id);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-A");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->preparer);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-p");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->publisher);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-publisher");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->copyright);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-copyright");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->abstract);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-abstract");
+        exec_cmd_add_arg(e, text);
+    }
+    text = gtk_entry_get_text(start_dlg->bibliography);
+    if(text != NULL && strlen(text) > 0)
+    {
+        exec_cmd_add_arg(e, "-bilio");
+        exec_cmd_add_arg(e, text);
+    }
+
+    exec_cmd_add_arg(e, "-iso-level");
+    exec_cmd_add_arg(e, "3");
+    exec_cmd_add_arg(e, "-l"); /* allow 31 character iso9660 filenames */
+
+    if(preferences_get_bool(GB_ROCKRIDGE))
+    {
+        exec_cmd_add_arg(e, "-r");
+        exec_cmd_add_arg(e, "-hide-rr-moved");
+    }
+
+    if(preferences_get_bool(GB_JOLIET))
+    {
+        exec_cmd_add_arg(e, "-J");
+        exec_cmd_add_arg(e, "-joliet-long");
+    }
+
+    /*exec_cmd_add_arg(e, "-f"); don't follow links */
+    /*exec_cmd_add_arg(e, "-hfs");*/
+
+    exec_cmd_add_arg(e, "-graft-points");
+
+    /*this is not valid now since we have to build recursively the paths
+     * We will use a GList*/
+    /*
+    gtk_tree_model_foreach(datamodel, mkisofs_foreach_func, e);
+    */
+        /*--path-list FILE */
+    exec_cmd_add_arg(e, "--path-list");
+    exec_cmd_add_arg(e, "%s", arguments_file);
+}
+
+
+void
+genisoimage_add_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_file, const gchar *msinfo, const gboolean calculate_size)
+{
+	GB_LOG_FUNC
+	g_return_if_fail(e != NULL);
+    g_return_if_fail(start_dlg != NULL);
+	cdrecord_total_disk_bytes = 0;
+
+    exec_cmd_add_arg(e, "mkisofs");
+
+	/* If this is a another session on an existing cd we don't show the
+	   iso details dialog */
+	if(msinfo != NULL)
+	{
+		exec_cmd_add_arg(e, "-C");
+		exec_cmd_add_arg(e, msinfo);
+
+		gchar *writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+		exec_cmd_add_arg(e, "-M");
+		exec_cmd_add_arg(e, writer);
+		g_free(writer);
+
+		/* This is a cludge so that we don't ask the user if they want to use the existing iso */
+		gchar *create_data_iso = preferences_get_create_data_cd_image();
+		gchar *cmd = g_strdup_printf("rm -fr %s", create_data_iso);
+		system(cmd);
+		g_free(cmd);
+		g_free(create_data_iso);
+	}
+
+    if(preferences_get_bool(GB_CREATEISOONLY))
+    {
+        exec_cmd_add_arg(e, "-gui");
+        exec_cmd_add_arg(e, "-o");
+        exec_cmd_add_arg(e, gtk_entry_get_text(start_dlg->iso_file));
+    }
+    else if(!preferences_get_bool(GB_ONTHEFLY))
+    {
+        exec_cmd_add_arg(e, "-gui");
+        exec_cmd_add_arg(e, "-o");
+        gchar *file = preferences_get_create_data_cd_image();
+        exec_cmd_add_arg(e, file);
+        g_free(file);
+    }
+
+    if(calculate_size)
+    {
+        exec_cmd_add_arg(e, "--print-size");
+        e->pre_proc = genisoimage_calc_size_pre_proc;
+        e->read_proc = genisoimage_calc_size_read_proc;
+        e->post_proc = genisoimage_calc_size_post_proc;
+    }
+    else
+    {
+        e->pre_proc = genisoimage_pre_proc;
+        e->read_proc = genisoimage_read_proc;
+    }
+
+    genisoimage_add_common_args(e, start_dlg, arguments_file);
+
+	/* We don't own the msinfo gchar datacd does
+	g_free(msinfo);*/
+}
+
+
+void
+genisoimage_add_calc_iso_size_args(ExecCmd *e, const gchar *iso)
+{
+    g_return_if_fail(e != NULL);
+    g_return_if_fail(iso != NULL);
+
+    exec_cmd_add_arg(e, "genisoimage");
+    exec_cmd_add_arg(e, "--print-size");
+    exec_cmd_add_arg(e, iso);
+    e->pre_proc = genisoimage_calc_size_pre_proc;
+    e->read_proc = genisoimage_calc_size_read_proc;
+    e->post_proc = genisoimage_calc_size_post_proc;
+}
+
+
+
+
 
 
 /*******************************************************************************
