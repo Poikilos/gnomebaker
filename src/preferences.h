@@ -24,6 +24,7 @@
 
 #include <gnome.h>
 #include <gconf/gconf-client.h>
+#include "backend.h"
 
 #define GB_BASE_KEY "/apps/GnomeBaker"
 #define GB_READER 					GB_BASE_KEY "/ReadDevice"
@@ -54,6 +55,7 @@
 #define GB_AUDIO_DISK_SIZE          GB_BASE_KEY "/AudioDiskSize"
 #define GB_CDRECORD_FORCE		    GB_BASE_KEY "/CDRecordForce"
 #define GB_LAST_ISO                 GB_BASE_KEY "/LastISO"
+#define GB_BACKEND					GB_BASE_KEY "/Backend"
 
 #define GB_MAIN_WINDOW_HEIGHT		GB_BASE_KEY "/UI/MainWindowHeight"
 #define GB_MAIN_WINDOW_WIDTH		GB_BASE_KEY "/UI/MainWindowWidth"

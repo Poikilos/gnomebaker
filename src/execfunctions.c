@@ -273,8 +273,20 @@ cdrecord_add_common_args(ExecCmd *cmd)
     cdrecord_total_tracks_to_write = 1;
     cdrecord_first_track = -1;
 
-	exec_cmd_add_arg(cmd, "cdrecord");
-	gchar *writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+	gchar *writer;
+	
+	switch(preferences_get_int(GB_BACKEND)) 
+	{
+		case BACKEND_CDRECORD:
+			exec_cmd_add_arg(cmd, "cdrecord");
+			writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+			break;
+		case BACKEND_WODIM:
+			exec_cmd_add_arg(cmd, "wodim");
+			writer = devices_get_device_config(GB_WRITER, GB_DEVICE_NODE_LABEL);
+			break;			
+	}
+		
 	exec_cmd_add_arg(cmd, "dev=%s", writer);
 	g_free(writer);
 
@@ -382,9 +394,20 @@ cdrecord_add_blank_args(ExecCmd *cmd)
 	cmd->pre_proc = cdrecord_blank_pre_proc;
 	cmd->post_proc = cdrecord_blank_post_proc;
 
-	exec_cmd_add_arg(cmd, "cdrecord");
+	gchar *writer;
 
-	gchar *writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+	switch(preferences_get_int(GB_BACKEND)) 
+	{
+		case BACKEND_CDRECORD:
+			exec_cmd_add_arg(cmd, "cdrecord");
+			writer = devices_get_device_config(GB_WRITER, GB_DEVICE_ID_LABEL);
+			break;
+		case BACKEND_WODIM:
+			exec_cmd_add_arg(cmd, "wodim");
+			writer = devices_get_device_config(GB_WRITER, GB_DEVICE_NODE_LABEL);
+			break;			
+	}
+		
 	exec_cmd_add_arg(cmd, "dev=%s", writer);
 	g_free(writer);
 
@@ -505,8 +528,21 @@ cdda2wav_add_copy_args(ExecCmd *e)
 {
 	GB_LOG_FUNC
 	g_return_if_fail(e != NULL);
+	
+	gchar *reader = NULL;
+	
+	switch(preferences_get_int(GB_BACKEND)) 
+	{
+		case BACKEND_CDRECORD:
+			exec_cmd_add_arg(e, "cdda2wav");
+			reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
+			break;
+		case BACKEND_WODIM:
+			exec_cmd_add_arg(e, "icedax");
+			reader = devices_get_device_config(GB_READER, GB_DEVICE_NODE_LABEL);
+			break;			
+	}
 
-	exec_cmd_add_arg(e, "cdda2wav");
 	exec_cmd_add_arg(e, "-x");
 	exec_cmd_add_arg(e, "cddb=1");
     exec_cmd_add_arg(e, "speed=52");
@@ -515,7 +551,6 @@ cdda2wav_add_copy_args(ExecCmd *e)
 	exec_cmd_add_arg(e, "-Q");
 	exec_cmd_add_arg(e, "-paranoia");
 
-	gchar *reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
 	exec_cmd_add_arg(e, "-D%s", reader);
 	g_free(reader);
 
@@ -750,8 +785,20 @@ mkisofs_add_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_file, c
 	g_return_if_fail(e != NULL);
     g_return_if_fail(start_dlg != NULL);
 	cdrecord_total_disk_bytes = 0;
-
-    exec_cmd_add_arg(e, "mkisofs");
+	
+	gchar* writer = NULL;
+	
+	switch(preferences_get_int(GB_BACKEND)) 
+	{
+		case BACKEND_CDRECORD:
+			exec_cmd_add_arg(e, "mkisofs");
+			writer = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
+			break;
+		case BACKEND_WODIM:
+			exec_cmd_add_arg(e, "genisoimage");
+			writer = devices_get_device_config(GB_READER, GB_DEVICE_NODE_LABEL);
+			break;			
+	}
 
 	/* If this is a another session on an existing cd we don't show the
 	   iso details dialog */
@@ -814,7 +861,17 @@ mkisofs_add_calc_iso_size_args(ExecCmd *e, const gchar *iso)
     g_return_if_fail(e != NULL);
     g_return_if_fail(iso != NULL);
 
-    exec_cmd_add_arg(e, "mkisofs");
+
+	switch(preferences_get_int(GB_BACKEND)) 
+	{
+		case BACKEND_CDRECORD:
+			exec_cmd_add_arg(e, "mkisofs");			
+			break;
+		case BACKEND_WODIM:
+			exec_cmd_add_arg(e, "genisofs");
+			break;			
+	}
+
     exec_cmd_add_arg(e, "--print-size");
     exec_cmd_add_arg(e, iso);
     e->pre_proc = mkisofs_calc_size_pre_proc;
@@ -1158,9 +1215,20 @@ readcd_add_copy_args(ExecCmd *e, const gchar *iso)
 	g_return_if_fail(e != NULL);
 	g_return_if_fail(iso != NULL);
 
-	exec_cmd_add_arg(e, "readcd");
+	gchar *reader = NULL;
 
-	gchar *reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
+	switch(preferences_get_int(GB_BACKEND)) 
+	{
+		case BACKEND_CDRECORD:
+			exec_cmd_add_arg(e, "readcd");
+			reader = devices_get_device_config(GB_READER, GB_DEVICE_ID_LABEL);
+			break;
+		case BACKEND_WODIM:
+			exec_cmd_add_arg(e, "readom");
+			reader = devices_get_device_config(GB_READER, GB_DEVICE_NODE_LABEL);
+			break;			
+	}
+
 	exec_cmd_add_arg(e, "dev=%s", reader);
 	g_free(reader);
 

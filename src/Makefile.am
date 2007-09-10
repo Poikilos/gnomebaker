@@ -33,7 +33,8 @@ gnomebaker_SOURCES =					\
 	project.c project.h			\
 	dataproject.c dataproject.h \
 	audioproject.c audioproject.h \
-	cairofillbar.c cairofillbar.h
+	cairofillbar.c cairofillbar.h \
+	backend.c backend.h
 	
 gnomebaker_LDADD =  @GNOMEBAKER_LIBS@
 gnomebaker_LDFLAGS = -export-dynamic 

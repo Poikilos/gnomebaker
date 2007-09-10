@@ -36,7 +36,7 @@ static const gchar *const widget_prefsdlg_always_scan = "checkAlwaysScan";
 static const gchar *const widget_prefsdlg_devicelist = "treeview12";
 static const gchar *const widget_prefsdlg_scroll_output = "checkScrollOutput";
 static const gchar *const widget_prefsdlg_cdrecord_force = "checkCDRecordForce";
-
+static const gchar *const widget_prefsdlg_backend = "cb_select_backend";
 
 static const gint DEVICELIST_COL_ICON = 0;
 static const gint DEVICELIST_COL_NAME = 1;
@@ -295,6 +295,59 @@ prefsdlg_on_ok(GtkButton *button, gpointer user_data)
 	gtk_tree_model_foreach(device_model, prefsdlg_foreach_device, &device_count);
 }
 
+static void
+prefsdlg_populate_backend_list()
+{
+	GB_LOG_FUNC
+	
+	g_return_if_fail(prefsdlg_xml != NULL);
+	GtkWidget *backend_list = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_backend);
+	g_return_if_fail(backend_list != NULL);
+
+	/* create model */	
+	GtkListStore *model  = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);    
+    gtk_combo_box_set_model(GTK_COMBO_BOX(backend_list), GTK_TREE_MODEL(model));
+
+    GtkTreeIter iter;
+
+	/* append data */
+	if (backend_is_backend_supported(BACKEND_CDRECORD))
+	{
+	   	gtk_list_store_append(model, &iter);
+	    gtk_list_store_set(model, &iter, 0, "cdrecord", 1, BACKEND_CDRECORD, -1);  	
+	} 
+	
+	if (backend_is_backend_supported(BACKEND_WODIM)) 
+	{
+	    gtk_list_store_append(model, &iter);
+	    gtk_list_store_set(model, &iter, 0, "wodim", 1, BACKEND_WODIM, -1);
+	}
+    
+    /* create renderer */
+    GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (backend_list), renderer, TRUE);
+    gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (backend_list), renderer, "text", 0, NULL);
+    
+    enum backend b = preferences_get_int(GB_BACKEND);
+
+    /*
+     Current Backend selection 
+     */
+    
+    /* Get first iter */
+    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model), &iter);
+    
+    do
+    { 
+    	GValue back = {0};
+    	gtk_tree_model_get_value(GTK_TREE_MODEL(model), &iter, 1, &back);
+    	if (g_value_get_int(&back) == b)
+    		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(backend_list), &iter);
+    	g_value_unset(&back);
+    } 
+    while (gtk_tree_model_iter_next(model, &iter));
+
+}
 
 static void
 prefsdlg_populate_device_list()
@@ -353,7 +406,6 @@ prefsdlg_populate_device_list()
 	g_slist_free(devices);
 }
 
-
 static void
 prefsdlg_clear_device_list()
 {
@@ -367,6 +419,21 @@ prefsdlg_clear_device_list()
 	gtk_list_store_clear(device_model);
 }
 
+void /* libglade callback */
+prefsdlg_on_backend_changed(GtkComboBox *cb, gpointer user_data)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model  = gtk_combo_box_get_model(cb);
+	GValue b = {0};
+	
+	gtk_combo_box_get_active_iter(cb, &iter);
+	
+	gtk_tree_model_get_value(model, &iter, 1, &b);
+	
+	enum backend selected_backend = g_value_get_int(&b);
+	
+	preferences_set_int(GB_BACKEND, selected_backend);
+}
 
 void /* libglade callback */
 prefsdlg_on_scan(GtkButton  *button, gpointer user_data)
@@ -448,6 +515,8 @@ prefsdlg_new(void)
 
 	prefsdlg_create_device_list();
 	prefsdlg_populate_device_list();
+	prefsdlg_populate_backend_list();
+	
 	GtkWidget *dlg = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg);
     gbcommon_center_window_on_parent(dlg);
 	return dlg;

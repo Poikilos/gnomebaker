@@ -45,10 +45,35 @@ static GOptionEntry entries[] =
     { NULL }
 };
 
+void backend_init()
+{
+		// Get current backend
+		enum backend b = preferences_get_int(GB_BACKEND);
+		
+		/* Check if Backend in GConf is still valid */
+		if (!backend_is_backend_supported(b))
+		{
+			// Backend is not there anymore... try other backends
+			switch (b) 
+			{
+				case BACKEND_WODIM:
+					if (backend_is_backend_supported(BACKEND_CDRECORD))					
+						preferences_set_int(GB_BACKEND, BACKEND_CDRECORD);
+						break;
+				case BACKEND_CDRECORD:
+					if (backend_is_backend_supported(BACKEND_WODIM))					
+						preferences_set_int(GB_BACKEND, BACKEND_WODIM);
+						break;
+				default:
+					printf("ERROR: No supported backend found.\n");
+					exit(-1);
+			}
+		}
+}
 
 gint
 main(gint argc, gchar *argv[])
-{
+{	
 	GError *error = NULL;
 	GOptionContext *context = g_option_context_new(_(" - GNOME CD/DVD burning application"));
   if (!g_thread_supported ()) g_thread_init(NULL);
@@ -131,6 +156,8 @@ main(gint argc, gchar *argv[])
 	splashdlg_delete(dlg);
 #endif
 
+	backend_init();
+	
     gdk_threads_enter();
 	gtk_main();
 	gdk_threads_leave();

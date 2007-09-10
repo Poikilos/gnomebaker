@@ -29,6 +29,7 @@
 #include <gnome.h>
 #include "exec.h"
 #include "startdlg.h"
+#include "backend.h"
 
 void cdda2wav_add_copy_args(ExecCmd *e);
 void cdrecord_add_iso_args(ExecCmd *cmd, const gchar *iso);
