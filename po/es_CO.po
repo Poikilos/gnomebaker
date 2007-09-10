@@ -154,8 +154,7 @@ msgstr "Creando imagen del CD de datos"
 #: ../src/burn.c:180
 msgid "Please wait while the data CD image is created."
 msgstr ""
-"Por favor espere mientras se crea la imagen del CD de datos.
-\n"
+"Por favor espere mientras se crea la imagen del CD de datos.\n"
 "Por favor espere mientras se crea la imagen del CD de datos."
 
 #: ../src/burn.c:186 ../src/burn.c:196
@@ -171,10 +170,8 @@ msgid ""
 "Please wait while the data disk image is created and then burned to CD. "
 "Depending on the speed of your CD writer, this may take some time. "
 msgstr ""
-":   \t \t
-\n"
-"
-\n"
+":   \t \t\n"
+"\n"
 "Por favor espere mientras se crea la imagen del disco de datos y se graba en "
 "el CD. Dependiendo de la velocidad de su grabadora, esto puede llevar un "
 "tiempo. "
