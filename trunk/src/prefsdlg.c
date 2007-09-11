@@ -345,7 +345,7 @@ prefsdlg_populate_backend_list()
     		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(backend_list), &iter);
     	g_value_unset(&back);
     } 
-    while (gtk_tree_model_iter_next(model, &iter));
+    while (gtk_tree_model_iter_next(GTK_TREE_MODEL(model), &iter));
 
 }
 

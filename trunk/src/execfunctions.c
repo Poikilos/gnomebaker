@@ -240,7 +240,7 @@ cdrecord_copy_audio_cd_pre_proc(void *ex, void *buffer)
             {
                 GB_TRACE("cdrecord_copy_audio_cd_pre_proc - found [%s]\n", name);
                 gchar *full_path = g_build_filename(tmp, name, NULL);
-                files_list = g_list_insert_sorted(files_list, full_path, strcmp);
+                files_list = g_list_insert_sorted(files_list, full_path, (GCompareFunc)strcmp);
                 cdrecord_total_tracks_to_write++;
             }
 
@@ -1046,7 +1046,7 @@ wodim_copy_audio_cd_pre_proc(void *ex, void *buffer)
             {
                 GB_TRACE("wodim_copy_audio_cd_pre_proc - found [%s]\n", name);
                 gchar *full_path = g_build_filename(tmp, name, NULL);
-                files_list = g_list_insert_sorted(files_list, full_path, strcmp);
+                files_list = g_list_insert_sorted(files_list, full_path, (GCompareFunc)strcmp);
                 cdrecord_total_tracks_to_write++;
             }
 
