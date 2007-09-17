@@ -135,6 +135,11 @@ ALL_LINGUAS="af az bg bo ca cs da de_AT de_CH de_DE de el en_AU en_CA en en_US e
 AM_GLIB_GNU_GETTEXT
 
 
+dnl -------------------------------------------------------------------
+dnl Add large file support
+dnl -------------------------------------------------------------------
+GNOMEBAKER_CFLAGS="$GNOMEBAKER_CFLAGS `getconf LFS_CFLAGS`"
+
 AC_SUBST(GNOMEBAKER_CFLAGS)
 AC_SUBST(GNOMEBAKER_LIBS)
 

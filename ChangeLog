@@ -1,3 +1,7 @@
+Version 0.6.3
+
+* Added large file support
+
 Version 0.6.2
 
 * Apply patch #1602535 from goedson - Fix writer device selection
