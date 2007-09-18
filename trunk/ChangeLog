@@ -1,6 +1,7 @@
 Version 0.6.3
 
 * Added large file support
+* Fixed name of genisoimage executable in execfunctions.c
 
 Version 0.6.2
 
