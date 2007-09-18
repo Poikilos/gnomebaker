@@ -868,7 +868,7 @@ mkisofs_add_calc_iso_size_args(ExecCmd *e, const gchar *iso)
 			exec_cmd_add_arg(e, "mkisofs");			
 			break;
 		case BACKEND_WODIM:
-			exec_cmd_add_arg(e, "genisofs");
+			exec_cmd_add_arg(e, "genisoimage");
 			break;			
 	}
 
