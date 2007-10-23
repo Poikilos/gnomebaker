@@ -111,7 +111,10 @@ devices_add_device(const gchar *device_name, const gchar *device_id,
 		g_strstrip(*line);
 		if((*line)[0] != '#') /* ignore commented out lines */
 		{
-			gchar node[64], mount[64];
+			gchar *node, *mount;
+			int line_size = strlen(*line);
+			node = g_new0(gchar, line_size);
+			mount = g_new0(gchar, line_size);
 			if(sscanf(*line, "%s\t%s", node, mount) == 2)
 			{
 				GB_TRACE("devices_add_device - node [%s] mount [%s]\n", node, mount);
@@ -134,8 +137,14 @@ devices_add_device(const gchar *device_name, const gchar *device_id,
 				}
 
 				if(mount_point != NULL)
+				{
+					g_free(node);
+					g_free(mount);
 					break;
+				}
 			}
+			g_free(node);
+			g_free(mount);
 		}
 		++line;
 	}
