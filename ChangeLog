@@ -1,5 +1,6 @@
 Version 0.6.3
 
+* Made fstab parsing safe for files containing long device paths
 * Added large file support
 * Fixed name of genisoimage executable in execfunctions.c
 
