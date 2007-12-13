@@ -1,11 +1,11 @@
 [Desktop Entry]
-Name=CD/DVD Writer GnomeBaker
-Name[lt]=Įrašymas į CD/DVD - GnomeBaker
+Name=GnomeBaker CD/DVD Writer
+Name[lt]=GnomeBaker Įrašymas į CD/DVD
 Name[pt_BR]=Gravador de CD/DVD GnomeBaker
 Comment=Write/Copy CD and DVD
 Comment[da]=Brænd CD og DVD
 Comment[lt]=Įrašykite/kopijuokite duomenis, muziką ar video į CD/DVD diskus
-Comment[pt_BR]= CD ou DVD
+Comment[pt_BR]= Gravar/Copiar CD ou DVD
 GenericName=CD/DVD Writer
 GenericName[da]=CD/DVD-brÃ¦ndeprogram
 GenericName[lt]=CD/DVD įrašymas ir kopijavimas
