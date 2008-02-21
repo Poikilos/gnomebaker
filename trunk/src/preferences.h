@@ -54,6 +54,7 @@
 #define GB_DATA_DISK_SIZE           GB_BASE_KEY "/DataDiskSize"
 #define GB_AUDIO_DISK_SIZE          GB_BASE_KEY "/AudioDiskSize"
 #define GB_CDRECORD_FORCE		    GB_BASE_KEY "/CDRecordForce"
+#define GB_DIR_TOO_DEEP		    GB_BASE_KEY "/DirectoriesTooDeep"
 #define GB_LAST_ISO                 GB_BASE_KEY "/LastISO"
 #define GB_BACKEND					GB_BASE_KEY "/Backend"
 

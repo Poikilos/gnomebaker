@@ -80,6 +80,7 @@ preferences_init()
             preferences_set_int(GB_DATA_DISK_SIZE, 0);
             preferences_set_int(GB_AUDIO_DISK_SIZE, 0);
             preferences_set_bool(GB_CDRECORD_FORCE, FALSE);
+	    preferences_set_bool(GB_DIR_TOO_DEEP, FALSE);
 			preferences_set_int(GB_BACKEND, preferences_get_default_backend());
 
             gchar *last_iso = preferences_get_default_iso();

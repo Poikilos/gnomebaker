@@ -36,6 +36,7 @@ static const gchar *const widget_prefsdlg_always_scan = "checkAlwaysScan";
 static const gchar *const widget_prefsdlg_devicelist = "treeview12";
 static const gchar *const widget_prefsdlg_scroll_output = "checkScrollOutput";
 static const gchar *const widget_prefsdlg_cdrecord_force = "checkCDRecordForce";
+static const gchar *const widget_prefsdlg_dir_too_deep = "checkDirTooDeep";
 static const gchar *const widget_prefsdlg_backend = "cb_select_backend";
 
 static const gint DEVICELIST_COL_ICON = 0;
@@ -273,6 +274,9 @@ prefsdlg_on_ok(GtkButton *button, gpointer user_data)
 	GtkWidget *cdrecord_force = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_cdrecord_force);
 	preferences_set_bool(GB_CDRECORD_FORCE, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cdrecord_force)));
 
+	GtkWidget *dir_too_deep = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_dir_too_deep);
+	preferences_set_bool(GB_DIR_TOO_DEEP, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dir_too_deep)));
+	
 	GtkWidget *clean_temp = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_clean_temp_dir);
 	preferences_set_bool(GB_CLEANTEMPDIR, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(clean_temp)));
 
@@ -497,6 +501,10 @@ prefsdlg_new(void)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cdrecord_force),
             preferences_get_bool(GB_CDRECORD_FORCE));
 
+	GtkWidget *dir_too_deep = glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_dir_too_deep);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dir_too_deep),
+            preferences_get_bool(GB_DIR_TOO_DEEP));	
+	
 	GtkWidget *clean_temp = 	glade_xml_get_widget(prefsdlg_xml, widget_prefsdlg_clean_temp_dir);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(clean_temp),
             preferences_get_bool(GB_CLEANTEMPDIR));

@@ -704,6 +704,8 @@ mkisofs_add_common_args(ExecCmd *e, StartDlg *start_dlg, const gchar *arguments_
     g_return_if_fail(start_dlg != NULL);
 
     const gchar *text = gtk_entry_get_text(start_dlg->volume_id);
+    if(preferences_get_bool(GB_DIR_TOO_DEEP))
+	exec_cmd_add_arg(e, "-D");
     if(text != NULL && strlen(text) > 0)
     {
         exec_cmd_add_arg(e, "-V");
@@ -1475,6 +1477,8 @@ genisoimage_add_common_args(ExecCmd *e, StartDlg *start_dlg, const gchar *argume
     g_return_if_fail(start_dlg != NULL);
 
     const gchar *text = gtk_entry_get_text(start_dlg->volume_id);
+    if(preferences_get_bool(GB_DIR_TOO_DEEP))
+	exec_cmd_add_arg(e, "-D");
     if(text != NULL && strlen(text) > 0)
     {
         exec_cmd_add_arg(e, "-V");
