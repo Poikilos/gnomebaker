@@ -911,7 +911,7 @@ dataproject_clear(Project *project)
 
 
 static void
-dataproject_remove(Project *project)
+dataproject_remove(Project *project, gboolean is_list)
 {
     GB_LOG_FUNC
     g_return_if_fail(DATAPROJECT_IS_WIDGET(project));
@@ -922,9 +922,19 @@ dataproject_remove(Project *project)
     data_project->rowref_list = NULL;   /* list of GtkTreeRowReferences to remove */
 
     /* TODO this used to handle both the tree and list selection */
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(data_project->list);
-    GtkTreeModel *model = gtk_tree_view_get_model(data_project->list);
+    GtkTreeSelection *selection;
+    GtkTreeModel *model;
 
+    if (is_list)
+    {
+        selection = gtk_tree_view_get_selection(data_project->list);
+        model = gtk_tree_view_get_model(data_project->list);
+    }
+    else
+    {
+        selection = gtk_tree_view_get_selection(data_project->tree);
+        model = gtk_tree_view_get_model(data_project->tree);
+    }
     g_return_if_fail(model != NULL);
 
     if(GTK_IS_LIST_STORE(model))
@@ -1020,7 +1030,15 @@ dataproject_on_remove_clicked(GtkWidget *menuitem, DataProject *data_project)
 {
     GB_LOG_FUNC
     g_return_if_fail(data_project != NULL);
-    dataproject_remove(PROJECT_WIDGET(data_project));
+    dataproject_remove(PROJECT_WIDGET(data_project), TRUE);
+}
+
+static void
+dataproject_on_tree_remove_clicked(GtkWidget *menuitem, DataProject *data_project)
+{
+    GB_LOG_FUNC
+    g_return_if_fail(data_project != NULL);
+    dataproject_remove(PROJECT_WIDGET(data_project), FALSE);
 }
 
 
@@ -1364,7 +1382,7 @@ dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProj
                 if(!dataproject_compilation_is_root(data_project, &global_iter))
                 {
                     gbcommon_append_menu_item_stock(menu, _("_Remove selected"), GTK_STOCK_REMOVE,
-                            (GCallback)dataproject_on_remove_clicked, data_project);
+                            (GCallback)dataproject_on_tree_remove_clicked, data_project);
                 }
 
                 gbcommon_append_menu_item_stock(menu, _("Clear"), GTK_STOCK_CLEAR,
