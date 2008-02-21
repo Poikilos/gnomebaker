@@ -1300,13 +1300,12 @@ dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProj
     g_return_val_if_fail(widget != NULL, FALSE);
     g_return_val_if_fail(data_project != NULL, FALSE);
     g_return_val_if_fail(event != NULL, FALSE);
+    GtkTreeView *view = (GtkTreeView*)widget;
+    GtkTreeModel *model = gtk_tree_view_get_model(view);
 
     /* look for a right click */
     if(event->button == 3)
     {
-        GtkTreeView *view = (GtkTreeView*)widget;
-        GtkTreeModel *model = gtk_tree_view_get_model(view);
-
         if(GTK_IS_LIST_STORE(model))
         {
             GtkWidget *menu = gtk_menu_new();
@@ -1377,6 +1376,11 @@ dataproject_on_button_pressed(GtkWidget *widget, GdkEventButton *event, DataProj
                 return TRUE;
             }
         }
+    }
+    if ((event->button == 1) && (event->type == GDK_2BUTTON_PRESS) && (!GTK_IS_LIST_STORE(model)) && (model != NULL))
+    {
+        dataproject_on_edit(NULL, data_project->tree);
+        return TRUE;
     }
     return FALSE;
 }
