@@ -1,4 +1,5 @@
 == Gnomebaker 0.6.4 ==
 
 * Implemented directories-too-deep fix
-
+* Fixed "Remove selected" in context menu
+* Rename on double click
