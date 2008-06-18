@@ -1,6 +1,6 @@
-AC_INIT(GnomeBaker, 0.6.2, gnomebaker)
+AC_INIT(GnomeBaker, 0.6.4, gnomebaker)
 AC_PREREQ(2.59)
-AC_COPYRIGHT([Copyright (C) 2003-2006 Luke Biddell])
+AC_COPYRIGHT([Copyright (C) 2003-2006 Luke Biddell, 2007-2008 Mario Danic])
 
 AC_CONFIG_SRCDIR(src/gnomebaker.h)
 AC_CONFIG_HEADERS([config.h])
