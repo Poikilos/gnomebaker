@@ -7,3 +7,4 @@
 * Implemented support for mp4, m4a and wma
 * Disabled scanning by default on startup
 * Implemented OpenBSD support (thanks OpenBSD folks!)
+* Dropped deprecated properties from desktop file (thanks Drac!)

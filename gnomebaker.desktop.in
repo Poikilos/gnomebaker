@@ -17,4 +17,4 @@ X-MultipleArgs=false
 Type=Application
 Categories=AudioVideo;DiscBurning;
 StartupNotify=true
-Encoding=UTF-8
+
