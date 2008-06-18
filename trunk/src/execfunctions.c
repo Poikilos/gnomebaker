@@ -1711,13 +1711,9 @@ dvdformat_add_args(ExecCmd *cmd)
 		else
 			exec_cmd_add_arg(cmd, "-force");
 	}
-	else if(!preferences_get_bool(GB_FAST_FORMAT))
-	{
-		exec_cmd_add_arg(cmd, "-blank=full");
-	}
     else
     {
-        exec_cmd_add_arg(cmd, "-blank");
+        exec_cmd_add_arg(cmd, "-lead-out");
     }
 }
 

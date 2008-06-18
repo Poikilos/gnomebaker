@@ -24,7 +24,7 @@
 #include "gbcommon.h"
 #include <glib/gprintf.h>
 
-#if defined (__FreeBSD__)
+#if defined (__FreeBSD__) || defined(__OpenBSD__)
 #include <signal.h>
 #endif
 
