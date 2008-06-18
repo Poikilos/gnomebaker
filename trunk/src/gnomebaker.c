@@ -420,6 +420,7 @@ gnomebaker_on_about(GtkMenuItem *menu_item, gpointer user_data)
     
     static const gchar *authors[] = {
        "Luke Biddell",
+       "Mario Đanić",
        "Ignacio Martín", 
        "Milen Dzhumerov",
        "Christoffer Sørensen",
@@ -453,7 +454,7 @@ gnomebaker_on_about(GtkMenuItem *menu_item, gpointer user_data)
     gtk_show_about_dialog(GTK_WINDOW (appwin),
                   "name", _("GnomeBaker"),
                   "version", PACKAGE_VERSION,
-                  "copyright", "\xc2\xa9  2004-2005 Luke Biddell",
+                  "copyright", "\xc2\xa9  2004-2006 Luke Biddell, 2007-2008 Mario Đanić",
                   "comments", _("Simple CD/DVD Burning for Gnome"),
                   "license", license_trans,
                   "website", "http://gnomebaker.sourceforge.net/v2/",
