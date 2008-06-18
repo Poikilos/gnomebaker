@@ -71,7 +71,7 @@ preferences_init()
 			preferences_set_bool(GB_SCROLL_OUTPUT, TRUE);
 			preferences_set_string(GB_WRITE_MODE, _("default"));
             preferences_set_string(GB_DVDWRITE_MODE, _("default"));
-			preferences_set_bool(GB_ALWAYS_SCAN, TRUE);
+			preferences_set_bool(GB_ALWAYS_SCAN, FALSE);
 			preferences_set_bool(GB_SHOW_FILE_BROWSER, TRUE);
             preferences_set_bool(GB_JOLIET, TRUE);
             preferences_set_bool(GB_ROCKRIDGE, TRUE);

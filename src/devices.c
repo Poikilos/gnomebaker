@@ -32,7 +32,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__sun)
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__sun) \
+	|| defined(__OpenBSD__)
 #include <sys/cdio.h>
 #define CDROM_DRIVE_STATUS     0x5326
 #define CDS_NO_DISC        1
@@ -483,6 +484,7 @@ devices_get_scsi_device(const gchar *device_node, const gchar *device_node_path,
 
 							*model_name = g_strdup_printf("%s %s", vendor, model);
 							*device_id = g_strdup_printf("%d,%d,%d", scsihost, scsiid, scsilun);
+							printf("vendor = %s, model = %s device = %s\n", vendor, model, device);
 							break;
 						}
 					}
@@ -712,11 +714,11 @@ devices_eject_disk(const gchar *device_key)
     else
     {
         /* Use ioctl to send the CDROMEJECT (CDIOCEJECT on FreeBSD) command to the device */
-#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__)
         if(ioctl(cdrom, CDIOCEJECT, 0) < 0)
-            ret = TRUE;
-        else
             g_warning("devices_eject_disk - ioctl failed");
+        else
+            ret = TRUE;
 #else
         if(ioctl(cdrom, CDROMEJECT, 0) < 0)
             g_warning("devices_eject_disk - ioctl failed");
