@@ -2,4 +2,6 @@
 
 * Implemented directories-too-deep fix
 * Fixed "Remove selected" in context menu
-* Rename on double click
+* Rename on double clicka
+* Fix for "make check" fail due to POTFILES.skip
+* Implemented support for mp4, m4a and wma

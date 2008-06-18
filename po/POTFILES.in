@@ -45,3 +45,6 @@ src/startdlg.h
 
 #glade files
 gnomebaker.glade
+
+#other files
+gnomebaker.desktop.in

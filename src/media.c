@@ -429,6 +429,10 @@ media_init()
     media_register_plugin("application/x-wav", "wavparse");
     media_register_plugin("audio/x-wav", "wavparse");
     media_register_plugin("video/x-ms-asf", "ffdec_wmav1");
+    media_register_plugin("audio/mp4", "ffdec_mpeg4");
+    media_register_plugin("audio/x-m4a", "ffdec_mpeg4");
+    media_register_plugin("audio/x-ms-wma", "ffdec_wmav2");
+
 }
 
 
